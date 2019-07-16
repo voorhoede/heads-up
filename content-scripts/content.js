@@ -12,3 +12,5 @@ const twitter = {
 }
 
 console.log(twitter)
+// Send data to the background script.
+chrome.runtime.sendMessage(twitter)

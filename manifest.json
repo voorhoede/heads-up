@@ -3,16 +3,19 @@
   "version": "0.1",
   "description": "Build an Extension!",
   "author": "De Voorhoede",
+  "minimum_chrome_version": "10.0",
   "icons": {
     "36": "icons/icon-36.png",
     "96": "icons/icon-36.png"
   },
-  "minimum_chrome_version": "10.0",
-  "devtools_page": "devtools.html",
+  "background":  {
+    "scripts": ["background-scripts/background.js"]
+  },
+  "devtools_page": "devtools/devtools-page.html",
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content.js"]
+      "js": ["content-scripts/content.js"]
     }
   ],
    "manifest_version": 2
