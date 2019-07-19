@@ -13,9 +13,13 @@ const openGraphAudio = document.querySelector('meta[property="og:audio "]')
 const openGraphVideo = document.querySelector('meta[property="og:video "]')
 
 const metaTitle = document.getElementsByTagName("title")[0].innerHTML
+const metaViewport = document.querySelector('[name="viewport"]')
 
 const pageMeta = {
-  title: metaTitle
+  title: metaTitle,
+  content: [
+    { title: getMetaName(metaViewport), value: getMetaContent(metaViewport) }
+  ]
 }
 
 const twitter = {
