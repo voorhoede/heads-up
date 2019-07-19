@@ -17,24 +17,24 @@ const metaViewport = document.querySelector('[name="viewport"]')
 
 const pageMeta = {
   title: metaTitle,
-  content: [
+  items: showItems([
     { title: getMetaName(metaViewport), value: getMetaContent(metaViewport) }
-  ]
+  ])
 }
 
 const twitter = {
   title: 'Twitter',
-  content: [
+  items: showItems([
     { title: getMetaName(twitterCard), value: getMetaContent(twitterCard) },
     { title: getMetaName(twitterTitle), value: getMetaContent(twitterTitle) },
     { title: getMetaName(twitterDescription), value: getMetaContent(twitterDescription) },
     { title: getMetaName(twitterImage), value: getMetaContent(twitterImage) },
-  ]
+  ])
 }
 
 const openGraph = {
   title: 'Twitter',
-  content: [
+  items: showItems([
     { title: getMetaProperty(openGraphType), value: getMetaContent(openGraphType) },
     { title: getMetaProperty(openGraphTitle), value: getMetaContent(openGraphTitle) },
     { title: getMetaProperty(openGraphImage), value: getMetaContent(openGraphImage) },
@@ -42,7 +42,7 @@ const openGraph = {
     { title: getMetaProperty(openGraphDescription), value: getMetaContent(openGraphDescription) },
     { title: getMetaProperty(openGraphAudio), value: getMetaContent(openGraphAudio) },
     { title: getMetaProperty(openGraphVideo), value: getMetaContent(openGraphVideo) },
-  ]
+  ])
 }
 
 const headData = {
@@ -54,6 +54,10 @@ const headData = {
 
 // Send data to the background script.
 chrome.runtime.sendMessage(headData)
+
+function showItems(items) {
+  return items.filter(item => item.title && item.value)
+}
 
 function getMetaName(element) {
   if (!element) {

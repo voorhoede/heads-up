@@ -21,7 +21,7 @@ function onRenderPanel(data) {
 
 function onButtonPageMetaClicked(event, data) {
   const title = getTitle({ title: data.pageMeta.title, url: data.url })
-  const properties = getProperties(data.pageMeta.content)
+  const properties = getProperties(data.pageMeta.items)
 
   mainElement.innerHTML = `
   ${ title }
@@ -31,7 +31,7 @@ function onButtonPageMetaClicked(event, data) {
 
 function onButtonTwitterClicked(event, data) {
   const title = getTitle({ title: data.twitter.title, url: data.url })
-  const properties = getProperties(data.twitter.content)
+  const properties = getProperties(data.twitter.items)
 
   mainElement.innerHTML = `
   ${ title}
@@ -48,12 +48,21 @@ function getTitle({ title, url }) {
   `
 }
 
-function getProperties(content) {
+function getProperties(items) {
+  if (Array.isArray(items) && items.length === 0) {
+    return `
+      <section class="section">
+        <h2 class="heading-small heading">Properties</h2>
+        <p>No meta tags detected.</p>
+      </section>  
+    `
+  }
+
   return `
     <section class="section">
       <h2 class="heading-small heading">Properties</h2>
       <ul class="properties-list">
-        ${content.map(item => `
+        ${items.map(item => `
           <li class="properties-list__item">
             <h3 class="properties-list__title">${ item.title}</h3>
             <div class="properties-list__content">${ item.value}</div>
