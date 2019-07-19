@@ -7,8 +7,24 @@
 }
 
 html {
+  height: 100%;
   font-family: Helvetica, Arial, sans-serif;
   color: var(--color-body);
+}
+
+body {
+  height: 100%;
+}
+
+a {
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  color: var(--color-action);
+  text-decoration: underline;
+}
+
+.panel {
+  margin-left: 220px;
 }
 
 .section {
@@ -18,13 +34,6 @@ html {
 
 .section:last-child {
   border-bottom: none;
-}
-
-a {
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-weight: bold;
-  color: var(--color-action);
-  text-decoration: underline;
 }
 
 .heading {
@@ -63,6 +72,36 @@ a {
 .properties-list__content {
   font-size: .8125rem;
   font-weight: bold;
+}
+
+.sidebar {
+  position: fixed;
+  height: 100%;
+  width: 190px;
+  font-weight: bold;
+  font-size: .8125rem;
+  border-right: 1px solid #d0d0d0;
+  background-color: #f3f3f3;
+  overflow: auto;
+}
+
+.sidebar-list {
+  padding: 10px;
+  list-style: none;
+}
+
+.sidebar-list .sidebar-list {
+  margin-left: 10px;
+  padding: 0 8px;
+}
+
+.sidebar-list__item:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+.sidebar__button {
+  all: unset;
+  cursor: pointer;
 }
 
 @media (min-width: 800px) {

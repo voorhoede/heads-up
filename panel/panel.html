@@ -1,13 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heads Up</title>
   <link rel="stylesheet" href="css-defaults.css">
   <link rel="stylesheet" href="panel.css">
+  <link rel="stylesheet" href="sidebar.css">
 </head>
 <body>
-  <aside></aside>
+  <aside class="sidebar">
+    <ul class="sidebar-list">
+      <li class="sidebar-list__item">Application</li>
+      <ul class="sidebar-list">
+        <li class="sidebar-list__item">
+          <button class="sidebar__button" data-button-page-meta>
+            Page meta
+          </button>
+        </li>
+        <li class="sidebar-list__item">
+          <button class="sidebar__button" data-button-twitter>
+            Twitter
+          </button>
+        </li>
+      </ul>
+    </ul>
+  </aside>
   <main class="panel"></main>
   <script src="panel.js"></script>
 </body>
