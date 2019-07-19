@@ -1,4 +1,3 @@
-let headData = null
 const url = window.location.href
 const twitterCard = document.querySelector('meta[name="twitter:card"]')
 const twitterTitle = document.querySelector('meta[name="twitter:title"]')
@@ -13,44 +12,44 @@ const openGraphDescription = document.querySelector('meta[property="og:descripti
 const openGraphAudio = document.querySelector('meta[property="og:audio "]')
 const openGraphVideo = document.querySelector('meta[property="og:video "]')
 
-//  If the Twitter meta tags are not available, Twitter falls back to the Open Graph property.
-if (twitterCard) {
-  headData = {
-    url,
-    twitter: {
-      title: 'Twitter',
-      content: [
-        { title: getMetaName(twitterCard), value: getMetaContent(twitterCard) },
-        { title: getMetaName(twitterTitle), value: getMetaContent(twitterTitle) },
-        { title: getMetaName(twitterDescription), value: getMetaContent(twitterDescription) },
-        { title: getMetaName(twitterImage), value: getMetaContent(twitterImage) },
-      ]
-    }
-  }
-} else if (openGraphTitle) {
-  headData = {
-    url,
-    twitter: {
-      title: 'Twitter',
-      content: [
-        { title: getMetaProperty(openGraphType), value: getMetaContent(openGraphType) },
-        { title: getMetaProperty(openGraphTitle), value: getMetaContent(openGraphTitle) },
-        { title: getMetaProperty(openGraphImage), value: getMetaContent(openGraphImage) },
-        { title: getMetaProperty(openGraphUrl), value: getMetaContent(openGraphUrl) },
-        { title: getMetaProperty(openGraphDescription), value: getMetaContent(openGraphDescription) },
-        { title: getMetaProperty(openGraphAudio), value: getMetaContent(openGraphAudio) },
-        { title: getMetaProperty(openGraphVideo), value: getMetaContent(openGraphVideo) },
-      ]
-    }
-  }
-} else {
-  headData = {
-    url,
-    twitter: {
-      title: 'Twitter'
-    }
-  }
+const metaTitle = document.getElementsByTagName("title")[0].innerHTML
+
+const pageMeta = {
+  title: metaTitle
 }
+
+const twitter = {
+  title: 'Twitter',
+  content: [
+    { title: getMetaName(twitterCard), value: getMetaContent(twitterCard) },
+    { title: getMetaName(twitterTitle), value: getMetaContent(twitterTitle) },
+    { title: getMetaName(twitterDescription), value: getMetaContent(twitterDescription) },
+    { title: getMetaName(twitterImage), value: getMetaContent(twitterImage) },
+  ]
+}
+
+const openGraph = {
+  title: 'Twitter',
+  content: [
+    { title: getMetaProperty(openGraphType), value: getMetaContent(openGraphType) },
+    { title: getMetaProperty(openGraphTitle), value: getMetaContent(openGraphTitle) },
+    { title: getMetaProperty(openGraphImage), value: getMetaContent(openGraphImage) },
+    { title: getMetaProperty(openGraphUrl), value: getMetaContent(openGraphUrl) },
+    { title: getMetaProperty(openGraphDescription), value: getMetaContent(openGraphDescription) },
+    { title: getMetaProperty(openGraphAudio), value: getMetaContent(openGraphAudio) },
+    { title: getMetaProperty(openGraphVideo), value: getMetaContent(openGraphVideo) },
+  ]
+}
+
+const headData = {
+  url,
+  pageMeta,
+  twitter,
+  openGraph
+}
+
+// Send data to the background script.
+chrome.runtime.sendMessage(headData)
 
 function getMetaName(element) {
   if (!element) {
@@ -72,6 +71,3 @@ function getMetaContent(element) {
   }
   return element.getAttribute('content')
 }
-
-// Send data to the background script.
-chrome.runtime.sendMessage(headData)
