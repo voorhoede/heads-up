@@ -6,19 +6,21 @@ const portToBackgroundScript = chrome.runtime.connect({ name: 'devtools' })
 
 portToBackgroundScript.onMessage.addListener(function (data) {
   mainElement.innerHTML = `
-  <section>
-    <h1>${ data.twitter.title }</h1>
+  <section class="section">
+    <h1 class="heading-default heading">${ data.twitter.title }</h1>
     <p><a href="${ data.url }">${ data.url }</a></p>
   </section>
 
-  <section>
-    <h2>Properties</h2>
-    <dl>
+  <section class="section">
+    <h2 class="heading-small heading">Properties</h2>
+    <ul class="properties-list">
       ${ data.twitter.data.map(item => `
-        <dt>${ item.title }</dt>
-        <dd>${ item.value }</dd>
+      <li class="properties-list__item">
+        <h3 class="properties-list__title">${ item.title }</h3>
+        <div class="properties-list__content">${ item.value }</div>
+      </li>
       `).join('') }
-    </dl>
+    </ul>
   </section>
   `
 })
