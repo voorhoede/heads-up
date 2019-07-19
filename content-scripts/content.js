@@ -19,7 +19,7 @@ if (twitterCard) {
     url,
     twitter: {
       title: 'Twitter',
-      data: [
+      content: [
         { title: getMetaName(twitterCard), value: getMetaContent(twitterCard) },
         { title: getMetaName(twitterTitle), value: getMetaContent(twitterTitle) },
         { title: getMetaName(twitterDescription), value: getMetaContent(twitterDescription) },
@@ -32,7 +32,7 @@ if (twitterCard) {
     url,
     twitter: {
       title: 'Twitter',
-      data: [
+      content: [
         { title: getMetaProperty(openGraphType), value: getMetaContent(openGraphType) },
         { title: getMetaProperty(openGraphTitle), value: getMetaContent(openGraphTitle) },
         { title: getMetaProperty(openGraphImage), value: getMetaContent(openGraphImage) },
@@ -46,7 +46,9 @@ if (twitterCard) {
 } else {
   headData = {
     url,
-    twitter: {}
+    twitter: {
+      title: 'Twitter'
+    }
   }
 }
 
