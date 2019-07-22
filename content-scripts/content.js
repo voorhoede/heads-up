@@ -61,7 +61,6 @@ chrome.runtime.sendMessage(getHeadData())
 
 // Listen to messages from the background script.
 chrome.runtime.onMessage.addListener(function(message, id) {
-  console.log('message', message, 'id', id)
   if (message && message.action === 'reload-panel') {
     chrome.runtime.sendMessage(getHeadData())
   }
@@ -77,10 +76,8 @@ const observerOptions = {
 const observer = new MutationObserver(function (mutationList) {
   mutationList.forEach((mutation) => {
     if (mutation.type === 'attributes' && mutation.target.nodeName === 'META') {
-      /* An attribute value changed on the element in
-           mutation.target; the attribute name is in
-           mutation.attributeName and its previous value is in
-           mutation.oldValue */
+      chrome.runtime.sendMessage(getHeadData())
+    } else if (mutation.type === 'characterData' && mutation.target.parentElement &&    mutation.target.parentElement.nodeName === 'TITLE') {
       chrome.runtime.sendMessage(getHeadData())
     }
   })
