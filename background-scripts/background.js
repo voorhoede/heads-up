@@ -1,18 +1,35 @@
+"use strict";
+
 let dataReceived = null
+let portToPanel = null
 
 // The background script acts as a mediator between the content script and the devtools page.
-chrome.runtime.onMessage.addListener(onListen)
-
-function onListen(data) {
+chrome.runtime.onMessage.addListener(function(data) {
   dataReceived = data
-}
+  
+  // Send data to panel.js
+  if (portToPanel) {
+    portToPanel.postMessage(data)
+  }
+})
 
 // Listen to a connection to send data
 chrome.runtime.onConnect.addListener(function (port) {
-  if (port.name !== 'devtools') {
+  portToPanel = port
+  if (portToPanel.name !== 'devtools') {
     return false
   }
+  
+  // Send data to the (devtools) panel script
+  portToPanel.postMessage(dataReceived)
+})
 
-  // Send data to the devtools (panel)
-  port.postMessage(dataReceived)
+// Listen to events from the content script
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tabInfo) {
+  if (changeInfo.status === 'complete') {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      // Send a message to the content script
+      chrome.tabs.sendMessage(tabs[0].id, { action: 'reload-panel' })
+    })
+  }
 })

@@ -1,9 +1,10 @@
+"use strict";
+
 const url = window.location.href
 const twitterCard = document.querySelector('meta[name="twitter:card"]')
 const twitterTitle = document.querySelector('meta[name="twitter:title"]')
 const twitterDescription = document.querySelector('meta[name="twitter:description"]')
 const twitterImage = document.querySelector('meta[name="twitter:image"]')
-
 const openGraphType = document.querySelector('meta[property="og:type"]')
 const openGraphTitle = document.querySelector('meta[property="og:title"]')
 const openGraphImage = document.querySelector('meta[property="og:image"]')
@@ -11,7 +12,6 @@ const openGraphUrl = document.querySelector('meta[property="og:url"]')
 const openGraphDescription = document.querySelector('meta[property="og:description "]')
 const openGraphAudio = document.querySelector('meta[property="og:audio "]')
 const openGraphVideo = document.querySelector('meta[property="og:video "]')
-
 const metaTitle = document.getElementsByTagName("title")[0].innerHTML
 const metaViewport = document.querySelector('[name="viewport"]')
 
@@ -54,6 +54,14 @@ const headData = {
 
 // Send data to the background script.
 chrome.runtime.sendMessage(headData)
+
+
+// Listen to messages from the background script.
+chrome.runtime.onMessage.addListener(function(message) {
+  if (message && message.action === 'reload-panel') {
+    chrome.runtime.sendMessage(headData)
+  }
+})
 
 function showItems(items) {
   return items.filter(item => item.title && item.value)

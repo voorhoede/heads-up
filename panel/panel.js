@@ -1,41 +1,46 @@
+"use strict";
+
 const mainElement = document.querySelector('main')
 
 // Make a connection with the background script to receive data.
 const portToBackgroundScript = chrome.runtime.connect({ name: 'devtools' })
 
 // Listen to messages from the background script.
-portToBackgroundScript.onMessage.addListener(onRenderPanel)
+portToBackgroundScript.onMessage.addListener(onSetupPanel)
 
-function onRenderPanel(data) {
+function onSetupPanel(data) {
   const pageMetaButton = document.querySelector('[data-button-page-meta]')
   const twitterButton = document.querySelector('[data-button-twitter]')
+  renderPanel({
+    title: data.pageMeta.title,
+    url: data.url,
+    items: data.pageMeta.items
+  })
 
   pageMetaButton.addEventListener('click', function() {
-    onButtonPageMetaClicked(event, data)
+    renderPanel({
+      title: data.pageMeta.title, 
+      url: data.url, 
+      items: data.pageMeta.items 
+    })
   })
 
   twitterButton.addEventListener('click', function () {
-    onButtonTwitterClicked(event, data)
+    renderPanel({
+      title: data.twitter.title,
+      url: data.url,
+      items: data.twitter.items
+    })
   })
 }
 
-function onButtonPageMetaClicked(event, data) {
-  const title = getTitle({ title: data.pageMeta.title, url: data.url })
-  const properties = getProperties(data.pageMeta.items)
+function renderPanel({ title, url, items }) {
+  const titleSection = getTitle({ title, url })
+  const propertiesSection = getProperties(items)
 
   mainElement.innerHTML = `
-  ${ title }
-  ${ properties }
-  `
-}
-
-function onButtonTwitterClicked(event, data) {
-  const title = getTitle({ title: data.twitter.title, url: data.url })
-  const properties = getProperties(data.twitter.items)
-
-  mainElement.innerHTML = `
-  ${ title}
-  ${ properties}
+    ${ titleSection}
+    ${ propertiesSection}
   `
 }
 
