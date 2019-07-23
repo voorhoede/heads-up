@@ -23,16 +23,21 @@ function getHeadData() {
   const openGraphImage = document.querySelector('meta[property="og:image"]')
   const openGraphUrl = document.querySelector('meta[property="og:url"]')
   const openGraphDescription = document.querySelector('meta[property="og:description "]')
-  const openGraphAudio = document.querySelector('meta[property="og:audio "]')
-  const openGraphVideo = document.querySelector('meta[property="og:video "]')
+  const openGraphAudio = document.querySelector('meta[property="og:audio"]')
+  const openGraphVideo = document.querySelector('meta[property="og:video"]')
   const metaTitle = document.querySelector('title').textContent
-  const metaViewport = document.querySelector('[name="viewport"]')
-
+  const metaViewport = document.querySelector('meta[name="viewport"]')
+  const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+  
   const pageMeta = {
     title: metaTitle,
-    items: showItems([
-      { title: getMetaName(metaViewport), value: getMetaContent(metaViewport) }
-    ])
+    items: showItems(
+      [
+        { title: getMetaName(metaViewport), value: getMetaContent(metaViewport) },
+        { title: getMetaName(metaThemeColor), value: getMetaContent(metaThemeColor) },
+        { title: 'charset', value: getMetaEncoding() }
+      ]
+    )
   }
 
   const twitter = {
@@ -109,4 +114,14 @@ function getMetaContent(element) {
     return ''
   }
   return element.getAttribute('content')
+}
+
+function getMetaEncoding() {
+  const encodingElement = document.querySelector('meta[charset]')
+  console.log('encodingElement', encodingElement)
+  if (encodingElement) {
+    console.log('meta charset exists')
+    return encodingElement.getAttribute('charset')
+  }
+  return ''
 }
