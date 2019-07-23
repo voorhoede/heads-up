@@ -27,7 +27,6 @@ function getHeadData() {
   const openGraphVideo = document.querySelector('meta[property="og:video"]')
   const metaTitle = document.querySelector('title').textContent
   const metaViewport = document.querySelector('meta[name="viewport"]')
-  const metaThemeColor = document.querySelector('meta[name="theme-color"]')
   
   const pageMeta = {
     title: metaTitle,
