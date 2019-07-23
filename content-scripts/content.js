@@ -118,9 +118,7 @@ function getMetaContent(element) {
 
 function getMetaEncoding() {
   const encodingElement = document.querySelector('meta[charset]')
-  console.log('encodingElement', encodingElement)
   if (encodingElement) {
-    console.log('meta charset exists')
     return encodingElement.getAttribute('charset')
   }
   return ''
