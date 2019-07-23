@@ -1,5 +1,17 @@
 "use strict";
 
+// Send data to the background script.
+chrome.runtime.sendMessage(getHeadData())
+
+// Listen to messages from the background script.
+chrome.runtime.onMessage.addListener(function (message) {
+  if (message && message.action === 'reload-panel') {
+    chrome.runtime.sendMessage(getHeadData())
+  }
+})
+
+checkForPageChanges()
+
 function getHeadData() {
   const url = window.location.href
   const twitterCard = document.querySelector('meta[name="twitter:card"]')
@@ -13,7 +25,7 @@ function getHeadData() {
   const openGraphDescription = document.querySelector('meta[property="og:description "]')
   const openGraphAudio = document.querySelector('meta[property="og:audio "]')
   const openGraphVideo = document.querySelector('meta[property="og:video "]')
-  const metaTitle = document.getElementsByTagName("title")[0].innerHTML
+  const metaTitle = document.querySelector('title').textContent
   const metaViewport = document.querySelector('[name="viewport"]')
 
   const pageMeta = {
@@ -56,33 +68,23 @@ function getHeadData() {
   return headData
 }
 
-// Send data to the background script.
-chrome.runtime.sendMessage(getHeadData())
-
-// Listen to messages from the background script.
-chrome.runtime.onMessage.addListener(function(message, id) {
-  if (message && message.action === 'reload-panel') {
-    chrome.runtime.sendMessage(getHeadData())
+function checkForPageChanges() {
+  const headElement = document.querySelector('head')
+  const observerOptions = {
+    childList: true,
+    attributes: true,
+    subtree: true,
+    characterData: true
   }
-})
-
-const headElement = document.querySelector('head')
-const observerOptions = {
-  childList: true,
-  attributes: true,
-  subtree: true,
-  characterData: true
-}
-const observer = new MutationObserver(function (mutationList) {
-  mutationList.forEach((mutation) => {
-    if (mutation.type === 'attributes' && mutation.target.nodeName === 'META') {
-      chrome.runtime.sendMessage(getHeadData())
-    } else if (mutation.type === 'characterData' && mutation.target.parentElement &&    mutation.target.parentElement.nodeName === 'TITLE') {
-      chrome.runtime.sendMessage(getHeadData())
-    }
+  const observer = new MutationObserver(function (mutationList) {
+    mutationList.forEach((mutation) => {
+      if ((mutation.type === 'attributes' && mutation.target.nodeName === 'META') || mutation.type === 'characterData' || mutation.type === 'childList') {
+        chrome.runtime.sendMessage(getHeadData())
+      }
+    })
   })
-})
-observer.observe(headElement, observerOptions)  
+  observer.observe(headElement, observerOptions)  
+}
 
 function showItems(items) {
   return items.filter(item => item.title && item.value)
