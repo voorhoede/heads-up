@@ -18,55 +18,45 @@ function getHeadData() {
   const twitterTitle = document.querySelector('meta[name="twitter:title"]')
   const twitterDescription = document.querySelector('meta[name="twitter:description"]')
   const twitterImage = document.querySelector('meta[name="twitter:image"]')
-  const openGraphType = document.querySelector('meta[property="og:type"]')
-  const openGraphTitle = document.querySelector('meta[property="og:title"]')
-  const openGraphImage = document.querySelector('meta[property="og:image"]')
-  const openGraphUrl = document.querySelector('meta[property="og:url"]')
-  const openGraphDescription = document.querySelector('meta[property="og:description "]')
-  const openGraphAudio = document.querySelector('meta[property="og:audio"]')
-  const openGraphVideo = document.querySelector('meta[property="og:video"]')
   const metaTitle = document.querySelector('title').textContent
   const metaViewport = document.querySelector('meta[name="viewport"]')
   
   const pageMeta = {
-    title: metaTitle,
-    items: showItems(
-      [
-        { title: getMetaName(metaViewport), value: getMetaContent(metaViewport) },
-        { title: getMetaName(metaThemeColor), value: getMetaContent(metaThemeColor) },
-        { title: 'charset', value: getMetaEncoding() }
-      ]
-    )
+    titleSection: {
+      title: metaTitle,
+      url,
+    },
+    propertiesSection: {
+      title: 'Properties',
+      items: showItems(
+        [
+          { title: getMetaName(metaViewport), value: getMetaContent(metaViewport) },
+          { title: getMetaName(metaThemeColor), value: getMetaContent(metaThemeColor) },
+          { title: 'charset', value: getMetaEncoding() }
+        ]
+      )
+    }
   }
 
   const twitter = {
-    title: 'Twitter',
-    items: showItems([
-      { title: getMetaName(twitterCard), value: getMetaContent(twitterCard) },
-      { title: getMetaName(twitterTitle), value: getMetaContent(twitterTitle) },
-      { title: getMetaName(twitterDescription), value: getMetaContent(twitterDescription) },
-      { title: getMetaName(twitterImage), value: getMetaContent(twitterImage) },
-    ])
-  }
-
-  const openGraph = {
-    title: 'Twitter',
-    items: showItems([
-      { title: getMetaProperty(openGraphType), value: getMetaContent(openGraphType) },
-      { title: getMetaProperty(openGraphTitle), value: getMetaContent(openGraphTitle) },
-      { title: getMetaProperty(openGraphImage), value: getMetaContent(openGraphImage) },
-      { title: getMetaProperty(openGraphUrl), value: getMetaContent(openGraphUrl) },
-      { title: getMetaProperty(openGraphDescription), value: getMetaContent(openGraphDescription) },
-      { title: getMetaProperty(openGraphAudio), value: getMetaContent(openGraphAudio) },
-      { title: getMetaProperty(openGraphVideo), value: getMetaContent(openGraphVideo) },
-    ])
+    titleSection: {
+      title: 'Twitter',
+      url
+    },
+    propertiesSection: {
+      title: 'Properties',
+      items: showItems([
+        { title: getMetaName(twitterCard), value: getMetaContent(twitterCard) },
+        { title: getMetaName(twitterTitle), value: getMetaContent(twitterTitle) },
+        { title: getMetaName(twitterDescription), value: getMetaContent(twitterDescription) },
+        { title: getMetaName(twitterImage), value: getMetaContent(twitterImage) },
+      ])
+    }
   }
 
   const headData = {
-    url,
     pageMeta,
-    twitter,
-    openGraph
+    twitter
   }
 
   return headData
