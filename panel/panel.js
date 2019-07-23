@@ -11,40 +11,45 @@ portToBackgroundScript.onMessage.addListener(onSetupPanel)
 function onSetupPanel(data) {
   const pageMetaButton = document.querySelector('[data-button-page-meta]')
   const twitterButton = document.querySelector('[data-button-twitter]')
+
   renderPanel({
-    title: data.pageMeta.title,
-    url: data.url,
-    items: data.pageMeta.items
+    titleSection: data.pageMeta.titleSection,
+    propertiesSection: data.pageMeta.propertiesSection
   })
 
   pageMetaButton.addEventListener('click', function() {
     renderPanel({
-      title: data.pageMeta.title, 
-      url: data.url, 
-      items: data.pageMeta.items 
+      titleSection: data.pageMeta.titleSection,
+      propertiesSection: data.pageMeta.propertiesSection
     })
   })
 
   twitterButton.addEventListener('click', function () {
     renderPanel({
-      title: data.twitter.title,
-      url: data.url,
-      items: data.twitter.items
+      titleSection: data.twitter.titleSection,
+      propertiesSection: data.twitter.propertiesSection
     })
   })
 }
 
-function renderPanel({ title, url, items }) {
-  const titleSection = getTitle({ title, url })
-  const propertiesSection = getProperties(items)
+function renderPanel({ titleSection, propertiesSection }) {
+  const titleArea = getTitle({ 
+    title: titleSection.title, 
+    url: titleSection.url 
+  })
+  const propertiesArea = getProperties({ 
+    title: propertiesSection.title, 
+    items: propertiesSection.items 
+  })
 
   mainElement.innerHTML = `
-    ${ titleSection}
-    ${ propertiesSection}
+    ${ titleArea }
+    ${ propertiesArea }
   `
 }
 
 function getTitle({ title, url }) {
+  console.log('title', title)
   return `
     <section class="section">
       <h1 class="heading-default heading">${ title }</h1>
@@ -53,11 +58,11 @@ function getTitle({ title, url }) {
   `
 }
 
-function getProperties(items) {
+function getProperties({ title, items }) {
   if (Array.isArray(items) && items.length === 0) {
     return `
       <section class="section">
-        <h2 class="heading-small heading">Properties</h2>
+        <h2 class="heading-small heading">${ title }</h2>
         <p>No meta tags detected.</p>
       </section>  
     `
