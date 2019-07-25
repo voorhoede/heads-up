@@ -11,7 +11,7 @@ function onSetupPanel(data) {
   const twitterButton = document.querySelector('[data-button-twitter]')
 
   function getPageMeta(data) {
-    const { titleSection, propertiesSection, faviconsSection } = data.pageMeta
+    const { titleSection, propertiesSection, iconsSection } = data.pageMeta
     const title = getTitle({
       title: titleSection.title,
       url: titleSection.url
@@ -22,15 +22,15 @@ function onSetupPanel(data) {
       items: propertiesSection.items
     })
     
-    const favicons = getFavicons({
-      title: faviconsSection.title,
-      items: faviconsSection.items
+    const icons = getIcons({
+      title: iconsSection.title,
+      items: iconsSection.items
     })
 
     return `
       ${ title }
       ${ properties }
-      ${ favicons }
+      ${ icons }
     `
   }
 
@@ -102,7 +102,7 @@ function getProperties({ title, items }) {
   `
 }
 
-function getFavicons({ title, items }) {
+function getIcons({ title, items }) {
   if (Array.isArray(items) && items.length === 0) {
     return `
       <section class="section">
@@ -115,12 +115,17 @@ function getFavicons({ title, items }) {
   return `
     <section class="section">
       <h2 class="heading-small heading">${ title }</h2>
-      <ul>
-        ${items.map(({type, sizes, url }) => `
-          <li>
-            ${ type ? `<div>${type}</div>` : ``}
-            ${ sizes ? `<div>${sizes}</div>` : ``}
-            <div><img src="${ url }"></div>
+      <ul class="properties-list">
+        ${items.map(({type, sizes, url, title }) => `
+          <li class="properties-list__item">
+            <div class="properties-list__title">
+              ${ sizes ? `<div>${sizes}</div>` : ``}
+              ${ title ? `<div>${title}</div>` : ``}
+              ${ type ? `<div>${type}</div>` : ``}
+            </div>
+            <div class="properties-list__content">
+              <img src="${ url }" />
+            </div>
           </li>
         `).join('')}
       </ul>

@@ -37,9 +37,9 @@ function getHeadData() {
         ]
       )
     },
-    faviconsSection: {
-      title: 'Favicons',
-      items: getFavicons()
+    iconsSection: {
+      title: 'Icons',
+      items: getIcons()
     }
   }
 
@@ -67,7 +67,7 @@ function getHeadData() {
   return headData
 }
 
-function getFavicons() {
+function getIcons() {
   function urlCheck(iconUrl) {
     if (!iconUrl.startsWith('http')) {
       return `${getHostName()}${iconUrl}`
@@ -88,7 +88,7 @@ function getFavicons() {
         url: urlCheck(favicon.getAttribute('href')),
         sizes: '',
         type: favicon.getAttribute('type'),
-        title: 'favicon.ico'
+        title: 'Favicon'
       }
     }
     return []
@@ -101,7 +101,8 @@ function getFavicons() {
       {
         url: urlCheck(icon.getAttribute('href')),
         sizes: icon.getAttribute('sizes'),
-        type: icon.getAttribute('type')
+        type: icon.getAttribute('type'),
+        title: 'Favicon'
       })
     )
   }
