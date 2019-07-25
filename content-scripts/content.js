@@ -10,7 +10,7 @@ chrome.runtime.onMessage.addListener(function (message) {
   }
 })
 
-checkForPageChanges()
+monitorPageChanges()
 
 function getHeadData() {
   const url = window.location.href
@@ -20,6 +20,7 @@ function getHeadData() {
   const twitterImage = document.querySelector('meta[name="twitter:image"]')
   const metaTitle = document.querySelector('title').textContent
   const metaViewport = document.querySelector('meta[name="viewport"]')
+  const metaThemeColor = document.querySelector('meta[name="theme-color"]')
   
   const pageMeta = {
     titleSection: {
@@ -35,6 +36,10 @@ function getHeadData() {
           { title: 'charset', value: getMetaEncoding() }
         ]
       )
+    },
+    faviconsSection: {
+      title: 'Favicons',
+      items: getFavicons()
     }
   }
 
@@ -62,7 +67,54 @@ function getHeadData() {
   return headData
 }
 
-function checkForPageChanges() {
+function getFavicons() {
+  function urlCheck(iconUrl) {
+    if (!iconUrl.startsWith('http')) {
+      return `${getHostName()}${iconUrl}`
+    }
+    return iconUrl
+
+    function getHostName() {
+      const url = new URL(window.location.href)
+      return `${url.protocol}//${url.hostname}`
+    }
+  }
+
+  function getFaviconIco() {
+    const favicon = document.querySelector('link[rel="shortcut icon"]')
+
+    if (favicon && favicon.getAttribute('href')) {
+      return {
+        url: urlCheck(favicon.getAttribute('href')),
+        sizes: '',
+        type: favicon.getAttribute('type'),
+        title: 'favicon.ico'
+      }
+    }
+    return []
+  }
+
+  function getPngIcons() {
+    const icons = document.querySelectorAll('link[rel="icon"]')
+
+    return [...icons].map(icon => (
+      {
+        url: urlCheck(icon.getAttribute('href')),
+        sizes: icon.getAttribute('sizes'),
+        type: icon.getAttribute('type')
+      })
+    )
+  }
+
+  return [
+    getFaviconIco(),
+    getPngIcons()
+  ]
+  .filter(Boolean)
+  .flat()
+}
+
+function monitorPageChanges() {
   const headElement = document.querySelector('head')
   const observerOptions = {
     childList: true,
