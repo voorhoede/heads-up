@@ -116,11 +116,10 @@ function getIcons({ title, items }) {
     <section class="section">
       <h2 class="heading-small heading">${ title }</h2>
       <ul class="properties-list">
-        ${items.map(({type, sizes, url, title }) => `
+        ${items.map(({type, sizes, url }) => `
           <li class="properties-list__item">
             <div class="properties-list__title">
               ${ sizes ? `<div>${sizes}</div>` : ``}
-              ${ title ? `<div>${title}</div>` : ``}
               ${ type ? `<div>${type}</div>` : ``}
             </div>
             <div class="properties-list__content">

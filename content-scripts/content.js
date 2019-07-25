@@ -38,7 +38,7 @@ function getHeadData() {
       )
     },
     iconsSection: {
-      title: 'Icons',
+      title: 'Favicons',
       items: getIcons()
     }
   }
@@ -88,7 +88,6 @@ function getIcons() {
         url: urlCheck(favicon.getAttribute('href')),
         sizes: '',
         type: favicon.getAttribute('type'),
-        title: 'Favicon'
       }
     }
     return []
@@ -102,7 +101,6 @@ function getIcons() {
         url: urlCheck(icon.getAttribute('href')),
         sizes: icon.getAttribute('sizes'),
         type: icon.getAttribute('type'),
-        title: 'Favicon'
       })
     )
   }

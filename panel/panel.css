@@ -104,7 +104,7 @@ a {
   cursor: pointer;
 }
 
-@media (min-width: 800px) {
+@media (min-width: 500px) {
   .properties-list__item {
     display: flex;
   }
