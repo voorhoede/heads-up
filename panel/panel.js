@@ -118,8 +118,8 @@ function getFavicons({ title, items }) {
       <ul>
         ${items.map(({type, sizes, url }) => `
           <li>
-            <div>${ type }<div>
-            <div>${ sizes }<div>
+            ${ type ? `<div>${type}</div>` : ``}
+            ${ sizes ? `<div>${sizes}</div>` : ``}
             <div><img src="${ url }"></div>
           </li>
         `).join('')}
