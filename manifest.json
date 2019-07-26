@@ -1,9 +1,10 @@
 {
   "name": "Heads Up",
   "version": "0.1",
-  "description": "Build an Extension!",
+  "description": "Keep Ya Head Up",
   "author": "De Voorhoede",
-  "minimum_chrome_version": "69.0",
+  "minimum_chrome_version": "69.0", 
+  "permissions": ["activeTab"],
   "icons": {
     "36": "icons/icon-36.png",
     "96": "icons/icon-36.png"
