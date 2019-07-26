@@ -48,6 +48,10 @@ function getHeadData() {
       title: 'Twitter',
       url
     },
+    previewSection: {
+      title: 'Preview',
+      content: getTwitterPreview()
+    },
     propertiesSection: {
       title: 'Properties',
       items: showItems([
@@ -65,6 +69,26 @@ function getHeadData() {
   }
 
   return headData
+}
+
+function getTwitterPreview() {
+  const twitterCard = document.querySelector('meta[name="twitter:card"]')
+  const twitterTitle = document.querySelector('meta[name="twitter:title"]')
+  const twitterDescription = document.querySelector('meta[name="twitter:description"]')
+  const twitterImage = document.querySelector('meta[name="twitter:image"]')
+  const hostname = (new URL(window.location.href)).hostname
+
+  // Show small Twitter preview
+  if (getMetaContent(twitterCard) === 'summary') {
+    return {
+      type: 'small',
+      title: encodeURIComponent(getMetaContent(twitterTitle)),
+      description: encodeURIComponent(getMetaContent(twitterDescription)),
+      image: encodeURIComponent(getMetaContent(twitterImage)),
+      hostname
+    }
+  }
+  return {}
 }
 
 function getIcons() {
