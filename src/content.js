@@ -21,7 +21,7 @@ function getHeadData() {
   const metaTitle = document.querySelector('title').textContent
   const metaViewport = document.querySelector('meta[name="viewport"]')
   const metaThemeColor = document.querySelector('meta[name="theme-color"]')
-  
+
   const pageMeta = {
     titleSection: {
       title: metaTitle,
@@ -63,12 +63,10 @@ function getHeadData() {
     }
   }
 
-  const headData = {
+  return {
     pageMeta,
     twitter
   }
-
-  return headData
 }
 
 function getTwitterPreview() {
@@ -77,14 +75,15 @@ function getTwitterPreview() {
   const twitterDescription = document.querySelector('meta[name="twitter:description"]')
   const twitterImage = document.querySelector('meta[name="twitter:image"]')
   const hostname = (new URL(window.location.href)).hostname
+  const twitterCardContent = getMetaContent(twitterCard)
 
   // Show small Twitter preview
-  if (getMetaContent(twitterCard) === 'summary') {
+  if (twitterCardContent === 'summary' || twitterCardContent === 'summary_large_image') {
     return {
-      type: 'small',
-      title: encodeURIComponent(getMetaContent(twitterTitle)),
-      description: encodeURIComponent(getMetaContent(twitterDescription)),
-      image: encodeURIComponent(getMetaContent(twitterImage)),
+      type: twitterCardContent,
+      title: getMetaContent(twitterTitle),
+      description: getMetaContent(twitterDescription),
+      image: getMetaContent(twitterImage),
       hostname
     }
   }
@@ -152,7 +151,7 @@ function monitorPageChanges() {
       }
     })
   })
-  observer.observe(headElement, observerOptions)  
+  observer.observe(headElement, observerOptions)
 }
 
 function showItems(items) {
