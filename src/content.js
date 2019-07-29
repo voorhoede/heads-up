@@ -24,16 +24,17 @@ function getHeadData() {
 
   const pageMeta = {
     titleSection: {
-      title: metaTitle,
+      title: 'Page meta',
       url,
     },
     propertiesSection: {
       title: 'Properties',
       items: showItems(
         [
+          { title: 'title', value: metaTitle },
+          { title: 'charset', value: getMetaEncoding() },
           { title: getMetaName(metaViewport), value: getMetaContent(metaViewport) },
-          { title: getMetaName(metaThemeColor), value: getMetaContent(metaThemeColor) },
-          { title: 'charset', value: getMetaEncoding() }
+          { title: getMetaName(metaThemeColor), value: getMetaContent(metaThemeColor) }
         ]
       )
     },
