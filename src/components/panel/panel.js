@@ -24,46 +24,46 @@ function onSetupPanel(data) {
 
 function getPageMeta(data) {
   const { titleSection, propertiesSection, iconsSection } = data.pageMeta
-  const title = getTitle({
+  const title = getTitleHtml({
     title: titleSection.title,
     url: titleSection.url
   })
 
-  const properties = getProperties({
+  const properties = getPropertiesHtml({
     title: propertiesSection.title,
     items: propertiesSection.items
   })
 
-  const icons = getIcons({
+  const icons = getIconsHtml({
     title: iconsSection.title,
     items: iconsSection.items
   })
 
   return `
-      ${ title}
-      ${ properties}
-      ${ icons}
+      ${ title }
+      ${ properties }
+      ${ icons }
     `
 }
 
 function getTwitter(data) {
   const { titleSection, previewSection, propertiesSection } = data.twitter
-  const titleArea = getTitle({
+  const title = getTitleHtml({
     title: titleSection.title,
     url: titleSection.url
   })
 
-  const propertiesArea = getProperties({
+  const properties = getPropertiesHtml({
     title: propertiesSection.title,
     items: propertiesSection.items
   })
 
-  const previewArea = getTwitterPreview(previewSection)
+  const preview = getTwitterPreviewHtml(previewSection)
 
   return `
-      ${ titleArea}
-      ${ previewArea}
-      ${ propertiesArea}
+      ${ title }
+      ${ preview }
+      ${ properties }
     `
 }
 
@@ -72,7 +72,7 @@ function renderPanel(data) {
   mainElement.innerHTML = data
 }
 
-function getTitle({ title, url }) {
+function getTitleHtml({ title, url }) {
   return `
     <section class="section">
       <h1 class="heading-default heading">${ title }</h1>
@@ -81,7 +81,7 @@ function getTitle({ title, url }) {
   `
 }
 
-function getProperties({ title, items }) {
+function getPropertiesHtml({ title, items }) {
   if (Array.isArray(items) && items.length === 0) {
     return `
       <section class="section">
@@ -106,7 +106,7 @@ function getProperties({ title, items }) {
   `
 }
 
-function getTwitterPreview(data) {
+function getTwitterPreviewHtml(data) {
   const { type, title, description, image, hostname } = data.content
   const previewUrlParameters = `?title=${ title }&description=${ description }&image=${ image }&hostname=${ hostname }`
   const previewMarkup = `
@@ -122,7 +122,7 @@ function getTwitterPreview(data) {
   return ''
 }
 
-function getIcons({ title, items }) {
+function getIconsHtml({ title, items }) {
   if (Array.isArray(items) && items.length === 0) {
     return `
       <section class="section">
