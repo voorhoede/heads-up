@@ -6,17 +6,17 @@
   "minimum_chrome_version": "69.0", 
   "permissions": ["activeTab"],
   "icons": {
-    "36": "icons/icon-36.png",
-    "96": "icons/icon-36.png"
+    "36": "src/assets/icons/icon-36.png",
+    "96": "src/assets/icons/icon-36.png"
   },
   "background":  {
-    "scripts": ["background-scripts/background.js"]
+    "scripts": ["src/background.js"]
   },
-  "devtools_page": "devtools/devtools-page.html",
+  "devtools_page": "./index.html",
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content-scripts/content.js"]
+      "js": ["src/content.js"]
     }
   ],
    "manifest_version": 2

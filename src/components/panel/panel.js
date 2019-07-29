@@ -112,7 +112,7 @@ function getTwitterPreview(data) {
   const previewMarkup = `
     <section class="section">
       <h2 class="heading-small heading">Preview</h2>
-        <iframe style="margin: 0px; padding: 0px; border: 0px none;" scrolling="no" src="twitter-preview/twitter-${ type }.html${ previewUrlParameters}" width="100%" height="130px" frameborder="0"></iframe>
+        <iframe style="margin: 0px; padding: 0px; border: 0px none;" scrolling="no" src="../twitter-preview/twitter-${ type }.html${ previewUrlParameters}" width="100%" height="130px" frameborder="0"></iframe>
     </section>
   `
 
