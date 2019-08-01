@@ -117,7 +117,7 @@ function getTwitterPreviewHtml(data) {
   const previewMarkup = `
     <section class="section">
       <h2 class="heading-small heading">Preview</h2>
-        <iframe style="margin: 0px; padding: 0px; border: 0px none;" scrolling="no" src="../twitter-preview/twitter-${ templateName}.html${previewUrlParameters}" width="100%" height="${height}" frameborder="0"></iframe>
+        <iframe class="panel__twitter-preview" scrolling="no" src="../twitter-preview/twitter-${ templateName}.html${previewUrlParameters}" width="100%" frameborder="0"></iframe>
     </section>
   `
 

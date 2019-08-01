@@ -17,6 +17,7 @@ function getHeadData() {
   const twitterCard = document.querySelector('meta[name="twitter:card"]')
   const twitterTitle = document.querySelector('meta[name="twitter:title"]')
   const twitterDescription = document.querySelector('meta[name="twitter:description"]')
+  const twitterUrl = document.querySelector('meta[name="twitter:url"]')
   const twitterImage = document.querySelector('meta[name="twitter:image"]')
   const metaTitle = document.querySelector('title').textContent
   const metaViewport = document.querySelector('meta[name="viewport"]')
@@ -59,6 +60,7 @@ function getHeadData() {
         { title: getMetaName(twitterCard), value: getMetaContent(twitterCard) },
         { title: getMetaName(twitterTitle), value: getMetaContent(twitterTitle) },
         { title: getMetaName(twitterDescription), value: getMetaContent(twitterDescription) },
+        { title: getMetaName(twitterUrl), value: getMetaContent(twitterUrl) },
         { title: getMetaName(twitterImage), value: getMetaContent(twitterImage) },
       ])
     }
@@ -74,6 +76,7 @@ function getTwitterPreview() {
   const twitterCard = document.querySelector('meta[name="twitter:card"]')
   const twitterTitle = document.querySelector('meta[name="twitter:title"]')
   const twitterDescription = document.querySelector('meta[name="twitter:description"]')
+  const twitterUrl = document.querySelector('meta[name="twitter:url"]')
   const twitterImage = document.querySelector('meta[name="twitter:image"]')
   const hostname = (new URL(window.location.href)).hostname
   const twitterCardContent = getMetaContent(twitterCard)
@@ -84,6 +87,7 @@ function getTwitterPreview() {
       type: twitterCardContent,
       title: getMetaContent(twitterTitle),
       description: getMetaContent(twitterDescription),
+      url: getMetaContent(twitterUrl),
       image: getMetaContent(twitterImage),
       hostname
     }
