@@ -25,6 +25,7 @@ function getTwitterMarkup(data) {
     const { title, image, description, url, hostname } = data
     const twitterLink = url ? `href="${ url }"` : ''
     const hostnameFiltered = hasWwwInHostname(hostname) ? getHostnameWithoutSubdomain(hostname) : hostname
+    const imageMarkup = `<img src="${ image }" class="twitter-preview-small__image" />`
 
     function hasWwwInHostname(hostname) {
       if (!hostname) {
@@ -50,9 +51,12 @@ function getTwitterMarkup(data) {
     return `
       <div class="twitter-preview-small">
         <a ${ twitterLink } class="twitter-preview-small__link-container">
-          <div class="twitter-preview-small__media">
-            <img src="${ image }" class="twitter-preview-small__image" />
+          <div class="${ image
+            ? `twitter-preview-small__media`
+            : `twitter-preview-small__media twitter-preview-small__media--image-fallback` }">
+            ${ image ? `${ imageMarkup }` : `<div class="twitter-preview-small__image-fallback"></div>` }
           </div>
+
           <div class="twitter-preview-small__content">
             <div class="twitter-preview-small__title">${ title }</div>
             <div class="twitter-preview-small__description">${ description }</div>
