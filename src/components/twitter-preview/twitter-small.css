@@ -50,11 +50,12 @@ html {
 
 .twitter-preview-small__title {
   margin-bottom: 2px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  /* Display title on 2 lines and if longer than available space, cut off with '...' */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
 }
-
 
 .twitter-preview-small__description {
   display: none;
