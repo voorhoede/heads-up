@@ -60,9 +60,6 @@ html {
 .twitter-preview-small__description {
   display: none;
   margin-bottom: 2px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
 }
 
 .twitter-preview-small__icon {
@@ -86,9 +83,14 @@ html {
   .twitter-preview-small__media {
     flex-basis: calc(var(--image-medium-size) + 1px);
   }
+}
 
+@media (min-width: 416px) and (max-width: 449px) {
   .twitter-preview-small__description {
     display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 }
 
