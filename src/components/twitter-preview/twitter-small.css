@@ -97,6 +97,13 @@ html {
     height: calc(var(--image-large-size) + 2px);
   }
 
+  /* Show title on 1 line */
+  .twitter-preview-small__title {
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap
+  }
+
   .twitter-preview-small__media {
     flex-basis: calc(var(--image-large-size) + 1px);
   }
