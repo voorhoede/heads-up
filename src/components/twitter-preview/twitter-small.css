@@ -1,6 +1,6 @@
 :root {
   --border-radius: 14px;
-  --color-border: rgb(204, 214, 221);
+  --color-border: rgb(225, 232, 237);
   --image-small-size: 85px;
   --image-medium-size: 104px;
   --image-large-size: 124px;
@@ -12,15 +12,24 @@ html {
 
 .twitter-preview-small {
   font-size: 14px;
-  border-radius: var(--border-radius);
-  border: 1px solid var(--color-border);
   height: calc(var(--image-small-size) + 2px);
 }
 
 .twitter-preview-small__link-container {
   display: flex;
   height: 100%;
+  transition:
+    background-color .15s ease-in-out,
+    border-color .15s ease-in-out;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-border);
   text-decoration: none;
+  cursor: pointer;
+}
+
+.twitter-preview-small__link-container:hover {
+  background: #F5F8FA;
+  border-color: rgba(136,153,166,.5);
 }
 
 .twitter-preview-small__media {
