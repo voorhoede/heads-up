@@ -62,17 +62,21 @@ html {
   margin-bottom: 2px;
 }
 
-.twitter-preview-small__icon {
-  display: inline-block;
-  height: 1.25em;
-  fill: currentcolor;
-  vertical-align: text-bottom;
-  font-size: 13px;
+.twitter-preview-small__domain {
+  display: flex;
+  align-items: center;
 }
 
-.twitter-preview-small__icon-text {
-  display: inline-block;
-  width: calc(80%);
+.twitter-preview-small__icon {
+  height: 1.25em;
+  font-size: 13px;
+  fill: currentcolor;
+}
+
+.twitter-preview-small__hostname {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media (min-width: 416px) {
