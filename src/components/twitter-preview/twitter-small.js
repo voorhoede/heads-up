@@ -23,9 +23,11 @@ function renderTwitterCard(data) {
 
 function getTwitterMarkup(data) {
     const { title, image, description, url, hostname } = data
+    const twitterLink = url ? `href="${ url }"` : ''
+
     return `
       <div class="twitter-preview-small">
-        <a href="${ url }" class="twitter-preview-small__link-container">
+        <a ${ twitterLink } class="twitter-preview-small__link-container">
           <div class="twitter-preview-small__media">
             <img src="${ image }" class="twitter-preview-small__image" />
           </div>
