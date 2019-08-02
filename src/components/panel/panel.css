@@ -24,7 +24,8 @@ a {
 }
 
 .panel {
-  margin-left: 220px;
+  width: calc(100% - 190px);
+  margin-left: 190px;
 }
 
 .section {
