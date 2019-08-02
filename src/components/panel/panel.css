@@ -18,9 +18,11 @@ body {
 
 a {
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-weight: bold;
+  font-weight: normal;
   color: var(--color-action);
   text-decoration: underline;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .panel {
