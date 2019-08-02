@@ -98,6 +98,9 @@ function getPropertiesHtml({ title, items }) {
         ${items.map(item => `
           <li class="properties-list__item">
             <h3 class="properties-list__title">${ item.title}</h3>
+            ${ item.title === 'theme-color' ?
+              `<div class="color-block" style="background-color: ${ item.value }"></div>`
+              : `` }
             <div class="properties-list__content">${ item.value}</div>
           </li>
           `).join('')}
