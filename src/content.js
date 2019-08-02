@@ -78,7 +78,6 @@ function getTwitterPreview() {
   const twitterDescription = document.querySelector('meta[name="twitter:description"]')
   const twitterUrl = document.querySelector('meta[name="twitter:url"]')
   const twitterImage = document.querySelector('meta[name="twitter:image"]')
-  const hostname = (new URL(window.location.href)).hostname
   const twitterCardContent = getMetaContent(twitterCard)
 
   // Show small Twitter preview
@@ -89,7 +88,7 @@ function getTwitterPreview() {
       description: getMetaContent(twitterDescription),
       url: getMetaContent(twitterUrl),
       image: getMetaContent(twitterImage),
-      hostname
+      pageUrl: window.location.href
     }
   }
   return {}
