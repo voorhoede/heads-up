@@ -30,6 +30,13 @@ a {
   margin-left: 190px;
 }
 
+.panel__twitter-preview {
+  max-width: 521px;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
 .section {
   padding: 16px;
   border-bottom: 1px solid var(--color-grey-light);

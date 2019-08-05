@@ -114,13 +114,13 @@ function getTwitterPreviewHtml(data) {
   const title = encodeURIComponent(data.content.title)
   const image = encodeURIComponent(data.content.image)
   const description = encodeURIComponent(data.content.description)
-  const height = heightInPixels(type)
+  const url = encodeURIComponent(data.content.pageUrl)
   const templateName = getTemplateName(type)
-  const previewUrlParameters = `?title=${title}&description=${description}&image=${image}&hostname=${hostname}`
+  const previewUrlParameters = `?title=${title}&description=${description}&image=${image}&url=${url}`
   const previewMarkup = `
     <section class="section">
       <h2 class="heading-small heading">Preview</h2>
-        <iframe style="margin: 0px; padding: 0px; border: 0px none;" scrolling="no" src="../twitter-preview/twitter-${ templateName}.html${previewUrlParameters}" width="100%" height="${height}" frameborder="0"></iframe>
+        <iframe class="panel__twitter-preview" scrolling="no" src="../twitter-preview/twitter-${ templateName}.html${previewUrlParameters}" width="100%" frameborder="0"></iframe>
     </section>
   `
 
@@ -128,15 +128,6 @@ function getTwitterPreviewHtml(data) {
     return previewMarkup
   }
   return ''
-
-  function heightInPixels(type) {
-    if (type === 'summary') {
-      return '130px'
-    } else if (type === 'summary_large_image') {
-      return '310xpx'
-    }
-    return ''
-  }
 
   function getTemplateName(type){
     if (type === 'summary') {
