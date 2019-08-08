@@ -21,9 +21,10 @@
     twitterButton.addEventListener('click', renderTwitterCard)
 
     function renderPageMeta() {
-      const title = getTitleHtml(data.pageMeta.titleSection.title, data.pageMeta.titleSection.url)
-      const properties = getPropertiesHtml(data.pageMeta.propertiesSection.title, data.pageMeta.propertiesSection.items)
-      const icons = getIconsHtml(data.pageMeta.iconsSection.title, data.pageMeta.iconsSection.items)
+      const {titleSection, propertiesSection, iconsSection } = data.pageMeta
+      const title = getTitleHtml(titleSection.title, titleSection.url)
+      const properties = getPropertiesHtml(propertiesSection.title, propertiesSection.items)
+      const icons = getIconsHtml(iconsSection.title, iconsSection.items)
 
       mainElement.innerHTML = `
         ${ title}
@@ -33,13 +34,14 @@
     }
 
     function renderTwitterCard() {
-      const title = getTitleHtml(data.twitter.titleSection.title, data.twitter.titleSection.url)
-      const properties = getPropertiesHtml(data.twitter.propertiesSection.title, data.twitter.propertiesSection.items)
-      const titlePreview = encodeURIComponent(data.twitter.previewSection.content.title)
-      const imagePreview = encodeURIComponent(data.twitter.previewSection.content.image)
-      const descriptionPreview = encodeURIComponent(data.twitter.previewSection.content.description)
-      const urlPreview = encodeURIComponent(data.twitter.previewSection.content.pageUrl)
-      const typePreview = data.twitter.previewSection.content.type
+      const { titleSection, propertiesSection, previewSection } = data.twitter
+      const title = getTitleHtml(titleSection.title, titleSection.url)
+      const properties = getPropertiesHtml(propertiesSection.title, propertiesSection.items)
+      const titlePreview = encodeURIComponent(previewSection.content.title)
+      const imagePreview = encodeURIComponent(previewSection.content.image)
+      const descriptionPreview = encodeURIComponent(previewSection.content.description)
+      const urlPreview = encodeURIComponent(previewSection.content.pageUrl)
+      const typePreview = previewSection.content.type
       const previewUrlParameters = `?title=${titlePreview}&description=${descriptionPreview}&image=${imagePreview}&url=${urlPreview}&type=${typePreview}`
       const previewMarkup = `
         <section class="section">
