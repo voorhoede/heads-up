@@ -123,13 +123,13 @@ function getPropertiesHtml({ title, items }) {
 }
 
 function getTwitterPreviewHtml(data) {
-  const { type, hostname } = data.content
+  const { type } = data.content
   const title = encodeURIComponent(data.content.title)
   const image = encodeURIComponent(data.content.image)
   const description = encodeURIComponent(data.content.description)
   const url = encodeURIComponent(data.content.pageUrl)
   const templateName = getTemplateName(type)
-  const previewUrlParameters = `?title=${title}&description=${description}&image=${image}&url=${url}`
+  const previewUrlParameters = `?title=${title}&description=${description}&image=${image}&url=${url}&type=${type}`
   const previewMarkup = `
     <section class="section">
       <h2 class="heading-small heading">Preview</h2>
@@ -180,9 +180,4 @@ function getIconsHtml({ title, items }) {
       </ul>
     </section>
   `
-}
-
-function resizeIframe() {
-  const iframe = document.querySelector('[data-iframe]')
-  iframe.style.height = parseInt(iframe.contentWindow.document.body.scrollHeight + 2) + 'px';
 }
