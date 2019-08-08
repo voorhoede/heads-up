@@ -35,12 +35,23 @@
     function renderTwitterCard() {
       const title = getTitleHtml(data.twitter.titleSection.title, data.twitter.titleSection.url)
       const properties = getPropertiesHtml(data.twitter.propertiesSection.title, data.twitter.propertiesSection.items)
-      const preview = getTwitterPreviewHtml(data.twitter.previewSection.content)
+      const titlePreview = encodeURIComponent(data.twitter.previewSection.content.title)
+      const imagePreview = encodeURIComponent(data.twitter.previewSection.content.image)
+      const descriptionPreview = encodeURIComponent(data.twitter.previewSection.content.description)
+      const urlPreview = encodeURIComponent(data.twitter.previewSection.content.pageUrl)
+      const typePreview = data.twitter.previewSection.content.type
+      const previewUrlParameters = `?title=${titlePreview}&description=${descriptionPreview}&image=${imagePreview}&url=${urlPreview}&type=${typePreview}`
+      const previewMarkup = `
+        <section class="section">
+          <h2 class="heading-small heading">Preview</h2>
+            <iframe data-iframe class="panel__twitter-preview" scrolling="no" src="../twitter-preview/twitter-preview.html${previewUrlParameters}" width="100%" frameborder="0"></iframe>
+        </section>
+      `
 
       mainElement.innerHTML = `
-        ${ title}
-        ${ preview}
-        ${ properties}
+        ${ title }
+        ${ previewMarkup }
+        ${ properties }
       `
 
       const iframe = document.querySelector('[data-iframe]')
@@ -89,25 +100,6 @@
         </ul>
       </section>
     `
-  }
-
-  function getTwitterPreviewHtml(data) {
-    const type = data.type
-    const title = encodeURIComponent(data.title)
-    const image = encodeURIComponent(data.image)
-    const description = encodeURIComponent(data.description)
-    const url = encodeURIComponent(data.pageUrl)
-    const previewUrlParameters = `?title=${title}&description=${description}&image=${image}&url=${url}&type=${type}`
-    const previewMarkup = `
-      <section class="section">
-        <h2 class="heading-small heading">Preview</h2>
-          <iframe data-iframe class="panel__twitter-preview" scrolling="no" src="../twitter-preview/twitter-preview.html${previewUrlParameters}" width="100%" frameborder="0"></iframe>
-      </section>
-    `
-
-    return (type === 'summary' || type === 'summary_large_image')
-      ? previewMarkup
-      : ''
   }
 
   function getIconsHtml(title, items) {
