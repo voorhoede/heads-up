@@ -17,7 +17,7 @@
 
   function getTwitterMarkup({ title, description, image, url, type }) {
       const twitterLink = url ? `href="${ url }"` : ''
-      const imageMarkup = `<img src="${ image }" class="${ type === 'summary' ? 'twitter-preview-small__image' : 'fixed-ratio-content' }" />`
+      const imageMarkup = `<img src="${ image }" class="${ type === 'summary' ? 'twitter-preview-small__image' : 'twitter-preview__fixed-ratio-content' }" />`
 
       function getHostName(url) {
         if (!url) {
@@ -38,7 +38,7 @@
         <div class="twitter-preview">
           <a ${ twitterLink } class="twitter-preview__link-container">
             <div class="${ image
-              ? `twitter-preview-large__media fixed-ratio`
+              ? `twitter-preview-large__media twitter-preview__fixed-ratio`
               : `twitter-preview-large__media twitter-preview-large__media--image-fallback` }" style="padding-bottom: 52.356%">
               ${ image ? `${ imageMarkup }` : `<div class="twitter-preview-large__image-fallback"></div>` }
             </div>

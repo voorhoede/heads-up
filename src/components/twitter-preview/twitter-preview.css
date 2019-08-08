@@ -31,14 +31,14 @@ html {
   border-color: rgba(136,153,166,.5);
 }
 
-.fixed-ratio {
+.twitter-preview__fixed-ratio {
   display: block;
   position: relative;
   height: 0;
   overflow: hidden;
 }
 
-.fixed-ratio-content {
+.twitter-preview__fixed-ratio-content {
   position: absolute;
   top: 0;
   left: 0;
