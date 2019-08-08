@@ -10,12 +10,11 @@ html {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
 }
 
-.twitter-preview-small {
+.twitter-preview {
   font-size: 14px;
-  height: calc(var(--image-small-size) + 2px);
 }
 
-.twitter-preview-small__link-container {
+.twitter-preview__link-container {
   display: flex;
   height: 100%;
   transition:
@@ -27,20 +26,38 @@ html {
   cursor: pointer;
 }
 
-.twitter-preview-small__link-container:hover {
+.twitter-preview__link-container--vertical {
+  display: block;
+}
+
+.twitter-preview__link-container:hover {
   background: #F5F8FA;
   border-color: rgba(136,153,166,.5);
 }
 
-.twitter-preview-small__media {
-  height: 100%;
-  flex-grow: 0;
-  flex-shrink: 0;
-  flex-basis: calc(var(--image-small-size) + 1px);
-  border-right: 1px solid var(--color-border);
+.twitter-preview__ratio  {
+  padding-bottom: 52.356%;
 }
 
-.twitter-preview-small__image {
+.twitter-preview__fixed-ratio {
+  display: block;
+  position: relative;
+  height: 0;
+  overflow: hidden;
+}
+
+.twitter-preview__fixed-ratio-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  max-width: inherit;
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+}
+
+.twitter-preview__image {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -49,13 +66,21 @@ html {
   border-bottom-left-radius: var(--border-radius);
 }
 
-.twitter-preview-small__media--image-fallback {
+.twitter-preview__media {
+  height: 100%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: calc(var(--image-small-size) + 1px);
+  border-right: 1px solid var(--color-border);
+}
+
+.twitter-preview__media--image-fallback {
   border-top-left-radius: var(--border-radius);
   border-bottom-left-radius: var(--border-radius);
   background-color: #E1E8ED;
 }
 
-.twitter-preview-small__image-fallback {
+.twitter-preview__image-fallback {
   height: 100%;
   background-image: url('../../assets/icons/image-not-found.svg');
   background-size: 3em;
@@ -63,7 +88,7 @@ html {
   background-position: center;
 }
 
-.twitter-preview-small__content {
+.twitter-preview__content {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -72,7 +97,7 @@ html {
   background-color: transparent;
 }
 
-.twitter-preview-small__title {
+.twitter-preview__title {
   margin-bottom: 2px;
   color: rgb(20, 23, 26);
   /* Display on 2 lines and if longer than available space, cut off with '...' */
@@ -82,42 +107,42 @@ html {
   overflow: hidden;
 }
 
-.twitter-preview-small__description {
+.twitter-preview__description {
   display: none;
   margin-bottom: 2px;
   color: rgb(101, 119, 134);
 }
 
-.twitter-preview-small__domain {
+.twitter-preview__domain {
   display: flex;
   align-items: center;
   color: rgb(101, 119, 134);
 }
 
-.twitter-preview-small__icon {
+.twitter-preview__icon {
   height: 1.25em;
   font-size: 13px;
   fill: currentcolor;
 }
 
-.twitter-preview-small__hostname {
+.twitter-preview__hostname {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
 
 @media (min-width: 416px) {
-  .twitter-preview-small {
+  .twitter-preview.is-small {
     height: calc(var(--image-medium-size) + 2px);
   }
 
-  .twitter-preview-small__media {
+  .twitter-preview__media {
     flex-basis: calc(var(--image-medium-size) + 1px);
   }
 }
 
 @media (min-width: 416px) and (max-width: 449px) {
-  .twitter-preview-small__description {
+  .twitter-preview__description {
     display: block;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -126,26 +151,26 @@ html {
 }
 
 @media (min-width: 450px) {
-  .twitter-preview-small {
+  .twitter-preview.is-small {
     height: calc(var(--image-large-size) + 2px);
   }
 
+  .twitter-preview__media {
+    flex-basis: calc(var(--image-large-size) + 1px);
+  }
+
   /* Show on 1 line */
-  .twitter-preview-small__title {
+  .twitter-preview__title {
     display: block;
     text-overflow: ellipsis;
     white-space: nowrap
   }
 
   /* Display on 2 lines and if longer than available space, cut off with '...' */
-  .twitter-preview-small__description {
+  .twitter-preview__description {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-  }
-
-  .twitter-preview-small__media {
-    flex-basis: calc(var(--image-large-size) + 1px);
   }
 }
