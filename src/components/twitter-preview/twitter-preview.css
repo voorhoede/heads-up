@@ -31,6 +31,10 @@ html {
   border-color: rgba(136,153,166,.5);
 }
 
+.twitter-preview__ratio  {
+  padding-bottom: 52.356%;
+}
+
 .twitter-preview__fixed-ratio {
   display: block;
   position: relative;

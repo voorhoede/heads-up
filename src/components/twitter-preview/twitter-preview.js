@@ -38,8 +38,8 @@
         <div class="twitter-preview">
           <a ${ twitterLink } class="twitter-preview__link-container">
             <div class="${ image
-              ? `twitter-preview-large__media twitter-preview__fixed-ratio`
-              : `twitter-preview-large__media twitter-preview-large__media--image-fallback` }" style="padding-bottom: 52.356%">
+              ? `${ type === 'summary' ? `twitter-preview-large__media` : `twitter-preview-large__media twitter-preview__fixed-ratio twitter-preview__ratio` }`
+              : `twitter-preview-large__media twitter-preview-large__media--image-fallback` }">
               ${ image ? `${ imageMarkup }` : `<div class="twitter-preview-large__image-fallback"></div>` }
             </div>
 
