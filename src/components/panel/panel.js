@@ -16,10 +16,20 @@ function onSetupPanel(data) {
 
   twitterButton.addEventListener('click', function () {
     renderPanel(getTwitter(data))
+
+    const iframe = document.querySelector('[data-iframe]')
+    iframe.addEventListener('load', function() {
+      resizeIframe()
+    })
+
+    window.addEventListener('resize', function() {
+      resizeIframe()
+    })
   })
 
   // Initial render
   renderPanel(getPageMeta(data))
+
 }
 
 function getPageMeta(data) {
@@ -120,7 +130,7 @@ function getTwitterPreviewHtml(data) {
   const previewMarkup = `
     <section class="section">
       <h2 class="heading-small heading">Preview</h2>
-        <iframe class="panel__twitter-preview" scrolling="no" src="../twitter-preview/twitter-${ templateName}.html${previewUrlParameters}" width="100%" frameborder="0"></iframe>
+        <iframe data-iframe class="panel__twitter-preview" scrolling="no" src="../twitter-preview/twitter-${ templateName}.html${previewUrlParameters}" width="100%" frameborder="0"></iframe>
     </section>
   `
 
@@ -167,4 +177,9 @@ function getIconsHtml({ title, items }) {
       </ul>
     </section>
   `
+}
+
+function resizeIframe() {
+  const iframe = document.querySelector('[data-iframe]')
+  iframe.style.height = parseInt(iframe.contentWindow.document.body.scrollHeight + 2) + 'px';
 }
