@@ -36,13 +36,13 @@
           <a ${ twitterLink } class="twitter-preview__link-container">
             <div class="${ image
               ? `${ type === 'summary'
-                ? `twitter-preview-large__media`
-                : `twitter-preview-large__media twitter-preview__fixed-ratio twitter-preview__ratio` }`
-              : `twitter-preview-large__media twitter-preview-large__media--image-fallback` }">
+                ? `twitter-preview__media`
+                : `twitter-preview__fixed-ratio twitter-preview__ratio` }`
+              : `twitter-preview__media twitter-preview-large__media--image-fallback` }">
               ${ image
                 ? `<img src="${ image }" class="${ type === 'summary'
-                  ? 'twitter-preview-small__image'
-                  : 'twitter-preview__fixed-ratio-content' }" />`
+                  ? `twitter-preview-small__image`
+                  : `twitter-preview__fixed-ratio-content` }" />`
                 : `<div class="twitter-preview-large__image-fallback"></div>` }
             </div>
 

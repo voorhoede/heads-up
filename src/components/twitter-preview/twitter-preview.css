@@ -62,6 +62,14 @@ html {
   border-bottom-left-radius: var(--border-radius);
 }
 
+.twitter-preview__media {
+  height: 100%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: calc(var(--image-small-size) + 1px);
+  border-right: 1px solid var(--color-border);
+}
+
 .twitter-preview-large__media--image-fallback {
   border-top-left-radius: var(--border-radius);
   border-bottom-left-radius: var(--border-radius);
