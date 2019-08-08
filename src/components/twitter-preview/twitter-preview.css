@@ -53,7 +53,7 @@ html {
   border-top-right-radius: var(--border-radius);
 }
 
-.twitter-preview-large__image {
+.twitter-preview__image {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -70,13 +70,13 @@ html {
   border-right: 1px solid var(--color-border);
 }
 
-.twitter-preview-large__media--image-fallback {
+.twitter-preview__media--image-fallback {
   border-top-left-radius: var(--border-radius);
   border-bottom-left-radius: var(--border-radius);
   background-color: #E1E8ED;
 }
 
-.twitter-preview-large__image-fallback {
+.twitter-preview__image-fallback {
   height: 100%;
   background-image: url('../../assets/icons/image-not-found.svg');
   background-size: 3em;

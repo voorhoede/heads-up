@@ -38,12 +38,12 @@
               ? `${ type === 'summary'
                 ? `twitter-preview__media`
                 : `twitter-preview__fixed-ratio twitter-preview__ratio` }`
-              : `twitter-preview__media twitter-preview-large__media--image-fallback` }">
+              : `twitter-preview__media twitter-preview__media--image-fallback` }">
               ${ image
                 ? `<img src="${ image }" class="${ type === 'summary'
-                  ? `twitter-preview-small__image`
+                  ? `twitter-preview__image`
                   : `twitter-preview__fixed-ratio-content` }" />`
-                : `<div class="twitter-preview-large__image-fallback"></div>` }
+                : `<div class="twitter-preview__image-fallback"></div>` }
             </div>
 
             <div class="twitter-preview-large__content">
