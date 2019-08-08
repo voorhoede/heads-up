@@ -19,17 +19,20 @@ function onSetupPanel(data) {
 
     const iframe = document.querySelector('[data-iframe]')
     iframe.addEventListener('load', function() {
-      resizeIframe()
+      resizeIframe(iframe)
     })
 
     window.addEventListener('resize', function() {
-      resizeIframe()
+      resizeIframe(iframe)
     })
   })
 
   // Initial render
   renderPanel(getPageMeta(data))
+}
 
+function resizeIframe(element) {
+  element.style.height = parseInt(element.contentWindow.document.body.scrollHeight + 2) + 'px';
 }
 
 function getPageMeta(data) {
