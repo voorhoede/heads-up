@@ -15,7 +15,7 @@ html {
 }
 
 .twitter-preview__link-container {
-  display: block;
+  display: flex;
   height: 100%;
   transition:
     background-color .15s ease-in-out,
@@ -24,6 +24,10 @@ html {
   border: 1px solid var(--color-border);
   text-decoration: none;
   cursor: pointer;
+}
+
+.twitter-preview__link-container--vertical {
+  display: block;
 }
 
 .twitter-preview__link-container:hover {
@@ -127,6 +131,16 @@ html {
   overflow: hidden;
 }
 
+@media (min-width: 416px) {
+  .twitter-preview.is-small {
+    height: calc(var(--image-medium-size) + 2px);
+  }
+
+  .twitter-preview__media {
+    flex-basis: calc(var(--image-medium-size) + 1px);
+  }
+}
+
 @media (min-width: 416px) and (max-width: 449px) {
   .twitter-preview__description {
     display: block;
@@ -137,6 +151,14 @@ html {
 }
 
 @media (min-width: 450px) {
+  .twitter-preview.is-small {
+    height: calc(var(--image-large-size) + 2px);
+  }
+
+  .twitter-preview__media {
+    flex-basis: calc(var(--image-large-size) + 1px);
+  }
+
   /* Show on 1 line */
   .twitter-preview__title {
     display: block;

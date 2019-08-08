@@ -32,8 +32,8 @@
       }
 
       return `
-        <div class="twitter-preview">
-          <a ${ twitterLink } class="twitter-preview__link-container">
+        <div class="${ type === 'summary' ? `twitter-preview is-small` : `twitter-preview` }">
+          <a ${ twitterLink } class="${ type === 'summary' ? `twitter-preview__link-container` : `twitter-preview__link-container twitter-preview__link-container--vertical` } ">
             <div class="${ image
               ? `${ type === 'summary'
                 ? `twitter-preview__media`
