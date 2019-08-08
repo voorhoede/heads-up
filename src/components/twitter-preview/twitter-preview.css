@@ -1,0 +1,142 @@
+:root {
+  --border-radius: 14px;
+  --color-border: rgb(225, 232, 237);
+  --image-small-size: 85px;
+  --image-medium-size: 104px;
+  --image-large-size: 124px;
+}
+
+html {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+}
+
+.twitter-preview {
+  font-size: 14px;
+}
+
+.twitter-preview__link-container {
+  display: block;
+  height: 100%;
+  transition:
+    background-color .15s ease-in-out,
+    border-color .15s ease-in-out;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-border);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.twitter-preview__link-container:hover {
+  background: #F5F8FA;
+  border-color: rgba(136,153,166,.5);
+}
+
+.fixed-ratio {
+  display: block;
+  position: relative;
+  height: 0;
+  overflow: hidden;
+}
+
+.fixed-ratio-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  max-width: inherit;
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+}
+
+.twitter-preview-large__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  max-width: none;
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+}
+
+.twitter-preview-large__media--image-fallback {
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+  background-color: #E1E8ED;
+}
+
+.twitter-preview-large__image-fallback {
+  height: 100%;
+  background-image: url('../../assets/icons/image-not-found.svg');
+  background-size: 3em;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.twitter-preview-large__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+.twitter-preview-large__title {
+  margin-bottom: 2px;
+  color: rgb(20, 23, 26);
+  /* Display on 2 lines and if longer than available space, cut off with '...' */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.twitter-preview-large__description {
+  display: none;
+  margin-bottom: 2px;
+  color: rgb(101, 119, 134);
+}
+
+.twitter-preview-large__domain {
+  display: flex;
+  align-items: center;
+  color: rgb(101, 119, 134);
+}
+
+.twitter-preview-large__icon {
+  height: 1.25em;
+  font-size: 13px;
+  fill: currentcolor;
+}
+
+.twitter-preview-large__hostname {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media (min-width: 416px) and (max-width: 449px) {
+  .twitter-preview-large__description {
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 450px) {
+  /* Show on 1 line */
+  .twitter-preview-large__title {
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap
+  }
+
+  /* Display on 2 lines and if longer than available space, cut off with '...' */
+  .twitter-preview-large__description {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
