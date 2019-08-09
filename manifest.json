@@ -1,9 +1,9 @@
 {
   "name": "Heads Up",
-  "version": "0.1",
-  "description": "Keep Ya Head Up",
+  "version": "0.0.1",
+  "description": "View your <head> data for easier developing.",
   "author": "De Voorhoede",
-  "minimum_chrome_version": "69.0", 
+  "minimum_chrome_version": "69.0",
   "permissions": ["activeTab"],
   "icons": {
     "36": "src/assets/icons/icon-36.png",
