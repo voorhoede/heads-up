@@ -93,7 +93,7 @@
               <li class="properties-list__item">
                 <h3 class="properties-list__title">${ item.title}</h3>
                 ${ item.title === 'theme-color'
-                  ? `<div class="color-block" style="background-color: ${ item.value }"></div>`
+                  ? `<span class="properties-list__color-block" style="background-color: ${ item.value }"></span>`
                   : ``
                 }
                 <div class="properties-list__content">${ item.value}</div>

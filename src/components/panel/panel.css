@@ -80,6 +80,7 @@ a {
 }
 
 .properties-list__content {
+  display: inline-block;
   font-size: .8125rem;
 }
 
@@ -113,7 +114,8 @@ a {
   cursor: pointer;
 }
 
-.color-block {
+.properties-list__color-block {
+  display: inline-block;
   margin-right: 3px;
   width: 10px;
   height: 10px;
@@ -123,13 +125,22 @@ a {
 @media (min-width: 650px) {
   .properties-list__item {
     display: flex;
+    align-items: center;
+  }
+
+  .properties-list__color-block {
+    display: inline-block;
+    flex-basis: 10px;
+    flex-shrink: 0;
+    flex-grow: 0;
   }
 
   .properties-list__title {
     flex-basis: 128px;
     flex-grow: 0;
     flex-shrink: 0;
-    padding-right: 16px;
+    margin-bottom: 0;
+    margin-right: 16px;
     text-align: right;
   }
 
