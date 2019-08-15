@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Heads up!</title>
+    <%if (process.env.NODE_ENV === 'development') { %>
+      <!-- Connect to detached Vue devtools, which can be run using npm run devtools -->
+      <script src="http://localhost:8098"></script>
+    <% } %>
+  </head>
+  <body>
+    <div id="container">
+      <div id="app"></div>
+    </div>
+  </body>
+</html>
