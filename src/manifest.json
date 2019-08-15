@@ -19,5 +19,6 @@
       "js": ["content.js"]
     }
   ],
-   "manifest_version": 2
+  "content_security_policy": "script-src 'self' http://localhost:8098; object-src 'self'",
+  "manifest_version": 2
 }
