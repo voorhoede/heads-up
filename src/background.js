@@ -3,10 +3,13 @@
 let dataReceived = null
 let portToPanel = null
 
+
 // The background script acts as a mediator between the content script and the devtools page.
 chrome.runtime.onMessage.addListener((data) => {
+
+  console.log('got message in background', data)
   dataReceived = data
-  
+
   // Send data to panel.js
   if (portToPanel) {
     portToPanel.postMessage(data)
