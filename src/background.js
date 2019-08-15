@@ -22,7 +22,7 @@ chrome.runtime.onConnect.addListener((port) => {
   if (portToPanel.name !== 'devtools') {
     return false
   }
-  
+
   // Send data to the (devtools) panel script
   portToPanel.postMessage(dataReceived)
 })
