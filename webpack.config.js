@@ -9,6 +9,7 @@ module.exports = createConfig({
     background: './src/background.js',
     content: './src/content.js',
     'heads-up': './src/heads-up/index.js',
+    'twitter-preview': './src/twitter-preview.js',
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -24,6 +25,11 @@ module.exports = createConfig({
       filename: 'devtools.html',
       template: 'src/devtools.html',
       chunks: []
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'twitter-preview.html',
+      template: 'src/twitter-preview.html',
+      chunks: ['twitter-preview']
     }),
     new CopyPlugin([
       { from: 'src/assets/', to: 'assets' },
