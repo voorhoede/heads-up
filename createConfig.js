@@ -55,7 +55,7 @@ module.exports = (config, target = { chrome: 52, firefox: 48 }) => {
       new FriendlyErrorsPlugin(),
       new webpack.DefinePlugin({
         'process.env': {
-          NODE_ENV: process.env.NODE_ENV ? process.env.NODE_ENV : '"development"'
+          NODE_ENV: process.env.NODE_ENV ? `"${process.env.NODE_ENV}"` : '"development"'
         }
       }),
     ],
