@@ -14,6 +14,8 @@ portToBackgroundScript.onMessage.addListener((head) => {
 
 Vue.config.devtools = true
 
+import './style/index.css'
+
 const app = new Vue({
   components: { App },
   el: '#app',
