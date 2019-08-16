@@ -13,11 +13,17 @@ const routes = [
   {
     path: '/page-meta',
     name: 'page-meta',
+    meta: {
+      title: 'Page Meta',
+    },
     component: pageMetaPage
   },
   {
     path: '/twitter',
     name: 'twitter',
+    meta: {
+      title: 'Twitter',
+    },
     component: twitterPage
   }
 ]

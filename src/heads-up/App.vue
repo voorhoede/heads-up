@@ -20,20 +20,33 @@
       </ul>
     </aside>
 
-    <main class="panel">
-      <router-view></router-view>
+    <main class="panel" >
+      <template v-if="head && head.url">
+        <section class="section">
+
+          <h1 class="heading-default heading">{{ $route.meta.title }}</h1>
+          <p><a :href="head.url">{{ head.url }}</a></p>
+        </section>
+
+        <router-view></router-view>
+      </template>
     </main>
 
   </div>
 </template>
 
 <script>
+  import { mapState } from 'vuex'
+
   export default {
     name: 'App',
     data() {
       return {
         isDev: process.env.NODE_ENV === 'development'
       }
+    },
+    computed: {
+      ...mapState(['head']),
     },
     methods: {
       reload() {

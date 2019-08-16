@@ -9,6 +9,9 @@ const portToBackgroundScript = chrome.runtime.connect({ name: 'devtools' })
 
 // Listen to messages from the background script.
 portToBackgroundScript.onMessage.addListener((head) => {
+  if (head.url.startsWith('chrome')) {
+    return
+  }
   store.commit('SET_HEAD', { head })
 })
 

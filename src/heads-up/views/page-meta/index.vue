@@ -1,12 +1,6 @@
 <template>
-  <div v-if="head && head.url">
-
-    <section class="section">
-      <h1 class="heading-default heading">Page meta</h1>
-      <p><a :href="head.url">{{ head.url }}}</a></p>
-    </section>
-
-    <section class="section">
+  <div>
+     <section class="section">
       <h2 class="heading-small heading">Properties</h2>
 
       <ul class="properties-list">
@@ -54,9 +48,7 @@
 
   export default {
     computed: {
-      ...mapState({
-        head: state => state.head,
-      }),
+      ...mapState(['head']),
       charsetValue() {
         const charsetMetaItem = this.head.meta.find(metaItem => Object.keys(metaItem).includes('charset'))
         return charsetMetaItem ? charsetMetaItem.charset : null;
