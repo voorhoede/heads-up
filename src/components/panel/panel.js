@@ -11,27 +11,9 @@
     data = receivedData
 
     const mainElement = document.querySelector('main')
-    const pageMetaButton = document.querySelector('[data-button-page-meta]')
     const twitterButton = document.querySelector('[data-button-twitter]')
 
-    // Initially render Page Meta
-    renderPageMeta()
-
-    pageMetaButton.addEventListener('click', renderPageMeta)
     twitterButton.addEventListener('click', renderTwitterCard)
-
-    function renderPageMeta() {
-      const {titleSection, propertiesSection, iconsSection } = data.pageMeta
-      const title = getTitleHtml(titleSection.title, titleSection.url)
-      const properties = getPropertiesHtml(propertiesSection.title, propertiesSection.items)
-      const icons = getIconsHtml(iconsSection.title, iconsSection.items)
-
-      mainElement.innerHTML = `
-        ${ title}
-        ${ properties}
-        ${ icons}
-      `
-    }
 
     function renderTwitterCard() {
       const { titleSection, propertiesSection, previewSection } = data.twitter
@@ -43,6 +25,7 @@
       const urlPreview = encodeURIComponent(previewSection.content.pageUrl)
       const typePreview = previewSection.content.type
       const previewUrlParameters = `?title=${titlePreview}&description=${descriptionPreview}&image=${imagePreview}&url=${urlPreview}&type=${typePreview}`
+
       const previewMarkup = `
         <section class="section">
           <h2 class="heading-small heading">Preview</h2>
@@ -100,36 +83,6 @@
               </li>
               `).join('')
             }
-          </ul>
-        </section>
-      `
-    }
-
-    function getIconsHtml(title, items) {
-      if (Array.isArray(items) && items.length === 0) {
-        return `
-          <section class="section">
-            <h2 class="heading-small heading">${ title}</h2>
-            <p>No favicons detected.</p>
-          </section>
-        `
-      }
-
-      return `
-        <section class="section">
-          <h2 class="heading-small heading">${ title}</h2>
-          <ul class="properties-list">
-            ${items.map(({ type, sizes, url }) => `
-              <li class="properties-list__item">
-                <div class="properties-list__title">
-                  ${ sizes ? `<div>${sizes}</div>` : ``}
-                  ${ type ? `<div>${type}</div>` : ``}
-                </div>
-                <div class="properties-list__content">
-                  <img src="${ url}" />
-                </div>
-              </li>
-            `).join('')}
           </ul>
         </section>
       `

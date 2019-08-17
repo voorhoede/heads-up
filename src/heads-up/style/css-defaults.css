@@ -6,7 +6,7 @@
   * what elements don't have a vertical rhythm yet.
   */
 * {
-  margin: 0; 
+  margin: 0;
   padding: 0;
   box-sizing: inherit;
 }
@@ -36,21 +36,21 @@ html {
   * https://csswizardry.com/2016/02/managing-typography-on-large-apps/
   */
 h1, h2, h3, h4, h5, h6 {
-	font-size: 1.2rem;
+  font-size: 1.2rem;
   font-weight: normal;
 }
 
 /**
   * 1. Switch display mode to block, since that's what we usually want for images.
   * 2. If you override, and make an image inline, it's likely you'll want middle vertical alignment.
-       Setting vertical-align removes the whitespace that appears under img elements when they are 
+       Setting vertical-align removes the whitespace that appears under img elements when they are
        dropped into a page as-is. Is a safer alternative to using display: block.
   * 3. Make images and video flexible by default.
   * 4. Ensure images and video maintain their aspect ratio when max-width comes into play
   https://github.com/inuitcss/inuitcss/blob/develop/elements/_elements.images.scss
   https://github.com/mozdevs/cssremedy/blob/master/remedy.css
   */
-img, video  { 
+img, video  {
   display: block; /* 1 */
   vertical-align: middle;  /* 2 */
   max-width: 100%; /* 3 */
