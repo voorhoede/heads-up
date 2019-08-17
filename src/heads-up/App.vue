@@ -6,7 +6,9 @@
       <template v-if="head && head.url">
         <header class="section">
           <h1 class="heading-default heading">{{ $route.meta.title }}</h1>
-          <p><a :href="head.url">{{ head.url }}</a></p>
+          <a :href="head.url" rel="noopener" target="_blank">
+            {{ head.url }}
+          </a>
         </header>
         <router-view></router-view>
       </template>

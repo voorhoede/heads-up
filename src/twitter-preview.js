@@ -4,7 +4,7 @@
   const description = params.get('description')
   const image = params.get('image')
   const url = params.get('url')
-  const type = params.get('type')
+  const type = params.get('card')
 
   const twitterElement = document.querySelector('[data-twitter-preview-card]')
   twitterElement.innerHTML = getTwitterMarkup({

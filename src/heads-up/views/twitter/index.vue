@@ -12,57 +12,60 @@
         @load="onResize"
       />
     </panel-section>
+
+    <panel-section title="Properties">
+      <properties-list>
+        <dt>twitter:card</dt><dd>{{ twitter.card }}</dd>
+        <dt>twitter:title</dt><dd>{{ twitter.title }}</dd>
+        <dt>twitter:description</dt><dd>{{ twitter.description }}</dd>
+        <dt>twitter:image</dt>
+        <dd>
+          <a :href="twitter.image" rel="noopener" target="_blank">
+            {{ twitter.image }}
+          </a>
+        </dd>
+      </properties-list>
+    </panel-section>
   </div>
 </template>
 
 
 <script>
   import { mapState } from 'vuex'
-  import { PanelSection } from '../../components'
+  import { PanelSection, PropertiesList } from '../../components'
+  import { findMetaContent } from '../../lib/find-meta'
 
   export default {
-    components: { PanelSection },
+    components: { PanelSection, PropertiesList },
     data() {
       return {
-        iframeHeight: 'auto'
+        iframeHeight: 'auto',
       }
     },
     computed: {
       ...mapState(['head']),
-      charsetValue() {
-        const charsetMetaItem = this.head.meta.find(metaItem => Object.keys(metaItem).includes('charset'))
-        return charsetMetaItem ? charsetMetaItem.charset : null;
+      title() {
+        return this.twitter.title || this.head.title || ''
       },
-      viewportValue() {
-        const viewportMetaItem = this.head.meta.find(metaItem => metaItem.name === 'viewport')
-        return viewportMetaItem ? viewportMetaItem.content : null;
+      description() {
+        return this.twitter.description || this.metaValue('description') || ''
       },
-      themeColorValue() {
-        const themeColorMetaItem = this.head.meta.find(metaItem => metaItem.name === 'theme-color')
-        return themeColorMetaItem ? themeColorMetaItem.content : null;
-      },
-      favicons() {
-        return this.head.link
-          .filter(linkItem => linkItem.rel === 'shortcut icon' || linkItem.rel === 'icon')
-          .map(faviconItem => {
-            const url = faviconItem.href.startsWith('http') ? faviconItem.href : new URL(this.head.url).origin + faviconItem.href
-            return {
-              ...faviconItem,
-              url
-            }
-          })
+      twitter() {
+        return {
+          card: this.metaValue('twitter:card'),
+          title: this.metaValue('twitter:title'),
+          description: this.metaValue('twitter:description'),
+          image: this.metaValue('twitter:image'),
+        }
       },
       twitterUrl() {
-        const twitterTitleMetaItem = this.head.meta.find(metaItem => metaItem.name === 'twitter:title')
-        const twitterTitle = twitterTitleMetaItem ? twitterTitleMetaItem.content : ''
-        const twitterDescrpitionMetaItem = this.head.meta.find(metaItem => metaItem.name === 'twitter:description')
-        const twitterDescription = twitterDescrpitionMetaItem ? twitterDescrpitionMetaItem.content : ''
-        const twitterImageItem = this.head.meta.find(metaItem => metaItem.name === 'twitter:image')
-        const twitterImage = twitterImageItem ? twitterImageItem.content : ''
-        const twitterTypeItem = this.head.meta.find(metaItem => metaItem.name === 'twitter:image')
-        const twitterType = twitterTypeItem ? twitterTypeItem.content : ''
-
-        return `/twitter-preview.html?title=${twitterTitle}&description=${twitterDescription}&image=${twitterImage}&url=${this.head.url}&type=${twitterType}`
+        const params = new URLSearchParams()
+        params.set('card', this.twitter.card)
+        params.set('title', this.title)
+        params.set('description', this.description)
+        params.set('image', this.twitter.image)
+        params.set('url', this.head.url)
+        return `/twitter-preview.html?${params}`
       }
     },
     mounted() {
@@ -72,6 +75,9 @@
       window.removeEventListener('resize', this.onResize)
     },
     methods: {
+      metaValue(metaName) {
+        return findMetaContent(this.head, metaName)
+      },
       onResize() {
         this.iframeHeight = parseInt(this.$refs.iframe.contentWindow.document.body.scrollHeight + 2) + 'px';
       }
