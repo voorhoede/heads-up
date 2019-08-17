@@ -4,15 +4,21 @@ import router from './router'
 import { createStore } from './store'
 
 const store = createStore();
+const background = chrome.runtime.connect({ name: 'devtools' })
+const tabId = chrome.devtools.inspectedWindow.tabId
+const requestData = () => background.postMessage({ tabId, action: 'get-data' })
 
-const portToBackgroundScript = chrome.runtime.connect({ name: 'devtools' })
+requestData()
 
 // Listen to messages from the background script.
-portToBackgroundScript.onMessage.addListener((head) => {
-  if (head.url.startsWith('chrome')) {
-    return
+background.onMessage.addListener((message) => {
+  // console.log('received message in panel', message)
+  if (!message.action) return
+  if (message.action === 'content-changed') {
+    requestData()
+  } else if (message.action === 'new-data' && message.tabId === tabId) {
+    store.commit('SET_HEAD', { head: message.data.head })
   }
-  store.commit('SET_HEAD', { head })
 })
 
 Vue.config.devtools = true
