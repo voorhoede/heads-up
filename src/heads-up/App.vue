@@ -1,91 +1,50 @@
 <template>
-  <div>
-    <button type="button" v-if="isDev" @click="reload()">REFRESH</button>
-    <aside class="sidebar">
-      <ul class="sidebar-list">
-        <li class="sidebar-list__item">Application
-          <ul class="sidebar-list">
-            <li class="sidebar-list__item">
-              <router-link class="sidebar__button" :to="{ name: 'page-meta' }">
-                Page meta
-              </router-link>
-            </li>
-            <li class="sidebar-list__item">
-              <router-link class="sidebar__button" :to="{ name: 'twitter' }">
-                Twitter
-              </router-link>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </aside>
+  <div class="app">
+    <app-sidebar class="app__sidebar" />
 
-    <main class="panel" >
+    <main class="app__panel" >
       <template v-if="head && head.url">
-        <section class="section">
-
+        <header class="section">
           <h1 class="heading-default heading">{{ $route.meta.title }}</h1>
           <p><a :href="head.url">{{ head.url }}</a></p>
-        </section>
-
+        </header>
         <router-view></router-view>
       </template>
     </main>
+
+    <refresh-button v-if="isDev" />
 
   </div>
 </template>
 
 <script>
   import { mapState } from 'vuex'
+  import { AppSidebar, RefreshButton } from './components'
 
   export default {
     name: 'App',
-    data() {
-      return {
-        isDev: process.env.NODE_ENV === 'development'
-      }
-    },
+    components: { AppSidebar, RefreshButton },
     computed: {
       ...mapState(['head']),
-    },
-    methods: {
-      reload() {
-        window.location.reload()
-      }
+      isDev() { return process.env.NODE_ENV === 'development' }
     }
   }
 </script>
 
 <style>
-  html {
+  :root {
+    --sidebar-width: 190px;
+  }
+
+  .app__sidebar {
+    position: fixed;
     height: 100%;
-    font-family: Helvetica, Arial, sans-serif;
-    color: var(--color-body);
+    width: var(--sidebar-width);
   }
 
-  body {
-    height: 100%;
-  }
-
-  a {
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-    font-weight: normal;
-    color: var(--color-action);
-    text-decoration: underline;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-  }
-
-  .panel {
-    width: calc(100% - 190px);
-    margin-left: 190px;
-  }
-
-  .panel__twitter-preview {
-    max-width: 521px;
-    margin: 0;
-    padding: 0;
-    border: none;
+  .app__panel {
+    width: calc(100% - var(--sidebar-width));
+    margin-left: var(--sidebar-width);
   }
 
   .section {
@@ -112,91 +71,5 @@
 
   .heading-smaller {
     font-size: .8125rem;
-  }
-
-  .properties-list {
-    list-style: none;
-    width: 100%;
-  }
-
-  .properties-list__item {
-    margin-bottom: 20px;
-  }
-
-  .properties-list__title {
-    margin-bottom: 4px;
-    font-weight: normal;
-    font-size: .8125rem;
-    color: var(--color-grey-medium);
-  }
-
-  .properties-list__content {
-    display: inline-block;
-    font-size: .8125rem;
-  }
-
-  .sidebar {
-    position: fixed;
-    height: 100%;
-    width: 190px;
-    font-weight: bold;
-    font-size: .8125rem;
-    border-right: 1px solid #d0d0d0;
-    background-color: #f3f3f3;
-    overflow: auto;
-  }
-
-  .sidebar-list {
-    padding: 10px;
-    list-style: none;
-  }
-
-  .sidebar-list .sidebar-list {
-    margin-left: 10px;
-    padding: 0 8px;
-  }
-
-  .sidebar-list__item:not(:last-child) {
-    margin-bottom: 5px;
-  }
-
-  .sidebar__button {
-    all: unset;
-    cursor: pointer;
-  }
-
-  .properties-list__color-block {
-    display: inline-block;
-    margin-right: 3px;
-    width: 10px;
-    height: 10px;
-    border: 1px solid #888;
-  }
-
-  @media (min-width: 650px) {
-    .properties-list__item {
-      display: flex;
-      align-items: center;
-    }
-
-    .properties-list__color-block {
-      display: inline-block;
-      flex-basis: 10px;
-      flex-shrink: 0;
-      flex-grow: 0;
-    }
-
-    .properties-list__title {
-      flex-basis: 128px;
-      flex-grow: 0;
-      flex-shrink: 0;
-      margin-bottom: 0;
-      margin-right: 16px;
-      text-align: right;
-    }
-
-    .properties-list__content {
-      width: 521px;
-    }
   }
 </style>

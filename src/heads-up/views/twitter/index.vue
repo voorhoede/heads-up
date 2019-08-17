@@ -1,24 +1,31 @@
 <template>
   <div>
-    <iframe :src="twitterUrl" scrolling="no" width="100%" :height="iframeHeight" frameborder="0" ref="iframe" @load="onResize"></iframe>
+    <panel-section title="Preview">
+      <iframe
+        ref="iframe"
+        :src="twitterUrl"
+        :height="iframeHeight"
+        width="100%"
+        frameborder="0"
+        scrolling="no"
+        class="twitter__preview"
+        @load="onResize"
+      />
+    </panel-section>
   </div>
 </template>
 
 
 <script>
   import { mapState } from 'vuex'
+  import { PanelSection } from '../../components'
 
   export default {
+    components: { PanelSection },
     data() {
       return {
         iframeHeight: 'auto'
       }
-    },
-    mounted() {
-      window.addEventListener('resize', this.onResize)
-    },
-    destroyed() {
-      window.removeEventListener('resize', this.onResize)
     },
     computed: {
       ...mapState(['head']),
@@ -58,6 +65,12 @@
         return `/twitter-preview.html?title=${twitterTitle}&description=${twitterDescription}&image=${twitterImage}&url=${this.head.url}&type=${twitterType}`
       }
     },
+    mounted() {
+      window.addEventListener('resize', this.onResize)
+    },
+    destroyed() {
+      window.removeEventListener('resize', this.onResize)
+    },
     methods: {
       onResize() {
         this.iframeHeight = parseInt(this.$refs.iframe.contentWindow.document.body.scrollHeight + 2) + 'px';
@@ -65,3 +78,12 @@
     }
   }
 </script>
+
+<style>
+  .twitter__preview {
+    max-width: 521px;
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+</style>

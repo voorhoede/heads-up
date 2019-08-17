@@ -1,2 +1,20 @@
 @import "variables.css";
 @import "css-defaults.css";
+
+html {
+  height: 100%;
+  color: var(--color-body);
+}
+
+body {
+  height: 100%;
+  font-family: '.SFNSDisplay-Regular', 'Helvetica Neue', 'Lucida Grande', sans-serif;
+}
+
+a {
+  font-weight: normal;
+  color: var(--color-action);
+  text-decoration: underline;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
