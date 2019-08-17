@@ -7,3 +7,8 @@ export function findMetaContent(head, name) {
   const item = head.meta.find(item => item.name === name)
   return item ? item.content : null
 }
+
+export function findMetaProperty(head, name) {
+  const item = head.meta.find(item => item.property === name)
+  return item ? item.content : null
+}

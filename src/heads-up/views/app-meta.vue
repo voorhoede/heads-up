@@ -7,9 +7,12 @@
         <dt>Viewport</dt><dd>{{ viewport }}</dd>
         <dt>Theme color</dt>
         <dd>
-          <span class="properties-list__color-swatch"
-            :style="{ backgroundColor: themeColor }" />
-          {{ themeColorValue }}
+          <span
+            v-if="themeColor"
+            class="properties-list__color-swatch"
+            :style="{ backgroundColor: themeColor }"
+          />
+          {{ themeColor }}
         </dd>
       </properties-list>
     </panel-section>

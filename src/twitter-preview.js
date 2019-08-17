@@ -33,7 +33,7 @@
 
       return `
         <div class="${ type === 'summary' ? `twitter-preview is-small` : `twitter-preview` }">
-          <a ${ twitterLink } class="${ type === 'summary' ? `twitter-preview__link-container` : `twitter-preview__link-container twitter-preview__link-container--vertical` } ">
+          <a rel="noopener" target="_blank" ${ twitterLink } class="${ type === 'summary' ? `twitter-preview__link-container` : `twitter-preview__link-container twitter-preview__link-container--vertical` } ">
             <div class="${ image
               ? `${ type === 'summary'
                 ? `twitter-preview__media`
