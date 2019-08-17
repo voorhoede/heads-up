@@ -1,14 +1,28 @@
-// Send data to the background script.
-chrome.runtime.sendMessage(getHeadData())
+monitorPageChanges()
+sendContentChange()
 
 // Listen to messages from the background script.
 chrome.runtime.onMessage.addListener((message) => {
-  if (message && message.action === 'reload-panel') {
-    chrome.runtime.sendMessage(getHeadData())
+  console.log('incoming message in content.js', message)
+  if (message && message.action === 'get-data') {
+    const head = getHeadData()
+    const {tabId} = message
+    chrome.runtime.sendMessage({
+      from: 'content',
+      action: 'new-data',
+      data: {head},
+      tabId
+    })
   }
 })
 
-monitorPageChanges()
+// Send data to the background script.
+function sendContentChange() {
+  chrome.runtime.sendMessage({
+    action: 'content-changed',
+    from: 'content'
+  })
+}
 
 function getHeadData() {
   const url = window.location.href
@@ -30,8 +44,6 @@ function getHeadData() {
     meta: elementsToJson(document.querySelectorAll('head meta')),
   }
 
-  console.log('meheheheh')
-  console.log({ head })
   return head
 }
 
@@ -47,7 +59,7 @@ function monitorPageChanges() {
     mutationList.forEach((mutation) => {
       if ((mutation.type === 'attributes' && mutation.target.nodeName === 'META') || mutation.type === 'characterData' || mutation.type === 'childList') {
         console.log('got change in head', mutation)
-        chrome.runtime.sendMessage(getHeadData())
+        sendContentChange()
       }
     })
   })
