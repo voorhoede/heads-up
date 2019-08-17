@@ -9,6 +9,11 @@
           </router-link>
         </li>
         <li class="sidebar-list__item">
+          <router-link class="sidebar__button" :to="{ name: 'apple-ios' }">
+            Apple iOS
+          </router-link>
+        </li>
+        <li class="sidebar-list__item">
           <router-link class="sidebar__button" :to="{ name: 'open-graph' }">
             Open Graph
           </router-link>

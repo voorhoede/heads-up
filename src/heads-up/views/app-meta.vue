@@ -26,7 +26,9 @@
             <div v-if="favicon.type">{{ favicon.type }}</div>
           </dt>
           <dd :key="favicon.url">
-            <img :src="favicon.url" />
+            <external-link :href="favicon.url">
+              <img :src="favicon.url" />
+            </external-link>
           </dd>
         </template>
       </properties-list>
@@ -36,11 +38,11 @@
 
 <script>
   import { mapState } from 'vuex'
-  import { PanelSection, PropertiesList } from '../components'
+  import { ExternalLink, PanelSection, PropertiesList } from '../components'
   import { findCharset, findMetaContent } from '../lib/find-meta'
 
   export default {
-    components: { PanelSection, PropertiesList },
+    components: { ExternalLink, PanelSection, PropertiesList },
     computed: {
       ...mapState(['head']),
       charset() { return findCharset(this.head) },

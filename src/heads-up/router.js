@@ -18,6 +18,14 @@ export default new VueRouter({
       component: () => import('./views/app-meta.vue')
     },
     {
+      path: '/apple-ios',
+      name: 'apple-ios',
+      meta: {
+        title: 'Apple iOS',
+      },
+      component: () => import('./views/apple-ios.vue')
+    },
+    {
       path: '/open-graph',
       name: 'open-graph',
       meta: {
