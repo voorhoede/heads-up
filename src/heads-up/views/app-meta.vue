@@ -33,8 +33,8 @@
 
 <script>
   import { mapState } from 'vuex'
-  import { PanelSection, PropertiesList } from '../../components'
-  import { findCharset, findMetaContent } from '../../lib/find-meta'
+  import { PanelSection, PropertiesList } from '../components'
+  import { findCharset, findMetaContent } from '../lib/find-meta'
 
   export default {
     components: { PanelSection, PropertiesList },

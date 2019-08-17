@@ -1,35 +1,38 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-const pageMetaPage = () => import('./views/page-meta/index.vue')
-const twitterPage = () => import('./views/twitter/index.vue')
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
-    path: '/',
-    redirect: '/page-meta'
-  },
-  {
-    path: '/page-meta',
-    name: 'page-meta',
-    meta: {
-      title: 'Page Meta',
+export default new VueRouter({
+  routes: [
+    {
+      path: '/',
+      redirect: '/app-meta'
     },
-    component: pageMetaPage
-  },
-  {
-    path: '/twitter',
-    name: 'twitter',
-    meta: {
-      title: 'Twitter',
+    {
+      path: '/app-meta',
+      name: 'app-meta',
+      meta: {
+        title: 'Meta',
+      },
+      component: () => import('./views/app-meta.vue')
     },
-    component: twitterPage
-  }
-]
-
-const router = new VueRouter({
-  routes
+    {
+      path: '/open-graph',
+      name: 'open-graph',
+      meta: {
+        title: 'Open Graph',
+      },
+      component: () => import('./views/open-graph.vue')
+    },
+    {
+      path: '/twitter',
+      name: 'twitter',
+      meta: {
+        title: 'Twitter',
+      },
+      component: () => import('./views/twitter.vue')
+    }
+  ]
 })
 
-export default router

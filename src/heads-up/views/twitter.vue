@@ -20,9 +20,7 @@
         <dt>twitter:description</dt><dd>{{ twitter.description }}</dd>
         <dt>twitter:image</dt>
         <dd>
-          <a :href="twitter.image" rel="noopener" target="_blank">
-            {{ twitter.image }}
-          </a>
+          <external-link :href="twitter.image">{{ twitter.image }}</external-link>
         </dd>
       </properties-list>
     </panel-section>
@@ -32,11 +30,11 @@
 
 <script>
   import { mapState } from 'vuex'
-  import { PanelSection, PropertiesList } from '../../components'
-  import { findMetaContent } from '../../lib/find-meta'
+  import { ExternalLink, PanelSection, PropertiesList } from '../components'
+  import { findMetaContent } from '../lib/find-meta'
 
   export default {
-    components: { PanelSection, PropertiesList },
+    components: { ExternalLink, PanelSection, PropertiesList },
     data() {
       return {
         iframeHeight: 'auto',

@@ -6,9 +6,7 @@
       <template v-if="head && head.url">
         <header class="section">
           <h1 class="heading-default heading">{{ $route.meta.title }}</h1>
-          <a :href="head.url" rel="noopener" target="_blank">
-            {{ head.url }}
-          </a>
+          <external-link :href="head.url">{{ head.url }}</external-link>
         </header>
         <router-view></router-view>
       </template>
@@ -21,11 +19,11 @@
 
 <script>
   import { mapState } from 'vuex'
-  import { AppSidebar, RefreshButton } from './components'
+  import { AppSidebar, ExternalLink, RefreshButton } from './components'
 
   export default {
     name: 'App',
-    components: { AppSidebar, RefreshButton },
+    components: { AppSidebar, ExternalLink, RefreshButton },
     computed: {
       ...mapState(['head']),
       isDev() { return process.env.NODE_ENV === 'development' }

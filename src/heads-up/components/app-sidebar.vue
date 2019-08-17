@@ -4,10 +4,18 @@
       <h2>Application</h2>
       <ul class="sidebar-list">
         <li class="sidebar-list__item">
-          <router-link class="sidebar__button" :to="{ name: 'page-meta' }">
-            Page meta
+          <router-link class="sidebar__button" :to="{ name: 'app-meta' }">
+            Meta
           </router-link>
         </li>
+        <li class="sidebar-list__item">
+          <router-link class="sidebar__button" :to="{ name: 'open-graph' }">
+            Open Graph
+          </router-link>
+        </li>
+      </ul>
+      <h2>Social Media</h2>
+      <ul class="sidebar-list">
         <li class="sidebar-list__item">
           <router-link class="sidebar__button" :to="{ name: 'twitter' }">
             Twitter
