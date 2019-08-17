@@ -5,17 +5,17 @@
       <ul class="sidebar-list">
         <li class="sidebar-list__item">
           <router-link class="sidebar__button" :to="{ name: 'app-meta' }">
-            Meta
+            <CodeIcon class="sidebar__icon"/> Meta
           </router-link>
         </li>
         <li class="sidebar-list__item">
           <router-link class="sidebar__button" :to="{ name: 'apple-ios' }">
-            Apple iOS
+            <AppleIcon class="sidebar__icon"/> Apple iOS
           </router-link>
         </li>
         <li class="sidebar-list__item">
           <router-link class="sidebar__button" :to="{ name: 'open-graph' }">
-            Open Graph
+            <OpenGraphIcon class="sidebar__icon"/> Open Graph
           </router-link>
         </li>
       </ul>
@@ -26,13 +26,24 @@
       <ul class="sidebar-list">
         <li class="sidebar-list__item">
           <router-link class="sidebar__button" :to="{ name: 'twitter' }">
-            Twitter
+            <TwitterIcon class="sidebar__icon"/> Twitter
           </router-link>
         </li>
       </ul>
     </section>
   </nav>
 </template>
+
+<script>
+import AppleIcon from '../assets/icons/apple.svg'
+import CodeIcon from '../assets/icons/code.svg'
+import OpenGraphIcon from '../assets/icons/open-graph.svg'
+import TwitterIcon from '../assets/icons/twitter.svg'
+
+export default {
+  components: { AppleIcon, CodeIcon, OpenGraphIcon, TwitterIcon }
+}
+</script>
 
 <style>
   .sidebar {
@@ -45,7 +56,7 @@
   .sidebar__divider {
     margin-top: 10px;
     margin-bottom: 5px;
-    border-top: var(--divider-border);
+    border-top: 1px solid rgb(230, 230, 230);
   }
 
   .sidebar__heading {
@@ -71,5 +82,11 @@
   .sidebar__button:focus {
     background-color: var(--selection-bg-color);
     color: var(--selection-fg-color);
+  }
+
+  .sidebar__icon {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
   }
 </style>

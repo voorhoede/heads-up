@@ -42,6 +42,10 @@ module.exports = (config, target = { chrome: 52, firefox: 48 }) => {
           ]
         },
         {
+          test: /\.svg$/,
+          loader: 'vue-svg-loader',
+        },
+        {
           test: /\.(png|woff2)$/,
           loader: 'url-loader?limit=0'
         }
