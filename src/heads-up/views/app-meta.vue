@@ -5,15 +5,17 @@
         <dt>Title</dt><dd>{{ head.title }}</dd>
         <dt>Charset</dt><dd>{{ charset }}</dd>
         <dt>Viewport</dt><dd>{{ viewport }}</dd>
+        <template v-if="themeColor">
         <dt>Theme color</dt>
-        <dd>
-          <span
-            v-if="themeColor"
-            class="properties-list__color-swatch"
-            :style="{ backgroundColor: themeColor }"
-          />
-          {{ themeColor }}
-        </dd>
+          <dd>
+            <span
+              v-if="themeColor"
+              class="properties-list__color-swatch"
+              :style="{ backgroundColor: themeColor }"
+            />
+            {{ themeColor }}
+          </dd>
+        </template>
       </properties-list>
     </panel-section>
 

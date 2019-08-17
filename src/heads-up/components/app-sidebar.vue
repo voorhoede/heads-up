@@ -1,7 +1,7 @@
 <template>
   <nav class="sidebar">
     <section>
-      <h2>Application</h2>
+      <h2 class="sidebar__heading">Application</h2>
       <ul class="sidebar-list">
         <li class="sidebar-list__item">
           <router-link class="sidebar__button" :to="{ name: 'app-meta' }">
@@ -19,7 +19,10 @@
           </router-link>
         </li>
       </ul>
-      <h2>Social Media</h2>
+    </section>
+    <div class="sidebar__divider" />
+    <section>
+      <h2 class="sidebar__heading">Social Media</h2>
       <ul class="sidebar-list">
         <li class="sidebar-list__item">
           <router-link class="sidebar__button" :to="{ name: 'twitter' }">
@@ -33,11 +36,22 @@
 
 <style>
   .sidebar {
-    font-weight: bold;
     font-size: .8125rem;
     border-right: var(--divider-border);
     background-color: var(--toolbar-bg-color);
     overflow: auto;
+  }
+
+  .sidebar__divider {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    border-top: var(--divider-border);
+  }
+
+  .sidebar__heading {
+    all: unset;
+    display: block;
+    padding: 10px 10px 5px 10px;
   }
 
   .sidebar-list {
@@ -48,7 +62,7 @@
     all: unset;
     cursor: pointer;
     display: block;
-    padding: 5px 5px 5px 25px;
+    padding: 3px 5px 3px 25px;
   }
   .sidebar__button.router-link-exact-active {
     background-color: var(--selection-inactive-bg-color);
