@@ -4,18 +4,18 @@ import router from './router'
 import { createStore } from './store'
 
 const store = createStore();
-const portToBackgroundScript = chrome.runtime.connect({ name: 'devtools' })
+const background = chrome.runtime.connect({ name: 'devtools' })
 const tabId = chrome.devtools.inspectedWindow.tabId
+const requestData = () => background.postMessage({ tabId, action: 'get-data' })
+
+requestData()
 
 // Listen to messages from the background script.
-portToBackgroundScript.onMessage.addListener((message) => {
-  console.log('received msg in panel', message)
-  if (message.action && message.action === 'content-changed') {
-    console.log('request for new content with ', { tabId })
-    portToBackgroundScript.postMessage({
-      tabId,
-      action: 'get-data'
-    });
+background.onMessage.addListener((message) => {
+  // console.log('received message in panel', message)
+  if (!message.action) return
+  if (message.action === 'content-changed') {
+    requestData()
   } else if (message.action === 'new-data' && message.tabId === tabId) {
     store.commit('SET_HEAD', { head: message.data.head })
   }

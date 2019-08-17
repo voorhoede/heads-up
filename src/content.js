@@ -1,23 +1,22 @@
-monitorPageChanges()
-sendContentChange()
+emitContentChanged()
+observeHead({ onChange: () => emitContentChanged() })
 
 // Listen to messages from the background script.
 chrome.runtime.onMessage.addListener((message) => {
   console.log('incoming message in content.js', message)
   if (message && message.action === 'get-data') {
-    const head = getHeadData()
-    const {tabId} = message
     chrome.runtime.sendMessage({
       from: 'content',
       action: 'new-data',
-      data: {head},
-      tabId
+      data: {
+        head: getHeadData(),
+      },
+      tabId: message.tabId
     })
   }
 })
 
-// Send data to the background script.
-function sendContentChange() {
+function emitContentChanged() {
   chrome.runtime.sendMessage({
     action: 'content-changed',
     from: 'content'
@@ -25,43 +24,35 @@ function sendContentChange() {
 }
 
 function getHeadData() {
-  const url = window.location.href
-  const title = document.querySelector('title').textContent
-
-  const elementsToJson = elements => Array.from(elements).map(element => {
-    return Array.from(element.attributes).reduce((obj, attr) => {
-      return {
-        ...obj,
-        [attr.nodeName]: attr.nodeValue
-      }
-    }, {})
-  })
-
-  const head = {
-    url,
-    title,
-    link: elementsToJson(document.querySelectorAll('head link')),
-    meta: elementsToJson(document.querySelectorAll('head meta')),
+  return {
+    url: window.location.href,
+    title: document.title,
+    link: elementsToJson(document.head.querySelectorAll('link')),
+    meta: elementsToJson(document.head.querySelectorAll('meta')),
   }
-
-  return head
 }
 
-function monitorPageChanges() {
-  const headElement = document.querySelector('head')
-  const observerOptions = {
+function elementsToJson (elements) {
+  return Array.from(elements).map(element => {
+    return Array.from(element.attributes).reduce((obj, attr) => {
+      return { ...obj, [attr.nodeName]: attr.nodeValue }
+    }, {})
+  })
+}
+
+function observeHead({ onChange }) {
+  const observer = new MutationObserver((mutationList) => {
+    mutationList.forEach((mutation) => {
+      if ((mutation.type === 'attributes' && mutation.target.nodeName === 'META') || mutation.type === 'characterData' || mutation.type === 'childList') {
+        console.log('<head> change detected:', mutation)
+        onChange()
+      }
+    })
+  })
+  observer.observe(document.head, {
     childList: true,
     attributes: true,
     subtree: true,
     characterData: true
-  }
-  const observer = new MutationObserver((mutationList) => {
-    mutationList.forEach((mutation) => {
-      if ((mutation.type === 'attributes' && mutation.target.nodeName === 'META') || mutation.type === 'characterData' || mutation.type === 'childList') {
-        console.log('got change in head', mutation)
-        sendContentChange()
-      }
-    })
   })
-  observer.observe(headElement, observerOptions)
 }

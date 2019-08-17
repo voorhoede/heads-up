@@ -2,7 +2,7 @@ let panel = null
 
 // Messages from content.js
 chrome.runtime.onMessage.addListener((message) => {
-  console.log('got message in background from', message.from, message)
+  console.log('message from', message.from, message)
   if (message.from && message.from === 'content' && panel) {
     panel.postMessage(message)
   }
