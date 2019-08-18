@@ -2,8 +2,8 @@ let panel = null
 
 // Messages from content.js
 chrome.runtime.onMessage.addListener((message) => {
-  console.log('message from', message.from, message)
-  if (message.from && message.from === 'content' && panel) {
+  console.log('message from content', message)
+  if (message.action && panel) {
     panel.postMessage(message)
   }
 })
