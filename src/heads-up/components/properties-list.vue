@@ -26,6 +26,10 @@
   .properties-list dd {
     width: calc(100% - var(--term-width));
   }
+  .properties-list img {
+    display: block;
+    max-width: 200px;
+  }
   .properties-list__color-swatch {
     display: inline-block;
     margin-right: 3px;

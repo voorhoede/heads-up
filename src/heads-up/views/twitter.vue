@@ -1,17 +1,27 @@
 <template>
   <div>
     <panel-section title="Preview">
-      <iframe
-        v-if="card"
-        ref="iframe"
-        :src="twitterUrl"
-        :height="iframeHeight"
-        width="100%"
-        frameborder="0"
-        scrolling="no"
-        class="twitter__preview"
-        @load="onResize"
-      />
+      <p v-if="!isValidCard">
+
+      </p>
+      <p v-if="isValidCard && !isSupportedCard">
+        Preview is not yet available for <code>{{ card }}</code> cards. <br />
+        Card preview is currently supported for:
+        <span v-html="supportedCards.map(v => `<code>${v}</code>`).join(', ')" />.
+      </p>
+      <template v-if="isValidCard && isSupportedCard">
+        <iframe
+          ref="iframe"
+          :src="twitterUrl"
+          :height="iframeHeight"
+          width="100%"
+          frameborder="0"
+          scrolling="no"
+          class="twitter__preview"
+          @load="onResize"
+        />
+        <p>Preview based on <external-link href="https://mobile.twitter.com/">mobile.twitter.com</external-link>.</p>
+      </template>
     </panel-section>
 
     <panel-section title="Properties">
@@ -19,10 +29,13 @@
         <dt>twitter:card</dt><dd>{{ twitter.card }}</dd>
         <dt>twitter:title</dt><dd>{{ twitter.title }}</dd>
         <dt>twitter:description</dt><dd>{{ twitter.description }}</dd>
-        <dt>twitter:image</dt>
-        <dd>
-          <external-link :href="twitter.image">{{ twitter.image }}</external-link>
-        </dd>
+        <template v-if="twitter.image">
+          <dt>twitter:image</dt>
+          <dd>
+            <img alt="" :src="og.image" />
+            <external-link :href="twitter.image">{{ twitter.image }}</external-link>
+          </dd>
+        </template>
         <template v-for="username in ['creator', 'site']">
           <dt :key="username" v-if="twitter[username]">
             twitter:{{ username }}
@@ -34,13 +47,22 @@
           </dd>
         </template>
 
-        <dt>og:type</dt><dd>{{ og.type }}</dd>
-        <dt>og:title</dt><dd>{{ og.title }}</dd>
-        <dt>og:description</dt><dd>{{ og.description }}</dd>
-        <dt>og:image</dt>
-        <dd>
-          <external-link :href="og.image">{{ og.image }}</external-link>
-        </dd>
+        <template v-if="og.type">
+          <dt>og:type</dt><dd>{{ og.type }}</dd>
+        </template>
+        <template v-if="og.title">
+          <dt>og:title</dt><dd>{{ og.title }}</dd>
+        </template>
+        <template v-if="og.description">
+          <dt>og:description</dt><dd>{{ og.description }}</dd>
+        </template>
+        <template v-if="og.image">
+          <dt>og:image</dt>
+          <dd>
+            <img alt="" :src="og.image" />
+            <external-link :href="og.image">{{ og.image }}</external-link>
+          </dd>
+        </template>
 
       </properties-list>
     </panel-section>
@@ -67,6 +89,9 @@
   import { ExternalLink, PanelSection, PropertiesList } from '../components'
   import { findMetaContent, findMetaProperty } from '../lib/find-meta'
 
+  const validCards = ['summary', 'summary_large_image', 'app', 'player']
+  export const supportedCards = ['summary', 'summary_large_image']
+
   export default {
     components: { ExternalLink, PanelSection, PropertiesList },
     data() {
@@ -88,6 +113,9 @@
           return 'summary'
         }
       },
+      supportedCards() { return supportedCards },
+      isValidCard() { return validCards.includes(this.card) },
+      isSupportedCard() { return supportedCards.includes(this.card) },
       title() {
         return this.twitter.title || this.og.title || this.head.title || ''
       },
@@ -148,7 +176,7 @@
 <style>
   .twitter__preview {
     max-width: 521px;
-    margin: 0;
+    margin-bottom: 1em;
     padding: 0;
     border: none;
   }
