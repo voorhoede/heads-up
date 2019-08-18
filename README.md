@@ -5,9 +5,9 @@
 ## Features
 
 * Presents key page meta (title, charset, viewport, ...) and favicons.
-* Presents all Open Graph properties found in the page.
+* Presents all Open Graph (`og:*`) properties found in the page.
 * Presents Apple iOS (`apple-mobile-web-*`) settings, touch icons and startup images.
-* Presents Twitter settings and a preview of a Twitter card.
+* Presents Twitter settings (`twitter:*`) and a preview of a Twitter card.
 * Works with any site and web app (incl. localhost).
 * Supports editing in devtools and hot module reloading.
 
@@ -33,11 +33,14 @@ src/
     store/
     views/
     App.vue
+    index.html
     index.js
     router.js
 ```
 
-The Heads Up app receives its data from the Devtools via messages (in `src/heads-up/index.js`). Devtools injects a content script (`src/devools/content.js`) into the scope of the web page. Our content script is responsible for extracting the data we need in our app. Because our Heads Up app and our content script can't communicate directly, a background script (`src/devtools/background.js`) proxies our messages between the two.
+The `manifest.json` registers our extension and bootstraps our Devtools (`src/devtools/devtools.(html|js)`), which in turn creates a Devtools panel with Heads Up (`src/heads-up/index.(html|js)`), which starts our Heads Up app (`src/heads-up/App.vue`).
+
+The Heads Up app receives its data from the Devtools via messages (in `src/heads-up/index.js`). Devtools injects a content script (`src/devools/content.js`) into the scope of the web page. That content script is responsible for extracting the data we need in our app. Because our Heads Up app and our content script can't communicate directly, a background script (`src/devtools/background.js`) proxies our messages between the two.
 
 ### Workflow
 
