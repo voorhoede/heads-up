@@ -4,7 +4,7 @@
   const description = params.get('description')
   const image = params.get('image')
   const url = params.get('url')
-  const type = params.get('type')
+  const type = params.get('card')
 
   const twitterElement = document.querySelector('[data-twitter-preview-card]')
   twitterElement.innerHTML = getTwitterMarkup({
@@ -33,7 +33,7 @@
 
       return `
         <div class="${ type === 'summary' ? `twitter-preview is-small` : `twitter-preview` }">
-          <a ${ twitterLink } class="${ type === 'summary' ? `twitter-preview__link-container` : `twitter-preview__link-container twitter-preview__link-container--vertical` } ">
+          <a rel="noopener" target="_blank" ${ twitterLink } class="${ type === 'summary' ? `twitter-preview__link-container` : `twitter-preview__link-container twitter-preview__link-container--vertical` } ">
             <div class="${ image
               ? `${ type === 'summary'
                 ? `twitter-preview__media`
