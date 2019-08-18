@@ -21,7 +21,7 @@
           </dt>
           <dd :key="icon.url">
             <external-link :href="icon.url">
-              <img :src="icon.url" />
+              <img alt="" :src="icon.url" />
             </external-link>
           </dd>
         </template>
@@ -39,7 +39,7 @@
           </dt>
           <dd :key="image.url">
             <external-link :href="image.url">
-              <img :src="image.url" />
+              <img alt="" :src="image.url" />
             </external-link>
           </dd>
         </template>
@@ -50,6 +50,9 @@
       <ul>
         <li>
           <external-link href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html#//apple_ref/doc/uid/TP40008193-SW3">Apple-specific meta tags</external-link>
+        </li>
+        <li>
+          <external-link href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html">Configuring web applications for iOS</external-link>
         </li>
       </ul>
     </panel-section>

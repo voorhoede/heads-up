@@ -3,6 +3,7 @@
      <panel-section title="Properties">
       <properties-list>
         <dt>Title</dt><dd>{{ head.title }}</dd>
+        <dt>Language</dt><dd>{{ head.lang }}</dd>
         <dt>Charset</dt><dd>{{ charset }}</dd>
         <dt>Viewport</dt><dd>{{ viewport }}</dd>
         <template v-if="themeColor">
@@ -29,12 +30,21 @@
           </dt>
           <dd :key="favicon.url">
             <external-link :href="favicon.url">
-              <img :src="favicon.url" />
+              <img alt="" :src="favicon.url" />
             </external-link>
           </dd>
         </template>
       </properties-list>
     </panel-section>
+
+    <panel-section title="Resources">
+      <ul>
+        <li>
+          <external-link href="https://htmlhead.dev/">Guide to HTML5 <code>&lt;head&gt;</code> elements</external-link>
+        </li>
+      </ul>
+    </panel-section>
+
   </div>
 </template>
 
