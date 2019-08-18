@@ -150,7 +150,7 @@
         params.set('description', this.description)
         params.set('image', this.image)
         params.set('url', this.head.url)
-        return `/twitter-preview.html?${params}`
+        return `/twitter-preview/twitter-preview.html?${params}`
       }
     },
     mounted() {

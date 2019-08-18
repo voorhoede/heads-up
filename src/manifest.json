@@ -1,22 +1,22 @@
 {
   "name": "Heads Up",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "View your <head> data for easier developing.",
   "author": "De Voorhoede",
   "minimum_chrome_version": "69.0",
   "permissions": ["activeTab"],
   "icons": {
-    "36": "assets/icons/icon-36.png",
-    "96": "assets/icons/icon-96.png"
+    "36": "devtools/assets/icons/icon-36.png",
+    "96": "devtools/assets/icons/icon-96.png"
   },
   "background":  {
-    "scripts": ["background.js"]
+    "scripts": ["devtools/background.js"]
   },
-  "devtools_page": "devtools.html",
+  "devtools_page": "devtools/devtools.html",
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content.js"]
+      "js": ["devtools/content.js"]
     }
   ],
   "content_security_policy": "script-src 'self' http://localhost:8098; object-src 'self'",

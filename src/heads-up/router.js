@@ -15,7 +15,7 @@ export default new VueRouter({
       meta: {
         title: 'Meta',
       },
-      component: () => import('./views/app-meta.vue')
+      component: () => import(/* webpackChunkName:'views/app-meta' */ './views/app-meta.vue')
     },
     {
       path: '/apple-ios',
@@ -23,7 +23,7 @@ export default new VueRouter({
       meta: {
         title: 'Apple iOS',
       },
-      component: () => import('./views/apple-ios.vue')
+      component: () => import(/* webpackChunkName:'views/apple-ios' */ './views/apple-ios.vue')
     },
     {
       path: '/open-graph',
@@ -31,7 +31,7 @@ export default new VueRouter({
       meta: {
         title: 'Open Graph',
       },
-      component: () => import('./views/open-graph.vue')
+      component: () => import(/* webpackChunkName:'views/open-graph' */ './views/open-graph.vue')
     },
     {
       path: '/twitter',
@@ -39,7 +39,7 @@ export default new VueRouter({
       meta: {
         title: 'Twitter',
       },
-      component: () => import('./views/twitter.vue')
+      component: () => import(/* webpackChunkName:'views/twitter' */ './views/twitter.vue')
     }
   ]
 })

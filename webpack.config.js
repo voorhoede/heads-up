@@ -1,39 +1,39 @@
 const path = require('path')
-const createConfig = require('./createConfig')
+const createConfig = require('./config/create')
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = createConfig({
   entry: {
-    devtools: './src/devtools.js',
-    background: './src/background.js',
-    content: './src/content.js',
-    'heads-up': './src/heads-up/index.js',
-    'twitter-preview': './src/twitter-preview.js',
+    'index': './src/heads-up/index.js',
+    '../devtools/devtools': './src/devtools/devtools.js',
+    '../devtools/background': './src/devtools/background.js',
+    '../devtools/content': './src/devtools/content.js',
+    '../twitter-preview/twitter-preview': './src/twitter-preview/twitter-preview.js',
   },
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, 'dist/heads-up'),
     filename: '[name].js'
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename: 'heads-up.html',
+      filename: 'index.html',
       template: 'src/heads-up/index.html',
-      chunks: ['heads-up'],
+      chunks: ['index'],
     }),
     new HtmlWebpackPlugin({
-      filename: 'devtools.html',
-      template: 'src/devtools.html',
+      filename: '../devtools/devtools.html',
+      template: 'src/devtools/devtools.html',
       chunks: []
     }),
     new HtmlWebpackPlugin({
-      filename: 'twitter-preview.html',
-      template: 'src/twitter-preview.html',
-      chunks: ['twitter-preview']
+      filename: '../twitter-preview/twitter-preview.html',
+      template: 'src/twitter-preview/twitter-preview.html',
+      chunks: ['../twitter-preview/twitter-preview']
     }),
     new CopyPlugin([
-      { from: 'src/assets/', to: 'assets' },
-      { from: 'src/manifest.json', to: 'manifest.json' },
+      { from: 'src/devtools/assets/', to: '../devtools/assets' },
+      { from: 'src/manifest.json', to: '../manifest.json' },
     ]),
   ],
   devtool: process.env.NODE_ENV !== 'production'

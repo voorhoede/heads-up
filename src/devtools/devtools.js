@@ -2,5 +2,5 @@
 chrome.devtools.panels.create(
   'Heads Up',
   'assets/icons/icon-96.png',
-  'heads-up.html'
+  '../heads-up/index.html'
 )

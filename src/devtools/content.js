@@ -1,5 +1,5 @@
 import { debounce } from 'debounce'
-import * as actions from './heads-up/lib/message-actions'
+import * as actions from '../heads-up/lib/message-actions'
 
 const log = (...args) => console.log('%c[heads-up]', 'color:blue', ...args)
 const sendMessage = (message) => {
