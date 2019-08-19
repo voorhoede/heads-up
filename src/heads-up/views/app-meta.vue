@@ -24,11 +24,11 @@
       <p v-if="!favicons.length">No favicons detected.</p>
       <properties-list>
         <template v-for="favicon in favicons">
-          <dt :key="favicon.url">
+          <dt :key="`${favicon.url}-key`">
             <div v-if="favicon.sizes">{{ favicon.sizes }}</div>
             <div v-if="favicon.type">{{ favicon.type }}</div>
           </dt>
-          <dd :key="favicon.url">
+          <dd :key="`${favicon.url}-value`">
             <external-link :href="favicon.url">
               <img alt="" :src="favicon.url" />
             </external-link>

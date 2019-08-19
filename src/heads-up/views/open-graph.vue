@@ -3,8 +3,8 @@
      <panel-section title="Properties">
       <properties-list>
         <template v-for="meta in ogMeta">
-          <dt :key="meta.property">{{ meta.property }}</dt>
-          <dd :key="meta.property">{{ meta.content }}</dd>
+          <dt :key="`${meta.property}-key`">{{ meta.property }}</dt>
+          <dd :key="`${meta.property}-value`">{{ meta.content }}</dd>
         </template>
       </properties-list>
     </panel-section>

@@ -16,10 +16,10 @@
       <p v-if="!touchIcons.length">No touch icons detected.</p>
       <properties-list>
         <template v-for="icon in touchIcons">
-          <dt :key="icon.url">
+          <dt :key="`${icon.url}-key`">
             <div v-if="icon.sizes">{{ icon.sizes }}</div>
           </dt>
-          <dd :key="icon.url">
+          <dd :key="`${icon.url}-value`">
             <external-link :href="icon.url">
               <img alt="" :src="icon.url" />
             </external-link>
@@ -32,12 +32,12 @@
       <p v-if="!startupImages.length">No startup images detected.</p>
       <properties-list>
         <template v-for="image in startupImages">
-          <dt :key="image.url">
+          <dt :key="`${image.url}-key`">
             {{ image.filename }}
             {{ image.filename }}
             <div v-if="image.sizes">{{ image.sizes }}</div>
           </dt>
-          <dd :key="image.url">
+          <dd :key="`${image.url}-value`">
             <external-link :href="image.url">
               <img alt="" :src="image.url" />
             </external-link>

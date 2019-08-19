@@ -37,10 +37,10 @@
           </dd>
         </template>
         <template v-for="username in ['creator', 'site']">
-          <dt :key="username" v-if="twitter[username]">
+          <dt :key="`${username}-key`" v-if="twitter[username]">
             twitter:{{ username }}
           </dt>
-          <dd :key="username" v-if="twitter[username]">
+          <dd :key="`${username}-value`" v-if="twitter[username]">
             <external-link :href="`https://twitter.com/${twitter[username].slice(1)}`">
               {{ twitter[username] }}
             </external-link>
