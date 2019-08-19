@@ -38,11 +38,11 @@
     </panel-section>
 
     <panel-section title="Resources">
-      <ul>
+      <resource-list>
         <li>
           <external-link href="https://htmlhead.dev/">Guide to HTML5 <code>&lt;head&gt;</code> elements</external-link>
         </li>
-      </ul>
+      </resource-list>
     </panel-section>
 
   </div>
@@ -50,11 +50,11 @@
 
 <script>
   import { mapState } from 'vuex'
-  import { ExternalLink, PanelSection, PropertiesList } from '../components'
+  import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components'
   import { findCharset, findMetaContent } from '../lib/find-meta'
 
   export default {
-    components: { ExternalLink, PanelSection, PropertiesList },
+    components: { ExternalLink, PanelSection, PropertiesList, ResourceList },
     computed: {
       ...mapState(['head']),
       charset() { return findCharset(this.head) },

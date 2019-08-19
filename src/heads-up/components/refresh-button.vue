@@ -16,7 +16,7 @@ export default {
 
 <style scoped>
   button {
-    position: absolute;
+    position: fixed;
     top: 10px;
     right: 10px;
     padding: 5px;

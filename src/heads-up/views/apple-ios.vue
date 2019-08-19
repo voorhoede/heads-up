@@ -47,25 +47,25 @@
     </panel-section>
 
     <panel-section title="Resources">
-      <ul>
+      <resource-list>
         <li>
           <external-link href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html#//apple_ref/doc/uid/TP40008193-SW3">Apple-specific meta tags</external-link>
         </li>
         <li>
           <external-link href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html">Configuring web applications for iOS</external-link>
         </li>
-      </ul>
+      </resource-list>
     </panel-section>
   </div>
 </template>
 
 <script>
   import { mapState } from 'vuex'
-  import { ExternalLink, PanelSection, PropertiesList } from '../components'
+  import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components'
   import { findMetaContent } from '../lib/find-meta'
 
   export default {
-    components: { ExternalLink, PanelSection, PropertiesList },
+    components: { ExternalLink, PanelSection, PropertiesList, ResourceList },
     computed: {
       ...mapState(['head']),
       appCapable() { return this.metaValue('apple-mobile-web-app-capable') },

@@ -10,21 +10,21 @@
     </panel-section>
 
     <panel-section title="Resources">
-      <ul>
+      <resource-list>
         <li>
           <external-link href="https://ogp.me/">The Open Graph Protocol</external-link>
         </li>
-      </ul>
+      </resource-list>
     </panel-section>
   </div>
 </template>
 
 <script>
   import { mapState } from 'vuex'
-  import { ExternalLink, PanelSection, PropertiesList } from '../components'
+  import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components'
 
   export default {
-    components: { ExternalLink, PanelSection, PropertiesList },
+    components: { ExternalLink, PanelSection, PropertiesList, ResourceList },
     computed: {
       ...mapState(['head']),
       ogMeta() {
