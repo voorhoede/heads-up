@@ -31,6 +31,9 @@
         </li>
       </ul>
     </section>
+    <footer class="sidebar__footer">
+      Heads Up is made with<br/>❤️by De Voorhoede
+    </footer>
   </nav>
 </template>
 
@@ -88,5 +91,14 @@ export default {
     width: 1em;
     height: 1em;
     fill: currentColor;
+  }
+
+  .sidebar__footer {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    padding: 10px;
+    text-align: center;
   }
 </style>
