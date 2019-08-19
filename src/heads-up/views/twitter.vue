@@ -32,8 +32,10 @@
         <template v-if="twitter.image">
           <dt>twitter:image</dt>
           <dd>
-            <img alt="" :src="og.image" />
-            <external-link :href="twitter.image">{{ twitter.image }}</external-link>
+            <external-link :href="absoluteUrl(twitter.image)">
+              <img alt="" :src="absoluteUrl(twitter.image)" />
+              {{ twitter.image }}
+            </external-link>
           </dd>
         </template>
         <template v-for="username in ['creator', 'site']">
@@ -59,8 +61,10 @@
         <template v-if="og.image">
           <dt>og:image</dt>
           <dd>
-            <img alt="" :src="og.image" />
-            <external-link :href="og.image">{{ og.image }}</external-link>
+            <external-link :href="absoluteUrl(og.image)">
+              <img alt="" :src="absoluteUrl(og.image)" />
+              {{ og.image }}
+            </external-link>
           </dd>
         </template>
 
@@ -123,7 +127,7 @@
         return this.twitter.description || this.og.description || this.metaValue('description') || ''
       },
       image() {
-        return this.twitter.image || this.og.image
+        return this.absoluteUrl(this.twitter.image || this.og.image)
       },
       og() {
         return {
@@ -160,6 +164,10 @@
       window.removeEventListener('resize', this.onResize)
     },
     methods: {
+      absoluteUrl(url) {
+        if (!url) return
+        return url.startsWith('http') ? url : new URL(this.head.url).origin + url
+      },
       metaValue(metaName) {
         return findMetaContent(this.head, metaName)
       },
