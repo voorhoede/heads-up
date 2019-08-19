@@ -16,10 +16,10 @@
       <p v-if="!touchIcons.length">No touch icons detected.</p>
       <properties-list>
         <template v-for="icon in touchIcons">
-          <dt :key="icon.url">
+          <dt :key="`${icon.url}-key`">
             <div v-if="icon.sizes">{{ icon.sizes }}</div>
           </dt>
-          <dd :key="icon.url">
+          <dd :key="`${icon.url}-value`">
             <external-link :href="icon.url">
               <img alt="" :src="icon.url" />
             </external-link>
@@ -32,12 +32,12 @@
       <p v-if="!startupImages.length">No startup images detected.</p>
       <properties-list>
         <template v-for="image in startupImages">
-          <dt :key="image.url">
+          <dt :key="`${image.url}-key`">
             {{ image.filename }}
             {{ image.filename }}
             <div v-if="image.sizes">{{ image.sizes }}</div>
           </dt>
-          <dd :key="image.url">
+          <dd :key="`${image.url}-value`">
             <external-link :href="image.url">
               <img alt="" :src="image.url" />
             </external-link>
@@ -47,25 +47,25 @@
     </panel-section>
 
     <panel-section title="Resources">
-      <ul>
+      <resource-list>
         <li>
           <external-link href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html#//apple_ref/doc/uid/TP40008193-SW3">Apple-specific meta tags</external-link>
         </li>
         <li>
           <external-link href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html">Configuring web applications for iOS</external-link>
         </li>
-      </ul>
+      </resource-list>
     </panel-section>
   </div>
 </template>
 
 <script>
   import { mapState } from 'vuex'
-  import { ExternalLink, PanelSection, PropertiesList } from '../components'
+  import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components'
   import { findMetaContent } from '../lib/find-meta'
 
   export default {
-    components: { ExternalLink, PanelSection, PropertiesList },
+    components: { ExternalLink, PanelSection, PropertiesList, ResourceList },
     computed: {
       ...mapState(['head']),
       appCapable() { return this.metaValue('apple-mobile-web-app-capable') },

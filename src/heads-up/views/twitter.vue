@@ -2,7 +2,7 @@
   <div>
     <panel-section title="Preview">
       <p v-if="!isValidCard">
-
+        This page does not contain the required meta data to create a preview.
       </p>
       <p v-if="isValidCard && !isSupportedCard">
         Preview is not yet available for <code>{{ card }}</code> cards. <br />
@@ -37,10 +37,10 @@
           </dd>
         </template>
         <template v-for="username in ['creator', 'site']">
-          <dt :key="username" v-if="twitter[username]">
+          <dt :key="`${username}-key`" v-if="twitter[username]">
             twitter:{{ username }}
           </dt>
-          <dd :key="username" v-if="twitter[username]">
+          <dd :key="`${username}-value`" v-if="twitter[username]">
             <external-link :href="`https://twitter.com/${twitter[username].slice(1)}`">
               {{ twitter[username] }}
             </external-link>
@@ -68,7 +68,7 @@
     </panel-section>
 
     <panel-section title="Resources">
-      <ul>
+      <resource-list>
         <li>
           <external-link href="https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards.html">About Twitter cards</external-link>
         </li>
@@ -78,7 +78,7 @@
         <li>
           <external-link href="https://cards-dev.twitter.com/validator">Twitter card validator (requires Twitter login)</external-link>
         </li>
-      </ul>
+      </resource-list>
     </panel-section>
   </div>
 </template>
@@ -86,14 +86,14 @@
 
 <script>
   import { mapState } from 'vuex'
-  import { ExternalLink, PanelSection, PropertiesList } from '../components'
+  import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components'
   import { findMetaContent, findMetaProperty } from '../lib/find-meta'
 
   const validCards = ['summary', 'summary_large_image', 'app', 'player']
   export const supportedCards = ['summary', 'summary_large_image']
 
   export default {
-    components: { ExternalLink, PanelSection, PropertiesList },
+    components: { ExternalLink, PanelSection, PropertiesList, ResourceList },
     data() {
       return {
         iframeHeight: 'auto',
@@ -150,7 +150,7 @@
         params.set('description', this.description)
         params.set('image', this.image)
         params.set('url', this.head.url)
-        return `/twitter-preview.html?${params}`
+        return `/twitter-preview/twitter-preview.html?${params}`
       }
     },
     mounted() {

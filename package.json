@@ -15,7 +15,7 @@
     "url": "git+https://github.com/voorhoede/heads-up.git"
   },
   "author": "De Voorhoede",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/voorhoede/heads-up/issues"
   },

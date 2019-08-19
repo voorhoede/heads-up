@@ -1,10 +1,9 @@
-const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const { VueLoaderPlugin } = require('vue-loader')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
-module.exports = (config, target = { chrome: 52, firefox: 48 }) => {
+module.exports = (config, target = { chrome: 63, firefox: 48 }) => {
   const bubleOptions = {
     target,
     objectAssign: 'Object.assign',
