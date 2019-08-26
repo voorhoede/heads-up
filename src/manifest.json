@@ -1,5 +1,6 @@
 {
   "name": "Heads Up",
+  "short_name": "Heads Up",
   "version": "0.1.0",
   "description": "View your <head> data for easier developing.",
   "author": "De Voorhoede",
