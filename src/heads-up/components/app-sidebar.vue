@@ -9,6 +9,11 @@
           </router-link>
         </li>
         <li class="sidebar-list__item">
+          <router-link class="sidebar__button" :to="{ name: 'favicon' }">
+            <ImageIcon class="sidebar__icon"/> Favicon
+          </router-link>
+        </li>
+        <li class="sidebar-list__item">
           <router-link class="sidebar__button" :to="{ name: 'apple-ios' }">
             <AppleIcon class="sidebar__icon"/> Apple iOS
           </router-link>
@@ -37,11 +42,12 @@
 <script>
 import AppleIcon from '../assets/icons/apple.svg'
 import CodeIcon from '../assets/icons/code.svg'
+import ImageIcon from '../assets/icons/image.svg'
 import OpenGraphIcon from '../assets/icons/open-graph.svg'
 import TwitterIcon from '../assets/icons/twitter.svg'
 
 export default {
-  components: { AppleIcon, CodeIcon, OpenGraphIcon, TwitterIcon }
+  components: { AppleIcon, CodeIcon, OpenGraphIcon, TwitterIcon, ImageIcon }
 }
 </script>
 

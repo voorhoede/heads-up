@@ -18,6 +18,14 @@ export default new VueRouter({
       component: () => import(/* webpackChunkName:'views/app-meta' */ './views/app-meta.vue')
     },
     {
+      path: '/favicon',
+      name: 'favicon',
+      meta: {
+        title: 'Favicon',
+      },
+      component: () => import(/* webpackChunkName:'views/app-meta' */ './views/favicon.vue')
+    },
+    {
       path: '/apple-ios',
       name: 'apple-ios',
       meta: {
