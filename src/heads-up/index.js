@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import * as actions from './lib/message-actions'
 import router from './router'
+import VTooltip from 'v-tooltip'
 import { createStore } from './store'
 
 const store = createStore();
@@ -22,6 +23,7 @@ background.onMessage.addListener((message) => {
   }
 })
 
+Vue.use(VTooltip)
 Vue.config.devtools = true
 
 import './style/index.css'
