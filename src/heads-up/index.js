@@ -23,7 +23,8 @@ background.onMessage.addListener((message) => {
   }
 })
 
-Vue.use(VTooltip)
+const tooltipOptions = { defaultOffset: '15px' }
+Vue.use(VTooltip,tooltipOptions)
 Vue.config.devtools = true
 
 import './style/index.css'
