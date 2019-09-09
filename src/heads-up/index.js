@@ -22,6 +22,10 @@ background.onMessage.addListener((message) => {
   }
 })
 
+store.commit('SET_THEME', {
+  theme: chrome.devtools.panels.themeName
+})
+
 Vue.config.devtools = true
 
 import './style/index.css'

@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div class="app" :class="themeClass">
     <app-sidebar class="app__sidebar" />
 
     <main class="app__panel" >
@@ -26,6 +26,10 @@
     components: { AppSidebar, ExternalLink, RefreshButton },
     computed: {
       ...mapState(['head']),
+      ...mapState(['theme']),
+      themeClass() {
+        return this.theme === 'dark' ? '-theme-with-dark-background' : ''
+      },
       isDev() { return process.env.NODE_ENV === 'development' }
     }
   }
