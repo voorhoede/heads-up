@@ -3,7 +3,7 @@
      <panel-section title="Properties">
       <properties-list>
         <dt><span v-tooltip="{
-          content: '<p>The HTML Title element defines the document\'s title that is shown in a browser\'s title bar or a page\'s tab.</p><p><a href=\'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title\'>More info</a></p>',
+          content: '<p>The HTML Title element defines the document\'s title that is shown in a browser\'s title bar or a page\'s tab.</p><p><a rel=\'noopener\' target=\'_blank\' href=\'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title\'>More info</a></p>',
           trigger: 'click',
           offset: '15px' }">Title</span></dt><dd>{{ head.title }}</dd>
         <dt>Language</dt><dd>{{ head.lang }}</dd>
