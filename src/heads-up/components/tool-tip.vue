@@ -106,6 +106,7 @@ export default {
   transition: opacity .15s;
 }
 
+.has-tooltip {
+  cursor: help;
+}
 </style>
-
-
