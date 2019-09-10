@@ -3,7 +3,7 @@
      <panel-section title="Properties">
       <properties-list>
         <dt>
-          <tool-tip>
+          <app-tooltip>
             <template v-slot:default>
               Title
             </template>
@@ -15,7 +15,7 @@
             <template v-slot:link>
               <external-link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title">More info</external-link>
             </template>
-          </tool-tip>
+          </app-tooltip>
         </dt><dd>{{ head.title }}</dd>
         <dt>Language</dt>
         <dd>
@@ -23,7 +23,7 @@
         </dd>
         <dt>Charset</dt><dd>{{ charset }}</dd>
         <dt>
-          <tool-tip>
+          <app-tooltip>
             <template v-slot:default>
               Viewport
             </template>
@@ -35,7 +35,7 @@
             <template v-slot:link>
               <external-link href="https://developer.mozilla.org/en-US/docs/Mozilla/Mobile/Viewport_meta_tag">More info</external-link>
             </template>
-          </tool-tip>
+          </app-tooltip>
         </dt><dd>{{ viewport }}</dd>
         <template v-if="themeColor">
         <dt>Theme color</dt>
@@ -64,11 +64,11 @@
 
 <script>
   import { mapState } from 'vuex'
-  import { ExternalLink, PanelSection, PropertiesList, ResourceList, ToolTip } from '../components'
+  import { AppTooltip, ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components'
   import { findCharset, findMetaContent } from '../lib/find-meta'
 
   export default {
-    components: { ExternalLink, PanelSection, PropertiesList, ResourceList, ToolTip },
+    components: { AppTooltip, ExternalLink, PanelSection, PropertiesList, ResourceList },
     computed: {
       ...mapState(['head']),
       charset() { return findCharset(this.head) },
