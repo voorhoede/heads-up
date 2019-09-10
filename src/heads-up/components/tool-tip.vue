@@ -35,7 +35,7 @@ export default {
 
 .tooltip .tooltip-inner {
   position: relative;
-  max-width: 350px;
+  max-width: 130px;
   font-size: .875rem;
   background-color: var(--toolbar-bg-color);
   color: var(--tab-selected-fg-color);
@@ -108,5 +108,23 @@ export default {
 
 .has-tooltip {
   cursor: help;
+}
+
+@media (min-width: 450px) {
+  .tooltip .tooltip-inner {
+    max-width: 250px;
+  }
+}
+
+@media (min-width: 550px) {
+  .tooltip .tooltip-inner {
+    max-width: 300px;
+  }
+}
+
+@media (min-width: 650px) {
+  .tooltip .tooltip-inner {
+    max-width: 380px;
+  }
 }
 </style>
