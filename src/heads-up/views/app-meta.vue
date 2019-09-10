@@ -22,7 +22,21 @@
           {{ head.lang }}
         </dd>
         <dt>Charset</dt><dd>{{ charset }}</dd>
-        <dt>Viewport</dt><dd>{{ viewport }}</dd>
+        <dt>
+          <tool-tip>
+            <template v-slot:default>
+              Viewport
+            </template>
+
+            <template v-slot:info>
+              <p>The browser's viewport is the area of the window in which web content can be seen. This is often not the same size as the rendered page, in which case the browser provides scrollbars for the user to scroll around and access all the content.</p>
+            </template>
+
+            <template v-slot:link>
+              <external-link href="https://developer.mozilla.org/en-US/docs/Mozilla/Mobile/Viewport_meta_tag">More info</external-link>
+            </template>
+          </tool-tip>
+        </dt><dd>{{ viewport }}</dd>
         <template v-if="themeColor">
         <dt>Theme color</dt>
           <dd>

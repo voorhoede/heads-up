@@ -1,5 +1,5 @@
 <template>
-  <span v-tooltip="options">
+  <span v-tooltip="options()" @mouseover="show" @click="hide">
     <slot></slot>
 
     <span ref="info" class="visually-hidden">
@@ -15,12 +15,26 @@
 <script>
 export default {
   mounted() {
-    this.options.content = `${ this.$refs.info.innerHTML } ${ this.$refs.link.innerHTML }`
+    this.content = `${ this.$refs.info.innerHTML } ${ this.$refs.link.innerHTML }`
   },
   data() {
     return {
-      options: {
-        content: {}
+      isOpen: false,
+      content: ''
+    }
+  },
+  methods: {
+    show() {
+      this.isOpen = true
+    },
+    hide() {
+      this.isOpen = false
+    },
+    options() {
+      return {
+        content: this.content,
+        show: this.isOpen,
+        trigger: 'manual'
       }
     }
   }
