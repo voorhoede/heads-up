@@ -1,7 +1,33 @@
-dt {
-  cursor: pointer;
-}
+<template>
+  <span v-tooltip="options">
+    <slot></slot>
 
+    <span ref="info" class="visually-hidden">
+      <slot name="info"></slot>
+    </span>
+
+    <span ref="link" class="visually-hidden">
+      <slot name="link"></slot>
+    </span>
+  </span>
+</template>
+
+<script>
+export default {
+  mounted() {
+    this.options.content = `${ this.$refs.info.innerHTML } ${ this.$refs.link.innerHTML }`
+  },
+  data() {
+    return {
+      options: {
+        content: {}
+      }
+    }
+  }
+}
+</script>
+
+<style>
 .tooltip {
   display: block !important;
   z-index: 10000;
@@ -79,3 +105,7 @@ dt {
   opacity: 1;
   transition: opacity .15s;
 }
+
+</style>
+
+

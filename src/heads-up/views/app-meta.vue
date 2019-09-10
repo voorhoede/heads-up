@@ -2,10 +2,25 @@
   <div>
      <panel-section title="Properties">
       <properties-list>
-        <dt><span v-tooltip="{
-          content: '<p>The HTML Title element defines the document\'s title that is shown in a browser\'s title bar or a page\'s tab.</p><p><a rel=\'noopener\' target=\'_blank\' href=\'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title\'>More info</a></p>',
-          trigger: 'click'}">Title</span></dt><dd>{{ head.title }}</dd>
-        <dt>Language</dt><dd>{{ head.lang }}</dd>
+        <dt>
+          <tool-tip>
+            <template v-slot:default>
+              Title
+            </template>
+
+            <template v-slot:info>
+              <p>The HTML Title element  defines the document's title that is shown in a browser's title bar or a page's tab. It only contains text; tags within the element are ignored.</p>
+            </template>
+
+            <template v-slot:link>
+              <external-link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title">More info</external-link>
+            </template>
+          </tool-tip>
+        </dt><dd>{{ head.title }}</dd>
+        <dt>Language</dt>
+        <dd>
+          {{ head.lang }}
+        </dd>
         <dt>Charset</dt><dd>{{ charset }}</dd>
         <dt>Viewport</dt><dd>{{ viewport }}</dd>
         <template v-if="themeColor">
@@ -35,11 +50,11 @@
 
 <script>
   import { mapState } from 'vuex'
-  import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components'
+  import { ExternalLink, PanelSection, PropertiesList, ResourceList, ToolTip } from '../components'
   import { findCharset, findMetaContent } from '../lib/find-meta'
 
   export default {
-    components: { ExternalLink, PanelSection, PropertiesList, ResourceList },
+    components: { ExternalLink, PanelSection, PropertiesList, ResourceList, ToolTip },
     computed: {
       ...mapState(['head']),
       charset() { return findCharset(this.head) },
