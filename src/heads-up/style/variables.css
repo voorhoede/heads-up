@@ -1,5 +1,5 @@
 /* =================================================== default || light */
-:root {
+.app {
   /* custom colors wisely picked from dev tools */
   --base-color: #5A5A5A;
   --label-color: #888;
@@ -36,7 +36,8 @@
 
 
 /* =================================================== dark */
-.-theme-with-dark-background {
+
+.app.-theme-with-dark-background {
   /* custom colors wisely picked from dev tools */
   --base-color: #A5A5A5;
   --label-color: #777;

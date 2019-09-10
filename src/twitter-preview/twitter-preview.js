@@ -5,7 +5,7 @@
   const image = params.get('image')
   const url = params.get('url')
   const type = params.get('card')
-
+  
   const twitterElement = document.querySelector('[data-twitter-preview-card]')
   twitterElement.innerHTML = getTwitterMarkup({
     title,
@@ -14,6 +14,17 @@
     url,
     type
   })
+
+  /**
+   * why: inside iframe we have no access to custom properties of parent
+   * how: get needed props based on their key
+   * possible: extend 'propKeys' with additional props
+   */
+  const propKeys = ['--base-color', '--label-color', '--value-color'];
+  const appContainer = window.parent.document.querySelector('.app');
+  propKeys.forEach( key => {
+    document.body.style.setProperty(`${key}`, window.parent.getComputedStyle(appContainer).getPropertyValue(key));
+  });
 
   function getTwitterMarkup({ title, description, image, url, type }) {
       const twitterLink = url ? `href="${ url }"` : ''
