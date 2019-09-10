@@ -40,6 +40,7 @@
     position: fixed;
     height: 100%;
     width: var(--sidebar-width);
+    /* padding-bottom: 50px; */
   }
 
   .app__panel {

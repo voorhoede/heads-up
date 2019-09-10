@@ -26,7 +26,7 @@
       </ul>
     </section>
     <div class="sidebar__divider" />
-    <section>
+    <section class="sidebar__socials">
       <h2 class="sidebar__heading">Social Media</h2>
       <ul class="sidebar-list">
         <li class="sidebar-list__item">
@@ -36,6 +36,12 @@
         </li>
       </ul>
     </section>
+    <footer class="sidebar__footer">
+      Made with love by 
+      <external-link class="sidebar__footer-anchor" href="https://www.voorhoede.nl" target="_blank">
+        De Voorhoede
+      </external-link>
+    </footer>
   </nav>
 </template>
 
@@ -45,14 +51,18 @@ import CodeIcon from '../assets/icons/code.svg'
 import ImageIcon from '../assets/icons/image.svg'
 import OpenGraphIcon from '../assets/icons/open-graph.svg'
 import TwitterIcon from '../assets/icons/twitter.svg'
+import ExternalLink from '../components/external-link.vue'
 
 export default {
-  components: { AppleIcon, CodeIcon, OpenGraphIcon, TwitterIcon, ImageIcon }
+  components: { AppleIcon, CodeIcon, OpenGraphIcon, TwitterIcon, ImageIcon, ExternalLink }
 }
 </script>
 
 <style>
   .sidebar {
+    display: flex;
+    flex-direction: column;
+
     font-size: .8125rem;
     border-right: var(--divider-border);
     background-color: var(--toolbar-bg-color);
@@ -95,4 +105,30 @@ export default {
     height: 1em;
     fill: currentColor;
   }
+
+  .sidebar__socials {
+    margin-bottom: 20px;
+  }
+
+  .sidebar__footer {
+    margin-top: auto;
+    padding: 10px;
+    z-index: 10;
+
+    color: var(--label-color);
+    text-align: center;
+    background-color: var(--toolbar-bg-color);
+  }
+
+  .sidebar__footer-anchor {
+    color: var(--label-color);
+    text-decoration: none;
+    transition: opacity 0.15s linear;
+    white-space: nowrap;
+  }
+
+  .sidebar__footer-anchor:hover {
+    opacity: 0.7;
+  }
+
 </style>
