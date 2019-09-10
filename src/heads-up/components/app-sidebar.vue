@@ -62,7 +62,7 @@ export default {
   .sidebar__divider {
     margin-top: 10px;
     margin-bottom: 5px;
-    border-top: 1px solid rgb(230, 230, 230);
+    border-top: var(--divider-border);
   }
 
   .sidebar__heading {

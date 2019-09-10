@@ -20,3 +20,7 @@ export function createStore() {
 
   return store
 }
+
+const store = createStore()
+
+export default store

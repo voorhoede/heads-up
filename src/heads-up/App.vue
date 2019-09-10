@@ -18,7 +18,7 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
+  import { mapState } from 'vuex';
   import { AppSidebar, ExternalLink, RefreshButton } from './components'
 
   export default {
@@ -40,6 +40,10 @@
     --sidebar-width: 190px;
   }
 
+  .app {
+    color: var(--base-color);
+  }
+
   .app__sidebar {
     position: fixed;
     height: 100%;
@@ -53,7 +57,7 @@
 
   .section {
     padding: 16px;
-    border-bottom: 1px solid var(--color-grey-light);
+    border-bottom: 1px solid var(--divider-color);
   }
 
   .section:last-child {
@@ -69,8 +73,9 @@
   }
 
   .heading-small {
-    font-size: .875rem;
-    color: var(--color-grey-dark);
+    font-weight: bold;
+    font-size: .75rem;
+    color: var(--base-color);
   }
 
   .heading-smaller {

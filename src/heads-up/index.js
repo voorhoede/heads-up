@@ -2,9 +2,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import * as actions from './lib/message-actions'
 import router from './router'
-import { createStore } from './store'
+import store from './store'
+import getTheme from './lib/theme'
 
-const store = createStore();
 const background = chrome.runtime.connect({ name: 'devtools' })
 const tabId = chrome.devtools.inspectedWindow.tabId
 const requestData = () => background.postMessage({ tabId, action: actions.GET_DATA })
@@ -22,9 +22,7 @@ background.onMessage.addListener((message) => {
   }
 })
 
-store.commit('SET_THEME', {
-  theme: chrome.devtools.panels.themeName
-})
+store.commit('SET_THEME', { theme: getTheme() })
 
 Vue.config.devtools = true
 
