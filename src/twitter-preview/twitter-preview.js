@@ -20,7 +20,7 @@
    * how: get needed props based on their key
    * possible: extend 'propKeys' with additional props
    */
-  const propKeys = ['--base-color', '--label-color', '--value-color'];
+  const propKeys = ['--base-color', '--label-color', '--value-color', '--divider-border', '--toolbar-bg-color'];
   const appContainer = window.parent.document.querySelector('.app');
   propKeys.forEach( key => {
     document.body.style.setProperty(`${key}`, window.parent.getComputedStyle(appContainer).getPropertyValue(key));

@@ -20,7 +20,7 @@
           class="twitter__preview"
           @load="onResize"
         />
-        <p>Preview based on <external-link href="https://mobile.twitter.com/">mobile.twitter.com</external-link>.</p>
+        <p class="twitter__preview-anchor">Preview based on <external-link href="https://mobile.twitter.com/">mobile.twitter.com</external-link>.</p>
       </template>
     </panel-section>
 
@@ -187,5 +187,9 @@
     margin-bottom: 1em;
     padding: 0;
     border: none;
+  }
+
+  .twitter__preview-anchor {
+    color: var(--label-color);
   }
 </style>
