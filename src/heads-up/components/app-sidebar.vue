@@ -26,7 +26,7 @@
       </ul>
     </section>
     <div class="sidebar__divider" />
-    <section class="sidebar__socials">
+    <section>
       <h2 class="sidebar__heading">Social Media</h2>
       <ul class="sidebar-list">
         <li class="sidebar-list__item">
@@ -38,7 +38,7 @@
     </section>
     <footer class="sidebar__footer">
       Made with love by 
-      <external-link class="sidebar__footer-anchor" href="https://www.voorhoede.nl" target="_blank">
+      <external-link class="sidebar__footer-link" href="https://www.voorhoede.nl">
         De Voorhoede
       </external-link>
     </footer>
@@ -106,28 +106,22 @@ export default {
     fill: currentColor;
   }
 
-  .sidebar__socials {
-    margin-bottom: 20px;
-  }
-
   .sidebar__footer {
     margin-top: auto;
-    padding: 10px;
-    z-index: 10;
+    padding: 20px 10px 10px 10px;
 
     color: var(--label-color);
     text-align: center;
-    background-color: var(--toolbar-bg-color);
   }
 
-  .sidebar__footer-anchor {
+  .sidebar__footer-link {
     color: var(--label-color);
     text-decoration: none;
     transition: opacity 0.15s linear;
     white-space: nowrap;
   }
 
-  .sidebar__footer-anchor:hover {
+  .sidebar__footer-link:hover {
     opacity: 0.7;
   }
 
