@@ -11,10 +11,10 @@
         </dd>
 
         <dt>Language</dt>
-        <dd v-if="head.lang">{{ head.lang }}</dd>
+        <dd v-if="lang">{{ lang }}</dd>
         <dd v-else>
           <WarningIcon class="icon-warning"/>
-          No language defined
+          <code>html</code> lang attribute not defined or invalid
         </dd>
         
         <dt>Charset</dt>
@@ -62,7 +62,7 @@
   import { mapState } from 'vuex'
   import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components'
   import { findCharset, findMetaContent } from '../lib/find-meta'
-  import { validateCharset } from '../lib/validate-meta'
+  import { validateCharset, validateLang } from '../lib/validate-meta'
   import WarningIcon from '../assets/icons/warning.svg'
 
   export default {
@@ -72,6 +72,9 @@
       charset() { 
         const value = findCharset(this.head)
         return validateCharset(value) 
+      },
+      lang() {
+        return validateLang(this.head.lang)
       },
       viewport() { return this.metaValue('viewport') },
       themeColor() { return this.metaValue('theme-color') }
