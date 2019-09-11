@@ -42,6 +42,13 @@
       vertical-align: sub;
       position: relative;
       top: -1px;
-      margin-right: 7px;
+      margin-right: 5px;
+  }
+  .properties-list code {
+    padding: .2em .4em;
+    background-color: var(--toolbar-bg-color);
+    border-radius: 3px;
+    font-size: 11px;
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
   }
 </style>

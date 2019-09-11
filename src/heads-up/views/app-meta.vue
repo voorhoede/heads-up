@@ -18,10 +18,12 @@
         </dd>
         
         <dt>Charset</dt>
-        <dd v-if="charset">{{ charset }}</dd>
-        <dd v-else>
-          <WarningIcon class="icon-warning"/>
-          No charset defined
+        <dd>
+          <template v-if="charset.value">{{ charset.value }}</template>
+          <template v-if="charset.hint">
+            <WarningIcon class="icon-warning"/>
+            <span v-html="charset.hint"/>
+          </template>
         </dd>
         
         <dt>Viewport</dt>
@@ -60,13 +62,17 @@
   import { mapState } from 'vuex'
   import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components'
   import { findCharset, findMetaContent } from '../lib/find-meta'
+  import { validateCharset } from '../lib/validate-meta'
   import WarningIcon from '../assets/icons/warning.svg'
 
   export default {
     components: { ExternalLink, PanelSection, PropertiesList, ResourceList, WarningIcon },
     computed: {
       ...mapState(['head']),
-      charset() { return findCharset(this.head) },
+      charset() { 
+        const value = findCharset(this.head)
+        return validateCharset(value) 
+      },
       viewport() { return this.metaValue('viewport') },
       themeColor() { return this.metaValue('theme-color') }
     },
