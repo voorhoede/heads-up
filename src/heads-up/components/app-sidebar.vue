@@ -53,7 +53,6 @@ export default {
 
 <style>
   .sidebar {
-    font-size: .8125rem;
     border-right: var(--divider-border);
     background-color: var(--toolbar-bg-color);
     overflow: auto;
@@ -68,7 +67,7 @@ export default {
   .sidebar__heading {
     all: unset;
     display: block;
-    padding: 10px 10px 5px 10px;
+    padding: 10px 8px 6px 8px;
   }
 
   .sidebar-list {

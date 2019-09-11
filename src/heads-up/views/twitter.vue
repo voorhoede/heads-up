@@ -34,7 +34,7 @@
           <dd>
             <external-link :href="absoluteUrl(twitter.image)">
               <img alt="" :src="absoluteUrl(twitter.image)" />
-              {{ twitter.image }}
+              <span>{{ twitter.image }}</span>
             </external-link>
           </dd>
         </template>
@@ -63,7 +63,7 @@
           <dd>
             <external-link :href="absoluteUrl(og.image)">
               <img alt="" :src="absoluteUrl(og.image)" />
-              {{ og.image }}
+              <span>{{ og.image }}</span>
             </external-link>
           </dd>
         </template>
