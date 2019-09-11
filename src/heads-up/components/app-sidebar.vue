@@ -115,14 +115,13 @@ export default {
   }
 
   .sidebar__footer-link {
-    color: var(--label-color);
-    text-decoration: none;
-    transition: opacity 0.15s linear;
+    color: var(--accent-color);
+    text-decoration: underline;
     white-space: nowrap;
   }
 
   .sidebar__footer-link:hover {
-    opacity: 0.7;
+    color: var(--accent-color-hover);
   }
 
 </style>
