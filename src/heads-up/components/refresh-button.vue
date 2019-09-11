@@ -1,5 +1,8 @@
 <template>
-  <button type="button" @click="reload()">
+  <button
+    type="button"
+    @click="reload()"
+  >
     REFRESH
   </button>
 </template>

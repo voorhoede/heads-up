@@ -1,13 +1,13 @@
 <template>
   <div>
-     <panel-section title="Properties">
+    <panel-section title="Properties">
       <properties-list>
         <dt>Title</dt><dd>{{ head.title }}</dd>
         <dt>Language</dt><dd>{{ head.lang }}</dd>
         <dt>Charset</dt><dd>{{ charset }}</dd>
         <dt>Viewport</dt><dd>{{ viewport }}</dd>
         <template v-if="themeColor">
-        <dt>Theme color</dt>
+          <dt>Theme color</dt>
           <dd>
             <span
               v-if="themeColor"
@@ -23,11 +23,12 @@
     <panel-section title="Resources">
       <resource-list>
         <li>
-          <external-link href="https://htmlhead.dev/">Guide to HTML5 <code>&lt;head&gt;</code> elements</external-link>
+          <external-link href="https://htmlhead.dev/">
+            Guide to HTML5 <code>&lt;head&gt;</code> elements
+          </external-link>
         </li>
       </resource-list>
     </panel-section>
-
   </div>
 </template>
 

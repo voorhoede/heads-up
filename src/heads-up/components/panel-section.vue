@@ -1,6 +1,8 @@
 <template>
   <section class="section">
-    <h2 class="heading-small heading">{{ title }}</h2>
+    <h2 class="heading-small heading">
+      {{ title }}
+    </h2>
     <slot />
   </section>
 </template>
