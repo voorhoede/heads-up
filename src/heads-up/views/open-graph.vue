@@ -4,7 +4,11 @@
       <properties-list>
         <template v-for="meta in ogMeta">
           <dt :key="`${meta.property}-key`">{{ meta.property }}</dt>
-          <dd :key="`${meta.property}-value`">{{ meta.content }}</dd>
+          <dd v-if="meta.content" :key="`${meta.property}-value`">{{ meta.content }}</dd>
+          <dd v-else :key="`${meta.property}-warning`">
+            <WarningIcon class="icon-warning"/>
+            Not defined
+          </dd>
         </template>
       </properties-list>
     </panel-section>

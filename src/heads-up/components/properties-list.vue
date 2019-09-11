@@ -37,4 +37,11 @@
     height: 10px;
     border: 1px solid #888;
   }
+  .icon-warning {
+      display: inline-block;
+      vertical-align: sub;
+      position: relative;
+      top: -1px;
+      margin-right: 7px;
+  }
 </style>

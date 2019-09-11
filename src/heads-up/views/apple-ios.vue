@@ -2,13 +2,33 @@
   <div>
      <panel-section title="Properties">
       <properties-list>
-        <dt>apple-mobile-web-app-capable</dt><dd>{{ appCapable }}</dd>
-        <dt>apple-mobile-web-app-title</dt><dd>{{ title }}</dd>
-        <dt>apple-mobile-web-app-status-bar-style</dt><dd>{{ statusBarStyle }}</dd>
+        <dt>apple-mobile-web-app-capable</dt>
+        <dd>{{ appCapable }}</dd>
+        
+        <dt>apple-mobile-web-app-title</dt>
+        <dd v-if="title">{{ title }}</dd>
+        <dd v-else>
+          <WarningIcon class="icon-warning"/>
+          No title defined
+        </dd>
+        
+        <dt>apple-mobile-web-app-status-bar-style</dt>
+        <dd v-if="statusBarStyle">{{ statusBarStyle }}</dd>
+        <dd v-else>
+          <WarningIcon class="icon-warning"/>
+          No status bar style defined
+        </dd>
+        
         <template v-if="formatDetection">
           <dt>format-detection</dt><dd>{{ formatDetection }}</dd>
         </template>
-        <dt>apple-itunes-app</dt><dd>{{ itunesApp }}</dd>
+
+        <dt>apple-itunes-app</dt>
+        <dd v-if="itunesApp">{{ itunesApp }}</dd>
+        <dd v-else>
+          <WarningIcon class="icon-warning"/>
+          No itunes app defined
+        </dd>
       </properties-list>
     </panel-section>
 

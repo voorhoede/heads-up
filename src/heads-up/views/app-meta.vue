@@ -2,12 +2,37 @@
   <div>
      <panel-section title="Properties">
       <properties-list>
-        <dt>Title</dt><dd>{{ head.title }}</dd>
-        <dt>Language</dt><dd>{{ head.lang }}</dd>
-        <dt>Charset</dt><dd>{{ charset }}</dd>
-        <dt>Viewport</dt><dd>{{ viewport }}</dd>
+        
+        <dt>Title</dt>
+        <dd v-if="head.title">{{ head.title }}</dd>
+        <dd v-else>
+          <WarningIcon class="icon-warning"/>
+          No title defined
+        </dd>
+
+        <dt>Language</dt>
+        <dd v-if="head.lang">{{ head.lang }}</dd>
+        <dd v-else>
+          <WarningIcon class="icon-warning"/>
+          No language defined
+        </dd>
+        
+        <dt>Charset</dt>
+        <dd v-if="charset">{{ charset }}</dd>
+        <dd v-else>
+          <WarningIcon class="icon-warning"/>
+          No charset defined
+        </dd>
+        
+        <dt>Viewport</dt>
+        <dd v-if="viewport">{{ viewport }}</dd>
+        <dd v-else>
+          <WarningIcon class="icon-warning"/>
+          No viewport defined
+        </dd>
+        
         <template v-if="themeColor">
-        <dt>Theme color</dt>
+          <dt>Theme color</dt>
           <dd>
             <span
               v-if="themeColor"
@@ -35,9 +60,10 @@
   import { mapState } from 'vuex'
   import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components'
   import { findCharset, findMetaContent } from '../lib/find-meta'
+  import WarningIcon from '../assets/icons/warning.svg'
 
   export default {
-    components: { ExternalLink, PanelSection, PropertiesList, ResourceList },
+    components: { ExternalLink, PanelSection, PropertiesList, ResourceList, WarningIcon },
     computed: {
       ...mapState(['head']),
       charset() { return findCharset(this.head) },
