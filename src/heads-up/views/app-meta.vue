@@ -37,6 +37,7 @@
           </template>
           <template v-if="charset.hint">
             <WarningIcon class="icon-warning" />
+            <!-- eslint-disable-next-line vue/no-v-html -->
             <span v-html="charset.hint" />
           </template>
         </dd>
