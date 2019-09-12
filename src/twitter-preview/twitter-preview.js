@@ -16,15 +16,14 @@
   })
 
   /**
-   * why: inside iframe we have no access to custom properties of parent
-   * how: get needed props based on their key
-   * possible: extend 'propKeys' with additional props
+   * setting 'theme_dark' class if parent window is in dark mode
+   * class '-theme-with-dark-background' is taken from dev tools env
+   * src: https://github.com/ChromeDevTools/devtools-frontend/blob/02a851d01de158d8c0a8fd1d3af06649b5379bd6/front_end/ui/inspectorStyle.css
    */
-  const propKeys = ['--base-color', '--label-color', '--value-color', '--divider-border', '--toolbar-bg-color'];
   const appContainer = window.parent.document.querySelector('.app');
-  propKeys.forEach( key => {
-    document.body.style.setProperty(`${key}`, window.parent.getComputedStyle(appContainer).getPropertyValue(key));
-  });
+  if(appContainer.classList.contains('-theme-with-dark-background')) {
+    document.body.classList.add('theme_dark');
+  }
 
   function getTwitterMarkup({ title, description, image, url, type }) {
       const twitterLink = url ? `href="${ url }"` : ''
