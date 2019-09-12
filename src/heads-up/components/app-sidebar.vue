@@ -36,6 +36,12 @@
         </li>
       </ul>
     </section>
+    <footer class="sidebar__footer">
+      Made with love by 
+      <external-link class="sidebar__footer-link" href="https://www.voorhoede.nl">
+        De Voorhoede
+      </external-link>
+    </footer>
   </nav>
 </template>
 
@@ -45,14 +51,17 @@ import CodeIcon from '../assets/icons/code.svg'
 import ImageIcon from '../assets/icons/image.svg'
 import OpenGraphIcon from '../assets/icons/open-graph.svg'
 import TwitterIcon from '../assets/icons/twitter.svg'
+import ExternalLink from '../components/external-link.vue'
 
 export default {
-  components: { AppleIcon, CodeIcon, OpenGraphIcon, TwitterIcon, ImageIcon }
+  components: { AppleIcon, CodeIcon, OpenGraphIcon, TwitterIcon, ImageIcon, ExternalLink }
 }
 </script>
 
 <style>
   .sidebar {
+    display: flex;
+    flex-direction: column;
     border-right: var(--divider-border);
     background-color: var(--toolbar-bg-color);
     overflow: auto;
@@ -94,4 +103,23 @@ export default {
     height: 1em;
     fill: currentColor;
   }
+
+  .sidebar__footer {
+    margin-top: auto;
+    padding: 20px 10px 10px 10px;
+
+    color: var(--label-color);
+    text-align: center;
+  }
+
+  .sidebar__footer-link {
+    color: var(--accent-color);
+    text-decoration: underline;
+    white-space: nowrap;
+  }
+
+  .sidebar__footer-link:hover {
+    color: var(--accent-color-hover);
+  }
+
 </style>
