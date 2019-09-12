@@ -64,15 +64,12 @@
   }
 
   .heading-default {
-    font-size: 1rem;
+    font-size: 15px;
   }
 
   .heading-small {
-    font-size: .875rem;
+    font-size: 12px;
+    font-weight: bold;
     color: var(--color-grey-dark);
-  }
-
-  .heading-smaller {
-    font-size: .8125rem;
   }
 </style>
