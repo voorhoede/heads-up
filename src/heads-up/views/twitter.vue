@@ -21,7 +21,11 @@
           class="twitter__preview"
           @load="onResize"
         />
-        <figcaption class="twitter__preview-caption">Preview based on <external-link href="https://mobile.twitter.com/">mobile.twitter.com</external-link>.</figcaption>
+        <figcaption class="twitter__preview-caption">
+          Preview based on <external-link href="https://mobile.twitter.com/">
+            mobile.twitter.com
+          </external-link>.
+        </figcaption>
       </figure>
     </panel-section>
 

@@ -1,5 +1,8 @@
 <template>
-  <div class="app" :class="themeClass">
+  <div
+    class="app"
+    :class="themeClass"
+  >
     <app-sidebar class="app__sidebar" />
 
     <main class="app__panel">
