@@ -107,9 +107,10 @@
   import { mapState } from 'vuex'
   import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components'
   import { findMetaContent } from '../lib/find-meta'
+  import WarningIcon from '../assets/icons/warning.svg'
 
   export default {
-    components: { ExternalLink, PanelSection, PropertiesList, ResourceList },
+    components: { ExternalLink, PanelSection, PropertiesList, ResourceList, WarningIcon },
     computed: {
       ...mapState(['head']),
       appCapable() { return this.metaValue('apple-mobile-web-app-capable') },
