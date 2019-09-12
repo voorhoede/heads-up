@@ -22,7 +22,7 @@
    */
   const appContainer = window.parent.document.querySelector('.app');
   if(appContainer.classList.contains('-theme-with-dark-background')) {
-    document.body.classList.add('theme_dark');
+    document.body.classList.add('-theme-with-dark-background');
   }
 
   function getTwitterMarkup({ title, description, image, url, type }) {
