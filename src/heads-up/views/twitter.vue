@@ -38,7 +38,10 @@
           <dt>twitter:image</dt>
           <dd>
             <external-link :href="absoluteUrl(twitter.image)">
-              <img alt="" :src="absoluteUrl(twitter.image)" />
+              <img
+                alt=""
+                :src="absoluteUrl(twitter.image)"
+              >
               <span>{{ twitter.image }}</span>
             </external-link>
           </dd>
@@ -73,7 +76,10 @@
           <dt>og:image</dt>
           <dd>
             <external-link :href="absoluteUrl(og.image)">
-              <img alt="" :src="absoluteUrl(og.image)" />
+              <img
+                alt=""
+                :src="absoluteUrl(og.image)"
+              >
               <span>{{ og.image }}</span>
             </external-link>
           </dd>
