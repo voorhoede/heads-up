@@ -1,0 +1,22 @@
+name: Code audit
+
+on: [push]
+
+jobs:
+  lint:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@master
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+
+    - name: install npm dependencies
+      run: npm install --no-optional
+      env:
+        CI: true
+
+    - name: lint files
+      run: npm run lint -- --max-warnings 0

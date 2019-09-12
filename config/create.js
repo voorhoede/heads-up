@@ -47,7 +47,16 @@ module.exports = (config, target = { chrome: 63, firefox: 48 }) => {
         {
           test: /\.(png|woff2)$/,
           loader: 'url-loader?limit=0'
-        }
+        },
+        {
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /node_modules/,
+          options: {
+            fix: true,
+          },
+        },
       ]
     },
     performance: {

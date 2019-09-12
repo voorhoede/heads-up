@@ -2,18 +2,21 @@
   <div class="app">
     <app-sidebar class="app__sidebar" />
 
-    <main class="app__panel" >
+    <main class="app__panel">
       <template v-if="head && head.url">
         <header class="section">
-          <h1 class="heading-default heading">{{ $route.meta.title }}</h1>
-          <external-link :href="head.url">{{ head.url }}</external-link>
+          <h1 class="heading-default heading">
+            {{ $route.meta.title }}
+          </h1>
+          <external-link :href="head.url">
+            {{ head.url }}
+          </external-link>
         </header>
-        <router-view></router-view>
+        <router-view />
       </template>
     </main>
 
     <refresh-button v-if="isDev" />
-
   </div>
 </template>
 
@@ -61,15 +64,12 @@
   }
 
   .heading-default {
-    font-size: 1rem;
+    font-size: 15px;
   }
 
   .heading-small {
-    font-size: .875rem;
+    font-size: 12px;
+    font-weight: bold;
     color: var(--color-grey-dark);
-  }
-
-  .heading-smaller {
-    font-size: .8125rem;
   }
 </style>

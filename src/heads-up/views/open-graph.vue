@@ -1,22 +1,34 @@
 <template>
   <div>
-     <panel-section title="Properties">
+    <panel-section title="Properties">
       <properties-list>
         <template v-for="meta in ogMeta">
-          <dt :key="`${meta.property}-key`">{{ meta.property }}</dt>
-          <dd v-if="meta.content" :key="`${meta.property}-value`">{{ meta.content }}</dd>
-          <dd v-else :key="`${meta.property}-warning`">
-            <WarningIcon class="icon-warning"/>
+          <dt :key="`${meta.property}-key`">
+            {{ meta.property }}
+          </dt>
+          <dd
+            v-if="meta.content"
+            :key="`${meta.property}-value`"
+          >
+            {{ meta.content }}
+          </dd>
+          <dd
+            v-else
+            :key="`${meta.property}-warning`"
+          >
+            <WarningIcon class="icon-warning" />
             Not defined
           </dd>
         </template>
       </properties-list>
     </panel-section>
-
+ 
     <panel-section title="Resources">
       <resource-list>
         <li>
-          <external-link href="https://ogp.me/">The Open Graph Protocol</external-link>
+          <external-link href="https://ogp.me/">
+            The Open Graph Protocol
+          </external-link>
         </li>
       </resource-list>
     </panel-section>

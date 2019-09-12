@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import * as actions from './lib/message-actions'
 import router from './router'
+import VTooltip from 'v-tooltip'
 import { createStore } from './store'
 
 const store = createStore();
@@ -22,16 +23,20 @@ background.onMessage.addListener((message) => {
   }
 })
 
+const tooltipOptions = { defaultOffset: '15px' }
+Vue.use(VTooltip,tooltipOptions)
 Vue.config.devtools = true
 
 import './style/index.css'
 
 const app = new Vue({
-  components: { App },
   el: '#app',
+  components: { App },
   router,
   store,
   render(h) {
     return h('App');
   }
 })
+
+export default app
