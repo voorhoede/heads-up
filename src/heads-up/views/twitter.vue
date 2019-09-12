@@ -9,7 +9,7 @@
         Card preview is currently supported for:
         <span v-html="supportedCards.map(v => `<code>${v}</code>`).join(', ')" />.
       </p>
-      <template v-if="isValidCard && isSupportedCard">
+      <figure v-if="isValidCard && isSupportedCard">
         <iframe
           ref="iframe"
           :src="twitterUrl"
@@ -20,8 +20,8 @@
           class="twitter__preview"
           @load="onResize"
         />
-        <p class="twitter__preview-anchor">Preview based on <external-link href="https://mobile.twitter.com/">mobile.twitter.com</external-link>.</p>
-      </template>
+        <figcaption class="twitter__preview-caption">Preview based on <external-link href="https://mobile.twitter.com/">mobile.twitter.com</external-link>.</figcaption>
+      </figure>
     </panel-section>
 
     <panel-section title="Properties">
@@ -189,7 +189,7 @@
     border: none;
   }
 
-  .twitter__preview-anchor {
+  .twitter__preview-caption {
     color: var(--label-color);
   }
 </style>
