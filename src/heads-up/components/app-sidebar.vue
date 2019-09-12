@@ -1,44 +1,66 @@
 <template>
   <nav class="sidebar">
     <section>
-      <h2 class="sidebar__heading">Application</h2>
+      <h2 class="sidebar__heading">
+        Application
+      </h2>
       <ul class="sidebar-list">
         <li class="sidebar-list__item">
-          <router-link class="sidebar__button" :to="{ name: 'app-meta' }">
-            <CodeIcon class="sidebar__icon"/> Meta
+          <router-link
+            class="sidebar__button"
+            :to="{ name: 'app-meta' }"
+          >
+            <CodeIcon class="sidebar__icon" /> Meta
           </router-link>
         </li>
         <li class="sidebar-list__item">
-          <router-link class="sidebar__button" :to="{ name: 'favicon' }">
-            <ImageIcon class="sidebar__icon"/> Favicon
+          <router-link
+            class="sidebar__button"
+            :to="{ name: 'favicon' }"
+          >
+            <ImageIcon class="sidebar__icon" /> Favicon
           </router-link>
         </li>
         <li class="sidebar-list__item">
-          <router-link class="sidebar__button" :to="{ name: 'apple-ios' }">
-            <AppleIcon class="sidebar__icon"/> Apple iOS
+          <router-link
+            class="sidebar__button"
+            :to="{ name: 'apple-ios' }"
+          >
+            <AppleIcon class="sidebar__icon" /> Apple iOS
           </router-link>
         </li>
         <li class="sidebar-list__item">
-          <router-link class="sidebar__button" :to="{ name: 'open-graph' }">
-            <OpenGraphIcon class="sidebar__icon"/> Open Graph
+          <router-link
+            class="sidebar__button"
+            :to="{ name: 'open-graph' }"
+          >
+            <OpenGraphIcon class="sidebar__icon" /> Open Graph
           </router-link>
         </li>
       </ul>
     </section>
     <div class="sidebar__divider" />
     <section>
-      <h2 class="sidebar__heading">Social Media</h2>
+      <h2 class="sidebar__heading">
+        Social Media
+      </h2>
       <ul class="sidebar-list">
         <li class="sidebar-list__item">
-          <router-link class="sidebar__button" :to="{ name: 'twitter' }">
-            <TwitterIcon class="sidebar__icon"/> Twitter
+          <router-link
+            class="sidebar__button"
+            :to="{ name: 'twitter' }"
+          >
+            <TwitterIcon class="sidebar__icon" /> Twitter
           </router-link>
         </li>
       </ul>
     </section>
     <footer class="sidebar__footer">
       Made with love by 
-      <external-link class="sidebar__footer-link" href="https://www.voorhoede.nl">
+      <external-link
+        class="sidebar__footer-link"
+        href="https://www.voorhoede.nl"
+      >
         De Voorhoede
       </external-link>
     </footer>
@@ -62,8 +84,6 @@ export default {
   .sidebar {
     display: flex;
     flex-direction: column;
-
-    font-size: .8125rem;
     border-right: var(--divider-border);
     background-color: var(--toolbar-bg-color);
     overflow: auto;
@@ -78,7 +98,7 @@ export default {
   .sidebar__heading {
     all: unset;
     display: block;
-    padding: 10px 10px 5px 10px;
+    padding: 10px 8px 6px 8px;
   }
 
   .sidebar-list {

@@ -26,11 +26,13 @@ Vue.config.devtools = true
 import './style/index.css'
 
 const app = new Vue({
-  components: { App },
   el: '#app',
+  components: { App },
   router,
   store,
   render(h) {
     return h('App');
   }
 })
+
+export default app

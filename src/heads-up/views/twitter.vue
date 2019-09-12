@@ -5,8 +5,9 @@
         This page does not contain the required meta data to create a preview.
       </p>
       <p v-if="isValidCard && !isSupportedCard">
-        Preview is not yet available for <code>{{ card }}</code> cards. <br />
+        Preview is not yet available for <code>{{ card }}</code> cards. <br>
         Card preview is currently supported for:
+        <!-- eslint-disable-next-line vue/no-v-html -->
         <span v-html="supportedCards.map(v => `<code>${v}</code>`).join(', ')" />.
       </p>
       <figure v-if="isValidCard && isSupportedCard">
@@ -33,16 +34,25 @@
           <dt>twitter:image</dt>
           <dd>
             <external-link :href="absoluteUrl(twitter.image)">
-              <img alt="" :src="absoluteUrl(twitter.image)" />
-              {{ twitter.image }}
+              <img
+                alt=""
+                :src="absoluteUrl(twitter.image)"
+              >
+              <span>{{ twitter.image }}</span>
             </external-link>
           </dd>
         </template>
         <template v-for="username in ['creator', 'site']">
-          <dt :key="`${username}-key`" v-if="twitter[username]">
+          <dt
+            v-if="twitter[username]"
+            :key="`${username}-key`"
+          >
             twitter:{{ username }}
           </dt>
-          <dd :key="`${username}-value`" v-if="twitter[username]">
+          <dd
+            v-if="twitter[username]"
+            :key="`${username}-value`"
+          >
             <external-link :href="`https://twitter.com/${twitter[username].slice(1)}`">
               {{ twitter[username] }}
             </external-link>
@@ -62,25 +72,33 @@
           <dt>og:image</dt>
           <dd>
             <external-link :href="absoluteUrl(og.image)">
-              <img alt="" :src="absoluteUrl(og.image)" />
-              {{ og.image }}
+              <img
+                alt=""
+                :src="absoluteUrl(og.image)"
+              >
+              <span>{{ og.image }}</span>
             </external-link>
           </dd>
         </template>
-
       </properties-list>
     </panel-section>
 
     <panel-section title="Resources">
       <resource-list>
         <li>
-          <external-link href="https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards.html">About Twitter cards</external-link>
+          <external-link href="https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards.html">
+            About Twitter cards
+          </external-link>
         </li>
         <li>
-          <external-link href="https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/markup">Twitter card markup</external-link>
+          <external-link href="https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/markup">
+            Twitter card markup
+          </external-link>
         </li>
         <li>
-          <external-link href="https://cards-dev.twitter.com/validator">Twitter card validator (requires Twitter login)</external-link>
+          <external-link href="https://cards-dev.twitter.com/validator">
+            Twitter card validator (requires Twitter login)
+          </external-link>
         </li>
       </resource-list>
     </panel-section>
@@ -116,6 +134,7 @@
         } else if (this.og.type && this.og.title && this.og.description) {
           return 'summary'
         }
+        return undefined
       },
       supportedCards() { return supportedCards },
       isValidCard() { return validCards.includes(this.card) },
