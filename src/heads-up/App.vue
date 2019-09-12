@@ -20,15 +20,15 @@
 <script>
   import { mapState } from 'vuex';
   import { AppSidebar, ExternalLink, RefreshButton } from './components'
+  import getTheme from './lib/theme'
 
   export default {
     name: 'App',
     components: { AppSidebar, ExternalLink, RefreshButton },
     computed: {
       ...mapState(['head']),
-      ...mapState(['theme']),
       themeClass() {
-        return this.theme === 'dark' ? '-theme-with-dark-background' : ''
+        return getTheme() === 'dark' ? '-theme-with-dark-background' : ''
       },
       isDev() { return process.env.NODE_ENV === 'development' }
     }

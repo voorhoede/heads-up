@@ -3,7 +3,6 @@ import App from './App.vue'
 import * as actions from './lib/message-actions'
 import router from './router'
 import store from './store'
-import getTheme from './lib/theme'
 
 const background = chrome.runtime.connect({ name: 'devtools' })
 const tabId = chrome.devtools.inspectedWindow.tabId
@@ -21,8 +20,6 @@ background.onMessage.addListener((message) => {
     store.commit('SET_HEAD', { head: message.data.head })
   }
 })
-
-store.commit('SET_THEME', { theme: getTheme() })
 
 Vue.config.devtools = true
 
