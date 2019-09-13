@@ -1,5 +1,8 @@
 <template>
-  <div class="app">
+  <div
+    class="app"
+    :class="themeClass"
+  >
     <app-sidebar class="app__sidebar" />
 
     <main class="app__panel">
@@ -21,14 +24,22 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
+  import { mapState } from 'vuex';
   import { AppSidebar, ExternalLink, RefreshButton } from './components'
+  import getTheme from './lib/theme'
 
   export default {
     name: 'App',
     components: { AppSidebar, ExternalLink, RefreshButton },
     computed: {
       ...mapState(['head']),
+      themeClass() {
+        /**
+         * class '-theme-with-dark-background' is taken from original dev tools repo
+         * src: https://github.com/ChromeDevTools/devtools-frontend/blob/02a851d01de158d8c0a8fd1d3af06649b5379bd6/front_end/ui/inspectorStyle.css
+         */
+        return getTheme() === 'dark' ? '-theme-with-dark-background' : ''
+      },
       isDev() { return process.env.NODE_ENV === 'development' }
     }
   }
@@ -37,6 +48,10 @@
 <style>
   :root {
     --sidebar-width: 190px;
+  }
+
+  .app {
+    color: var(--base-color);
   }
 
   .app__sidebar {
@@ -52,7 +67,7 @@
 
   .section {
     padding: 16px;
-    border-bottom: 1px solid var(--color-grey-light);
+    border-bottom: 1px solid var(--divider-color);
   }
 
   .section:last-child {
@@ -68,8 +83,8 @@
   }
 
   .heading-small {
-    font-size: 12px;
     font-weight: bold;
-    color: var(--color-grey-dark);
+    font-size: .75rem;
+    color: var(--base-color);
   }
 </style>

@@ -3,7 +3,6 @@
 
 html {
   height: 100%;
-  color: var(--color-body);
 }
 
 body {
@@ -18,7 +17,7 @@ p {
 
 a {
   font-weight: normal;
-  color: var(--color-action);
+  color: var(--base-color);
   text-decoration: underline;
   overflow-wrap: break-word;
   word-wrap: break-word;

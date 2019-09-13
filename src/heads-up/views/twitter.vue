@@ -10,7 +10,7 @@
         <!-- eslint-disable-next-line vue/no-v-html -->
         <span v-html="supportedCards.map(v => `<code>${v}</code>`).join(', ')" />.
       </p>
-      <template v-if="isValidCard && isSupportedCard">
+      <figure v-if="isValidCard && isSupportedCard">
         <iframe
           ref="iframe"
           :src="twitterUrl"
@@ -21,12 +21,12 @@
           class="twitter__preview"
           @load="onResize"
         />
-        <p>
+        <figcaption class="twitter__preview-caption">
           Preview based on <external-link href="https://mobile.twitter.com/">
             mobile.twitter.com
           </external-link>.
-        </p>
-      </template>
+        </figcaption>
+      </figure>
     </panel-section>
 
     <panel-section title="Properties">
@@ -111,6 +111,7 @@
 
 
 <script>
+  import getTheme from '../lib/theme'
   import { mapState } from 'vuex'
   import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components'
   import { findMetaContent, findMetaProperty } from '../lib/find-meta'
@@ -177,6 +178,7 @@
         params.set('description', this.description)
         params.set('image', this.image)
         params.set('url', this.head.url)
+        params.set('theme', getTheme() !== 'default' && 'dark')
         return `/twitter-preview/twitter-preview.html?${params}`
       }
     },
@@ -210,5 +212,9 @@
     margin-bottom: 1em;
     padding: 0;
     border: none;
+  }
+
+  .twitter__preview-caption {
+    color: var(--label-color);
   }
 </style>
