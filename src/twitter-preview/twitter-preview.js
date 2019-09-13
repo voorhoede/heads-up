@@ -5,6 +5,7 @@
   const image = params.get('image')
   const url = params.get('url')
   const type = params.get('card')
+  const theme = params.get('theme')
   
   const twitterElement = document.querySelector('[data-twitter-preview-card]')
   twitterElement.innerHTML = getTwitterMarkup({
@@ -20,10 +21,8 @@
    * class '-theme-with-dark-background' is taken from dev tools env
    * src: https://github.com/ChromeDevTools/devtools-frontend/blob/02a851d01de158d8c0a8fd1d3af06649b5379bd6/front_end/ui/inspectorStyle.css
    */
-  const appContainer = window.parent.document.querySelector('.app');
-  if(appContainer.classList.contains('-theme-with-dark-background')) {
-    document.body.classList.add('-theme-with-dark-background');
-  }
+  if(theme === 'dark') document.body.classList.add('-theme-with-dark-background')
+  
 
   function getTwitterMarkup({ title, description, image, url, type }) {
       const twitterLink = url ? `href="${ url }"` : ''

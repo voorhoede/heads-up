@@ -111,6 +111,7 @@
 
 
 <script>
+  import getTheme from '../lib/theme'
   import { mapState } from 'vuex'
   import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components'
   import { findMetaContent, findMetaProperty } from '../lib/find-meta'
@@ -177,6 +178,7 @@
         params.set('description', this.description)
         params.set('image', this.image)
         params.set('url', this.head.url)
+        params.set('theme', getTheme() !== 'default' && 'dark');
         return `/twitter-preview/twitter-preview.html?${params}`
       }
     },
