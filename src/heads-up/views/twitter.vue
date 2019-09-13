@@ -178,7 +178,7 @@
         params.set('description', this.description)
         params.set('image', this.image)
         params.set('url', this.head.url)
-        params.set('theme', getTheme() !== 'default' && 'dark');
+        params.set('theme', getTheme() !== 'default' && 'dark')
         return `/twitter-preview/twitter-preview.html?${params}`
       }
     },
