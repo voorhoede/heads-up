@@ -2,33 +2,11 @@
   <div>
     <panel-section title="Properties">
       <properties-list>
-        <dt>
-          <app-tooltip>
-            <template v-slot:default>
-              Title
-            </template>
-
-            <template v-slot:info>
-              <p>The HTML Title element  defines the document's title that is shown in a browser's title bar or a page's tab. It only contains text; tags within the element are ignored.</p>
-            </template>
-          </app-tooltip>
-        </dt><dd>{{ head.title }}</dd>
+        <dt>Title</dt><dd>{{ head.title }}</dd>
         <dt>Language</dt>
-        <dd>
-          {{ head.lang }}
-        </dd>
+        <dd>{{ head.lang }}</dd>
         <dt>Charset</dt><dd>{{ charset }}</dd>
-        <dt>
-          <app-tooltip>
-            <template v-slot:default>
-              Viewport
-            </template>
-
-            <template v-slot:info>
-              <p>The browser's viewport is the area of the window in which web content can be seen. This is often not the same size as the rendered page, in which case the browser provides scrollbars for the user to scroll around and access all the content.</p>
-            </template>
-          </app-tooltip>
-        </dt><dd>{{ viewport }}</dd>
+        <dt>Viewport</dt><dd>{{ viewport }}</dd>
         <template v-if="themeColor">
           <dt>Theme color</dt>
           <dd>
@@ -57,11 +35,11 @@
 
 <script>
   import { mapState } from 'vuex'
-  import { AppTooltip, ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components'
+  import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components'
   import { findCharset, findMetaContent } from '../lib/find-meta'
 
   export default {
-    components: { AppTooltip, ExternalLink, PanelSection, PropertiesList, ResourceList },
+    components: { ExternalLink, PanelSection, PropertiesList, ResourceList },
     computed: {
       ...mapState(['head']),
       charset() { return findCharset(this.head) },
