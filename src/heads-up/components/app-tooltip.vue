@@ -1,24 +1,27 @@
 <template>
   <span v-tooltip="options">
-    <slot></slot>
+    <slot />
 
-    <span ref="info" class="visually-hidden">
-      <slot name="info"></slot>
+    <span
+      ref="info"
+      class="visually-hidden"
+    >
+      <slot name="info" />
     </span>
   </span>
 </template>
 
 <script>
 export default {
-  mounted() {
-    this.options.content = `${ this.$refs.info.innerHTML }`
-  },
   data() {
     return {
       options: {
         content: {}
       }
     }
+  },
+  mounted() {
+    this.options.content = `${ this.$refs.info.innerHTML }`
   }
 }
 </script>

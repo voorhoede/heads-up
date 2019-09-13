@@ -2,21 +2,28 @@
   <div>
     <panel-section title="Properties">
       <properties-list>
-        <dt>
-          <app-tooltip>
-            <template v-slot:default>
-              Title
-            </template>
+        <properties-item
+          type="key"
+          key-name="title"
+        >
+          <template v-slot:default>
+            Title
+          </template>
 
-            <template v-slot:info>
-              <p>The HTML Title element  defines the document's title that is shown in a browser's title bar or a page's tab. It only contains text; tags within the element are ignored.</p>
-            </template>
-          </app-tooltip>
-        </dt><dd>{{ head.title }}</dd>
-        <dt>Language</dt>
-        <dd>
-          {{ head.lang }}
-        </dd>
+          <template v-slot:info>
+            <p>The HTML Title element  defines the document's title that is shown in a browser's title bar or a page's tab. It only contains text; tags within the element are ignored.</p>
+          </template>
+        </properties-item>
+
+        <properties-item
+          type="value"
+          key-name="title"
+          :schema="appMetaSchema"
+        >
+          {{ head.title }}
+        </properties-item>
+
+        <dt>Language</dt><dd>{{ head.lang }}</dd>
         <dt>Charset</dt><dd>{{ charset }}</dd>
         <dt>
           <app-tooltip>
@@ -56,12 +63,18 @@
 </template>
 
 <script>
+  import { appMetaSchema } from '../lib/schemas/app-meta-schema'
   import { mapState } from 'vuex'
-  import { AppTooltip, ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components'
+  import { AppTooltip, ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList } from '../components'
   import { findCharset, findMetaContent } from '../lib/find-meta'
 
   export default {
-    components: { AppTooltip, ExternalLink, PanelSection, PropertiesList, ResourceList },
+    components: { AppTooltip, ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList },
+    data() {
+      return {
+        appMetaSchema
+      }
+    },
     computed: {
       ...mapState(['head']),
       charset() { return findCharset(this.head) },
