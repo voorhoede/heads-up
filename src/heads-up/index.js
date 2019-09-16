@@ -4,7 +4,6 @@ import * as actions from './lib/message-actions'
 import router from './router'
 import VTooltip from 'v-tooltip'
 import { createStore } from './store'
-
 const store = createStore();
 const background = chrome.runtime.connect({ name: 'devtools' })
 const tabId = chrome.devtools.inspectedWindow.tabId
@@ -23,7 +22,7 @@ background.onMessage.addListener((message) => {
   }
 })
 
-const tooltipOptions = { defaultOffset: '15px' }
+const tooltipOptions = { defaultOffset: '15px', autoHide: false  }
 Vue.use(VTooltip,tooltipOptions)
 Vue.config.devtools = true
 

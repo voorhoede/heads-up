@@ -1,5 +1,5 @@
 <template>
-  <span v-tooltip="content">
+  <span v-tooltip="{content, delay: {hide: 700}}">
     <slot />
 
     <span
@@ -7,6 +7,7 @@
       class="visually-hidden"
     >
       <slot name="info" />
+      <slot name="link" />
     </span>
   </span>
 </template>
@@ -20,7 +21,7 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.content = this.$refs.info.innerText
+      this.content = this.$refs.info.innerHTML
     })
   }
 }

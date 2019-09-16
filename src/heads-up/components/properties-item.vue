@@ -12,15 +12,21 @@
       <template v-slot:info>
         {{ info }}
       </template>
+
+      <template v-slot:link>
+        <external-link :href="link">
+          Learn more
+        </external-link>
+      </template>
     </app-tooltip>
   </div>
 </template>
 
 <script>
-import { AppTooltip } from '../components'
+import { AppTooltip, ExternalLink } from '../components'
 
 export default {
-  components: { AppTooltip },
+  components: { AppTooltip, ExternalLink },
   props: {
     schema: {
       type: Object,
@@ -45,6 +51,8 @@ export default {
     }
 
     this.info = JSON.parse(JSON.stringify(this.schema[this.keyName].meta.info))
+    this.link = JSON.parse(JSON.stringify(this.schema[this.keyName].meta.link))
+    // this.info = `${ info } ${ link }`
   }
 }
 </script>

@@ -14,7 +14,18 @@
           </template>
         </properties-item>
 
-        <dt>Language</dt><dd>{{ head.lang }}</dd>
+        <properties-item
+          key-name="lang"
+          :schema="appMetaSchema"
+        >
+          <template v-slot:default>
+            Language
+          </template>
+          <template v-slot:value>
+            {{ head.lang }}
+          </template>
+        </properties-item>
+
         <dt>Charset</dt><dd>{{ charset }}</dd>
         <dt>Viewport</dt><dd>{{ viewport }}</dd>
         <template v-if="themeColor">
