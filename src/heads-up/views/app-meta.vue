@@ -46,11 +46,11 @@
 <script>
   import { appMetaSchema } from '../lib/schemas/app-meta-schema'
   import { mapState } from 'vuex'
-  import { AppTooltip, ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList } from '../components'
+  import { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList } from '../components'
   import { findCharset, findMetaContent } from '../lib/find-meta'
 
   export default {
-    components: { AppTooltip, ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList },
+    components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList },
     data() {
       return {
         appMetaSchema

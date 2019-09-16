@@ -1,5 +1,5 @@
 <template>
-  <span v-tooltip="options">
+  <span v-tooltip="content">
     <slot />
 
     <span
@@ -15,13 +15,13 @@
 export default {
   data() {
     return {
-      options: {
-        content: {}
-      }
+      content: null
     }
   },
   mounted() {
-    this.options.content = `${ this.$refs.info.innerHTML }`
+    this.$nextTick(() => {
+      this.content = this.$refs.info.innerText
+    })
   }
 }
 </script>
