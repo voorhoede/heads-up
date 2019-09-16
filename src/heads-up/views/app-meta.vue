@@ -3,39 +3,20 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          type="key"
           key-name="title"
+          :schema="appMetaSchema"
         >
           <template v-slot:default>
             Title
           </template>
-
-          <template v-slot:info>
-            <p>The HTML Title element  defines the document's title that is shown in a browser's title bar or a page's tab. It only contains text; tags within the element are ignored.</p>
+          <template v-slot:value>
+            {{ head.title }}
           </template>
-        </properties-item>
-
-        <properties-item
-          type="value"
-          key-name="title"
-          :schema="appMetaSchema"
-        >
-          {{ head.title }}
         </properties-item>
 
         <dt>Language</dt><dd>{{ head.lang }}</dd>
         <dt>Charset</dt><dd>{{ charset }}</dd>
-        <dt>
-          <app-tooltip>
-            <template v-slot:default>
-              Viewport
-            </template>
-
-            <template v-slot:info>
-              <p>The browser's viewport is the area of the window in which web content can be seen. This is often not the same size as the rendered page, in which case the browser provides scrollbars for the user to scroll around and access all the content.</p>
-            </template>
-          </app-tooltip>
-        </dt><dd>{{ viewport }}</dd>
+        <dt>Viewport</dt><dd>{{ viewport }}</dd>
         <template v-if="themeColor">
           <dt>Theme color</dt>
           <dd>

@@ -1,18 +1,28 @@
 <template>
-  <span>
-    <template v-if="type === 'key'">
-      <dt>
-        <app-tooltip>
-          <slot />
+  <div>
+    <app-tooltip>
+      <span>
+        <slot />
+      </span>
 
+      <span>
+        <slot name="value" />
+      </span>
+
+      <template v-slot:info>
+        {{ info }}
+      </template>
+    </app-tooltip>
+
+    <!-- <dt>
+        <app-tooltip>
           <template v-slot:info>
             <slot name="info" />
           </template>
         </app-tooltip>
       </dt>
-    </template>
 
-    <template v-if="type === 'value'">
+
       <dd>
         <app-tooltip>
           <slot />
@@ -21,9 +31,8 @@
             <slot name="info" />
           </template>
         </app-tooltip>
-      </dd>
-    </template>
-  </span>
+      </dd> -->
+  </div>
 </template>
 
 <script>
@@ -39,13 +48,14 @@ export default {
         return null
       }
     },
-    type: {
-      type: String,
-      required: true
-    },
     keyName: {
       type: String,
       required: true
+    }
+  },
+  data() {
+    return {
+      info: null
     }
   },
   mounted() {
@@ -53,28 +63,10 @@ export default {
       return
     }
 
+    this.info = this.schema[this.keyName].meta.info
+
     const validations = Object.keys(this.schema[this.keyName])
     const itemValue = this.$slots.default[0].text.trim()
-    validations.forEach(validation => {
-      console.log(validation)
-      this.validation(itemValue)
-    })
-
-    if (this.schema[this.keyName].required) {
-      //
-    }
-  },
-  methods: {
-    required(value) {
-      console.log('in required, value', value)
-      return value ? true : false
-    },
-    match(value) {
-      console.log('in match', value)
-    },
-    message(value) {
-      console.log('in message', value)
-    }
   }
 }
 </script>
