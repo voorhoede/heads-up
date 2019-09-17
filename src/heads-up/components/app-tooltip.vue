@@ -18,10 +18,6 @@ export default {
 </script>
 
 <style>
-  :root {
-    --toolbar-bg-color: #fff;
-  }
-
   .vue-tooltip {
     width: 150px;
     padding: 5px 8px;
@@ -44,12 +40,17 @@ export default {
   }
 
   .vue-tooltip .tooltip-arrow {
+    --toolbar-bg-color: #fff;
     content: "";
     width: 0;
     height: 0;
     border-style: solid;
     position: absolute;
     margin: 5px;
+  }
+
+  .-theme-with-dark-background .vue-tooltip .tooltip-arrow {
+    --toolbar-bg-color: #333333;
   }
 
   .vue-tooltip[x-out-of-boundaries] {
@@ -61,7 +62,6 @@ export default {
   }
 
   .vue-tooltip[x-placement^="bottom"] .tooltip-arrow {
-    --toolbar-bg-color: #fff;
     left: 10px !important;
     top: -10px;
     border-width: 0 10px 10px 10px;
@@ -99,7 +99,6 @@ export default {
   }
 
   .vue-tooltip[x-placement^="top"] .tooltip-arrow {
-    --toolbar-bg-color: #fff;
     left: 10px !important;
     bottom: -10px;
     border-width: 10px 10px 0 10px;

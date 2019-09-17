@@ -17,8 +17,12 @@ p {
 
 a {
   font-weight: normal;
-  color: var(--base-color);
+  color: var(--accent-color);
   text-decoration: underline;
   overflow-wrap: break-word;
   word-wrap: break-word;
+}
+
+.-theme-with-dark-background a {
+  --accent-color: var(--base-color);
 }
