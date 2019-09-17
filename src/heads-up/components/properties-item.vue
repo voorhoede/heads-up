@@ -12,6 +12,7 @@
       </template>
 
       <template v-slot:info>
+        <!-- eslint-disable-next-line vue/no-v-html -->
         <span v-html="info" />
       </template>
 
