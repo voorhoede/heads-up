@@ -1,16 +1,14 @@
-:root {
-  --color-grey-light: #ededed;
-  --color-grey-medium: #888;
-  --color-grey-dark: #555;
-  --color-action: #3d71ba;
-  --color-body: #33393d;
-}
-/**
- * Borrowed from Chrome DevTools Frontend to match style:
- * @see https://github.com/ChromeDevTools/devtools-frontend/blob/02a851d01de158d8c0a8fd1d3af06649b5379bd6/front_end/ui/inspectorStyle.css
- */
+/* =================================================== default || light */
+.app {
+  /* custom colors wisely picked from dev tools */
+  --base-color: #5A5A5A;
+  --label-color: #888;
+  --value-color: #555;
 
-:root {
+  /**
+  * Borrowed from Chrome DevTools Frontend to match style:
+  * @see https://github.com/ChromeDevTools/devtools-frontend/blob/02a851d01de158d8c0a8fd1d3af06649b5379bd6/front_end/ui/inspectorStyle.css
+  */
   --accent-color: #1a73e8;
   --accent-fg-color: #1a73e8;
   --accent-color-hover: #3b86e8;
@@ -29,9 +27,22 @@
   --focus-ring-inactive-shadow: 0 0 0 1px #e0e0e0;
   --editor-selection-bg-color: #cfe8fc;
   --editor-selection-inactive-bg-color: #e0e0e0;
+
+  /* props defined with props */
+  --focus-ring-active-shadow: 0 0 0 1px var(--accent-color);
+  --selection-bg-color: var(--accent-color);
+  --divider-border: 1px solid var(--divider-color);
 }
 
-.-theme-with-dark-background {
+
+/* =================================================== dark */
+
+.app.-theme-with-dark-background {
+  /* custom colors wisely picked from dev tools */
+  --base-color: #A5A5A5;
+  --label-color: #777;
+  --value-color: #BDC6CF;
+
   --accent-color: #0e639c;
   --accent-fg-color: #cccccc;
   --accent-color-hover: rgb(17, 119, 187);
@@ -50,9 +61,8 @@
   --focus-ring-inactive-shadow: 0 0 0 1px #5a5a5a;
   --editor-selection-bg-color: hsl(207, 88%, 22%);
   --editor-selection-inactive-bg-color: #454545;
-}
 
-:root {
+  /* props defined with props */
   --focus-ring-active-shadow: 0 0 0 1px var(--accent-color);
   --selection-bg-color: var(--accent-color);
   --divider-border: 1px solid var(--divider-color);

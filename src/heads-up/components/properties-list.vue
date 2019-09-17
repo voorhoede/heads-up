@@ -19,10 +19,11 @@
     width: var(--term-width);
     padding-right: 1em;
     text-align: right;
-    color: var(--color-grey-medium);
+    color: var(--label-color);
   }
   .properties-list dd {
     width: calc(100% - var(--term-width));
+    color: var(--value-color);
   }
   .properties-list img {
     display: block;
