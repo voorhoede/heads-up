@@ -1,7 +1,7 @@
 <template>
-  <dl class="properties-list">
+  <div class="properties-list">
     <slot />
-  </dl>
+  </div>
 </template>
 
 <style>

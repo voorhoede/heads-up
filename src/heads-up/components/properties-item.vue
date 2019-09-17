@@ -1,16 +1,18 @@
 <template>
-  <div>
+  <div class="properties-item">
     <app-tooltip>
-      <span>
+      <span class="properties-item__term">
         <slot />
       </span>
 
-      <span>
-        <slot name="value" />
-      </span>
+      <template v-slot:value>
+        <span class="properties-item__description">
+          <slot name="value" />
+        </span>
+      </template>
 
       <template v-slot:info>
-        {{ info }}
+        <span v-html="info" />
       </template>
 
       <template v-slot:link>
@@ -42,7 +44,8 @@ export default {
   },
   data() {
     return {
-      info: null
+      info: '',
+      link: ''
     }
   },
   mounted() {
@@ -50,9 +53,67 @@ export default {
       return
     }
 
-    this.info = JSON.parse(JSON.stringify(this.schema[this.keyName].meta.info))
-    this.link = JSON.parse(JSON.stringify(this.schema[this.keyName].meta.link))
-    // this.info = `${ info } ${ link }`
+    if (this.schema[this.keyName] && this.schema[this.keyName].meta) {
+      this.info = JSON.parse(JSON.stringify(this.schema[this.keyName].meta.info))
+      this.link = JSON.parse(JSON.stringify(this.schema[this.keyName].meta.link))
+    }
   }
 }
 </script>
+
+<style>
+:root {
+  --term-width-small: 80px;
+}
+
+.properties-item {
+  width: 100%;
+  margin-bottom: 1.5em;
+}
+
+.properties-item,
+.properties-item__description {
+  display: block;
+  line-height: 1.4em;
+}
+
+.properties-item__term {
+  color: var(--color-grey-medium);
+}
+
+@media (min-width: 500px) {
+  .properties-item__term,
+  .properties-item__description {
+    display: inline-block;
+    vertical-align: top;
+    line-height: 1.4em;
+  }
+
+  .properties-item__term {
+    width: var(--term-width-small);
+    padding-right: 1em;
+    text-align: right;
+  }
+
+  .properties-item__description {
+    width: calc(100% - var(--term-width-small));
+  }
+}
+
+@media (min-width: 650px) {
+  .properties-item {
+    max-width: 420px;
+    margin-bottom: 1.5em;
+  }
+
+  .properties-item__term {
+    width: 120px;
+    padding-right: 1em;
+    text-align: right;
+  }
+
+  .properties-item__description {
+    width: 300px;
+  }
+}
+</style>

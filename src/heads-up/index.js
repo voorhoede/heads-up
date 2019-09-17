@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import * as actions from './lib/message-actions'
 import router from './router'
-import VTooltip from 'v-tooltip'
+import Tooltip from 'vue-directive-tooltip'
 import { createStore } from './store'
 const store = createStore();
 const background = chrome.runtime.connect({ name: 'devtools' })
@@ -22,8 +22,7 @@ background.onMessage.addListener((message) => {
   }
 })
 
-const tooltipOptions = { defaultOffset: '15px', autoHide: false  }
-Vue.use(VTooltip,tooltipOptions)
+Vue.use(Tooltip)
 Vue.config.devtools = true
 
 import './style/index.css'

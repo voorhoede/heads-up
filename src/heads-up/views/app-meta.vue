@@ -26,19 +26,47 @@
           </template>
         </properties-item>
 
-        <dt>Charset</dt><dd>{{ charset }}</dd>
-        <dt>Viewport</dt><dd>{{ viewport }}</dd>
-        <template v-if="themeColor">
-          <dt>Theme color</dt>
-          <dd>
+        <properties-item
+          key-name="charset"
+          :schema="appMetaSchema"
+        >
+          <template v-slot:default>
+            Charset
+          </template>
+          <template v-slot:value>
+            {{ charset }}
+          </template>
+        </properties-item>
+
+        <properties-item
+          key-name="viewport"
+          :schema="appMetaSchema"
+        >
+          <template v-slot:default>
+            Viewport
+          </template>
+          <template v-slot:value>
+            {{ viewport }}
+          </template>
+        </properties-item>
+
+        <properties-item
+          v-if="themeColor"
+          key-name="viewport"
+          :schema="appMetaSchema"
+        >
+          <template v-slot:default>
+            Theme color
+          </template>
+          <template v-slot:value>
             <span
               v-if="themeColor"
               class="properties-list__color-swatch"
               :style="{ backgroundColor: themeColor }"
             />
             {{ themeColor }}
-          </dd>
-        </template>
+          </template>
+        </properties-item>
       </properties-list>
     </panel-section>
 

@@ -1,130 +1,147 @@
 <template>
-  <span v-tooltip="{content, delay: {hide: 700}}">
+  <div
+    v-tooltip.top="{ ref: 'tooltip' }"
+  >
     <slot />
+    <slot name="value" />
 
-    <span
-      ref="info"
-      class="visually-hidden"
-    >
+    <span ref="tooltip">
       <slot name="info" />
       <slot name="link" />
     </span>
-  </span>
+  </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      content: null
-    }
-  },
-  mounted() {
-    this.$nextTick(() => {
-      this.content = this.$refs.info.innerHTML
-    })
-  }
+
 }
 </script>
 
 <style>
-.tooltip {
-  display: block !important;
-  z-index: 10000;
-}
-
-.tooltip .tooltip-inner {
-  position: relative;
-  max-width: 130px;
-  font-size: .875rem;
-  background-color: var(--toolbar-bg-color);
-  color: var(--tab-selected-fg-color);
-  box-shadow: 0px 2px 2px 0 rgba(0, 0, 0, 0.2);
-  padding: 10px;
-}
-
-.tooltip[x-placement^="top"] .tooltip-inner::after,
-.tooltip[x-placement^="bottom"] .tooltip-inner::after,
-.tooltip[x-placement^="left"] .tooltip-inner::after,
-.tooltip[x-placement^="right"] .tooltip-inner::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 0;
-  border: 0.5em solid black;
-  border-color: transparent transparent var(--toolbar-bg-color) var(--toolbar-bg-color);
-  transform-origin: 0 0;
-}
-
-.tooltip[x-placement^="top"] .tooltip-inner::after {
-  margin-left: -0.5em;
-  left: 50%;
-  bottom: -1em;
-  transform: rotate(-45deg);
-  box-shadow: -2px 2px 2px 0 rgba(0, 0, 0, 0.2);
-}
-
-.tooltip[x-placement^="bottom"] {
-  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
-}
-
-.tooltip[x-placement^="bottom"] .tooltip-inner::after {
-  margin-left: 1em;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%) rotate(135deg);
-  box-shadow: -1px 1px 2px 0 rgba(0, 0, 0, 0.2);
-}
-
-.tooltip[x-placement^="right"] .tooltip-inner::after {
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%) rotate(45deg);
-  box-shadow: -1px 1px 2px 0 rgba(0, 0, 0, 0.2);
-}
-
-.tooltip[x-placement^="left"] {
-  box-shadow: 2px -1px 2px 0px rgba(0, 0, 0, 0.1);
-}
-
-.tooltip[x-placement^="left"] .tooltip-inner::after {
-  top: 100%;
-  left: 100%;
-  transform: translateY(-50%) rotate(-135deg);
-  box-shadow: -1px 1px 2px 0 rgba(0, 0, 0, 0.2);
-}
-
-.tooltip[aria-hidden='true'] {
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity .15s, visibility .15s;
-}
-
-.tooltip[aria-hidden='false'] {
-  visibility: visible;
-  opacity: 1;
-  transition: opacity .15s;
-}
-
-.has-tooltip {
-  cursor: help;
-}
-
-@media (min-width: 450px) {
-  .tooltip .tooltip-inner {
-    max-width: 250px;
+  :root {
+    --tooltip-bgcolor: #fff;
   }
-}
 
-@media (min-width: 550px) {
-  .tooltip .tooltip-inner {
-    max-width: 300px;
+  .vue-tooltip {
+    width: 150px;
+    padding: 5px 8px;
+    background-color: var(--tooltip-bgcolor);
+    border-radius: 2px;
+    color: hsl(0, 0%, 20%);
+    line-height: 14px;
+    filter: drop-shadow(0 1px 2px hsla(0, 0%, 0%, 0.3));
+    border: 1px solid hsla(0, 0%, 0%, 0.1);
   }
-}
 
-@media (min-width: 650px) {
-  .tooltip .tooltip-inner {
-    max-width: 380px;
+  .vue-tooltip .vue-tooltip-hidden {
+    transform: translateX(-100000px) !important;
   }
-}
+
+  .vue-tooltip .tooltip-arrow {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+    margin: 5px;
+  }
+
+  .vue-tooltip[x-out-of-boundaries] {
+    display: none;
+  }
+
+  .vue-tooltip[x-placement^="bottom"] {
+    margin-top: 5px;
+  }
+
+  .vue-tooltip[x-placement^="bottom"] .tooltip-arrow {
+    left: 10px !important;
+    top: -10px;
+    border-width: 0 10px 10px 10px;
+    border-bottom-color: var(--tooltip-bgcolor);
+    border-top-color: transparent !important;
+    border-left-color: transparent !important;
+    border-right-color: transparent !important;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .vue-tooltip[x-placement^="top"] {
+    margin-bottom: 5px;
+  }
+
+  .vue-tooltip[x-placement^="top"] .tooltip-arrow {
+    left: 10px !important;
+    bottom: -10px;
+    border-width: 10px 10px 0 10px;
+    border-top-color: var(--tooltip-bgcolor);
+    border-bottom-color: transparent !important;
+    border-left-color: transparent !important;
+    border-right-color: transparent !important;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .vue-tooltip[x-placement^="right"] {
+    margin-left: 5px;
+  }
+
+  .vue-tooltip[x-placement^="right"] .tooltip-arrow {
+    left: -10px;
+    border-width: 10px 10px 10px 0;
+    border-right-color: var(--tooltip-bgcolor);
+    border-top-color: transparent !important;
+    border-left-color: transparent !important;
+    border-bottom-color: transparent !important;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .vue-tooltip[x-placement^="left"] {
+    margin-right: 5px;
+  }
+
+  .vue-tooltip[x-placement^="left"] .tooltip-arrow {
+    right: -10px;
+    border-width: 10px 0 10px 10px;
+    border-left-color: var(--tooltip-bgcolor);
+    border-top-color: transparent !important;
+    border-right-color: transparent !important;
+    border-bottom-color: transparent !important;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  @media (min-width: 400px) {
+    .vue-tooltip {
+      width: 200px;
+    }
+
+    .vue-tooltip[x-placement^="top"] .tooltip-arrow {
+      left: 10px !important;
+    }
+  }
+
+  @media (min-width: 500px) {
+    .vue-tooltip {
+      width: 300px;
+    }
+
+    .vue-tooltip[x-placement^="top"] .tooltip-arrow {
+      left: 60px !important;
+    }
+  }
+
+  @media (min-width: 700px) {
+    .vue-tooltip[x-placement^="top"] .tooltip-arrow {
+      left: 40px !important;
+    }
+  }
+
+  @media (min-width: 800px) {
+    .vue-tooltip[x-placement^="top"] .tooltip-arrow {
+      left: 40px !important;
+    }
+  }
 </style>
