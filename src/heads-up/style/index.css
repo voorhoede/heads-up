@@ -17,19 +17,12 @@ p {
 
 a {
   font-weight: normal;
-  color: var(--base-color);
+  color: var(--accent-color);
   text-decoration: underline;
   overflow-wrap: break-word;
   word-wrap: break-word;
 }
 
-.visually-hidden {
-  overflow: hidden;
-  position: absolute;
-  margin: -1px;
-  padding: 0;
-  width: 1px;
-  height: 1px;
-  border: 0;
-  clip: rect(0 0 0 0);
+.-theme-with-dark-background a {
+  --accent-color: var(--base-color);
 }

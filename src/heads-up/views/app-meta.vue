@@ -2,22 +2,24 @@
   <div>
     <panel-section title="Properties">
       <properties-list>
-        <dt>Title</dt><dd>{{ head.title }}</dd>
-        <dt>Language</dt>
-        <dd>{{ head.lang }}</dd>
-        <dt>Charset</dt><dd>{{ charset }}</dd>
-        <dt>Viewport</dt><dd>{{ viewport }}</dd>
-        <template v-if="themeColor">
-          <dt>Theme color</dt>
-          <dd>
+        <properties-item
+          v-for="item in appMetaData"
+          :key="item.keyName"
+          :key-name="item.keyName"
+          :schema="item.schema"
+        >
+          <template v-slot:default>
+            {{ item.title }}
+          </template>
+          <template v-slot:value>
+            {{ item.value }}
             <span
-              v-if="themeColor"
+              v-if="item.keyName === 'theme-color'"
               class="properties-list__color-swatch"
               :style="{ backgroundColor: themeColor }"
             />
-            {{ themeColor }}
-          </dd>
-        </template>
+          </template>
+        </properties-item>
       </properties-list>
     </panel-section>
 
@@ -34,17 +36,54 @@
 </template>
 
 <script>
+  import { appMetaSchema } from '../lib/schemas/app-meta-schema'
   import { mapState } from 'vuex'
-  import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components'
+  import { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList } from '../components'
   import { findCharset, findMetaContent } from '../lib/find-meta'
 
   export default {
-    components: { ExternalLink, PanelSection, PropertiesList, ResourceList },
+    components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList },
+    data() {
+      return {
+        appMetaSchema
+      }
+    },
     computed: {
       ...mapState(['head']),
-      charset() { return findCharset(this.head) },
-      viewport() { return this.metaValue('viewport') },
-      themeColor() { return this.metaValue('theme-color') }
+      appMetaData() {
+        return [
+          {
+            keyName: 'title',
+            title: 'Title',
+            value: this.head.title,
+            schema: appMetaSchema
+          },
+          {
+            keyName: 'lang',
+            title: 'Language',
+            value: this.head.lang,
+            schema: appMetaSchema
+          },
+          {
+            keyName: 'charset',
+            title: 'Charset',
+            value: findCharset(this.head),
+            schema: appMetaSchema
+          },
+          {
+            keyName: 'viewport',
+            title: 'Viewport',
+            value: this.metaValue('viewport'),
+            schema: appMetaSchema
+          },
+          {
+            keyName: 'theme-color',
+            title: 'Theme color',
+            value: this.metaValue('theme-color'),
+            schema: appMetaSchema
+          }
+        ]
+      }
     },
     methods: {
       metaValue(metaName) {
