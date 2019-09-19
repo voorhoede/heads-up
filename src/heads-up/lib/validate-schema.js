@@ -15,6 +15,24 @@ export default function validateSchema({ schema, key, value, head }) {
     return errors
   }
 
+  if (schema[key].enum && schema[key].enum.length) {
+    if (!schema[key].enum.includes(valueTrimmed)) {
+      errors.push({
+        message: schema[key].message.enum,
+        key
+      })
+    }
+  }
+
+  if (schema[key]['length']) {
+    if (!(valueTrimmed.length >= schema[key]['length'].min && valueTrimmed.length <= schema[key]['length'].max)) {
+      errors.push({
+        message: schema[key].message['length'],
+        key
+      })
+    }
+  }
+
   if (schema[key].use && schema[key].use.length) {
     schema[key].use.forEach((item, index) => {
       if (!use[item](valueTrimmed)) {
@@ -26,7 +44,7 @@ export default function validateSchema({ schema, key, value, head }) {
     })
   }
 
-  if (errors.length > 0) {
+  if (errors.length) {
     return errors
   }
   return null
