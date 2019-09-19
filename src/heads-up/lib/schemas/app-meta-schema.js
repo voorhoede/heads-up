@@ -30,12 +30,14 @@
 
   'charset': {
     required: true,
-    length: { min: 9, max: 32 },
+    length: { min: 5, max: 32 },
+    match: /^utf-8$/,
     use: ['hasLetterA'],
     message: {
       required: `The charset attribute is required.`,
       length: `The charset attribute does not have the correct length.`,
-      use: [`Charset has no letter A.`]
+      match: `The charset attribute does not have the correct value.`,
+      use: [`Charset has no letter A.`],
     },
     meta: {
       info: `The meta attribute <code>charset</code> specifies which character set a web page is written with.`,
@@ -56,7 +58,7 @@
     }
   },
 
-  'themecolor': {
+  'theme-color': {
     use: ['hasLetterA', 'hasLength5'],
     message: {
       use: [
