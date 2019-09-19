@@ -1,7 +1,7 @@
 import use from './use'
 
 export default function validateSchema({ schema, key, value, head }) {
-  const valueTrimmed = value.length ? value.trim() : value
+  const valueTrimmed = (value && value.length) ? value.trim() : value
   let errors = []
 
   if (schema[key].required && !valueTrimmed) {
