@@ -3,65 +3,18 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          key-name="title"
-          :schema="appMetaSchema"
+          v-for="item in appMetaData"
+          :key="item.keyName"
+          :key-name="item.keyName"
+          :schema="item.schema"
         >
           <template v-slot:default>
-            Title
+            {{ item.title }}
           </template>
           <template v-slot:value>
-            {{ head.title }}
-          </template>
-        </properties-item>
-
-        <properties-item
-          key-name="lang"
-          :schema="appMetaSchema"
-        >
-          <template v-slot:default>
-            Language
-          </template>
-          <template v-slot:value>
-            {{ head.lang }}
-          </template>
-        </properties-item>
-
-        <properties-item
-          key-name="charset"
-          :schema="appMetaSchema"
-        >
-          <template v-slot:default>
-            Charset
-          </template>
-          <template v-slot:value>
-            {{ charset }}
-          </template>
-        </properties-item>
-
-        <properties-item
-          key-name="viewport"
-          :schema="appMetaSchema"
-        >
-          <template v-slot:default>
-            Viewport
-          </template>
-          <template v-slot:value>
-            {{ viewport }}
-          </template>
-        </properties-item>
-
-        <properties-item
-          v-if="themeColor"
-          key-name="theme-color"
-          :schema="appMetaSchema"
-        >
-          <template v-slot:default>
-            Theme color
-          </template>
-          <template v-slot:value>
-            {{ themeColor }}
+            {{ item.value }}
             <span
-              v-if="themeColor"
+              v-if="item.keyName === 'theme-color'"
               class="properties-list__color-swatch"
               :style="{ backgroundColor: themeColor }"
             />
@@ -97,9 +50,40 @@
     },
     computed: {
       ...mapState(['head']),
-      charset() { return findCharset(this.head) },
-      viewport() { return this.metaValue('viewport') },
-      themeColor() { return this.metaValue('theme-color') }
+      appMetaData() {
+        return [
+          {
+            keyName: 'title',
+            title: 'Title',
+            value: this.head.title,
+            schema: appMetaSchema
+          },
+          {
+            keyName: 'lang',
+            title: 'Language',
+            value: this.head.lang,
+            schema: appMetaSchema
+          },
+          {
+            keyName: 'charset',
+            title: 'Charset',
+            value: findCharset(this.head),
+            schema: appMetaSchema
+          },
+          {
+            keyName: 'viewport',
+            title: 'Viewport',
+            value: this.metaValue('viewport'),
+            schema: appMetaSchema
+          },
+          {
+            keyName: 'theme-color',
+            title: 'Theme color',
+            value: this.metaValue('theme-color'),
+            schema: appMetaSchema
+          }
+        ]
+      }
     },
     methods: {
       metaValue(metaName) {
