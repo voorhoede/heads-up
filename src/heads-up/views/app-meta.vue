@@ -50,23 +50,23 @@
           </template>
         </properties-item>
 
-        <!-- <properties-item
+        <properties-item
           v-if="themeColor"
-          key-name="themecolor"
+          key-name="theme-color"
           :schema="appMetaSchema"
         >
           <template v-slot:default>
             Theme color
           </template>
           <template v-slot:value>
+            {{ themeColor }}
             <span
               v-if="themeColor"
               class="properties-list__color-swatch"
               :style="{ backgroundColor: themeColor }"
             />
-            {{ themeColor }}
           </template>
-        </properties-item> -->
+        </properties-item>
       </properties-list>
     </panel-section>
 
