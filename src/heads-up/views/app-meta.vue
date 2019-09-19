@@ -50,9 +50,9 @@
           </template>
         </properties-item>
 
-        <properties-item
+        <!-- <properties-item
           v-if="themeColor"
-          key-name="viewport"
+          key-name="themecolor"
           :schema="appMetaSchema"
         >
           <template v-slot:default>
@@ -66,7 +66,7 @@
             />
             {{ themeColor }}
           </template>
-        </properties-item>
+        </properties-item> -->
       </properties-list>
     </panel-section>
 

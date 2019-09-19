@@ -13,7 +13,13 @@
 
       <template v-slot:info>
         <!-- eslint-disable-next-line vue/no-v-html -->
-        <span v-html="info" />
+        <span
+          v-if="!errors"
+          v-html="info"
+        />
+        <span v-if="errors">
+          {{ errorMessage }}
+        </span>
       </template>
 
       <template v-slot:link>
@@ -26,6 +32,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import validateSchema from '../lib/validate-schema'
 import { AppTooltip, ExternalLink } from '../components'
 
 export default {
@@ -46,7 +54,16 @@ export default {
   data() {
     return {
       info: '',
-      link: ''
+      link: '',
+      errors: null
+    }
+  },
+  computed: {
+    ...mapState(['head']),
+    errorMessage() {
+      if (this.errors && this.errors.length > 0) {
+        return this.errors[0].message
+      }
     }
   },
   mounted() {
@@ -54,10 +71,21 @@ export default {
       return
     }
 
+    console.log(this.$slots.value)
+    const keyName = this.$slots.default[0].text
+    const value = this.$slots.value[0].text
+
     if (this.schema[this.keyName] && this.schema[this.keyName].meta) {
-      this.info = JSON.parse(JSON.stringify(this.schema[this.keyName].meta.info))
-      this.link = JSON.parse(JSON.stringify(this.schema[this.keyName].meta.link))
+      this.info = this.schema[this.keyName].meta.info
+      this.link = this.schema[this.keyName].meta.link
     }
+
+    this.errors = validateSchema({
+      schema: this.schema,
+      key: this.keyName,
+      value: value,
+      head: this.head
+    })
   }
 }
 </script>
