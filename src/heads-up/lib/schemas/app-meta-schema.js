@@ -14,6 +14,7 @@
       link: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title'
     }
   },
+
   'lang': {
     required: true,
     message: {
@@ -24,6 +25,7 @@
       link: 'https://developer.paciellogroup.com/blog/2016/06/using-the-html-lang-attribute/'
     }
   },
+
   'charset': {
     required: true,
     use: ['hasLetterA'],
@@ -38,6 +40,7 @@
       link: 'https://webhint.io/docs/user-guide/hints/hint-meta-charset-utf-8/'
     }
   },
+
   'viewport': {
     use: ['hasLetterA'],
     message: {
@@ -50,6 +53,7 @@
       link: 'https://webhint.io/docs/user-guide/hints/hint-meta-viewport/'
     }
   },
+
   'themecolor': {
     use: ['hasLetterA', 'hasLength5'],
     message: {

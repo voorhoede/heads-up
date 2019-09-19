@@ -71,7 +71,6 @@ export default {
       return
     }
 
-    console.log(this.$slots.value)
     const keyName = this.$slots.default[0].text
     const value = this.$slots.value[0].text
 

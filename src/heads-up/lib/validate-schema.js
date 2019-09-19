@@ -1,9 +1,10 @@
 import use from './use'
 
 export default function validateSchema({ schema, key, value, head }) {
+  const valueTrimmed = value.length ? value.trim() : value
   let errors = []
 
-  if (schema[key].required && !value) {
+  if (schema[key].required && !valueTrimmed) {
     errors.push({
       message: schema[key].message.required,
       key
@@ -16,7 +17,7 @@ export default function validateSchema({ schema, key, value, head }) {
 
   if (schema[key].use && schema[key].use.length) {
     schema[key].use.forEach((item, index) => {
-      if (!use[item](value)) {
+      if (!use[item](valueTrimmed)) {
         errors.push({
           message: schema[key].message.use[index],
           key
