@@ -50,41 +50,36 @@
     },
     computed: {
       ...mapState(['head']),
-      title() { return this.head.title },
-      lang() { return this.head.lang },
-      charset() { return findCharset(this.head) },
-      viewport() { return this.metaValue('viewport') },
-      themeColor() { return this.metaValue('theme-color') },
       appMetaData() {
         return [
           {
             keyName: 'title',
             title: 'Title',
-            value: this.title,
+            value: this.head.title,
             schema: appMetaSchema
           },
           {
             keyName: 'lang',
             title: 'Language',
-            value: this.lang,
+            value: this.head.lang,
             schema: appMetaSchema
           },
           {
             keyName: 'charset',
             title: 'Charset',
-            value: this.charset,
+            value: findCharset(this.head),
             schema: appMetaSchema
           },
           {
             keyName: 'viewport',
             title: 'Viewport',
-            value: this.viewport,
+            value: this.metaValue('viewport'),
             schema: appMetaSchema
           },
           {
             keyName: 'theme-color',
             title: 'Theme color',
-            value: this.themeColor,
+            value: this.metaValue('theme-color'),
             schema: appMetaSchema
           }
         ]
