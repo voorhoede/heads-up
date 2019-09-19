@@ -64,14 +64,14 @@ export default {
       if (this.errors && this.errors.length > 0) {
         return this.errors[0].message
       }
+      return null
     }
   },
   mounted() {
     if (!this.schema) {
-      return
+      throw new Error('No schema is provided.')
     }
 
-    const keyName = this.$slots.default[0].text
     const value = this.$slots.value[0].text
 
     if (this.schema[this.keyName] && this.schema[this.keyName].meta) {
@@ -82,8 +82,7 @@ export default {
     this.errors = validateSchema({
       schema: this.schema,
       key: this.keyName,
-      value: value,
-      head: this.head
+      value: value
     })
   }
 }
