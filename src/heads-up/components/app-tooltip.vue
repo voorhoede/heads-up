@@ -29,6 +29,16 @@ export default {
     border: 1px solid hsla(0, 0%, 0%, 0.1);
   }
 
+  .vue-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 1.2rem;
+  }
+
+
   .-theme-with-dark-background .vue-tooltip {
     background-color: var(--toolbar-bg-color);
     color: var(--base-color);
