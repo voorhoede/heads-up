@@ -103,7 +103,7 @@ export default {
 }
 
 .properties-item__term {
-  color: var(--color-grey-medium);
+  color: var(--label-color);
 }
 
 .properties-item__link {
