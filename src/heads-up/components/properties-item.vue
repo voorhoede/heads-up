@@ -11,7 +11,7 @@
             v-if="errors"
             class="properties-item__icon"
           />
-          <slot name="value" />
+          <span :class="{ 'properties-item__strike': errors }"><slot name="value" /></span>
         </span>
       </template>
 
@@ -118,6 +118,11 @@ export default {
 }
 
 .properties-item__term {
+  color: var(--label-color);
+}
+
+.properties-item__strike {
+  text-decoration: line-through;
   color: var(--label-color);
 }
 
