@@ -95,6 +95,7 @@ export default {
 .properties-item {
   width: 100%;
   margin-bottom: 1.5em;
+  cursor: help;
 }
 
 .properties-item,
