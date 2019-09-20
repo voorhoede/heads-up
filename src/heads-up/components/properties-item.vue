@@ -22,9 +22,7 @@
       </template>
 
       <template v-slot:link>
-        <external-link :href="link">
-          Learn more
-        </external-link>
+        <external-link class="properties-item__link" :href="link">Learn more</external-link>
       </template>
     </app-tooltip>
   </div>
@@ -106,6 +104,10 @@ export default {
 
 .properties-item__term {
   color: var(--color-grey-medium);
+}
+
+.properties-item__link {
+  margin-left: 5px;
 }
 
 @media (min-width: 500px) {
