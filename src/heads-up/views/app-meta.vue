@@ -50,6 +50,9 @@
     },
     computed: {
       ...mapState(['head']),
+      themeColor() {
+        return this.metaValue('theme-color')
+      },
       appMetaData() {
         return [
           {
