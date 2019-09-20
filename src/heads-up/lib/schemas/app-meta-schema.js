@@ -34,12 +34,6 @@ const appMetaSchema = {
   },
 
   'viewport': {
-    use: ['hasLetterA'],
-    message: {
-      use: [
-        'Viewport has no letter A.'
-      ]
-    },
     meta: {
       info: `The <code>viewport</code> is the part of the web page that the user can currently see.`,
       link: 'https://webhint.io/docs/user-guide/hints/hint-meta-viewport/'
@@ -47,13 +41,6 @@ const appMetaSchema = {
   },
 
   'theme-color': {
-    use: ['hasLetterA', 'hasLength5'],
-    message: {
-      use: [
-        `Theme color has no letter A.`,
-        `The theme color length is not exactly 5 characters long.`
-      ]
-    },
     meta: {
       info: `Set the toolbar color of the Chrome browser.`,
       link: 'https://developers.google.com/web/updates/2014/11/Support-for-theme-color-in-Chrome-39-for-Android'
