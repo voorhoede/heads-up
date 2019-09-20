@@ -7,8 +7,7 @@ export default function validateSchema({ schema, key, value }) {
   // Required
   if (schema[key].required && !valueTrimmed) {
     errors.push({
-      message: schema[key].message.required,
-      key
+      message: schema[key].message.required
     })
   }
 
@@ -20,8 +19,7 @@ export default function validateSchema({ schema, key, value }) {
   if (schema[key].enum && schema[key].enum.length) {
     if (!schema[key].enum.includes(valueTrimmed)) {
       errors.push({
-        message: schema[key].message.enum,
-        key
+        message: schema[key].message.enum
       })
     }
   }
@@ -30,7 +28,6 @@ export default function validateSchema({ schema, key, value }) {
   if (schema[key]['match'] && !valueTrimmed.match(schema[key]['match'])) {
     errors.push({
       message: schema[key].message.match,
-      key
     })
   }
 
@@ -39,7 +36,6 @@ export default function validateSchema({ schema, key, value }) {
     if (!(valueTrimmed.length >= schema[key]['length'].min && valueTrimmed.length <= schema[key]['length'].max)) {
       errors.push({
         message: schema[key].message['length'],
-        key
       })
     }
   }
@@ -50,7 +46,6 @@ export default function validateSchema({ schema, key, value }) {
       if (!use[item](valueTrimmed)) {
         errors.push({
           message: schema[key].message.use[index],
-          key
         })
       }
     })
