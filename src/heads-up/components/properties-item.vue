@@ -7,6 +7,10 @@
 
       <template v-slot:value>
         <span class="properties-item__description">
+          <WarningIcon
+            v-if="errors"
+            class="properties-item__icon"
+          />
           <slot name="value" />
         </span>
       </template>
@@ -34,9 +38,10 @@
 import { mapState } from 'vuex'
 import validateSchema from '../lib/validate-schema'
 import { AppTooltip, ExternalLink } from '../components'
+import WarningIcon from '../assets/icons/warning.svg'
 
 export default {
-  components: { AppTooltip, ExternalLink },
+  components: { AppTooltip, ExternalLink, WarningIcon },
   props: {
     schema: {
       type: Object,
@@ -102,6 +107,14 @@ export default {
 .properties-item__description {
   display: block;
   line-height: 1.4em;
+}
+
+.properties-item__icon {
+  position: relative;
+  display: inline-block;
+  top: -1px;
+  margin-right: 5px;
+  vertical-align: sub;
 }
 
 .properties-item__term {
