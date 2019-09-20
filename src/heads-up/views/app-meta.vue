@@ -36,7 +36,7 @@
 </template>
 
 <script>
-  import { appMetaSchema } from '../lib/schemas/app-meta-schema'
+  import appMetaSchema  from '../lib/schemas/app-meta-schema'
   import { mapState } from 'vuex'
   import { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList } from '../components'
   import { findCharset, findMetaContent } from '../lib/find-meta'
