@@ -11,7 +11,17 @@
             v-if="errors"
             class="properties-item__icon"
           />
-          <span :class="{ 'properties-item__strike': errors }"><slot name="value" /></span>
+          <span
+            v-if="!valueWithExceedLength"
+            :class="{ 'properties-item__strike': errors && !valueWithExceededLength }"
+          >
+            {{ value }}
+            <span v-if="valueWithExceededLength">{{ valueMinusExceedLength }}</span>
+            <span
+              v-if="valueWithExceededLength"
+              class="properties-item__strike"
+            >{{ valueWithExceededLength }}</span>
+          </span>
         </span>
       </template>
 
@@ -53,6 +63,10 @@ export default {
     keyName: {
       type: String,
       required: true
+    },
+    value: {
+      type: String,
+      required: true
     }
   },
   data() {
@@ -69,14 +83,24 @@ export default {
         return this.errors[0].message
       }
       return null
+    },
+    valueWithExceededLength() {
+      if (this.errors && this.errors.length > 0 && this.errors[0]['length']) {
+        return this.value.slice(this.errors[0]['length'] * -1)
+      }
+      return null
+    },
+    valueMinusExceedLength() {
+      if (this.errors && this.errors.length > 0 && this.errors[0]['length']) {
+        return this.value.slice(0, this.value.length - this.errors[0]['length'])
+      }
+      return null
     }
   },
   mounted() {
     if (!this.schema) {
       throw new Error('No schema is provided.')
     }
-
-    const value = this.$slots.value[0].text
 
     if (this.schema[this.keyName] && this.schema[this.keyName].meta) {
       this.info = this.schema[this.keyName].meta.info
@@ -86,7 +110,7 @@ export default {
     this.errors = validateSchema({
       schema: this.schema,
       key: this.keyName,
-      value: value
+      value: this.value
     })
   }
 }

@@ -5,6 +5,7 @@
         <properties-item
           v-for="item in appMetaData"
           :key="item.keyName"
+          :value="item.value"
           :key-name="item.keyName"
           :schema="item.schema"
         >
@@ -12,7 +13,6 @@
             {{ item.title }}
           </template>
           <template v-slot:value>
-            {{ item.value }}
             <span
               v-if="item.keyName === 'theme-color'"
               class="properties-list__color-swatch"
