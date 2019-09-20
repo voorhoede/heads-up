@@ -118,7 +118,7 @@ export default {
 }
 
 .properties-item__term {
-  color: var(--color-grey-medium);
+  color: var(--label-color);
 }
 
 @media (min-width: 500px) {
