@@ -1,13 +1,8 @@
-  const appMetaSchema = {
+const appMetaSchema = {
   'title': {
     required: true,
-    use: ['hasLetterA', 'hasLength5'],
     message: {
-      required: `The title element is required.`,
-      use: [
-        `Title has no letter A.`,
-        `The Title Length is not exactly 5 characters long.`
-      ]
+      required: `The title element is required.`
     },
     meta: {
       info: `The HTML <code>title</code> element defines the document's title that is shown in a browser's title bar or a page's tab.`,
@@ -17,7 +12,6 @@
 
   'lang': {
     required: true,
-    enum: ['de', 'fr'],
     message: {
       required: `The lang attribute is required.`,
       enum: `Lang attribute does not contain a correct value.`
@@ -30,14 +24,8 @@
 
   'charset': {
     required: true,
-    length: { min: 5, max: 32 },
-    match: /^utf-8$/,
-    use: ['hasLetterA'],
     message: {
       required: `The charset attribute is required.`,
-      length: `The charset attribute does not have the correct length.`,
-      match: `The charset attribute does not have the correct value.`,
-      use: [`Charset has no letter A.`],
     },
     meta: {
       info: `The meta attribute <code>charset</code> specifies which character set a web page is written with.`,
