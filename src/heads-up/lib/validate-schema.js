@@ -42,10 +42,10 @@ export default function validateSchema({ schema, key, value }) {
 
   // Use
   if (schema[key].use && schema[key].use.length) {
-    schema[key].use.forEach((item, index) => {
+    schema[key].use.forEach(item => {
       if (!use[item](valueTrimmed)) {
         errors.push({
-          message: schema[key].message.use[index],
+          message: schema[key].message.use[item],
         })
       }
     })
