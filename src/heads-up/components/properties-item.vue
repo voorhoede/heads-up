@@ -31,6 +31,7 @@
       </app-tooltip>
       <span
         v-if="!valueWithExceededLength"
+        class="properties-item__description-text"
         :class="{ 'properties-item__strike': errors && !valueWithExceededLength }"
       >{{ value }}</span>
       <span v-if="valueWithExceededLength">{{ valueMinusExceededLength }}</span>
@@ -41,7 +42,8 @@
       <span
         v-if="valueSlot"
         class="properties-item__extra"
-      >{{ value }}
+      >
+        <slot name="value" />
       </span>
     </span>
   </div>
@@ -142,13 +144,17 @@ export default {
   line-height: 1.4em;
 }
 
+.properties-item__description-text {
+  display: block;
+}
+
 .properties-item__icon {
   display: inline-block;
   position: relative;
   top: -1px;
   margin-right: 5px;
-  width: 2em;
-  height: 2em;
+  width: 1.8em;
+  height: 1.8em;
   vertical-align: middle;
 }
 
@@ -174,11 +180,14 @@ export default {
 }
 
 @media (min-width: 500px) {
+  .properties-item {
+    display: flex;
+    align-items: center;
+  }
+
   .properties-item__term,
   .properties-item__description {
-    display: inline-block;
     line-height: 1.4em;
-    vertical-align: middle;
   }
 
   .properties-item__term {
@@ -188,6 +197,8 @@ export default {
   }
 
   .properties-item__description {
+    display: inline-flex;
+    align-items: center;
     width: calc(100% - var(--term-width-small));
   }
 }
