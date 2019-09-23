@@ -11,8 +11,8 @@ export default function validateSchema({ schema, key, value }) {
     })
   }
 
-  if (!value) {
-    return errors
+  if (!value && !schema[key].required) {
+    return null
   }
 
   // Enum
@@ -33,9 +33,10 @@ export default function validateSchema({ schema, key, value }) {
 
   // Length
   if (schema[key]['length']) {
-    if (!(valueTrimmed.length >= schema[key]['length'].min && valueTrimmed.length <= schema[key]['length'].max)) {
+    if (!(valueTrimmed.length <= schema[key]['length'].max)) {
       errors.push({
         message: schema[key].message['length'],
+        length: valueTrimmed.length - schema[key]['length'].max
       })
     }
   }

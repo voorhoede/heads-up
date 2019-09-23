@@ -5,6 +5,7 @@
         <properties-item
           v-for="item in appMetaData"
           :key="item.keyName"
+          :value="item.value"
           :key-name="item.keyName"
           :schema="item.schema"
         >
@@ -12,10 +13,8 @@
             {{ item.title }}
           </template>
           <template v-slot:value>
-            {{ item.value }}
             <span
-              v-if="item.keyName === 'theme-color'"
-              class="properties-list__color-swatch"
+              v-if="item.keyName === 'theme-color' && themeColor"
               :style="{ backgroundColor: themeColor }"
             />
           </template>
@@ -50,6 +49,9 @@
     },
     computed: {
       ...mapState(['head']),
+      themeColor() {
+        return this.metaValue('theme-color')
+      },
       appMetaData() {
         return [
           {
