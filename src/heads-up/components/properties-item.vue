@@ -20,10 +20,9 @@
             v-if="valueWithExceededLength"
             class="properties-item__strike"
           >{{ valueWithExceededLength }}</span>
-          <slot
-            name="value"
-            class="properties-item__color-swatch"
-          />
+          <span v-if="valueSlot" class="properties-item__extra">
+            <slot name="value" />
+          </span>
         </span>
       </template>
 
@@ -72,7 +71,8 @@ export default {
     return {
       info: '',
       link: '',
-      errors: null
+      errors: null,
+      valueSlot: null
     }
   },
   computed: {
@@ -99,6 +99,10 @@ export default {
   mounted() {
     if (!this.schema) {
       throw new Error('No schema is provided.')
+    }
+
+    if (this.$slots && this.$slots.value) {
+      this.valueSlot = this.$slots.value
     }
 
     if (this.schema[this.keyName] && this.schema[this.keyName].meta) {
@@ -140,7 +144,7 @@ export default {
   vertical-align: sub;
 }
 
-.properties-item__color-swatch {
+.properties-item__extra span {
   display: inline-block;
   margin-left: 3px;
   width: 10px;
