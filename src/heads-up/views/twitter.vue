@@ -7,6 +7,7 @@
       <p v-if="isValidCard && !isSupportedCard">
         Preview is not yet available for <code>{{ card }}</code> cards. <br>
         Card preview is currently supported for:
+        <!-- eslint-disable-next-line vue/no-v-html -->
         <span v-html="supportedCards.map(v => `<code>${v}</code>`).join(', ')" />.
       </p>
       <figure v-if="isValidCard && isSupportedCard">
