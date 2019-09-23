@@ -12,16 +12,15 @@
       </template>
 
       <template v-slot:info>
-        <span
-          v-if="!errors"
-          v-html="info"
-        />
+        <!-- eslint-disable-next-line vue/no-v-html, vue/max-attributes-per-line -->
+        <span v-if="!errors" v-html="info" />
         <span v-if="errors">
           {{ errorMessage }}
         </span>
       </template>
 
       <template v-slot:link>
+        <!-- eslint-disable-next-line vue/singleline-html-element-content-newline, vue/max-attributes-per-line -->
         <external-link class="properties-item__link" :href="link">Learn more</external-link>
       </template>
     </app-tooltip>
