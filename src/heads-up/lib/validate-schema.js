@@ -11,8 +11,8 @@ export default function validateSchema({ schema, key, value }) {
     })
   }
 
-  if (!value) {
-    return errors
+  if (!value && !schema[key].required) {
+    return null
   }
 
   // Enum

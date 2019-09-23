@@ -20,6 +20,10 @@
             v-if="valueWithExceededLength"
             class="properties-item__strike"
           >{{ valueWithExceededLength }}</span>
+          <slot
+            name="value"
+            class="properties-item__color-swatch"
+          />
         </span>
       </template>
 
@@ -137,6 +141,14 @@ export default {
   top: -1px;
   margin-right: 5px;
   vertical-align: sub;
+}
+
+.properties-item__color-swatch {
+  display: inline-block;
+  margin-left: 3px;
+  width: 10px;
+  height: 10px;
+  border: 1px solid #888;
 }
 
 .properties-item__term {
