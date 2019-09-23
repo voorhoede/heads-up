@@ -20,7 +20,10 @@
             v-if="valueWithExceededLength"
             class="properties-item__strike"
           >{{ valueWithExceededLength }}</span>
-          <span v-if="valueSlot" class="properties-item__extra">
+          <span
+            v-if="valueSlot"
+            class="properties-item__extra"
+          >
             <slot name="value" />
           </span>
         </span>
