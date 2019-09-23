@@ -12,16 +12,14 @@
             class="properties-item__icon"
           />
           <span
-            v-if="!valueWithExceedLength"
+            v-if="!valueWithExceededLength"
             :class="{ 'properties-item__strike': errors && !valueWithExceededLength }"
-          >
-            {{ value }}
-            <span v-if="valueWithExceededLength">{{ valueMinusExceedLength }}</span>
-            <span
-              v-if="valueWithExceededLength"
-              class="properties-item__strike"
-            >{{ valueWithExceededLength }}</span>
-          </span>
+          >{{ value }}</span>
+          <span v-if="valueWithExceededLength">{{ valueMinusExceededLength }}</span>
+          <span
+            v-if="valueWithExceededLength"
+            class="properties-item__strike"
+          >{{ valueWithExceededLength }}</span>
         </span>
       </template>
 
@@ -90,7 +88,7 @@ export default {
       }
       return null
     },
-    valueMinusExceedLength() {
+    valueMinusExceededLength() {
       if (this.errors && this.errors.length > 0 && this.errors[0]['length']) {
         return this.value.slice(0, this.value.length - this.errors[0]['length'])
       }
