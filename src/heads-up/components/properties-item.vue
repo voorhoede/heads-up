@@ -1,47 +1,49 @@
 <template>
   <div class="properties-item">
-    <app-tooltip>
-      <span class="properties-item__term">
-        <slot />
-      </span>
+    <span class="properties-item__term">
+      <slot />
+    </span>
 
-      <template v-slot:value>
-        <span class="properties-item__description">
-          <WarningIcon
-            v-if="errors"
-            class="properties-item__icon"
-          />
-          <span
-            v-if="!valueWithExceededLength"
-            :class="{ 'properties-item__strike': errors && !valueWithExceededLength }"
-          >{{ value }}</span>
-          <span v-if="valueWithExceededLength">{{ valueMinusExceededLength }}</span>
-          <span
-            v-if="valueWithExceededLength"
-            class="properties-item__strike"
-          >{{ valueWithExceededLength }}</span>
-          <span
-            v-if="valueSlot"
-            class="properties-item__extra"
-          >
-            <slot name="value" />
+    <span class="properties-item__description">
+      <app-tooltip>
+        <InfoIcon
+          v-if="!errors"
+          class="properties-item__icon"
+        />
+
+        <WarningIcon
+          v-if="errors"
+          class="properties-item__icon"
+        />
+
+        <template v-slot:info>
+          <!-- eslint-disable-next-line vue/no-v-html, vue/max-attributes-per-line -->
+          <span v-if="!errors" v-html="info" />
+          <span v-if="errors">
+            {{ errorMessage }}
           </span>
-        </span>
-      </template>
+        </template>
 
-      <template v-slot:info>
-        <!-- eslint-disable-next-line vue/no-v-html, vue/max-attributes-per-line -->
-        <span v-if="!errors" v-html="info" />
-        <span v-if="errors">
-          {{ errorMessage }}
-        </span>
-      </template>
-
-      <template v-slot:link>
-        <!-- eslint-disable-next-line vue/singleline-html-element-content-newline, vue/max-attributes-per-line -->
-        <external-link class="properties-item__link" :href="link">Learn more</external-link>
-      </template>
-    </app-tooltip>
+        <template v-slot:link>
+          <!-- eslint-disable-next-line vue/singleline-html-element-content-newline, vue/max-attributes-per-line -->
+          <external-link class="properties-item__link" :href="link">Learn more</external-link>
+        </template>
+      </app-tooltip>
+      <span
+        v-if="!valueWithExceededLength"
+        :class="{ 'properties-item__strike': errors && !valueWithExceededLength }"
+      >{{ value }}</span>
+      <span v-if="valueWithExceededLength">{{ valueMinusExceededLength }}</span>
+      <span
+        v-if="valueWithExceededLength"
+        class="properties-item__strike"
+      >{{ valueWithExceededLength }}</span>
+      <span
+        v-if="valueSlot"
+        class="properties-item__extra"
+      >{{ value }}
+      </span>
+    </span>
   </div>
 </template>
 
@@ -49,10 +51,11 @@
 import { mapState } from 'vuex'
 import validateSchema from '../lib/validate-schema'
 import { AppTooltip, ExternalLink } from '../components'
+import InfoIcon from '../assets/icons/info.svg'
 import WarningIcon from '../assets/icons/warning.svg'
 
 export default {
-  components: { AppTooltip, ExternalLink, WarningIcon },
+  components: { AppTooltip, ExternalLink, InfoIcon, WarningIcon },
   props: {
     schema: {
       type: Object,
@@ -140,11 +143,13 @@ export default {
 }
 
 .properties-item__icon {
-  position: relative;
   display: inline-block;
+  position: relative;
   top: -1px;
   margin-right: 5px;
-  vertical-align: sub;
+  width: 2em;
+  height: 2em;
+  vertical-align: middle;
 }
 
 .properties-item__extra span {
@@ -172,8 +177,8 @@ export default {
   .properties-item__term,
   .properties-item__description {
     display: inline-block;
-    vertical-align: top;
     line-height: 1.4em;
+    vertical-align: middle;
   }
 
   .properties-item__term {

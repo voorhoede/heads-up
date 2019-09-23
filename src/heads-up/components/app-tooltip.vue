@@ -1,15 +1,14 @@
 <template>
-  <div
+  <span
     v-tooltip.top="{ ref: 'tooltip' }"
   >
     <slot />
-    <slot name="value" />
 
     <span ref="tooltip">
       <slot name="info" />
       <slot name="link" />
     </span>
-  </div>
+  </span>
 </template>
 
 <script>
@@ -72,7 +71,6 @@ export default {
   }
 
   .vue-tooltip[x-placement^="bottom"] .tooltip-arrow {
-    left: 10px !important;
     top: -10px;
     border-width: 0 10px 10px 10px;
     border-bottom-color: var(--toolbar-bg-color);
@@ -109,7 +107,6 @@ export default {
   }
 
   .vue-tooltip[x-placement^="top"] .tooltip-arrow {
-    left: 10px !important;
     bottom: -10px;
     border-width: 10px 10px 0 10px;
     border-top-color: var(--toolbar-bg-color);
@@ -144,35 +141,11 @@ export default {
     .vue-tooltip {
       width: 200px;
     }
-
-    .vue-tooltip[x-placement^="top"] .tooltip-arrow,
-    .vue-tooltip[x-placement^="bottom"] .tooltip-arrow {
-      left: 10px !important;
-    }
   }
 
   @media (min-width: 500px) {
     .vue-tooltip {
       width: 300px;
-    }
-
-    .vue-tooltip[x-placement^="top"] .tooltip-arrow,
-    .vue-tooltip[x-placement^="bottom"] .tooltip-arrow {
-      left: 60px !important;
-    }
-  }
-
-  @media (min-width: 700px) {
-    .vue-tooltip[x-placement^="top"] .tooltip-arrow,
-    .vue-tooltip[x-placement^="bottom"] .tooltip-arrow {
-      left: 40px !important;
-    }
-  }
-
-  @media (min-width: 800px) {
-    .vue-tooltip[x-placement^="top"] .tooltip-arrow,
-    .vue-tooltip[x-placement^="bottom"] .tooltip-arrow {
-      left: 40px !important;
     }
   }
 </style>
