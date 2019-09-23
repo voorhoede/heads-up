@@ -2,7 +2,7 @@
   <div>
     <panel-section title="Favicons">
       <p v-if="!favicons.length">
-        No favicons detected.
+        <WarningIcon class="warning-icon" /> No favicons detected.
       </p>
       <properties-list>
         <template v-for="favicon in favicons">
@@ -41,9 +41,10 @@
 <script>
   import { mapState } from 'vuex'
   import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components'
+  import WarningIcon from '../assets/icons/warning.svg'
 
   export default {
-    components: { ExternalLink, PanelSection, PropertiesList, ResourceList },
+    components: { ExternalLink, PanelSection, PropertiesList, ResourceList, WarningIcon },
     computed: {
       ...mapState(['head']),
       favicons() {
@@ -59,3 +60,12 @@
     }
   }
 </script>
+
+<style>
+.warning-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: text-top;
+}
+</style>
