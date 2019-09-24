@@ -7,7 +7,25 @@
 
       <template v-slot:value>
         <span class="properties-item__description">
-          <slot name="value" />
+          <WarningIcon
+            v-if="errors"
+            class="properties-item__icon"
+          />
+          <span
+            v-if="!valueWithExceededLength"
+            :class="{ 'properties-item__strike': errors && !valueWithExceededLength }"
+          >{{ value }}</span>
+          <span v-if="valueWithExceededLength">{{ valueMinusExceededLength }}</span>
+          <span
+            v-if="valueWithExceededLength"
+            class="properties-item__strike"
+          >{{ valueWithExceededLength }}</span>
+          <span
+            v-if="valueSlot"
+            class="properties-item__extra"
+          >
+            <slot name="value" />
+          </span>
         </span>
       </template>
 
@@ -31,9 +49,10 @@
 import { mapState } from 'vuex'
 import validateSchema from '../lib/validate-schema'
 import { AppTooltip, ExternalLink } from '../components'
+import WarningIcon from '../assets/icons/warning.svg'
 
 export default {
-  components: { AppTooltip, ExternalLink },
+  components: { AppTooltip, ExternalLink, WarningIcon },
   props: {
     schema: {
       type: Object,
@@ -45,13 +64,18 @@ export default {
     keyName: {
       type: String,
       required: true
+    },
+    value: {
+      type: String,
+      required: true
     }
   },
   data() {
     return {
       info: '',
       link: '',
-      errors: null
+      errors: null,
+      valueSlot: null
     }
   },
   computed: {
@@ -61,6 +85,18 @@ export default {
         return this.errors[0].message
       }
       return null
+    },
+    valueWithExceededLength() {
+      if (this.errors && this.errors.length > 0 && this.errors[0]['length']) {
+        return this.value.slice(this.errors[0]['length'] * -1)
+      }
+      return null
+    },
+    valueMinusExceededLength() {
+      if (this.errors && this.errors.length > 0 && this.errors[0]['length']) {
+        return this.value.slice(0, this.value.length - this.errors[0]['length'])
+      }
+      return null
     }
   },
   mounted() {
@@ -68,7 +104,9 @@ export default {
       throw new Error('No schema is provided.')
     }
 
-    const value = this.$slots.value[0].text
+    if (this.$slots && this.$slots.value) {
+      this.valueSlot = this.$slots.value
+    }
 
     if (this.schema[this.keyName] && this.schema[this.keyName].meta) {
       this.info = this.schema[this.keyName].meta.info
@@ -78,7 +116,7 @@ export default {
     this.errors = validateSchema({
       schema: this.schema,
       key: this.keyName,
-      value: value
+      value: this.value
     })
   }
 }
@@ -101,7 +139,28 @@ export default {
   line-height: 1.4em;
 }
 
+.properties-item__icon {
+  position: relative;
+  display: inline-block;
+  top: -1px;
+  margin-right: 5px;
+  vertical-align: sub;
+}
+
+.properties-item__extra span {
+  display: inline-block;
+  margin-left: 3px;
+  width: 10px;
+  height: 10px;
+  border: 1px solid #888;
+}
+
 .properties-item__term {
+  color: var(--label-color);
+}
+
+.properties-item__strike {
+  text-decoration: line-through;
   color: var(--label-color);
 }
 
