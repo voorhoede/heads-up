@@ -138,7 +138,6 @@ export default {
 .properties-item {
   width: 100%;
   margin-bottom: 1.5em;
-  cursor: help;
 }
 
 .properties-item__term {
@@ -169,9 +168,10 @@ export default {
   position: relative;
   top: -1px;
   margin-right: 5px;
-  width: 1.8em;
-  height: 1.8em;
+  width: 1.5em;
+  height: 1.5em;
   vertical-align: middle;
+  cursor: help;
 }
 
 .properties-item__extra span {

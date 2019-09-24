@@ -26,3 +26,7 @@ a {
 .-theme-with-dark-background a {
   --accent-color: var(--base-color);
 }
+
+.info-icon {
+  fill: currentColor;
+}
