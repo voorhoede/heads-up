@@ -24,6 +24,7 @@ export default {
     border-radius: 2px;
     color: hsl(0, 0%, 20%);
     line-height: 14px;
+    text-align: left;
     filter: drop-shadow(0 1px 2px hsla(0, 0%, 0%, 0.3));
     border: 1px solid hsla(0, 0%, 0%, 0.1);
   }

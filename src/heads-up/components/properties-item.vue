@@ -230,7 +230,7 @@ export default {
   }
 
   .properties-item__term {
-    width: 120px;
+    width: var(--term-width-small);
     text-align: right;
   }
 
