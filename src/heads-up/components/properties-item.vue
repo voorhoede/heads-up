@@ -1,11 +1,11 @@
 <template>
   <div class="properties-item">
     <span class="properties-item__term">
-      <slot />
-    </span>
+      <span class="properties-item__term-text">
+        <slot />
+      </span>
 
-    <span class="properties-item__description">
-      <app-tooltip>
+      <app-tooltip class="properties-item__tooltip">
         <InfoIcon
           v-if="!errors"
           class="properties-item__icon"
@@ -29,6 +29,9 @@
           <external-link class="properties-item__link" :href="link">Learn more</external-link>
         </template>
       </app-tooltip>
+    </span>
+
+    <span class="properties-item__description">
       <span
         v-if="!valueWithExceededLength"
         class="properties-item__description-text"
@@ -129,13 +132,26 @@ export default {
 
 <style>
 :root {
-  --term-width-small: 80px;
+  --term-width-small: 120px;
 }
 
 .properties-item {
   width: 100%;
   margin-bottom: 1.5em;
   cursor: help;
+}
+
+.properties-item__term {
+  display: inline-flex;
+  align-items: center;
+}
+
+.properties-item__tooltip {
+  order: 1;
+}
+
+.properties-item__term-text {
+  order: 2;
 }
 
 .properties-item,
@@ -185,19 +201,23 @@ export default {
     align-items: center;
   }
 
+  .properties-item__term {
+    display: unset;
+  }
+
   .properties-item__term,
   .properties-item__description {
     line-height: 1.4em;
   }
 
   .properties-item__term {
+    justify-content: space-between;
     width: var(--term-width-small);
-    padding-right: 1em;
     text-align: right;
   }
 
   .properties-item__description {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     width: calc(100% - var(--term-width-small));
   }
@@ -211,7 +231,6 @@ export default {
 
   .properties-item__term {
     width: 120px;
-    padding-right: 1em;
     text-align: right;
   }
 
