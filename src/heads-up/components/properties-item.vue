@@ -145,29 +145,17 @@ export default {
   align-items: center;
 }
 
-.properties-item__tooltip {
-  order: 1;
-}
-
-.properties-item__term-text {
-  order: 2;
-}
-
 .properties-item,
 .properties-item__description {
   display: block;
   line-height: 1.4em;
 }
 
-.properties-item__description-text {
-  display: block;
-}
-
 .properties-item__icon {
   display: inline-block;
   position: relative;
   top: -1px;
-  margin-right: 5px;
+  margin-left: 5px;
   width: 1.5em;
   height: 1.5em;
   vertical-align: middle;
@@ -201,18 +189,15 @@ export default {
     align-items: center;
   }
 
-  .properties-item__term {
-    display: unset;
-  }
-
   .properties-item__term,
   .properties-item__description {
     line-height: 1.4em;
   }
 
   .properties-item__term {
-    justify-content: space-between;
+    display: unset;
     width: var(--term-width-small);
+    padding-right: 5px;
     text-align: right;
   }
 
@@ -220,6 +205,10 @@ export default {
     display: flex;
     align-items: center;
     width: calc(100% - var(--term-width-small));
+  }
+
+  .properties-item__icon {
+    margin-left: unset;
   }
 }
 
