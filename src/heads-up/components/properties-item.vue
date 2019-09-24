@@ -1,47 +1,54 @@
 <template>
   <div class="properties-item">
-    <app-tooltip>
-      <span class="properties-item__term">
+    <span class="properties-item__term">
+      <span class="properties-item__term-text">
         <slot />
       </span>
 
-      <template v-slot:value>
-        <span class="properties-item__description">
-          <WarningIcon
-            v-if="errors"
-            class="properties-item__icon"
-          />
-          <span
-            v-if="!valueWithExceededLength"
-            :class="{ 'properties-item__strike': errors && !valueWithExceededLength }"
-          >{{ value }}</span>
-          <span v-if="valueWithExceededLength">{{ valueMinusExceededLength }}</span>
-          <span
-            v-if="valueWithExceededLength"
-            class="properties-item__strike"
-          >{{ valueWithExceededLength }}</span>
-          <span
-            v-if="valueSlot"
-            class="properties-item__extra"
-          >
-            <slot name="value" />
+      <app-tooltip class="properties-item__tooltip">
+        <InfoIcon
+          v-if="!errors"
+          class="properties-item__icon"
+        />
+
+        <WarningIcon
+          v-if="errors"
+          class="properties-item__icon"
+        />
+
+        <template v-slot:info>
+          <!-- eslint-disable-next-line vue/no-v-html, vue/max-attributes-per-line -->
+          <span v-if="!errors" v-html="info" />
+          <span v-if="errors">
+            {{ errorMessage }}
           </span>
-        </span>
-      </template>
+        </template>
 
-      <template v-slot:info>
-        <!-- eslint-disable-next-line vue/no-v-html, vue/max-attributes-per-line -->
-        <span v-if="!errors" v-html="info" />
-        <span v-if="errors">
-          {{ errorMessage }}
-        </span>
-      </template>
+        <template v-slot:link>
+          <!-- eslint-disable-next-line vue/singleline-html-element-content-newline, vue/max-attributes-per-line -->
+          <external-link class="properties-item__link" :href="link">Learn more</external-link>
+        </template>
+      </app-tooltip>
+    </span>
 
-      <template v-slot:link>
-        <!-- eslint-disable-next-line vue/singleline-html-element-content-newline, vue/max-attributes-per-line -->
-        <external-link class="properties-item__link" :href="link">Learn more</external-link>
-      </template>
-    </app-tooltip>
+    <span class="properties-item__description">
+      <span
+        v-if="!valueWithExceededLength"
+        class="properties-item__description-text"
+        :class="{ 'properties-item__strike': errors && !valueWithExceededLength }"
+      >{{ value }}</span>
+      <span v-if="valueWithExceededLength">{{ valueMinusExceededLength }}</span>
+      <span
+        v-if="valueWithExceededLength"
+        class="properties-item__strike"
+      >{{ valueWithExceededLength }}</span>
+      <span
+        v-if="valueSlot"
+        class="properties-item__extra"
+      >
+        <slot name="value" />
+      </span>
+    </span>
   </div>
 </template>
 
@@ -49,10 +56,11 @@
 import { mapState } from 'vuex'
 import validateSchema from '../lib/validate-schema'
 import { AppTooltip, ExternalLink } from '../components'
+import InfoIcon from '../assets/icons/info.svg'
 import WarningIcon from '../assets/icons/warning.svg'
 
 export default {
-  components: { AppTooltip, ExternalLink, WarningIcon },
+  components: { AppTooltip, ExternalLink, InfoIcon, WarningIcon },
   props: {
     schema: {
       type: Object,
@@ -124,13 +132,17 @@ export default {
 
 <style>
 :root {
-  --term-width-small: 80px;
+  --term-width-small: 120px;
 }
 
 .properties-item {
   width: 100%;
   margin-bottom: 1.5em;
-  cursor: help;
+}
+
+.properties-item__term {
+  display: inline-flex;
+  align-items: center;
 }
 
 .properties-item,
@@ -140,11 +152,14 @@ export default {
 }
 
 .properties-item__icon {
-  position: relative;
   display: inline-block;
+  position: relative;
   top: -1px;
-  margin-right: 5px;
-  vertical-align: sub;
+  margin-left: 5px;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  cursor: help;
 }
 
 .properties-item__extra span {
@@ -169,21 +184,31 @@ export default {
 }
 
 @media (min-width: 500px) {
+  .properties-item {
+    display: flex;
+    align-items: center;
+  }
+
   .properties-item__term,
   .properties-item__description {
-    display: inline-block;
-    vertical-align: top;
     line-height: 1.4em;
   }
 
   .properties-item__term {
+    display: unset;
     width: var(--term-width-small);
-    padding-right: 1em;
+    padding-right: 5px;
     text-align: right;
   }
 
   .properties-item__description {
+    display: flex;
+    align-items: center;
     width: calc(100% - var(--term-width-small));
+  }
+
+  .properties-item__icon {
+    margin-left: unset;
   }
 }
 
@@ -194,8 +219,7 @@ export default {
   }
 
   .properties-item__term {
-    width: 120px;
-    padding-right: 1em;
+    width: var(--term-width-small);
     text-align: right;
   }
 
