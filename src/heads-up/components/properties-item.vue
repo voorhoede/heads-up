@@ -1,32 +1,54 @@
 <template>
   <div class="properties-item">
-    <app-tooltip>
-      <span class="properties-item__term">
+    <span class="properties-item__term">
+      <span class="properties-item__term-text">
         <slot />
       </span>
 
-      <template v-slot:value>
-        <span class="properties-item__description">
-          <slot name="value" />
-        </span>
-      </template>
-
-      <template v-slot:info>
-        <span
+      <app-tooltip class="properties-item__tooltip">
+        <InfoIcon
           v-if="!errors"
-          v-html="info"
+          class="properties-item__icon"
         />
-        <span v-if="errors">
-          {{ errorMessage }}
-        </span>
-      </template>
 
-      <template v-slot:link>
-        <external-link :href="link">
-          Learn more
-        </external-link>
-      </template>
-    </app-tooltip>
+        <WarningIcon
+          v-if="errors"
+          class="properties-item__icon"
+        />
+
+        <template v-slot:info>
+          <!-- eslint-disable-next-line vue/no-v-html, vue/max-attributes-per-line -->
+          <span v-if="!errors" v-html="info" />
+          <span v-if="errors">
+            {{ errorMessage }}
+          </span>
+        </template>
+
+        <template v-slot:link>
+          <!-- eslint-disable-next-line vue/singleline-html-element-content-newline, vue/max-attributes-per-line -->
+          <external-link class="properties-item__link" :href="link">Learn more</external-link>
+        </template>
+      </app-tooltip>
+    </span>
+
+    <span class="properties-item__description">
+      <span
+        v-if="!valueWithExceededLength"
+        class="properties-item__description-text"
+        :class="{ 'properties-item__strike': errors && !valueWithExceededLength }"
+      >{{ value }}</span>
+      <span v-if="valueWithExceededLength">{{ valueMinusExceededLength }}</span>
+      <span
+        v-if="valueWithExceededLength"
+        class="properties-item__strike"
+      >{{ valueWithExceededLength }}</span>
+      <span
+        v-if="valueSlot"
+        class="properties-item__extra"
+      >
+        <slot name="value" />
+      </span>
+    </span>
   </div>
 </template>
 
@@ -34,9 +56,11 @@
 import { mapState } from 'vuex'
 import validateSchema from '../lib/validate-schema'
 import { AppTooltip, ExternalLink } from '../components'
+import InfoIcon from '../assets/icons/info.svg'
+import WarningIcon from '../assets/icons/warning.svg'
 
 export default {
-  components: { AppTooltip, ExternalLink },
+  components: { AppTooltip, ExternalLink, InfoIcon, WarningIcon },
   props: {
     schema: {
       type: Object,
@@ -48,13 +72,18 @@ export default {
     keyName: {
       type: String,
       required: true
+    },
+    value: {
+      type: String,
+      required: true
     }
   },
   data() {
     return {
       info: '',
       link: '',
-      errors: null
+      errors: null,
+      valueSlot: null
     }
   },
   computed: {
@@ -64,6 +93,18 @@ export default {
         return this.errors[0].message
       }
       return null
+    },
+    valueWithExceededLength() {
+      if (this.errors && this.errors.length > 0 && this.errors[0]['length']) {
+        return this.value.slice(this.errors[0]['length'] * -1)
+      }
+      return null
+    },
+    valueMinusExceededLength() {
+      if (this.errors && this.errors.length > 0 && this.errors[0]['length']) {
+        return this.value.slice(0, this.value.length - this.errors[0]['length'])
+      }
+      return null
     }
   },
   mounted() {
@@ -71,7 +112,9 @@ export default {
       throw new Error('No schema is provided.')
     }
 
-    const value = this.$slots.value[0].text
+    if (this.$slots && this.$slots.value) {
+      this.valueSlot = this.$slots.value
+    }
 
     if (this.schema[this.keyName] && this.schema[this.keyName].meta) {
       this.info = this.schema[this.keyName].meta.info
@@ -81,7 +124,7 @@ export default {
     this.errors = validateSchema({
       schema: this.schema,
       key: this.keyName,
-      value: value
+      value: this.value
     })
   }
 }
@@ -89,13 +132,17 @@ export default {
 
 <style>
 :root {
-  --term-width-small: 80px;
+  --term-width-small: 120px;
 }
 
 .properties-item {
   width: 100%;
   margin-bottom: 1.5em;
-  cursor: help;
+}
+
+.properties-item__term {
+  display: inline-flex;
+  align-items: center;
 }
 
 .properties-item,
@@ -104,26 +151,64 @@ export default {
   line-height: 1.4em;
 }
 
+.properties-item__icon {
+  display: inline-block;
+  position: relative;
+  top: -1px;
+  margin-left: 5px;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  cursor: help;
+}
+
+.properties-item__extra span {
+  display: inline-block;
+  margin-left: 3px;
+  width: 10px;
+  height: 10px;
+  border: 1px solid #888;
+}
+
 .properties-item__term {
-  color: var(--color-grey-medium);
+  color: var(--label-color);
+}
+
+.properties-item__strike {
+  text-decoration: line-through;
+  color: var(--label-color);
+}
+
+.properties-item__link {
+  margin-left: 5px;
 }
 
 @media (min-width: 500px) {
+  .properties-item {
+    display: flex;
+    align-items: center;
+  }
+
   .properties-item__term,
   .properties-item__description {
-    display: inline-block;
-    vertical-align: top;
     line-height: 1.4em;
   }
 
   .properties-item__term {
+    display: unset;
     width: var(--term-width-small);
-    padding-right: 1em;
+    padding-right: 5px;
     text-align: right;
   }
 
   .properties-item__description {
+    display: flex;
+    align-items: center;
     width: calc(100% - var(--term-width-small));
+  }
+
+  .properties-item__icon {
+    margin-left: unset;
   }
 }
 
@@ -134,8 +219,7 @@ export default {
   }
 
   .properties-item__term {
-    width: 120px;
-    padding-right: 1em;
+    width: var(--term-width-small);
     text-align: right;
   }
 
