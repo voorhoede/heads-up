@@ -7,15 +7,15 @@
           :key="item.keyName"
           :value="item.value"
           :key-name="item.keyName"
-          :schema="item.schema"
+          :schema="schema"
         >
           <template v-slot:default>
             {{ item.title }}
           </template>
           <template v-slot:value>
             <span
-              v-if="item.keyName === 'theme-color' && themeColor"
-              :style="{ backgroundColor: themeColor }"
+              v-if="item.keyName === 'theme-color' && item.value"
+              :style="{ backgroundColor: item.value }"
             />
           </template>
         </properties-item>
@@ -35,62 +35,46 @@
 </template>
 
 <script>
-  import appMetaSchema  from '../lib/schemas/app-meta-schema'
   import { mapState } from 'vuex'
   import { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList } from '../components'
   import { findCharset, findMetaContent } from '../lib/find-meta'
+  import schema  from '../lib/schemas/app-meta-schema'
 
   export default {
     components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList },
-    data() {
-      return {
-        appMetaSchema
-      }
-    },
     computed: {
       ...mapState(['head']),
-      themeColor() {
-        return this.metaValue('theme-color')
-      },
       appMetaData() {
+        const { head } = this
         return [
           {
             keyName: 'title',
             title: 'Title',
-            value: this.head.title,
-            schema: appMetaSchema
+            value: head.title
           },
           {
             keyName: 'lang',
             title: 'Language',
-            value: this.head.lang,
-            schema: appMetaSchema
+            value: head.lang
           },
           {
             keyName: 'charset',
             title: 'Charset',
-            value: findCharset(this.head),
-            schema: appMetaSchema
+            value: findCharset(head)
           },
           {
             keyName: 'viewport',
             title: 'Viewport',
-            value: this.metaValue('viewport'),
-            schema: appMetaSchema
+            value: findMetaContent(head, 'viewport')
           },
           {
             keyName: 'theme-color',
             title: 'Theme color',
-            value: this.metaValue('theme-color'),
-            schema: appMetaSchema
+            value: findMetaContent(head, 'theme-color')
           }
         ]
-      }
-    },
-    methods: {
-      metaValue(metaName) {
-        return findMetaContent(this.head, metaName)
-      }
+      },
+      schema() { return schema }
     }
   }
 </script>
