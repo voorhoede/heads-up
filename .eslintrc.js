@@ -11,9 +11,11 @@ module.exports = {
   parserOptions: {
     parser: 'babel-eslint',
   },
+  plugins: ['sonarjs'],
   extends: [
     'eslint:recommended',
     'plugin:vue/recommended',
+    'plugin:sonarjs/recommended',
   ],
   rules: {
     // override/add rules settings here, such as:
