@@ -48,6 +48,14 @@ export default new VueRouter({
         title: 'Twitter',
       },
       component: () => import(/* webpackChunkName:'views/twitter' */ './views/twitter.vue')
+    },
+    {
+      path: '/slack',
+      name: 'slack',
+      meta: {
+        title: 'Slack',
+      },
+      component: () => import(/* webpackChunkName:'views/slack' */ './views/slack.vue')
     }
   ]
 })

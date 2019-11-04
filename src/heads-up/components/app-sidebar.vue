@@ -53,6 +53,14 @@
             <TwitterIcon class="sidebar__icon" /> Twitter
           </router-link>
         </li>
+        <li class="sidebar-list__item">
+          <router-link
+            class="sidebar__button"
+            :to="{ name: 'slack' }"
+          >
+            <SlackIcon class="sidebar__icon" /> Slack
+          </router-link>
+        </li>
       </ul>
     </section>
     <footer class="sidebar__footer">
@@ -73,10 +81,11 @@ import CodeIcon from '../assets/icons/code.svg'
 import ImageIcon from '../assets/icons/image.svg'
 import OpenGraphIcon from '../assets/icons/open-graph.svg'
 import TwitterIcon from '../assets/icons/twitter.svg'
+import SlackIcon from '../assets/icons/slack.svg'
 import ExternalLink from '../components/external-link.vue'
 
 export default {
-  components: { AppleIcon, CodeIcon, OpenGraphIcon, TwitterIcon, ImageIcon, ExternalLink }
+  components: { AppleIcon, CodeIcon, OpenGraphIcon, TwitterIcon, ImageIcon, ExternalLink, SlackIcon }
 }
 </script>
 
