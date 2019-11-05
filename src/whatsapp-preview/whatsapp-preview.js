@@ -36,7 +36,6 @@ function createPreview() {
 
 
 function getwhatsappMarkup({ title, description, image, url, type }) {
-    const whatsappLink = url ? `href="${ url }"` : ''
 
     function getHostName(url) {
       if (!url) {

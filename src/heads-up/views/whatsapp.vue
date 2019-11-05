@@ -33,21 +33,7 @@
     <panel-section title="Properties">
       <properties-list>
       <dl>
-        <dt>whatsapp:card</dt><dd>{{ whatsapp.card }}</dd>
-        <dt>whatsapp:title</dt><dd>{{ whatsapp.title }}</dd>
-        <dt>whatsapp:description</dt><dd>{{ whatsapp.description }}</dd>
-        <template v-if="whatsapp.image">
-          <dt>whatsapp:image</dt>
-          <dd>
-            <external-link :href="absoluteUrl(whatsapp.image)">
-              <img
-                alt=""
-                :src="absoluteUrl(whatsapp.image)"
-              >
-              <span>{{ whatsapp.image }}</span>
-            </external-link>
-          </dd>
-        </template>
+        
         <template v-if="og.type">
           <dt>og:type</dt><dd>{{ og.type }}</dd>
         </template>
@@ -69,6 +55,9 @@
             </external-link>
           </dd>
         </template>
+        <template v-if="og.url">
+          <dt>og:url</dt><dd>{{ og.url }}</dd>
+        </template>
       </dl>
       </properties-list>
     </panel-section>
@@ -77,18 +66,8 @@
       <resource-list>
       <ul>
         <li>
-          <external-link href="https://developer.whatsapp.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards.html">
-            About whatsapp cards
-          </external-link>
-        </li>
-        <li>
-          <external-link href="https://developer.whatsapp.com/en/docs/tweets/optimize-with-cards/overview/markup">
-            whatsapp card markup
-          </external-link>
-        </li>
-        <li>
-          <external-link href="https://cards-dev.whatsapp.com/validator">
-            whatsapp card validator (requires whatsapp login)
+          <external-link href="https://stackoverflow.com/questions/19778620/provide-an-image-for-whatsapp-link-sharing">
+            2019 unfurl standards
           </external-link>
         </li>
         </ul>
@@ -141,16 +120,21 @@
       image() {
         return this.absoluteUrl(this.whatsapp.image || this.og.image)
       },
+
+      url(){
+        return this.head.url
+    },
+
       og() {
         return {
-          type: this.propertyValue('og:type'),
           title: this.propertyValue('og:title'),
           description: this.propertyValue('og:description'),
+          type: this.propertyValue('og:type'),
           image: this.propertyValue('og:image'),
+          url: this.propertyValue('og:url')
         }
       },
       whatsapp() {
-          console.log(this);
         return {
           title: this.metaValue('whatsapp:title'),
           description: this.metaValue('whatsapp:description'),

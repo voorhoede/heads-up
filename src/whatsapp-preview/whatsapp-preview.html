@@ -107,25 +107,21 @@
     }
 
     :root {
-      --border-radius: 14px;
       --color-border: #E1E8ED;
-      --image-small-size: 85px;
-      --image-medium-size: 104px;
-      --image-large-size: 124px;
       --base-color: #292F33;
-      --muted-color: #8899A6;
-      --bg-color-hover: #F5F8FA;
       --label-color: rgba(0,0,0,.6);
       --accent-color: #1a73e8;
+      --url-color: #000000;
       --content-background-color: rgba(0, 0, 0, 0.05);
     }
 
     .-theme-with-dark-background {
       --color-border: rgb(56, 68, 77);
       --base-color: #fff;
-      --bg-color-hover: rgba(255, 255, 255, 0.03);
-      --content-background-color: rgba(255, 255, 255, 0.05);
+      --label-color: rgba(255, 255, 255, 0.6);
       --accent-color: #A5A5A5;
+      --url-color: #A5A5A5;
+      --content-background-color: rgba(255, 255, 255, 0.05);
     }
 
     html {
@@ -143,17 +139,19 @@
   background-color: var(--content-background-color);
   border-radius: 7.5px;
   margin-bottom: 6px;
+  height: 90px;
 }
 
 .whatsapp-preview__media{
-  height: 90px;
-  width: 90px;
+height: 100%;
+min-width: 90px;
 }
 .whatsapp-preview__image{
-  height: 90px;
-  width: 90px;
   border-top-left-radius: 7.5px;
   border-bottom-left-radius: 7.5px;
+  object-fit: cover;
+  height: 100%;
+  display: block;
 }
 
 .whatsapp-preview__content{
@@ -166,16 +164,27 @@
 }
 
 .whatsapp-preview__title{
-  font-size: 20px;
+  font-size: 13px;
   color: var(--base-color);
 }
 
 .whatsapp-preview__description{
   color: var(--label-color);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  font-size: 12px;
+}
+
+.whatsapp-preview__url{
+  color: var(--url-color);
+  font-size: 12px;
 }
 
 .whatsapp-preview__hostname{
   color: var(--accent-color);
+  font-size: 12px;
 }
 
 .whatsapp-preview{
