@@ -6,7 +6,7 @@
 
 <style>
   :root {
-    --term-width: 120px;
+    --term-width: 130px;
   }
   .properties-list dt,
   .properties-list dd {

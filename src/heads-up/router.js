@@ -56,6 +56,14 @@ export default new VueRouter({
         title: 'Slack',
       },
       component: () => import(/* webpackChunkName:'views/slack' */ './views/slack.vue')
+    },
+    {
+      path: '/whatsapp',
+      name: 'whatsapp',
+      meta: {
+        title: 'Whatsapp',
+      },
+      component: () => import(/* webpackChunkName:'views/whatsapp' */ './views/whatsapp.vue')
     }
   ]
 })

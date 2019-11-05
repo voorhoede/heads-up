@@ -61,6 +61,14 @@
             <SlackIcon class="sidebar__icon" /> Slack
           </router-link>
         </li>
+        <li class="sidebar-list__item">
+          <router-link
+            class="sidebar__button"
+            :to="{ name: 'whatsapp' }"
+          >
+            <WhatsappIcon class="sidebar__icon" /> Whatsapp
+          </router-link>
+        </li>
       </ul>
     </section>
     <footer class="sidebar__footer">
@@ -82,10 +90,11 @@ import ImageIcon from '../assets/icons/image.svg'
 import OpenGraphIcon from '../assets/icons/open-graph.svg'
 import TwitterIcon from '../assets/icons/twitter.svg'
 import SlackIcon from '../assets/icons/slack.svg'
+import WhatsappIcon from '../assets/icons/whatsapp.svg'
 import ExternalLink from '../components/external-link.vue'
 
 export default {
-  components: { AppleIcon, CodeIcon, OpenGraphIcon, TwitterIcon, ImageIcon, ExternalLink, SlackIcon }
+  components: { AppleIcon, CodeIcon, OpenGraphIcon, TwitterIcon, ImageIcon, ExternalLink, SlackIcon, WhatsappIcon }
 }
 </script>
 
