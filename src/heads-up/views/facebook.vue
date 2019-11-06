@@ -1,30 +1,38 @@
 <template>
   <div>
     <panel-section title="Preview">
-      <p v-if="!isValidCard">
-        This page does not contain the required meta data to create a preview.
-      </p>
-      <p v-if="isValidCard && !isSupportedCard">
-        Preview is not yet available for <code>{{ card }}</code> cards. <br>
-        Card preview is currently supported for:
-        <!-- eslint-disable-next-line vue/no-v-html -->
-        <span v-html="supportedCards.map(v => `<code>${v}</code>`).join(', ')" />.
-      </p>
-      <figure v-if="isValidCard && isSupportedCard">
+
+      <figure v-if="!isValidCard">
         <iframe
-          title="whatsapp preview"
           ref="iframe"
-          :src="whatsappUrl"
+          :src="facebookUrl"
           :height="iframeHeight"
           width="100%"
-           frameborder="0"
+          frameborder="0"
           scrolling="no"
-          class="whatsapp__preview"
+          class="facebook__preview"
           @load="onResize"
         />
-        <figcaption class="whatsapp__preview-caption">
-          Preview based on <external-link href="https://mobile.whatsapp.com/">
-            mobile.whatsapp.com
+        <figcaption class="facebook__preview-caption">
+          Preview based on <external-link href="https://facebook.com/">
+            facebook.com
+          </external-link>.
+        </figcaption>
+      </figure>
+      <figure v-if="isValidCard && isSupportedCard">
+        <iframe
+          ref="iframe"
+          :src="facebookUrl"
+          :height="iframeHeight"
+          width="100%"
+          frameborder="0"
+          scrolling="no"
+          class="facebook__preview"
+          @load="onResize"
+        />
+        <figcaption class="facebook__preview-caption">
+          Preview based on <external-link href="https://facebook.com/">
+            facebook.com
           </external-link>.
         </figcaption>
       </figure>
@@ -32,8 +40,38 @@
 
     <panel-section title="Properties">
       <properties-list>
-      <dl>
-        
+        <dt>facebook:card</dt><dd>{{ facebook.card }}</dd>
+        <dt>facebook:title</dt><dd>{{ facebook.title }}</dd>
+        <dt>facebook:description</dt><dd>{{ facebook.description }}</dd>
+        <template v-if="facebook.image">
+          <dt>facebook:image</dt>
+          <dd>
+            <external-link :href="absoluteUrl(facebook.image)">
+              <img
+                alt=""
+                :src="absoluteUrl(facebook.image)"
+              >
+              <span>{{ facebook.image }}</span>
+            </external-link>
+          </dd>
+        </template>
+        <template v-for="username in ['creator', 'site']">
+          <dt
+            v-if="facebook[username]"
+            :key="`${username}-key`"
+          >
+            facebook:{{ username }}
+          </dt>
+          <dd
+            v-if="facebook[username]"
+            :key="`${username}-value`"
+          >
+            <external-link :href="`https://facebook.com/${facebook[username].slice(1)}`">
+              {{ facebook[username] }}
+            </external-link>
+          </dd>
+        </template>
+
         <template v-if="og.type">
           <dt>og:type</dt><dd>{{ og.type }}</dd>
         </template>
@@ -55,22 +93,26 @@
             </external-link>
           </dd>
         </template>
-        <template v-if="og.url">
-          <dt>og:url</dt><dd>{{ og.url }}</dd>
-        </template>
-      </dl>
       </properties-list>
     </panel-section>
 
     <panel-section title="Resources">
       <resource-list>
-      <ul>
         <li>
-          <external-link href="https://stackoverflow.com/questions/19778620/provide-an-image-for-whatsapp-link-sharing">
-            2019 unfurl standards
+          <external-link href="https://developer.facebook.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards.html">
+            About facebook cards
           </external-link>
         </li>
-        </ul>
+        <li>
+          <external-link href="https://developer.facebook.com/en/docs/tweets/optimize-with-cards/overview/markup">
+            facebook card markup
+          </external-link>
+        </li>
+        <li>
+          <external-link href="https://cards-dev.facebook.com/validator">
+            facebook card validator (requires facebook login)
+          </external-link>
+        </li>
       </resource-list>
     </panel-section>
   </div>
@@ -95,14 +137,15 @@
     },
     computed: {
       ...mapState(['head']),
+      ...mapState(['body']),
       card() {
         /**
          * If an og:type, og:title and og:description exist in the markup
-         * but whatsapp:card is absent, then a summary card may be rendered.
-         * @see https://developer.whatsapp.com/en/docs/tweets/optimize-with-cards/overview/markup#overview-of-all-whatsapp-card-tags
+         * but facebook:card is absent, then a summary card may be rendered.
+         * @see https://developer.facebook.com/en/docs/tweets/optimize-with-cards/overview/markup#overview-of-all-facebook-card-tags
          */
-        if (this.whatsapp.card) {
-          return this.whatsapp.card
+        if (this.facebook.card) {
+          return this.facebook.card
         } else if (this.og.type && this.og.title && this.og.description) {
           return 'summary'
         }
@@ -112,46 +155,42 @@
       isValidCard() { return validCards.includes(this.card) },
       isSupportedCard() { return supportedCards.includes(this.card) },
       title() {
-        return this.whatsapp.title || this.og.title || this.head.title || ''
-      },
-      description() {
-        return this.whatsapp.description || this.og.description || this.metaValue('description') || ''
-      },
-      image() {
-        return this.absoluteUrl(this.whatsapp.image || this.og.image)
+        return this.facebook.title || this.og.title || this.head.title || ''
       },
 
-      url(){
-        return this.head.url
-    },
-    
+      description() {
+        return this.facebook.description || this.og.description || this.metaValue('description') || ''
+      },
+      image() {
+        return this.absoluteUrl(this.facebook.image || this.og.image)
+      },
       og() {
         return {
+          type: this.propertyValue('og:type'),
           title: this.propertyValue('og:title'),
           description: this.propertyValue('og:description'),
-          type: this.propertyValue('og:type'),
           image: this.propertyValue('og:image'),
-          url: this.propertyValue('og:url')
         }
       },
-      whatsapp() {
+      facebook() {
         return {
-          title: this.metaValue('whatsapp:title'),
-          description: this.metaValue('whatsapp:description'),
-          card: this.metaValue('whatsapp:card'),
-          image: this.metaValue('whatsapp:image'),
-          site: this.metaValue('whatsapp:site'),
+          card: this.metaValue('facebook:card'),
+          title: this.metaValue('facebook:title'),
+          description: this.metaValue('facebook:description'),
+          image: this.metaValue('facebook:image'),
+          site: this.metaValue('facebook:site'),
+          creator: this.metaValue('facebook:creator'),
         }
       },
-      whatsappUrl() {
+      facebookUrl() {
         const params = new URLSearchParams()
-        params.set('card', this.whatsapp.card)
+        params.set('card', this.facebook.card)
         params.set('title', this.title)
         params.set('description', this.description)
         params.set('image', this.image)
-        params.set('url', this.head.url)
+        // params.set('url', this.head.url)
         params.set('theme', getTheme() !== 'default' && 'dark')
-        return `/whatsapp-preview/whatsapp-preview.html?${params}`
+        return `/facebook-preview/facebook-preview.html?${params}`
       }
     },
     mounted() {
@@ -179,14 +218,14 @@
 </script>
 
 <style>
-  .whatsapp__preview {
+  .facebook__preview {
     max-width: 521px;
     margin-bottom: 1em;
     padding: 0;
     border: none;
   }
 
-  .whatsapp__preview-caption {
+  .facebook__preview-caption {
     color: var(--label-color);
   }
 </style>
