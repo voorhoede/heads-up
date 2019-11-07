@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 export function createStore() {
-  const store = new Vuex.Store({
+  return new Vuex.Store({
     state: () => ({
       head: {},
       theme: 'default'
@@ -17,8 +17,6 @@ export function createStore() {
       }
     }
   })
-
-  return store
 }
 
 const store = createStore()
