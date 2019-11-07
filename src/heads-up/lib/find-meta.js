@@ -12,3 +12,18 @@ export function findMetaProperty(head, name) {
   const item = head.meta.find(item => item.property === name)
   return item ? item.content : null
 }
+
+export function findMetaFavicon(head) {
+  console.log('findMetaFavicon');
+  console.log(head.url);
+  const rx = /(http(s)*:\/\/[^/]+)/g
+  const url = rx.exec(head.url[1])
+  console.log('url');
+  console.log(url);
+  console.log(head.link.find(x => x.rel === 'shortcut icon' ||'icon').href);
+  return head.link.find(x => x.rel === 'shortcut icon' ||'icon').href
+}
+
+
+
+

@@ -23,6 +23,7 @@ chrome.runtime.onMessage.addListener((message) => {
       action: actions.NEW_DATA,
       data: {
         head: getHeadData(),
+        body: getBodyText(),
       },
       tabId: message.tabId
     })
@@ -36,6 +37,12 @@ function getHeadData() {
     lang: document.documentElement.lang,
     link: elementsToJson(document.head.querySelectorAll('link')),
     meta: elementsToJson(document.head.querySelectorAll('meta')),
+  }
+}
+
+function getBodyText() {
+  return {
+    body: document.body.innerText,
   }
 }
 
