@@ -13,17 +13,13 @@ export function findMetaProperty(head, name) {
   return item ? item.content : null
 }
 
-export function findMetaFavicon(head) {
-  console.log('findMetaFavicon');
-  console.log(head.url);
-  const rx = /(http(s)*:\/\/[^/]+)/g
-  const url = rx.exec(head.url[1])
-  console.log('url');
-  console.log(url);
-  console.log(head.link.find(x => x.rel === 'shortcut icon' ||'icon').href);
-  return head.link.find(x => x.rel === 'shortcut icon' ||'icon').href
+export function findFavicons(head) {
+  return head.link
+    .filter(link => link.rel === 'shortcut icon' || link.rel === 'icon')
+    .map(favicon => {
+      const url = favicon.href.startsWith('http')
+        ? favicon.href
+        : new URL(head.url).origin + favicon.href
+      return { ...favicon, url }
+    })
 }
-
-
-
-

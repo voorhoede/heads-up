@@ -23,7 +23,6 @@ chrome.runtime.onMessage.addListener((message) => {
       action: actions.NEW_DATA,
       data: {
         head: getHeadData(),
-        body: getBodyText(),
       },
       tabId: message.tabId
     })
@@ -40,13 +39,8 @@ function getHeadData() {
   }
 }
 
-function getBodyText() {
-  return {
-    body: document.body.innerText,
-  }
-}
 
-function elementsToJson (elements) {
+function elementsToJson(elements) {
   return Array.from(elements).map(element => {
     return Array.from(element.attributes).reduce((obj, attr) => {
       return { ...obj, [attr.nodeName]: attr.nodeValue }

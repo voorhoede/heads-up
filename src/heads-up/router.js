@@ -53,7 +53,7 @@ export default new VueRouter({
       path: '/whatsapp',
       name: 'whatsapp',
       meta: {
-        title: 'Whatsapp',
+        title: 'WhatsApp',
       },
       component: () => import(/* webpackChunkName:'views/whatsapp' */ './views/whatsapp.vue')
     },
