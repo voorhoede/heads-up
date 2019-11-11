@@ -2,7 +2,7 @@
   <div>
     <panel-section title="Favicons">
       <p v-if="!favicons.length">
-        <WarningIcon class="warning-icon" /> No favicons detected.
+        <WarningIcon class="warning-icon" />No favicons detected.
       </p>
       <properties-list>
         <template v-for="favicon in favicons">
@@ -17,7 +17,7 @@
           <dd :key="`${favicon.url}-value`">
             <external-link :href="favicon.url">
               <img
-                alt=""
+                alt
                 :src="favicon.url"
               >
             </external-link>
@@ -29,7 +29,9 @@
     <panel-section title="Resources">
       <resource-list>
         <li>
-          <external-link href="https://bitsofco.de/all-about-favicons-and-touch-icons/">
+          <external-link
+            href="https://bitsofco.de/all-about-favicons-and-touch-icons/"
+          >
             All About Favicons
           </external-link>
         </li>
@@ -39,26 +41,31 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
-  import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components'
-  import WarningIcon from '../assets/icons/warning.svg'
+import { mapState } from "vuex";
+import {
+  ExternalLink,
+  PanelSection,
+  PropertiesList,
+  ResourceList
+} from "../components";
+import { findFavicons } from "../lib/find-meta";
+import WarningIcon from "../assets/icons/warning.svg";
 
-  export default {
-    components: { ExternalLink, PanelSection, PropertiesList, ResourceList, WarningIcon },
-    computed: {
-      ...mapState(['head']),
-      favicons() {
-        return this.head.link
-          .filter(link => link.rel === 'shortcut icon' || link.rel === 'icon')
-          .map(favicon => {
-            const url = favicon.href.startsWith('http')
-              ? favicon.href
-              : new URL(this.head.url).origin + favicon.href
-            return { ...favicon, url }
-          })
-      }
+export default {
+  components: {
+    ExternalLink,
+    PanelSection,
+    PropertiesList,
+    ResourceList,
+    WarningIcon
+  },
+  computed: {
+    ...mapState(["head"]),
+    favicons() {
+      return findFavicons(this.head);
     }
   }
+};
 </script>
 
 <style>
