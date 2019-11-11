@@ -114,6 +114,7 @@ export default {
   width: 1em;
   height: 1em;
   fill: currentColor;
+  margin-right: 0.25em;
 }
 
 .sidebar__footer {
