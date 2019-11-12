@@ -57,6 +57,14 @@ export default new VueRouter({
       },
       component: () => import(/* webpackChunkName:'views/whatsapp' */ './views/whatsapp.vue')
     },
+    {
+      path: '/facebook',
+      name: 'facebook',
+      meta: {
+        title: 'Facebook',
+      },
+      component: () => import(/* webpackChunkName:'views/whatsapp' */ './views/facebook.vue')
+    },
   ]
 })
 
