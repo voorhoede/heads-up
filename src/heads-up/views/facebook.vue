@@ -189,6 +189,8 @@ export default {
   margin-bottom: 1em;
   padding: 0;
   border: none;
+  background-color: #e8eaee;
+  border: 1px solid var(--color-border);
 }
 
 .facebook__preview-caption {
