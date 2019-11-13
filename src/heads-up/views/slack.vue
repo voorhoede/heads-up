@@ -22,7 +22,7 @@
         />
         <figcaption class="slack__preview-caption">
           Preview based on
-          <external-link href="https://mobile.slack.com/">mobile.slack.com</external-link>.
+          <external-link href="https://app.slack.com/client//">app.slack.com/client/.com</external-link>.
         </figcaption>
       </figure>
     </panel-section>

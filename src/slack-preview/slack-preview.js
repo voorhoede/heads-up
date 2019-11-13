@@ -42,6 +42,14 @@ function getSlackMarkup({ title, description, image, url, type, favicon }) {
       : hostname
   }
 
+  function emojiCount() {
+    return Math.floor(Math.random() * 10) + 1
+  }
+
+  function getImageWeight(img) {
+    return ''
+  }
+
   return `
       <div class="${ type === 'summary' ? `slack-preview is-small` : `slack-preview`}">
       <span class="slack-preview__sidebar"></span>
@@ -51,7 +59,7 @@ function getSlackMarkup({ title, description, image, url, type, favicon }) {
           <div class="slack-preview__hostname"><img class="slack-preview__favicon" src="${favicon}" alt="">${getHostName(url)}</div></div>
       </div>
           <div class="slack-preview__title">${ title}</div>
-          <div class="slack-preview__description">${ description}</div>
+          <div class="slack-preview__description">${ description}${getImageWeight(image)}</div>
           <div class="${ image
       ? `${type === 'summary'
         ? `slack-preview__media`
@@ -65,6 +73,9 @@ function getSlackMarkup({ title, description, image, url, type, favicon }) {
           </div>
 
         </a>
+      </div>
+      <div class="slack-preview__emoji">
+      <img src="https://cultofthepartyparrot.com/parrots/hd/parrot.gif" alt=""><p>${emojiCount()}</p>
       </div>
     `
 }

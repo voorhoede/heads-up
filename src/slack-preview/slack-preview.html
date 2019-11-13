@@ -146,6 +146,7 @@
     .slack-preview {
       font-size: 14px;
       display: flex;
+      margin-bottom: 4px;
     }
 
     .slack-preview__link-container {
@@ -160,7 +161,7 @@
     }
 
     .slack-preview__ratio {
-      padding-bottom: 52.356%;
+      padding-bottom: 40%;
     }
 
     .slack-preview__fixed-ratio {
@@ -169,12 +170,14 @@
       height: 0;
       overflow: hidden;
       max-width: 360px;
+      border-radius: 4px;
     }
 
     .slack-preview__fixed-ratio-content {
       position: absolute;
       top: 0;
       left: 0;
+      height: 100%;
       width: 100%;
       max-width: inherit;
       object-fit: cover;
@@ -269,6 +272,26 @@
       background-color: rgb(221, 221, 221);
       border-radius: 30px;
       margin-right: 12px;
+    }
+
+    .slack-preview__emoji {
+      background-color: rgba(29, 28, 29, .04);
+      border-radius: 12px;
+      width: 39px;
+      height: 24px;
+      padding: 0 4px 6px;
+      display: flex;
+      font-size: 10px;
+      align-items: center;
+    }
+
+    .slack-preview__emoji img {
+      height: 20px;
+      margin-right: 2px;
+    }
+
+    .slack-preview__emoji p {
+      margin-top: 4px;
     }
 
   </style>
