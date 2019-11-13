@@ -11,6 +11,7 @@ module.exports = createConfig({
     '../devtools/content': './src/devtools/content.js',
     '../twitter-preview/twitter-preview': './src/twitter-preview/twitter-preview.js',
     '../whatsapp-preview/whatsapp-preview': './src/whatsapp-preview/whatsapp-preview.js',
+    '../slack-preview/slack-preview': './src/slack-preview/slack-preview.js',
   },
   output: {
     path: path.join(__dirname, 'dist/heads-up'),
@@ -36,6 +37,11 @@ module.exports = createConfig({
       filename: '../whatsapp-preview/whatsapp-preview.html',
       template: 'src/whatsapp-preview/whatsapp-preview.html',
       chunks: ['../whatsapp-preview/whatsapp-preview']
+    }),
+    new HtmlWebpackPlugin({
+      filename: '../slack-preview/slack-preview.html',
+      template: 'src/slack-preview/slack-preview.html',
+      chunks: ['../slack-preview/slack-preview']
     }),
     new CopyPlugin([
       { from: 'src/devtools/assets/', to: '../devtools/assets' },

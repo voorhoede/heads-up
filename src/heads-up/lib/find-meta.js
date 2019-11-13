@@ -14,6 +14,14 @@ export function findMetaProperty(head, name) {
 }
 
 export function findFavicons(head) {
+  console.log(head.link
+    .filter(link => link.rel === 'shortcut icon' || link.rel === 'icon')
+    .map(favicon => {
+      const url = favicon.href.startsWith('http')
+        ? favicon.href
+        : new URL(head.url).origin + favicon.href
+      return { ...favicon, url }
+    }));
   return head.link
     .filter(link => link.rel === 'shortcut icon' || link.rel === 'icon')
     .map(favicon => {
