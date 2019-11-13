@@ -120,8 +120,9 @@
       --color-border: #E1E8ED;
       --base-color: #292F33;
       --label-color: rgba(0, 0, 0, .6);
-      --accent-color: #1a73e8;
+      --accent-color: #039be5;
       --url-color: #000000;
+      --background-color: #dcf8c6;
       --content-background-color: rgba(0, 0, 0, 0.05);
     }
 
@@ -198,7 +199,7 @@
     }
 
     .whatsapp-preview__hostname {
-      color: #039be5;
+      color: var(--accent-color);
       font-size: 12px;
       overflow-wrap: break-word;
     }
@@ -207,7 +208,7 @@
       box-shadow: 0 1px 0.5px rgba(0, 0, 0, .13);
       border-radius: 7.5px 0 7.5px 7.5px;
       padding: 3px 3px 8px 3px;
-      background-color: #dcf8c6;
+      background-color: var(--background-color);
       position: relative;
       width: calc(100% - 12px);
     }
