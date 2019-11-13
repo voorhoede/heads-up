@@ -27,7 +27,6 @@ function createPreview() {
 
 
 function getlinkedinMarkup({ title, image, url, type }) {
-  const linkedinLink = url ? `href="${url}"` : ''
 
   const like = `<svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
   viewBox="0 0 43.6 43.6" style="enable-background:new 0 0 43.6 43.6;" xml:space="preserve">
