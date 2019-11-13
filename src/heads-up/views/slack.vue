@@ -29,30 +29,6 @@
 
     <panel-section title="Properties">
       <properties-list>
-        <dt>slack:card</dt>
-        <dd>{{ slack.card }}</dd>
-        <dt>slack:title</dt>
-        <dd>{{ slack.title }}</dd>
-        <dt>slack:description</dt>
-        <dd>{{ slack.description }}</dd>
-        <template v-if="slack.image">
-          <dt>slack:image</dt>
-          <dd>
-            <external-link :href="absoluteUrl(slack.image)">
-              <img alt :src="absoluteUrl(slack.image)" />
-              <span>{{ slack.image }}</span>
-            </external-link>
-          </dd>
-        </template>
-        <template v-for="username in ['creator', 'site']">
-          <dt v-if="slack[username]" :key="`${username}-key`">slack:{{ username }}</dt>
-          <dd v-if="slack[username]" :key="`${username}-value`">
-            <external-link
-              :href="`https://slack.com/${slack[username].slice(1)}`"
-            >{{ slack[username] }}</external-link>
-          </dd>
-        </template>
-
         <template v-if="og.type">
           <dt>og:type</dt>
           <dd>{{ og.type }}</dd>

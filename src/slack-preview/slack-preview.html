@@ -145,6 +145,7 @@
 
     .slack-preview {
       font-size: 14px;
+      display: flex;
     }
 
     .slack-preview__link-container {
@@ -167,6 +168,7 @@
       position: relative;
       height: 0;
       overflow: hidden;
+      max-width: 360px;
     }
 
     .slack-preview__fixed-ratio-content {
@@ -174,9 +176,9 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
       max-width: inherit;
       object-fit: cover;
+      border-radius: 4px;
     }
 
     .slack-preview__image {
@@ -260,6 +262,13 @@
     .slack-preview__favicon {
       height: 12px;
       margin-right: 8px;
+    }
+
+    .slack-preview__sidebar {
+      width: 8px;
+      background-color: rgb(221, 221, 221);
+      border-radius: 30px;
+      margin-right: 12px;
     }
 
   </style>

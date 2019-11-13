@@ -44,6 +44,7 @@ function getSlackMarkup({ title, description, image, url, type, favicon }) {
 
   return `
       <div class="${ type === 'summary' ? `slack-preview is-small` : `slack-preview`}">
+      <span class="slack-preview__sidebar"></span>
         <a rel="noopener" target="_blank" class="${type === 'summary' ? `slack-preview__link-container` : `slack-preview__link-container slack-preview__link-container--vertical`} ">
         <div class="slack-preview__content">
         <div class="slack-preview__domain">
