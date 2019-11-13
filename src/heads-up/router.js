@@ -48,7 +48,15 @@ export default new VueRouter({
         title: 'Twitter',
       },
       component: () => import(/* webpackChunkName:'views/twitter' */ './views/twitter.vue')
-    }
+    },
+    {
+      path: '/whatsapp',
+      name: 'whatsapp',
+      meta: {
+        title: 'WhatsApp',
+      },
+      component: () => import(/* webpackChunkName:'views/whatsapp' */ './views/whatsapp.vue')
+    },
   ]
 })
 

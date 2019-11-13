@@ -39,7 +39,8 @@ function getHeadData() {
   }
 }
 
-function elementsToJson (elements) {
+
+function elementsToJson(elements) {
   return Array.from(elements).map(element => {
     return Array.from(element.attributes).reduce((obj, attr) => {
       return { ...obj, [attr.nodeName]: attr.nodeValue }

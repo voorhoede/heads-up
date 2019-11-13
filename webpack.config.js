@@ -10,6 +10,7 @@ module.exports = createConfig({
     '../devtools/background': './src/devtools/background.js',
     '../devtools/content': './src/devtools/content.js',
     '../twitter-preview/twitter-preview': './src/twitter-preview/twitter-preview.js',
+    '../whatsapp-preview/whatsapp-preview': './src/whatsapp-preview/whatsapp-preview.js',
   },
   output: {
     path: path.join(__dirname, 'dist/heads-up'),
@@ -30,6 +31,11 @@ module.exports = createConfig({
       filename: '../twitter-preview/twitter-preview.html',
       template: 'src/twitter-preview/twitter-preview.html',
       chunks: ['../twitter-preview/twitter-preview']
+    }),
+    new HtmlWebpackPlugin({
+      filename: '../whatsapp-preview/whatsapp-preview.html',
+      template: 'src/whatsapp-preview/whatsapp-preview.html',
+      chunks: ['../whatsapp-preview/whatsapp-preview']
     }),
     new CopyPlugin([
       { from: 'src/devtools/assets/', to: '../devtools/assets' },
