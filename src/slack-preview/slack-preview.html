@@ -167,7 +167,6 @@
     .slack-preview__fixed-ratio {
       display: block;
       position: relative;
-      height: 0;
       overflow: hidden;
       max-width: 360px;
       border-radius: 4px;
@@ -234,9 +233,11 @@
     }
 
     .slack-preview__description {
-      display: block;
+      display: flex;
       margin-bottom: 2px;
       color: rgb(29, 28, 29);
+      margin-bottom: 4px;
+      align-items: center;
     }
 
     .slack-preview__domain {
@@ -292,6 +293,11 @@
 
     .slack-preview__emoji p {
       margin-top: 4px;
+    }
+
+    .slack-preview__expand {
+      font-size: 9px;
+      color: rgb(18, 100, 163);
     }
 
   </style>

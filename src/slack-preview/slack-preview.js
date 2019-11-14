@@ -1,6 +1,3 @@
-
-
-
 createPreview()
 
 function createPreview() {
@@ -21,7 +18,9 @@ function createPreview() {
     url,
     type,
     favicon
-  }).then(html => slackElement.innerHTML = html)
+  }).then(html => {
+    slackElement.innerHTML = html
+  })
 
   /**
    * setting 'theme_dark' class if parent window is in dark mode
@@ -31,19 +30,20 @@ function createPreview() {
   if (theme === 'dark') document.body.classList.add('-theme-with-dark-background')
 }
 
-
 function getslackMarkup({ title, description, imgString, url, type, favicon }) {
-  // const slackLink = url ? `href="${url}"` : ''
 
-  function getMeta(url) {
-    return new Promise((resolve) => {
-      var img = new Image();
-      img.src = url;
-      img.onload = () => resolve(img)
-    })
+  function getImageFileSize({ imgString }) {
+    return fetch(imgString, { method: 'HEAD' })
+      .then(x => {
+        console.log(`${Math.round(Number(x.headers.get('content-length')) / 1000)} kB`);
+        return `${Math.round(Number(x.headers.get('content-length')) / 1000)} kB`
+      })
   }
 
-  return getMeta(imgString).then(img => generateHtml({ img, title, description, imgString, url, type, favicon }))
+  return getImageFileSize({ title, description, imgString, url, type, favicon })
+    .then(fileSize => {
+      return generateHtml({ title, description, imgString, url, type, favicon, fileSize })
+    })
 }
 
 function getHostName(url) {
@@ -60,17 +60,11 @@ function getHostName(url) {
 }
 
 function emojiCount() {
-  return Math.floor(Math.random() * 10) + 1
+  return Math.floor(Math.random() * 9) + 1
 }
 
-function getImageWeight(img) {
-  console.log(img);
-  return ''
-}
+function generateHtml({ title, description, imgString, url, type, favicon, fileSize }) {
 
-function generateHtml({ img, title, description, imgString, url, type, favicon }) {
-  const isSquare = img.width === img.height
-  console.log(`isSquare: ${isSquare}`);
   return `
         <div class="${ type === 'summary' ? `slack-preview is-small` : `slack-preview`}">
       <span class="slack-preview__sidebar"></span>
@@ -80,7 +74,7 @@ function generateHtml({ img, title, description, imgString, url, type, favicon }
           <div class="slack-preview__hostname"><img class="slack-preview__favicon" src="${favicon}" alt="">${getHostName(url)}</div></div>
       </div>
           <div class="slack-preview__title">${ title}</div>
-          <div class="slack-preview__description">${ description}${getImageWeight(imgString)}</div>
+          <div class="slack-preview__description"><p>${ description}(${fileSize})<span class="slack-preview__expand">▼</span></p></div>
           <div class="${ imgString
       ? `${type === 'summary'
         ? `slack-preview__media`

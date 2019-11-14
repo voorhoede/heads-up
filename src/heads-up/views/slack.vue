@@ -206,6 +206,7 @@ export default {
   margin-bottom: 1em;
   padding: 0;
   border: none;
+  min-height: 300px;
 }
 
 .slack__preview-caption {
