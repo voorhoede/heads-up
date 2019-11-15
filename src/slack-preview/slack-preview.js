@@ -9,18 +9,25 @@ function createPreview() {
   const type = params.get('card')
   const theme = params.get('theme')
   const favicon = params.get('favicon')
+  const imageDefined = params.get('imageDefined')
 
   const slackElement = document.querySelector('[data-slack-preview-card]')
-  getslackMarkup({
-    title,
-    description,
-    imgString,
-    url,
-    type,
-    favicon
-  }).then(html => {
-    slackElement.innerHTML = html
-  })
+  if (imageDefined === true) {
+    getslackMarkup({
+      title,
+      description,
+      imgString,
+      url,
+      type,
+      favicon,
+    }).then(html => {
+      slackElement.innerHTML = html
+    })
+  }
+
+  else {
+    slackElement.innerHTML = generateHtml({ title, description, url, type, favicon, imageDefined })
+  }
 
   /**
    * setting 'theme_dark' class if parent window is in dark mode
@@ -35,16 +42,33 @@ function getslackMarkup({ title, description, imgString, url, type, favicon }) {
   function getImageFileSize({ imgString }) {
     return fetch(imgString, { method: 'HEAD' })
       .then(x => {
-        console.log(`${Math.round(Number(x.headers.get('content-length')) / 1000)} kB`);
         return `${Math.round(Number(x.headers.get('content-length')) / 1000)} kB`
       })
   }
 
-
-  return getImageFileSize({ title, description, imgString, url, type, favicon })
-    .then(fileSize => {
-      return generateHtml({ title, description, imgString, url, type, favicon, fileSize })
+  function getImageDetails(url) {
+    return new Promise((resolve) => {
+      var img = new Image();
+      img.src = url;
+      img.onload = () => resolve(img)
     })
+  }
+
+  let isBigImg
+
+  function isBigEnough(img) {
+    return img.width > 600 && img.height > 315
+  }
+
+  return getImageDetails(imgString)
+    .then(img => {
+      isBigImg = isBigEnough(img)
+      return getImageFileSize({ title, description, imgString, url, type, favicon })
+    })
+    .then(fileSize => {
+      return generateHtml({ title, description, imgString, url, type, favicon, fileSize, isBigImg })
+    })
+
 }
 
 function getHostName(url) {
@@ -64,30 +88,44 @@ function emojiCount() {
   return Math.floor(Math.random() * 9) + 1
 }
 
-function generateHtml({ title, description, imgString, url, type, favicon, fileSize }) {
+function generateHtml({ title, description, imgString, url, type, favicon, fileSize, isBigImg, imageDefined }) {
+  console.log(imageDefined);
 
   return `
         <div class="${ type === 'summary' ? `slack-preview is-small` : `slack-preview`}">
       <span class="slack-preview__sidebar"></span>
-        <a rel="noopener" target="_blank" class="${type === 'summary' ? `slack-preview__link-container` : `slack-preview__link-container slack-preview__link-container--vertical`} ">
+        <a rel="noopener" target="_blank" class="${type === 'summary' ? `slack-preview__link-container` : `slack-preview__link-container slack-preview__link-container--vertical`} ${!isBigImg ? 'slack-small__preview' : ''}"">
         <div class="slack-preview__content">
         <div class="slack-preview__domain">
           <div class="slack-preview__hostname"><img class="slack-preview__favicon" src="${favicon}" alt="">${getHostName(url)}</div></div>
-      </div>
           <div class="slack-preview__title">${ title}</div>
-          <div class="slack-preview__description"><p>${ description}<span class="slack-preview__filesize">(${fileSize})</span><span class="slack-preview__expand">▼</span></p></div>
+          <div class="slack-preview__description"><p>${ description}${imageDefined === true ? `<span class="slack-preview__filesize">(${fileSize})</span><span class="slack-preview__expand">▼</span>:` : ''}</p></div>
+          </div>
+         
           <div class="${ imgString
       ? `${type === 'summary'
         ? `slack-preview__media`
         : `slack-preview__fixed-ratio slack-preview__ratio`}`
-      : `slack-preview__media slack-preview__media--image-fallback`}">
+      : `slack-preview__media slack-preview__media--image-fallback`} ${!isBigImg ? 'slack-small__preview' : ''}">
             ${ imgString
       ? `<img src="${imgString}" class="${type === 'summary'
         ? `slack-preview__image`
         : `slack-preview__fixed-ratio-content`}" />`
       : `<div class="slack-preview__image-fallback"></div>`}
           </div>
-
+          
+          <div class="${ !imgString && favicon
+      ? `${type === 'summary'
+        ? `slack-preview__media`
+        : `slack-preview__fixed-ratio slack-preview__ratio`}`
+      : `slack-preview__media slack-preview__media--image-fallback`}">
+            ${ !imgString && favicon
+      ? `<img src="${favicon}" class="${type === 'summary'
+        ? `slack-preview__image`
+        : `slack-preview__fixed-ratio-content`}" />`
+      : `<div class="slack-preview__image-fallback"></div>`}
+          </div>
+          
         </a>
       </div>
       <div class="slack-preview__emoji">

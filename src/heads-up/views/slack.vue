@@ -164,6 +164,7 @@ export default {
       params.set("title", this.title);
       params.set("description", this.description);
       params.set("image", this.image);
+      params.set("imageDefined", this.image ? true : false);
       params.set("favicon", this.slack.favicon[0].url);
       params.set("url", this.head.url);
       params.set("theme", getTheme() !== "default" && "dark");
