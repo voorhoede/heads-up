@@ -40,6 +40,7 @@ function getslackMarkup({ title, description, imgString, url, type, favicon }) {
       })
   }
 
+
   return getImageFileSize({ title, description, imgString, url, type, favicon })
     .then(fileSize => {
       return generateHtml({ title, description, imgString, url, type, favicon, fileSize })
@@ -74,7 +75,7 @@ function generateHtml({ title, description, imgString, url, type, favicon, fileS
           <div class="slack-preview__hostname"><img class="slack-preview__favicon" src="${favicon}" alt="">${getHostName(url)}</div></div>
       </div>
           <div class="slack-preview__title">${ title}</div>
-          <div class="slack-preview__description"><p>${ description}(${fileSize})<span class="slack-preview__expand">▼</span></p></div>
+          <div class="slack-preview__description"><p>${ description}<span class="slack-preview__filesize">(${fileSize})</span><span class="slack-preview__expand">▼</span></p></div>
           <div class="${ imgString
       ? `${type === 'summary'
         ? `slack-preview__media`
