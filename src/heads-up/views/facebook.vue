@@ -1,11 +1,13 @@
 <template>
   <div>
     <panel-section title="Preview">
-      <p v-if="!isValidCard">This page does not contain the required meta data to create a preview.</p>
+      <p v-if="!isValidCard">
+        This page does not contain the required meta data to create a preview.
+      </p>
       <p v-if="isValidCard && !isSupportedCard">
         Preview is not yet available for
         <code>{{ card }}</code> cards.
-        <br />Card preview is currently supported for:
+        <br>Card preview is currently supported for:
         <!-- eslint-disable-next-line vue/no-v-html -->
         <span v-html="supportedCards.map(v => `<code>${v}</code>`).join(', ')" />.
       </p>
@@ -22,7 +24,9 @@
         />
         <figcaption class="facebook__preview-caption">
           Preview based on
-          <external-link href="https://m.facebook.com/">m.facebook.com</external-link>.
+          <external-link href="https://m.facebook.com/">
+            m.facebook.com
+          </external-link>.
         </figcaption>
       </figure>
     </panel-section>
@@ -45,7 +49,10 @@
           <dt>og:image</dt>
           <dd>
             <external-link :href="absoluteUrl(og.image)">
-              <img alt :src="absoluteUrl(og.image)" />
+              <img
+                alt
+                :src="absoluteUrl(og.image)"
+              >
               <span>{{ og.image }}</span>
             </external-link>
           </dd>
@@ -59,7 +66,9 @@
           <li>
             <external-link
               href="https://stackoverflow.com/questions/19778620/provide-an-image-for-whatsapp-link-sharing"
-            >2019 unfurl standards</external-link>
+            >
+              2019 unfurl standards
+            </external-link>
           </li>
         </ul>
       </resource-list>

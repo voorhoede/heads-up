@@ -8,7 +8,6 @@ function createPreview() {
   const imgString = params.get('image')
   const url = params.get('url')
   const type = params.get('card')
-  const theme = params.get('theme')
 
   const facebookElement = document.querySelector('[data-facebook-preview-card]')
   getfacebookMarkup({
@@ -17,22 +16,16 @@ function createPreview() {
     imgString,
     url,
     type
-  }).then(html => facebookElement.innerHTML = html)
-
-  /**
-   * setting 'theme_dark' class if parent window is in dark mode
-   * class '-theme-with-dark-background' is taken from dev tools env
-   * src: https://github.com/ChromeDevTools/devtools-frontend/blob/02a851d01de158d8c0a8fd1d3af06649b5379bd6/front_end/ui/inspectorStyle.css
-   */
-  if (theme === 'dark') document.body.classList.add('-theme-with-dark-background')
+  }).then(html => {
+    facebookElement.innerHTML = html
+  })
 }
 
 
 function getfacebookMarkup({ title, description, imgString, url, type }) {
-  const facebookLink = url ? `href="${url}"` : ''
 
   function getMeta(url) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       var img = new Image();
       img.src = url;
       img.onload = () => resolve(img)
