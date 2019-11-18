@@ -2,33 +2,33 @@
 createPreview()
 
 function createPreview() {
-    const params = (new URL(window.location.href)).searchParams
-    const title = params.get('title')
-    const image = params.get('image')
-    const url = params.get('url')
-    const type = params.get('card')
-    const theme = params.get('theme')
+  const params = (new URL(window.location.href)).searchParams
+  const title = params.get('title')
+  const image = params.get('image')
+  const url = params.get('url')
+  const type = params.get('card')
+  const theme = params.get('theme')
 
-    const linkedinElement = document.querySelector('[data-linkedin-preview-card]')
-    linkedinElement.innerHTML = getlinkedinMarkup({
-        title,
-        image,
-        url,
-        type
-    })
+  const linkedinElement = document.querySelector('[data-linkedin-preview-card]')
+  linkedinElement.innerHTML = getlinkedinMarkup({
+    title,
+    image,
+    url,
+    type
+  })
 
-    /**
-     * setting 'theme_dark' class if parent window is in dark mode
-     * class '-theme-with-dark-background' is taken from dev tools env
-     * src: https://github.com/ChromeDevTools/devtools-frontend/blob/02a851d01de158d8c0a8fd1d3af06649b5379bd6/front_end/ui/inspectorStyle.css
-     */
-    if (theme === 'dark') document.body.classList.add('-theme-with-dark-background')
+  /**
+   * setting 'theme_dark' class if parent window is in dark mode
+   * class '-theme-with-dark-background' is taken from dev tools env
+   * src: https://github.com/ChromeDevTools/devtools-frontend/blob/02a851d01de158d8c0a8fd1d3af06649b5379bd6/front_end/ui/inspectorStyle.css
+   */
+  if (theme === 'dark') document.body.classList.add('-theme-with-dark-background')
 }
 
 
 function getlinkedinMarkup({ title, image, url, type }) {
 
-    const like = `<svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+  const like = `<svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
   viewBox="0 0 43.6 43.6" style="enable-background:new 0 0 43.6 43.6;" xml:space="preserve">
 <style type="text/css">
  .st0{fill:none;}
@@ -82,34 +82,34 @@ function getlinkedinMarkup({ title, image, url, type }) {
 </g>
 </svg>`
 
-    function getHostName(url) {
-        if (!url) {
-            return ''
-        }
-        const hostname = (new URL(url).hostname)
-        const wwwPrefix = 'www.'
-        return hostname.startsWith(wwwPrefix)
-            ? hostname.slice(wwwPrefix.length)
-            : hostname
+  function getHostName(url) {
+    if (!url) {
+      return ''
     }
+    const hostname = (new URL(url).hostname)
+    const wwwPrefix = 'www.'
+    return hostname.startsWith(wwwPrefix)
+      ? hostname.slice(wwwPrefix.length)
+      : hostname
+  }
 
-    function generateLikes() {
-        return Math.floor(Math.random() * 100)
-    }
+  function generateLikes() {
+    return Math.floor(Math.random() * 98) + 1
+  }
 
-    return `
+  return `
       <div class="${ type === 'summary' ? `linkedin-preview is-small` : `linkedin-preview`}">
         <a rel="noopener" target="_blank" class="${type === 'summary' ? `linkedin-preview__link-container` : `linkedin-preview__link-container linkedin-preview__link-container--vertical`} ">
           <div class="${ image
-            ? `${type === 'summary'
-                ? `linkedin-preview__media`
-                : `linkedin-preview__fixed-ratio linkedin-preview__ratio`}`
-            : `linkedin-preview__media linkedin-preview__media--image-fallback`}">
+      ? `${type === 'summary'
+        ? `linkedin-preview__media`
+        : `linkedin-preview__fixed-ratio linkedin-preview__ratio`}`
+      : `linkedin-preview__media linkedin-preview__media--image-fallback`}">
             ${ image
-            ? `<img src="${image}" class="${type === 'summary'
-                ? `linkedin-preview__image`
-                : `linkedin-preview__fixed-ratio-content`}" />`
-            : `<div class="linkedin-preview__image-fallback"></div>`}
+      ? `<img src="${image}" class="${type === 'summary'
+        ? `linkedin-preview__image`
+        : `linkedin-preview__fixed-ratio-content`}" />`
+      : `<div class="linkedin-preview__image-fallback"></div>`}
           </div>
 
           <div class="linkedin-preview__content">
