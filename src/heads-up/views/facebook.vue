@@ -1,13 +1,11 @@
 <template>
   <div>
     <panel-section title="Preview">
-      <p v-if="!isValidCard">
-        This page does not contain the required meta data to create a preview.
-      </p>
+      <p v-if="!isValidCard">This page does not contain the required meta data to create a preview.</p>
       <p v-if="isValidCard && !isSupportedCard">
         Preview is not yet available for
         <code>{{ card }}</code> cards.
-        <br>Card preview is currently supported for:
+        <br />Card preview is currently supported for:
         <!-- eslint-disable-next-line vue/no-v-html -->
         <span v-html="supportedCards.map(v => `<code>${v}</code>`).join(', ')" />.
       </p>
@@ -24,15 +22,37 @@
         />
         <figcaption class="facebook__preview-caption">
           Preview based on
-          <external-link href="https://m.facebook.com/">
-            m.facebook.com
-          </external-link>.
+          <external-link href="https://m.facebook.com/">m.facebook.com</external-link>.
         </figcaption>
       </figure>
     </panel-section>
 
     <panel-section title="Properties">
       <properties-list>
+        <dt>facebook:card</dt>
+        <dd>{{ facebook.card }}</dd>
+        <dt>facebook:title</dt>
+        <dd>{{ facebook.title }}</dd>
+        <dt>facebook:description</dt>
+        <dd>{{ facebook.description }}</dd>
+        <template v-if="facebook.image">
+          <dt>facebook:image</dt>
+          <dd>
+            <external-link :href="absoluteUrl(facebook.image)">
+              <img alt :src="absoluteUrl(facebook.image)" />
+              <span>{{ facebook.image }}</span>
+            </external-link>
+          </dd>
+        </template>
+        <template v-for="username in ['creator', 'site']">
+          <dt v-if="facebook[username]" :key="`${username}-key`">facebook:{{ username }}</dt>
+          <dd v-if="facebook[username]" :key="`${username}-value`">
+            <external-link
+              :href="`https://facebook.com/${facebook[username].slice(1)}`"
+            >{{ facebook[username] }}</external-link>
+          </dd>
+        </template>
+
         <template v-if="og.type">
           <dt>og:type</dt>
           <dd>{{ og.type }}</dd>
@@ -49,10 +69,7 @@
           <dt>og:image</dt>
           <dd>
             <external-link :href="absoluteUrl(og.image)">
-              <img
-                alt
-                :src="absoluteUrl(og.image)"
-              >
+              <img alt :src="absoluteUrl(og.image)" />
               <span>{{ og.image }}</span>
             </external-link>
           </dd>
@@ -62,15 +79,21 @@
 
     <panel-section title="Resources">
       <resource-list>
-        <ul>
-          <li>
-            <external-link
-              href="https://stackoverflow.com/questions/19778620/provide-an-image-for-whatsapp-link-sharing"
-            >
-              2019 unfurl standards
-            </external-link>
-          </li>
-        </ul>
+        <li>
+          <external-link
+            href="https://developer.facebook.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards.html"
+          >About facebook cards</external-link>
+        </li>
+        <li>
+          <external-link
+            href="https://developer.facebook.com/en/docs/tweets/optimize-with-cards/overview/markup"
+          >facebook card markup</external-link>
+        </li>
+        <li>
+          <external-link
+            href="https://cards-dev.facebook.com/validator"
+          >facebook card validator (requires facebook login)</external-link>
+        </li>
       </resource-list>
     </panel-section>
   </div>
@@ -198,8 +221,6 @@ export default {
   margin-bottom: 1em;
   padding: 0;
   border: none;
-  background-color: #e8eaee;
-  border: 1px solid var(--color-border);
 }
 
 .facebook__preview-caption {
