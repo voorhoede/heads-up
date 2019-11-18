@@ -130,7 +130,7 @@ export default {
       return supportedCards.includes(this.card);
     },
     title() {
-      return this.whatsapp.title || this.og.title || this.head.title || "";
+      return this.head.title || "";
     },
     description() {
       return (
