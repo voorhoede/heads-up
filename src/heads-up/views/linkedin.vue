@@ -1,13 +1,11 @@
 <template>
   <div>
     <panel-section title="Preview">
-      <p v-if="!isValidCard">
-        This page does not contain the required meta data to create a preview.
-      </p>
+      <p v-if="!isValidCard">This page does not contain the required meta data to create a preview.</p>
       <p v-if="isValidCard && !isSupportedCard">
         Preview is not yet available for
         <code>{{ card }}</code> cards.
-        <br>Card preview is currently supported for:
+        <br />Card preview is currently supported for:
         <!-- eslint-disable-next-line vue/no-v-html -->
         <span v-html="supportedCards.map(v => `<code>${v}</code>`).join(', ')" />.
       </p>
@@ -24,9 +22,7 @@
         />
         <figcaption class="linkedin__preview-caption">
           Preview based on
-          <external-link href="https://linkedin.com/">
-            linkedin.com
-          </external-link>.
+          <external-link href="https://linkedin.com/">linkedin.com</external-link>.
         </figcaption>
       </figure>
     </panel-section>
@@ -43,30 +39,17 @@
           <dt>linkedin:image</dt>
           <dd>
             <external-link :href="absoluteUrl(linkedin.image)">
-              <img
-                alt
-                :src="absoluteUrl(linkedin.image)"
-              >
+              <img alt :src="absoluteUrl(linkedin.image)" />
               <span>{{ linkedin.image }}</span>
             </external-link>
           </dd>
         </template>
         <template v-for="username in ['creator', 'site']">
-          <dt
-            v-if="linkedin[username]"
-            :key="`${username}-key`"
-          >
-            linkedin:{{ username }}
-          </dt>
-          <dd
-            v-if="linkedin[username]"
-            :key="`${username}-value`"
-          >
+          <dt v-if="linkedin[username]" :key="`${username}-key`">linkedin:{{ username }}</dt>
+          <dd v-if="linkedin[username]" :key="`${username}-value`">
             <external-link
               :href="`https://linkedin.com/${linkedin[username].slice(1)}`"
-            >
-              {{ linkedin[username] }}
-            </external-link>
+            >{{ linkedin[username] }}</external-link>
           </dd>
         </template>
 
@@ -86,10 +69,7 @@
           <dt>og:image</dt>
           <dd>
             <external-link :href="absoluteUrl(og.image)">
-              <img
-                alt
-                :src="absoluteUrl(og.image)"
-              >
+              <img alt :src="absoluteUrl(og.image)" />
               <span>{{ og.image }}</span>
             </external-link>
           </dd>
@@ -102,23 +82,17 @@
         <li>
           <external-link
             href="https://developer.linkedin.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards.html"
-          >
-            About linkedin cards
-          </external-link>
+          >About linkedin cards</external-link>
         </li>
         <li>
           <external-link
             href="https://developer.linkedin.com/en/docs/tweets/optimize-with-cards/overview/markup"
-          >
-            linkedin card markup
-          </external-link>
+          >linkedin card markup</external-link>
         </li>
         <li>
           <external-link
             href="https://cards-dev.linkedin.com/validator"
-          >
-            linkedin card validator (requires linkedin login)
-          </external-link>
+          >linkedin card validator (requires linkedin login)</external-link>
         </li>
       </resource-list>
     </panel-section>
