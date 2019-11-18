@@ -23,3 +23,25 @@ export function findFavicons(head) {
       return { ...favicon, url }
     })
 }
+
+export function findAdditionData(head) {
+  let data = []
+  let additionData = [];
+  let additionLabel = [];
+  for (let i = 0; i < head.length; i++) {
+    if (head[i].name) {
+      if (head[i].name.includes(`twitter:label`)) {
+        additionLabel.push({ name: head[i].name, value: head[i].value });
+      }
+      if (head[i].name.includes(`twitter:data`)) {
+        additionData.push({ name: head[i].name, value: head[i].value });
+      }
+    }
+  }
+
+  for (let index = 0; index < additionData.length; index++) {
+    data.push({ title: additionLabel[index].value, data: additionData[index].value })
+  }
+
+  return data
+}

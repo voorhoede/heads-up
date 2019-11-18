@@ -10,19 +10,9 @@ function createPreview() {
   const theme = params.get('theme')
   const favicon = params.get('favicon')
   const imageDefined = params.get('imageDefined')
-
-
-  console.log(`title ${title}`);
-  console.log(`description ${description}`);
-  console.log(`imgString ${imgString}`);
-  console.log(`url ${url}`);
-  console.log(`type ${type}`);
-  console.log(`favicon ${favicon}`);
-  console.log(`imageDefined ${imageDefined}`);
-
+  const additionData = params.get('additionData')
 
   const slackElement = document.querySelector('[data-slack-preview-card]')
-  // if (imageDefined == true) {
   getslackMarkup({
     title,
     description,
@@ -30,15 +20,10 @@ function createPreview() {
     url,
     type,
     favicon,
+    additionData
   }).then(html => {
     slackElement.innerHTML = html
   })
-  // }
-
-  // else {
-  //   slackElement.innerHTML = generateHtml({ title, description, url, type, favicon, imageDefined })
-  // }
-
   /**
    * setting 'theme_dark' class if parent window is in dark mode
    * class '-theme-with-dark-background' is taken from dev tools env
@@ -47,7 +32,7 @@ function createPreview() {
   if (theme === 'dark') document.body.classList.add('-theme-with-dark-background')
 }
 
-function getslackMarkup({ title, description, imgString, url, type, favicon }) {
+function getslackMarkup({ title, description, imgString, url, type, favicon, additionData }) {
 
   function getImageFileSize({ imgString }) {
     return fetch(imgString, { method: 'HEAD' })
@@ -73,10 +58,10 @@ function getslackMarkup({ title, description, imgString, url, type, favicon }) {
   return getImageDetails(imgString)
     .then(img => {
       isBigImg = isBigEnough(img)
-      return getImageFileSize({ title, description, imgString, url, type, favicon })
+      return getImageFileSize({ title, description, imgString, url, type, favicon, additionData })
     })
     .then(fileSize => {
-      return generateHtml({ title, description, imgString, url, type, favicon, fileSize, isBigImg })
+      return generateHtml({ title, description, imgString, url, type, favicon, fileSize, isBigImg, additionData })
     })
 
 }
@@ -98,17 +83,8 @@ function emojiCount() {
   return Math.floor(Math.random() * 9) + 1
 }
 
-function generateHtml({ title, description, imgString, url, type, favicon, fileSize, isBigImg, imageDefined }) {
-
-  // console.log(`title ${title}`);
-  // console.log(`description ${description}`);
-  // console.log(`imgString ${imgString}`);
-  // console.log(`url ${url}`);
-  // console.log(`type ${type}`);
-  // console.log(`favicon ${favicon}`);
-  // console.log(`fileSize ${fileSize}`);
-  // console.log(`isBigImg ${isBigImg}`);
-  // console.log(`imageDefined ${imageDefined}`);
+function generateHtml({ title, description, imgString, url, type, favicon, fileSize, isBigImg, imageDefined, additionData }) {
+  console.log(additionData);
 
   return `
         <div class="${ type === 'summary' ? `slack-preview is-small` : `slack-preview`}">

@@ -22,7 +22,7 @@
         />
         <figcaption class="slack__preview-caption">
           Preview based on
-          <external-link href="https://app.slack.com/client//">app.slack.com/client/.com</external-link>.
+          <external-link href="https://app.slack.com/">app.slack.com/client/.com</external-link>.
         </figcaption>
       </figure>
     </panel-section>
@@ -88,7 +88,8 @@ import {
 import {
   findMetaContent,
   findMetaProperty,
-  findFavicons
+  findFavicons,
+  findAdditionData
 } from "../lib/find-meta";
 
 const validCards = ["summary", "summary_large_image", "app", "player"];
@@ -155,7 +156,8 @@ export default {
         image: this.metaValue("slack:image"),
         site: this.metaValue("slack:site"),
         creator: this.metaValue("slack:creator"),
-        favicon: this.favIcon("slack:favicon")
+        favicon: this.favIcon("slack:favicon"),
+        additionalData: this.additionalData()
       };
     },
     slackUrl() {
@@ -167,6 +169,10 @@ export default {
       params.set("imageDefined", this.image ? true : false);
       params.set("favicon", this.slack.favicon[0].url);
       params.set("url", this.head.url);
+      params.set(
+        "additionData",
+        this.slack.additionalData ? this.slack.additionalData : false
+      );
       params.set("theme", getTheme() !== "default" && "dark");
       return `/slack-preview/slack-preview.html?${params}`;
     }
@@ -184,6 +190,9 @@ export default {
     },
     metaValue(metaName) {
       return findMetaContent(this.head, metaName);
+    },
+    additionalData() {
+      return findAdditionData(this.head.meta);
     },
     favIcon() {
       return findFavicons(this.head);
