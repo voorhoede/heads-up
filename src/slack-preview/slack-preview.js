@@ -11,23 +11,33 @@ function createPreview() {
   const favicon = params.get('favicon')
   const imageDefined = params.get('imageDefined')
 
-  const slackElement = document.querySelector('[data-slack-preview-card]')
-  if (imageDefined === true) {
-    getslackMarkup({
-      title,
-      description,
-      imgString,
-      url,
-      type,
-      favicon,
-    }).then(html => {
-      slackElement.innerHTML = html
-    })
-  }
 
-  else {
-    slackElement.innerHTML = generateHtml({ title, description, url, type, favicon, imageDefined })
-  }
+  console.log(`title ${title}`);
+  console.log(`description ${description}`);
+  console.log(`imgString ${imgString}`);
+  console.log(`url ${url}`);
+  console.log(`type ${type}`);
+  console.log(`favicon ${favicon}`);
+  console.log(`imageDefined ${imageDefined}`);
+
+
+  const slackElement = document.querySelector('[data-slack-preview-card]')
+  // if (imageDefined == true) {
+  getslackMarkup({
+    title,
+    description,
+    imgString,
+    url,
+    type,
+    favicon,
+  }).then(html => {
+    slackElement.innerHTML = html
+  })
+  // }
+
+  // else {
+  //   slackElement.innerHTML = generateHtml({ title, description, url, type, favicon, imageDefined })
+  // }
 
   /**
    * setting 'theme_dark' class if parent window is in dark mode
@@ -57,7 +67,7 @@ function getslackMarkup({ title, description, imgString, url, type, favicon }) {
   let isBigImg
 
   function isBigEnough(img) {
-    return img.width > 600 && img.height > 315
+    return img.width >= 600 && img.height >= 315
   }
 
   return getImageDetails(imgString)
@@ -89,7 +99,16 @@ function emojiCount() {
 }
 
 function generateHtml({ title, description, imgString, url, type, favicon, fileSize, isBigImg, imageDefined }) {
-  console.log(imageDefined);
+
+  // console.log(`title ${title}`);
+  // console.log(`description ${description}`);
+  // console.log(`imgString ${imgString}`);
+  // console.log(`url ${url}`);
+  // console.log(`type ${type}`);
+  // console.log(`favicon ${favicon}`);
+  // console.log(`fileSize ${fileSize}`);
+  // console.log(`isBigImg ${isBigImg}`);
+  // console.log(`imageDefined ${imageDefined}`);
 
   return `
         <div class="${ type === 'summary' ? `slack-preview is-small` : `slack-preview`}">
