@@ -2,13 +2,13 @@
   <div>
     <panel-section title="Preview">
       <p v-if="!isValidCard">This page does not contain the required meta data to create a preview.</p>
-      <p v-if="isValidCard && !isSupportedCard">
+      <!-- <p v-if="isValidCard && !isSupportedCard">
         Preview is not yet available for
         <code>{{ card }}</code> cards.
-        <br />Card preview is currently supported for:
-        <!-- eslint-disable-next-line vue/no-v-html -->
-        <span v-html="supportedCards.map(v => `<code>${v}</code>`).join(', ')" />.
-      </p>
+      <br />Card preview is currently supported for:-->
+      <!-- eslint-disable-next-line vue/no-v-html -->
+      <!-- <span v-html="supportedCards.map(v => `<code>${v}</code>`).join(', ')" />.
+      </p>-->
       <figure v-if="isValidCard && isSupportedCard">
         <iframe
           ref="iframe"
@@ -162,7 +162,6 @@ export default {
     },
     slackUrl() {
       const params = new URLSearchParams();
-      params.set("card", this.slack.card);
       params.set("title", this.title);
       params.set("description", this.description);
       params.set("image", this.image);
@@ -212,7 +211,7 @@ export default {
 
 <style>
 .slack__preview {
-  max-width: 521px;
+  max-width: 600px;
   margin-bottom: 1em;
   padding: 0;
   border: none;

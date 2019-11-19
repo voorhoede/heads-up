@@ -143,6 +143,10 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
     }
 
+    .data-slack-preview-card {
+      display: flex;
+    }
+
     .slack-preview {
       font-size: 14px;
       display: flex;
@@ -209,6 +213,7 @@
       height: 100%;
       object-fit: cover;
       max-width: none;
+      border-radius: 4px;
     }
 
     .slack-preview__media {
@@ -243,14 +248,13 @@
 
     .slack-preview__title {
       margin-bottom: 0.35em;
-
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
       font-size: 1em;
       color: rgb(18, 100, 163);
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .slack-preview__description {
@@ -264,7 +268,7 @@
     .slack-preview__domain {
       display: flex;
       align-items: center;
-      margin-top: 0.4em;
+      margin: 0.25em;
       color: var(--muted-color);
     }
 
@@ -305,6 +309,7 @@
       display: flex;
       font-size: 10px;
       align-items: center;
+      margin-top: 8px;
     }
 
     .slack-preview__emoji img {
@@ -326,12 +331,21 @@
       white-space: nowrap;
     }
 
+    .slack-preview__container {
+      display: flex;
+    }
+
+    .slack-preview__image-container {
+      max-width: 360px;
+    }
+
   </style>
   <title>slack preview</title>
 </head>
 
 <body>
   <div data-slack-preview-card></div>
+
 </body>
 
 </html>
