@@ -23,3 +23,19 @@ export function findFavicons(head) {
       return { ...favicon, url }
     })
 }
+
+export function findImageDimensions(head, name) {
+  const url = findMetaProperty(head, name)
+  const correctUrl = url.startsWith("http") ? url : new URL(head.url).origin + url;
+
+  function getImageDetails(url) {
+    return new Promise((resolve) => {
+      var img = new Image();
+      img.src = url;
+      img.onload = () => { resolve(img) }
+    })
+  }
+
+  return getImageDetails(correctUrl)
+    .then(img => { return { imgWidth: img.width, imgHeight: img.height } })
+}

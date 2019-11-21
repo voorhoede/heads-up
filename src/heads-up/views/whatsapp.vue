@@ -1,17 +1,12 @@
 <template>
   <div>
     <panel-section title="Preview">
-      <p v-if="!isValidCard">
-        This page does not contain the required meta data to create a preview.
+      <p
+        v-if="!hasDescription"
+      >
+        This page does not contain an Open Graph description to create a preview.
       </p>
-      <p v-if="isValidCard && !isSupportedCard">
-        Preview is not yet available for
-        <code>{{ card }}</code> cards.
-        <br>Card preview is currently supported for:
-        <!-- eslint-disable-next-line vue/no-v-html -->
-        <span v-html="supportedCards.map(v => `<code>${v}</code>`).join(', ')" />.
-      </p>
-      <figure v-if="isValidCard && isSupportedCard">
+      <figure v-if="hasDescription">
         <iframe
           ref="iframe"
           title="whatsapp preview"
@@ -35,10 +30,6 @@
     <panel-section title="Properties">
       <properties-list>
         <dl>
-          <template v-if="og.type">
-            <dt>og:type</dt>
-            <dd>{{ og.type }}</dd>
-          </template>
           <template v-if="og.title">
             <dt>og:title</dt>
             <dd>{{ og.title }}</dd>
@@ -55,8 +46,24 @@
                   alt
                   :src="absoluteUrl(og.image)"
                 >
+
                 <span>{{ og.image }}</span>
               </external-link>
+              <p
+                v-if="whatsapp.imageDimensions"
+              >
+                w:{{ whatsapp.imageDimensions.imgWidth }}px, h:{{ whatsapp.imageDimensions.imgHeight }}px
+              </p>
+              <p
+                v-if="whatsapp.imageDimensions && whatsapp.imageDimensions.imgHeight < 100"
+              >
+                The image height is too small. You need at least 100px instead of {{ whatsapp.imageDimensions.imgHeight }}px
+              </p>
+              <p
+                v-if="whatsapp.imageDimensions && whatsapp.imageDimensions.imgWidth < 100"
+              >
+                The image width is too small. You need at least 100px instead of {{ whatsapp.imageDimensions.imgWidth }}px
+              </p>
             </dd>
           </template>
           <template v-if="og.url">
@@ -85,7 +92,6 @@
 
 
 <script>
-import getTheme from "../lib/theme";
 import { mapState } from "vuex";
 import {
   ExternalLink,
@@ -93,10 +99,11 @@ import {
   PropertiesList,
   ResourceList
 } from "../components";
-import { findMetaContent, findMetaProperty } from "../lib/find-meta";
-
-const validCards = ["summary", "summary_large_image", "app", "player"];
-export const supportedCards = ["summary", "summary_large_image"];
+import {
+  findMetaContent,
+  findMetaProperty,
+  findImageDimensions
+} from "../lib/find-meta";
 
 export default {
   components: { ExternalLink, PanelSection, PropertiesList, ResourceList },
@@ -107,43 +114,22 @@ export default {
   },
   computed: {
     ...mapState(["head"]),
-    card() {
-      /**
-       * If an og:type, og:title and og:description exist in the markup
-       * but whatsapp:card is absent, then a summary card may be rendered.
-       * @see https://developer.whatsapp.com/en/docs/tweets/optimize-with-cards/overview/markup#overview-of-all-whatsapp-card-tags
-       */
-      if (this.whatsapp.card) {
-        return this.whatsapp.card;
-      } else if (this.og.type && this.og.title && this.og.description) {
-        return "summary";
+    hasDescription() {
+      const description = this.propertyValue("og:description");
+      if (description !== null && description.length > 0) {
+        return true;
       }
-      return undefined;
-    },
-    supportedCards() {
-      return supportedCards;
-    },
-    isValidCard() {
-      return validCards.includes(this.card);
-    },
-    isSupportedCard() {
-      return supportedCards.includes(this.card);
+      return false;
     },
     title() {
       return this.head.title || "";
     },
     description() {
-      return (
-        this.whatsapp.description ||
-        this.og.description ||
-        this.metaValue("description") ||
-        ""
-      );
+      return this.og.description;
     },
     image() {
-      return this.absoluteUrl(this.whatsapp.image || this.og.image);
+      return this.absoluteUrl(this.og.image);
     },
-
     url() {
       return this.head.url;
     },
@@ -159,26 +145,34 @@ export default {
     },
     whatsapp() {
       return {
-        title: this.metaValue("whatsapp:title"),
-        description: this.metaValue("whatsapp:description"),
-        card: this.metaValue("whatsapp:card"),
-        image: this.metaValue("whatsapp:image"),
-        site: this.metaValue("whatsapp:site")
+        imageDimensions: null,
+        imageIsBigEnough: null
       };
     },
+
     whatsappUrl() {
       const params = new URLSearchParams();
-      params.set("card", this.whatsapp.card);
-      params.set("title", this.title);
-      params.set("description", this.description);
+      params.set("title", this.og.title || this.title);
+      params.set("description", this.og.description);
       params.set("image", this.image);
+      params.set("imageIsBigEnough", this.whatsapp.imageIsBigEnough);
       params.set("url", this.head.url);
-      params.set("theme", getTheme() !== "default" && "dark");
       return `/whatsapp-preview/whatsapp-preview.html?${params}`;
     }
   },
   mounted() {
     window.addEventListener("resize", this.onResize);
+  },
+  created() {
+    this.imageDimensions("og:image").then(imageDimensions => {
+      this.whatsapp.imageDimensions = imageDimensions;
+
+      const imgHeight = this.whatsapp.imageDimensions.imgHeight;
+      const imgWidth = this.whatsapp.imageDimensions.imgWidth;
+
+      this.whatsapp.imageIsBigEnough =
+        imgHeight >= 100 && imgWidth >= 100 ? true : false;
+    });
   },
   destroyed() {
     window.removeEventListener("resize", this.onResize);
@@ -193,6 +187,11 @@ export default {
     },
     propertyValue(propName) {
       return findMetaProperty(this.head, propName);
+    },
+    imageDimensions(metaName) {
+      return findImageDimensions(this.head, metaName).then(imageDimensions => {
+        return imageDimensions;
+      });
     },
     onResize() {
       this.iframeHeight =
