@@ -7,8 +7,7 @@ function createPreview() {
   const description = params.get('description')
   const image = params.get('image')
   const url = params.get('url')
-  const type = params.get('card')
-  const theme = params.get('theme')
+  const imageIsBigEnough = params.get('imageIsBigEnough')
 
   const whatsappElement = document.querySelector('[data-whatsapp-preview-card]')
   whatsappElement.innerHTML = getwhatsappMarkup({
@@ -16,45 +15,36 @@ function createPreview() {
     description,
     image,
     url,
-    type
+    imageIsBigEnough
   })
-
-  /**
-   * setting 'theme_dark' class if parent window is in dark mode
-   * class '-theme-with-dark-background' is taken from dev tools env
-   * src: https://github.com/ChromeDevTools/devtools-frontend/blob/02a851d01de158d8c0a8fd1d3af06649b5379bd6/front_end/ui/inspectorStyle.css
-   */
-  if (theme === 'dark') document.body.classList.add('-theme-with-dark-background')
 }
 
 function currentTime() {
   return new Date().toLocaleTimeString().substr(0, 5)
 }
 
-
-function getwhatsappMarkup({ title, description, image, url, type }) {
-
-  function getHostName(url) {
-    if (!url) {
-      return ''
-    }
-
-    const hostname = (new URL(url).hostname)
-    const wwwPrefix = 'www.'
-    return hostname.startsWith(wwwPrefix)
-      ? hostname.slice(wwwPrefix.length)
-      : hostname
-
+function getHostName(url) {
+  if (!url) {
+    return ''
   }
+
+  const hostname = (new URL(url).hostname)
+  const wwwPrefix = 'www.'
+  return hostname.startsWith(wwwPrefix)
+    ? hostname.slice(wwwPrefix.length)
+    : hostname
+}
+
+function getwhatsappMarkup({ title, description, image, url, type, imageIsBigEnough }) {
 
   return `
       <div class="${ type === 'summary' ? `whatsapp-preview is-small` : `whatsapp-preview`}">
-        <a rel="noopener" target="_blank" class="${ type === 'summary' ? `whatsapp-preview__link-container` : `whatsapp-preview__link-container whatsapp-preview__link-container--vertical`} ">
+        <a rel="noopener" target="_blank" class="">
         <div class="whatsapp-top">  
-          ${ (image !== 'undefined') ? `<div class="whatsapp-preview__media"><img src="${image}" class="whatsapp-preview__image" /></div>` : ``}
+          ${ image !== 'undefined' && imageIsBigEnough === 'true' ? `<div class="whatsapp-preview__media"><img src="${image}" class="whatsapp-preview__image" /></div>` : ``}
           <div class="whatsapp-preview__content">
-            <div class="whatsapp-preview__title">${ title}</div>
-            ${ (image !== 'undefined') ? `<div class="whatsapp-preview__description">${description}</div>` : ``}
+            ${title !== 'undefined' ? `<div class="whatsapp-preview__title">${title}</div>` : ''}
+            <div class="whatsapp-preview__description">${description}</div>
             <div class="whatsapp-preview__url">${ getHostName(url)}</div>
           </div>
           </div>
