@@ -124,24 +124,12 @@
       --url-color: #000000;
       --background-color: #dcf8c6;
       --content-background-color: rgba(0, 0, 0, 0.05);
-    }
-
-    .-theme-with-dark-background {
-      --color-border: rgb(56, 68, 77);
-      --base-color: #fff;
-      --label-color: rgba(255, 255, 255, 0.6);
-      --accent-color: #A5A5A5;
-      --url-color: #A5A5A5;
-      --content-background-color: rgba(255, 255, 255, 0.05);
+      --lh: 1.2rem
     }
 
     html {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
       text-decoration: none;
-    }
-
-    .whatsapp-preview {
-      font-size: 14px;
     }
 
     .whatsapp-top {
@@ -167,44 +155,38 @@
     }
 
     .whatsapp-preview__content {
-      padding: 6px 10px;
-    }
-
-    .whatsapp-preview__link-container {
-      text-decoration: none;
-      color: var(--value-color);
+      margin: 6px 10px 0;
+      max-height: calc(var(--lh) * 3);
+      overflow: hidden;
     }
 
     .whatsapp-preview__title {
       font-size: 13px;
       color: var(--base-color);
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      line-height: var(--lh);
+      color: black;
+      font-weight: 400;
     }
 
     .whatsapp-preview__description {
       color: var(--label-color);
-      overflow: hidden;
-      display: none;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
+      line-height: var(--lh);
       font-size: 12px;
     }
 
     .whatsapp-preview__url {
       color: var(--url-color);
       font-size: 12px;
+      line-height: var(--lh);
+      padding: 0 10px 6px;
     }
 
     .whatsapp-preview__hostname {
       color: var(--accent-color);
       font-size: 12px;
       overflow-wrap: break-word;
-      display: flex;
-      justify-content: space-between;
+      /* display: flex;
+      justify-content: space-between; */
     }
 
     .whatsapp-preview {
@@ -239,6 +221,7 @@
       display: flex;
       flex-flow: row-reverse;
       padding-top: 3px;
+      float: right;
     }
 
     .whatsapp-preview__checkmark {
