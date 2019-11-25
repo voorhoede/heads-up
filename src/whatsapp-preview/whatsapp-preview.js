@@ -8,8 +8,6 @@ function createPreview() {
   const image = params.get('image')
   const url = params.get('url')
 
-  console.log(image);
-
   const whatsappElement = document.querySelector('[data-whatsapp-preview-card]')
   whatsappElement.innerHTML = getwhatsappMarkup({
     title,

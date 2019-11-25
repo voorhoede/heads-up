@@ -3,7 +3,9 @@
     <panel-section title="Preview">
       <p
         v-if="!hasDescription"
-      >This page does not contain an Open Graph description to create a preview.</p>
+      >
+        This page does not contain an Open Graph description to create a preview.
+      </p>
       <figure v-if="hasDescription && previewUrl">
         <iframe
           ref="iframe"
@@ -18,7 +20,9 @@
         />
         <figcaption class="whatsapp__preview-caption">
           Preview based on
-          <external-link href="https://web.whatsapp.com/">web.whatsapp.com</external-link>.
+          <external-link href="https://web.whatsapp.com/">
+            web.whatsapp.com
+          </external-link>.
         </figcaption>
       </figure>
     </panel-section>
@@ -38,13 +42,18 @@
             <dt>og:image</dt>
             <dd>
               <external-link :href="absoluteUrl(og.image)">
-                <img alt :src="absoluteUrl(og.image)" />
+                <img
+                  alt
+                  :src="absoluteUrl(og.image)"
+                >
 
                 <span>{{ og.image }}</span>
               </external-link>
               <p
                 v-if="imageDimensions"
-              >({{ imageDimensions.width }} x {{ imageDimensions.height }}px)</p>
+              >
+                ({{ imageDimensions.width }} x {{ imageDimensions.height }}px)
+              </p>
             </dd>
           </template>
           <template v-if="og.url">
@@ -61,12 +70,16 @@
           <li>
             <external-link
               href="https://stackoverflow.com/a/43154489"
-            >2019 WhatsApp sharing standards (on StackOverflow)</external-link>
+            >
+              2019 WhatsApp sharing standards (on StackOverflow)
+            </external-link>
           </li>
           <li>
             <external-link
               href="https://stackoverflow.com/questions/19778620/provide-an-image-for-whatsapp-link-sharing"
-            >Unfurl mechanism used by WhatsApp for sharing</external-link>
+            >
+              Unfurl mechanism used by WhatsApp for sharing
+            </external-link>
           </li>
         </ul>
       </resource-list>
