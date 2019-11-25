@@ -70,12 +70,10 @@
     video {
       display: block;
       /* 1 */
-      vertical-align: middle;
-      /* 2 */
       max-width: 100%;
-      /* 3 */
+      /* 2 */
       height: auto;
-      /* 4 */
+      /* 3 */
     }
 
     /**
@@ -144,10 +142,11 @@
 
     .linkedin-preview {
       font-size: 14px;
+      background-color: #f3f6f8;
     }
 
     .linkedin-preview__link-container {
-      display: flex;
+      display: block;
       height: 100%;
       border: 1px solid var(--color-border);
       text-decoration: none;
@@ -238,12 +237,27 @@
       display: flex;
       color: var(--muted-color);
       font-size: 12px;
-      padding-top: 8px;
+      margin: 8px 16px;
     }
 
     .linkedin-preview__like svg {
       height: 1.3em;
       margin-right: 4px;
+    }
+
+    .linkedin-preview__small {
+      padding: 12px 16px;
+      display: flex;
+    }
+
+    .linkedin-preview__small .linkedin-preview__fixed-ratio {
+      min-width: 138px;
+      min-height: 72px;
+      height: auto;
+    }
+
+    .linkedin-preview__small .linkedin-preview__ratio {
+      padding-bottom: 0;
     }
 
   </style>
