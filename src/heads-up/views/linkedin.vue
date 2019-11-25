@@ -1,14 +1,12 @@
 <template>
   <div>
     <panel-section title="Preview">
-      <p v-if="!isValidCard">
-        This page does not contain og:image meta data to create a preview.
-      </p>
+      <p v-if="!hasOgImage">This page does not contain og:image meta data to create a preview.</p>
 
-      <figure v-if="isValidCard ">
+      <figure v-if="hasOgImage ">
         <iframe
           ref="iframe"
-          :src="linkedin.linkedinUrl"
+          :src="previewUrl"
           :height="iframeHeight"
           width="100%"
           frameborder="0"
@@ -18,39 +16,27 @@
         />
         <figcaption class="linkedin__preview-caption">
           Preview based on
-          <external-link href="https://linkedin.com/">
-            linkedin.com
-          </external-link>.
+          <external-link href="https://linkedin.com/">linkedin.com</external-link>.
         </figcaption>
       </figure>
     </panel-section>
 
     <panel-section title="Properties">
       <properties-list>
-        <template v-if="linkedin.title">
+        <template v-if="og.title">
           <dt>og:title</dt>
-          <dd>{{ linkedin.title }}</dd>
+          <dd>{{ og.title }}</dd>
         </template>
-        <template v-if="linkedin.image">
+        <template v-if="og.image">
           <dt>og:image</dt>
           <dd>
-            <external-link :href="absoluteUrl(linkedin.image)">
-              <img
-                alt
-                :src="absoluteUrl(linkedin.image)"
-              >
-              <span>{{ linkedin.image }}</span>
+            <external-link :href="absoluteUrl(og.image)">
+              <img alt :src="absoluteUrl(og.image)" />
+              <span>{{ og.image }}</span>
             </external-link>
             <p
-              v-if="linkedin.imageDimensions"
-            >
-              w:{{ linkedin.imageDimensions.imgWidth }}px, h:{{ linkedin.imageDimensions.imgHeight }}px
-            </p>
-            <p
-              v-if="linkedin.imageDimensions && !linkedin.imageDimensions.correctImgUrl"
-            >
-              og.image can't be loaded
-            </p>
+              v-if="imageDimensions"
+            >({{ imageDimensions.imgWidth }} x {{ imageDimensions.imgHeight }}px)</p>
           </dd>
         </template>
       </properties-list>
@@ -72,12 +58,14 @@ export default {
   data() {
     return {
       iframeHeight: "auto",
-      linkedin: {}
+      linkedin: {},
+      imageDimensions: { width: undefined, height: undefined },
+      previewUrl: ""
     };
   },
   computed: {
     ...mapState(["head"]),
-    isValidCard() {
+    hasOgImage() {
       return this.og.image !== undefined ? true : false;
     },
 
@@ -92,13 +80,13 @@ export default {
     window.addEventListener("resize", this.onResize);
   },
   created() {
-    this.imageDimensions("og:image").then(imageDimensions => {
-      this.linkedin = {
-        imageDimensions: imageDimensions,
-        title: this.propertyValue("og:title") || this.head.title || "Weblink",
-        image: this.absoluteUrl(this.propertyValue("og:image")),
-        linkedinUrl: this.linkedinUrl(imageDimensions)
-      };
+    findImageDimensions(this.head, "og:image").then(imageDimensions => {
+      this.imageDimensions = imageDimensions;
+      this.previewUrl = this.getPreviewUrl({ imageDimensions });
+
+      if (!imageDimensions.correctImgUrl) {
+        console.log(`og.image can't be loaded`);
+      }
     });
   },
   destroyed() {
@@ -112,22 +100,10 @@ export default {
     metaValue(metaName) {
       return findMetaContent(this.head, metaName);
     },
-
     propertyValue(propName) {
       return findMetaProperty(this.head, propName);
     },
-    onResize() {
-      this.iframeHeight =
-        parseInt(
-          this.$refs.iframe.contentWindow.document.body.scrollHeight + 2
-        ) + "px";
-    },
-    imageDimensions(metaName) {
-      return findImageDimensions(this.head, metaName).then(imageDimensions => {
-        return imageDimensions;
-      });
-    },
-    linkedinUrl(imageDimensions) {
+    getPreviewUrl({ imageDimensions }) {
       const params = new URLSearchParams();
       params.set("title", this.og.title);
       params.set("image", this.og.image);
@@ -139,6 +115,12 @@ export default {
           : false
       );
       return `/linkedin-preview/linkedin-preview.html?${params}`;
+    },
+    onResize() {
+      this.iframeHeight =
+        parseInt(
+          this.$refs.iframe.contentWindow.document.body.scrollHeight + 2
+        ) + "px";
     }
   }
 };
