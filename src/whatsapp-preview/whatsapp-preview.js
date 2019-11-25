@@ -35,7 +35,7 @@ function getHostName(url) {
     : hostname
 }
 
-function getwhatsappMarkup({ title, description, image, url, type, imageIsBigEnough }) {
+function getwhatsappMarkup({ title, description, image, url, imageIsBigEnough }) {
 
   return `
       <div class="whatsapp-preview">

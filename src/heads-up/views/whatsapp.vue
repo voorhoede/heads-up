@@ -3,12 +3,14 @@
     <panel-section title="Preview">
       <p
         v-if="!hasDescription"
-      >This page does not contain an Open Graph description to create a preview.</p>
-      <figure v-if="hasDescription && whatsapp">
+      >
+        This page does not contain an Open Graph description to create a preview.
+      </p>
+      <figure v-if="hasDescription && previewUrl">
         <iframe
           ref="iframe"
           title="whatsapp preview"
-          :src="whatsapp.whatsappUrl"
+          :src="previewUrl"
           :height="iframeHeight"
           width="100%"
           frameborder="0"
@@ -18,7 +20,9 @@
         />
         <figcaption class="whatsapp__preview-caption">
           Preview based on
-          <external-link href="https://web.whatsapp.com/">web.whatsapp.com</external-link>.
+          <external-link href="https://web.whatsapp.com/">
+            web.whatsapp.com
+          </external-link>.
         </figcaption>
       </figure>
     </panel-section>
@@ -38,22 +42,18 @@
             <dt>og:image</dt>
             <dd>
               <external-link :href="absoluteUrl(og.image)">
-                <img alt :src="absoluteUrl(og.image)" />
+                <img
+                  alt
+                  :src="absoluteUrl(og.image)"
+                >
 
                 <span>{{ og.image }}</span>
               </external-link>
               <p
-                v-if="whatsapp.imageDimensions"
-              >w:{{ whatsapp.imageDimensions.imgWidth }}px, h:{{ whatsapp.imageDimensions.imgHeight }}px</p>
-              <p
-                v-if="whatsapp.imageDimensions && whatsapp.imageDimensions.imgHeight < 100 && whatsapp.imageDimensions.imgWidth >= 100 "
-              >The image height is too small. You need at least 100px instead of {{ whatsapp.imageDimensions.imgHeight }}px</p>
-              <p
-                v-if="whatsapp.imageDimensions && whatsapp.imageDimensions.imgWidth < 100 && whatsapp.imageDimensions.imgHeight >= 100"
-              >The image width is too small. You need at least 100px instead of {{ whatsapp.imageDimensions.imgWidth }}px</p>
-              <p
-                v-if="whatsapp.imageDimensions && whatsapp.imageDimensions.imgWidth < 100 && whatsapp.imageDimensions.imgHeight < 100"
-              >The image width and height is too small. You need at least 100px of width instead of {{ whatsapp.imageDimensions.imgWidth }}px and 100px of height instead of {{ whatsapp.imageDimensions.imgHeight }}px</p>
+                v-if="imageDimensions"
+              >
+                ({{ imageDimensions.imgWidth }} x {{ imageDimensions.imgHeight }}px)
+              </p>
             </dd>
           </template>
           <template v-if="og.url">
@@ -69,8 +69,17 @@
         <ul>
           <li>
             <external-link
+              href="https://stackoverflow.com/a/43154489"
+            >
+              2019 WhatsApp sharing standards (on StackOverflow)
+            </external-link>
+          </li>
+          <li>
+            <external-link
               href="https://stackoverflow.com/questions/19778620/provide-an-image-for-whatsapp-link-sharing"
-            >2019 unfurl standards</external-link>
+            >
+              Unfurl mechanism used by WhatsApp for sharing
+            </external-link>
           </li>
         </ul>
       </resource-list>
@@ -100,7 +109,8 @@ export default {
   data() {
     return {
       iframeHeight: "auto",
-      whatsapp: {}
+      imageDimensions: { width: undefined, height: undefined },
+      previewUrl: ""
     };
   },
   computed: {
@@ -141,16 +151,37 @@ export default {
     window.addEventListener("resize", this.onResize);
   },
   created() {
-    this.imageDimensions("og:image").then(imageDimensions => {
-      this.whatsapp = {
-        imageDimensions,
-        title: this.propertyValue("og:title"),
-        description: this.propertyValue(ogDescription),
-        type: this.propertyValue("og:type"),
-        image: this.propertyValue("og:image"),
-        url: this.propertyValue("og:url"),
-        whatsappUrl: this.getWhatsappUrl(imageDimensions)
-      };
+    findImageDimensions(this.head, "og:image").then(imageDimensions => {
+      this.imageDimensions = imageDimensions;
+      this.previewUrl = this.getPreviewUrl({ imageDimensions });
+
+      if (
+        imageDimensions &&
+        imageDimensions.imgWidth >= 100 &&
+        imageDimensions.imgHeight < 100
+      ) {
+        console.log(
+          `The image height is too small. You need at least 100px instead of ${imageDimensions.imgHeight}px`
+        );
+      }
+      if (
+        imageDimensions &&
+        imageDimensions.imgWidth < 100 &&
+        imageDimensions.imgHeight >= 100
+      ) {
+        console.log(
+          `The image width is too small. You need at least 100px instead of ${imageDimensions.imgWidth}px`
+        );
+      }
+      if (
+        imageDimensions &&
+        imageDimensions.imgWidth < 100 &&
+        imageDimensions.imgHeight < 100
+      ) {
+        console.log(
+          `The image width and height are too small. You need at least 100px of width instead of ${imageDimensions.imgWidth}px and 100px of height instead of ${imageDimensions.imgHeight}px`
+        );
+      }
     });
   },
   destroyed() {
@@ -172,7 +203,7 @@ export default {
     propertyValue(propName) {
       return findMetaProperty(this.head, propName);
     },
-    getWhatsappUrl(imageDimensions) {
+    getPreviewUrl({ imageDimensions }) {
       const params = new URLSearchParams();
       params.set("title", this.og.title || this.title);
       params.set("description", this.og.description);
@@ -180,16 +211,9 @@ export default {
       params.set(
         "imageIsBigEnough",
         imageDimensions.imgHeight >= 100 && imageDimensions.imgWidth >= 100
-          ? true
-          : false
       );
       params.set("url", this.head.url);
       return `/whatsapp-preview/whatsapp-preview.html?${params}`;
-    },
-    imageDimensions(metaName) {
-      return findImageDimensions(this.head, metaName).then(imageDimensions => {
-        return imageDimensions;
-      });
     },
     onResize() {
       this.iframeHeight =
