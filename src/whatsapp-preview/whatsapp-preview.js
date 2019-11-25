@@ -7,7 +7,8 @@ function createPreview() {
   const description = params.get('description')
   const image = params.get('image')
   const url = params.get('url')
-  const imageIsBigEnough = params.get('imageIsBigEnough')
+
+  console.log(image);
 
   const whatsappElement = document.querySelector('[data-whatsapp-preview-card]')
   whatsappElement.innerHTML = getwhatsappMarkup({
@@ -15,7 +16,6 @@ function createPreview() {
     description,
     image,
     url,
-    imageIsBigEnough
   })
 }
 
@@ -35,13 +35,13 @@ function getHostName(url) {
     : hostname
 }
 
-function getwhatsappMarkup({ title, description, image, url, imageIsBigEnough }) {
+function getwhatsappMarkup({ title, description, image, url, }) {
 
   return `
       <div class="whatsapp-preview">
         <a rel="noopener" target="_blank">
         <div class="whatsapp-top">  
-          ${ image !== 'undefined' && imageIsBigEnough === 'true' ? `<div class="whatsapp-preview__media"><img src="${image}" class="whatsapp-preview__image" /></div>` : ``}
+          ${ image ? `<div class="whatsapp-preview__media"><img src="${image}" class="whatsapp-preview__image" /></div>` : ``}
           <div>
           <div class="whatsapp-preview__content">
           ${title !== 'undefined' ? `<div class="whatsapp-preview__title">${title}</div>` : ''}

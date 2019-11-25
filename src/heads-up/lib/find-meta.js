@@ -36,12 +36,10 @@ function getImageDetails(url) {
 export function findImageDimensions(head, name) {
   const url = findMetaProperty(head, name)
 
-  if (url !== null) {
-    const correctUrl = url.startsWith("http") ? url : new URL(head.url).origin + url;
-    return getImageDetails(correctUrl)
-      .then(({ width, height }) => ({ width, height }))
-  }
-  else {
+  if (url === null) {
     return Promise.resolve({ width: 0, height: 0 })
   }
+  const correctUrl = url.startsWith("http") ? url : new URL(head.url).origin + url;
+  return getImageDetails(correctUrl)
+    .then(({ width, height }) => ({ width, height }))
 }
