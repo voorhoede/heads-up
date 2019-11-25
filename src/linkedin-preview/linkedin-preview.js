@@ -8,6 +8,8 @@ function createPreview() {
   const url = params.get('url')
   const imageIsBig = (params.get('imageIsBig') === 'true')
 
+  console.log(url);
+
   const linkedinElement = document.querySelector('[data-linkedin-preview-card]')
   linkedinElement.innerHTML = getlinkedinMarkup({
     title,
@@ -17,9 +19,7 @@ function createPreview() {
   })
 }
 
-
 function getlinkedinMarkup({ title, image, url, imageIsBig }) {
-
 
   const like = `<svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
   viewBox="0 0 43.6 43.6" style="enable-background:new 0 0 43.6 43.6;" xml:space="preserve">
@@ -75,21 +75,6 @@ function getlinkedinMarkup({ title, image, url, imageIsBig }) {
 </g>
 </svg>`
 
-  function getHostName(url) {
-    if (!url) {
-      return ''
-    }
-    const hostname = (new URL(url).hostname)
-    const wwwPrefix = 'www.'
-    return hostname.startsWith(wwwPrefix)
-      ? hostname.slice(wwwPrefix.length)
-      : hostname
-  }
-
-  function generateLikes() {
-    return Math.floor(Math.random() * 98) + 1
-  }
-
   return `
       <div class="linkedin-preview">
         <a rel="noopener" target="_blank" class="linkedin-preview__link-container ${imageIsBig ? "" : "linkedin-preview__small"}">
@@ -100,13 +85,13 @@ function getlinkedinMarkup({ title, image, url, imageIsBig }) {
           </div>
 
           <div class="linkedin-preview__content">
-            <div class="linkedin-preview__title">${ title}</div>
+            <div class="linkedin-preview__title">${title}</div>
             <div class="linkedin-preview__domain">
-               <div class="linkedin-preview__hostname">${ getHostName(url)}</div>
+               <div class="linkedin-preview__hostname">${url}</div>
             </div>
           </div>
         </a>
       </div>
-      <div class="linkedin-preview__like">${like}<p class="">${generateLikes()}</p></div>
+      <div class="linkedin-preview__like">${like}<p class="">${Math.floor(Math.random() * 98) + 1}</p></div>
 `
 }

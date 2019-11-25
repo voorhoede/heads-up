@@ -1,9 +1,11 @@
 <template>
   <div>
     <panel-section title="Preview">
-      <p v-if="!hasOgImage">This page does not contain og:image meta data to create a preview.</p>
+      <p v-if="!hasOgImage">
+        This page does not contain og:image meta data to create a preview.
+      </p>
 
-      <figure v-if="hasOgImage ">
+      <figure v-if="hasOgImage">
         <iframe
           ref="iframe"
           :src="previewUrl"
@@ -16,7 +18,9 @@
         />
         <figcaption class="linkedin__preview-caption">
           Preview based on
-          <external-link href="https://linkedin.com/">linkedin.com</external-link>.
+          <external-link href="https://linkedin.com/"
+            >linkedin.com</external-link
+          >.
         </figcaption>
       </figure>
     </panel-section>
@@ -34,9 +38,9 @@
               <img alt :src="absoluteUrl(og.image)" />
               <span>{{ og.image }}</span>
             </external-link>
-            <p
-              v-if="imageDimensions"
-            >({{ imageDimensions.imgWidth }} x {{ imageDimensions.imgHeight }}px)</p>
+            <p v-if="imageDimensions">
+              ({{ imageDimensions.width }} x {{ imageDimensions.height }}px)
+            </p>
           </dd>
         </template>
       </properties-list>
@@ -53,12 +57,22 @@ import {
   findImageDimensions
 } from "../lib/find-meta";
 
+function getHostName(url) {
+  if (!url) {
+    return "";
+  }
+  const hostname = new URL(url).hostname;
+  const wwwPrefix = "www.";
+  return hostname.startsWith(wwwPrefix)
+    ? hostname.slice(wwwPrefix.length)
+    : hostname;
+}
+
 export default {
   components: { ExternalLink, PanelSection, PropertiesList },
   data() {
     return {
       iframeHeight: "auto",
-      linkedin: {},
       imageDimensions: { width: undefined, height: undefined },
       previewUrl: ""
     };
@@ -66,7 +80,7 @@ export default {
   computed: {
     ...mapState(["head"]),
     hasOgImage() {
-      return this.og.image !== undefined ? true : false;
+      return this.og.image ? true : false;
     },
 
     og() {
@@ -106,11 +120,11 @@ export default {
     getPreviewUrl({ imageDimensions }) {
       const params = new URLSearchParams();
       params.set("title", this.og.title);
+      params.set("url", getHostName(this.head.url));
       params.set("image", this.og.image);
-      params.set("url", this.head.url);
       params.set(
         "imageIsBig",
-        imageDimensions.imgHeight > 400 && imageDimensions.imgWidth > 400
+        imageDimensions.height > 400 && imageDimensions.width > 400
           ? true
           : false
       );
