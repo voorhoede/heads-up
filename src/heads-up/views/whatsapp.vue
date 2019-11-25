@@ -1,21 +1,16 @@
 <template>
   <div>
     <panel-section title="Preview">
-      <p v-if="!isValidCard">
-        This page does not contain the required meta data to create a preview.
+      <p
+        v-if="!hasDescription"
+      >
+        This page does not contain an Open Graph description to create a preview.
       </p>
-      <p v-if="isValidCard && !isSupportedCard">
-        Preview is not yet available for
-        <code>{{ card }}</code> cards.
-        <br>Card preview is currently supported for:
-        <!-- eslint-disable-next-line vue/no-v-html -->
-        <span v-html="supportedCards.map(v => `<code>${v}</code>`).join(', ')" />.
-      </p>
-      <figure v-if="isValidCard && isSupportedCard">
+      <figure v-if="hasDescription && previewUrl">
         <iframe
           ref="iframe"
           title="whatsapp preview"
-          :src="whatsappUrl"
+          :src="previewUrl"
           :height="iframeHeight"
           width="100%"
           frameborder="0"
@@ -35,10 +30,6 @@
     <panel-section title="Properties">
       <properties-list>
         <dl>
-          <template v-if="og.type">
-            <dt>og:type</dt>
-            <dd>{{ og.type }}</dd>
-          </template>
           <template v-if="og.title">
             <dt>og:title</dt>
             <dd>{{ og.title }}</dd>
@@ -55,8 +46,14 @@
                   alt
                   :src="absoluteUrl(og.image)"
                 >
+
                 <span>{{ og.image }}</span>
               </external-link>
+              <p
+                v-if="imageDimensions"
+              >
+                ({{ imageDimensions.width }} x {{ imageDimensions.height }}px)
+              </p>
             </dd>
           </template>
           <template v-if="og.url">
@@ -72,9 +69,16 @@
         <ul>
           <li>
             <external-link
+              href="https://stackoverflow.com/a/43154489"
+            >
+              2019 WhatsApp sharing standards (on StackOverflow)
+            </external-link>
+          </li>
+          <li>
+            <external-link
               href="https://stackoverflow.com/questions/19778620/provide-an-image-for-whatsapp-link-sharing"
             >
-              2019 unfurl standards
+              Unfurl mechanism used by WhatsApp for sharing
             </external-link>
           </li>
         </ul>
@@ -85,7 +89,6 @@
 
 
 <script>
-import getTheme from "../lib/theme";
 import { mapState } from "vuex";
 import {
   ExternalLink,
@@ -93,61 +96,47 @@ import {
   PropertiesList,
   ResourceList
 } from "../components";
-import { findMetaContent, findMetaProperty } from "../lib/find-meta";
+import {
+  findMetaContent,
+  findMetaProperty,
+  findImageDimensions
+} from "../lib/find-meta";
 
-const validCards = ["summary", "summary_large_image", "app", "player"];
-export const supportedCards = ["summary", "summary_large_image"];
+const ogDescription = "og:description";
 
 export default {
   components: { ExternalLink, PanelSection, PropertiesList, ResourceList },
   data() {
     return {
-      iframeHeight: "auto"
+      iframeHeight: "auto",
+      imageDimensions: { width: undefined, height: undefined },
+      previewUrl: ""
     };
   },
   computed: {
     ...mapState(["head"]),
-    card() {
-      /**
-       * If an og:type, og:title and og:description exist in the markup
-       * but whatsapp:card is absent, then a summary card may be rendered.
-       * @see https://developer.whatsapp.com/en/docs/tweets/optimize-with-cards/overview/markup#overview-of-all-whatsapp-card-tags
-       */
-      if (this.whatsapp.card) {
-        return this.whatsapp.card;
-      } else if (this.og.type && this.og.title && this.og.description) {
-        return "summary";
+    hasDescription() {
+      const whatsappDescription = this.propertyValue(ogDescription);
+      if (whatsappDescription !== null && whatsappDescription.length > 0) {
+        return true;
       }
-      return undefined;
-    },
-    supportedCards() {
-      return supportedCards;
-    },
-    isValidCard() {
-      return validCards.includes(this.card);
-    },
-    isSupportedCard() {
-      return supportedCards.includes(this.card);
+      return false;
     },
     title() {
       return this.head.title || "";
     },
     description() {
-      return (
-        this.whatsapp.description ||
-        this.og.description ||
-        this.metaValue("description") ||
-        ""
-      );
+      return this.og.description;
     },
     image() {
-      return this.absoluteUrl(this.whatsapp.image || this.og.image);
+      if (this.og.image !== undefined) {
+        return this.absoluteUrl(this.og.image);
+      }
+      return this.og.image;
     },
-
     url() {
       return this.head.url;
     },
-
     og() {
       return {
         title: this.propertyValue("og:title"),
@@ -156,43 +145,62 @@ export default {
         image: this.propertyValue("og:image"),
         url: this.propertyValue("og:url")
       };
-    },
-    whatsapp() {
-      return {
-        title: this.metaValue("whatsapp:title"),
-        description: this.metaValue("whatsapp:description"),
-        card: this.metaValue("whatsapp:card"),
-        image: this.metaValue("whatsapp:image"),
-        site: this.metaValue("whatsapp:site")
-      };
-    },
-    whatsappUrl() {
-      const params = new URLSearchParams();
-      params.set("card", this.whatsapp.card);
-      params.set("title", this.title);
-      params.set("description", this.description);
-      params.set("image", this.image);
-      params.set("url", this.head.url);
-      params.set("theme", getTheme() !== "default" && "dark");
-      return `/whatsapp-preview/whatsapp-preview.html?${params}`;
     }
   },
   mounted() {
     window.addEventListener("resize", this.onResize);
+  },
+  created() {
+    findImageDimensions(this.head, "og:image").then(imageDimensions => {
+      this.imageDimensions = imageDimensions;
+      this.previewUrl = this.getPreviewUrl({ imageDimensions });
+      const { width, height } = imageDimensions;
+
+      if (width >= 100 && height < 100) {
+        console.log(
+          `The image height is too small. You need at least 100px instead of ${height}px`
+        );
+      }
+      if (width < 100 && height >= 100) {
+        console.log(
+          `The image width is too small. You need at least 100px instead of ${width}px`
+        );
+      }
+      if (width < 100 && height < 100) {
+        console.log(
+          `The image width and height are too small. You need at least 100px of width instead of ${width}px and 100px of height instead of ${height}px`
+        );
+      }
+    });
   },
   destroyed() {
     window.removeEventListener("resize", this.onResize);
   },
   methods: {
     absoluteUrl(url) {
-      if (!url) return;
-      return url.startsWith("http") ? url : new URL(this.head.url).origin + url;
+      if (url !== null) {
+        return url.startsWith("http")
+          ? url
+          : new URL(this.head.url).origin + url;
+      }
+
+      return "";
     },
     metaValue(metaName) {
       return findMetaContent(this.head, metaName);
     },
     propertyValue(propName) {
       return findMetaProperty(this.head, propName);
+    },
+    getPreviewUrl({ imageDimensions }) {
+      const params = new URLSearchParams();
+      params.set("title", this.og.title || this.title);
+      params.set("description", this.og.description);
+      if (imageDimensions.height >= 100 && imageDimensions.width >= 100) {
+        params.set("image", this.image);
+      }
+      params.set("url", this.head.url);
+      return `/whatsapp-preview/whatsapp-preview.html?${params}`;
     },
     onResize() {
       this.iframeHeight =
