@@ -52,7 +52,7 @@
               <p
                 v-if="imageDimensions"
               >
-                ({{ imageDimensions.imgWidth }} x {{ imageDimensions.imgHeight }}px)
+                ({{ imageDimensions.width }} x {{ imageDimensions.height }}px)
               </p>
             </dd>
           </template>
@@ -154,32 +154,21 @@ export default {
     findImageDimensions(this.head, "og:image").then(imageDimensions => {
       this.imageDimensions = imageDimensions;
       this.previewUrl = this.getPreviewUrl({ imageDimensions });
+      const { width, height } = imageDimensions;
 
-      if (
-        imageDimensions &&
-        imageDimensions.imgWidth >= 100 &&
-        imageDimensions.imgHeight < 100
-      ) {
+      if (width >= 100 && height < 100) {
         console.log(
-          `The image height is too small. You need at least 100px instead of ${imageDimensions.imgHeight}px`
+          `The image height is too small. You need at least 100px instead of ${height}px`
         );
       }
-      if (
-        imageDimensions &&
-        imageDimensions.imgWidth < 100 &&
-        imageDimensions.imgHeight >= 100
-      ) {
+      if (width < 100 && height >= 100) {
         console.log(
-          `The image width is too small. You need at least 100px instead of ${imageDimensions.imgWidth}px`
+          `The image width is too small. You need at least 100px instead of ${width}px`
         );
       }
-      if (
-        imageDimensions &&
-        imageDimensions.imgWidth < 100 &&
-        imageDimensions.imgHeight < 100
-      ) {
+      if (width < 100 && height < 100) {
         console.log(
-          `The image width and height are too small. You need at least 100px of width instead of ${imageDimensions.imgWidth}px and 100px of height instead of ${imageDimensions.imgHeight}px`
+          `The image width and height are too small. You need at least 100px of width instead of ${width}px and 100px of height instead of ${height}px`
         );
       }
     });
@@ -210,7 +199,7 @@ export default {
       params.set("image", this.image);
       params.set(
         "imageIsBigEnough",
-        imageDimensions.imgHeight >= 100 && imageDimensions.imgWidth >= 100
+        imageDimensions.height >= 100 && imageDimensions.width >= 100
       );
       params.set("url", this.head.url);
       return `/whatsapp-preview/whatsapp-preview.html?${params}`;
