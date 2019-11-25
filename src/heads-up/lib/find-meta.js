@@ -24,31 +24,22 @@ export function findFavicons(head) {
     })
 }
 
+
+function getImageDetails(url) {
+  return new Promise((resolve) => {
+    var img = new Image();
+    img.src = url;
+    img.onload = () => resolve(img);
+  })
+}
+
 export function findImageDimensions(head, name) {
   const url = findMetaProperty(head, name)
 
-  function getImageDetails(url) {
-    return new Promise((resolve) => {
-      var img = new Image();
-      img.src = url;
-      img.onload = () => { resolve(img) }
-      img.onerror = () => { resolve(false); }
-    })
+  if (url === null) {
+    return Promise.resolve({ width: 0, height: 0 })
   }
-
-  if (url !== null) {
-    const correctUrl = url.startsWith("http") ? url : new URL(head.url).origin + url;
-    return getImageDetails(correctUrl)
-      .then(img => {
-        if (img) {
-          return { imgWidth: img.width, imgHeight: img.height, correctImgUrl: true }
-        }
-        else {
-          return { imgWidth: 0, imgHeight: 0, correctImgUrl: false }
-        }
-      })
-  }
-  else {
-    return Promise.resolve({ imgWidth: 0, imgHeight: 0 })
-  }
+  const correctUrl = url.startsWith("http") ? url : new URL(head.url).origin + url;
+  return getImageDetails(correctUrl)
+    .then(({ width, height }) => ({ width, height }))
 }
