@@ -19,6 +19,17 @@ function createPreview() {
   })
 }
 
+function getHostName(url) {
+  if (!url) {
+    return "";
+  }
+  const hostname = new URL(url).hostname;
+  const wwwPrefix = "www.";
+  return hostname.startsWith(wwwPrefix)
+    ? hostname.slice(wwwPrefix.length)
+    : hostname;
+}
+
 function getlinkedinMarkup({ title, image, url, imageIsBig }) {
 
   const like = `<svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -87,7 +98,7 @@ function getlinkedinMarkup({ title, image, url, imageIsBig }) {
           <div class="linkedin-preview__content">
             <div class="linkedin-preview__title">${title}</div>
             <div class="linkedin-preview__domain">
-               <div class="linkedin-preview__hostname">${url}</div>
+               <div class="linkedin-preview__hostname">${getHostName(url)}</div>
             </div>
           </div>
         </a>

@@ -18,8 +18,8 @@
         />
         <figcaption class="linkedin__preview-caption">
           Preview based on
-          <external-link href="https://linkedin.com/"
-            >linkedin.com</external-link
+          <external-link href="https://linkedin.com/">
+            linkedin.com </external-link
           >.
         </figcaption>
       </figure>
@@ -57,17 +57,6 @@ import {
   findImageDimensions
 } from "../lib/find-meta";
 
-function getHostName(url) {
-  if (!url) {
-    return "";
-  }
-  const hostname = new URL(url).hostname;
-  const wwwPrefix = "www.";
-  return hostname.startsWith(wwwPrefix)
-    ? hostname.slice(wwwPrefix.length)
-    : hostname;
-}
-
 export default {
   components: { ExternalLink, PanelSection, PropertiesList },
   data() {
@@ -97,8 +86,9 @@ export default {
     findImageDimensions(this.head, "og:image").then(imageDimensions => {
       this.imageDimensions = imageDimensions;
       this.previewUrl = this.getPreviewUrl({ imageDimensions });
+      console.log(imageDimensions);
 
-      if (!imageDimensions.correctImgUrl) {
+      if (imageDimensions.height === 0 || imageDimensions.width === 0) {
         console.log(`og.image can't be loaded`);
       }
     });
@@ -120,7 +110,7 @@ export default {
     getPreviewUrl({ imageDimensions }) {
       const params = new URLSearchParams();
       params.set("title", this.og.title);
-      params.set("url", getHostName(this.head.url));
+      params.set("url", this.head.url);
       params.set("image", this.og.image);
       params.set(
         "imageIsBig",
