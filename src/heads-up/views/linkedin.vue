@@ -19,8 +19,8 @@
         <figcaption class="linkedin__preview-caption">
           Preview based on
           <external-link href="https://linkedin.com/">
-            linkedin.com </external-link
-          >.
+            linkedin.com
+          </external-link>.
         </figcaption>
       </figure>
     </panel-section>
@@ -35,7 +35,10 @@
           <dt>og:image</dt>
           <dd>
             <external-link :href="absoluteUrl(og.image)">
-              <img alt :src="absoluteUrl(og.image)" />
+              <img
+                alt
+                :src="absoluteUrl(og.image)"
+              >
               <span>{{ og.image }}</span>
             </external-link>
             <p v-if="imageDimensions">
@@ -86,7 +89,6 @@ export default {
     findImageDimensions(this.head, "og:image").then(imageDimensions => {
       this.imageDimensions = imageDimensions;
       this.previewUrl = this.getPreviewUrl({ imageDimensions });
-      console.log(imageDimensions);
 
       if (imageDimensions.height === 0 || imageDimensions.width === 0) {
         console.log(`og.image can't be loaded`);
