@@ -117,8 +117,6 @@ export default {
       params.set(
         "imageIsBig",
         imageDimensions.height > 400 && imageDimensions.width > 400
-          ? true
-          : false
       );
       return `/linkedin-preview/linkedin-preview.html?${params}`;
     },

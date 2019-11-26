@@ -30,7 +30,7 @@ function getImageDetails(url) {
     var img = new Image();
     img.src = url;
     img.onload = () => resolve(img);
-    img.onerror = () => resolve(img)
+    img.onerror = () => resolve({ width: 0, height: 0 })
   })
 }
 
