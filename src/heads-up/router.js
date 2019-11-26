@@ -58,6 +58,14 @@ export default new VueRouter({
       component: () => import(/* webpackChunkName:'views/whatsapp' */ './views/whatsapp.vue')
     },
     {
+      path: '/linkedin',
+      name: 'linkedin',
+      meta: {
+        title: 'LinkedIn',
+      },
+      component: () => import(/* webpackChunkName:'views/whatsapp' */ './views/linkedin.vue')
+    },
+    {
       path: '/facebook',
       name: 'facebook',
       meta: {
