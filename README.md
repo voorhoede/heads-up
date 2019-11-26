@@ -2,6 +2,8 @@
 
 **Visualise everything in your `<head>` with the Heads Up Devtools**
 
+[Install Heads Up from Web Chrome Store](https://chrome.google.com/webstore/detail/heads-up/ajjdmakdoicbgmgoacfmlplnefljpcke)
+
 ## Features
 
 * Presents key page meta (title, charset, viewport, ...) and favicons.
@@ -21,6 +23,7 @@ Heads Up is a [Chrome Devtools extension](https://developer.chrome.com/extension
 The source code lives in the `src/` directory:
 
 ```
+examples/         <- Static examples to test Devtools
 src/
   manifest.json   <- Devtools extension entry file
   devtools/       <- Devtools specific files
@@ -55,6 +58,22 @@ The development workflow is a bit different from regular web apps:
 * Visit any web page, open the Devtools and find the Heads Up panel
 * If you make changes to anything in `src/devtools/` you need to reload the extension via [`chrome://extensions/`](chrome://extensions/)
 * If you make changes to `src/heads-up/` you only need to hit the __refresh__ button in the top-right corner of the Heads Up panel.
+
+### Scripts
+
+This project requires [Node.js](http://nodejs.org/) (>= v10) and [npm](https://npmjs.org/) (comes with Node).
+
+After installing dependencies using `npm install` the following scripts are available:
+
+`npm run ...` | Description
+---|---
+`build` | Builds devtools package to `dist/`.
+`dev` | Runs `dev:app` and `dev:examples` in parallel.
+`dev:app` | Compiles Vue app to `dist/` on file changes.
+`dev:examples` | Serves `examples/` on [`http://localhost:5000`](http://localhost:5000)
+`lint` | Checks code for code style violations.
+`lint:fix` | Checks code for code style violations and fixes them when possible.
+`test` | Runs linting.
 
 
 ## License

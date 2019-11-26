@@ -67,7 +67,7 @@ function generateHtml({ img, title, description, imgString, url, type }) {
       </div>
 
       <div class="facebook-preview__content">
-        <div class="facebook-preview__hostname">${ getHostName(url)}</div>
+        <div class="facebook-preview__hostname">${ url}</div>
         <div class="facebook-preview__title">${ title}</div>
         <div class="facebook-preview__description">${ description}</div>
         
