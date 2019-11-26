@@ -61,6 +61,14 @@
             <WhatsappIcon class="sidebar__icon" />WhatsApp
           </router-link>
         </li>
+        <li class="sidebar-list__item">
+          <router-link
+            class="sidebar__button"
+            :to="{ name: 'linkedin' }"
+          >
+            <LinkedInIcon class="sidebar__icon" />LinkedIn
+          </router-link>
+        </li>
       </ul>
     </section>
     <footer class="sidebar__footer">
@@ -82,6 +90,7 @@ import ImageIcon from "../assets/icons/image.svg";
 import OpenGraphIcon from "../assets/icons/open-graph.svg";
 import TwitterIcon from "../assets/icons/twitter.svg";
 import WhatsappIcon from "../assets/icons/whatsapp.svg";
+import LinkedInIcon from "../assets/icons/linkedin.svg";
 import ExternalLink from "../components/external-link.vue";
 
 export default {
@@ -92,7 +101,8 @@ export default {
     TwitterIcon,
     ImageIcon,
     ExternalLink,
-    WhatsappIcon
+    WhatsappIcon,
+    LinkedInIcon
   }
 };
 </script>
