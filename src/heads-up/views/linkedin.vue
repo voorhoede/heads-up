@@ -77,7 +77,7 @@ export default {
 
     og() {
       return {
-        title: this.propertyValue("og:title") || this.head.title || "Weblink",
+        title: this.propertyValue("og:title"),
         image: this.absoluteUrl(this.propertyValue("og:image"))
       };
     }
@@ -111,7 +111,7 @@ export default {
     },
     getPreviewUrl({ imageDimensions }) {
       const params = new URLSearchParams();
-      params.set("title", this.og.title);
+      params.set("title", this.og.title || this.head.title || "Weblink");
       params.set("url", this.head.url);
       params.set("image", this.og.image);
       params.set(
