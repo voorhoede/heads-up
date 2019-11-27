@@ -13,6 +13,7 @@ module.exports = createConfig({
     '../whatsapp-preview/whatsapp-preview': './src/whatsapp-preview/whatsapp-preview.js',
     '../linkedin-preview/linkedin-preview': './src/linkedin-preview/linkedin-preview.js',
     '../facebook-preview/facebook-preview': './src/facebook-preview/facebook-preview.js',
+    '../facebook-mobile-preview/facebook-mobile-preview': './src/facebook-mobile-preview/facebook-mobile-preview.js',
   },
   output: {
     path: path.join(__dirname, 'dist/heads-up'),
@@ -48,6 +49,11 @@ module.exports = createConfig({
       filename: '../facebook-preview/facebook-preview.html',
       template: 'src/facebook-preview/facebook-preview.html',
       chunks: ['../facebook-preview/facebook-preview']
+    }),
+    new HtmlWebpackPlugin({
+      filename: '../facebook-mobile-preview/facebook-mobile-preview.html',
+      template: 'src/facebook-mobile-preview/facebook-mobile-preview.html',
+      chunks: ['../facebook-mobile-preview/facebook-mobile-preview']
     }),
     new CopyPlugin([
       { from: 'src/devtools/assets/', to: '../devtools/assets' },
