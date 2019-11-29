@@ -1,16 +1,16 @@
 <template>
   <div class="switch-wrapper">
     <label class="switch" v-for="button in buttons" :key="button.value" ref="buttons">
-      <span class="switch__text-left">{{ button.label }}</span>
+      <span class="switch__text-left" ref="button">{{ button.label }}</span>
       <input
         :checked="value === button.value"
-        id="input-switch-mobile"
+        id="input-switch"
         name="toggle"
         type="radio"
         @input="toggle(button.value)"
       />
     </label>
-    <span class="control-indicator" ref="hoi" :style="controlIndicatorStyle"></span>
+    <span class="control-indicator" :style="controlIndicatorStyle"></span>
   </div>
 </template>
 
@@ -40,10 +40,13 @@ export default {
       const selectedButtonIndex = this.buttons.findIndex(
         button => button.value === this.value
       );
-      const selectedButtonElement = this.$refs.buttons[selectedButtonIndex];
+
+      const buttonElements = this.$refs.buttons[selectedButtonIndex];
+      const selectedButtonElement = this.$refs.button[selectedButtonIndex];
+
       this.controlIndicatorStyle = {
-        transform: `translateX(${selectedButtonElement.offsetLeft}px)`,
-        width: `${selectedButtonElement.offsetWidth}px`
+        transform: `translateX(${buttonElements.offsetLeft - 2}px)`,
+        width: `${selectedButtonElement.offsetWidth + 4}px`
       };
     }
   },
@@ -60,7 +63,7 @@ export default {
   position: relative;
   display: inline-block;
   vertical-align: middle;
-  height: 1.5rem;
+  height: 2.2rem;
   cursor: pointer;
   padding: 16px;
 }
@@ -77,15 +80,9 @@ input[type="radio"] {
   visibility: hidden;
 }
 
-/* 
-input[type="radio"]:checked + .control-indicator {
-  transform: translateX(115%);
-} */
-
 .control-indicator {
   display: inline-block;
-  width: 3.5rem;
-  margin: 0 -4px;
+  /* margin: 0 -4px; */
   height: 2px;
   background-color: #1a73e8;
   transition: transform 0.1s cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -94,10 +91,7 @@ input[type="radio"]:checked + .control-indicator {
   top: 100%;
 }
 
-.switch__text-right {
-  padding-left: 16px;
-}
 .switch__text-left {
-  padding-right: 16px;
+  margin-right: 16px;
 }
 </style>

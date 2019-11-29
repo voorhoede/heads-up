@@ -2,19 +2,12 @@ createPreview()
 
 function createPreview() {
   const params = (new URL(window.location.href)).searchParams
-  const title = params.get('title')
-  const description = params.get('description')
+  const title = params.get('title').substring(0, 247)
+  const description = params.get('description').substring(0, 250)
   const url = params.get('url')
   const imageSpecified = (params.get('imageSpecified') === 'true')
   const img = params.get('image')
-  const imageIsBig = (params.get('imageIsBig') === 'true')
-
-  // console.log(title);
-  // console.log(typeof description);
-  // console.log(url);
-  // console.log(imageSpecified);
-  // console.log(img);
-  // console.log(imageIsBig);
+  const desktopImgIsBig = (params.get('desktopImgIsBig') === 'true')
 
   const facebookElement = document.querySelector('[data-facebook-preview-card]')
   facebookElement.innerHTML = getfacebookMarkup({
@@ -22,7 +15,7 @@ function createPreview() {
     description,
     img,
     url,
-    imageIsBig,
+    desktopImgIsBig,
     imageSpecified
   })
 }
@@ -38,12 +31,12 @@ function getHostName(url) {
     : hostname
 }
 
-function getfacebookMarkup({ title, description, img, url, imageIsBig, imageSpecified
+function getfacebookMarkup({ title, description, img, url, desktopImgIsBig, imageSpecified
 }) {
 
   return `
   <div class="facebook-preview">
-    <a rel="noopener" target="_blank" class="facebook-preview__link-container facebook-preview__link-container--vertical ${imageIsBig ? "" : "facebook-preview__small"}">
+    <a rel="noopener" target="_blank" class="facebook-preview__link-container facebook-preview__link-container--vertical ${desktopImgIsBig ? "" : "facebook-preview__small"}">
       
     ${imageSpecified ? `
     <div class="${ img === "undefined"
@@ -59,11 +52,23 @@ function getfacebookMarkup({ title, description, img, url, imageIsBig, imageSpec
       <div class="facebook-preview__wrapper">
       <div class="facebook-preview__hostname">${ getHostName(url)}</div>
         <div class="facebook-preview__content">
-          <div class="facebook-preview__title">${ title}</div>
+          <div class="facebook-preview__title">${ title ? title : getHostName(url)}</div>
           ${description === "null" ? "" : `<div class="facebook-preview__description">${description}</div>`}
         </div>
       </div>
     </a>
+    <div class="facebook-preview__interaction-wrapper">
+    <div class="facebook-preview__interaction-stats">
+      <i class="facebook-preview__interaction"></i>
+      <p>${Math.floor(Math.random() * 488) + 411}</p>
+      </div>
+    <div class="facebook-preview__interaction-stats">
+      <p>${Math.floor(Math.random() * 388) + 11} comments</p>
+      <p>${Math.floor(Math.random() * 88) + 11} shares</p>
+      </div>
+    </div>
   </div>
+
+
 `
 }

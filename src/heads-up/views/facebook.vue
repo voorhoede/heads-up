@@ -1,17 +1,10 @@
 <template>
   <div>
-    <switch-buttons :buttons="switchButtons" :value="mode" @change="toggle"></switch-buttons>
-    <!-- <div class="switch-wrapper">
-      <label class="switch">
-        <span class="switch__text-left">Mobile</span>
-        <input checked id="input-switch-mobile" name="toggle" type="radio" @input="toggle()" />
-      </label>
-      <label class="switch">
-        <span class="switch__text-right">Desktop</span>
-        <input checked id="input-switch-desktop" name="toggle" type="radio" @input="toggle()" />
-      </label>
-      <span class="control-indicator" :data-position="mobileView ? 'left' : 'right'"></span>
-    </div>-->
+    <switch-buttons
+      :buttons="switchButtons"
+      :value="mode"
+      @change="toggle"
+    ></switch-buttons>
 
     <panel-section title="Preview" v-if="mode === 'mobile'">
       <figure>
@@ -27,12 +20,14 @@
         />
         <figcaption class="facebook__preview-caption">
           Preview based on
-          <external-link href="https://m.facebook.com/">m.facebook.com</external-link>.
+          <external-link href="https://m.facebook.com/"
+            >m.facebook.com</external-link
+          >.
         </figcaption>
       </figure>
     </panel-section>
 
-    <panel-section title="Preview" v-else>
+    <panel-section title="Preview" v-if="mode === 'desktop'">
       <figure>
         <iframe
           ref="iframe"
@@ -46,7 +41,9 @@
         />
         <figcaption class="facebook__preview-caption">
           Preview based on
-          <external-link href="https://facebook.com/">facebook.com</external-link>.
+          <external-link href="https://facebook.com/"
+            >facebook.com</external-link
+          >.
         </figcaption>
       </figure>
     </panel-section>
@@ -68,7 +65,9 @@
               <img alt :src="absoluteUrl(og.image)" />
               <span>{{ og.image }}</span>
             </external-link>
-            <p v-if="imageDimensions">({{ imageDimensions.width }} x {{ imageDimensions.height }}px)</p>
+            <p v-if="imageDimensions">
+              ({{ imageDimensions.width }} x {{ imageDimensions.height }}px)
+            </p>
           </dd>
         </template>
       </properties-list>
@@ -104,11 +103,11 @@ export default {
           value: "mobile"
         },
         {
-          label: "Desktop very long text",
+          label: "Desktop",
           value: "desktop"
         }
       ],
-      mode: "mobile"
+      mode: "desktop"
     };
   },
   computed: {
@@ -138,9 +137,10 @@ export default {
   },
   methods: {
     toggle(newMode) {
-      console.log("TOGGLE");
       this.mode = newMode;
-      //this.mobileView = index === 0;
+      this.previewUrl = this.getPreviewUrl({
+        imageDimensions: this.imageDimensions
+      });
     },
     absoluteUrl(url) {
       if (!url) return;
@@ -154,29 +154,28 @@ export default {
     },
     getPreviewUrl({ imageDimensions }) {
       const params = new URLSearchParams();
-      params.set("title", this.og.title || this.head.title || "Weblink");
+      params.set("title", this.og.title || this.head.title);
       params.set("url", this.head.url);
       params.set("image", this.og.image);
       params.set("imageSpecified", this.imageSpecified);
       params.set("description", this.og.description);
       if (this.og.image !== undefined) {
         params.set(
-          "imageIsBig",
+          "mobileImgIsBig",
           (imageDimensions.height > 359 && imageDimensions.width > 359) ||
             (this.imageSpecified &&
               (imageDimensions.height === 0 || imageDimensions.width === 0))
         );
       }
+      params.set(
+        "desktopImgIsBig",
+        imageDimensions.height >= 415 && imageDimensions.width >= 415
+      );
       return `${
         this.mode === "desktop"
-          ? `/facebook-preview/facebook-preview.html?${params}`
+          ? `/facebook-desktop-preview/facebook-desktop-preview.html?${params}`
           : `/facebook-mobile-preview/facebook-mobile-preview.html?${params}`
       }`;
-      // return `/facebook-${
-      //   this.mode === "desktop" ? `` : `mobile-`
-      // }preview/facebook-${
-      //   this.mode === "desktop" ? `` : `mobile-`
-      // }preview.html?${params}`;
     },
     onResize() {
       this.iframeHeight =
@@ -191,7 +190,7 @@ export default {
 <style>
 .facebook__preview {
   max-width: 521px;
-  min-height: 350px;
+  min-height: 400px;
   margin-bottom: 1em;
   padding: 0;
   border: none;
