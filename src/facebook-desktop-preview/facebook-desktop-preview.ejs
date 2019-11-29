@@ -183,7 +183,7 @@
       top: 0;
       left: 0;
       width: 100%;
-      /* max-width: inherit; */
+      max-width: inherit;
       object-fit: cover;
     }
 
@@ -192,59 +192,18 @@
       display: block;
       width: 100%;
       height: 289px;
-      background-color: red;
       background-image: url(<%= require('./assets/facebook-img-fallback.png').default %>);
       background-size: contain;
-    }
-
-    .facebook-preview__image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      max-width: none;
-      border-top-left-radius: var(--border-radius);
-      border-bottom-left-radius: var(--border-radius);
-    }
-
-    .facebook-preview__media {
-      height: 100%;
-      flex-grow: 0;
-      flex-shrink: 0;
-      flex-basis: calc(var(--image-small-size) + 1px);
-      border-right: 1px solid var(--color-border);
-    }
-
-    .facebook-preview__media--image-fallback {
-      border-top-left-radius: var(--border-radius);
-      border-bottom-left-radius: var(--border-radius);
-      background-color: var(--color-border);
-    }
-
-    .facebook-preview__image-fallback {
-      height: 100%;
-      background-image: url(<%= require('./image-not-found.svg') %>);
-      background-size: 3em;
       background-repeat: no-repeat;
-      background-position: center;
+      position: absolute;
     }
 
     .facebook-preview__wrapper {
-
-      /* position: relative;
-      display: flex;
-      justify-content: center;
-      padding: 10px;
-      overflow: hidden;
-      background-color: #e8eaee;
-      transition: background-color 0.15s linear;
-      max-height: calc((var(--lh) * 3) + 23px); */
-
       background-color: #f2f3f5;
       padding: 8px 12px;
     }
 
     .facebook-preview__title {
-      /* margin-bottom: 0.35em; */
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
@@ -299,11 +258,6 @@
       margin: 2px;
     }
 
-    /* .facebook-preview__small {
-      background-color: red; */
-    /* display: flex; */
-    /* } */
-
     .facebook-preview__content {
       max-height: calc(var(--lh) * 2);
       overflow: hidden;
@@ -331,6 +285,7 @@
     .facebook-preview__small .facebook-preview__fixed-ratio-content {
       min-width: 148px;
       min-height: 148px;
+      height: 148px;
       float: left;
     }
 
@@ -347,13 +302,11 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
-      /* white-space: nowrap; */
     }
 
     .facebook-preview__small .facebook-preview__title {
       display: block;
       text-overflow: ellipsis;
-      /* white-space: nowrap; */
       -webkit-line-clamp: 4;
       -webkit-box-orient: vertical;
       overflow: hidden;
@@ -394,38 +347,6 @@
       .facebook-preview__media {
         flex-basis: calc(var(--image-medium-size) + 1px);
       }
-    }
-
-    @media (min-width: 416px) and (max-width: 449px) {
-      .facebook-preview__description {
-        display: block;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
-      }
-    }
-
-    @media (min-width: 440px) {
-      .facebook-preview.is-small {
-        height: calc(var(--image-large-size) + 2px);
-      }
-
-      .facebook-preview__media {
-        flex-basis: calc(var(--image-large-size) + 1px);
-      }
-
-      /* Show on 1 line */
-      .facebook-preview__title {
-        display: block;
-        text-overflow: ellipsis;
-        /* white-space: nowrap; */
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        margin: 0;
-      }
-
-      /* Display on 2 lines and if longer than available space, cut off with '...' */
     }
 
   </style>

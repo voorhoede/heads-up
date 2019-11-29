@@ -4,9 +4,12 @@
       :buttons="switchButtons"
       :value="mode"
       @change="toggle"
-    ></switch-buttons>
+    />
 
-    <panel-section title="Preview" v-if="mode === 'mobile'">
+    <panel-section
+      v-if="mode === 'mobile'"
+      title="Preview"
+    >
       <figure>
         <iframe
           ref="iframe"
@@ -20,14 +23,17 @@
         />
         <figcaption class="facebook__preview-caption">
           Preview based on
-          <external-link href="https://m.facebook.com/"
-            >m.facebook.com</external-link
-          >.
+          <external-link href="https://m.facebook.com/">
+            m.facebook.com
+          </external-link>.
         </figcaption>
       </figure>
     </panel-section>
 
-    <panel-section title="Preview" v-if="mode === 'desktop'">
+    <panel-section
+      v-if="mode === 'desktop'"
+      title="Preview"
+    >
       <figure>
         <iframe
           ref="iframe"
@@ -41,9 +47,9 @@
         />
         <figcaption class="facebook__preview-caption">
           Preview based on
-          <external-link href="https://facebook.com/"
-            >facebook.com</external-link
-          >.
+          <external-link href="https://facebook.com/">
+            facebook.com
+          </external-link>.
         </figcaption>
       </figure>
     </panel-section>
@@ -62,7 +68,10 @@
           <dt>og:image</dt>
           <dd>
             <external-link :href="absoluteUrl(og.image)">
-              <img alt :src="absoluteUrl(og.image)" />
+              <img
+                alt
+                :src="absoluteUrl(og.image)"
+              >
               <span>{{ og.image }}</span>
             </external-link>
             <p v-if="imageDimensions">
@@ -107,7 +116,7 @@ export default {
           value: "desktop"
         }
       ],
-      mode: "desktop"
+      mode: "mobile"
     };
   },
   computed: {

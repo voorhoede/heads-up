@@ -1,16 +1,27 @@
 <template>
   <div class="switch-wrapper">
-    <label class="switch" v-for="button in buttons" :key="button.value" ref="buttons">
-      <span class="switch__text-left" ref="button">{{ button.label }}</span>
+    <label
+      v-for="button in buttons"
+      :key="button.value"
+      ref="buttons"
+      class="switch"
+    >
+      <span
+        ref="button"
+        class="switch__text-left"
+      >{{ button.label }}</span>
       <input
-        :checked="value === button.value"
         id="input-switch"
+        :checked="value === button.value"
         name="toggle"
         type="radio"
         @input="toggle(button.value)"
-      />
+      >
     </label>
-    <span class="control-indicator" :style="controlIndicatorStyle"></span>
+    <span
+      class="control-indicator"
+      :style="controlIndicatorStyle"
+    />
   </div>
 </template>
 
@@ -28,6 +39,11 @@ export default {
     return {
       controlIndicatorStyle: {}
     };
+  },
+  watch: {
+    value() {
+      this.calculateIndicatorPosition();
+    }
   },
   mounted() {
     this.calculateIndicatorPosition();
@@ -48,11 +64,6 @@ export default {
         transform: `translateX(${buttonElements.offsetLeft - 2}px)`,
         width: `${selectedButtonElement.offsetWidth + 4}px`
       };
-    }
-  },
-  watch: {
-    value() {
-      this.calculateIndicatorPosition();
     }
   }
 };

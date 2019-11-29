@@ -6,22 +6,34 @@
       </h2>
       <ul class="sidebar-list">
         <li class="sidebar-list__item">
-          <router-link class="sidebar__button" :to="{ name: 'app-meta' }">
+          <router-link
+            class="sidebar__button"
+            :to="{ name: 'app-meta' }"
+          >
             <CodeIcon class="sidebar__icon" />Meta
           </router-link>
         </li>
         <li class="sidebar-list__item">
-          <router-link class="sidebar__button" :to="{ name: 'favicon' }">
+          <router-link
+            class="sidebar__button"
+            :to="{ name: 'favicon' }"
+          >
             <ImageIcon class="sidebar__icon" />Favicon
           </router-link>
         </li>
         <li class="sidebar-list__item">
-          <router-link class="sidebar__button" :to="{ name: 'apple-ios' }">
+          <router-link
+            class="sidebar__button"
+            :to="{ name: 'apple-ios' }"
+          >
             <AppleIcon class="sidebar__icon" />Apple iOS
           </router-link>
         </li>
         <li class="sidebar-list__item">
-          <router-link class="sidebar__button" :to="{ name: 'open-graph' }">
+          <router-link
+            class="sidebar__button"
+            :to="{ name: 'open-graph' }"
+          >
             <OpenGraphIcon class="sidebar__icon" />Open Graph
           </router-link>
         </li>
@@ -34,22 +46,34 @@
       </h2>
       <ul class="sidebar-list">
         <li class="sidebar-list__item">
-          <router-link class="sidebar__button" :to="{ name: 'twitter' }">
+          <router-link
+            class="sidebar__button"
+            :to="{ name: 'twitter' }"
+          >
             <TwitterIcon class="sidebar__icon" />Twitter
           </router-link>
         </li>
         <li class="sidebar-list__item">
-          <router-link class="sidebar__button" :to="{ name: 'whatsapp' }">
+          <router-link
+            class="sidebar__button"
+            :to="{ name: 'whatsapp' }"
+          >
             <WhatsappIcon class="sidebar__icon" />WhatsApp
           </router-link>
         </li>
         <li class="sidebar-list__item">
-          <router-link class="sidebar__button" :to="{ name: 'linkedin' }">
+          <router-link
+            class="sidebar__button"
+            :to="{ name: 'linkedin' }"
+          >
             <LinkedInIcon class="sidebar__icon" />LinkedIn
           </router-link>
         </li>
         <li class="sidebar-list__item">
-          <router-link class="sidebar__button" :to="{ name: 'facebook' }">
+          <router-link
+            class="sidebar__button"
+            :to="{ name: 'facebook' }"
+          >
             <FacebookIcon class="sidebar__icon" />Facebook
           </router-link>
         </li>
