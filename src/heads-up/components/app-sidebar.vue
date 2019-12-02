@@ -40,6 +40,11 @@
           </router-link>
         </li>
         <li class="sidebar-list__item">
+          <router-link class="sidebar__button" :to="{ name: 'linkedin' }">
+            <LinkedInIcon class="sidebar__icon" />LinkedIn
+          </router-link>
+        </li>
+        <li class="sidebar-list__item">
           <router-link class="sidebar__button" :to="{ name: 'slack' }">
             <SlackIcon class="sidebar__icon" />Slack
           </router-link>
@@ -60,6 +65,7 @@ import ImageIcon from "../assets/icons/image.svg";
 import OpenGraphIcon from "../assets/icons/open-graph.svg";
 import TwitterIcon from "../assets/icons/twitter.svg";
 import WhatsappIcon from "../assets/icons/whatsapp.svg";
+import LinkedInIcon from "../assets/icons/linkedin.svg";
 import SlackIcon from "../assets/icons/slack.svg";
 import ExternalLink from "../components/external-link.vue";
 
@@ -72,6 +78,7 @@ export default {
     ImageIcon,
     ExternalLink,
     WhatsappIcon,
+    LinkedInIcon,
     SlackIcon
   }
 };

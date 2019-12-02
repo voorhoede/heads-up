@@ -70,7 +70,7 @@
     video {
       display: block;
       /* 1 */
-      vertical-align: middle;
+      /* vertical-align: middle; */
       /* 2 */
       max-width: 100%;
       /* 3 */
@@ -297,7 +297,7 @@
       padding-right: 4px;
       background-color: rgb(221, 221, 221);
       border-radius: 30px;
-      margin-right: 12px;
+      /* margin-right: 12px; */
     }
 
     .slack-preview__emoji {
@@ -337,6 +337,37 @@
 
     .slack-preview__image-container {
       max-width: 360px;
+    }
+
+    .slack-preview__content-information {
+      padding: 0 12px;
+    }
+
+    .slack-preview__small {
+      flex-direction: unset;
+    }
+
+    .slack-preview__small .slack-preview__content-information {
+      width: calc(100% - 80px);
+    }
+
+    .slack-preview__image-container {
+      padding: 0 12px;
+    }
+
+    .slack-preview__small .slack-preview__image-container {
+      width: 80px;
+      height: 80px;
+      padding: 0;
+    }
+
+    .slack-preview__additional {
+      display: flex;
+      margin-bottom: 4px;
+    }
+
+    .slack-preview__additional-item {
+      width: 50%;
     }
 
   </style>
