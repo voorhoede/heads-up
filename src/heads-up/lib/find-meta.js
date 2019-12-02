@@ -25,34 +25,23 @@ export function findFavicons(head) {
 }
 
 export function findAdditionData(head) {
-  return [
-    {
-      label: findMetaContent(head, 'twitter:label1'),
-      value: findMetaContent(head, 'twitter:data1')
-    },
-    {
-      label: findMetaContent(head, 'twitter:label2'),
-      value: findMetaContent(head, 'twitter:data2')
+  let data = []
+  let additionData = [];
+  let additionLabel = [];
+  for (let i = 0; i < head.length; i++) {
+    if (head[i].name) {
+      if (head[i].name.includes(`twitter:label`)) {
+        additionLabel.push({ name: head[i].name, value: head[i].value });
+      }
+      if (head[i].name.includes(`twitter:data`)) {
+        additionData.push({ name: head[i].name, value: head[i].value });
+      }
     }
-  ].filter(item => item.label && item.value)
-  // let data = []
-  // let additionData = [];
-  // let additionLabel = [];
-  // for (let i = 0; i < head.length; i++) {
-  //   if (head[i].name) {
-  //     if (head[i].name.includes(`twitter:label`)) {
-  //       additionLabel.push({ name: head[i].name, value: head[i].value });
-  //     }
-  //     if (head[i].name.includes(`twitter:data`)) {
-  //       additionData.push({ name: head[i].name, value: head[i].value });
-  //     }
-  //   }
-  // }
+  }
 
-  // for (let index = 0; index < additionData.length; index++) {
-  //   data.push({ title: additionLabel[index].value, data: additionData[index].value })
-  // }
+  for (let index = 0; index < additionData.length; index++) {
+    data.push({ title: additionLabel[index].value, data: additionData[index].value })
+  }
 
-  // console.log(data);
-  // return data
+  return data
 }

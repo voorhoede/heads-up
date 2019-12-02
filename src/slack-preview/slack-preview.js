@@ -9,13 +9,6 @@ function createPreview() {
   const type = params.get('card')
   const theme = params.get('theme')
   const favicon = params.get('favicon')
-  let additionData
-
-  try {
-    additionData = JSON.parse(params.get('additionData'))
-  } catch (err) {
-    console.error('invalid additional data value')
-  }
 
   const slackElement = document.querySelector('[data-slack-preview-card]')
   getslackMarkup({
@@ -25,7 +18,6 @@ function createPreview() {
     url,
     type,
     favicon,
-    additionData
   }).then(html => {
     slackElement.innerHTML = html
   })
@@ -33,9 +25,7 @@ function createPreview() {
   if (theme === 'dark') document.body.classList.add('-theme-with-dark-background')
 }
 
-function getslackMarkup({ title, description, imgString, url, type, favicon, additionData }) {
-
-  console.log(additionData);
+function getslackMarkup({ title, description, imgString, url, type, favicon }) {
 
   let imageDefined
 
@@ -60,20 +50,22 @@ function getslackMarkup({ title, description, imgString, url, type, favicon, add
 
 
   if (imgString !== 'undefined') {
+    console.log('!==');
     return getImageDetails(imgString)
       .then(img => {
-        return getImageFileSize({ title, description, imgString, url, type, favicon, img, additionData })
+        return getImageFileSize({ title, description, imgString, url, type, favicon, img })
       })
       .then(fileSize => {
         imageDefined = true;
-        return generateHtml({ title, description, imgString, url, type, favicon, fileSize, imageDefined, additionData })
+        return generateHtml({ title, description, imgString, url, type, favicon, fileSize, imageDefined })
       })
   }
 
   if (imgString === 'undefined') {
     imageDefined = false;
     return new Promise(function (resolve) {
-      resolve(generateHtml({ title, description, url, type, favicon, imageDefined, additionData }))
+
+      resolve(generateHtml({ title, description, url, type, favicon, imageDefined }))
     })
   }
 }
@@ -98,8 +90,8 @@ function emojiCount() {
 // eslint-disable-next-line sonarjs/cognitive-complexity
 function generateHtml({ title, description, imgString, url, favicon, fileSize, imageDefined, isBigImg }) {
 
-  console.log(isBigImg);
-
+  console.log('isBigImg');
+  console.log(isBigImg)
 
   return `
         <a rel="noopener" target="_blank" class="slack-preview__container">

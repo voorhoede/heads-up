@@ -2,14 +2,21 @@
   <div>
     <panel-section title="Preview">
       <p v-if="!isValidCard">This page does not contain the required meta data to create a preview.</p>
-
+      <!-- <p v-if="isValidCard && !isSupportedCard">
+        Preview is not yet available for
+        <code>{{ card }}</code> cards.
+      <br />Card preview is currently supported for:-->
+      <!-- eslint-disable-next-line vue/no-v-html -->
+      <!-- <span v-html="supportedCards.map(v => `<code>${v}</code>`).join(', ')" />.
+      </p>-->
       <figure v-if="isValidCard && isSupportedCard">
         <iframe
           ref="iframe"
           :src="slackUrl"
-          title="slackPreview"
           :height="iframeHeight"
           width="100%"
+          frameborder="0"
+          scrolling="no"
           class="slack__preview"
           @load="onResize"
         />
@@ -22,51 +29,47 @@
 
     <panel-section title="Properties">
       <properties-list>
-        <dl>
-          <template v-if="og.type">
-            <dt>og:type</dt>
-            <dd>{{ og.type }}</dd>
-          </template>
-          <template v-if="og.title">
-            <dt>og:title</dt>
-            <dd>{{ og.title }}</dd>
-          </template>
-          <template v-if="og.description">
-            <dt>og:description</dt>
-            <dd>{{ og.description }}</dd>
-          </template>
-          <template v-if="og.image">
-            <dt>og:image</dt>
-            <dd>
-              <external-link :href="absoluteUrl(og.image)">
-                <img alt :src="absoluteUrl(og.image)" />
-                <span>{{ og.image }}</span>
-              </external-link>
-            </dd>
-          </template>
-        </dl>
+        <template v-if="og.type">
+          <dt>og:type</dt>
+          <dd>{{ og.type }}</dd>
+        </template>
+        <template v-if="og.title">
+          <dt>og:title</dt>
+          <dd>{{ og.title }}</dd>
+        </template>
+        <template v-if="og.description">
+          <dt>og:description</dt>
+          <dd>{{ og.description }}</dd>
+        </template>
+        <template v-if="og.image">
+          <dt>og:image</dt>
+          <dd>
+            <external-link :href="absoluteUrl(og.image)">
+              <img alt :src="absoluteUrl(og.image)" />
+              <span>{{ og.image }}</span>
+            </external-link>
+          </dd>
+        </template>
       </properties-list>
     </panel-section>
 
     <panel-section title="Resources">
       <resource-list>
-        <Ul>
-          <li>
-            <external-link
-              href="https://developer.slack.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards.html"
-            >About slack cards</external-link>
-          </li>
-          <li>
-            <external-link
-              href="https://developer.slack.com/en/docs/tweets/optimize-with-cards/overview/markup"
-            >slack card markup</external-link>
-          </li>
-          <li>
-            <external-link
-              href="https://cards-dev.slack.com/validator"
-            >slack card validator (requires slack login)</external-link>
-          </li>
-        </Ul>
+        <li>
+          <external-link
+            href="https://developer.slack.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards.html"
+          >About slack cards</external-link>
+        </li>
+        <li>
+          <external-link
+            href="https://developer.slack.com/en/docs/tweets/optimize-with-cards/overview/markup"
+          >slack card markup</external-link>
+        </li>
+        <li>
+          <external-link
+            href="https://cards-dev.slack.com/validator"
+          >slack card validator (requires slack login)</external-link>
+        </li>
       </resource-list>
     </panel-section>
   </div>
@@ -165,7 +168,10 @@ export default {
       params.set("imageDefined", this.image ? true : false);
       params.set("favicon", this.slack.favicon[0].url);
       params.set("url", this.head.url);
-      params.set("additionData", JSON.stringify(this.slack.additionalData));
+      params.set(
+        "additionData",
+        this.slack.additionalData ? this.slack.additionalData : false
+      );
       params.set("theme", getTheme() !== "default" && "dark");
       return `/slack-preview/slack-preview.html?${params}`;
     }
