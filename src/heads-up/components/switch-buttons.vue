@@ -6,16 +6,22 @@
       ref="buttons"
       class="switch"
     >
-      <span ref="button" class="switch__text-left">{{ button.label }}</span>
+      <span
+        ref="button"
+        class="switch__text-left"
+      >{{ button.label }}</span>
       <input
         id="input-switch"
         :checked="value === button.value"
         name="toggle"
         type="radio"
         @input="toggle(button.value)"
-      />
+      >
     </label>
-    <span class="control-indicator" :style="controlIndicatorStyle" />
+    <span
+      class="control-indicator"
+      :style="controlIndicatorStyle"
+    />
   </div>
 </template>
 
