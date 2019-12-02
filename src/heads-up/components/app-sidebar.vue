@@ -69,6 +69,14 @@
             <LinkedInIcon class="sidebar__icon" />LinkedIn
           </router-link>
         </li>
+        <li class="sidebar-list__item">
+          <router-link
+            class="sidebar__button"
+            :to="{ name: 'facebook' }"
+          >
+            <FacebookIcon class="sidebar__icon" />Facebook
+          </router-link>
+        </li>
       </ul>
     </section>
     <footer class="sidebar__footer">
@@ -92,6 +100,7 @@ import TwitterIcon from "../assets/icons/twitter.svg";
 import WhatsappIcon from "../assets/icons/whatsapp.svg";
 import LinkedInIcon from "../assets/icons/linkedin.svg";
 import ExternalLink from "../components/external-link.vue";
+import FacebookIcon from "../assets/icons/facebook.svg";
 
 export default {
   components: {
@@ -102,6 +111,7 @@ export default {
     ImageIcon,
     ExternalLink,
     WhatsappIcon,
+    FacebookIcon,
     LinkedInIcon
   }
 };

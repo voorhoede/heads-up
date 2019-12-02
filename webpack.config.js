@@ -12,6 +12,8 @@ module.exports = createConfig({
     '../twitter-preview/twitter-preview': './src/twitter-preview/twitter-preview.js',
     '../whatsapp-preview/whatsapp-preview': './src/whatsapp-preview/whatsapp-preview.js',
     '../linkedin-preview/linkedin-preview': './src/linkedin-preview/linkedin-preview.js',
+    '../facebook-desktop-preview/facebook-desktop-preview': './src/facebook-desktop-preview/facebook-desktop-preview.js',
+    '../facebook-mobile-preview/facebook-mobile-preview': './src/facebook-mobile-preview/facebook-mobile-preview.js',
   },
   output: {
     path: path.join(__dirname, 'dist/heads-up'),
@@ -42,6 +44,16 @@ module.exports = createConfig({
       filename: '../linkedin-preview/linkedin-preview.html',
       template: 'src/linkedin-preview/linkedin-preview.html',
       chunks: ['../linkedin-preview/linkedin-preview']
+    }),
+    new HtmlWebpackPlugin({
+      filename: '../facebook-desktop-preview/facebook-desktop-preview.html',
+      template: 'src/facebook-desktop-preview/facebook-desktop-preview.ejs',
+      chunks: ['../facebook-desktop-preview/facebook-desktop-preview']
+    }),
+    new HtmlWebpackPlugin({
+      filename: '../facebook-mobile-preview/facebook-mobile-preview.html',
+      template: 'src/facebook-mobile-preview/facebook-mobile-preview.ejs',
+      chunks: ['../facebook-mobile-preview/facebook-mobile-preview']
     }),
     new CopyPlugin([
       { from: 'src/devtools/assets/', to: '../devtools/assets' },
