@@ -2,6 +2,7 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const { VueLoaderPlugin } = require('vue-loader')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+const path = require('path');
 
 module.exports = (config, target = { chrome: 63, firefox: 48 }) => {
   const bubleOptions = {
@@ -44,10 +45,23 @@ module.exports = (config, target = { chrome: 63, firefox: 48 }) => {
           test: /\.svg$/,
           loader: 'vue-svg-loader',
         },
+
+        // enable loading fonts and images in social media previews
         {
           test: /\.(png|woff2)$/,
-          loader: 'url-loader?limit=0'
+          loader: 'url-loader',
+          options: {
+            publicPath: '/',
+            name(file) {
+              const srcFolder = path.join(process.cwd(), './src');
+              const dir = path.dirname(file).substr(srcFolder.length);
+              // the dots are required to load the file
+              return `..${dir}/[name].[ext]`;
+            },
+            limit: 0,
+          }
         },
+
         {
           enforce: 'pre',
           test: /\.(js|vue)$/,

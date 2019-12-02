@@ -45,6 +45,11 @@
           </router-link>
         </li>
         <li class="sidebar-list__item">
+          <router-link class="sidebar__button" :to="{ name: 'facebook' }">
+            <FacebookIcon class="sidebar__icon" />Facebook
+          </router-link>
+        </li>
+        <li class="sidebar-list__item">
           <router-link class="sidebar__button" :to="{ name: 'slack' }">
             <SlackIcon class="sidebar__icon" />Slack
           </router-link>
@@ -53,7 +58,11 @@
     </section>
     <footer class="sidebar__footer">
       Made with love by
-      <external-link class="sidebar__footer-link" href="https://www.voorhoede.nl">De Voorhoede</external-link>
+      <external-link
+        class="sidebar__footer-link"
+        href="https://www.voorhoede.nl"
+        >De Voorhoede</external-link
+      >
     </footer>
   </nav>
 </template>
@@ -68,6 +77,7 @@ import WhatsappIcon from "../assets/icons/whatsapp.svg";
 import LinkedInIcon from "../assets/icons/linkedin.svg";
 import SlackIcon from "../assets/icons/slack.svg";
 import ExternalLink from "../components/external-link.vue";
+import FacebookIcon from "../assets/icons/facebook.svg";
 
 export default {
   components: {
@@ -78,6 +88,7 @@ export default {
     ImageIcon,
     ExternalLink,
     WhatsappIcon,
+    FacebookIcon,
     LinkedInIcon,
     SlackIcon
   }

@@ -64,7 +64,14 @@ export default new VueRouter({
         title: 'LinkedIn',
       },
       component: () => import(/* webpackChunkName:'views/linkedin' */ './views/linkedin.vue')
-
+    },
+    {
+      path: '/facebook',
+      name: 'facebook',
+      meta: {
+        title: 'Facebook',
+      },
+      component: () => import(/* webpackChunkName:'views/facebook' */ './views/facebook.vue')
     },
     {
       path: '/slack',
