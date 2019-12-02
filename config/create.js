@@ -46,18 +46,7 @@ module.exports = (config, target = { chrome: 63, firefox: 48 }) => {
           loader: 'vue-svg-loader',
         },
 
-        // Remco helped me with the creation of preview images. 
-        // We had 2 solutions, and we found the second solution to be the best solution
-
-        // {
-        //   test: /facebook\-desktop\-preview\/(.*)\.(png|woff2)$/,
-        //   loader: 'url-loader',
-        //   options: {
-        //     name: '../facebook-desktop-preview/assets/[name].[ext]',
-        //     limit: 0,
-        //   }
-        // },
-
+        // enable loading fonts and images in social media previews
         {
           test: /\.(png|woff2)$/,
           loader: 'url-loader',
