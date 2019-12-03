@@ -150,7 +150,7 @@ export default {
 <style>
 .slack__preview {
   max-width: 521px;
-  min-height: 350px;
+  min-height: 360px;
   margin-bottom: 1em;
   padding: 0;
   border: none;
