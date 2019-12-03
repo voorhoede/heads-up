@@ -27,7 +27,7 @@
   "homepage": "https://github.com/voorhoede/heads-up#readme",
   "husky": {
     "hooks": {
-      "pre-commit": "npm lint"
+      "pre-commit": "npm run lint"
     }
   },
   "dependencies": {
