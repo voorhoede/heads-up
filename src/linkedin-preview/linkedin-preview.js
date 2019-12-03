@@ -1,3 +1,4 @@
+import html from '../heads-up/lib/html'
 
 createPreview()
 
@@ -32,7 +33,7 @@ function getHostName(url) {
 
 function getlinkedinMarkup({ title, image, url, imageIsBig }) {
 
-  const like = `<svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+  const like = html`<svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
   viewBox="0 0 43.6 43.6" style="enable-background:new 0 0 43.6 43.6;" xml:space="preserve">
 <style type="text/css">
  .st0{fill:none;}
@@ -86,13 +87,13 @@ function getlinkedinMarkup({ title, image, url, imageIsBig }) {
 </g>
 </svg>`
 
-  return `
+  return html`
       <div class="linkedin-preview">
         <a rel="noopener" target="_blank" class="linkedin-preview__link-container ${imageIsBig ? "" : "linkedin-preview__small"}">
           <div class="${ image ? `linkedin-preview__fixed-ratio linkedin-preview__ratio` : `linkedin-preview__media linkedin-preview__media--image-fallback`}">
             ${ image
-      ? `   <img src="${image}" class="linkedin-preview__fixed-ratio-content"/>`
-      : `   <div class="linkedin-preview__image-fallback"></div>`}
+      ? html`   <img src="${image}" class="linkedin-preview__fixed-ratio-content"/>`
+      : html`   <div class="linkedin-preview__image-fallback"></div>`}
           </div>
 
           <div class="linkedin-preview__content">
