@@ -116,7 +116,7 @@ export default {
           value: "desktop"
         }
       ],
-      mode: "mobile"
+      mode: "desktop"
     };
   },
   computed: {
@@ -171,14 +171,14 @@ export default {
       if (this.og.image !== undefined) {
         params.set(
           "mobileImgIsBig",
-          (imageDimensions.height > 359 && imageDimensions.width > 359) ||
+          (imageDimensions.height > 166 && imageDimensions.width > 359) ||
             (this.imageSpecified &&
               (imageDimensions.height === 0 || imageDimensions.width === 0))
         );
       }
       params.set(
         "desktopImgIsBig",
-        imageDimensions.height >= 415 && imageDimensions.width >= 415
+        imageDimensions.height >= 218 && imageDimensions.width >= 415
       );
       return `${
         this.mode === "desktop"
