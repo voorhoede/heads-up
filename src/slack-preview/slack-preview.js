@@ -4,7 +4,7 @@ function createPreview() {
   const params = (new URL(window.location.href)).searchParams
   const title = params.get('title')
   const image = params.get('image')
-  const description = params.get('description')
+  const description = params.get('description').substring(0, 700)
   const url = params.get('url')
   const imageIsBig = (params.get('imageIsBig') === 'true')
   const favicon = params.get('favicon')
