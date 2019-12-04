@@ -1,3 +1,4 @@
+import html from '../heads-up/lib/html'
 
 createPreview()
 
@@ -44,7 +45,7 @@ function getTwitterMarkup({ title, description, image, url, type }) {
 
     }
 
-    return `
+    return html`
       <div class="${ type === 'summary' ? `twitter-preview is-small` : `twitter-preview` }">
         <a rel="noopener" target="_blank" ${ twitterLink } class="${ type === 'summary' ? `twitter-preview__link-container` : `twitter-preview__link-container twitter-preview__link-container--vertical` } ">
           <div class="${ image
@@ -53,10 +54,10 @@ function getTwitterMarkup({ title, description, image, url, type }) {
               : `twitter-preview__fixed-ratio twitter-preview__ratio` }`
             : `twitter-preview__media twitter-preview__media--image-fallback` }">
             ${ image
-              ? `<img src="${ image }" class="${ type === 'summary'
+              ? html`<img src="${ image }" class="${ type === 'summary'
                 ? `twitter-preview__image`
                 : `twitter-preview__fixed-ratio-content` }" />`
-              : `<div class="twitter-preview__image-fallback"></div>` }
+              : html`<div class="twitter-preview__image-fallback"></div>` }
           </div>
 
           <div class="twitter-preview__content">

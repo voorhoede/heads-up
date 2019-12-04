@@ -1,3 +1,5 @@
+import html from '../heads-up/lib/html'
+
 createPreview()
 
 function createPreview() {
@@ -34,17 +36,17 @@ function getHostName(url) {
 function getfacebookMarkup({ title, description, img, url, desktopImgIsBig, imageSpecified
 }) {
 
-  return `
+  return html`
   <div class="facebook-preview">
     <a rel="noopener" target="_blank" class="facebook-preview__link-container facebook-preview__link-container--vertical ${desktopImgIsBig ? "" : "facebook-preview__small"}">
-      
-    ${imageSpecified ? `
+
+    ${imageSpecified ? html`
     <div class="${ img === "undefined"
         ? `facebook-preview__media facebook-preview__media--image-fallback`
         : `facebook-preview__fixed-ratio facebook-preview__ratio`}">
         ${ img === "undefined"
         ? ``
-        : `<img src="${img}" class="facebook-preview__fixed-ratio-content" />`}
+        : html`<img src="${img}" class="facebook-preview__fixed-ratio-content" />`}
       </div>
       `: ``
     }
@@ -53,7 +55,7 @@ function getfacebookMarkup({ title, description, img, url, desktopImgIsBig, imag
       <div class="facebook-preview__hostname">${ getHostName(url)}</div>
         <div class="facebook-preview__content">
           <div class="facebook-preview__title">${ title ? title : getHostName(url)}</div>
-          ${description === "null" ? "" : `<div class="facebook-preview__description">${description}</div>`}
+          ${description === "null" ? "" : html`<div class="facebook-preview__description">${description}</div>`}
         </div>
       </div>
     </a>
