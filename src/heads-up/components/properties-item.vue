@@ -7,7 +7,7 @@
 
       <app-tooltip
         class="properties-item__tooltip"
-        :placement="'top-start'"
+        placement="top-start"
       >
         <InfoIcon
           v-if="!errors"
@@ -38,17 +38,13 @@
       <span
         v-if="!valueWithExceededLength"
         class="properties-item__description-text"
-        :class="{
-          'properties-item__strike': errors && !valueWithExceededLength
-        }"
+        :class="{ 'properties-item__strike': errors && !valueWithExceededLength }"
       >{{ value }}</span>
       <span v-if="valueWithExceededLength">{{ valueMinusExceededLength }}</span>
       <span
         v-if="valueWithExceededLength"
         class="properties-item__strike"
-      >{{
-        valueWithExceededLength
-      }}</span>
+      >{{ valueWithExceededLength }}</span>
       <span
         v-if="valueSlot"
         class="properties-item__extra"
@@ -60,12 +56,11 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import validateSchema from "../lib/validate-schema";
-import { AppTooltip, ExternalLink } from "../components";
-import InfoIcon from "../assets/icons/info.svg";
-import WarningIcon from "../assets/icons/warning.svg";
-
+import { mapState } from 'vuex'
+import validateSchema from '../lib/validate-schema'
+import { AppTooltip, ExternalLink } from '../components'
+import InfoIcon from '../assets/icons/info.svg'
+import WarningIcon from '../assets/icons/warning.svg'
 export default {
   components: { AppTooltip, ExternalLink, InfoIcon, WarningIcon },
   props: {
@@ -73,7 +68,7 @@ export default {
       type: Object,
       required: false,
       default() {
-        return null;
+        return null
       }
     },
     keyName: {
@@ -87,80 +82,70 @@ export default {
   },
   data() {
     return {
-      info: "",
-      link: "",
+      info: '',
+      link: '',
       errors: null,
       valueSlot: null
-    };
+    }
   },
   computed: {
-    ...mapState(["head"]),
+    ...mapState(['head']),
     errorMessage() {
       if (this.errors && this.errors.length > 0) {
-        return this.errors[0].message;
+        return this.errors[0].message
       }
-      return null;
+      return null
     },
     valueWithExceededLength() {
-      if (this.errors && this.errors.length > 0 && this.errors[0]["length"]) {
-        return this.value.slice(this.errors[0]["length"] * -1);
+      if (this.errors && this.errors.length > 0 && this.errors[0]['length']) {
+        return this.value.slice(this.errors[0]['length'] * -1)
       }
-      return null;
+      return null
     },
     valueMinusExceededLength() {
-      if (this.errors && this.errors.length > 0 && this.errors[0]["length"]) {
-        return this.value.slice(
-          0,
-          this.value.length - this.errors[0]["length"]
-        );
+      if (this.errors && this.errors.length > 0 && this.errors[0]['length']) {
+        return this.value.slice(0, this.value.length - this.errors[0]['length'])
       }
-      return null;
+      return null
     }
   },
   mounted() {
     if (!this.schema) {
-      throw new Error("No schema is provided.");
+      throw new Error('No schema is provided.')
     }
-
     if (this.$slots && this.$slots.value) {
-      this.valueSlot = this.$slots.value;
+      this.valueSlot = this.$slots.value
     }
-
     if (this.schema[this.keyName] && this.schema[this.keyName].meta) {
-      this.info = this.schema[this.keyName].meta.info;
-      this.link = this.schema[this.keyName].meta.link;
+      this.info = this.schema[this.keyName].meta.info
+      this.link = this.schema[this.keyName].meta.link
     }
-
     this.errors = validateSchema({
       schema: this.schema,
       key: this.keyName,
       value: this.value
-    });
+    })
   }
-};
+}
 </script>
 
 <style>
 :root {
   --term-width-small: 120px;
 }
-
 .properties-item {
   width: 100%;
   margin-bottom: 1.5em;
 }
-
 .properties-item__term {
   display: inline-flex;
   align-items: center;
 }
-
 .properties-item,
 .properties-item__description {
   display: block;
   line-height: 1.4em;
 }
-
 .properties-item__icon {
   display: inline-block;
   position: relative;
@@ -171,7 +156,6 @@ export default {
   vertical-align: middle;
   cursor: help;
 }
-
 .properties-item__extra span {
   display: inline-block;
   margin-left: 3px;
@@ -179,64 +163,49 @@ export default {
   height: 10px;
   border: 1px solid #888;
 }
-
 .properties-item__term {
   color: var(--label-color);
 }
-
 .properties-item__strike {
   text-decoration: line-through;
   color: var(--label-color);
 }
-
 .properties-item__link {
   margin-left: 5px;
 }
-
 @media (min-width: 500px) {
   .properties-item {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
   }
-
   .properties-item__term,
   .properties-item__description {
     line-height: 1.4em;
   }
-
   .properties-item__term {
-    display: flex;
-    justify-content: flex-end;
+    display: unset;
     width: var(--term-width-small);
     padding-right: 5px;
+    text-align: right;
   }
-
-  .properties-item__term * + * {
-    margin-left: 0.15rem;
-  }
-
   .properties-item__description {
     display: flex;
     align-items: center;
     width: calc(100% - var(--term-width-small));
   }
-
   .properties-item__icon {
     margin-left: unset;
   }
 }
-
 @media (min-width: 650px) {
   .properties-item {
     max-width: 420px;
     margin-bottom: 1.5em;
   }
-
   .properties-item__term {
     width: var(--term-width-small);
     text-align: right;
   }
-
   .properties-item__description {
     width: 300px;
   }

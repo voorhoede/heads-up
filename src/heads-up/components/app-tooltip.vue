@@ -2,7 +2,7 @@
   <v-popover
     trigger="hover"
     :placement="placement"
-    :delay="{ show: 500, hide: 100 }"
+    :delay="{ show: 500 }"
     offset="10"
   >
     <slot />
@@ -96,6 +96,6 @@ export default {
   opacity: 1;
   transition: opacity 0.15s;
   box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.2);
-  width: 150px;
+  max-width: 75vw;
 }
 </style>
