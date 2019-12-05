@@ -15,7 +15,9 @@
 export default function html (strings, ...values) {
   let str = "";
   strings.forEach((string, i) => {
-    str += string + values[i];
+    str += values[i]
+      ? string + values[i]
+      : string;
   });
   return str;
 }
