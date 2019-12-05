@@ -1,3 +1,4 @@
+import html from '../heads-up/lib/html'
 createPreview()
 
 function createPreview() {
@@ -69,13 +70,13 @@ function getImageFileSize(image) {
 
 function getslackMarkup({ title, image, url, imageIsBig, favicon, description, imageSize, additionalData }) {
 
-  return `
+  return html`
         <a rel="noopener" target="_blank" class="slack-preview__container">
           <span class="slack-preview__sidebar"></span>
           <div class="slack-preview__content ${imageIsBig ? "" : "slack-preview__small"}">
           <div class="slack-preview__content-information">
             <div class="slack-preview__domain">
-              ${favicon ? `
+              ${favicon ? html`
               <div class="slack-preview__hostname">
               <img class="slack-preview__favicon" src="${favicon}" alt="">${getHostName(url)}
               </div>
@@ -86,16 +87,16 @@ function getslackMarkup({ title, image, url, imageIsBig, favicon, description, i
             <div class="slack-preview__description">
               <p>
               ${ description}
-              ${imageIsBig ? `<span class="slack-preview__filesize">(${imageSize}</span><span class="slack-preview__expand">▼</span>)` : ``}
+              ${imageIsBig ? html`<span class="slack-preview__filesize">(${imageSize}</span><span class="slack-preview__expand">▼</span>)` : ``}
               </p>           
             </div>
-            ${additionalData === undefined ? '' : `
+            ${additionalData === undefined ? '' : html`
             <div class="slack-preview__additional">
-            ${additionalData.map(x => { return `<div class="slack-preview__additional-item"><strong>${x.label}</strong><p>${x.value}</p></div>` }).join("")}
+            ${additionalData.map(x => { return html`<div class="slack-preview__additional-item"><strong>${x.label}</strong><p>${x.value}</p></div>` }).join("")}
             </div>
             `} 
             </div>
-            ${image ? `
+            ${image ? html`
             <div class="slack-preview__image-container"> 
               <img src="${image}" class="slack-preview__image"/> 
             </div>` : ''}
