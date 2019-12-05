@@ -5,7 +5,10 @@
         <slot />
       </span>
 
-      <app-tooltip class="properties-item__tooltip">
+      <app-tooltip
+        class="properties-item__tooltip"
+        :placement="'top-start'"
+      >
         <InfoIcon
           v-if="!errors"
           class="properties-item__icon"
@@ -35,13 +38,17 @@
       <span
         v-if="!valueWithExceededLength"
         class="properties-item__description-text"
-        :class="{ 'properties-item__strike': errors && !valueWithExceededLength }"
+        :class="{
+          'properties-item__strike': errors && !valueWithExceededLength
+        }"
       >{{ value }}</span>
       <span v-if="valueWithExceededLength">{{ valueMinusExceededLength }}</span>
       <span
         v-if="valueWithExceededLength"
         class="properties-item__strike"
-      >{{ valueWithExceededLength }}</span>
+      >{{
+        valueWithExceededLength
+      }}</span>
       <span
         v-if="valueSlot"
         class="properties-item__extra"
@@ -53,11 +60,11 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import validateSchema from '../lib/validate-schema'
-import { AppTooltip, ExternalLink } from '../components'
-import InfoIcon from '../assets/icons/info.svg'
-import WarningIcon from '../assets/icons/warning.svg'
+import { mapState } from "vuex";
+import validateSchema from "../lib/validate-schema";
+import { AppTooltip, ExternalLink } from "../components";
+import InfoIcon from "../assets/icons/info.svg";
+import WarningIcon from "../assets/icons/warning.svg";
 
 export default {
   components: { AppTooltip, ExternalLink, InfoIcon, WarningIcon },
@@ -66,7 +73,7 @@ export default {
       type: Object,
       required: false,
       default() {
-        return null
+        return null;
       }
     },
     keyName: {
@@ -80,54 +87,57 @@ export default {
   },
   data() {
     return {
-      info: '',
-      link: '',
+      info: "",
+      link: "",
       errors: null,
       valueSlot: null
-    }
+    };
   },
   computed: {
-    ...mapState(['head']),
+    ...mapState(["head"]),
     errorMessage() {
       if (this.errors && this.errors.length > 0) {
-        return this.errors[0].message
+        return this.errors[0].message;
       }
-      return null
+      return null;
     },
     valueWithExceededLength() {
-      if (this.errors && this.errors.length > 0 && this.errors[0]['length']) {
-        return this.value.slice(this.errors[0]['length'] * -1)
+      if (this.errors && this.errors.length > 0 && this.errors[0]["length"]) {
+        return this.value.slice(this.errors[0]["length"] * -1);
       }
-      return null
+      return null;
     },
     valueMinusExceededLength() {
-      if (this.errors && this.errors.length > 0 && this.errors[0]['length']) {
-        return this.value.slice(0, this.value.length - this.errors[0]['length'])
+      if (this.errors && this.errors.length > 0 && this.errors[0]["length"]) {
+        return this.value.slice(
+          0,
+          this.value.length - this.errors[0]["length"]
+        );
       }
-      return null
+      return null;
     }
   },
   mounted() {
     if (!this.schema) {
-      throw new Error('No schema is provided.')
+      throw new Error("No schema is provided.");
     }
 
     if (this.$slots && this.$slots.value) {
-      this.valueSlot = this.$slots.value
+      this.valueSlot = this.$slots.value;
     }
 
     if (this.schema[this.keyName] && this.schema[this.keyName].meta) {
-      this.info = this.schema[this.keyName].meta.info
-      this.link = this.schema[this.keyName].meta.link
+      this.info = this.schema[this.keyName].meta.info;
+      this.link = this.schema[this.keyName].meta.link;
     }
 
     this.errors = validateSchema({
       schema: this.schema,
       key: this.keyName,
       value: this.value
-    })
+    });
   }
-}
+};
 </script>
 
 <style>
