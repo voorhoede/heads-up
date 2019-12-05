@@ -186,7 +186,7 @@ export default {
 @media (min-width: 500px) {
   .properties-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
   }
 
   .properties-item__term,
@@ -195,10 +195,14 @@ export default {
   }
 
   .properties-item__term {
-    display: unset;
+    display: flex;
+    justify-content: flex-end;
     width: var(--term-width-small);
     padding-right: 5px;
-    text-align: right;
+  }
+
+  .properties-item__term * + * {
+    margin-left: 0.15rem;
   }
 
   .properties-item__description {
