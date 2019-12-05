@@ -4,7 +4,6 @@
     :placement="placement"
     :delay="{ show: 500, hide: 100 }"
     offset="10"
-    open
   >
     <slot />
 
