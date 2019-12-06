@@ -6,6 +6,7 @@
     offset="10"
     :popover-inner-class="[themeClass, 'tooltip-inner']"
     :popover-arrow-class="[themeClass, 'tooltip-arrow']"
+    open
   >
     <slot />
 
@@ -108,7 +109,7 @@ export default {
   opacity: 1;
   transition: opacity 0.15s;
   box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.2);
-  max-width: 75vw;
+  max-width: calc(75vw - var(--sidebar-width));
 }
 
 .-theme-with-dark-background.tooltip-inner {
