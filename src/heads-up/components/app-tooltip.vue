@@ -6,7 +6,6 @@
     offset="10"
     :popover-inner-class="[themeClass, 'tooltip-inner']"
     :popover-arrow-class="[themeClass, 'tooltip-arrow']"
-    open
   >
     <slot />
 
