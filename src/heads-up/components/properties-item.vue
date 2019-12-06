@@ -5,7 +5,7 @@
         <slot />
       </span>
 
-      <app-tooltip
+      <app-tooltip      
         class="properties-item__tooltip"
         placement="top-start"
       >
@@ -46,7 +46,7 @@
       <span
         v-if="valueWithExceededLength"
         class="properties-item__strike"
-        >{{valueWithExceededLength}}</span>
+      >{{ valueWithExceededLength }}</span>
       <span
         v-if="valueSlot"
         class="properties-item__extra"

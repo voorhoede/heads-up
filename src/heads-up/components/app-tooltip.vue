@@ -4,6 +4,8 @@
     :placement="placement"
     :delay="{ show: 500 }"
     offset="10"
+    :popoverInnerClass="[themeClass, 'tooltip-inner']"
+    :popoverArrowClass="[themeClass, 'tooltip-arrow']"
   >
     <slot />
 
@@ -15,12 +17,22 @@
 </template>
 
 <script>
+  import getTheme from '../lib/theme'
 export default {
   props: {
     placement: {
       type: String,
       default: "top-end"
     }
+  },
+  computed:{
+    themeClass() {
+        /**
+         * class '-theme-with-dark-background' is taken from original dev tools repo
+         * src: https://github.com/ChromeDevTools/devtools-frontend/blob/02a851d01de158d8c0a8fd1d3af06649b5379bd6/front_end/ui/inspectorStyle.css
+         */
+        return getTheme() === 'dark' ? '-theme-with-dark-background' : ''
+      },
   }
 };
 </script>
@@ -98,4 +110,14 @@ export default {
   box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.2);
   max-width: 75vw;
 }
+
+.-theme-with-dark-background.tooltip-inner {
+background: #3c3c3c;
+color: #dadada;
+}
+
+.-theme-with-dark-background.tooltip-arrow  {
+border: 5px solid #3c3c3c;
+}
+
 </style>
