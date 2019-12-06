@@ -4,8 +4,8 @@
     :placement="placement"
     :delay="{ show: 500 }"
     offset="10"
-    :popoverInnerClass="[themeClass, 'tooltip-inner']"
-    :popoverArrowClass="[themeClass, 'tooltip-arrow']"
+    :popover-inner-class="[themeClass, 'tooltip-inner']"
+    :popover-arrow-class="[themeClass, 'tooltip-arrow']"
   >
     <slot />
 
