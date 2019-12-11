@@ -30,17 +30,86 @@
     <panel-section title="Properties">
       <properties-list>
         <dl>
-          <template v-if="og.title">
-            <dt>og:title</dt>
-            <dd>{{ og.title }}</dd>
-          </template>
-          <template v-if="og.description">
-            <dt>og:description</dt>
-            <dd>{{ og.description }}</dd>
-          </template>
-          <template v-if="og.image">
-            <dt>og:image</dt>
+          <template>
+            <dt class="title">
+              <app-tooltip      
+                class="properties-item__tooltip"
+                placement="bottom-start"
+              >
+                og:title
+                <template v-slot:info>
+                  <property-data 
+                    type="og:title" 
+                    :exist="tooltip.title.exist" 
+                    :tag="tooltip.title.tag" 
+                    :value="tooltip.title.content" 
+                  />
+                </template>
+
+                <template v-slot:link>
+                  <!-- eslint-disable-next-line vue/singleline-html-element-content-newline, vue/max-attributes-per-line -->
+                  <external-link class="properties-item__link" :href="'/'">Learn more</external-link>
+                </template>         
+              </app-tooltip>
+            </dt>   
             <dd>
+              {{ title }}
+            </dd>
+          </template>
+          <template>
+            <dt>
+              <app-tooltip      
+                class="properties-item__tooltip"
+                placement="bottom-start"
+              >
+                og:description
+                <template v-slot:info>
+                  <property-data 
+                    type="og:description" 
+                    :exist="tooltip.description.exist" 
+                    :required="tooltip.description.required" 
+                    :tag="tooltip.description.tag" 
+                    :value="tooltip.description.value" 
+                    :valuelength="tooltip.description.valuelength"
+                  />
+                </template>
+
+                <template v-slot:link>
+                  <!-- eslint-disable-next-line vue/singleline-html-element-content-newline, vue/max-attributes-per-line -->
+                  <external-link class="properties-item__link" :href="'/'">Learn more</external-link>
+                </template>         
+              </app-tooltip>
+            </dt>
+            <dd>
+              {{ description }}
+            </dd>
+          </template>
+          <template>
+            <dt>
+              <app-tooltip      
+                v-if="imageDimensions"
+                class="properties-item__tooltip"
+                placement="bottom-start"
+              >
+                og:image
+                <template v-slot:info>
+                  <!-- eslint-disable-next-line vue/no-v-html, vue/max-attributes-per-line -->
+                  <property-data 
+                    type="og:image"
+                    :exist="tooltip.image.exist" 
+                    :hasvariation="tooltip.image.hasVariation"
+                    :requiredsizes="tooltip.image.requiredSizes"
+                    :size="tooltip.image.size"
+                    :tag="tooltip.image.tag" 
+                  />
+                </template>
+                <template v-slot:link>
+                  <!-- eslint-disable-next-line vue/singleline-html-element-content-newline, vue/max-attributes-per-line -->
+                  <external-link class="properties-item__link" :href="'/'">Learn more</external-link>
+                </template>         
+              </app-tooltip>
+            </dt>
+            <dd v-if="og.image">
               <external-link :href="absoluteUrl(og.image)">
                 <img
                   alt
@@ -55,10 +124,6 @@
                 ({{ imageDimensions.width }} x {{ imageDimensions.height }}px)
               </p>
             </dd>
-          </template>
-          <template v-if="og.url">
-            <dt>og:url</dt>
-            <dd>{{ og.url }}</dd>
           </template>
         </dl>
       </properties-list>
@@ -94,45 +159,113 @@ import {
   ExternalLink,
   PanelSection,
   PropertiesList,
-  ResourceList
-} from "../components";
+  ResourceList,
+  AppTooltip,
+  PropertyData} from "../components";
 import {
   findMetaContent,
   findMetaProperty,
   findImageDimensions
 } from "../lib/find-meta";
 
-const ogDescription = "og:description";
+const description = "og:description"
 
 export default {
-  components: { ExternalLink, PanelSection, PropertiesList, ResourceList },
+  components: { ExternalLink, PanelSection, PropertiesList, ResourceList, AppTooltip, PropertyData },
   data() {
     return {
       iframeHeight: "auto",
       imageDimensions: { width: undefined, height: undefined },
-      previewUrl: ""
+      previewUrl: "",
+      tooltip:{
+        title:{
+          exist:"",
+          required:false, 
+          tag: "", 
+          value: "", 
+        },
+
+        description:{
+          exist:"", 
+          required: true, 
+          tag: description, 
+          value: "", 
+          valuelength:{
+            max: 300, 
+            tooLong:""
+          },  
+        },
+
+        image:{
+          exist:"", 
+          hasvariation:false, 
+          required:false, 
+          requiredsizes:{
+            minimim:{
+              width:100, 
+              height:100
+            }, 
+            variation:{
+              width:"", 
+              height:""
+            }
+          }, 
+          size:{
+            width:"", 
+            height:""
+          },  
+          tag: "og:image", 
+        }
+      }
     };
   },
   computed: {
     ...mapState(["head"]),
     hasDescription() {
-      const whatsappDescription = this.propertyValue(ogDescription);
+      const whatsappDescription = this.propertyValue(description);
       if (whatsappDescription !== null && whatsappDescription.length > 0) {
         return true;
       }
       return false;
     },
     title() {
-      return this.head.title || "";
+      // if(this.propertyValue("og:title") !== null){
+      //   this.tooltip.title.tag = "og:title"
+      //   this.tooltip.title.value = this.propertyValue("og:title")
+      //   this.tooltip.title.exist = true
+      // }      
+      // else if(this.head.title !== null) 
+      // {
+      //   this.tooltip.title.tag = "<title>"
+      //   this.tooltip.title.value = this.head.title
+      //   this.tooltip.title.exist = false
+      // }
+      // else{
+      //   this.tooltip.title.tag = false
+      //   this.tooltip.title.value = false
+      //   this.tooltip.title.exist = false
+      // }
+
+      return this.propertyValue("og:title")||this.head.title || "";
     },
     description() {
+      // if(this.propertyValue(description) !== null){
+      //   this.tooltip.description.value = this.propertyValue(description)
+      //   this.tooltip.description.exist = true
+      //   this.tooltip.description.valueLength.tooLong = this.propertyValue(description).length > 300
+      // }      
+      // else{
+      //   this.tooltip.description.exist = false
+      // }
       return this.og.description;
     },
     image() {
       if (this.og.image !== undefined) {
         return this.absoluteUrl(this.og.image);
       }
+      else{
       return this.og.image;
+      }
     },
     url() {
       return this.head.url;
@@ -140,7 +273,7 @@ export default {
     og() {
       return {
         title: this.propertyValue("og:title"),
-        description: this.propertyValue("og:description"),
+        description: this.propertyValue(description),
         type: this.propertyValue("og:type"),
         image: this.propertyValue("og:image"),
         url: this.propertyValue("og:url")
@@ -152,25 +285,29 @@ export default {
   },
   created() {
     findImageDimensions(this.head, "og:image").then(imageDimensions => {
+      
       this.imageDimensions = imageDimensions;
-      this.previewUrl = this.getPreviewUrl({ imageDimensions });
-      const { width, height } = imageDimensions;
+      this.setTooltipData(imageDimensions)
 
-      if (width >= 100 && height < 100) {
-        console.log(
-          `The image height is too small. You need at least 100px instead of ${height}px`
-        );
-      }
-      if (width < 100 && height >= 100) {
-        console.log(
-          `The image width is too small. You need at least 100px instead of ${width}px`
-        );
-      }
-      if (width < 100 && height < 100) {
-        console.log(
-          `The image width and height are too small. You need at least 100px of width instead of ${width}px and 100px of height instead of ${height}px`
-        );
-      }
+      this.previewUrl = this.getPreviewUrl({ imageDimensions });
+      // const { width, height } = imageDimensions;
+
+      
+      // if (width >= 100 && height < 100) {
+      //   console.log(
+      //     `The image height is too small. You need at least 100px instead of ${height}px`
+      //   );
+      // }
+      // if (width < 100 && height >= 100) {
+      //   console.log(
+      //     `The image width is too small. You need at least 100px instead of ${width}px`
+      //   );
+      // }
+      // if (width < 100 && height < 100) {
+      //   console.log(
+      //     `The image width and height are too small. You need at least 100px of width instead of ${width}px and 100px of height instead of ${height}px`
+      //   );
+      // }
     });
   },
   destroyed() {
@@ -186,6 +323,35 @@ export default {
 
       return "";
     },
+    setTooltipData(imageDimensions){
+      if(this.propertyValue("og:title") !== null){
+        this.tooltip.title.tag = "og:title"
+        this.tooltip.title.value = this.propertyValue("og:title")
+        this.tooltip.title.exist = true
+      }      
+      else if(this.head.title !== null) 
+      {
+        this.tooltip.title.tag = "<title>"
+        this.tooltip.title.value = this.head.title
+        this.tooltip.title.exist = false
+      }
+      else{
+        this.tooltip.title.tag = false
+        this.tooltip.title.value = false
+        this.tooltip.title.exist = false
+      }
+
+      if(this.propertyValue(description) !== null){
+        this.tooltip.description.value = this.propertyValue(description)
+        this.tooltip.description.exist = true
+        this.tooltip.description.valuelength.tooLong = this.propertyValue(description).length > 300
+      }      
+      else{
+        this.tooltip.description.exist = false
+      }
+      this.og.image !== undefined? this.tooltip.image.exist=true: this.tooltip.image.exist=false
+      this.tooltip.image.size = imageDimensions
+    },
     metaValue(metaName) {
       return findMetaContent(this.head, metaName);
     },
@@ -195,7 +361,7 @@ export default {
     getPreviewUrl({ imageDimensions }) {
       const params = new URLSearchParams();
       params.set("title", this.og.title || this.title);
-      params.set("description", this.og.description);
+      params.set("description", this.description);
       if (imageDimensions.height >= 100 && imageDimensions.width >= 100) {
         params.set("image", this.image);
       }
@@ -223,4 +389,24 @@ export default {
 .whatsapp__preview-caption {
   color: var(--label-color);
 }
+
+.properties-item__tooltip{
+  display: inline-block;
+}
+
+@media (min-width: 500px) {
+  .properties-item {
+    display: flex;
+    align-items: flex-start;
+  }
+  .properties-item__term {
+    display: flex;
+    justify-content: flex-end;
+    width: var(--term-width-small);
+    padding-right: 5px;
+  }
+  .properties-item__term * + * {
+    margin-left: 0.15rem;
+  }
+  }
 </style>
