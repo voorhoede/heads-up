@@ -35,17 +35,27 @@ function getHostName(url) {
 }
 
 function getwhatsappMarkup({ title, description, image, url, }) {
+  const imagePreviewHtml = image
+    ? html`<div class="whatsapp-preview__media">
+      <img src="${image}" class="whatsapp-preview__image">
+    </div>`
+    : ''
+
+  const previewTitleHtml = title !== 'undefined'
+    ? html`<div class="whatsapp-preview__title">${title}</div>`
+    : ''
+
   return html`
     <div class="whatsapp-preview">
       <a rel="noopener" target="_blank">
         <div class="whatsapp-top">
-          ${image ? html`<div class="whatsapp-preview__media"><img src="${image}" class="whatsapp-preview__image" /></div>` : ``}
+          ${imagePreviewHtml}
           <div>
             <div class="whatsapp-preview__content">
-              ${title !== 'undefined' ? html`<div class="whatsapp-preview__title">${title}</div>` : ''}
+              ${previewTitleHtml}
               <div class="whatsapp-preview__description">${description}</div>
             </div>
-            <div class="whatsapp-preview__url">${ getHostName(url)}</div>
+            <div class="whatsapp-preview__url">${getHostName(url)}</div>
           </div>
         </div>
         <div class="whatsapp-preview__domain">
