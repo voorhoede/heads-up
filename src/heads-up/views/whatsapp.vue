@@ -28,39 +28,39 @@
         <dl>
           <template>
             <dt class="title">
-              <app-tooltip      
+              <app-tooltip
                 class="properties-item__tooltip"
                 placement="bottom-start"
               >
                 og:title
                 <template v-slot:info>
-                  <property-data 
-                    type="og:title" 
-                    :exist="tooltip.title.exist" 
-                    :tag="tooltip.title.tag" 
-                    :value="tooltip.title.content" 
+                  <property-data
+                    type="og:title"
+                    :exist="tooltip.title.exist"
+                    :tag="tooltip.title.tag"
+                    :value="tooltip.title.content"
                   />
                 </template>
               </app-tooltip>
-            </dt>   
+            </dt>
             <dd>
               {{ title }}
             </dd>
           </template>
           <template>
             <dt>
-              <app-tooltip      
+              <app-tooltip
                 class="properties-item__tooltip"
                 placement="bottom-start"
               >
                 og:description
                 <template v-slot:info>
-                  <property-data 
-                    type="og:description" 
-                    :exist="tooltip.description.exist" 
-                    :required="tooltip.description.required" 
-                    :tag="tooltip.description.tag" 
-                    :value="tooltip.description.value" 
+                  <property-data
+                    type="og:description"
+                    :exist="tooltip.description.exist"
+                    :required="tooltip.description.required"
+                    :tag="tooltip.description.tag"
+                    :value="tooltip.description.value"
                     :value-length="tooltip.description.valueLength"
                   />
                 </template>
@@ -72,20 +72,20 @@
           </template>
           <template>
             <dt>
-              <app-tooltip      
+              <app-tooltip
                 v-if="showTooltip"
                 class="properties-item__tooltip"
                 placement="bottom-start"
               >
                 og:image
                 <template v-slot:info>
-                  <property-data 
+                  <property-data
                     type="og:image"
-                    :exist="tooltip.image.exist" 
+                    :exist="tooltip.image.exist"
                     :has-variation="tooltip.image.hasVariation"
                     :required-sizes="tooltip.image.requiredSizes"
                     :size="tooltip.image.size"
-                    :tag="tooltip.image.tag" 
+                    :tag="tooltip.image.tag"
                   />
                 </template>
               </app-tooltip>
@@ -154,41 +154,41 @@ export default {
       tooltip: {
         title: {
           exist: null,
-          required: false, 
-          tag: null, 
-          value: null, 
+          required: false,
+          tag: null,
+          value: null,
         },
 
         description: {
-          exist: null, 
-          required: true, 
+          exist: null,
+          required: true,
           tag: "og:description",
-          value: null, 
+          value: null,
           valueLength: {
-            max: 300, 
+            max: 300,
             tooLong: null
-          },  
+          },
         },
 
         image: {
-          exist: false, 
-          hasVariation: false, 
-          required: false, 
+          exist: false,
+          hasVariation: false,
+          required: false,
           requiredSizes: {
             minimum: {
-              width: 100, 
+              width: 100,
               height: 100
-            }, 
+            },
             variation: {
-              width: null, 
+              width: null,
               height: null
             }
-          }, 
+          },
           size: {
-            width: null, 
+            width: null,
             height: null
-          },  
-          tag: "og:image", 
+          },
+          tag: "og:image",
         }
       }
     };
@@ -203,7 +203,7 @@ export default {
       return false;
     },
     title() {
-       return this.propertyValue("og:title")||this.head.title || "";
+      return this.propertyValue("og:title")||this.head.title || "";
     },
     description() {
       return this.og.description;
@@ -276,11 +276,11 @@ export default {
       } else {
         this.tooltip.description.exist = false
       }
-      
+
       this.og.image
         ? this.tooltip.image.exist = true
         : this.tooltip.image.exist = false
-      
+
       this.tooltip.image.size = imageDimensions
     },
     metaValue(metaName) {
@@ -293,7 +293,7 @@ export default {
       const params = new URLSearchParams();
       params.set("title", this.og.title || this.title);
       params.set("description", this.description);
-      
+
       if (imageDimensions.height >= 100 && imageDimensions.width >= 100) {
         params.set("image", this.image);
       }
