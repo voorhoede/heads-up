@@ -12,7 +12,6 @@ function createPreview() {
   const isValidImage = (params.get('validImage') === "true")
   let additionalData
 
-
   try {
     additionalData = JSON.parse(params.get('additionalData'))
   } catch (err) {
@@ -71,14 +70,14 @@ function getImageFileSize(image) {
 function getslackMarkup({ title, image, url, imageIsBig, favicon, description, imageSize, additionalData }) {
 
   return html`
-        <a rel="noopener" target="_blank" class="slack-preview__container">
-          <span class="slack-preview__sidebar"></span>
-          <div class="slack-preview__content ${imageIsBig ? "" : "slack-preview__small"}">
-          <div class="slack-preview__content-information">
-            <div class="slack-preview__domain">
-              ${favicon ? html`
+    <a rel="noopener" target="_blank" class="slack-preview__container">
+      <span class="slack-preview__sidebar"></span>
+      <div class="slack-preview__content ${imageIsBig ? "" : "slack-preview__small"}">
+        <div class="slack-preview__content-information">
+          <div class="slack-preview__domain">
+            ${favicon ? html`
               <div class="slack-preview__hostname">
-              <img class="slack-preview__favicon" src="${favicon}" alt="">${getHostName(url)}
+                <img class="slack-preview__favicon" src="${favicon}" alt="">${getHostName(url)}
               </div>
             </div>` : ``}
             <div class="slack-preview__title">
@@ -86,17 +85,17 @@ function getslackMarkup({ title, image, url, imageIsBig, favicon, description, i
             </div>
             <div class="slack-preview__description">
               <p>
-              ${ description}
-              ${imageIsBig ? html`<span class="slack-preview__filesize">(${imageSize}</span><span class="slack-preview__expand">▼</span>)` : ``}
+                ${ description}
+                ${imageIsBig ? html`<span class="slack-preview__filesize">(${imageSize}</span><span class="slack-preview__expand">▼</span>)` : ``}
               </p>
             </div>
             ${additionalData === undefined ? '' : html`
             <div class="slack-preview__additional">
-            ${additionalData.map(x => { return html`<div class="slack-preview__additional-item"><strong>${x.label}</strong><p>${x.value}</p></div>` }).join("")}
+              ${additionalData.map(x => { return html`<div class="slack-preview__additional-item"><strong>${x.label}</strong><p>${x.value}</p></div>` }).join("")}
             </div>
             `}
-            </div>
-            ${image ? html`
+          </div>
+          ${image ? html`
             <div class="slack-preview__image-container">
               <img src="${image}" class="slack-preview__image"/>
             </div>` : ''}
@@ -107,5 +106,5 @@ function getslackMarkup({ title, image, url, imageIsBig, favicon, description, i
           <img class="slack-preview__emoji-image" src="${require('./assets/parrot.gif').default}" alt="">
           <p class="slack-preview__emoji-count">${Math.floor(Math.random() * 8) + 1}</p>
         </div>
-`
+  `
 }
