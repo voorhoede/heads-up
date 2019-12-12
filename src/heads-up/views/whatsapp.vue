@@ -256,9 +256,12 @@ export default {
       return "";
     },
     setTooltipData(imageDimensions) {
-      if (this.propertyValue("og:title") !== null) {
+      const ogTitlePropertyValue = this.propertyValue("og:title")
+      const ogDescriptionPropertyValue = this.propertyValue("og:description")
+
+      if (ogTitlePropertyValue !== null) {
         this.tooltip.title.tag = "og:title"
-        this.tooltip.title.value = this.propertyValue("og:title")
+        this.tooltip.title.value = ogTitlePropertyValue
         this.tooltip.title.exist = true
       } else if (this.head.title !== null) {
         this.tooltip.title.tag = "<title>"
@@ -270,10 +273,10 @@ export default {
         this.tooltip.title.exist = false
       }
 
-      if (this.propertyValue("og:description") !== null) {
-        this.tooltip.description.value = this.propertyValue("og:description")
+      if (ogDescriptionPropertyValue !== null) {
+        this.tooltip.description.value = ogDescriptionPropertyValue
         this.tooltip.description.exist = true
-        this.tooltip.description.valueLength.tooLong = this.propertyValue("og:description").length > 300
+        this.tooltip.description.valueLength.tooLong = ogDescriptionPropertyValue.length > 300
       } else {
         this.tooltip.description.exist = false
       }
@@ -303,10 +306,7 @@ export default {
       return `/whatsapp-preview/whatsapp-preview.html?${params}`;
     },
     onResize() {
-      this.iframeHeight =
-        parseInt(
-          this.$refs.iframe.contentWindow.document.body.scrollHeight + 2
-        ) + "px";
+      this.iframeHeight = parseInt(this.$refs.iframe.contentWindow.document.body.scrollHeight + 2) + "px";
     }
   }
 };
