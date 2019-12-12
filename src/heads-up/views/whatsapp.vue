@@ -197,9 +197,11 @@ export default {
     ...mapState(["head"]),
     hasDescription() {
       const whatsappDescription = this.propertyValue("og:description");
+
       if (whatsappDescription !== null && whatsappDescription.length > 0) {
         return true;
       }
+
       return false;
     },
     title() {
@@ -211,8 +213,7 @@ export default {
     image() {
       if (this.og.image !== undefined) {
         return this.absoluteUrl(this.og.image);
-      }
-      else {
+      } else {
         return this.og.image;
       }
     },
