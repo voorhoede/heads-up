@@ -78,10 +78,7 @@ export default {
   computed: {
     ...mapState(["head"]),
     hasRequiredData() {
-      return (
-        this.propertyValue("og:title") !== null ||
-        this.propertyValue("og:description") !== null
-      );
+      return this.og.title !== null || this.og.description !== null;
     },
     og() {
       return {
@@ -105,10 +102,6 @@ export default {
     findImageDimensions(this.head, "og:image").then(imageDimensions => {
       this.imageDimensions = imageDimensions;
       this.previewUrl = this.getPreviewUrl({ imageDimensions });
-
-      if (imageDimensions.height === 0 || imageDimensions.width === 0) {
-        console.log(`og.image can't be loaded`);
-      }
     });
   },
   destroyed() {
@@ -147,10 +140,7 @@ export default {
       return `/slack-preview/slack-preview.html?${params}`;
     },
     onResize() {
-      this.iframeHeight =
-        parseInt(
-          this.$refs.iframe.contentWindow.document.body.scrollHeight + 2
-        ) + "px";
+      this.iframeHeight = parseInt(this.$refs.iframe.contentWindow.document.body.scrollHeight + 2) + "px";
     }
   }
 };
