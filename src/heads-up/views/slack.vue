@@ -11,8 +11,6 @@
           :src="previewUrl"
           :height="iframeHeight"
           width="100%"
-          frameborder="0"
-          scrolling="no"
           class="slack__preview"
           @load="onResize"
         />
