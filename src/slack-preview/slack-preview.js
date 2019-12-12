@@ -88,24 +88,24 @@ function getslackMarkup({ title, image, url, imageIsBig, favicon, description, i
               <p>
               ${ description}
               ${imageIsBig ? html`<span class="slack-preview__filesize">(${imageSize}</span><span class="slack-preview__expand">▼</span>)` : ``}
-              </p>           
+              </p>
             </div>
             ${additionalData === undefined ? '' : html`
             <div class="slack-preview__additional">
             ${additionalData.map(x => { return html`<div class="slack-preview__additional-item"><strong>${x.label}</strong><p>${x.value}</p></div>` }).join("")}
             </div>
-            `} 
+            `}
             </div>
             ${image ? html`
-            <div class="slack-preview__image-container"> 
-              <img src="${image}" class="slack-preview__image"/> 
+            <div class="slack-preview__image-container">
+              <img src="${image}" class="slack-preview__image"/>
             </div>` : ''}
           </div>
-        </a>   
-        
+        </a>
+
         <div class="slack-preview__emoji">
-          <img src="${require('./assets/parrot.gif').default}" alt="">
-          <p>${Math.floor(Math.random() * 8) + 1}</p>
+          <img class="slack-preview__emoji-image" src="${require('./assets/parrot.gif').default}" alt="">
+          <p class="slack-preview__emoji-count">${Math.floor(Math.random() * 8) + 1}</p>
         </div>
 `
 }
