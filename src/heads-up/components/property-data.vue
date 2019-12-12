@@ -4,39 +4,40 @@
 <script>
 
 function isDefined(tag) {
-    const isImg = tag === 'og:image'
-    return `There is no ${tag} defined. You can create the ${tag} in the <head> like <meta property="${tag}" content="${isImg?'your source':'your content'}.">`
-    
+  const isImg = tag === 'og:image'
+  return `There is no ${tag} defined. You can create the ${tag} in the <head> like <meta property="${tag}" content="${isImg?'your source':'your content'}."> `
 }
 
 function isTooLong(length) {
-        return `The content has more than ${length} characters. Consider shorten your content.`
+  return `The content has more than ${length} characters. Consider shorten your content. `
 }
 
 function isRequired(tag) {
-        return `The ${tag} is required to create an unfurling link on the platform.`
+  return `The ${tag} is required to create an unfurling link on the platform. `
 }
 
-// function isBigImg(tag, smallVariant, imgSize, requiredSize) {
-//     if (smallVariant) {
-//         return`The ${tag} is ${imgSize.width} by ${imgSize.height}px, where ${requiredSize.width} by ${requiredSize.height}px is required for a big unfurling preview`        
-//     }
-//     if(requiredSize.width > imgSize.width || requiredSize.height > imgSize.height){
-//     return `The ${tag} sizes are too small for a preview. You need at least an image of ${requiredSize.width} by ${requiredSize.height}px`
-//     }
-// }
+function isBigImg(tag, smallVariant, imgSize, requiredSize) {
+  if (smallVariant) {
+    return`The ${tag} is ${imgSize.width} by ${imgSize.height}px, where ${requiredSize.width} by ${requiredSize.height}px is required for a big unfurling preview. `
+  }
+  
+  if (requiredSize.minimum.width > imgSize.width || requiredSize.minimum.height > imgSize.height){
+    return `The ${tag} sizes are too small for a preview. You need at least an image of ${requiredSize.minimum.width} by ${requiredSize.minimum.height}px. `
+  }
+  
+  return ""
+}
 
-// function isCorrectUrl(tag, correct){
-//    if (correct) {
-//       return 
-//    }
-//    else{
-//        return `The ${tag} URL can't be reached.`
-//    }
-// }
+function isCorrectUrl(tag, correct){
+   if (correct) {
+      return ""
+   }
+   
+  return `The ${tag} URL can't be reached. `
+}
 
 export default {
-    props: {  
+  props: {  
     exist: {
       type: Boolean,
       default: true,
@@ -47,93 +48,55 @@ export default {
     },    
     type: {
       type: String,
-      default: "",
+      default: null,
     },
     tag: {
       type: String,
-      default: "",
+      default: null,
     },
     value: {
       type: String,
-      default: "",
+      default: null,
     },
-    valuelength: {
+    valueLength: {
       type: Object,
-      default: ()=>{},
+      default: () => ({ })
     },
     hasVariation:{
-        type: Boolean,
-        default: false,
+      type: Boolean,
+      default: false,
     },
     requiredSizes: {
-        type: Object,
-        default: ()=>{},
+      type: Object,
+      default: () => ({ })
     },
-    size:{
-        type: Object,
-        default: ()=>{}
-    }                        
+    size: {
+      type: Object,
+      default: () => ({ })
+    },
   },
  computed: {
      tooltipMessage () {
-     let result = ``
-     if (this.type === "og.image") {
-       console.log(this);
-     }
-     this.required? result += isRequired(this.tag) : ''
-     this.exist? '' :result += isDefined(this.type)
+      let result = ``
 
-    if (this.valuelength !== undefined) {
-        this.valuelength.tooLong? result += isTooLong(this.valueLength.max) : ''
-    }
+      this.required ? result += isRequired(this.tag) : ''
+      this.exist ? '' : result += isDefined(this.type) 
 
-    // switch (this.tag) {
-    //              case "og:description": 
-    //              result += isToLong(this.content, this.maxlength)
-    //              break;
-    //              case "og:image":
-    //             result += "og:image" 
-    //              break;
-    //              case "og:title":
+      if (this.valueLength !== undefined) {
+          this.valueLength.tooLong ? result += isTooLong(this.valueLength.max) : ''
+      }
 
-    //              break;    
-    //    }
-       return result      
-     },
-// isDefined(tag) {
-//     const isImg = tag === 'og:image'
-//     return `There is no ${tag} defined. You can create the ${tag} in the <head> like <meta property="${tag}" content="${isImg?'your content':'your source'}">`
-// },
-// isToLong(content, length) {
-//     if (content.length > length){
+      if (this.type === "og:image") {  
+        result += isCorrectUrl(this.type, this.exist)
+        result += isBigImg(this.type, this.hasVariation, this.size, this.requiredSizes)
+      }
 
-//     }
-// },
-// isRequired(tag) {
-//     return `The ${tag} is required to create an unfurling link on the platform`
-// },
-// isBigImg(tag, smallVariant, imgSize, requiredSize) {
-//     if (smallVariant) {
-//         return`The ${tag} is ${imgSize.width} by ${imgSize.height}px, where ${requiredSize.width} by ${requiredSize.height}px is required for a big unfurling preview`        
-//     }
-//     if(requiredSize.width > imgSize.width || requiredSize.height > imgSize.height){
-//     return `The ${tag} sizes are too small for a preview. You need at least an image of ${requiredSize.width} by ${requiredSize.height}px`
-//     }
-// },
-// isCorrectUrl(tag, correctUrl){
-//    if (correctUrl) {
-//       return 
-//    }
-//    else{
-//        return `The ${tag} URL can't be reached.`
-//    }
-// },
+      if (result.length === 0) {
+        result += `The ${this.type} tag is perfectly implemented. `
+      }
 
- }
-
+      return result
+    },
+  }
 }
 </script>
-<style>
-
-
-</style>
