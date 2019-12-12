@@ -11,8 +11,6 @@
           :src="previewUrl"
           :height="iframeHeight"
           width="100%"
-          frameborder="0"
-          scrolling="no"
           class="linkedin__preview"
           @load="onResize"
         />
@@ -35,10 +33,7 @@
           <dt>og:image</dt>
           <dd>
             <external-link :href="absoluteUrl(og.image)">
-              <img
-                alt
-                :src="absoluteUrl(og.image)"
-              >
+              <img :src="absoluteUrl(og.image)">
               <span>{{ og.image }}</span>
             </external-link>
             <p v-if="imageDimensions">
@@ -72,9 +67,8 @@ export default {
   computed: {
     ...mapState(["head"]),
     hasOgImage() {
-      return this.og.image ? true : false;
+      return Boolean(this.og.image);
     },
-
     og() {
       return {
         title: this.propertyValue("og:title"),
@@ -89,10 +83,6 @@ export default {
     findImageDimensions(this.head, "og:image").then(imageDimensions => {
       this.imageDimensions = imageDimensions;
       this.previewUrl = this.getPreviewUrl({ imageDimensions });
-
-      if (imageDimensions.height === 0 || imageDimensions.width === 0) {
-        console.log(`og.image can't be loaded`);
-      }
     });
   },
   destroyed() {
@@ -118,13 +108,11 @@ export default {
         "imageIsBig",
         imageDimensions.height > 400 && imageDimensions.width > 400
       );
+
       return `/linkedin-preview/linkedin-preview.html?${params}`;
     },
     onResize() {
-      this.iframeHeight =
-        parseInt(
-          this.$refs.iframe.contentWindow.document.body.scrollHeight + 2
-        ) + "px";
+      this.iframeHeight = parseInt(this.$refs.iframe.contentWindow.document.body.scrollHeight + 2) + "px";
     }
   }
 };
