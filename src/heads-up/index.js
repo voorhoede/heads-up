@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import * as actions from './lib/message-actions'
 import router from './router'
-import Tooltip from 'vue-directive-tooltip'
+import VTooltip from 'v-tooltip'
 import { createStore } from './store'
 const store = createStore();
 const background = chrome.runtime.connect({ name: 'devtools' })
@@ -22,7 +22,7 @@ background.onMessage.addListener((message) => {
   }
 })
 
-Vue.use(Tooltip)
+Vue.use(VTooltip)
 Vue.config.devtools = true
 
 import './style/index.css'

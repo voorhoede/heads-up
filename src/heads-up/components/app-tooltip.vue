@@ -1,152 +1,124 @@
 <template>
-  <span
-    v-tooltip.top="{ ref: 'tooltip' }"
+  <v-popover
+    trigger="hover"
+    :placement="placement"
+    :delay="{ show: 500 }"
+    offset="10"
+    :popover-inner-class="[themeClass, 'tooltip-inner']"
+    :popover-arrow-class="[themeClass, 'tooltip-arrow']"
+    open
   >
     <slot />
 
-    <span ref="tooltip">
+    <span slot="popover">
       <slot name="info" />
       <slot name="link" />
     </span>
-  </span>
+  </v-popover>
 </template>
 
 <script>
+  import getTheme from '../lib/theme'
 export default {
-}
+  props: {
+    placement: {
+      type: String,
+      default: "top-end"
+    }
+  },
+  computed:{
+    themeClass() {
+        /**
+         * class '-theme-with-dark-background' is taken from original dev tools repo
+         * src: https://github.com/ChromeDevTools/devtools-frontend/blob/02a851d01de158d8c0a8fd1d3af06649b5379bd6/front_end/ui/inspectorStyle.css
+         */
+        return getTheme() === 'dark' ? '-theme-with-dark-background' : ''
+      },
+  }
+};
 </script>
 
 <style>
-  .vue-tooltip {
-    width: 150px;
-    padding: 5px 8px;
-    background-color: var(--selection-fg-color);
-    border-radius: 2px;
-    color: hsl(0, 0%, 20%);
-    line-height: 14px;
-    text-align: left;
-    filter: drop-shadow(0 1px 2px hsla(0, 0%, 0%, 0.3));
-    border: 1px solid hsla(0, 0%, 0%, 0.1);
-  }
+.tooltip {
+  display: block !important;
+  z-index: 10000;
+}
 
-  .vue-tooltip::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    height: 1.2rem;
-  }
+.tooltip .tooltip-inner {
+  background: #ededed;
+  color: hsl(0, 0%, 20%);
+  border-radius: 2px;
+  padding: 5px 10px 4px;
+  z-index: 1;
+}
 
+.tooltip .tooltip-arrow {
+  width: 0;
+  height: 0;
+  position: absolute;
+  border: 5px solid #ededed;
+  box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.2);
+  left: calc(50% - 5px);
+  transform: rotate(45deg);
+}
 
-  .-theme-with-dark-background .vue-tooltip {
-    background-color: var(--toolbar-bg-color);
-    color: var(--base-color);
-    border: 1px solid var(--base-color);
-  }
+.tooltip[x-placement^="top"] {
+  margin-bottom: 5px;
+}
 
-  .vue-tooltip .vue-tooltip-hidden {
-    transform: translateX(-100000px) !important;
-  }
+.tooltip[x-placement^="top"] .tooltip-arrow {
+  bottom: -5px;
+  margin: 0 5px;
+}
 
-  .vue-tooltip .tooltip-arrow {
-    --toolbar-bg-color: #fff;
-    content: "";
-    width: 0;
-    height: 0;
-    border-style: solid;
-    position: absolute;
-    margin: 5px;
-  }
+.tooltip[x-placement^="bottom"] {
+  margin-top: 5px;
+}
 
-  .-theme-with-dark-background .vue-tooltip .tooltip-arrow {
-    --toolbar-bg-color: #333333;
-  }
+.tooltip[x-placement^="bottom"] .tooltip-arrow {
+  top: -5px;
+  margin: 0 5px;
+}
 
-  .vue-tooltip[x-out-of-boundaries] {
-    display: none;
-  }
+.tooltip[x-placement^="right"] {
+  margin-left: 5px;
+}
 
-  .vue-tooltip[x-placement^="bottom"] {
-    margin-top: 5px;
-  }
+.tooltip[x-placement^="right"] .tooltip-arrow {
+  left: -5px;
+  margin: 5px 0;
+}
 
-  .vue-tooltip[x-placement^="bottom"] .tooltip-arrow {
-    top: -10px;
-    border-width: 0 10px 10px 10px;
-    border-bottom-color: var(--toolbar-bg-color);
-    border-top-color: transparent !important;
-    border-left-color: transparent !important;
-    border-right-color: transparent !important;
-    margin-top: 0;
-    margin-bottom: 0;
-  }
+.tooltip[x-placement^="left"] {
+  margin-right: 5px;
+}
 
-  .-theme-with-dark-background .vue-tooltip[x-placement^="bottom"] .tooltip-arrow::after {
-    content: '';
-    display: block;
-    top: -7px;
-    border-width: 11px 11px 0 11px;
-    border-top-color: var(--base-color);
-    border-bottom-color: transparent !important;
-    border-left-color: transparent !important;
-    border-right-color: transparent !important;
-    margin-top: 0;
-    margin-bottom: 0;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    position: absolute;
-    margin: 5px;
-    left: -16px;
-    z-index: -1;
-    transform: rotate(180deg);
-  }
+.tooltip[x-placement^="left"] .tooltip-arrow {
+  right: -5px;
+  margin: 5px 0;
+}
 
-  .vue-tooltip[x-placement^="top"] {
-    margin-bottom: 5px;
-  }
+.tooltip[aria-hidden="true"] {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.15s, visibility 0.15s;
+}
 
-  .vue-tooltip[x-placement^="top"] .tooltip-arrow {
-    bottom: -10px;
-    border-width: 10px 10px 0 10px;
-    border-top-color: var(--toolbar-bg-color);
-    border-bottom-color: transparent !important;
-    border-left-color: transparent !important;
-    border-right-color: transparent !important;
-    margin-top: 0;
-    margin-bottom: 0;
-  }
+.tooltip[aria-hidden="false"] {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.15s;
+  box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.2);
+  max-width: calc(75vw - var(--sidebar-width));
+}
 
-  .-theme-with-dark-background .vue-tooltip[x-placement^="top"] .tooltip-arrow::after {
-    content: '';
-    display: block;
-    bottom: -7px;
-    border-width: 11px 11px 0 11px;
-    border-top-color: var(--base-color);
-    border-bottom-color: transparent !important;
-    border-left-color: transparent !important;
-    border-right-color: transparent !important;
-    margin-top: 0;
-    margin-bottom: 0;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    position: absolute;
-    margin: 5px;
-    left: -16px;
-    z-index: -1;
-  }
+.-theme-with-dark-background.tooltip-inner {
+background: #3c3c3c;
+color: #dadada;
+}
 
-  @media (min-width: 400px) {
-    .vue-tooltip {
-      width: 200px;
-    }
-  }
+.-theme-with-dark-background.tooltip-arrow  {
+border: 5px solid #3c3c3c;
+}
 
-  @media (min-width: 500px) {
-    .vue-tooltip {
-      width: 300px;
-    }
-  }
 </style>
