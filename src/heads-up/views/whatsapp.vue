@@ -195,20 +195,23 @@ export default {
   },
   computed: {
     ...mapState(["head"]),
-    hasDescription() {
-      const whatsappDescription = this.propertyValue("og:description");
-
-      if (whatsappDescription !== null && whatsappDescription.length > 0) {
-        return true;
-      }
-
-      return false;
+    og() {
+      return {
+        title: this.propertyValue("og:title"),
+        description: this.propertyValue("og:description"),
+        type: this.propertyValue("og:type"),
+        image: this.propertyValue("og:image"),
+        url: this.propertyValue("og:url")
+      };
     },
     title() {
-      return this.propertyValue("og:title")||this.head.title || "";
+      return this.og.title || this.head.title || "";
     },
     description() {
       return this.og.description;
+    },
+    hasDescription() {
+      return this.og.description !== null && this.og.description.length > 0
     },
     image() {
       if (this.og.image !== undefined) {
@@ -220,15 +223,6 @@ export default {
     url() {
       return this.head.url;
     },
-    og() {
-      return {
-        title: this.propertyValue("og:title"),
-        description: this.propertyValue("og:description"),
-        type: this.propertyValue("og:type"),
-        image: this.propertyValue("og:image"),
-        url: this.propertyValue("og:url")
-      };
-    }
   },
   mounted() {
     window.addEventListener("resize", this.onResize);
@@ -256,12 +250,9 @@ export default {
       return "";
     },
     setTooltipData(imageDimensions) {
-      const ogTitlePropertyValue = this.propertyValue("og:title")
-      const ogDescriptionPropertyValue = this.propertyValue("og:description")
-
-      if (ogTitlePropertyValue !== null) {
+      if (this.og.title !== null) {
         this.tooltip.title.tag = "og:title"
-        this.tooltip.title.value = ogTitlePropertyValue
+        this.tooltip.title.value = this.og.title
         this.tooltip.title.exist = true
       } else if (this.head.title !== null) {
         this.tooltip.title.tag = "<title>"
@@ -273,10 +264,10 @@ export default {
         this.tooltip.title.exist = false
       }
 
-      if (ogDescriptionPropertyValue !== null) {
-        this.tooltip.description.value = ogDescriptionPropertyValue
+      if (this.og.description !== null) {
+        this.tooltip.description.value = this.og.description
         this.tooltip.description.exist = true
-        this.tooltip.description.valueLength.tooLong = ogDescriptionPropertyValue.length > 300
+        this.tooltip.description.valueLength.tooLong = this.og.description.length > 300
       } else {
         this.tooltip.description.exist = false
       }
