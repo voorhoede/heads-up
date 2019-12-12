@@ -44,10 +44,10 @@ export function findImageDimensions(head, name) {
     .then(({ width, height }) => ({ width, height }))
 }
 
-
 function AdditionSlackCheck(head, name) {
   const item = head.meta.find(item => item.name === name)
-  return item ? item.value
+  return item
+    ? item.value
     : null
 }
 
