@@ -1,7 +1,9 @@
 <template>
   <div>
     <panel-section title="Preview">
-      <p v-if="!hasRequiredData">This page does not contain og:image meta data to create a preview.</p>
+      <p v-if="!hasRequiredData">
+        This page does not contain og:image meta data to create a preview.
+      </p>
 
       <figure v-if="hasRequiredData">
         <iframe
@@ -16,7 +18,9 @@
         />
         <figcaption class="slack__preview-caption">
           Preview based on
-          <external-link href="https://slack.com/">slack.com</external-link>.
+          <external-link href="https://slack.com/">
+            slack.com
+          </external-link>.
         </figcaption>
       </figure>
     </panel-section>
@@ -31,10 +35,15 @@
           <dt>og:image</dt>
           <dd>
             <external-link :href="absoluteUrl(og.image)">
-              <img alt :src="absoluteUrl(og.image)" />
+              <img
+                alt
+                :src="absoluteUrl(og.image)"
+              >
               <span>{{ og.image }}</span>
             </external-link>
-            <p v-if="imageDimensions">({{ imageDimensions.width }} x {{ imageDimensions.height }}px)</p>
+            <p v-if="imageDimensions">
+              ({{ imageDimensions.width }} x {{ imageDimensions.height }}px)
+            </p>
           </dd>
         </template>
         <template v-if="og.description">
