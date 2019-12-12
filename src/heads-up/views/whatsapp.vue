@@ -27,7 +27,7 @@
       <properties-list>
         <dl>
           <template>
-            <dt class="title">
+            <dt>
               <app-tooltip
                 class="properties-item__tooltip"
                 placement="bottom-start"
