@@ -90,7 +90,6 @@ export default {
     additional() {
       return {
         favicon: findFavicons(this.head)[0].url,
-        // How to rename this better?
         additionalData: findAdditionSlackData(this.head)
       };
     }
