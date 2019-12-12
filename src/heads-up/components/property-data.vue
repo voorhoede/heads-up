@@ -43,7 +43,7 @@ export default {
     },
   },
  computed: {
-     tooltipMessage () {
+    tooltipMessage () {
       let result = ``
 
       this.required ? result += this.isRequired(this.tag) : ''
