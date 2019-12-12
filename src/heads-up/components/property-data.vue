@@ -68,8 +68,9 @@ export default {
   methods: {
     isDefined(tag) {
       const isImg = tag === 'og:image'
+      const metaTagContent = isImg ? 'Your source' : 'Your content'
 
-      return `There is no ${tag} defined. You can create the ${tag} in the <head> like <meta property="${tag}" content="${isImg?'your source':'your content'}."> `
+      return `There is no ${tag} defined. You can create the ${tag} in the <head> like <meta property="${tag}" content="${metaTagContent}."> `
     },
     isTooLong(length) {
       return `The content has more than ${length} characters. Consider shorten your content. `
