@@ -320,10 +320,6 @@ export default {
   border: none;
 }
 
-.whatsapp__preview html {
-  overflow: hidden;
-}
-
 .whatsapp__preview-caption {
   color: var(--label-color);
 }
