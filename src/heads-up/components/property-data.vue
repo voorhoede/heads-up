@@ -54,8 +54,8 @@ export default {
       }
 
       if (this.type === "og:image") {
-        result += this.isCorrectUrl(this.type, this.exist)
-        result += this.isBigImg(this.type, this.hasVariation, this.size, this.requiredSizes)
+          result += this.value === null ? this.isCorrectUrl(this.type, this.exist) : ''
+          result += this.isBigImg(this.type, this.hasVariation, this.size, this.requiredSizes)
       }
 
       if (result.length === 0) {
@@ -76,11 +76,11 @@ export default {
       return `The content has more than ${length} characters. Consider shorten your content. `
     },
     isRequired(tag) {
-      return `The ${tag} is required to create an unfurling link on the platform. `
+      return `The ${tag} is required to create an unfurling link on this platform. `
     },
     isBigImg(tag, smallVariant, imgSize, requiredSize) {
-      if (smallVariant) {
-        return`The ${tag} is ${imgSize.width} by ${imgSize.height}px, where ${requiredSize.width} by ${requiredSize.height}px is required for a big unfurling preview. `
+      if (smallVariant && requiredSize.variation.width > imgSize.width && requiredSize.variation.height > imgSize.height) {
+        return`The ${tag} is ${imgSize.width} by ${imgSize.height}px, where ${requiredSize.variation.width} by ${requiredSize.variation.height}px is required for a big unfurling preview. `
       }
 
       if (requiredSize.minimum.width > imgSize.width || requiredSize.minimum.height > imgSize.height){

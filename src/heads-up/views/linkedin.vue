@@ -8,6 +8,7 @@
       <figure v-if="hasOgImage">
         <iframe
           ref="iframe"
+          title="linkedin preview"
           :src="previewUrl"
           :height="iframeHeight"
           width="100%"
@@ -25,14 +26,74 @@
 
     <panel-section title="Properties">
       <properties-list>
-        <template v-if="og.title">
-          <dt>og:title</dt>
-          <dd>{{ og.title }}</dd>
+        <template>
+          <dt>
+            <app-tooltip
+              class="properties-item__tooltip"
+              placement="bottom-start"
+            >
+              <div v-if="og.title">
+                og:title
+              </div>
+              <div v-else>
+                og:title
+                <InfoIcon
+                  class="properties-item__icon"
+                />
+              </div>
+              <template v-slot:info>
+                <property-data
+                  type="og:title"
+                  :exist="tooltip.title.exist"
+                  :tag="tooltip.title.tag"
+                  :value="tooltip.title.content"
+                />
+              </template>
+            </app-tooltip>
+          </dt>
+          <dd>{{ og.title || title }}</dd>
         </template>
-        <template v-if="og.image">
-          <dt>og:image</dt>
+        <template>
+          <dt> 
+            <app-tooltip
+              v-if="showTooltip"
+              class="properties-item__tooltip"
+              placement="bottom-start"
+            >
+              <div v-if="og.image">
+                og:image
+                <InfoIcon
+                  v-if="
+                    tooltip.image.hasVariation && 
+                      tooltip.image.size.width < tooltip.image.requiredSizes.variation.width ||
+                      tooltip.image.size.heigth < tooltip.image.requiredSizes.variation.height"
+                  class="properties-item__icon"
+                />
+              </div>
+              <div v-else>
+                <s>og:image</s>
+                <WarningIcon
+                  class="properties-item__icon"
+                />
+              </div>
+              <template v-slot:info>
+                <property-data
+                  type="og:image"
+                  :exist="tooltip.image.exist"
+                  :has-variation="tooltip.image.hasVariation"
+                  :required="tooltip.image.required"
+                  :required-sizes="tooltip.image.requiredSizes"
+                  :size="tooltip.image.size"
+                  :tag="tooltip.image.tag"
+                />
+              </template>
+            </app-tooltip>
+          </dt>
           <dd>
-            <external-link :href="absoluteUrl(og.image)">
+            <external-link
+              v-if="og.image"
+              :href="absoluteUrl(og.image)"
+            >
               <img :src="absoluteUrl(og.image)">
               <span>{{ og.image }}</span>
             </external-link>
@@ -47,8 +108,15 @@
 </template>
 
 <script>
+import InfoIcon from "../assets/icons/info.svg";
+import WarningIcon from "../assets/icons/warning.svg";
 import { mapState } from "vuex";
-import { ExternalLink, PanelSection, PropertiesList } from "../components";
+import { ExternalLink, 
+  PanelSection, 
+  PropertiesList, 
+  AppTooltip, 
+  PropertyData 
+} from "../components";
 import {
   findMetaContent,
   findMetaProperty,
@@ -56,18 +124,51 @@ import {
 } from "../lib/find-meta";
 
 export default {
-  components: { ExternalLink, PanelSection, PropertiesList },
+  components: { ExternalLink, PanelSection, PropertiesList, AppTooltip, PropertyData, WarningIcon, InfoIcon },
   data() {
     return {
       iframeHeight: "auto",
       imageDimensions: { width: undefined, height: undefined },
-      previewUrl: ""
+      previewUrl: "",
+      showTooltip: false,
+      tooltip: {
+        title: {
+          exist: null,
+          required: false,
+          tag: null,
+          value: null,
+        },
+
+        image: {
+          exist: false,
+          hasVariation: true,
+          required: true,
+          requiredSizes: {
+            minimum: {
+              width: 1,
+              height: 1
+            },
+            variation: {
+              width: 400,
+              height: 400
+            }
+          },
+          size: {
+            width: null,
+            height: null
+          },
+          tag: "og:image",
+        }
+      }
     };
   },
   computed: {
     ...mapState(["head"]),
     hasOgImage() {
       return Boolean(this.og.image);
+    },
+    title() {
+      return this.head.title || "Weblink"
     },
     og() {
       return {
@@ -82,6 +183,8 @@ export default {
   created() {
     findImageDimensions(this.head, "og:image").then(imageDimensions => {
       this.imageDimensions = imageDimensions;
+      this.setTooltipData(imageDimensions)
+      this.showTooltip = true;
       this.previewUrl = this.getPreviewUrl({ imageDimensions });
     });
   },
@@ -92,6 +195,26 @@ export default {
     absoluteUrl(url) {
       if (!url) return;
       return url.startsWith("http") ? url : new URL(this.head.url).origin + url;
+    },
+    setTooltipData(imageDimensions) {
+      if (this.og.title !== null) {
+        this.tooltip.title.tag = "og:title"
+        this.tooltip.title.value = this.og.title
+        this.tooltip.title.exist = true
+      } else if (this.head.title !== null) {
+        this.tooltip.title.tag = "<title>"
+        this.tooltip.title.value = this.head.title
+        this.tooltip.title.exist = false
+      } else {
+        this.tooltip.title.tag = false
+        this.tooltip.title.value = false
+        this.tooltip.title.exist = false
+      }
+      this.og.image
+        ? this.tooltip.image.exist = true
+        : this.tooltip.image.exist = false
+
+      this.tooltip.image.size = imageDimensions
     },
     metaValue(metaName) {
       return findMetaContent(this.head, metaName);
