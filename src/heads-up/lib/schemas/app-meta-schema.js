@@ -26,7 +26,12 @@ const appMetaSchema = {
     required: true,
     message: {
       required: `The charset attribute is required.`,
+      use: {
+        hasCorrectFormattedCharset: 'The charset value should be utf-8, not any other values such as utf8.',
+        isDefinedInCharsetAttribute: 'Always use <meta charset="utf-8"> as It’s backwards compatible and works in all known browsers, so it should always be used over the old <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">.',
+      }
     },
+    use: ['hasCorrectFormattedCharset', 'isDefinedInCharsetAttribute'],
     meta: {
       info: `The meta attribute <code>charset</code> specifies which character set a web page is written with.`,
       link: 'https://webhint.io/docs/user-guide/hints/hint-meta-charset-utf-8/'

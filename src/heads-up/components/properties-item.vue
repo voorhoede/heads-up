@@ -5,7 +5,7 @@
         <slot />
       </span>
 
-      <app-tooltip      
+      <app-tooltip
         class="properties-item__tooltip"
         placement="top-start"
       >
@@ -23,7 +23,17 @@
           <!-- eslint-disable-next-line vue/no-v-html, vue/max-attributes-per-line -->
           <span v-if="!errors" v-html="info" />
           <span v-if="errors">
-            {{ errorMessage }}
+            <template v-if="errors.length === 1">
+              {{ errorMessage }}
+            </template>
+            <ul v-else>
+              <li
+                v-for="error in errors"
+                :key="error.message"
+              >
+                {{ error.message }}
+              </li>
+            </ul>
           </span>
         </template>
 
@@ -80,7 +90,15 @@ export default {
     },
     value: {
       type: String,
-      required: true
+      required: false,
+      default() {
+        return ''
+      }
+    },
+    attrs: {
+      type: Object,
+      required: false,
+      default: undefined,
     }
   },
   data() {
@@ -132,8 +150,9 @@ export default {
     this.errors = validateSchema({
       schema: this.schema,
       key: this.keyName,
-      value: this.value
-    });
+      value: this.value,
+      attrs: this.attrs,
+    })
   }
 };
 </script>
