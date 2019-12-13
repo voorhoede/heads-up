@@ -16,7 +16,7 @@
 
         <WarningIcon
           v-if="errors"
-          class="properties-item__icon"
+          class="properties-item__icon properties-item__icon-warning"
         />
 
         <template v-slot:info>
@@ -168,6 +168,11 @@ export default {
   height: 1.5em;
   vertical-align: middle;
   cursor: help;
+  fill: currentcolor;
+}
+
+.properties-item__icon-warning{
+  fill: #eac250;
 }
 
 .properties-item__extra span {
@@ -208,7 +213,7 @@ export default {
     width: var(--term-width-small);
     padding-right: 5px;
   }
-
+ 
   .properties-item__term * + * {
     margin-left: 0.15rem;
   }
