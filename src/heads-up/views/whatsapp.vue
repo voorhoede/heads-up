@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="whatsapp">
     <panel-section title="Preview">
       <p v-if="!hasDescription">
         This page does not contain an Open Graph description to create a
@@ -393,7 +393,7 @@ export default {
     margin-left: 0.15rem;
   }
 }
-.properties-item__icon {
+.whatsapp .properties-item__icon {
   margin-left: 4px;
 }
 </style>
