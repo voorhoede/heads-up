@@ -1,7 +1,9 @@
 <template>
   <div>
     <panel-section title="Preview">
-      <p v-if="!hasDescription">
+      <p
+        v-if="!hasDescription"
+      >
         This page does not contain an Open Graph description to create a preview.
       </p>
       <figure v-if="hasDescription && previewUrl">
@@ -28,64 +30,95 @@
         <dl>
           <template>
             <dt class="title">
-              <app-tooltip      
+              <p v-if="og.title === null">
+                og:title
+              </p>
+              <app-tooltip
                 class="properties-item__tooltip"
                 placement="bottom-start"
               >
-                og:title
+                <InfoIcon
+                  v-if="og.title === null"
+                  class="properties-item__icon"
+                />
+                <p v-else>
+                  og:title
+                </p>
                 <template v-slot:info>
-                  <property-data 
-                    type="og:title" 
-                    :exist="tooltip.title.exist" 
-                    :tag="tooltip.title.tag" 
-                    :value="tooltip.title.content" 
+                  <property-data
+                    type="og:title"
+                    :exist="tooltip.title.exist"
+                    :tag="tooltip.title.tag"
+                    :value="tooltip.title.content"
                   />
                 </template>
               </app-tooltip>
-            </dt>   
-            <dd>
-              {{ title }}
-            </dd>
+            </dt>
+            <dd>{{ title }}</dd>
           </template>
           <template>
             <dt>
-              <app-tooltip      
+              <p
+                v-if="og.description === null || tooltip.description.valueLength.tooLong"
+              >
+                og:description
+              </p>
+              <app-tooltip
                 class="properties-item__tooltip"
                 placement="bottom-start"
               >
-                og:description
+                <WarningIcon
+                  v-if="description === null"
+                  class="properties-item__icon"
+                />
+                <infoIcon
+                  v-else-if="tooltip.description.valueLength.tooLong"
+                  class="properties-item__icon"
+                />
+
+                <p v-else>
+                  og:description
+                </p>
+
                 <template v-slot:info>
-                  <property-data 
-                    type="og:description" 
-                    :exist="tooltip.description.exist" 
-                    :required="tooltip.description.required" 
-                    :tag="tooltip.description.tag" 
-                    :value="tooltip.description.value" 
+                  <property-data
+                    type="og:description"
+                    :exist="tooltip.description.exist"
+                    :required="tooltip.description.required"
+                    :tag="tooltip.description.tag"
+                    :value="tooltip.description.value"
                     :value-length="tooltip.description.valueLength"
                   />
                 </template>
               </app-tooltip>
             </dt>
-            <dd>
-              {{ description }}
-            </dd>
+            <dd>{{ description }}</dd>
           </template>
           <template>
             <dt>
-              <app-tooltip      
+              <p v-if="og.image === null && imageHasValidSize">
+                og:image
+              </p>
+              <app-tooltip
                 v-if="showTooltip"
                 class="properties-item__tooltip"
                 placement="bottom-start"
               >
-                og:image
+                <InfoIcon
+                  v-if="og.image === null && imageHasValidSize"
+                  class="properties-item__icon"
+                />
+                <p v-else>
+                  og:image
+                </p>
                 <template v-slot:info>
-                  <property-data 
+                  <property-data
                     type="og:image"
-                    :exist="tooltip.image.exist" 
+                    :exist="tooltip.image.exist"
                     :has-variation="tooltip.image.hasVariation"
                     :required-sizes="tooltip.image.requiredSizes"
                     :size="tooltip.image.size"
-                    :tag="tooltip.image.tag" 
+                    :tag="tooltip.image.tag"
                   />
                 </template>
               </app-tooltip>
@@ -98,7 +131,9 @@
                 >
                 <span>{{ og.image }}</span>
               </external-link>
-              <p v-if="imageDimensions">
+              <p
+                v-if="imageDimensions"
+              >
                 ({{ imageDimensions.width }} x {{ imageDimensions.height }}px)
               </p>
             </dd>
@@ -111,12 +146,16 @@
       <resource-list>
         <ul>
           <li>
-            <external-link href="https://stackoverflow.com/a/43154489">
+            <external-link
+              href="https://stackoverflow.com/a/43154489"
+            >
               2019 WhatsApp sharing standards (on StackOverflow)
             </external-link>
           </li>
           <li>
-            <external-link href="https://stackoverflow.com/questions/19778620/provide-an-image-for-whatsapp-link-sharing">
+            <external-link
+              href="https://stackoverflow.com/questions/19778620/provide-an-image-for-whatsapp-link-sharing"
+            >
               Unfurl mechanism used by WhatsApp for sharing
             </external-link>
           </li>
@@ -128,6 +167,8 @@
 
 
 <script>
+import InfoIcon from "../assets/icons/info.svg";
+import WarningIcon from "../assets/icons/warning.svg";
 import { mapState } from "vuex";
 import {
   ExternalLink,
@@ -144,7 +185,16 @@ import {
 } from "../lib/find-meta";
 
 export default {
-  components: { ExternalLink, PanelSection, PropertiesList, ResourceList, AppTooltip, PropertyData },
+  components: {
+    ExternalLink,
+    PanelSection,
+    PropertiesList,
+    ResourceList,
+    AppTooltip,
+    PropertyData,
+    InfoIcon,
+    WarningIcon
+  },
   data() {
     return {
       iframeHeight: "auto",
@@ -154,41 +204,41 @@ export default {
       tooltip: {
         title: {
           exist: null,
-          required: false, 
-          tag: null, 
-          value: null, 
+          required: false,
+          tag: null,
+          value: null
         },
 
         description: {
-          exist: null, 
-          required: true, 
+          exist: null,
+          required: true,
           tag: "og:description",
-          value: null, 
+          value: null,
           valueLength: {
-            max: 300, 
+            max: 300,
             tooLong: null
-          },  
+          }
         },
 
         image: {
-          exist: false, 
-          hasVariation: false, 
-          required: false, 
+          exist: false,
+          hasVariation: false,
+          required: false,
           requiredSizes: {
             minimum: {
-              width: 100, 
+              width: 100,
               height: 100
-            }, 
+            },
             variation: {
-              width: null, 
+              width: null,
               height: null
             }
-          }, 
+          },
           size: {
-            width: null, 
+            width: null,
             height: null
-          },  
-          tag: "og:image", 
+          },
+          tag: "og:image"
         }
       }
     };
@@ -203,7 +253,7 @@ export default {
       return false;
     },
     title() {
-       return this.propertyValue("og:title")||this.head.title || "";
+      return this.propertyValue("og:title") || this.head.title || "";
     },
     description() {
       return this.og.description;
@@ -211,10 +261,17 @@ export default {
     image() {
       if (this.og.image !== undefined) {
         return this.absoluteUrl(this.og.image);
-      }
-      else {
+      } else {
         return this.og.image;
       }
+    },
+    imageHasValidSize() {
+      return (
+        this.tooltip.image.size.width >=
+          this.tooltip.image.requiredSizes.minimum.width &&
+        this.tooltip.image.size.height >=
+          this.tooltip.image.requiredSizes.minimum.height
+      );
     },
     url() {
       return this.head.url;
@@ -235,7 +292,7 @@ export default {
   created() {
     findImageDimensions(this.head, "og:image").then(imageDimensions => {
       this.imageDimensions = imageDimensions;
-      this.setTooltipData(imageDimensions)
+      this.setTooltipData(imageDimensions);
       this.showTooltip = true;
 
       this.previewUrl = this.getPreviewUrl({ imageDimensions });
@@ -256,32 +313,33 @@ export default {
     },
     setTooltipData(imageDimensions) {
       if (this.propertyValue("og:title") !== null) {
-        this.tooltip.title.tag = "og:title"
-        this.tooltip.title.value = this.propertyValue("og:title")
-        this.tooltip.title.exist = true
+        this.tooltip.title.tag = "og:title";
+        this.tooltip.title.value = this.propertyValue("og:title");
+        this.tooltip.title.exist = true;
       } else if (this.head.title !== null) {
-        this.tooltip.title.tag = "<title>"
-        this.tooltip.title.value = this.head.title
-        this.tooltip.title.exist = false
+        this.tooltip.title.tag = "<title>";
+        this.tooltip.title.value = this.head.title;
+        this.tooltip.title.exist = false;
       } else {
-        this.tooltip.title.tag = false
-        this.tooltip.title.value = false
-        this.tooltip.title.exist = false
+        this.tooltip.title.tag = false;
+        this.tooltip.title.value = false;
+        this.tooltip.title.exist = false;
       }
 
       if (this.propertyValue("og:description") !== null) {
-        this.tooltip.description.value = this.propertyValue("og:description")
-        this.tooltip.description.exist = true
-        this.tooltip.description.valueLength.tooLong = this.propertyValue("og:description").length > 300
+        this.tooltip.description.value = this.propertyValue("og:description");
+        this.tooltip.description.exist = true;
+        this.tooltip.description.valueLength.tooLong =
+          this.propertyValue("og:description").length > 300;
       } else {
-        this.tooltip.description.exist = false
+        this.tooltip.description.exist = false;
       }
-      
+
       this.og.image
-        ? this.tooltip.image.exist = true
-        : this.tooltip.image.exist = false
-      
-      this.tooltip.image.size = imageDimensions
+        ? (this.tooltip.image.exist = true)
+        : (this.tooltip.image.exist = false);
+
+      this.tooltip.image.size = imageDimensions;
     },
     metaValue(metaName) {
       return findMetaContent(this.head, metaName);
@@ -293,7 +351,7 @@ export default {
       const params = new URLSearchParams();
       params.set("title", this.og.title || this.title);
       params.set("description", this.description);
-      
+
       if (imageDimensions.height >= 100 && imageDimensions.width >= 100) {
         params.set("image", this.image);
       }
@@ -327,7 +385,7 @@ export default {
   color: var(--label-color);
 }
 
-.properties-item__tooltip{
+.properties-item__tooltip {
   display: inline-block;
 }
 
@@ -345,5 +403,8 @@ export default {
   .properties-item__term * + * {
     margin-left: 0.15rem;
   }
+}
+.properties-item__icon {
+  margin-left: 4px;
 }
 </style>
