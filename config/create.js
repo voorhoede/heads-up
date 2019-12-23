@@ -48,7 +48,7 @@ module.exports = (config, target = { chrome: 63, firefox: 48 }) => {
 
         // enable loading fonts and images in social media previews
         {
-          test: /\.(png|woff2)$/,
+          test: /\.(png|woff2|gif)$/,
           loader: 'url-loader',
           options: {
             publicPath: '/',
