@@ -18,6 +18,7 @@
 
 <script>
 import getTheme from "../lib/theme";
+
 export default {
   props: {
     placement: {
