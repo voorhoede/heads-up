@@ -24,7 +24,6 @@ export function findFavicons(head) {
     })
 }
 
-
 function getImageDetails(url) {
   return new Promise((resolve) => {
     var img = new Image();
@@ -43,4 +42,24 @@ export function findImageDimensions(head, name) {
   const correctUrl = url.startsWith("http") ? url : new URL(head.url).origin + url;
   return getImageDetails(correctUrl)
     .then(({ width, height }) => ({ width, height }))
+}
+
+function AdditionSlackCheck(head, name) {
+  const item = head.meta.find(item => item.name === name)
+  return item
+    ? item.value
+    : null
+}
+
+export function findAdditionSlackData(head) {
+  return [
+    {
+      label: AdditionSlackCheck(head, 'twitter:label1'),
+      value: AdditionSlackCheck(head, 'twitter:data1')
+    },
+    {
+      label: AdditionSlackCheck(head, 'twitter:label2'),
+      value: AdditionSlackCheck(head, 'twitter:data2')
+    }
+  ].filter(item => item.label && item.value)
 }

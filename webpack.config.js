@@ -14,6 +14,7 @@ module.exports = createConfig({
     '../linkedin-preview/linkedin-preview': './src/linkedin-preview/linkedin-preview.js',
     '../facebook-desktop-preview/facebook-desktop-preview': './src/facebook-desktop-preview/facebook-desktop-preview.js',
     '../facebook-mobile-preview/facebook-mobile-preview': './src/facebook-mobile-preview/facebook-mobile-preview.js',
+    '../slack-preview/slack-preview': './src/slack-preview/slack-preview.js',
   },
   output: {
     path: path.join(__dirname, 'dist/heads-up'),
@@ -54,6 +55,11 @@ module.exports = createConfig({
       filename: '../facebook-mobile-preview/facebook-mobile-preview.html',
       template: 'src/facebook-mobile-preview/facebook-mobile-preview.ejs',
       chunks: ['../facebook-mobile-preview/facebook-mobile-preview']
+    }),
+    new HtmlWebpackPlugin({
+      filename: '../slack-preview/slack-preview.html',
+      template: 'src/slack-preview/slack-preview.html',
+      chunks: ['../slack-preview/slack-preview']
     }),
     new CopyPlugin([
       { from: 'src/devtools/assets/', to: '../devtools/assets' },
