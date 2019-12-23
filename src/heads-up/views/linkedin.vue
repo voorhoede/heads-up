@@ -55,7 +55,7 @@
         </template>
         <template>
           <dt>
-            <p v-if="!og.image ||hasSmallImage">
+            <p v-if="!og.image || hasSmallImage">
               og:image
             </p>
             <app-tooltip
@@ -69,7 +69,7 @@
               />
               <WarningIcon
                 v-else-if="!og.image"
-                class="properties-item__icon"
+                class="properties-item__icon properties-item-icon--warning "
               />
               <p v-else>
                 og:image
@@ -275,5 +275,8 @@ export default {
 }
 .linkedin .properties-item__icon {
   margin-left: 4px;
+}
+.properties-item-icon--warning {
+  fill: #eac250;
 }
 </style>
