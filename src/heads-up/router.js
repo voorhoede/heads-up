@@ -73,6 +73,14 @@ export default new VueRouter({
       },
       component: () => import(/* webpackChunkName:'views/facebook' */ './views/facebook.vue')
     },
+    {
+      path: '/slack',
+      name: 'slack',
+      meta: {
+        title: 'Slack',
+      },
+      component: () => import(/* webpackChunkName:'views/slack' */ './views/slack.vue')
+    },
   ]
 })
 

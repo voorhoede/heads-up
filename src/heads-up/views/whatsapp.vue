@@ -1,10 +1,9 @@
 <template>
   <div>
     <panel-section title="Preview">
-      <p
-        v-if="!hasDescription"
-      >
-        This page does not contain an Open Graph description to create a preview.
+      <p v-if="!hasDescription">
+        This page does not contain an Open Graph description to create a
+        preview.
       </p>
       <figure v-if="hasDescription && previewUrl">
         <iframe
@@ -59,7 +58,10 @@
           <template>
             <dt>
               <p
-                v-if="og.description === null || tooltip.description.valueLength.tooLong"
+                v-if="
+                  og.description === null ||
+                    tooltip.description.valueLength.tooLong
+                "
               >
                 og:description
               </p>
@@ -131,9 +133,7 @@
                 >
                 <span>{{ og.image }}</span>
               </external-link>
-              <p
-                v-if="imageDimensions"
-              >
+              <p v-if="imageDimensions">
                 ({{ imageDimensions.width }} x {{ imageDimensions.height }}px)
               </p>
             </dd>
@@ -146,9 +146,7 @@
       <resource-list>
         <ul>
           <li>
-            <external-link
-              href="https://stackoverflow.com/a/43154489"
-            >
+            <external-link href="https://stackoverflow.com/a/43154489">
               2019 WhatsApp sharing standards (on StackOverflow)
             </external-link>
           </li>
@@ -164,7 +162,6 @@
     </panel-section>
   </div>
 </template>
-
 
 <script>
 import InfoIcon from "../assets/icons/info.svg";
@@ -245,18 +242,23 @@ export default {
   },
   computed: {
     ...mapState(["head"]),
-    hasDescription() {
-      const whatsappDescription = this.propertyValue("og:description");
-      if (whatsappDescription !== null && whatsappDescription.length > 0) {
-        return true;
-      }
-      return false;
+    og() {
+      return {
+        title: this.propertyValue("og:title"),
+        description: this.propertyValue("og:description"),
+        type: this.propertyValue("og:type"),
+        image: this.propertyValue("og:image"),
+        url: this.propertyValue("og:url")
+      };
     },
     title() {
       return this.propertyValue("og:title") || this.head.title || "";
     },
     description() {
       return this.og.description;
+    },
+    hasDescription() {
+      return this.og.description !== null && this.og.description.length > 0;
     },
     image() {
       if (this.og.image !== undefined) {
@@ -275,15 +277,6 @@ export default {
     },
     url() {
       return this.head.url;
-    },
-    og() {
-      return {
-        title: this.propertyValue("og:title"),
-        description: this.propertyValue("og:description"),
-        type: this.propertyValue("og:type"),
-        image: this.propertyValue("og:image"),
-        url: this.propertyValue("og:url")
-      };
     }
   },
   mounted() {
@@ -375,10 +368,6 @@ export default {
   margin-bottom: 1em;
   padding: 0;
   border: none;
-}
-
-.whatsapp__preview html {
-  overflow: hidden;
 }
 
 .whatsapp__preview-caption {
