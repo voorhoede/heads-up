@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="linkedin">
     <panel-section title="Preview">
       <p v-if="!hasOgImage">
         This page does not contain og:image meta data to create a preview.
@@ -8,6 +8,7 @@
       <figure v-if="hasOgImage">
         <iframe
           ref="iframe"
+          title="linkedin preview"
           :src="previewUrl"
           :height="iframeHeight"
           width="100%"
@@ -25,14 +26,72 @@
 
     <panel-section title="Properties">
       <properties-list>
-        <template v-if="og.title">
-          <dt>og:title</dt>
-          <dd>{{ og.title }}</dd>
+        <template>
+          <dt>
+            <p v-if="!og.title">
+              og:title
+            </p>
+            <app-tooltip
+              class="properties-item__tooltip"
+              placement="bottom-start"
+            >
+              <div v-if="og.title">
+                og:title
+              </div>
+              <div v-else>
+                <InfoIcon class="properties-item__icon" />
+              </div>
+              <template v-slot:info>
+                <property-data
+                  type="og:title"
+                  :exist="tooltip.title.exist"
+                  :tag="tooltip.title.tag"
+                  :value="tooltip.title.content"
+                />
+              </template>
+            </app-tooltip>
+          </dt>
+          <dd>{{ og.title || title }}</dd>
         </template>
-        <template v-if="og.image">
-          <dt>og:image</dt>
+        <template>
+          <dt>
+            <p v-if="!og.image ||hasSmallImage">
+              og:image
+            </p>
+            <app-tooltip
+              v-if="showTooltip"
+              class="properties-item__tooltip"
+              placement="bottom-start"
+            >
+              <InfoIcon
+                v-if="og.image && hasSmallImage"
+                class="properties-item__icon"
+              />
+              <WarningIcon
+                v-else-if="!og.image"
+                class="properties-item__icon"
+              />
+              <p v-else>
+                og:image
+              </p>
+              <template v-slot:info>
+                <property-data
+                  type="og:image"
+                  :exist="tooltip.image.exist"
+                  :has-variation="tooltip.image.hasVariation"
+                  :required="tooltip.image.required"
+                  :required-sizes="tooltip.image.requiredSizes"
+                  :size="tooltip.image.size"
+                  :tag="tooltip.image.tag"
+                />
+              </template>
+            </app-tooltip>
+          </dt>
           <dd>
-            <external-link :href="absoluteUrl(og.image)">
+            <external-link
+              v-if="og.image"
+              :href="absoluteUrl(og.image)"
+            >
               <img :src="absoluteUrl(og.image)">
               <span>{{ og.image }}</span>
             </external-link>
@@ -47,8 +106,17 @@
 </template>
 
 <script>
+import InfoIcon from "../assets/icons/info.svg";
+import WarningIcon from "../assets/icons/warning.svg";
 import { mapState } from "vuex";
-import { ExternalLink, PanelSection, PropertiesList } from "../components";
+import {
+  ExternalLink,
+  PanelSection,
+  PropertiesList,
+  AppTooltip,
+  PropertyData
+} from "../components";
+
 import {
   findMetaContent,
   findMetaProperty,
@@ -56,12 +124,50 @@ import {
 } from "../lib/find-meta";
 
 export default {
-  components: { ExternalLink, PanelSection, PropertiesList },
+  components: {
+    ExternalLink,
+    PanelSection,
+    PropertiesList,
+    AppTooltip,
+    PropertyData,
+    WarningIcon,
+    InfoIcon
+  },
   data() {
     return {
       iframeHeight: "auto",
       imageDimensions: { width: undefined, height: undefined },
-      previewUrl: ""
+      previewUrl: "",
+      showTooltip: false,
+      tooltip: {
+        title: {
+          exist: null,
+          required: false,
+          tag: null,
+          value: null
+        },
+
+        image: {
+          exist: false,
+          hasVariation: true,
+          required: true,
+          requiredSizes: {
+            minimum: {
+              width: 1,
+              height: 1
+            },
+            variation: {
+              width: 400,
+              height: 400
+            }
+          },
+          size: {
+            width: null,
+            height: null
+          },
+          tag: "og:image"
+        }
+      }
     };
   },
   computed: {
@@ -69,11 +175,23 @@ export default {
     hasOgImage() {
       return Boolean(this.og.image);
     },
+    title() {
+      return this.head.title || "Weblink";
+    },
     og() {
       return {
         title: this.propertyValue("og:title"),
         image: this.absoluteUrl(this.propertyValue("og:image"))
       };
+    },
+    hasSmallImage() {
+      return (
+        (this.tooltip.image.hasVariation &&
+          this.tooltip.image.size.width <
+            this.tooltip.image.requiredSizes.variation.width) ||
+        this.tooltip.image.size.heigth <
+          this.tooltip.image.requiredSizes.variation.height
+      );
     }
   },
   mounted() {
@@ -82,6 +200,8 @@ export default {
   created() {
     findImageDimensions(this.head, "og:image").then(imageDimensions => {
       this.imageDimensions = imageDimensions;
+      this.setTooltipData(imageDimensions);
+      this.showTooltip = true;
       this.previewUrl = this.getPreviewUrl({ imageDimensions });
     });
   },
@@ -92,6 +212,26 @@ export default {
     absoluteUrl(url) {
       if (!url) return;
       return url.startsWith("http") ? url : new URL(this.head.url).origin + url;
+    },
+    setTooltipData(imageDimensions) {
+      if (this.og.title !== null) {
+        this.tooltip.title.tag = "og:title";
+        this.tooltip.title.value = this.og.title;
+        this.tooltip.title.exist = true;
+      } else if (this.head.title !== null) {
+        this.tooltip.title.tag = "<title>";
+        this.tooltip.title.value = this.head.title;
+        this.tooltip.title.exist = false;
+      } else {
+        this.tooltip.title.tag = false;
+        this.tooltip.title.value = false;
+        this.tooltip.title.exist = false;
+      }
+      this.og.image
+        ? (this.tooltip.image.exist = true)
+        : (this.tooltip.image.exist = false);
+
+      this.tooltip.image.size = imageDimensions;
     },
     metaValue(metaName) {
       return findMetaContent(this.head, metaName);
@@ -112,7 +252,10 @@ export default {
       return `/linkedin-preview/linkedin-preview.html?${params}`;
     },
     onResize() {
-      this.iframeHeight = parseInt(this.$refs.iframe.contentWindow.document.body.scrollHeight + 2) + "px";
+      this.iframeHeight =
+        parseInt(
+          this.$refs.iframe.contentWindow.document.body.scrollHeight + 2
+        ) + "px";
     }
   }
 };
@@ -129,5 +272,8 @@ export default {
 
 .linkedin__preview-caption {
   color: var(--label-color);
+}
+.linkedin .properties-item__icon {
+  margin-left: 4px;
 }
 </style>
