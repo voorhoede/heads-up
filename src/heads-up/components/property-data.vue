@@ -86,11 +86,12 @@ export default {
       return `The ${tag} is required to create an unfurling link on this platform. `;
     },
     isBigImg(tag, smallVariant, imgSize, requiredSize) {
-      if (
-        smallVariant &&
-        requiredSize.variation.width > imgSize.width &&
-        requiredSize.variation.height > imgSize.height
-      ) {
+      const imageHeightIsBigEnough =
+        requiredSize.variation.height > imgSize.height;
+      const imageWidthIsBigEnough =
+        requiredSize.variation.width > imgSize.width;
+
+      if (smallVariant && imageHeightIsBigEnough && imageWidthIsBigEnough) {
         return `The ${tag} is ${imgSize.width} by ${imgSize.height}px, where ${requiredSize.variation.width} by ${requiredSize.variation.height}px is required for a big unfurling preview. `;
       }
 
