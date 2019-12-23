@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="whatsapp">
     <panel-section title="Preview">
       <p v-if="!hasDescription">
-        This page does not contain an Open Graph description to create a preview.
+        This page does not contain an Open Graph description to create a
+        preview.
       </p>
       <figure v-if="hasDescription && previewUrl">
         <iframe
@@ -116,7 +117,9 @@
             </external-link>
           </li>
           <li>
-            <external-link href="https://stackoverflow.com/questions/19778620/provide-an-image-for-whatsapp-link-sharing">
+            <external-link
+              href="https://stackoverflow.com/questions/19778620/provide-an-image-for-whatsapp-link-sharing"
+            >
               Unfurl mechanism used by WhatsApp for sharing
             </external-link>
           </li>
@@ -125,7 +128,6 @@
     </panel-section>
   </div>
 </template>
-
 
 <script>
 import { mapState } from "vuex";
@@ -144,7 +146,14 @@ import {
 } from "../lib/find-meta";
 
 export default {
-  components: { ExternalLink, PanelSection, PropertiesList, ResourceList, AppTooltip, PropertyData },
+  components: {
+    ExternalLink,
+    PanelSection,
+    PropertiesList,
+    ResourceList,
+    AppTooltip,
+    PropertyData
+  },
   data() {
     return {
       iframeHeight: "auto",
@@ -156,7 +165,7 @@ export default {
           exist: null,
           required: false,
           tag: null,
-          value: null,
+          value: null
         },
 
         description: {
@@ -167,7 +176,7 @@ export default {
           valueLength: {
             max: 300,
             tooLong: null
-          },
+          }
         },
 
         image: {
@@ -188,7 +197,7 @@ export default {
             width: null,
             height: null
           },
-          tag: "og:image",
+          tag: "og:image"
         }
       }
     };
@@ -211,7 +220,7 @@ export default {
       return this.og.description;
     },
     hasDescription() {
-      return this.og.description !== null && this.og.description.length > 0
+      return this.og.description !== null && this.og.description.length > 0;
     },
     image() {
       if (this.og.image !== undefined) {
@@ -222,7 +231,7 @@ export default {
     },
     url() {
       return this.head.url;
-    },
+    }
   },
   mounted() {
     window.addEventListener("resize", this.onResize);
@@ -230,7 +239,7 @@ export default {
   created() {
     findImageDimensions(this.head, "og:image").then(imageDimensions => {
       this.imageDimensions = imageDimensions;
-      this.setTooltipData(imageDimensions)
+      this.setTooltipData(imageDimensions);
       this.showTooltip = true;
 
       this.previewUrl = this.getPreviewUrl({ imageDimensions });
@@ -251,32 +260,33 @@ export default {
     },
     setTooltipData(imageDimensions) {
       if (this.og.title !== null) {
-        this.tooltip.title.tag = "og:title"
-        this.tooltip.title.value = this.og.title
-        this.tooltip.title.exist = true
+        this.tooltip.title.tag = "og:title";
+        this.tooltip.title.value = this.og.title;
+        this.tooltip.title.exist = true;
       } else if (this.head.title !== null) {
-        this.tooltip.title.tag = "<title>"
-        this.tooltip.title.value = this.head.title
-        this.tooltip.title.exist = false
+        this.tooltip.title.tag = "<title>";
+        this.tooltip.title.value = this.head.title;
+        this.tooltip.title.exist = false;
       } else {
-        this.tooltip.title.tag = false
-        this.tooltip.title.value = false
-        this.tooltip.title.exist = false
+        this.tooltip.title.tag = false;
+        this.tooltip.title.value = false;
+        this.tooltip.title.exist = false;
       }
 
       if (this.og.description !== null) {
-        this.tooltip.description.value = this.og.description
-        this.tooltip.description.exist = true
-        this.tooltip.description.valueLength.tooLong = this.og.description.length > 300
+        this.tooltip.description.value = this.og.description;
+        this.tooltip.description.exist = true;
+        this.tooltip.description.valueLength.tooLong =
+          this.og.description.length > 300;
       } else {
-        this.tooltip.description.exist = false
+        this.tooltip.description.exist = false;
       }
 
       this.og.image
-        ? this.tooltip.image.exist = true
-        : this.tooltip.image.exist = false
+        ? (this.tooltip.image.exist = true)
+        : (this.tooltip.image.exist = false);
 
-      this.tooltip.image.size = imageDimensions
+      this.tooltip.image.size = imageDimensions;
     },
     metaValue(metaName) {
       return findMetaContent(this.head, metaName);
@@ -297,7 +307,10 @@ export default {
       return `/whatsapp-preview/whatsapp-preview.html?${params}`;
     },
     onResize() {
-      this.iframeHeight = parseInt(this.$refs.iframe.contentWindow.document.body.scrollHeight + 2) + "px";
+      this.iframeHeight =
+        parseInt(
+          this.$refs.iframe.contentWindow.document.body.scrollHeight + 2
+        ) + "px";
     }
   }
 };
@@ -315,7 +328,7 @@ export default {
   color: var(--label-color);
 }
 
-.properties-item__tooltip{
+.properties-item__tooltip {
   display: inline-block;
 }
 
@@ -330,7 +343,7 @@ export default {
     width: var(--term-width-small);
     padding-right: 5px;
   }
-  .properties-item__term * + * {
+  .whatsapp .properties-item__term * + * {
     margin-left: 0.15rem;
   }
 }
