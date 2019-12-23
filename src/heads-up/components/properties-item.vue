@@ -5,7 +5,7 @@
         <slot />
       </span>
 
-      <app-tooltip      
+      <app-tooltip
         class="properties-item__tooltip"
         placement="top-start"
       >
@@ -16,7 +16,7 @@
 
         <WarningIcon
           v-if="errors"
-          class="properties-item__icon properties-item__icon-warning"
+          class="properties-item__icon properties-item-icon properties-item-icon--warning"
         />
 
         <template v-slot:info>
@@ -46,7 +46,9 @@
       <span
         v-if="valueWithExceededLength"
         class="properties-item__strike"
-      >{{ valueWithExceededLength }}</span>
+      >{{
+        valueWithExceededLength
+      }}</span>
       <span
         v-if="valueSlot"
         class="properties-item__extra"
@@ -171,7 +173,7 @@ export default {
   fill: currentcolor;
 }
 
-.properties-item__icon-warning{
+.properties-item-icon--warning {
   fill: #eac250;
 }
 
@@ -213,7 +215,7 @@ export default {
     width: var(--term-width-small);
     padding-right: 5px;
   }
- 
+
   .properties-item__term * + * {
     margin-left: 0.15rem;
   }
