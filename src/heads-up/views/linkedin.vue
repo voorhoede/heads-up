@@ -28,6 +28,9 @@
       <properties-list>
         <template>
           <dt>
+            <p v-if="!og.title">
+              og:title
+            </p>
             <app-tooltip
               class="properties-item__tooltip"
               placement="bottom-start"
@@ -36,10 +39,7 @@
                 og:title
               </div>
               <div v-else>
-                og:title
-                <InfoIcon
-                  class="properties-item__icon"
-                />
+                <InfoIcon class="properties-item__icon" />
               </div>
               <template v-slot:info>
                 <property-data
@@ -54,28 +54,26 @@
           <dd>{{ og.title || title }}</dd>
         </template>
         <template>
-          <dt> 
+          <dt>
+            <p v-if="!og.image ||hasSmallImage">
+              og:image
+            </p>
             <app-tooltip
               v-if="showTooltip"
               class="properties-item__tooltip"
               placement="bottom-start"
             >
-              <div v-if="og.image">
+              <InfoIcon
+                v-if="og.image && hasSmallImage"
+                class="properties-item__icon"
+              />
+              <WarningIcon
+                v-else-if="!og.image"
+                class="properties-item__icon"
+              />
+              <p v-else>
                 og:image
-                <InfoIcon
-                  v-if="
-                    tooltip.image.hasVariation && 
-                      tooltip.image.size.width < tooltip.image.requiredSizes.variation.width ||
-                      tooltip.image.size.heigth < tooltip.image.requiredSizes.variation.height"
-                  class="properties-item__icon"
-                />
-              </div>
-              <div v-else>
-                <s>og:image</s>
-                <WarningIcon
-                  class="properties-item__icon"
-                />
-              </div>
+              </p>
               <template v-slot:info>
                 <property-data
                   type="og:image"
@@ -111,11 +109,12 @@
 import InfoIcon from "../assets/icons/info.svg";
 import WarningIcon from "../assets/icons/warning.svg";
 import { mapState } from "vuex";
-import { ExternalLink, 
-  PanelSection, 
-  PropertiesList, 
-  AppTooltip, 
-  PropertyData 
+import {
+  ExternalLink,
+  PanelSection,
+  PropertiesList,
+  AppTooltip,
+  PropertyData
 } from "../components";
 import {
   findMetaContent,
@@ -124,7 +123,15 @@ import {
 } from "../lib/find-meta";
 
 export default {
-  components: { ExternalLink, PanelSection, PropertiesList, AppTooltip, PropertyData, WarningIcon, InfoIcon },
+  components: {
+    ExternalLink,
+    PanelSection,
+    PropertiesList,
+    AppTooltip,
+    PropertyData,
+    WarningIcon,
+    InfoIcon
+  },
   data() {
     return {
       iframeHeight: "auto",
@@ -136,7 +143,7 @@ export default {
           exist: null,
           required: false,
           tag: null,
-          value: null,
+          value: null
         },
 
         image: {
@@ -157,7 +164,7 @@ export default {
             width: null,
             height: null
           },
-          tag: "og:image",
+          tag: "og:image"
         }
       }
     };
@@ -168,13 +175,22 @@ export default {
       return Boolean(this.og.image);
     },
     title() {
-      return this.head.title || "Weblink"
+      return this.head.title || "Weblink";
     },
     og() {
       return {
         title: this.propertyValue("og:title"),
         image: this.absoluteUrl(this.propertyValue("og:image"))
       };
+    },
+    hasSmallImage() {
+      return (
+        (this.tooltip.image.hasVariation &&
+          this.tooltip.image.size.width <
+            this.tooltip.image.requiredSizes.variation.width) ||
+        this.tooltip.image.size.heigth <
+          this.tooltip.image.requiredSizes.variation.height
+      );
     }
   },
   mounted() {
@@ -183,7 +199,7 @@ export default {
   created() {
     findImageDimensions(this.head, "og:image").then(imageDimensions => {
       this.imageDimensions = imageDimensions;
-      this.setTooltipData(imageDimensions)
+      this.setTooltipData(imageDimensions);
       this.showTooltip = true;
       this.previewUrl = this.getPreviewUrl({ imageDimensions });
     });
@@ -198,23 +214,23 @@ export default {
     },
     setTooltipData(imageDimensions) {
       if (this.og.title !== null) {
-        this.tooltip.title.tag = "og:title"
-        this.tooltip.title.value = this.og.title
-        this.tooltip.title.exist = true
+        this.tooltip.title.tag = "og:title";
+        this.tooltip.title.value = this.og.title;
+        this.tooltip.title.exist = true;
       } else if (this.head.title !== null) {
-        this.tooltip.title.tag = "<title>"
-        this.tooltip.title.value = this.head.title
-        this.tooltip.title.exist = false
+        this.tooltip.title.tag = "<title>";
+        this.tooltip.title.value = this.head.title;
+        this.tooltip.title.exist = false;
       } else {
-        this.tooltip.title.tag = false
-        this.tooltip.title.value = false
-        this.tooltip.title.exist = false
+        this.tooltip.title.tag = false;
+        this.tooltip.title.value = false;
+        this.tooltip.title.exist = false;
       }
       this.og.image
-        ? this.tooltip.image.exist = true
-        : this.tooltip.image.exist = false
+        ? (this.tooltip.image.exist = true)
+        : (this.tooltip.image.exist = false);
 
-      this.tooltip.image.size = imageDimensions
+      this.tooltip.image.size = imageDimensions;
     },
     metaValue(metaName) {
       return findMetaContent(this.head, metaName);
@@ -235,7 +251,10 @@ export default {
       return `/linkedin-preview/linkedin-preview.html?${params}`;
     },
     onResize() {
-      this.iframeHeight = parseInt(this.$refs.iframe.contentWindow.document.body.scrollHeight + 2) + "px";
+      this.iframeHeight =
+        parseInt(
+          this.$refs.iframe.contentWindow.document.body.scrollHeight + 2
+        ) + "px";
     }
   }
 };
@@ -252,5 +271,8 @@ export default {
 
 .linkedin__preview-caption {
   color: var(--label-color);
+}
+.properties-item__icon {
+  margin-left: 4px;
 }
 </style>
