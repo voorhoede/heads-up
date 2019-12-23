@@ -1,23 +1,23 @@
 <template>
   <div>
     <panel-section title="Preview">
-      <p v-if="!hasOgImage">
+      <p v-if="!hasRequiredData">
         This page does not contain og:image meta data to create a preview.
       </p>
 
-      <figure v-if="hasOgImage">
+      <figure v-if="hasRequiredData">
         <iframe
           ref="iframe"
           :src="previewUrl"
           :height="iframeHeight"
           width="100%"
-          class="linkedin__preview"
+          class="slack__preview"
           @load="onResize"
         />
-        <figcaption class="linkedin__preview-caption">
+        <figcaption class="slack__preview-caption">
           Preview based on
-          <external-link href="https://linkedin.com/">
-            linkedin.com
+          <external-link href="https://slack.com/">
+            slack.com
           </external-link>.
         </figcaption>
       </figure>
@@ -33,13 +33,20 @@
           <dt>og:image</dt>
           <dd>
             <external-link :href="absoluteUrl(og.image)">
-              <img :src="absoluteUrl(og.image)">
+              <img
+                alt
+                :src="absoluteUrl(og.image)"
+              >
               <span>{{ og.image }}</span>
             </external-link>
             <p v-if="imageDimensions">
               ({{ imageDimensions.width }} x {{ imageDimensions.height }}px)
             </p>
           </dd>
+        </template>
+        <template v-if="og.description">
+          <dt>og:description</dt>
+          <dd>{{ og.description }}</dd>
         </template>
       </properties-list>
     </panel-section>
@@ -52,7 +59,9 @@ import { ExternalLink, PanelSection, PropertiesList } from "../components";
 import {
   findMetaContent,
   findMetaProperty,
-  findImageDimensions
+  findImageDimensions,
+  findFavicons,
+  findAdditionSlackData
 } from "../lib/find-meta";
 
 export default {
@@ -66,13 +75,20 @@ export default {
   },
   computed: {
     ...mapState(["head"]),
-    hasOgImage() {
-      return Boolean(this.og.image);
+    hasRequiredData() {
+      return this.og.title !== null || this.og.description !== null;
     },
     og() {
       return {
         title: this.propertyValue("og:title"),
+        description: this.propertyValue("og:description"),
         image: this.absoluteUrl(this.propertyValue("og:image"))
+      };
+    },
+    additional() {
+      return {
+        favicon: findFavicons(this.head)[0].url,
+        additionalData: findAdditionSlackData(this.head)
       };
     }
   },
@@ -104,12 +120,21 @@ export default {
       params.set("title", this.og.title || this.head.title || "Weblink");
       params.set("url", this.head.url);
       params.set("image", this.og.image);
+      params.set("description", this.og.description);
+      params.set("favicon", this.additional.favicon);
+      params.set(
+        "additionalData",
+        JSON.stringify(this.additional.additionalData)
+      );
       params.set(
         "imageIsBig",
-        imageDimensions.height > 400 && imageDimensions.width > 400
+        imageDimensions.height > 201 && imageDimensions.width > 201
       );
-
-      return `/linkedin-preview/linkedin-preview.html?${params}`;
+      params.set(
+        "validImage",
+        imageDimensions.height > 0 && imageDimensions.width > 0
+      );
+      return `/slack-preview/slack-preview.html?${params}`;
     },
     onResize() {
       this.iframeHeight = parseInt(this.$refs.iframe.contentWindow.document.body.scrollHeight + 2) + "px";
@@ -119,15 +144,15 @@ export default {
 </script>
 
 <style>
-.linkedin__preview {
+.slack__preview {
   max-width: 521px;
-  min-height: 350px;
+  min-height: 360px;
   margin-bottom: 1em;
   padding: 0;
   border: none;
 }
 
-.linkedin__preview-caption {
+.slack__preview-caption {
   color: var(--label-color);
 }
 </style>
