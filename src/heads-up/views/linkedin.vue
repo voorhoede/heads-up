@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="linkedin">
     <panel-section title="Preview">
       <p v-if="!hasOgImage">
         This page does not contain og:image meta data to create a preview.
@@ -116,6 +116,7 @@ import {
   AppTooltip,
   PropertyData
 } from "../components";
+
 import {
   findMetaContent,
   findMetaProperty,
@@ -272,7 +273,7 @@ export default {
 .linkedin__preview-caption {
   color: var(--label-color);
 }
-.properties-item__icon {
+.linkedin .properties-item__icon {
   margin-left: 4px;
 }
 </style>
