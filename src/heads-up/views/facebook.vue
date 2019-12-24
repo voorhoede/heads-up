@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="facebook">
     <switch-buttons
       :buttons="switchButtons"
       :value="mode"
@@ -54,7 +54,7 @@
 
     <panel-section title="Properties">
       <properties-list>
-        <template v-if="og.title">
+        <template>
           <dt>
             <p v-if="!og.title">
               og:title
@@ -70,30 +70,74 @@
               <p v-else>
                 og:title
               </p>
+              <template v-slot:info>
+                <property-data
+                  type="og:title"
+                  :exist="tooltip.title.exist"
+                  :tag="tooltip.title.tag"
+                  :value="tooltip.title.content"
+                />
+              </template>
             </app-tooltip>
           </dt>
           <dd>{{ og.title }}</dd>
         </template>
         <template v-if="og.description">
           <dt>
-            <p>og:description</p>
+            <p v-if="!og.description">
+              og:description
+            </p>
             <app-tooltip
               class="properties-item__tooltip"
               placement="bottom-start"
             >
-              <InfoIcon class="properties-item__icon" />
+              <InfoIcon
+                v-if="!og.description"
+                class="properties-item__icon"
+              />
+              <p v-else>
+                og:description
+              </p>
+              <template v-slot:info>
+                <property-data
+                  type="og:description"
+                  :exist="tooltip.description.exist"
+                  :required="tooltip.description.required"
+                  :tag="tooltip.description.tag"
+                  :value="tooltip.description.value"
+                  :value-length="tooltip.description.valueLength"
+                />
+              </template>
             </app-tooltip>
           </dt>
           <dd>{{ og.description }}</dd>
         </template>
         <template v-if="og.image">
           <dt>
-            <p>og:image</p>
+            <p v-if="!og.image">
+              og:image
+            </p>
             <app-tooltip
               class="properties-item__tooltip"
               placement="bottom-start"
             >
-              <InfoIcon class="properties-item__icon" />
+              <InfoIcon
+                v-if="!og.image"
+                class="properties-item__icon"
+              />
+              <p v-else>
+                og:image
+              </p>
+              <template v-slot:info>
+                <property-data
+                  type="og:image"
+                  :exist="tooltip.image.exist"
+                  :has-variation="tooltip.image.hasVariation"
+                  :required-sizes="tooltip.image.requiredSizes"
+                  :size="tooltip.image.size"
+                  :tag="tooltip.image.tag"
+                />
+              </template>
             </app-tooltip>
           </dt>
           <dd>
@@ -115,6 +159,7 @@
 </template>
 
 <script>
+import InfoIcon from "../assets/icons/info.svg";
 import { mapState } from "vuex";
 import {
   ExternalLink,
@@ -122,7 +167,7 @@ import {
   PropertiesList,
   SwitchButtons,
   AppTooltip,
-  InfoIcon
+  PropertyData
 } from "../components";
 import {
   findMetaContent,
@@ -137,7 +182,8 @@ export default {
     PropertiesList,
     SwitchButtons,
     AppTooltip,
-    InfoIcon
+    InfoIcon,
+    PropertyData
   },
   data() {
     return {
@@ -210,13 +256,6 @@ export default {
   },
   mounted() {
     window.addEventListener("resize", this.onResize);
-  },
-  hasOgData() {
-    return (
-      this.propertyValue("og:title") ||
-      this.absoluteUrl(this.propertyValue("og:image")) ||
-      this.propertyValue("og:description")
-    );
   },
   created() {
     findImageDimensions(this.head, "og:image").then(imageDimensions => {
@@ -325,5 +364,9 @@ export default {
 
 .facebook__preview-caption {
   color: var(--label-color);
+}
+
+.facebook .properties-item__icon {
+  margin-left: 4px;
 }
 </style>
