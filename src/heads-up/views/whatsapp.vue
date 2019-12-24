@@ -28,12 +28,21 @@
       <properties-list>
         <dl>
           <template>
-            <dt>
+            <dt class="title">
+              <p v-if="og.title === null">
+                og:title
+              </p>
               <app-tooltip
                 class="properties-item__tooltip"
                 placement="bottom-start"
               >
-                og:title
+                <InfoIcon
+                  v-if="og.title === null"
+                  class="properties-item__icon"
+                />
+                <p v-else>
+                  og:title
+                </p>
                 <template v-slot:info>
                   <property-data
                     type="og:title"
@@ -44,17 +53,35 @@
                 </template>
               </app-tooltip>
             </dt>
-            <dd>
-              {{ title }}
-            </dd>
+            <dd>{{ title }}</dd>
           </template>
           <template>
             <dt>
+              <p
+                v-if="
+                  og.description === null ||
+                    tooltip.description.valueLength.tooLong
+                "
+              >
+                og:description
+              </p>
               <app-tooltip
                 class="properties-item__tooltip"
                 placement="bottom-start"
               >
-                og:description
+                <WarningIcon
+                  v-if="description === null"
+                  class="properties-item__icon"
+                />
+                <infoIcon
+                  v-else-if="tooltip.description.valueLength.tooLong"
+                  class="properties-item__icon"
+                />
+
+                <p v-else>
+                  og:description
+                </p>
+
                 <template v-slot:info>
                   <property-data
                     type="og:description"
@@ -67,18 +94,25 @@
                 </template>
               </app-tooltip>
             </dt>
-            <dd>
-              {{ description }}
-            </dd>
+            <dd>{{ description }}</dd>
           </template>
           <template>
             <dt>
+              <p v-if="og.image === null && imageHasValidSize">
+                og:image
+              </p>
               <app-tooltip
                 v-if="showTooltip"
                 class="properties-item__tooltip"
                 placement="bottom-start"
               >
-                og:image
+                <InfoIcon
+                  v-if="og.image === null && imageHasValidSize"
+                  class="properties-item__icon"
+                />
+                <p v-else>
+                  og:image
+                </p>
                 <template v-slot:info>
                   <property-data
                     type="og:image"
@@ -99,7 +133,9 @@
                 >
                 <span>{{ og.image }}</span>
               </external-link>
-              <p v-if="imageDimensions">
+              <p
+                v-if="imageDimensions"
+              >
                 ({{ imageDimensions.width }} x {{ imageDimensions.height }}px)
               </p>
             </dd>
@@ -112,7 +148,9 @@
       <resource-list>
         <ul>
           <li>
-            <external-link href="https://stackoverflow.com/a/43154489">
+            <external-link
+              href="https://stackoverflow.com/a/43154489"
+            >
               2019 WhatsApp sharing standards (on StackOverflow)
             </external-link>
           </li>
@@ -130,6 +168,8 @@
 </template>
 
 <script>
+import InfoIcon from "../assets/icons/info.svg";
+import WarningIcon from "../assets/icons/warning.svg";
 import { mapState } from "vuex";
 import {
   ExternalLink,
@@ -152,7 +192,9 @@ export default {
     PropertiesList,
     ResourceList,
     AppTooltip,
-    PropertyData
+    PropertyData,
+    InfoIcon,
+    WarningIcon
   },
   data() {
     return {
@@ -214,7 +256,7 @@ export default {
       };
     },
     title() {
-      return this.og.title || this.head.title || "";
+      return this.propertyValue("og:title") || this.head.title || "";
     },
     description() {
       return this.og.description;
@@ -228,6 +270,14 @@ export default {
       } else {
         return this.og.image;
       }
+    },
+    imageHasValidSize() {
+      return (
+        this.tooltip.image.size.width >=
+          this.tooltip.image.requiredSizes.minimum.width &&
+        this.tooltip.image.size.height >=
+          this.tooltip.image.requiredSizes.minimum.height
+      );
     },
     url() {
       return this.head.url;
@@ -259,9 +309,9 @@ export default {
       return "";
     },
     setTooltipData(imageDimensions) {
-      if (this.og.title !== null) {
+      if (this.propertyValue("og:title") !== null) {
         this.tooltip.title.tag = "og:title";
-        this.tooltip.title.value = this.og.title;
+        this.tooltip.title.value = this.propertyValue("og:title");
         this.tooltip.title.exist = true;
       } else if (this.head.title !== null) {
         this.tooltip.title.tag = "<title>";
@@ -273,11 +323,11 @@ export default {
         this.tooltip.title.exist = false;
       }
 
-      if (this.og.description !== null) {
-        this.tooltip.description.value = this.og.description;
+      if (this.propertyValue("og:description") !== null) {
+        this.tooltip.description.value = this.propertyValue("og:description");
         this.tooltip.description.exist = true;
         this.tooltip.description.valueLength.tooLong =
-          this.og.description.length > 300;
+          this.propertyValue("og:description").length > 300;
       } else {
         this.tooltip.description.exist = false;
       }
@@ -346,5 +396,8 @@ export default {
   .whatsapp .properties-item__term * + * {
     margin-left: 0.15rem;
   }
+}
+.whatsapp .properties-item__icon {
+  margin-left: 4px;
 }
 </style>

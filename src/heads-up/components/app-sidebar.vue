@@ -77,6 +77,14 @@
             <FacebookIcon class="sidebar__icon" />Facebook
           </router-link>
         </li>
+        <li class="sidebar-list__item">
+          <router-link
+            class="sidebar__button"
+            :to="{ name: 'slack' }"
+          >
+            <SlackIcon class="sidebar__icon" />Slack
+          </router-link>
+        </li>
       </ul>
     </section>
     <footer class="sidebar__footer">
@@ -99,6 +107,7 @@ import OpenGraphIcon from "../assets/icons/open-graph.svg";
 import TwitterIcon from "../assets/icons/twitter.svg";
 import WhatsappIcon from "../assets/icons/whatsapp.svg";
 import LinkedInIcon from "../assets/icons/linkedin.svg";
+import SlackIcon from "../assets/icons/slack.svg";
 import ExternalLink from "../components/external-link.vue";
 import FacebookIcon from "../assets/icons/facebook.svg";
 
@@ -112,7 +121,8 @@ export default {
     ExternalLink,
     WhatsappIcon,
     FacebookIcon,
-    LinkedInIcon
+    LinkedInIcon,
+    SlackIcon
   }
 };
 </script>
