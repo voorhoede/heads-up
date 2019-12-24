@@ -88,7 +88,7 @@ export default {
     },
     additional() {
       return {
-        favicon: findFavicons(this.head)[0].url,
+        favicon: findFavicons(this.head).url,
         additionalData: findAdditionSlackData(this.head)
       };
     },
