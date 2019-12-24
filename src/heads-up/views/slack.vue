@@ -87,7 +87,7 @@ export default {
     },
     additional() {
       return {
-        favicon: findFavicons(this.head)[0].url,
+        favicon: findFavicons(this.head).url,
         additionalData: findAdditionSlackData(this.head)
       };
     }
@@ -137,7 +137,10 @@ export default {
       return `/slack-preview/slack-preview.html?${params}`;
     },
     onResize() {
-      this.iframeHeight = parseInt(this.$refs.iframe.contentWindow.document.body.scrollHeight + 2) + "px";
+      this.iframeHeight =
+        parseInt(
+          this.$refs.iframe.contentWindow.document.body.scrollHeight + 2
+        ) + "px";
     }
   }
 };
