@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="facebook">
     <switch-buttons
       :buttons="switchButtons"
       :value="mode"
@@ -16,8 +16,6 @@
           :src="previewUrl"
           :height="iframeHeight"
           width="100%"
-          frameborder="0"
-          scrolling="no"
           class="facebook__preview"
           @load="onResize"
         />
@@ -56,16 +54,92 @@
 
     <panel-section title="Properties">
       <properties-list>
-        <template v-if="og.title">
-          <dt>og:title</dt>
+        <template>
+          <dt>
+            <p v-if="!og.title">
+              og:title
+            </p>
+            <app-tooltip
+              class="properties-item__tooltip"
+              placement="bottom-start"
+            >
+              <InfoIcon
+                v-if="!og.title"
+                class="properties-item__icon"
+              />
+              <p v-else>
+                og:title
+              </p>
+              <template v-slot:info>
+                <property-data
+                  type="og:title"
+                  :exist="tooltip.title.exist"
+                  :tag="tooltip.title.tag"
+                  :value="tooltip.title.content"
+                />
+              </template>
+            </app-tooltip>
+          </dt>
           <dd>{{ og.title }}</dd>
         </template>
         <template v-if="og.description">
-          <dt>og:description</dt>
+          <dt>
+            <p v-if="!og.description">
+              og:description
+            </p>
+            <app-tooltip
+              class="properties-item__tooltip"
+              placement="bottom-start"
+            >
+              <InfoIcon
+                v-if="!og.description"
+                class="properties-item__icon"
+              />
+              <p v-else>
+                og:description
+              </p>
+              <template v-slot:info>
+                <property-data
+                  type="og:description"
+                  :exist="tooltip.description.exist"
+                  :required="tooltip.description.required"
+                  :tag="tooltip.description.tag"
+                  :value="tooltip.description.value"
+                  :value-length="tooltip.description.valueLength"
+                />
+              </template>
+            </app-tooltip>
+          </dt>
           <dd>{{ og.description }}</dd>
         </template>
         <template v-if="og.image">
-          <dt>og:image</dt>
+          <dt>
+            <p v-if="!og.image">
+              og:image
+            </p>
+            <app-tooltip
+              class="properties-item__tooltip"
+              placement="bottom-start"
+            >
+              <InfoIcon
+                v-if="!og.image"
+                class="properties-item__icon"
+              />
+              <p v-else>
+                og:image
+              </p>
+              <template v-slot:info>
+                <property-data
+                  type="og:image"
+                  :exist="tooltip.image.exist"
+                  :has-variation="tooltip.image.hasVariation"
+                  :required-sizes="tooltip.image.requiredSizes"
+                  :size="tooltip.image.size"
+                  :tag="tooltip.image.tag"
+                />
+              </template>
+            </app-tooltip>
+          </dt>
           <dd>
             <external-link :href="absoluteUrl(og.image)">
               <img
@@ -85,12 +159,16 @@
 </template>
 
 <script>
+import InfoIcon from "../assets/icons/info.svg";
 import { mapState } from "vuex";
+import getTheme from "../lib/theme";
 import {
   ExternalLink,
   PanelSection,
   PropertiesList,
-  SwitchButtons
+  SwitchButtons,
+  AppTooltip,
+  PropertyData
 } from "../components";
 import {
   findMetaContent,
@@ -99,7 +177,15 @@ import {
 } from "../lib/find-meta";
 
 export default {
-  components: { ExternalLink, PanelSection, PropertiesList, SwitchButtons },
+  components: {
+    ExternalLink,
+    PanelSection,
+    PropertiesList,
+    SwitchButtons,
+    AppTooltip,
+    InfoIcon,
+    PropertyData
+  },
   data() {
     return {
       iframeHeight: "auto",
@@ -116,7 +202,47 @@ export default {
           value: "desktop"
         }
       ],
-      mode: "mobile"
+      mode: "mobile",
+      tooltip: {
+        title: {
+          exist: null,
+          required: false,
+          tag: null,
+          value: null
+        },
+
+        description: {
+          exist: null,
+          required: false,
+          tag: "og:description",
+          value: null,
+          valueLength: {
+            max: 250,
+            tooLong: null
+          }
+        },
+
+        image: {
+          exist: false,
+          hasVariation: true,
+          required: false,
+          requiredSizes: {
+            minimum: {
+              width: 100,
+              height: 100
+            },
+            variation: {
+              width: 415,
+              height: 415
+            }
+          },
+          size: {
+            width: null,
+            height: null
+          },
+          tag: "og:image"
+        }
+      }
     };
   },
   computed: {
@@ -127,6 +253,13 @@ export default {
         image: this.absoluteUrl(this.propertyValue("og:image")),
         description: this.propertyValue("og:description")
       };
+    },
+    themeClass() {
+      /**
+       * class '-theme-with-dark-background' is taken from original dev tools repo
+       * src: https://github.com/ChromeDevTools/devtools-frontend/blob/02a851d01de158d8c0a8fd1d3af06649b5379bd6/front_end/ui/inspectorStyle.css
+       */
+      return getTheme() === "dark" ? "-theme-with-dark-background" : "";
     }
   },
   mounted() {
@@ -135,6 +268,7 @@ export default {
   created() {
     findImageDimensions(this.head, "og:image").then(imageDimensions => {
       this.imageDimensions = imageDimensions;
+      this.setTooltipData(imageDimensions);
       this.previewUrl = this.getPreviewUrl({ imageDimensions });
       if (imageDimensions.height === 0 || imageDimensions.width === 0) {
         console.log(`og.image can't be loaded`);
@@ -155,6 +289,36 @@ export default {
       if (!url) return;
       return url.startsWith("http") ? url : new URL(this.head.url).origin + url;
     },
+    setTooltipData(imageDimensions) {
+      if (this.propertyValue("og:title") !== null) {
+        this.tooltip.title.tag = "og:title";
+        this.tooltip.title.value = this.propertyValue("og:title");
+        this.tooltip.title.exist = true;
+      } else if (this.head.title !== null) {
+        this.tooltip.title.tag = "<title>";
+        this.tooltip.title.value = this.head.title;
+        this.tooltip.title.exist = false;
+      } else {
+        this.tooltip.title.tag = false;
+        this.tooltip.title.value = false;
+        this.tooltip.title.exist = false;
+      }
+
+      if (this.propertyValue("og:description") !== null) {
+        this.tooltip.description.value = this.propertyValue("og:description");
+        this.tooltip.description.exist = true;
+        this.tooltip.description.valueLength.tooLong =
+          this.propertyValue("og:description").length > 250;
+      } else {
+        this.tooltip.description.exist = false;
+      }
+
+      this.og.image
+        ? (this.tooltip.image.exist = true)
+        : (this.tooltip.image.exist = false);
+
+      this.tooltip.image.size = imageDimensions;
+    },
     metaValue(metaName) {
       return findMetaContent(this.head, metaName);
     },
@@ -166,6 +330,7 @@ export default {
       params.set("title", this.og.title || this.head.title);
       params.set("url", this.head.url);
       params.set("image", this.og.image);
+      params.set("theme", this.themeClass);
       params.set("imageSpecified", this.imageSpecified);
       params.set("description", this.og.description);
       if (this.og.image !== undefined) {
@@ -207,5 +372,9 @@ export default {
 
 .facebook__preview-caption {
   color: var(--label-color);
+}
+
+.facebook .properties-item__icon {
+  margin-left: 4px;
 }
 </style>

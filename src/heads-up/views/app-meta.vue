@@ -70,6 +70,11 @@
             value: findMetaContent(head, 'viewport')
           },
           {
+            keyName: 'description',
+            title: 'Description',
+            value: findMetaContent(head, 'description')
+          },
+          {
             keyName: 'theme-color',
             title: 'Theme color',
             value: findMetaContent(head, 'theme-color')

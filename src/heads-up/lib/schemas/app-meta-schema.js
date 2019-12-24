@@ -45,6 +45,13 @@ const appMetaSchema = {
     }
   },
 
+  'description': {
+    meta: {
+      info: `Short description of the document (limit to 150 characters)`,
+      link: 'https://htmlhead.dev/#meta'
+    }
+  },
+
   'theme-color': {
     meta: {
       info: `Set the toolbar color of the Chrome browser.`,

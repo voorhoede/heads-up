@@ -70,7 +70,7 @@
     video {
       display: block;
       /* 1 */
-      vertical-align: middle;
+      /* vertical-align: middle; */
       /* 2 */
       max-width: 100%;
       /* 3 */
@@ -132,15 +132,11 @@
       --image-large-size: 124px;
       --base-color: #292F33;
       --muted-color: #8899A6;
-      --bg-color-hover: #F5F8FA;
-      --background-color: #e8eaee;
-      --lh: 16px;
     }
 
     .-theme-with-dark-background {
       --color-border: rgb(56, 68, 77);
       --base-color: #fff;
-      --bg-color-hover: rgba(255, 255, 255, 0.03);
     }
 
     html {
@@ -148,123 +144,162 @@
       overflow: hidden;
     }
 
-    .facebook-preview {
+    .data-slack-preview-card {
+      display: flex;
+    }
+
+    .slack-preview {
       font-size: 14px;
-      height: 0;
+      display: flex;
+      margin-bottom: 8px;
     }
 
-    .facebook-preview__link-container {
+    .slack-preview__image {
+      width: 100%;
       height: 100%;
-      text-decoration: none;
-      cursor: pointer;
+      object-fit: cover;
+      max-width: none;
+      border-radius: 4px;
     }
 
-    .facebook-preview__link-container--vertical {
-      display: block;
-      height: auto;
-    }
-
-    .facebook-preview__ratio {
-      padding-bottom: 52.222%;
-    }
-
-    .facebook-preview__fixed-ratio {
-      height: 0;
+    .slack-preview__content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       overflow: hidden;
+      background-color: transparent;
+      transition: background-color 0.15s linear;
     }
 
-    .facebook-preview__fixed-ratio-content {
-      width: 100%;
+    .slack-preview__title {
+      margin-bottom: 0.35em;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      font-size: 1em;
+      color: rgb(18, 100, 163);
+      font-weight: 600;
     }
 
-    .facebook-preview__fixed-ratio-content::before {
-      content: '';
-      display: block;
-      width: 100%;
-      height: 289px;
-      background-color: var(--background-color);
+    .slack-preview__description {
+      display: flex;
+      margin-bottom: 2px;
+      color: rgb(29, 28, 29);
+      margin-bottom: 4px;
+      align-items: center;
     }
 
-    .facebook-preview__wrapper {
-      background-color: #e8eaee;
-      padding: 10px 12px;
+    .slack-preview__domain {
+      display: flex;
+      align-items: center;
+      margin: 0.25em;
+      color: var(--muted-color);
     }
 
-    .facebook-preview__title {
-      line-height: 16px;
+    .slack-preview__hostname {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
       color: var(--base-color);
       font-weight: bold;
-    }
-
-    .facebook-preview__description {
-      color: var(--base-color);
-      font-size: 12px;
-      line-height: 16px;
-    }
-
-    .facebook-preview__hostname {
-      text-transform: uppercase;
-      font-size: 12px;
-      line-height: 16px;
-    }
-
-    .facebook-preview__content {
-      max-height: calc(var(--lh) * 2);
-      overflow: hidden;
-    }
-
-    .facebook-preview__small .facebook-preview__wrapper {
-      height: 111px;
       display: flex;
-      justify-content: center;
-      flex-direction: column;
+      align-items: center;
     }
 
-    .facebook-preview__small .facebook-preview__ratio {
-      padding-bottom: 0;
+    .slack-preview__favicon {
+      height: 12px;
+      margin-right: 8px;
     }
 
-    .facebook-preview__small .facebook-preview__fixed-ratio {
-      width: 111px;
-      height: 111px;
-      float: left;
+    .slack-preview__sidebar {
+      padding-right: 4px;
+      background-color: rgb(221, 221, 221);
+      border-radius: 30px;
     }
 
-    .facebook-preview__interaction {
-      display: inline-block;
-      background-image: url(<%= require('./assets/facebook-emoji.png').default %>);
-      background-size: contain;
-      background-repeat: no-repeat;
+    .slack-preview__emoji {
+      background-color: rgba(29, 28, 29, .04);
+      border-radius: 12px;
+      width: 39px;
+      height: 24px;
+      padding: 0 4px 6px;
+      display: flex;
+      font-size: 10px;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .slack-preview__emoji-image {
       height: 20px;
-      width: 60px;
+      margin-right: 2px;
     }
 
-    .facebook-preview__interaction-wrapper {
+    .slack-preview__emoji-count {
+      margin-top: 4px;
+    }
+
+    .slack-preview__expand {
+      font-size: 9px;
+      color: rgb(18, 100, 163);
+    }
+
+    .slack-preview__container {
       display: flex;
-      justify-content: space-between;
-      margin: 10px 12px;
-      color: #606770;
+      min-width: 196px;
     }
 
-    .facebook-preview__interaction-stats {
-      display: inline-flex;
+    .slack-preview__image-container {
+      max-width: 360px;
     }
 
-    .facebook-preview__interaction-stats p {
-      margin-left: 6px;
-      line-height: 20px;
+    .slack-preview__content-information {
+      padding: 0 12px;
     }
 
-    .-theme-with-dark-background {
+    .slack-preview__small {
+      flex-direction: unset;
+    }
+
+    .slack-preview__small .slack-preview__content-information {
+      width: calc(100% - 80px);
+    }
+
+    .slack-preview__image-container {
+      padding: 0 12px;
+    }
+
+    .slack-preview__small .slack-preview__image-container {
+      width: 80px;
+      height: 80px;
+      padding: 0;
+    }
+
+    .slack-preview__additional {
+      display: flex;
+      margin-bottom: 4px;
+    }
+
+    .slack-preview__additional-item {
+      width: 50%;
+    }
+
+    .-theme-with-dark-background,
+    .-theme-with-dark-background .slack-preview__description {
       color: var(--base-color);
+    }
+
+    .-theme-with-dark-background .slack-preview__sidebar {
+      background-color: rgb(70, 70, 70);
     }
 
   </style>
-  <title>facebook preview</title>
+  <title>slack preview</title>
 </head>
 
 <body>
-  <div data-facebook-preview-card></div>
+  <div data-slack-preview-card></div>
 </body>
 
 </html>

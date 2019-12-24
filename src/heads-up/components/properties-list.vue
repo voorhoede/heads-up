@@ -20,6 +20,8 @@
     padding-right: 1em;
     text-align: right;
     color: var(--label-color);
+    display: inline-flex;
+    justify-content: flex-end;
   }
   .properties-list dd {
     width: calc(100% - var(--term-width));

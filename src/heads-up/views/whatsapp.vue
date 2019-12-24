@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="whatsapp">
     <panel-section title="Preview">
       <p v-if="!hasDescription">
-        This page does not contain an Open Graph description to create a preview.
+        This page does not contain an Open Graph description to create a
+        preview.
       </p>
       <figure v-if="hasDescription && previewUrl">
         <iframe
@@ -27,12 +28,21 @@
       <properties-list>
         <dl>
           <template>
-            <dt>
+            <dt class="title">
+              <p v-if="og.title === null">
+                og:title
+              </p>
               <app-tooltip
                 class="properties-item__tooltip"
                 placement="bottom-start"
               >
-                og:title
+                <InfoIcon
+                  v-if="og.title === null"
+                  class="properties-item__icon"
+                />
+                <p v-else>
+                  og:title
+                </p>
                 <template v-slot:info>
                   <property-data
                     type="og:title"
@@ -43,17 +53,35 @@
                 </template>
               </app-tooltip>
             </dt>
-            <dd>
-              {{ title }}
-            </dd>
+            <dd>{{ title }}</dd>
           </template>
           <template>
             <dt>
+              <p
+                v-if="
+                  og.description === null ||
+                    tooltip.description.valueLength.tooLong
+                "
+              >
+                og:description
+              </p>
               <app-tooltip
                 class="properties-item__tooltip"
                 placement="bottom-start"
               >
-                og:description
+                <WarningIcon
+                  v-if="description === null"
+                  class="properties-item__icon properties-item-icon properties-item-icon--warning"
+                />
+                <infoIcon
+                  v-else-if="tooltip.description.valueLength.tooLong"
+                  class="properties-item__icon"
+                />
+
+                <p v-else>
+                  og:description
+                </p>
+
                 <template v-slot:info>
                   <property-data
                     type="og:description"
@@ -66,18 +94,25 @@
                 </template>
               </app-tooltip>
             </dt>
-            <dd>
-              {{ description }}
-            </dd>
+            <dd>{{ description }}</dd>
           </template>
           <template>
             <dt>
+              <p v-if="og.image === null && imageHasValidSize">
+                og:image
+              </p>
               <app-tooltip
                 v-if="showTooltip"
                 class="properties-item__tooltip"
                 placement="bottom-start"
               >
-                og:image
+                <InfoIcon
+                  v-if="og.image === null && imageHasValidSize"
+                  class="properties-item__icon"
+                />
+                <p v-else>
+                  og:image
+                </p>
                 <template v-slot:info>
                   <property-data
                     type="og:image"
@@ -98,7 +133,9 @@
                 >
                 <span>{{ og.image }}</span>
               </external-link>
-              <p v-if="imageDimensions">
+              <p
+                v-if="imageDimensions"
+              >
                 ({{ imageDimensions.width }} x {{ imageDimensions.height }}px)
               </p>
             </dd>
@@ -111,12 +148,16 @@
       <resource-list>
         <ul>
           <li>
-            <external-link href="https://stackoverflow.com/a/43154489">
+            <external-link
+              href="https://stackoverflow.com/a/43154489"
+            >
               2019 WhatsApp sharing standards (on StackOverflow)
             </external-link>
           </li>
           <li>
-            <external-link href="https://stackoverflow.com/questions/19778620/provide-an-image-for-whatsapp-link-sharing">
+            <external-link
+              href="https://stackoverflow.com/questions/19778620/provide-an-image-for-whatsapp-link-sharing"
+            >
               Unfurl mechanism used by WhatsApp for sharing
             </external-link>
           </li>
@@ -126,8 +167,9 @@
   </div>
 </template>
 
-
 <script>
+import InfoIcon from "../assets/icons/info.svg";
+import WarningIcon from "../assets/icons/warning.svg";
 import { mapState } from "vuex";
 import {
   ExternalLink,
@@ -144,7 +186,16 @@ import {
 } from "../lib/find-meta";
 
 export default {
-  components: { ExternalLink, PanelSection, PropertiesList, ResourceList, AppTooltip, PropertyData },
+  components: {
+    ExternalLink,
+    PanelSection,
+    PropertiesList,
+    ResourceList,
+    AppTooltip,
+    PropertyData,
+    InfoIcon,
+    WarningIcon
+  },
   data() {
     return {
       iframeHeight: "auto",
@@ -156,7 +207,7 @@ export default {
           exist: null,
           required: false,
           tag: null,
-          value: null,
+          value: null
         },
 
         description: {
@@ -167,7 +218,7 @@ export default {
           valueLength: {
             max: 300,
             tooLong: null
-          },
+          }
         },
 
         image: {
@@ -188,38 +239,13 @@ export default {
             width: null,
             height: null
           },
-          tag: "og:image",
+          tag: "og:image"
         }
       }
     };
   },
   computed: {
     ...mapState(["head"]),
-    hasDescription() {
-      const whatsappDescription = this.propertyValue("og:description");
-
-      if (whatsappDescription !== null && whatsappDescription.length > 0) {
-        return true;
-      }
-
-      return false;
-    },
-    title() {
-      return this.propertyValue("og:title")||this.head.title || "";
-    },
-    description() {
-      return this.og.description;
-    },
-    image() {
-      if (this.og.image !== undefined) {
-        return this.absoluteUrl(this.og.image);
-      } else {
-        return this.og.image;
-      }
-    },
-    url() {
-      return this.head.url;
-    },
     og() {
       return {
         title: this.propertyValue("og:title"),
@@ -228,6 +254,33 @@ export default {
         image: this.propertyValue("og:image"),
         url: this.propertyValue("og:url")
       };
+    },
+    title() {
+      return this.propertyValue("og:title") || this.head.title || "";
+    },
+    description() {
+      return this.og.description;
+    },
+    hasDescription() {
+      return this.og.description !== null && this.og.description.length > 0;
+    },
+    image() {
+      if (this.og.image !== undefined) {
+        return this.absoluteUrl(this.og.image);
+      } else {
+        return this.og.image;
+      }
+    },
+    imageHasValidSize() {
+      return (
+        this.tooltip.image.size.width >=
+          this.tooltip.image.requiredSizes.minimum.width &&
+        this.tooltip.image.size.height >=
+          this.tooltip.image.requiredSizes.minimum.height
+      );
+    },
+    url() {
+      return this.head.url;
     }
   },
   mounted() {
@@ -236,7 +289,7 @@ export default {
   created() {
     findImageDimensions(this.head, "og:image").then(imageDimensions => {
       this.imageDimensions = imageDimensions;
-      this.setTooltipData(imageDimensions)
+      this.setTooltipData(imageDimensions);
       this.showTooltip = true;
 
       this.previewUrl = this.getPreviewUrl({ imageDimensions });
@@ -256,36 +309,34 @@ export default {
       return "";
     },
     setTooltipData(imageDimensions) {
-      const ogTitlePropertyValue = this.propertyValue("og:title")
-      const ogDescriptionPropertyValue = this.propertyValue("og:description")
-
-      if (ogTitlePropertyValue !== null) {
-        this.tooltip.title.tag = "og:title"
-        this.tooltip.title.value = ogTitlePropertyValue
-        this.tooltip.title.exist = true
+      if (this.propertyValue("og:title") !== null) {
+        this.tooltip.title.tag = "og:title";
+        this.tooltip.title.value = this.propertyValue("og:title");
+        this.tooltip.title.exist = true;
       } else if (this.head.title !== null) {
-        this.tooltip.title.tag = "<title>"
-        this.tooltip.title.value = this.head.title
-        this.tooltip.title.exist = false
+        this.tooltip.title.tag = "<title>";
+        this.tooltip.title.value = this.head.title;
+        this.tooltip.title.exist = false;
       } else {
-        this.tooltip.title.tag = false
-        this.tooltip.title.value = false
-        this.tooltip.title.exist = false
+        this.tooltip.title.tag = false;
+        this.tooltip.title.value = false;
+        this.tooltip.title.exist = false;
       }
 
-      if (ogDescriptionPropertyValue !== null) {
-        this.tooltip.description.value = ogDescriptionPropertyValue
-        this.tooltip.description.exist = true
-        this.tooltip.description.valueLength.tooLong = ogDescriptionPropertyValue.length > 300
+      if (this.propertyValue("og:description") !== null) {
+        this.tooltip.description.value = this.propertyValue("og:description");
+        this.tooltip.description.exist = true;
+        this.tooltip.description.valueLength.tooLong =
+          this.propertyValue("og:description").length > 300;
       } else {
-        this.tooltip.description.exist = false
+        this.tooltip.description.exist = false;
       }
 
       this.og.image
-        ? this.tooltip.image.exist = true
-        : this.tooltip.image.exist = false
+        ? (this.tooltip.image.exist = true)
+        : (this.tooltip.image.exist = false);
 
-      this.tooltip.image.size = imageDimensions
+      this.tooltip.image.size = imageDimensions;
     },
     metaValue(metaName) {
       return findMetaContent(this.head, metaName);
@@ -306,7 +357,10 @@ export default {
       return `/whatsapp-preview/whatsapp-preview.html?${params}`;
     },
     onResize() {
-      this.iframeHeight = parseInt(this.$refs.iframe.contentWindow.document.body.scrollHeight + 2) + "px";
+      this.iframeHeight =
+        parseInt(
+          this.$refs.iframe.contentWindow.document.body.scrollHeight + 2
+        ) + "px";
     }
   }
 };
@@ -324,7 +378,7 @@ export default {
   color: var(--label-color);
 }
 
-.properties-item__tooltip{
+.properties-item__tooltip {
   display: inline-block;
 }
 
@@ -339,8 +393,15 @@ export default {
     width: var(--term-width-small);
     padding-right: 5px;
   }
-  .properties-item__term * + * {
+  .whatsapp .properties-item__term * + * {
     margin-left: 0.15rem;
   }
+}
+.whatsapp .properties-item__icon {
+  margin-left: 4px;
+}
+
+.properties-item-icon--warning {
+  fill: #eac250;
 }
 </style>
