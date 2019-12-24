@@ -8,7 +8,7 @@ function createPreview() {
   const description = params.get('description').substring(0, 700)
   const url = params.get('url')
   const imageIsBig = (params.get('imageIsBig') === 'true')
-  const favicon = params.get('favicon')
+  const favicon = params.get('favicon') !== "undefined" ? params.get('favicon') : false
   const isValidImage = (params.get('validImage') === "true")
   let additionalData
 
@@ -75,11 +75,10 @@ function getslackMarkup({ title, image, url, imageIsBig, favicon, description, i
       <div class="slack-preview__content ${imageIsBig ? "" : "slack-preview__small"}">
         <div class="slack-preview__content-information">
           <div class="slack-preview__domain">
-            ${favicon ? html`
               <div class="slack-preview__hostname">
-                <img class="slack-preview__favicon" src="${favicon}" alt="">${getHostName(url)}
+              ${favicon ? html`<img class="slack-preview__favicon" src="${favicon}" alt="">` : ``}${getHostName(url)}
               </div>
-            </div>` : ``}
+            </div>
             <div class="slack-preview__title">
               ${ title}
             </div>
