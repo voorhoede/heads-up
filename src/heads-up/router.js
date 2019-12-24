@@ -18,6 +18,14 @@ export default new VueRouter({
       component: () => import(/* webpackChunkName:'views/app-meta' */ './views/app-meta.vue')
     },
     {
+      path: '/app-link',
+      name: 'app-link',
+      meta: {
+        title: 'Link',
+      },
+      component: () => import(/* webpackChunkName:'views/app-meta' */ './views/app-link.vue')
+    },
+    {
       path: '/favicon',
       name: 'favicon',
       meta: {
