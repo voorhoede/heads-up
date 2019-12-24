@@ -10,6 +10,7 @@ function createPreview() {
   const imageIsBig = (params.get('imageIsBig') === 'true')
   const favicon = params.get('favicon')
   const isValidImage = (params.get('validImage') === "true")
+  const theme = params.get('theme')
   let additionalData
 
   try {
@@ -31,7 +32,8 @@ function createPreview() {
           favicon,
           imageSize,
           additionalData,
-          imageIsBig
+          imageIsBig,
+          theme
         })
       })
   }
@@ -60,17 +62,16 @@ function getHostName(url) {
 }
 
 function getImageFileSize(image) {
-  console.log(image);
   return fetch(image, { method: 'HEAD' })
     .then(x => {
       return `${Math.round(Number(x.headers.get('content-length')) / 1000)} kB`
     })
 }
 
-function getslackMarkup({ title, image, url, imageIsBig, favicon, description, imageSize, additionalData }) {
+function getslackMarkup({ title, image, url, imageIsBig, favicon, description, imageSize, additionalData, theme }) {
 
   return html`
-    <a rel="noopener" target="_blank" class="slack-preview__container">
+    <a rel="noopener" target="_blank" class="slack-preview__container ${theme}">
       <span class="slack-preview__sidebar"></span>
       <div class="slack-preview__content ${imageIsBig ? "" : "slack-preview__small"}">
         <div class="slack-preview__content-information">
@@ -102,7 +103,7 @@ function getslackMarkup({ title, image, url, imageIsBig, favicon, description, i
           </div>
         </a>
 
-        <div class="slack-preview__emoji">
+        <div class="slack-preview__emoji ${theme}">
           <img class="slack-preview__emoji-image" src="${require('./assets/parrot.gif').default}" alt="">
           <p class="slack-preview__emoji-count">${Math.floor(Math.random() * 8) + 1}</p>
         </div>
