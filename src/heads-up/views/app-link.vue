@@ -8,10 +8,7 @@
         open
       >
         <summary><ChevronRightIcon />{{ key }}</summary>
-        <ul
-          style="margin-left: 1rem; list-style: none;"
-          class="app-link__list"
-        >
+        <ul class="app-link__list">
           <li
             v-for="(item, index) in section"
             :key="index"
@@ -43,7 +40,6 @@
               <dl class="app-link__table-row app-link__attribute-value">
                 <template v-for="(row, rowIndex) in item">
                   <template v-for="(column, i) in row">
-                    <!-- eslint-disable-next-line vue/no-v-html, vue/max-attributes-per-line -->
                     <component
                       :is="i === 0 ? 'dt' : 'dd'"
                       :key="`${row}${column}`"
@@ -85,16 +81,12 @@
 
   export default {
     components: { ExternalLink, PanelSection, ResourceList, ChevronRightIcon },
-    data: () => ({
-      includeData: false
-    }),
     computed: {
       ...mapState(['head']),
       appLinkData() {
         return this.head.link
           .filter(item => item.rel)
           .map(item => {
-            if (this.includeData) return item
             return Object.keys(item)
               .filter(key => /data-/.test(key) === false)
               .reduce((object, key) => ({ ...object, [key]: item[key] }), {})
@@ -196,9 +188,10 @@
 }
 
 .app-link__list {
+  margin-left: 1rem;
+  list-style: none;
   font-weight: normal;
 }
-
 
 .app-link__list-item {
   position: relative;
