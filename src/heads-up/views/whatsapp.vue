@@ -71,7 +71,7 @@
               >
                 <WarningIcon
                   v-if="description === null"
-                  class="properties-item__icon"
+                  class="properties-item__icon properties-item-icon properties-item-icon--warning"
                 />
                 <infoIcon
                   v-else-if="tooltip.description.valueLength.tooLong"
@@ -399,5 +399,9 @@ export default {
 }
 .whatsapp .properties-item__icon {
   margin-left: 4px;
+}
+
+.properties-item-icon--warning {
+  fill: #eac250;
 }
 </style>
