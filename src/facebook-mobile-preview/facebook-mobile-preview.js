@@ -10,6 +10,7 @@ function createPreview() {
   const imageSpecified = (params.get('imageSpecified') === 'true')
   const img = params.get('image')
   const mobileImgIsBig = (params.get('mobileImgIsBig') === 'true')
+  const theme = params.get('theme')
 
   const facebookElement = document.querySelector('[data-facebook-preview-card]')
   facebookElement.innerHTML = getfacebookMarkup({
@@ -18,7 +19,8 @@ function createPreview() {
     img,
     url,
     mobileImgIsBig,
-    imageSpecified
+    imageSpecified,
+    theme
   })
 }
 
@@ -33,7 +35,7 @@ function getHostName(url) {
     : hostname
 }
 
-function getfacebookMarkup({ title, description, img, url, mobileImgIsBig, imageSpecified
+function getfacebookMarkup({ title, description, img, url, mobileImgIsBig, imageSpecified, theme
 }) {
 
   return html`
@@ -59,7 +61,7 @@ function getfacebookMarkup({ title, description, img, url, mobileImgIsBig, image
         </div>
       </div>
     </a>
-    <div class="facebook-preview__interaction-wrapper">
+    <div class="facebook-preview__interaction-wrapper ${theme}">
     <div class="facebook-preview__interaction-stats">
       <i class="facebook-preview__interaction"></i>
       <p>${Math.floor(Math.random() * 488) + 411}</p>
