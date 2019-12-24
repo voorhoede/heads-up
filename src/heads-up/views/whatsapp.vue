@@ -71,7 +71,7 @@
               >
                 <WarningIcon
                   v-if="description === null"
-                  class="properties-item__icon properties-item-icon--warning"
+                  class="properties-item__icon properties-item-icon properties-item-icon--warning"
                 />
                 <infoIcon
                   v-else-if="tooltip.description.valueLength.tooLong"
@@ -133,7 +133,9 @@
                 >
                 <span>{{ og.image }}</span>
               </external-link>
-              <p v-if="imageDimensions">
+              <p
+                v-if="imageDimensions"
+              >
                 ({{ imageDimensions.width }} x {{ imageDimensions.height }}px)
               </p>
             </dd>
@@ -146,7 +148,9 @@
       <resource-list>
         <ul>
           <li>
-            <external-link href="https://stackoverflow.com/a/43154489">
+            <external-link
+              href="https://stackoverflow.com/a/43154489"
+            >
               2019 WhatsApp sharing standards (on StackOverflow)
             </external-link>
           </li>

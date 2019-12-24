@@ -69,7 +69,7 @@
               />
               <WarningIcon
                 v-else-if="!og.image"
-                class="properties-item__icon properties-item-icon--warning "
+                class="properties-item__icon properties-item-icon properties-item-icon--warning"
               />
               <p v-else>
                 og:image
