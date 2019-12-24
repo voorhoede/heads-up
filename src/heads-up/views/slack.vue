@@ -86,10 +86,14 @@ export default {
       };
     },
     additional() {
-      return {
-        favicon: findFavicons(this.head)[0].url,
-        additionalData: findAdditionSlackData(this.head)
-      };
+      try {
+        return {
+          favicon: findFavicons(this.head)[0].url,
+          additionalData: findAdditionSlackData(this.head)
+        };
+      } catch (error) {
+        return error;
+      }
     }
   },
   mounted() {
@@ -137,7 +141,10 @@ export default {
       return `/slack-preview/slack-preview.html?${params}`;
     },
     onResize() {
-      this.iframeHeight = parseInt(this.$refs.iframe.contentWindow.document.body.scrollHeight + 2) + "px";
+      this.iframeHeight =
+        parseInt(
+          this.$refs.iframe.contentWindow.document.body.scrollHeight + 2
+        ) + "px";
     }
   }
 };
