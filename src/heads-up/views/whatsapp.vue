@@ -393,7 +393,7 @@ export default {
     width: var(--term-width-small);
     padding-right: 5px;
   }
-  .properties-item__term * + * {
+  .whatsapp .properties-item__term * + * {
     margin-left: 0.15rem;
   }
 }
