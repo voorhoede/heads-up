@@ -61,7 +61,7 @@ function getfacebookMarkup({ title, description, img, url, desktopImgIsBig, imag
         </div>
       </div>
     </a>
-    <div class="facebook-preview__interaction-wrapper  ${theme}">
+    <div class="facebook-preview__interaction-wrapper ${theme}">
     <div class="facebook-preview__interaction-stats">
       <i class="facebook-preview__interaction"></i>
       <p>${Math.floor(Math.random() * 488) + 411}</p>
