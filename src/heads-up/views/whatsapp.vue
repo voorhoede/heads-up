@@ -1,10 +1,9 @@
 <template>
-  <div>
+  <div class="whatsapp">
     <panel-section title="Preview">
-      <p
-        v-if="!hasDescription"
-      >
-        This page does not contain an Open Graph description to create a preview.
+      <p v-if="!hasDescription">
+        This page does not contain an Open Graph description to create a
+        preview.
       </p>
       <figure v-if="hasDescription && previewUrl">
         <iframe
@@ -13,8 +12,6 @@
           :src="previewUrl"
           :height="iframeHeight"
           width="100%"
-          frameborder="0"
-          scrolling="no"
           class="whatsapp__preview"
           @load="onResize"
         />
@@ -22,7 +19,7 @@
           Preview based on
           <external-link href="https://web.whatsapp.com/">
             web.whatsapp.com
-          </external-link>.
+          </external-link>
         </figcaption>
       </figure>
     </panel-section>
@@ -30,23 +27,110 @@
     <panel-section title="Properties">
       <properties-list>
         <dl>
-          <template v-if="og.title">
-            <dt>og:title</dt>
-            <dd>{{ og.title }}</dd>
+          <template>
+            <dt class="title">
+              <p v-if="og.title === null">
+                og:title
+              </p>
+              <app-tooltip
+                class="properties-item__tooltip"
+                placement="bottom-start"
+              >
+                <InfoIcon
+                  v-if="og.title === null"
+                  class="properties-item__icon"
+                />
+                <p v-else>
+                  og:title
+                </p>
+                <template v-slot:info>
+                  <property-data
+                    type="og:title"
+                    :exist="tooltip.title.exist"
+                    :tag="tooltip.title.tag"
+                    :value="tooltip.title.content"
+                  />
+                </template>
+              </app-tooltip>
+            </dt>
+            <dd>{{ title }}</dd>
           </template>
-          <template v-if="og.description">
-            <dt>og:description</dt>
-            <dd>{{ og.description }}</dd>
+          <template>
+            <dt>
+              <p
+                v-if="
+                  og.description === null ||
+                    tooltip.description.valueLength.tooLong
+                "
+              >
+                og:description
+              </p>
+              <app-tooltip
+                class="properties-item__tooltip"
+                placement="bottom-start"
+              >
+                <WarningIcon
+                  v-if="description === null"
+                  class="properties-item__icon properties-item-icon properties-item-icon--warning"
+                />
+                <infoIcon
+                  v-else-if="tooltip.description.valueLength.tooLong"
+                  class="properties-item__icon"
+                />
+
+                <p v-else>
+                  og:description
+                </p>
+
+                <template v-slot:info>
+                  <property-data
+                    type="og:description"
+                    :exist="tooltip.description.exist"
+                    :required="tooltip.description.required"
+                    :tag="tooltip.description.tag"
+                    :value="tooltip.description.value"
+                    :value-length="tooltip.description.valueLength"
+                  />
+                </template>
+              </app-tooltip>
+            </dt>
+            <dd>{{ description }}</dd>
           </template>
-          <template v-if="og.image">
-            <dt>og:image</dt>
-            <dd>
+          <template>
+            <dt>
+              <p v-if="og.image === null && imageHasValidSize">
+                og:image
+              </p>
+              <app-tooltip
+                v-if="showTooltip"
+                class="properties-item__tooltip"
+                placement="bottom-start"
+              >
+                <InfoIcon
+                  v-if="og.image === null && imageHasValidSize"
+                  class="properties-item__icon"
+                />
+                <p v-else>
+                  og:image
+                </p>
+                <template v-slot:info>
+                  <property-data
+                    type="og:image"
+                    :exist="tooltip.image.exist"
+                    :has-variation="tooltip.image.hasVariation"
+                    :required-sizes="tooltip.image.requiredSizes"
+                    :size="tooltip.image.size"
+                    :tag="tooltip.image.tag"
+                  />
+                </template>
+              </app-tooltip>
+            </dt>
+            <dd v-if="og.image">
               <external-link :href="absoluteUrl(og.image)">
                 <img
                   alt
                   :src="absoluteUrl(og.image)"
                 >
-
                 <span>{{ og.image }}</span>
               </external-link>
               <p
@@ -55,10 +139,6 @@
                 ({{ imageDimensions.width }} x {{ imageDimensions.height }}px)
               </p>
             </dd>
-          </template>
-          <template v-if="og.url">
-            <dt>og:url</dt>
-            <dd>{{ og.url }}</dd>
           </template>
         </dl>
       </properties-list>
@@ -87,14 +167,17 @@
   </div>
 </template>
 
-
 <script>
+import InfoIcon from "../assets/icons/info.svg";
+import WarningIcon from "../assets/icons/warning.svg";
 import { mapState } from "vuex";
 import {
   ExternalLink,
   PanelSection,
   PropertiesList,
-  ResourceList
+  ResourceList,
+  AppTooltip,
+  PropertyData
 } from "../components";
 import {
   findMetaContent,
@@ -102,41 +185,67 @@ import {
   findImageDimensions
 } from "../lib/find-meta";
 
-const ogDescription = "og:description";
-
 export default {
-  components: { ExternalLink, PanelSection, PropertiesList, ResourceList },
+  components: {
+    ExternalLink,
+    PanelSection,
+    PropertiesList,
+    ResourceList,
+    AppTooltip,
+    PropertyData,
+    InfoIcon,
+    WarningIcon
+  },
   data() {
     return {
       iframeHeight: "auto",
       imageDimensions: { width: undefined, height: undefined },
-      previewUrl: ""
+      previewUrl: "",
+      showTooltip: false,
+      tooltip: {
+        title: {
+          exist: null,
+          required: false,
+          tag: null,
+          value: null
+        },
+
+        description: {
+          exist: null,
+          required: true,
+          tag: "og:description",
+          value: null,
+          valueLength: {
+            max: 300,
+            tooLong: null
+          }
+        },
+
+        image: {
+          exist: false,
+          hasVariation: false,
+          required: false,
+          requiredSizes: {
+            minimum: {
+              width: 100,
+              height: 100
+            },
+            variation: {
+              width: null,
+              height: null
+            }
+          },
+          size: {
+            width: null,
+            height: null
+          },
+          tag: "og:image"
+        }
+      }
     };
   },
   computed: {
     ...mapState(["head"]),
-    hasDescription() {
-      const whatsappDescription = this.propertyValue(ogDescription);
-      if (whatsappDescription !== null && whatsappDescription.length > 0) {
-        return true;
-      }
-      return false;
-    },
-    title() {
-      return this.head.title || "";
-    },
-    description() {
-      return this.og.description;
-    },
-    image() {
-      if (this.og.image !== undefined) {
-        return this.absoluteUrl(this.og.image);
-      }
-      return this.og.image;
-    },
-    url() {
-      return this.head.url;
-    },
     og() {
       return {
         title: this.propertyValue("og:title"),
@@ -145,6 +254,33 @@ export default {
         image: this.propertyValue("og:image"),
         url: this.propertyValue("og:url")
       };
+    },
+    title() {
+      return this.propertyValue("og:title") || this.head.title || "";
+    },
+    description() {
+      return this.og.description;
+    },
+    hasDescription() {
+      return this.og.description !== null && this.og.description.length > 0;
+    },
+    image() {
+      if (this.og.image !== undefined) {
+        return this.absoluteUrl(this.og.image);
+      } else {
+        return this.og.image;
+      }
+    },
+    imageHasValidSize() {
+      return (
+        this.tooltip.image.size.width >=
+          this.tooltip.image.requiredSizes.minimum.width &&
+        this.tooltip.image.size.height >=
+          this.tooltip.image.requiredSizes.minimum.height
+      );
+    },
+    url() {
+      return this.head.url;
     }
   },
   mounted() {
@@ -153,24 +289,10 @@ export default {
   created() {
     findImageDimensions(this.head, "og:image").then(imageDimensions => {
       this.imageDimensions = imageDimensions;
-      this.previewUrl = this.getPreviewUrl({ imageDimensions });
-      const { width, height } = imageDimensions;
+      this.setTooltipData(imageDimensions);
+      this.showTooltip = true;
 
-      if (width >= 100 && height < 100) {
-        console.log(
-          `The image height is too small. You need at least 100px instead of ${height}px`
-        );
-      }
-      if (width < 100 && height >= 100) {
-        console.log(
-          `The image width is too small. You need at least 100px instead of ${width}px`
-        );
-      }
-      if (width < 100 && height < 100) {
-        console.log(
-          `The image width and height are too small. You need at least 100px of width instead of ${width}px and 100px of height instead of ${height}px`
-        );
-      }
+      this.previewUrl = this.getPreviewUrl({ imageDimensions });
     });
   },
   destroyed() {
@@ -186,6 +308,36 @@ export default {
 
       return "";
     },
+    setTooltipData(imageDimensions) {
+      if (this.propertyValue("og:title") !== null) {
+        this.tooltip.title.tag = "og:title";
+        this.tooltip.title.value = this.propertyValue("og:title");
+        this.tooltip.title.exist = true;
+      } else if (this.head.title !== null) {
+        this.tooltip.title.tag = "<title>";
+        this.tooltip.title.value = this.head.title;
+        this.tooltip.title.exist = false;
+      } else {
+        this.tooltip.title.tag = false;
+        this.tooltip.title.value = false;
+        this.tooltip.title.exist = false;
+      }
+
+      if (this.propertyValue("og:description") !== null) {
+        this.tooltip.description.value = this.propertyValue("og:description");
+        this.tooltip.description.exist = true;
+        this.tooltip.description.valueLength.tooLong =
+          this.propertyValue("og:description").length > 300;
+      } else {
+        this.tooltip.description.exist = false;
+      }
+
+      this.og.image
+        ? (this.tooltip.image.exist = true)
+        : (this.tooltip.image.exist = false);
+
+      this.tooltip.image.size = imageDimensions;
+    },
     metaValue(metaName) {
       return findMetaContent(this.head, metaName);
     },
@@ -195,10 +347,12 @@ export default {
     getPreviewUrl({ imageDimensions }) {
       const params = new URLSearchParams();
       params.set("title", this.og.title || this.title);
-      params.set("description", this.og.description);
+      params.set("description", this.description);
+
       if (imageDimensions.height >= 100 && imageDimensions.width >= 100) {
         params.set("image", this.image);
       }
+
       params.set("url", this.head.url);
       return `/whatsapp-preview/whatsapp-preview.html?${params}`;
     },
@@ -222,5 +376,32 @@ export default {
 
 .whatsapp__preview-caption {
   color: var(--label-color);
+}
+
+.properties-item__tooltip {
+  display: inline-block;
+}
+
+@media (min-width: 500px) {
+  .properties-item {
+    display: flex;
+    align-items: flex-start;
+  }
+  .properties-item__term {
+    display: flex;
+    justify-content: flex-end;
+    width: var(--term-width-small);
+    padding-right: 5px;
+  }
+  .properties-item__term * + * {
+    margin-left: 0.15rem;
+  }
+}
+.whatsapp .properties-item__icon {
+  margin-left: 4px;
+}
+
+.properties-item-icon--warning {
+  fill: #eac250;
 }
 </style>

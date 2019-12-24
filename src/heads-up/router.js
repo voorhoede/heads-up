@@ -80,7 +80,6 @@ export default new VueRouter({
         title: 'Slack',
       },
       component: () => import(/* webpackChunkName:'views/slack' */ './views/slack.vue')
-
     },
   ]
 })

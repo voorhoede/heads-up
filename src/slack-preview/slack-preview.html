@@ -141,6 +141,7 @@
 
     html {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+      overflow: hidden;
     }
 
     .data-slack-preview-card {
@@ -216,7 +217,6 @@
       padding-right: 4px;
       background-color: rgb(221, 221, 221);
       border-radius: 30px;
-      /* margin-right: 12px; */
     }
 
     .slack-preview__emoji {
@@ -231,12 +231,12 @@
       margin-top: 8px;
     }
 
-    .slack-preview__emoji img {
+    .slack-preview__emoji-image {
       height: 20px;
       margin-right: 2px;
     }
 
-    .slack-preview__emoji p {
+    .slack-preview__emoji-count {
       margin-top: 4px;
     }
 
@@ -284,14 +284,12 @@
     .slack-preview__additional-item {
       width: 50%;
     }
-
   </style>
   <title>slack preview</title>
 </head>
 
 <body>
   <div data-slack-preview-card></div>
-
 </body>
 
 </html>

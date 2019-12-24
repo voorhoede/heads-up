@@ -1,7 +1,9 @@
 <template>
   <div>
     <panel-section title="Preview">
-      <p v-if="!hasRequiredData">This page does not contain og:image meta data to create a preview.</p>
+      <p v-if="!hasRequiredData">
+        This page does not contain og:image meta data to create a preview.
+      </p>
 
       <figure v-if="hasRequiredData">
         <iframe
@@ -9,14 +11,14 @@
           :src="previewUrl"
           :height="iframeHeight"
           width="100%"
-          frameborder="0"
-          scrolling="no"
           class="slack__preview"
           @load="onResize"
         />
         <figcaption class="slack__preview-caption">
           Preview based on
-          <external-link href="https://slack.com/">slack.com</external-link>.
+          <external-link href="https://slack.com/">
+            slack.com
+          </external-link>.
         </figcaption>
       </figure>
     </panel-section>
@@ -31,10 +33,15 @@
           <dt>og:image</dt>
           <dd>
             <external-link :href="absoluteUrl(og.image)">
-              <img alt :src="absoluteUrl(og.image)" />
+              <img
+                alt
+                :src="absoluteUrl(og.image)"
+              >
               <span>{{ og.image }}</span>
             </external-link>
-            <p v-if="imageDimensions">({{ imageDimensions.width }} x {{ imageDimensions.height }}px)</p>
+            <p v-if="imageDimensions">
+              ({{ imageDimensions.width }} x {{ imageDimensions.height }}px)
+            </p>
           </dd>
         </template>
         <template v-if="og.description">
@@ -69,10 +76,7 @@ export default {
   computed: {
     ...mapState(["head"]),
     hasRequiredData() {
-      return (
-        this.propertyValue("og:title") !== null ||
-        this.propertyValue("og:description") !== null
-      );
+      return this.og.title !== null || this.og.description !== null;
     },
     og() {
       return {
@@ -84,7 +88,6 @@ export default {
     additional() {
       return {
         favicon: findFavicons(this.head)[0].url,
-        // How to rename this better?
         additionalData: findAdditionSlackData(this.head)
       };
     }
@@ -96,10 +99,6 @@ export default {
     findImageDimensions(this.head, "og:image").then(imageDimensions => {
       this.imageDimensions = imageDimensions;
       this.previewUrl = this.getPreviewUrl({ imageDimensions });
-
-      if (imageDimensions.height === 0 || imageDimensions.width === 0) {
-        console.log(`og.image can't be loaded`);
-      }
     });
   },
   destroyed() {
@@ -138,10 +137,7 @@ export default {
       return `/slack-preview/slack-preview.html?${params}`;
     },
     onResize() {
-      this.iframeHeight =
-        parseInt(
-          this.$refs.iframe.contentWindow.document.body.scrollHeight + 2
-        ) + "px";
+      this.iframeHeight = parseInt(this.$refs.iframe.contentWindow.document.body.scrollHeight + 2) + "px";
     }
   }
 };
