@@ -261,7 +261,6 @@ export default {
     findImageDimensions(this.head, "og:image").then(imageDimensions => {
       this.imageDimensions = imageDimensions;
       this.setTooltipData(imageDimensions);
-      console.log(this);
       this.previewUrl = this.getPreviewUrl({ imageDimensions });
       if (imageDimensions.height === 0 || imageDimensions.width === 0) {
         console.log(`og.image can't be loaded`);
