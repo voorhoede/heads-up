@@ -23,7 +23,16 @@
           <!-- eslint-disable-next-line vue/no-v-html, vue/max-attributes-per-line -->
           <span v-if="!errors" v-html="info" />
           <span v-if="errors">
-            {{ errorMessage }}
+            <template v-if="errors.length === 1">
+              {{ errorMessage }}
+            </template>
+            <ul
+              v-else
+              class="properties-item__error-list"
+            >
+              <!-- eslint-disable-next-line vue/no-v-html, vue/max-attributes-per-line -->
+              <li v-for="error in errors" :key="error.message" v-html="error.message" />
+            </ul>
           </span>
         </template>
 
@@ -82,7 +91,15 @@ export default {
     },
     value: {
       type: String,
-      required: true
+      required: false,
+      default() {
+        return ''
+      }
+    },
+    attrs: {
+      type: Object,
+      required: false,
+      default: undefined,
     }
   },
   data() {
@@ -134,8 +151,9 @@ export default {
     this.errors = validateSchema({
       schema: this.schema,
       key: this.keyName,
-      value: this.value
-    });
+      value: this.value,
+      attrs: this.attrs,
+    })
   }
 };
 </script>
@@ -196,6 +214,10 @@ export default {
 
 .properties-item__link {
   margin-left: 5px;
+}
+
+.properties-item__error-list {
+  margin-left: 1rem;
 }
 
 @media (min-width: 500px) {
