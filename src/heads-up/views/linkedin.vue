@@ -109,6 +109,7 @@
 import InfoIcon from "../assets/icons/info.svg";
 import WarningIcon from "../assets/icons/warning.svg";
 import { mapState } from "vuex";
+import getTheme from "../lib/theme";
 import {
   ExternalLink,
   PanelSection,
@@ -192,6 +193,13 @@ export default {
         this.tooltip.image.size.heigth <
           this.tooltip.image.requiredSizes.variation.height
       );
+    },
+    themeClass() {
+      /**
+       * class '-theme-with-dark-background' is taken from original dev tools repo
+       * src: https://github.com/ChromeDevTools/devtools-frontend/blob/02a851d01de158d8c0a8fd1d3af06649b5379bd6/front_end/ui/inspectorStyle.css
+       */
+      return getTheme() === "dark" ? "-theme-with-dark-background" : "";
     }
   },
   mounted() {
@@ -244,6 +252,7 @@ export default {
       params.set("title", this.og.title || this.head.title || "Weblink");
       params.set("url", this.head.url);
       params.set("image", this.og.image);
+      params.set("theme", this.themeClass);
       params.set(
         "imageIsBig",
         imageDimensions.height > 400 && imageDimensions.width > 400

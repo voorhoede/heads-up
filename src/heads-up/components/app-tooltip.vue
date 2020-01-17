@@ -62,17 +62,19 @@ export default {
   transform: rotate(45deg);
 }
 
-.tooltip[x-placement^="top"] {
-  margin-bottom: 5px;
-}
-
 .tooltip[x-placement^="top"] .tooltip-arrow {
   bottom: -5px;
   margin: 0 5px;
 }
 
-.tooltip[x-placement^="bottom"] {
-  margin-top: 5px;
+.tooltip::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  transform: scaleY(2);
 }
 
 .tooltip[x-placement^="bottom"] .tooltip-arrow {

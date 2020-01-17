@@ -287,6 +287,7 @@ export default {
       params.set("title", this.og.title || this.head.title || "Weblink");
       params.set("url", this.head.url);
       params.set("image", this.og.image);
+      params.set("theme", this.themeClass);
       params.set("description", this.og.description);
       params.set("favicon", this.additional.favicon);
       params.set(

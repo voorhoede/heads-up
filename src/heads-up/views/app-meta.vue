@@ -7,6 +7,7 @@
           :key="item.keyName"
           :value="item.value"
           :key-name="item.keyName"
+          :attrs="item.attrs"
           :schema="schema"
         >
           <template v-slot:default>
@@ -37,7 +38,7 @@
 <script>
   import { mapState } from 'vuex'
   import { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList } from '../components'
-  import { findCharset, findMetaContent } from '../lib/find-meta'
+  import { findCharset, findMetaContent, findAttrs } from '../lib/find-meta'
   import schema  from '../lib/schemas/app-meta-schema'
 
   export default {
@@ -60,7 +61,8 @@
           {
             keyName: 'charset',
             title: 'Charset',
-            value: findCharset(head)
+            value: findCharset(head),
+            attrs: findAttrs(head, 'charset') || findAttrs(head, 'http-equiv')
           },
           {
             keyName: 'viewport',
