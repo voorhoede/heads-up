@@ -98,7 +98,7 @@
           </template>
           <template>
             <dt>
-              <p v-if="og.image === null && imageHasValidSize">
+              <p v-if="og.image === null || !imageHasValidSize">
                 og:image
               </p>
               <app-tooltip
@@ -107,7 +107,7 @@
                 placement="bottom-start"
               >
                 <InfoIcon
-                  v-if="og.image === null && imageHasValidSize"
+                  v-if="og.image === null || !imageHasValidSize"
                   class="properties-item__icon"
                 />
                 <p v-else>
