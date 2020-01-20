@@ -81,7 +81,8 @@
                 />
               </template>
             </app-tooltip>
-          </dt>          <dd>
+          </dt>          
+          <dd>
             <external-link :href="absoluteUrl(og.image)">
               <img
                 alt
