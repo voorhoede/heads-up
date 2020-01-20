@@ -112,7 +112,7 @@
           </dt>
           <dd>{{ og.description }}</dd>
         </template>
-        <template v-if="og.image">
+        <template>
           <dt>
             <p v-if="!og.image">
               og:image
