@@ -53,10 +53,10 @@
           </dt>
           <dd>{{ og.title }}</dd>
         </template>
-        <template v-if="og.image">
+        <template>
           <dt>
-            <p v-if="og.image === null">
-              og:image
+            <p v-if="tooltip.image.size.width === 0 || tooltip.image.size.height === 0">
+              og:image 
             </p>
             <app-tooltip
               v-if="showTooltip"
@@ -64,7 +64,7 @@
               placement="bottom-start"
             >
               <InfoIcon
-                v-if="tooltip.image.size.width > 0 && tooltip.image.size.height > 0"
+                v-if="tooltip.image.size.width === 0 || tooltip.image.size.height === 0"
                 class="properties-item__icon"
               />
               <p v-else>
