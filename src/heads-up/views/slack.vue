@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="slack">
     <panel-section title="Preview">
       <p v-if="!hasRequiredData">
         This page does not contain og:image meta data to create a preview.
@@ -10,6 +10,7 @@
           ref="iframe"
           :src="previewUrl"
           :height="iframeHeight"
+          title="Slack preview"
           width="100%"
           class="slack__preview"
           @load="onResize"
@@ -25,12 +26,62 @@
 
     <panel-section title="Properties">
       <properties-list>
-        <template v-if="og.title">
-          <dt>og:title</dt>
+        <template>
+          <dt>
+            <p v-if="!og.title">
+              og:title
+            </p>
+            <app-tooltip
+              class="properties-item__tooltip"
+              placement="bottom-start"
+            >
+              <div v-if="og.title">
+                og:title
+              </div>
+              <div v-else>
+                <InfoIcon class="properties-item__icon" />
+              </div>
+              <template v-slot:info>
+                <property-data
+                  type="og:title"
+                  :exist="tooltip.title.exist"
+                  :tag="tooltip.title.tag"
+                  :value="tooltip.title.content"
+                />
+              </template>
+            </app-tooltip>
+          </dt>
           <dd>{{ og.title }}</dd>
         </template>
-        <template v-if="og.image">
-          <dt>og:image</dt>
+        <template>
+          <dt>
+            <p v-if="tooltip.image.size.width === 0 || tooltip.image.size.height === 0">
+              og:image 
+            </p>
+            <app-tooltip
+              v-if="showImageTooltip"
+              class="properties-item__tooltip"
+              placement="bottom-start"
+            >
+              <InfoIcon
+                v-if="tooltip.image.size.width === 0 || tooltip.image.size.height === 0"
+                class="properties-item__icon"
+              />
+              <p v-else>
+                og:image
+              </p>
+              <template v-slot:info>
+                <property-data
+                  type="og:image"
+                  :exist="tooltip.image.exist"
+                  :has-variation="tooltip.image.hasVariation"
+                  :required-sizes="tooltip.image.requiredSizes"
+                  :size="tooltip.image.size"
+                  :tag="tooltip.image.tag"
+                />
+              </template>
+            </app-tooltip>
+          </dt>          
           <dd>
             <external-link :href="absoluteUrl(og.image)">
               <img
@@ -44,8 +95,33 @@
             </p>
           </dd>
         </template>
-        <template v-if="og.description">
-          <dt>og:description</dt>
+        <template>
+          <dt>
+            <p v-if="!og.description">
+              og:description
+            </p>
+            <app-tooltip
+              class="properties-item__tooltip"
+              placement="bottom-start"
+            >
+              <InfoIcon
+                v-if="!og.description"
+                class="properties-item__icon"
+              />
+              
+              <p v-else>
+                og:description
+              </p>
+              <template v-slot:info>
+                <property-data
+                  type="og:description"
+                  :exist="tooltip.description.exist"
+                  :tag="tooltip.description.tag"
+                  :value="tooltip.description.content"
+                />
+              </template>
+            </app-tooltip>
+          </dt>
           <dd>{{ og.description }}</dd>
         </template>
       </properties-list>
@@ -54,9 +130,15 @@
 </template>
 
 <script>
+import InfoIcon from "../assets/icons/info.svg";
 import { mapState } from "vuex";
-import getTheme from "../lib/theme";
-import { ExternalLink, PanelSection, PropertiesList } from "../components";
+import {
+  ExternalLink,
+  PanelSection,
+  PropertiesList,
+  AppTooltip,
+  PropertyData
+} from "../components";
 import {
   findMetaContent,
   findMetaProperty,
@@ -66,12 +148,60 @@ import {
 } from "../lib/find-meta";
 
 export default {
-  components: { ExternalLink, PanelSection, PropertiesList },
+  components: {
+    ExternalLink,
+    PanelSection,
+    PropertiesList,
+    AppTooltip,
+    PropertyData,
+    InfoIcon
+  },
   data() {
     return {
       iframeHeight: "auto",
       imageDimensions: { width: undefined, height: undefined },
-      previewUrl: ""
+      previewUrl: "",
+      showImageTooltip: false,
+      tooltip: {
+        title: {
+          exist: null,
+          required: false,
+          tag: null,
+          value: null
+        },
+
+        description: {
+          exist: null,
+          required: false,
+          tag: "og:description",
+          value: null,
+          valueLength: {
+            max: 700,
+            tooLong: null
+          }
+        },
+
+        image: {
+          exist: false,
+          hasVariation: false,
+          required: true,
+          requiredSizes: {
+            minimum: {
+              width: 1,
+              height: 1
+            },
+            variation: {
+              width: 202,
+              height: 202
+            }
+          },
+          size: {
+            width: null,
+            height: null
+          },
+          tag: "og:image"
+        }
+      }
     };
   },
   computed: {
@@ -87,17 +217,14 @@ export default {
       };
     },
     additional() {
-      return {
-        favicon: findFavicons(this.head).url,
-        additionalData: findAdditionSlackData(this.head)
-      };
-    },
-    themeClass() {
-      /**
-       * class '-theme-with-dark-background' is taken from original dev tools repo
-       * src: https://github.com/ChromeDevTools/devtools-frontend/blob/02a851d01de158d8c0a8fd1d3af06649b5379bd6/front_end/ui/inspectorStyle.css
-       */
-      return getTheme() === "dark" ? "-theme-with-dark-background" : "";
+      try {
+        return {
+          favicon: findFavicons(this.head)[0].url,
+          additionalData: findAdditionSlackData(this.head)
+        };
+      } catch (error) {
+        return error;
+      }
     }
   },
   mounted() {
@@ -106,6 +233,9 @@ export default {
   created() {
     findImageDimensions(this.head, "og:image").then(imageDimensions => {
       this.imageDimensions = imageDimensions;
+      this.setTooltipData(imageDimensions);
+      this.showImageTooltip = true;
+
       this.previewUrl = this.getPreviewUrl({ imageDimensions });
     });
   },
@@ -116,6 +246,36 @@ export default {
     absoluteUrl(url) {
       if (!url) return;
       return url.startsWith("http") ? url : new URL(this.head.url).origin + url;
+    },
+    setTooltipData(imageDimensions) {
+      if (this.propertyValue("og:title") !== null) {
+        this.tooltip.title.tag = "og:title";
+        this.tooltip.title.value = this.propertyValue("og:title");
+        this.tooltip.title.exist = true;
+      } else if (this.head.title !== null) {
+        this.tooltip.title.tag = "<title>";
+        this.tooltip.title.value = this.head.title;
+        this.tooltip.title.exist = false;
+      } else {
+        this.tooltip.title.tag = false;
+        this.tooltip.title.value = false;
+        this.tooltip.title.exist = false;
+      }
+
+      if (this.propertyValue("og:description") !== null) {
+        this.tooltip.description.value = this.propertyValue("og:description");
+        this.tooltip.description.exist = true;
+        this.tooltip.description.valueLength.tooLong =
+          this.propertyValue("og:description").length > 300;
+      } else {
+        this.tooltip.description.exist = false;
+      }
+
+      this.og.image
+        ? (this.tooltip.image.exist = true)
+        : (this.tooltip.image.exist = false);
+
+      this.tooltip.image.size = imageDimensions;
     },
     metaValue(metaName) {
       return findMetaContent(this.head, metaName);
@@ -166,5 +326,9 @@ export default {
 
 .slack__preview-caption {
   color: var(--label-color);
+}
+
+.slack .properties-item__icon {
+  margin-left: 4px;
 }
 </style>
