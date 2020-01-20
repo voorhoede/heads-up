@@ -105,11 +105,11 @@
               placement="bottom-start"
             >
               <InfoIcon
-                v-if="og.description === null"
+                v-if="!og.description"
                 class="properties-item__icon"
               />
               
-              <p>
+              <p v-else>
                 og:description
               </p>
               <template v-slot:info>
