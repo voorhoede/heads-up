@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="slack">
     <panel-section title="Preview">
       <p v-if="!hasRequiredData">
         This page does not contain og:image meta data to create a preview.
@@ -325,5 +325,9 @@ export default {
 
 .slack__preview-caption {
   color: var(--label-color);
+}
+
+.slack .properties-item__icon {
+    margin-left: 4px;
 }
 </style>
