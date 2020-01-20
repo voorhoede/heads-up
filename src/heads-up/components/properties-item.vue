@@ -10,7 +10,7 @@
         placement="top-start"
       >
         <InfoIcon
-          v-if="!errors"
+          v-if="!value"
           class="properties-item__icon"
         />
 
