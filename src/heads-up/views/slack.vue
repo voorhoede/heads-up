@@ -329,6 +329,6 @@ export default {
 }
 
 .slack .properties-item__icon {
-    margin-left: 4px;
+  margin-left: 4px;
 }
 </style>
