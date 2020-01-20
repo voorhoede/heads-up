@@ -71,8 +71,10 @@ export default {
 <style>
 .warning-icon {
   display: inline-block;
-  width: 1em;
-  height: 1em;
+  width: 1.5em;
+  height: 1.5em;
   vertical-align: text-top;
+  fill: #eac250;
+  margin-right: 4px;
 }
 </style>
