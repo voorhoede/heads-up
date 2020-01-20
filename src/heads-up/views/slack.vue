@@ -59,7 +59,7 @@
               og:image 
             </p>
             <app-tooltip
-              v-if="showTooltip"
+              v-if="showImageTooltip"
               class="properties-item__tooltip"
               placement="bottom-start"
             >
@@ -161,7 +161,7 @@ export default {
       iframeHeight: "auto",
       imageDimensions: { width: undefined, height: undefined },
       previewUrl: "",
-      showTooltip: false,
+      showImageTooltip: false,
       tooltip: {
         title: {
           exist: null,
@@ -234,7 +234,7 @@ export default {
     findImageDimensions(this.head, "og:image").then(imageDimensions => {
       this.imageDimensions = imageDimensions;
       this.setTooltipData(imageDimensions);
-      this.showTooltip = true;
+      this.showImageTooltip = true;
 
       this.previewUrl = this.getPreviewUrl({ imageDimensions });
     });
