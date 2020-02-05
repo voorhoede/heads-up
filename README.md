@@ -20,6 +20,10 @@
 * Supports editing in devtools and hot module reloading.
 * Gives feedback to improve your code with tooltips.
 
+## Video
+
+[![Heads Up video](./src/devtools/assets/images/thumpnail-youtube-video.png)](https://www.youtube.com/watch?v=HboZ0MGvuCQ)
+
 
 ## Development
 
