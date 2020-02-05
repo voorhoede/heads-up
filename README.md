@@ -24,6 +24,37 @@
 
 [![Heads Up video](./src/devtools/assets/images/thumpnail-youtube-video.png)](https://www.youtube.com/watch?v=HboZ0MGvuCQ)
 
+## Social media
+
+<details open>
+<summary>Twitter Card preview</summary>
+
+![Twitter card preview](./src/devtools/assets/images/twitter-card-preview.png)
+</details>
+
+<details>
+<summary>WhatsApp Card preview</summary>
+
+![WhatsApp card preview](./src/devtools/assets/images/whatsapp-card-preview.png)
+</details>
+
+<details>
+<summary>LinkedIn Card preview</summary>
+
+![LinkedIn card preview](./src/devtools/assets/images/linkedin-card-preview.png)
+</details>
+
+<details>
+<summary>Facebook Card preview</summary>
+
+![Facebook card preview](./src/devtools/assets/images/facebook-card-preview.png)
+</details>
+
+<details>
+<summary>Slack Card preview</summary>
+
+![Slack card preview](./src/devtools/assets/images/slack-card-preview.png)
+</details>
 
 ## Development
 
