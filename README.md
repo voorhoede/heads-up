@@ -56,6 +56,28 @@
 ![Slack card preview](./src/devtools/assets/images/slack-card-preview.png)
 </details>
 
+## Live feedback
+
+Heads Up provides their users with live feedback. The feedback will be shown after hovering over icons and titles. The feedback will give you a description of the item, feedback to improve or an error with a solution. 
+
+<details open>
+<summary>Error message</summary>
+
+![Error message](./src/devtools/assets/images/tooltip-error.png)
+</details>
+
+<details>
+<summary>Warning message</summary>
+
+![Error message](./src/devtools/assets/images/tooltip-warning.png)
+</details>
+
+<details>
+<summary>success message</summary>
+
+![Error message](./src/devtools/assets/images/tooltip-perfect.png)
+</details>
+
 ## Development
 
 Heads Up is a [Chrome Devtools extension](https://developer.chrome.com/extensions/devtools).
