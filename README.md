@@ -7,11 +7,18 @@
 ## Features
 
 * Presents key page meta (title, charset, viewport, ...) and favicons.
-* Presents all Open Graph (`og:*`) properties found in the page.
+* Presents all link relations (`rel=""`) and values (name, href, type, ...).
+* Presents all favicon images with sizes and type names (x-icon, png).
 * Presents Apple iOS (`apple-mobile-web-*`) settings, touch icons and startup images.
+* Presents all Open Graph (`og:*`) properties found in the page.
 * Presents Twitter settings (`twitter:*`) and a preview of a Twitter card.
+* Presents WhatsApp settings (`og:*`) and a preview of a WhatsApp unfurled link.
+* Presents LinkedIn settings (`og:*`) and a preview of a LinkedIn unfurled link.
+* Presents Facebook settings (`og:*`) and a preview of a Facebook mobile and desktop unfurled link.
+* Presents Slack settings (`og:*`) and a preview of a Slack unfurled link.
 * Works with any site and web app (incl. localhost).
 * Supports editing in devtools and hot module reloading.
+* Gives feedback to improve your code with tooltips.
 
 
 ## Development
