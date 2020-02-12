@@ -200,7 +200,7 @@ export default {
        */
       return getTheme() === "dark" ? "-theme-with-dark-background" : "";
     },
-     previewUrl({ imageDimensions }) {
+     previewUrl() {
       const params = new URLSearchParams();
       params.set("title", this.og.title || this.head.title || "Weblink");
       params.set("url", this.head.url);
@@ -208,7 +208,7 @@ export default {
       params.set("theme", this.themeClass);
       params.set(
         "imageIsBig",
-        imageDimensions.height > 400 && imageDimensions.width > 400
+        this.imageDimensions.height > 400 && this.imageDimensions.width > 400
       );
 
       return `/linkedin-preview/linkedin-preview.html?${params}`;
