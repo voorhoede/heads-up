@@ -287,6 +287,11 @@ export default {
       }`;
     },
   },
+   watch: {
+    'og.image'() {
+      this.findImageDimensions()
+    }
+  },
   mounted() {
     window.addEventListener("resize", this.onResize);
   },
