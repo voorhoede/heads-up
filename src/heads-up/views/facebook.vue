@@ -190,7 +190,6 @@ export default {
     return {
       iframeHeight: "auto",
       imageDimensions: { width: 0, height: 0 },
-      previewUrl: "",
       imageSpecified: true,
       switchButtons: [
         {
@@ -260,28 +259,57 @@ export default {
        * src: https://github.com/ChromeDevTools/devtools-frontend/blob/02a851d01de158d8c0a8fd1d3af06649b5379bd6/front_end/ui/inspectorStyle.css
        */
       return getTheme() === "dark" ? "-theme-with-dark-background" : "";
-    }
+    },
+     previewUrl({ imageDimensions }) {
+      const params = new URLSearchParams();
+      params.set("title", this.og.title || this.head.title);
+      params.set("url", this.head.url);
+      params.set("image", this.og.image);
+      params.set("theme", this.themeClass);
+      params.set("imageSpecified", this.imageSpecified);
+      params.set("description", this.og.description);
+      if (this.og.image !== undefined) {
+        params.set(
+          "mobileImgIsBig",
+          (imageDimensions.height > 359 && imageDimensions.width > 359) ||
+            (this.imageSpecified &&
+              (imageDimensions.height === 0 || imageDimensions.width === 0))
+        );
+      }
+      params.set(
+        "desktopImgIsBig",
+        imageDimensions.height >= 415 && imageDimensions.width >= 415
+      );
+      return `${
+        this.mode === "desktop"
+          ? `/facebook-desktop-preview/facebook-desktop-preview.html?${params}`
+          : `/facebook-mobile-preview/facebook-mobile-preview.html?${params}`
+      }`;
+    },
   },
   mounted() {
     window.addEventListener("resize", this.onResize);
   },
   created() {
-    findImageDimensions(this.head, "og:image").then(imageDimensions => {
-      this.imageDimensions = imageDimensions;
-      this.setTooltipData(imageDimensions);
-      this.previewUrl = this.getPreviewUrl({ imageDimensions });
-      if (imageDimensions.height === 0 || imageDimensions.width === 0) {
-        console.log(`og.image can't be loaded`);
-      }
-    });
+    this.findImageDimensions()
   },
   destroyed() {
     window.removeEventListener("resize", this.onResize);
   },
   methods: {
+    findImageDimensions() {
+      findImageDimensions(this.head, "og:image").then(imageDimensions => {
+        this.imageDimensions = imageDimensions;
+        this.setTooltipData(imageDimensions);
+        this.previewUrl = this.previewUrl({ imageDimensions });
+        if (imageDimensions.height === 0 || imageDimensions.width === 0) {
+          console.log(`og.image can't be loaded`);
+        }
+      });
+    },
     toggle(newMode) {
       this.mode = newMode;
-      this.previewUrl = this.getPreviewUrl({
+      this.previewUrl = this.previewUrl({
         imageDimensions: this.imageDimensions
       });
     },
@@ -324,32 +352,6 @@ export default {
     },
     propertyValue(propName) {
       return findMetaProperty(this.head, propName);
-    },
-    getPreviewUrl({ imageDimensions }) {
-      const params = new URLSearchParams();
-      params.set("title", this.og.title || this.head.title);
-      params.set("url", this.head.url);
-      params.set("image", this.og.image);
-      params.set("theme", this.themeClass);
-      params.set("imageSpecified", this.imageSpecified);
-      params.set("description", this.og.description);
-      if (this.og.image !== undefined) {
-        params.set(
-          "mobileImgIsBig",
-          (imageDimensions.height > 359 && imageDimensions.width > 359) ||
-            (this.imageSpecified &&
-              (imageDimensions.height === 0 || imageDimensions.width === 0))
-        );
-      }
-      params.set(
-        "desktopImgIsBig",
-        imageDimensions.height >= 415 && imageDimensions.width >= 415
-      );
-      return `${
-        this.mode === "desktop"
-          ? `/facebook-desktop-preview/facebook-desktop-preview.html?${params}`
-          : `/facebook-mobile-preview/facebook-mobile-preview.html?${params}`
-      }`;
     },
     onResize() {
       this.iframeHeight =
