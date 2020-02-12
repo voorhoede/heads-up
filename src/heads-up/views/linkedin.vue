@@ -234,7 +234,6 @@ export default {
         this.imageDimensions = imageDimensions;
         this.setTooltipData(imageDimensions);
         this.showTooltip = true;
-        this.previewUrl = this.getPreviewUrl({ imageDimensions });
       });
     },
     absoluteUrl(url) {
