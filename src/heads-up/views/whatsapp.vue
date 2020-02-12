@@ -281,12 +281,12 @@ export default {
     url() {
       return this.head.url;
     },
-    previewUrl({ imageDimensions }) {
+    previewUrl() {
       const params = new URLSearchParams();
       params.set("title", this.og.title || this.title);
       params.set("description", this.description);
 
-      if (imageDimensions.height >= 100 && imageDimensions.width >= 100) {
+      if (this.imageDimensions.height >= 100 && this.imageDimensions.width >= 100) {
         params.set("image", this.image);
       }
 
