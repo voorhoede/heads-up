@@ -260,7 +260,7 @@ export default {
        */
       return getTheme() === "dark" ? "-theme-with-dark-background" : "";
     },
-     previewUrl({ imageDimensions }) {
+     previewUrl() {
       const params = new URLSearchParams();
       params.set("title", this.og.title || this.head.title);
       params.set("url", this.head.url);
@@ -271,14 +271,14 @@ export default {
       if (this.og.image !== undefined) {
         params.set(
           "mobileImgIsBig",
-          (imageDimensions.height > 359 && imageDimensions.width > 359) ||
+          (this.imageDimensions.height > 359 && this.imageDimensions.width > 359) ||
             (this.imageSpecified &&
-              (imageDimensions.height === 0 || imageDimensions.width === 0))
+              (this.imageDimensions.height === 0 || this.imageDimensions.width === 0))
         );
       }
       params.set(
         "desktopImgIsBig",
-        imageDimensions.height >= 415 && imageDimensions.width >= 415
+        this.imageDimensions.height >= 415 && this.imageDimensions.width >= 415
       );
       return `${
         this.mode === "desktop"
@@ -306,10 +306,6 @@ export default {
       findImageDimensions(this.head, "og:image").then(imageDimensions => {
         this.imageDimensions = imageDimensions;
         this.setTooltipData(imageDimensions);
-        this.previewUrl = this.previewUrl({ imageDimensions });
-        if (imageDimensions.height === 0 || imageDimensions.width === 0) {
-          console.log(`og.image can't be loaded`);
-        }
       });
     },
     toggle(newMode) {
