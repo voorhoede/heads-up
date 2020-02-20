@@ -41,6 +41,7 @@ const appMetaSchema = {
       use: {
         hasCorrectFormattedCharset: 'The charset value should be <code>utf-8</code>, not any other values such as <code>utf8</code>.',
         isDefinedInCharsetAttribute: 'Always use <code>&lt;meta charset="utf-8"&gt;</code> as It’s backwards compatible and works in all known browsers, so it should always be used over the old <code>&lt;meta http-equiv="Content-Type" content="text/html;charset=UTF-8"&gt;</code>.',
+        hasValidCharsetValue: 'The charset value is invalid'
       }
     },
     use: ['hasCorrectFormattedCharset', 'isDefinedInCharsetAttribute'],

@@ -1,4 +1,5 @@
 import validateCountryCodes from "../lib/country-codes";
+import validateCharsetCodes from "../lib/country-codes";
 /**
  * Extend schema validation with custom functions
  */
@@ -22,10 +23,15 @@ function hasValidLangValue(value) {
   return validateCountryCodes().includes(value)
 }
 
+function hasValidCharsetValue(value) {
+  return validateCharsetCodes().includes(value)
+}
+
 export default {
   hasLetterA,
   hasLength5,
   hasCorrectFormattedCharset,
   hasValidLangValue,
   isDefinedInCharsetAttribute,
+  hasValidCharsetValue
 }
