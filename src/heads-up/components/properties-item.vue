@@ -70,7 +70,8 @@
 
 <script>
 import { mapState } from "vuex";
-import validateSchema from "../lib/validate-schema";
+import validateErrorSchema from "../lib/validate-error-schema";
+import validateWarningSchema from "../lib/validate-warning-schema";
 import { AppTooltip, ExternalLink } from "../components";
 import InfoIcon from "../assets/icons/info.svg";
 import WarningIcon from "../assets/icons/warning.svg";
@@ -107,6 +108,7 @@ export default {
       info: "",
       link: "",
       errors: null,
+      warnings: null,
       valueSlot: null
     };
   },
@@ -115,6 +117,12 @@ export default {
     errorMessage() {
       if (this.errors && this.errors.length > 0) {
         return this.errors[0].message;
+      }
+      return null;
+    },
+    warningMessage() {
+      if (this.warnings && this.warnings.length > 0) {
+        return this.warnings[0].message;
       }
       return null;
     },

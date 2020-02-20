@@ -1,8 +1,8 @@
-import use from './use'
+// import use from './use'
 
 // @todo: refactor function to reduce cognitive complexity
 // eslint-disable-next-line sonarjs/cognitive-complexity
-export default function validateSchema({ schema, key, value, attrs }) {
+export default function validateErrorSchema({ schema, key, value }) {
   const valueTrimmed = (value && value.length) ? value.trim() : value
   let errors = []
 
@@ -40,15 +40,15 @@ export default function validateSchema({ schema, key, value, attrs }) {
   }
 
   // Use
-  if (schema[key].use && schema[key].use.length) {
-    schema[key].use.forEach(item => {
-      if (!use[item](valueTrimmed, attrs)) {
-        errors.push({
-          message: schema[key].message.use[item],
-        })
-      }
-    })
-  }
+  // if (schema[key].use && schema[key].use.length) {
+  //   schema[key].use.forEach(item => {
+  //     if (!use[item](valueTrimmed, attrs)) {
+  //       errors.push({
+  //         message: schema[key].message.use[item],
+  //       })
+  //     }
+  //   })
+  // }
 
   if (errors.length) {
     return errors
