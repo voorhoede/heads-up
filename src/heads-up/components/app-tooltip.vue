@@ -74,7 +74,7 @@ export default {
   left: 0;
   height: 100%;
   width: 100%;
-  transform: scaleY(2);
+  transform: scaleY(3);
 }
 
 .tooltip[x-placement^="bottom"] .tooltip-arrow {
