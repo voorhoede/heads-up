@@ -23,12 +23,15 @@ const appMetaSchema = {
     required: true,
     message: {
       required: `The lang attribute is required.`,
-      enum: `Lang attribute does not contain a correct value.`
+      use: {
+        hasValidLangValue: 'The lang value should meet the bcp47 standards'
+      }
     },
+    use: ['hasValidLangValue'],
     meta: {
       info: `The meta <code>lang</code> attribute Is used to identify the language of text content on the web and is among others used by search engines and screen readers.`,
       link: 'https://developer.paciellogroup.com/blog/2016/06/using-the-html-lang-attribute/'
-    }
+    },
   },
 
   'charset': {
