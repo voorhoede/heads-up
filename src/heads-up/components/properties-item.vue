@@ -156,7 +156,14 @@ export default {
       this.link = this.schema[this.keyName].meta.link;
     }
 
-    this.errors = validateSchema({
+    this.errors = validateErrorSchema({
+      schema: this.schema,
+      key: this.keyName,
+      value: this.value,
+      attrs: this.attrs,
+    })
+    
+    this.warnings = validateWarningSchema({
       schema: this.schema,
       key: this.keyName,
       value: this.value,

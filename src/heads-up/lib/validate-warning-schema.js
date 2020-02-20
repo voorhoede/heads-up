@@ -20,6 +20,15 @@ export default function validateWarningSchema({ schema, key, value, attrs }) {
     })
   }
 
+  // Descriptive
+  if (schema[key]['descriptive-words'] && 
+      valueTrimmed.split(' ').length > 0  && 
+      valueTrimmed.split(' ').length < schema[key]['descriptive-words']) {
+    warnings.push({
+      message: schema[key].message['descriptive-words'],
+    })
+  }
+
   // Use
   // if use exists and has at least 1 entry
   if (schema[key].use && schema[key].use.length) {

@@ -2,12 +2,21 @@ const appMetaSchema = {
   'title': {
     required: true,
     message: {
-      required: `The title element is required.`
+      required: `The title element is required.`,
+      use: {
+        valueIsEmpty: 'The title value is empty, please provide a value like <title>Your page describing title</title>'
+      },
+      length: 'The recommended length of the title value is under 60 characters',
+      'descriptive-words': 'Avoid one- or two word titles'
     },
     meta: {
       info: `The HTML <code>title</code> element defines the document's title that is shown in a browser's title bar or a page's tab.`,
       link: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title'
-    }
+    },
+    length: {
+      max: 60
+    },
+    'descriptive-words': 3
   },
 
   'lang': {
