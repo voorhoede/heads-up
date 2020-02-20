@@ -1,4 +1,4 @@
-import validateWarningSchema from "../lib/country-codes";
+import validateCountryCodes from "../lib/country-codes";
 /**
  * Extend schema validation with custom functions
  */
@@ -19,9 +19,7 @@ function isDefinedInCharsetAttribute(value, attrs) {
 }
 
 function hasValidLangValue(value) {
-  const tags = validateWarningSchema()
-  console.log(tags.includes(value));
-  return tags.includes(value)
+  return validateCountryCodes().includes(value)
 }
 
 export default {
