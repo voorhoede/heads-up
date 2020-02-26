@@ -1,7 +1,8 @@
 <template>
   <div class="properties-item">
     <span class="properties-item__term">
-      <span class="properties-item__term-text">
+      <!-- eslint-disable-next-line vue/no-v-html, vue/max-attributes-per-line -->
+      <span v-if="warnings || errors" class="properties-item__term-text">
         <slot />
       </span>
 
@@ -10,18 +11,32 @@
         placement="top-start"
       >
         <InfoIcon
-          v-if="!value"
+          v-if="warnings && !errors"
           class="properties-item__icon"
         />
-
         <WarningIcon
           v-if="errors"
           class="properties-item__icon properties-item-icon properties-item-icon--warning"
         />
+        <!-- eslint-disable-next-line vue/no-v-html, vue/max-attributes-per-line -->
+        <span v-else class="properties-item__term-text">
+          <slot />
+        </span>
 
         <template v-slot:info>
-          <!-- eslint-disable-next-line vue/no-v-html, vue/max-attributes-per-line -->
-          <span v-if="!errors" v-html="info" />
+          <span v-if="warnings && !errors">
+            <template v-if="warnings.length === 1">
+              {{ warningMessage }}
+            </template>
+            <ul
+              v-else
+              class="properties-item__error-list"
+            >
+              <!-- eslint-disable-next-line vue/no-v-html, vue/max-attributes-per-line -->
+              <li v-for="warning in warnings" :key="warning.message" v-html="warning.message" />
+            </ul>
+          </span>
+
           <span v-if="errors">
             <template v-if="errors.length === 1">
               {{ errorMessage }}
@@ -34,6 +49,8 @@
               <li v-for="error in errors" :key="error.message" v-html="error.message" />
             </ul>
           </span>
+          <!-- eslint-disable-next-line vue/no-v-html, vue/max-attributes-per-line -->
+          <span v-if="!errors" v-html="info" />
         </template>
 
         <template v-slot:link>
