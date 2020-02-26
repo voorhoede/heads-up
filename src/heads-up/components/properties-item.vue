@@ -19,7 +19,7 @@
           class="properties-item__icon properties-item-icon properties-item-icon--warning"
         />
         <!-- eslint-disable-next-line vue/no-v-html, vue/max-attributes-per-line -->
-        <span v-else class="properties-item__term-text">
+        <span v-if="!warnings && !errors" class="properties-item__term-text">
           <slot />
         </span>
 
@@ -50,7 +50,7 @@
             </ul>
           </span>
           <!-- eslint-disable-next-line vue/no-v-html, vue/max-attributes-per-line -->
-          <span v-if="!errors" v-html="info" />
+          <span v-if="!errors && !warnings" v-html="info" />
         </template>
 
         <template v-slot:link>
