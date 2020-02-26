@@ -1,5 +1,5 @@
 import validateCountryCodes from "../lib/country-codes";
-import validateCharsetCodes from "../lib/country-codes";
+import validateCharsetCodes from "../lib/charset-codes";
 /**
  * Extend schema validation with custom functions
  */
