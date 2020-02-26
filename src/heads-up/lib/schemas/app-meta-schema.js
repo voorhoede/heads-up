@@ -44,7 +44,7 @@ const appMetaSchema = {
         hasValidCharsetValue: 'The charset value is invalid'
       }
     },
-    use: ['hasCorrectFormattedCharset', 'isDefinedInCharsetAttribute'],
+    use: ['hasCorrectFormattedCharset', 'isDefinedInCharsetAttribute', 'hasValidCharsetValue'],
     meta: {
       info: `The meta attribute <code>charset</code> specifies which character set a web page is written with.`,
       link: 'https://webhint.io/docs/user-guide/hints/hint-meta-charset-utf-8/'
