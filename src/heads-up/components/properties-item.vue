@@ -64,14 +64,10 @@
       <span
         v-if="!valueWithExceededLength"
         class="properties-item__description-text"
-        :class="{
-          'properties-item__strike': errors && !valueWithExceededLength
-        }"
       >{{ value }}</span>
       <span v-if="valueWithExceededLength">{{ valueMinusExceededLength }}</span>
       <span
         v-if="valueWithExceededLength"
-        class="properties-item__strike"
       >{{
         valueWithExceededLength
       }}</span>
