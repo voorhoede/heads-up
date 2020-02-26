@@ -135,7 +135,7 @@ export default {
     }
   },
   watch:{
-    'head'(){
+    'head'() {
       this.validateSchema()
     }
   },
@@ -155,7 +155,7 @@ export default {
     this.validateSchema()
   },
   methods:{
-    validateSchema(){
+    validateSchema() {
       const schemaTemplate = {
         schema: this.schema,
         key: this.keyName,
