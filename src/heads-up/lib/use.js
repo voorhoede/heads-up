@@ -56,6 +56,12 @@ function hasValidViewportContent(value) {
   return isValid
 }
 
+function hasValidColor(value) {
+  const style = new Option().style;
+  style.color = value;
+  return style.color.length > 0
+}
+
 export default {
   hasLetterA,
   hasLength5,
@@ -63,5 +69,6 @@ export default {
   hasValidLangValue,
   isDefinedInCharsetAttribute,
   hasValidCharsetValue,
-  hasValidViewportContent
+  hasValidViewportContent,
+  hasValidColor
 }

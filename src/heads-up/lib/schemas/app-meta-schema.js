@@ -78,10 +78,16 @@ const appMetaSchema = {
   },
 
   'theme-color': {
+    message:{
+      use:{
+        hasValidColor: 'The provided value is not valid'
+      }
+    },
     meta: {
       info: `Set the toolbar color of the Chrome browser.`,
       link: 'https://developers.google.com/web/updates/2014/11/Support-for-theme-color-in-Chrome-39-for-Android'
-    }
+    },
+    use: ['hasValidColor']
   }
 }
 
