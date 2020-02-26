@@ -4,10 +4,10 @@ const appMetaSchema = {
     message: {
       required: `The title element is required.`,
       use: {
-        valueIsEmpty: 'The title value is empty, please provide a value like <title>Your page describing title</title>'
+        valueIsEmpty: 'The title value is empty, please provide a value like <title>Your page describing title</title>.'
       },
-      length: 'The recommended length of the title value is under 60 characters',
-      'descriptive-words': 'Avoid one- or two word titles'
+      length: 'The recommended length of the title value is under 60 characters.',
+      'descriptive-words': 'Avoid one- or two word titles.'
     },
     meta: {
       info: `The HTML <code>title</code> element defines the document's title that is shown in a browser's title bar or a page's tab.`,
@@ -24,7 +24,7 @@ const appMetaSchema = {
     message: {
       required: `The lang attribute is required.`,
       use: {
-        hasValidLangValue: 'The lang value should meet the bcp47 standards'
+        hasValidLangValue: 'The lang value should meet the bcp47 standards.'
       }
     },
     use: ['hasValidLangValue'],
@@ -41,7 +41,7 @@ const appMetaSchema = {
       use: {
         hasCorrectFormattedCharset: 'The charset value should be <code>utf-8</code>, not any other values such as <code>utf8</code>.',
         isDefinedInCharsetAttribute: 'Always use <code>&lt;meta charset="utf-8"&gt;</code> as It’s backwards compatible and works in all known browsers, so it should always be used over the old <code>&lt;meta http-equiv="Content-Type" content="text/html;charset=UTF-8"&gt;</code>.',
-        hasValidCharsetValue: 'The charset value is invalid'
+        hasValidCharsetValue: 'The charset value is invalid.'
       }
     },
     use: ['hasCorrectFormattedCharset', 'isDefinedInCharsetAttribute', 'hasValidCharsetValue'],
@@ -54,7 +54,7 @@ const appMetaSchema = {
   'viewport': {
     message:{
       use:{
-        hasValidViewportContent: 'The content of the viewport meta tag is invalid'
+        hasValidViewportContent: 'The content of the viewport meta tag is invalid.'
       }
     },
     meta: {
@@ -66,10 +66,10 @@ const appMetaSchema = {
 
   'description': {
     message: {
-      length: 'The recommended length of the title value is over 275 characters',
+      length: 'The recommended length of the title value is over 275 characters.',
     },
     meta: {
-      info: `Short description of the document (limit to 275 characters)`,
+      info: `Short description of the document (limit to 275 characters).`,
       link: 'https://www.wordstream.com/meta-description'
     },
     length: {
@@ -80,7 +80,7 @@ const appMetaSchema = {
   'theme-color': {
     message:{
       use:{
-        hasValidColor: 'The provided value is not valid'
+        hasValidColor: 'The provided value is not valid.'
       }
     },
     meta: {
