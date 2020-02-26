@@ -59,7 +59,7 @@ function hasValidViewportContent(value) {
 function hasValidColor(value) {
   const style = new Option().style;
   style.color = value;
-  return style.color.length > 0
+  return style.color.length
 }
 
 export default {
