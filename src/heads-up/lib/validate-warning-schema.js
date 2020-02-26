@@ -1,6 +1,5 @@
 // import use from './use'
 
-// @todo: refactor function to reduce cognitive complexity
 // eslint-disable-next-line sonarjs/cognitive-complexity
 export default function validateWarningSchema({ schema, key, value }) {
   const valueTrimmed = (value && value.length) ? value.trim() : value
