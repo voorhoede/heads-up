@@ -52,10 +52,16 @@ const appMetaSchema = {
   },
 
   'viewport': {
+    message:{
+      use:{
+        hasValidViewportContent: 'The content of the viewport meta tag is invalid'
+      }
+    },
     meta: {
       info: `The <code>viewport</code> is the part of the web page that the user can currently see.`,
       link: 'https://webhint.io/docs/user-guide/hints/hint-meta-viewport/'
-    }
+    },
+    use: ['hasValidViewportContent']
   },
 
   'description': {
