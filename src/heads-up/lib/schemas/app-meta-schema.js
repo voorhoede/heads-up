@@ -65,10 +65,16 @@ const appMetaSchema = {
   },
 
   'description': {
+    message: {
+      length: 'The recommended length of the title value is over 275 characters',
+    },
     meta: {
-      info: `Short description of the document (limit to 150 characters)`,
-      link: 'https://htmlhead.dev/#meta'
-    }
+      info: `Short description of the document (limit to 275 characters)`,
+      link: 'https://www.wordstream.com/meta-description'
+    },
+    length: {
+      max: 275
+    },
   },
 
   'theme-color': {
