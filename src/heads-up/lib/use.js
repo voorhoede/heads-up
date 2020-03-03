@@ -1,6 +1,5 @@
-/**
- * Extend schema validation with custom functions
- */
+import validateCountryCodes from "../lib/country-codes";
+
 function hasLetterA(value) {
   return value.includes('a')
 }
@@ -17,9 +16,14 @@ function isDefinedInCharsetAttribute(value, attrs) {
   return attrs['charset'] === value
 }
 
+function hasValidLangValue(value) {
+  return validateCountryCodes().includes(value)
+}
+
 export default {
   hasLetterA,
   hasLength5,
   hasCorrectFormattedCharset,
   isDefinedInCharsetAttribute,
+  hasValidLangValue
 }

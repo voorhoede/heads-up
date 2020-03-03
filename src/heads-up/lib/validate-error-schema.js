@@ -18,6 +18,7 @@ export default function validateSchema({ schema, key, value, attrs }) {
   }
 
   // Enum
+  // @todo: remove this when error- and warning validations are working
   if (schema[key].enum && schema[key].enum.length && !schema[key].enum.includes(valueTrimmed)) {
     errors.push({
       message: schema[key].message.enum
@@ -45,6 +46,17 @@ export default function validateSchema({ schema, key, value, attrs }) {
       if (!use[item](valueTrimmed, attrs)) {
         errors.push({
           message: schema[key].message.use[item],
+        })
+      }
+    })
+  }
+
+  // Use.js check on errors
+  if (schema[key].error && schema[key].error.length) {
+    schema[key].error.forEach(item => {
+      if (!use[item](valueTrimmed, attrs)) {
+        errors.push({
+          message: schema[key].message.error[item],
         })
       }
     })
