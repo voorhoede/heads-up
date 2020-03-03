@@ -40,17 +40,6 @@ export default function validateSchema({ schema, key, value, attrs }) {
     })
   }
 
-  // Use
-  if (schema[key].use && schema[key].use.length) {
-    schema[key].use.forEach(item => {
-      if (!use[item](valueTrimmed, attrs)) {
-        errors.push({
-          message: schema[key].message.use[item],
-        })
-      }
-    })
-  }
-
   // Use.js check on errors
   if (schema[key].error && schema[key].error.length) {
     schema[key].error.forEach(item => {
