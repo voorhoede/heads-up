@@ -20,6 +20,7 @@ module.exports = {
   rules: {
     // override/add rules settings here, such as:
     // 'vue/no-unused-vars': 'error'
-    'sonarjs/no-duplicate-string': 0
+    'sonarjs/no-duplicate-string': 0,
+    'vue/no-v-html': 'off',
   }
 }

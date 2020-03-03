@@ -1,8 +1,10 @@
 <template>
   <div class="properties-item">
     <span class="properties-item__term">
-      <!-- eslint-disable-next-line vue/no-v-html, vue/max-attributes-per-line -->
-      <span v-if="warnings || errors" class="properties-item__term-text">
+      <span
+        v-if="warnings || errors"
+        class="properties-item__term-text"
+      >
         <slot />
       </span>
 
@@ -18,8 +20,10 @@
           v-if="errors"
           class="properties-item__icon properties-item-icon properties-item-icon--warning"
         />
-        <!-- eslint-disable-next-line vue/no-v-html, vue/max-attributes-per-line -->
-        <span v-if="!warnings && !errors" class="properties-item__term-text">
+        <span
+          v-if="!warnings && !errors"
+          class="properties-item__term-text"
+        >
           <slot />
         </span>
 
@@ -32,8 +36,11 @@
               v-else
               class="properties-item__error-list"
             >
-              <!-- eslint-disable-next-line vue/no-v-html, vue/max-attributes-per-line -->
-              <li v-for="warning in warnings" :key="warning.message" v-html="warning.message" />
+              <li
+                v-for="warning in warnings"
+                :key="warning.message"
+                v-html="warning.message"
+              />
             </ul>
           </span>
 
@@ -45,17 +52,24 @@
               v-else
               class="properties-item__error-list"
             >
-              <!-- eslint-disable-next-line vue/no-v-html, vue/max-attributes-per-line -->
-              <li v-for="error in errors" :key="error.message" v-html="error.message" />
+              <li
+                v-for="error in errors"
+                :key="error.message"
+                v-html="error.message"
+              />
             </ul>
           </span>
-          <!-- eslint-disable-next-line vue/no-v-html, vue/max-attributes-per-line -->
-          <span v-if="!errors && !warnings" v-html="info" />
+          <span
+            v-if="!errors && !warnings"
+            v-html="info"
+          />
         </template>
 
         <template v-slot:link>
-          <!-- eslint-disable-next-line vue/singleline-html-element-content-newline, vue/max-attributes-per-line -->
-          <external-link class="properties-item__link" :href="link">Learn more</external-link>
+          <external-link
+            class="properties-item__link"
+            :href="link"
+          >Learn more</external-link>
         </template>
       </app-tooltip>
     </span>
