@@ -17,11 +17,11 @@
           class="properties-item__icon"
         />
         <WarningIcon
-          v-if="errors"
+          v-else-if="errors"
           class="properties-item__icon properties-item-icon properties-item-icon--warning"
         />
         <span
-          v-if="!warnings && !errors"
+          v-else
           class="properties-item__term-text"
         >
           <slot />
