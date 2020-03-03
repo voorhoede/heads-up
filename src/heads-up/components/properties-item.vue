@@ -189,6 +189,7 @@ export default {
       }
       
       this.errors = validateErrorSchema(schemaTemplate)
+      this.warnings = validateWarningSchema(schemaTemplate)
     }
   },
 };
