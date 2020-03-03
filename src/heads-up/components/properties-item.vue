@@ -69,7 +69,9 @@
           <external-link
             class="properties-item__link"
             :href="link"
-          >Learn more</external-link>
+          >
+            Learn more
+          </external-link>
         </template>
       </app-tooltip>
     </span>
