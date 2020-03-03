@@ -134,6 +134,11 @@ export default {
       return null;
     }
   },
+  watch:{
+    'head'() {
+      this.validateSchema()
+    }
+  },
   mounted() {
     if (!this.schema) {
       throw new Error("No schema is provided.");
@@ -147,14 +152,20 @@ export default {
       this.info = this.schema[this.keyName].meta.info;
       this.link = this.schema[this.keyName].meta.link;
     }
-
-    this.errors = validateSchema({
-      schema: this.schema,
-      key: this.keyName,
-      value: this.value,
-      attrs: this.attrs,
-    })
-  }
+    this.validateSchema()
+  },
+  methods:{
+    validateSchema() {
+      const schemaTemplate = {
+        schema: this.schema,
+        key: this.keyName,
+        value: this.value,
+        attrs: this.attrs
+      }
+      
+      this.errors = validateSchema(schemaTemplate)
+    }
+  },
 };
 </script>
 
