@@ -18,6 +18,7 @@ export default function validateSchema({ schema, key, value, attrs }) {
   }
 
   // Enum
+  // @todo: remove this when error- and warning validations are working
   if (schema[key].enum && schema[key].enum.length && !schema[key].enum.includes(valueTrimmed)) {
     errors.push({
       message: schema[key].message.enum
