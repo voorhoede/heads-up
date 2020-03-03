@@ -50,6 +50,17 @@ export default function validateSchema({ schema, key, value, attrs }) {
     })
   }
 
+  // Use.js check on errors
+  if (schema[key].error && schema[key].error.length) {
+    schema[key].error.forEach(item => {
+      if (!use[item](valueTrimmed, attrs)) {
+        errors.push({
+          message: schema[key].message.error[item],
+        })
+      }
+    })
+  }
+
   if (errors.length) {
     return errors
   }
