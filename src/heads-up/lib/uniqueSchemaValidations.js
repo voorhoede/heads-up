@@ -40,8 +40,7 @@ function hasValidViewportContent(value) {
     'viewport-fit': /(auto|contain|cover)/
   }
   return arrayOfValues.every(entry => {
-    const entryKey = entry.split('=')[0]
-    const entryValue = entry.split('=')[1]
+    const [entryKey, entryValue] = entry.split('=')
     return entryKey in viewportContentCheck && viewportContentCheck[entryKey].test(entryValue)
   })
 }
