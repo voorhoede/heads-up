@@ -46,20 +46,23 @@ function hasValidViewportContent(value) {
   })
 }
 
+function usesZoomBlockingViewportContent(value) {
+  const arrayOfValues = value.replace(' ', '').split(',')
+  const zoomBlockingContentCheck = [
+    'maximum-scale',
+    'minimum-scale',
+    'user-scalable',
+  ]
+  let isNotBlockingZoom = true
+
   arrayOfValues.map(entry => {
     const entryKey = entry.split('=')[0]
-    const entryValue = entry.split('=')[1]
 
-    if (entryKey in viewportContentCheck) {
-      if (!viewportContentCheck[entryKey].test(entryValue)) {
-        isValid = false
-      }
-    }
-    else {
-      isValid = false
+    if (zoomBlockingContentCheck.includes(entryKey)) {
+      isNotBlockingZoom = false
     }
   })
-  return isValid
+  return isNotBlockingZoom
 }
 
 export default {
@@ -70,4 +73,5 @@ export default {
   hasValidLangValue,
   hasValue,
   hasValidViewportContent,
+  usesZoomBlockingViewportContent,
 }
