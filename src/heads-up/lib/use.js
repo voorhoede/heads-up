@@ -9,11 +9,15 @@ function hasLength5(value) {
 }
 
 function hasCorrectFormattedCharset(value) {
-  return value.toLowerCase() === 'utf-8'
+  if (value) {
+    return value.toLowerCase() === 'utf-8'
+  }
 }
 
 function isDefinedInCharsetAttribute(value, attrs) {
-  return attrs['charset'] === value
+ if (value) {
+   return attrs['charset'] === value
+ }
 }
 
 function hasValidLangValue(value) {
