@@ -50,7 +50,7 @@ function hasValidViewportContent(value) {
         isValid = false
       }
     }
-    else{
+    else {
       isValid = false
     }
   })
