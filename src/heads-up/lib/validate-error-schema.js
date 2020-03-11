@@ -1,4 +1,4 @@
-import use from './use'
+import uniqueSchemaValidations from './uniqueSchemaValidations'
 
 // @todo: refactor function to reduce cognitive complexity
 // eslint-disable-next-line sonarjs/cognitive-complexity
@@ -40,10 +40,10 @@ export default function validateSchema({ schema, key, value, attrs }) {
     })
   }
 
-  // Use.js check on errors
+  // uniqueSchemaValidations.js check on errors
   if (schema[key].error && schema[key].error.length) {
     schema[key].error.forEach(item => {
-      if (!use[item](valueTrimmed, attrs)) {
+      if (!uniqueSchemaValidations[item](valueTrimmed, attrs)) {
         errors.push({
           message: schema[key].message.error[item],
         })
