@@ -45,7 +45,7 @@ function hasValidViewportContent(value) {
     const entryKey = entry.split('=')[0]
     const entryValue = entry.split('=')[1]
 
-    if (entryKey in viewportContentCheck && isValid) {
+    if (entryKey in viewportContentCheck) {
       if (!viewportContentCheck[entryKey].test(entryValue)) {
         isValid = false
       }
