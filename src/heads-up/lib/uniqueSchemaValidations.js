@@ -1,4 +1,4 @@
-import validateCountryCodes from "../lib/country-codes";
+import validateCountryCodes from "./country-codes";
 
 function hasLetterA(value) {
   return value.includes('a')
