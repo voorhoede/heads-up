@@ -47,7 +47,7 @@ function hasValidViewportContent(value) {
 
 function hasValidViewportKeys(value) {
   const arrayOfValues = value.replace(' ', '').split(',')
-  const ValidViewportKeys = [
+  const validViewportKeys = [
     'width',
     'height',
     'initial-scale',
@@ -60,7 +60,7 @@ function hasValidViewportKeys(value) {
   return arrayOfValues.every(entry => {
     const entryKey = entry.split('=')[0]
 
-    return ValidViewportKeys.includes(entryKey)
+    return validViewportKeys.includes(entryKey)
   })
 }
 
