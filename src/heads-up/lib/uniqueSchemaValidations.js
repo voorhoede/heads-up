@@ -1,5 +1,15 @@
 import validateCountryCodes from "./country-codes";
 
+const viewportContentCheck = {
+  width: /(^[1-9][0-9]*$)|(^device-width$)/,
+  height: /(^[1-9][0-9]*$)|(^device-height$)/,
+  'initial-scale': /^(?:9(?:\.0)?|[1-9](?:\.[0-9])?|0?\.[1-9])$/,
+  'maximum-scale': /^(?:9(?:\.0)?|[1-9](?:\.[0-9])?|0?\.[1-9])$/,
+  'minimum-scale': /^(?:9(?:\.0)?|[1-9](?:\.[0-9])?|0?\.[1-9])$/,
+  'user-scalable': /(yes|no)/,
+  'viewport-fit': /(auto|contain|cover)/
+}
+
 function hasLetterA(value) {
   return value.includes('a')
 }
@@ -30,31 +40,37 @@ function hasValue(value) {
 
 function hasValidViewportContent(value) {
   const arrayOfValues = value.replace(' ', '').split(',')
-  const viewportContentCheck = {
-    width: /(^[1-9][0-9]*$)|(device-width)/,
-    height: /(^[1-9][0-9]*$)|(device-height)/,
-    'initial-scale': /^(?:9(?:\.0)?|[1-9](?:\.[0-9])?|0?\.[1-9])$/,
-    'maximum-scale': /^(?:9(?:\.0)?|[1-9](?:\.[0-9])?|0?\.[1-9])$/,
-    'minimum-scale': /^(?:9(?:\.0)?|[1-9](?:\.[0-9])?|0?\.[1-9])$/,
-    'user-scalable': /(yes|no)/,
-    'viewport-fit': /(auto|contain|cover)/
-  }
-  let isValid = true
-
-  arrayOfValues.map(entry => {
-    const entryKey = entry.split('=')[0]
-    const entryValue = entry.split('=')[1]
-
-    if (entryKey in viewportContentCheck) {
-      if (!viewportContentCheck[entryKey].test(entryValue)) {
-        isValid = false
-      }
-    }
-    else {
-      isValid = false
-    }
+  
+  return arrayOfValues.every(entry => {
+    const [entryKey, entryValue] = entry.split('=')
+    return entryKey in viewportContentCheck && viewportContentCheck[entryKey].test(entryValue)
   })
-  return isValid
+}
+
+function hasValidViewportKeys(value) {
+  const arrayOfValues = value.replace(' ', '').split(',')
+  const validViewportKeys = Object.keys(viewportContentCheck)
+
+  return arrayOfValues.every(entry => {
+    const entryKey = entry.split('=')[0]
+
+    return validViewportKeys.includes(entryKey)
+  })
+}
+
+function usesZoomBlockingViewportContent(value) {
+  const arrayOfValues = value.replace(' ', '').split(',')
+  const zoomBlockingContentCheck = [
+    'maximum-scale',
+    'minimum-scale',
+    'user-scalable',
+  ]
+
+  return !arrayOfValues.some(entry => {
+    const entryKey = entry.split('=')[0]
+
+    return zoomBlockingContentCheck.includes(entryKey)
+  })
 }
 
 export default {
@@ -65,4 +81,6 @@ export default {
   hasValidLangValue,
   hasValue,
   hasValidViewportContent,
+  usesZoomBlockingViewportContent,
+  hasValidViewportKeys,
 }
