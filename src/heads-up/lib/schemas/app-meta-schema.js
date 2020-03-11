@@ -47,6 +47,16 @@ const appMetaSchema = {
   },
 
   'viewport': {
+    message: {
+      error: {
+        hasValue: 'The viewport attribute is not defined.',
+      },
+      warning: {
+        hasValidViewportContent: 'The content of the viewport meta tag is invalid.'
+      }
+    },
+    error: ['hasValue'],
+    warning: ['hasValidViewportContent'],
     meta: {
       info: `The <code>viewport</code> is the part of the web page that the user can currently see.`,
       link: 'https://webhint.io/docs/user-guide/hints/hint-meta-viewport/'
