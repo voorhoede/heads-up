@@ -52,16 +52,12 @@ function usesZoomBlockingViewportContent(value) {
     'minimum-scale',
     'user-scalable',
   ]
-  let isNotBlockingZoom = true
 
-  arrayOfValues.map(entry => {
+  return !arrayOfValues.some(entry => {
     const entryKey = entry.split('=')[0]
 
-    if (zoomBlockingContentCheck.includes(entryKey)) {
-      isNotBlockingZoom = false
-    }
+    return zoomBlockingContentCheck.includes(entryKey)
   })
-  return isNotBlockingZoom
 }
 
 export default {
