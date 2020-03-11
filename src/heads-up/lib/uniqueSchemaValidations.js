@@ -45,6 +45,25 @@ function hasValidViewportContent(value) {
   })
 }
 
+function hasValidViewportKeys(value) {
+  const arrayOfValues = value.replace(' ', '').split(',')
+  const ValidViewportKeys = [
+    'width',
+    'height',
+    'initial-scale',
+    'maximum-scale',
+    'minimum-scale',
+    'user-scalable',
+    'viewport-fit'
+  ]
+
+  return arrayOfValues.every(entry => {
+    const entryKey = entry.split('=')[0]
+
+    return ValidViewportKeys.includes(entryKey)
+  })
+}
+
 function usesZoomBlockingViewportContent(value) {
   const arrayOfValues = value.replace(' ', '').split(',')
   const zoomBlockingContentCheck = [
@@ -69,4 +88,5 @@ export default {
   hasValue,
   hasValidViewportContent,
   usesZoomBlockingViewportContent,
+  hasValidViewportKeys,
 }

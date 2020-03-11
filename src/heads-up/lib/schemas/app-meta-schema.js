@@ -50,13 +50,14 @@ const appMetaSchema = {
     message: {
       error: {
         hasValue: 'The viewport attribute is not defined.',
+        hasValidViewportKeys: 'The keys of the viewport meta tag are invalid.'
       },
       warning: {
         hasValidViewportContent: 'The content of the viewport meta tag is invalid.',
         usesZoomBlockingViewportContent: 'The user-scalable, maximum-scale, and minimum-scale can block the user from zooming an a page.'
       }
     },
-    error: ['hasValue'],
+    error: ['hasValue', 'hasValidViewportKeys'],
     warning: ['hasValidViewportContent', 'usesZoomBlockingViewportContent'],
     meta: {
       info: `The <code>viewport</code> is the part of the web page that the user can currently see.`,
