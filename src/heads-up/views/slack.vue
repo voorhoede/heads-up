@@ -160,7 +160,6 @@ export default {
     return {
       iframeHeight: "auto",
       imageDimensions: { width: undefined, height: undefined },
-      previewUrl: "",
       showImageTooltip: false,
       tooltip: {
         title: {
@@ -225,24 +224,52 @@ export default {
       } catch (error) {
         return error;
       }
+    },
+    previewUrl() {
+      const params = new URLSearchParams();
+      params.set("title", this.og.title || this.head.title || "Weblink");
+      params.set("url", this.head.url);
+      params.set("image", this.og.image);
+      params.set("theme", this.themeClass);
+      params.set("description", this.og.description);
+      params.set("favicon", this.additional.favicon);
+      params.set(
+        "additionalData",
+        JSON.stringify(this.additional.additionalData)
+      );
+      params.set(
+        "imageIsBig",
+        this.imageDimensions.height > 201 && this.imageDimensions.width > 201
+      );
+      params.set(
+        "validImage",
+        this.imageDimensions.height > 0 && this.imageDimensions.width > 0
+      );
+      return `/slack-preview/slack-preview.html?${params}`;
+    },
+  },
+  watch:{
+    'og.image'(){
+      this.findImageDimensions()
     }
   },
   mounted() {
     window.addEventListener("resize", this.onResize);
   },
   created() {
-    findImageDimensions(this.head, "og:image").then(imageDimensions => {
-      this.imageDimensions = imageDimensions;
-      this.setTooltipData(imageDimensions);
-      this.showImageTooltip = true;
-
-      this.previewUrl = this.getPreviewUrl({ imageDimensions });
-    });
+    this.findImageDimensions()
   },
   destroyed() {
     window.removeEventListener("resize", this.onResize);
   },
   methods: {
+    findImageDimensions(){
+      findImageDimensions(this.head, "og:image").then(imageDimensions => {
+        this.imageDimensions = imageDimensions;
+        this.setTooltipData(imageDimensions);
+        this.showImageTooltip = true;
+    });
+    },
     absoluteUrl(url) {
       if (!url) return;
       return url.startsWith("http") ? url : new URL(this.head.url).origin + url;
@@ -282,28 +309,6 @@ export default {
     },
     propertyValue(propName) {
       return findMetaProperty(this.head, propName);
-    },
-    getPreviewUrl({ imageDimensions }) {
-      const params = new URLSearchParams();
-      params.set("title", this.og.title || this.head.title || "Weblink");
-      params.set("url", this.head.url);
-      params.set("image", this.og.image);
-      params.set("theme", this.themeClass);
-      params.set("description", this.og.description);
-      params.set("favicon", this.additional.favicon);
-      params.set(
-        "additionalData",
-        JSON.stringify(this.additional.additionalData)
-      );
-      params.set(
-        "imageIsBig",
-        imageDimensions.height > 201 && imageDimensions.width > 201
-      );
-      params.set(
-        "validImage",
-        imageDimensions.height > 0 && imageDimensions.width > 0
-      );
-      return `/slack-preview/slack-preview.html?${params}`;
     },
     onResize() {
       this.iframeHeight =

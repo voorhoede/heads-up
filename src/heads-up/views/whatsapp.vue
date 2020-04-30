@@ -200,7 +200,6 @@ export default {
     return {
       iframeHeight: "auto",
       imageDimensions: { width: undefined, height: undefined },
-      previewUrl: "",
       showTooltip: false,
       tooltip: {
         title: {
@@ -281,24 +280,42 @@ export default {
     },
     url() {
       return this.head.url;
+    },
+    previewUrl() {
+      const params = new URLSearchParams();
+      params.set("title", this.og.title || this.title);
+      params.set("description", this.description);
+
+      if (this.imageDimensions.height >= 100 && this.imageDimensions.width >= 100) {
+        params.set("image", this.image);
+      }
+
+      params.set("url", this.head.url);
+      return `/whatsapp-preview/whatsapp-preview.html?${params}`;
+    },
+  },
+  watch: {
+    'og.image'() {
+      this.findImageDimensions()
     }
   },
   mounted() {
     window.addEventListener("resize", this.onResize);
   },
   created() {
-    findImageDimensions(this.head, "og:image").then(imageDimensions => {
-      this.imageDimensions = imageDimensions;
-      this.setTooltipData(imageDimensions);
-      this.showTooltip = true;
-
-      this.previewUrl = this.getPreviewUrl({ imageDimensions });
-    });
+    this.findImageDimensions()
   },
   destroyed() {
     window.removeEventListener("resize", this.onResize);
   },
   methods: {
+    findImageDimensions(){
+      findImageDimensions(this.head, "og:image").then(imageDimensions => {
+      this.imageDimensions = imageDimensions;
+      this.setTooltipData(imageDimensions);
+      this.showTooltip = true;
+    });
+    },
     absoluteUrl(url) {
       if (url !== null) {
         return url.startsWith("http")
@@ -343,18 +360,6 @@ export default {
     },
     propertyValue(propName) {
       return findMetaProperty(this.head, propName);
-    },
-    getPreviewUrl({ imageDimensions }) {
-      const params = new URLSearchParams();
-      params.set("title", this.og.title || this.title);
-      params.set("description", this.description);
-
-      if (imageDimensions.height >= 100 && imageDimensions.width >= 100) {
-        params.set("image", this.image);
-      }
-
-      params.set("url", this.head.url);
-      return `/whatsapp-preview/whatsapp-preview.html?${params}`;
     },
     onResize() {
       this.iframeHeight =
