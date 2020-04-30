@@ -50,33 +50,33 @@
         return [
           {
             keyName: 'title',
-            title: 'Title',
+            title: 'title',
             value: head.title
           },
           {
             keyName: 'lang',
-            title: 'Language',
+            title: 'language',
             value: head.lang
           },
           {
             keyName: 'charset',
-            title: 'Charset',
+            title: 'charset',
             value: findCharset(head),
             attrs: findAttrs(head, 'charset') || findAttrs(head, 'http-equiv')
           },
           {
             keyName: 'viewport',
-            title: 'Viewport',
+            title: 'viewport',
             value: findMetaContent(head, 'viewport')
           },
           {
             keyName: 'description',
-            title: 'Description',
+            title: 'description',
             value: findMetaContent(head, 'description')
           },
           {
             keyName: 'theme-color',
-            title: 'Theme color',
+            title: 'theme-color',
             value: findMetaContent(head, 'theme-color')
           }
         ]

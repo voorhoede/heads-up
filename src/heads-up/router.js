@@ -89,6 +89,14 @@ export default new VueRouter({
       },
       component: () => import(/* webpackChunkName:'views/slack' */ './views/slack.vue')
     },
+    {
+      path: '/search-meta',
+      name: 'search-meta',
+      meta: {
+        title: 'Search Meta',
+      },
+      component: () => import(/* webpackChunkName:'views/search-meta' */ './views/search-meta.vue')
+    }
   ]
 })
 

@@ -95,6 +95,22 @@
         </li>
       </ul>
     </section>
+    <div class="sidebar__divider" />
+    <section>
+      <h2 class="sidebar__heading">
+        Search
+      </h2>
+      <ul class="sidebar-list">
+        <li class="sidebar-list__item">
+          <router-link
+            class="sidebar__button"
+            :to="{ name: 'search-meta' }"
+          >
+            <CodeIcon class="sidebar__icon" />Search Meta
+          </router-link>
+        </li>
+      </ul>
+    </section>
     <footer class="sidebar__footer">
       Made with love by
       <external-link
