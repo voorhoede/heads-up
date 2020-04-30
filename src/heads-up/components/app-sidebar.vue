@@ -106,7 +106,7 @@
             class="sidebar__button"
             :to="{ name: 'search-meta' }"
           >
-            <CodeIcon class="sidebar__icon" />Meta
+            <CodeIcon class="sidebar__icon" />Search Meta
           </router-link>
         </li>
       </ul>

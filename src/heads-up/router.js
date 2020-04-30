@@ -93,7 +93,7 @@ export default new VueRouter({
       path: '/search-meta',
       name: 'search-meta',
       meta: {
-        title: 'Meta',
+        title: 'Search Meta',
       },
       component: () => import(/* webpackChunkName:'views/search-meta' */ './views/search-meta.vue')
     }
