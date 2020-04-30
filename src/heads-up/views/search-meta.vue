@@ -25,7 +25,7 @@
     <panel-section title="Resources">
       <resource-list>
         <li>
-          <external-link href="https://htmlhead.dev/">
+          <external-link href="https://htmlhead.dev/#meta">
             Guide to HTML5 <code>&lt;head&gt;</code> elements
           </external-link>
         </li>
