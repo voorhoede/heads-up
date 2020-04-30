@@ -9,7 +9,7 @@ export function findCharset(head) {
   if (charset === null) {
     const item = head.meta.find(item => {
       return item['http-equiv'] &&
-             item['http-equiv'] === 'Content-Type' &&
+             item['http-equiv'].toLowerCase() === 'content-type' &&
              item['content'] &&
              /charset=./.test(item['content'])
     })

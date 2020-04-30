@@ -1,4 +1,4 @@
-import use from './use'
+import uniqueSchemaValidations from './uniqueSchemaValidations'
 
 // @todo: refactor function to reduce cognitive complexity
 // eslint-disable-next-line sonarjs/cognitive-complexity
@@ -13,11 +13,8 @@ export default function validateSchema({ schema, key, value, attrs }) {
     })
   }
 
-  if (!value && !schema[key].required) {
-    return null
-  }
-
   // Enum
+  // @todo: remove this when error- and warning validations are working
   if (schema[key].enum && schema[key].enum.length && !schema[key].enum.includes(valueTrimmed)) {
     errors.push({
       message: schema[key].message.enum
@@ -39,12 +36,12 @@ export default function validateSchema({ schema, key, value, attrs }) {
     })
   }
 
-  // Use
-  if (schema[key].use && schema[key].use.length) {
-    schema[key].use.forEach(item => {
-      if (!use[item](valueTrimmed, attrs)) {
+  // uniqueSchemaValidations.js check on errors
+  if (schema[key].error && schema[key].error.length) {
+    schema[key].error.forEach(item => {
+      if (!uniqueSchemaValidations[item](valueTrimmed, attrs)) {
         errors.push({
-          message: schema[key].message.use[item],
+          message: schema[key].message.error[item],
         })
       }
     })

@@ -1,7 +1,10 @@
 <template>
   <div class="properties-item">
     <span class="properties-item__term">
-      <span class="properties-item__term-text">
+      <span
+        v-if="warnings || errors"
+        class="properties-item__term-text"
+      >
         <slot />
       </span>
 
@@ -10,18 +13,37 @@
         placement="top-start"
       >
         <InfoIcon
-          v-if="!value"
+          v-if="warnings && !errors"
           class="properties-item__icon"
         />
-
         <WarningIcon
-          v-if="errors"
+          v-else-if="errors"
           class="properties-item__icon properties-item-icon properties-item-icon--warning"
         />
+        <span
+          v-else
+          class="properties-item__term-text"
+        >
+          <slot />
+        </span>
 
         <template v-slot:info>
-          <!-- eslint-disable-next-line vue/no-v-html, vue/max-attributes-per-line -->
-          <span v-if="!errors" v-html="info" />
+          <span v-if="warnings && !errors">
+            <template v-if="warnings.length === 1">
+              {{ warningMessage }}
+            </template>
+            <ul
+              v-else
+              class="properties-item__error-list"
+            >
+              <li
+                v-for="warning in warnings"
+                :key="warning.message"
+                v-html="warning.message"
+              />
+            </ul>
+          </span>
+
           <span v-if="errors">
             <template v-if="errors.length === 1">
               {{ errorMessage }}
@@ -30,15 +52,26 @@
               v-else
               class="properties-item__error-list"
             >
-              <!-- eslint-disable-next-line vue/no-v-html, vue/max-attributes-per-line -->
-              <li v-for="error in errors" :key="error.message" v-html="error.message" />
+              <li
+                v-for="error in errors"
+                :key="error.message"
+                v-html="error.message"
+              />
             </ul>
           </span>
+          <span
+            v-if="!errors && !warnings"
+            v-html="info"
+          />
         </template>
 
         <template v-slot:link>
-          <!-- eslint-disable-next-line vue/singleline-html-element-content-newline, vue/max-attributes-per-line -->
-          <external-link class="properties-item__link" :href="link">Learn more</external-link>
+          <external-link
+            class="properties-item__link"
+            :href="link"
+          >
+            Learn more
+          </external-link>
         </template>
       </app-tooltip>
     </span>
@@ -70,7 +103,8 @@
 
 <script>
 import { mapState } from "vuex";
-import validateSchema from "../lib/validate-schema";
+import validateErrorSchema from "../lib/validate-error-schema";
+import validateWarningSchema from "../lib/validate-warning-schema";
 import { AppTooltip, ExternalLink } from "../components";
 import InfoIcon from "../assets/icons/info.svg";
 import WarningIcon from "../assets/icons/warning.svg";
@@ -107,6 +141,7 @@ export default {
       info: "",
       link: "",
       errors: null,
+      warnings: null,
       valueSlot: null
     };
   },
@@ -115,6 +150,12 @@ export default {
     errorMessage() {
       if (this.errors && this.errors.length > 0) {
         return this.errors[0].message;
+      }
+      return null;
+    },
+    warningMessage() {
+      if (this.warnings && this.warnings.length > 0) {
+        return this.warnings[0].message;
       }
       return null;
     },
@@ -134,6 +175,11 @@ export default {
       return null;
     }
   },
+  watch:{
+    'head'() {
+      this.validateSchema()
+    }
+  },
   mounted() {
     if (!this.schema) {
       throw new Error("No schema is provided.");
@@ -147,14 +193,21 @@ export default {
       this.info = this.schema[this.keyName].meta.info;
       this.link = this.schema[this.keyName].meta.link;
     }
-
-    this.errors = validateSchema({
-      schema: this.schema,
-      key: this.keyName,
-      value: this.value,
-      attrs: this.attrs,
-    })
-  }
+    this.validateSchema()
+  },
+  methods:{
+    validateSchema() {
+      const schemaTemplate = {
+        schema: this.schema,
+        key: this.keyName,
+        value: this.value,
+        attrs: this.attrs
+      }
+      
+      this.errors = validateErrorSchema(schemaTemplate)
+      this.warnings = validateWarningSchema(schemaTemplate)
+    }
+  },
 };
 </script>
 
