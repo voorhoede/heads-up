@@ -76,7 +76,6 @@
 <script>
   import { mapState } from 'vuex'
   import { ExternalLink, PanelSection, ResourceList } from '../components'
-  import schema  from '../lib/schemas/app-meta-schema'
   import ChevronRightIcon from '../assets/icons/chevron-right.svg'
 
   export default {
@@ -101,7 +100,6 @@
             return collection
           }, {})
       },
-      schema() { return schema }
     }
   }
 </script>
