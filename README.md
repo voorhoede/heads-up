@@ -7,12 +7,76 @@
 ## Features
 
 * Presents key page meta (title, charset, viewport, ...) and favicons.
-* Presents all Open Graph (`og:*`) properties found in the page.
+* Presents all link relations (`rel=""`) and values (name, href, type, ...).
+* Presents all favicon images with sizes and type names (x-icon, png).
 * Presents Apple iOS (`apple-mobile-web-*`) settings, touch icons and startup images.
+* Presents all Open Graph (`og:*`) properties found in the page.
 * Presents Twitter settings (`twitter:*`) and a preview of a Twitter card.
+* Presents WhatsApp settings (`og:*`) and a preview of a WhatsApp unfurled link.
+* Presents LinkedIn settings (`og:*`) and a preview of a LinkedIn unfurled link.
+* Presents Facebook settings (`og:*`) and a preview of a Facebook mobile and desktop unfurled link.
+* Presents Slack settings (`og:*`) and a preview of a Slack unfurled link.
 * Works with any site and web app (incl. localhost).
 * Supports editing in devtools and hot module reloading.
+* Gives feedback to improve your code with tooltips.
 
+## Video
+
+[![Heads Up video](./src/devtools/assets/images/thumpnail-youtube-video.png)](https://www.youtube.com/watch?v=HboZ0MGvuCQ)
+
+## Social media
+
+<details open>
+<summary>Twitter Card preview</summary>
+
+![Twitter card preview](./src/devtools/assets/images/twitter-card-preview.png)
+</details>
+
+<details>
+<summary>WhatsApp Card preview</summary>
+
+![WhatsApp card preview](./src/devtools/assets/images/whatsapp-card-preview.png)
+</details>
+
+<details>
+<summary>LinkedIn Card preview</summary>
+
+![LinkedIn card preview](./src/devtools/assets/images/linkedin-card-preview.png)
+</details>
+
+<details>
+<summary>Facebook Card preview</summary>
+
+![Facebook card preview](./src/devtools/assets/images/facebook-card-preview.png)
+</details>
+
+<details>
+<summary>Slack Card preview</summary>
+
+![Slack card preview](./src/devtools/assets/images/slack-card-preview.png)
+</details>
+
+## Live feedback
+
+Heads Up provides their users with live feedback. The feedback will be shown after hovering over icons and titles. The feedback will give you a description of the item, feedback to improve or an error with a solution. 
+
+<details open>
+<summary>Error message</summary>
+
+![Error message](./src/devtools/assets/images/tooltip-error.png)
+</details>
+
+<details>
+<summary>Warning message</summary>
+
+![Error message](./src/devtools/assets/images/tooltip-warning.png)
+</details>
+
+<details>
+<summary>success message</summary>
+
+![Error message](./src/devtools/assets/images/tooltip-perfect.png)
+</details>
 
 ## Development
 
