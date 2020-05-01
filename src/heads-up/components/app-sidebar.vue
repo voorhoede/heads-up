@@ -109,6 +109,14 @@
             <CodeIcon class="sidebar__icon" />Search Meta
           </router-link>
         </li>
+        <li class="sidebar-list__item">
+          <router-link
+            class="sidebar__button"
+            :to="{ name: 'open-search' }"
+          >
+            <SearchIcon class="sidebar__icon" />OpenSearch
+          </router-link>
+        </li>
       </ul>
     </section>
     <footer class="sidebar__footer">
@@ -135,6 +143,7 @@ import LinkedInIcon from "../assets/icons/linkedin.svg";
 import SlackIcon from "../assets/icons/slack.svg";
 import ExternalLink from "../components/external-link.vue";
 import FacebookIcon from "../assets/icons/facebook.svg";
+import SearchIcon from "../assets/icons/search.svg";
 
 export default {
   components: {
@@ -148,6 +157,7 @@ export default {
     WhatsappIcon,
     FacebookIcon,
     LinkedInIcon,
+    SearchIcon,
     SlackIcon
   }
 };

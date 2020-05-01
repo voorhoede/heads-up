@@ -96,7 +96,15 @@ export default new VueRouter({
         title: 'Search Meta',
       },
       component: () => import(/* webpackChunkName:'views/search-meta' */ './views/search-meta.vue')
-    }
+    },
+    {
+      path: '/open-search',
+      name: 'open-search',
+      meta: {
+        title: 'Open Search',
+      },
+      component: () => import(/* webpackChunkName:'views/open-search' */ './views/open-search.vue')
+    },
   ]
 })
 
