@@ -200,7 +200,7 @@ export default {
        */
       return getTheme() === "dark" ? "-theme-with-dark-background" : "";
     },
-     previewUrl() {
+    previewUrl() {
       const params = new URLSearchParams();
       params.set("title", this.og.title || this.head.title || "Weblink");
       params.set("url", this.head.url);
