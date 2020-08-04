@@ -23,7 +23,7 @@ const opensearchMetaSchema = {
     'max-characters': 1024,
   },
 
-  'url': {
+  'urls': {
     message: {
       required: 'The url element is required.',
     },

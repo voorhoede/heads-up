@@ -31,31 +31,16 @@
         <properties-item
           v-for="item in opensearchData"
           :key="item.keyName"
-          :value="item.value"
+          :value="item.keyName !== 'urls' && item.keyName !== 'image' ? item.value : null"
           :key-name="item.keyName"
           :schema="schema"
         >
           <template v-slot:default>
             {{ item.title }}
           </template>
-        </properties-item>
-        <template v-if="image">
-          <dt>Image</dt>
-          <dd>
-            <external-link :href="absoluteUrl(image)">
-              <img
-                alt=""
-                :src="absoluteUrl(image)"
-              >
-              <span>{{ image }}</span>
-            </external-link>
-          </dd>
-        </template>
-        <template v-if="urls">
-          <template v-for="(url, index) in urls">
-            <div :key="index">
-              <dt>Url</dt>
-              <dd>
+          <template v-if="item.keyName === 'urls'" v-slot:value>
+            <template v-for="(url, index) in item.value">
+              <p :key="index">
                 <template v-for="(attribute, attrIndex) in url.attributes">
                   <external-link
                     v-if="attribute.name === 'template'"
@@ -73,10 +58,19 @@
                     {{ attribute.name }}: {{ attribute.value }}<br>
                   </span>
                 </template>
-              </dd>
-            </div>
+              </p>
+            </template>
           </template>
-        </template>
+          <template v-else-if="item.keyName === 'image'" v-slot:value>
+            <img
+              alt=""
+              :src="absoluteUrl(item.value)"
+            >
+            <external-link :href="absoluteUrl(item.value)">
+              <span>{{ item.value }}</span>
+            </external-link>
+          </template>
+        </properties-item>
       </properties-list>
     </panel-section>
 
@@ -159,6 +153,16 @@
             keyName: 'description',
             title: 'Description',
             value: this.description,
+          },
+          {
+            keyName: 'urls',
+            title: 'Url(s)',
+            value: this.urls,
+          },
+          {
+            keyName: 'image',
+            title: 'Image',
+            value: this.image,
           },
           {
             keyName: 'input-encoding',
