@@ -1,5 +1,6 @@
 export { default as AppTooltip } from './app-tooltip.vue'
 export { default as AppSidebar } from './app-sidebar.vue'
+export { default as CollapsibleLinkList } from './collapsible-link-list.vue'
 export { default as ExternalLink } from './external-link.vue'
 export { default as PanelSection } from './panel-section.vue'
 export { default as PropertiesItem } from './properties-item.vue'
