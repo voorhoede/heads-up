@@ -65,7 +65,7 @@
             </template>
           </template>
           <template
-            v-if="item.keyName === 'image'"
+            v-else-if="item.keyName === 'image'"
             v-slot:value
           >
             <img
