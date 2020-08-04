@@ -39,6 +39,44 @@
             {{ item.title }}
           </template>
         </properties-item>
+        <template v-if="image">
+          <dt>Image</dt>
+          <dd>
+            <external-link :href="absoluteUrl(image)">
+              <img
+                alt=""
+                :src="absoluteUrl(image)"
+              >
+              <span>{{ image }}</span>
+            </external-link>
+          </dd>
+        </template>
+        <template v-if="urls">
+          <template v-for="(url, index) in urls">
+            <div :key="index">
+              <dt>Url</dt>
+              <dd>
+                <template v-for="(attribute, attrIndex) in url.attributes">
+                  <external-link
+                    v-if="attribute.name === 'template'"
+                    :key="attrIndex"
+                    :href="absoluteUrl(attribute.value)"
+                  >
+                    {{ attribute.value }}<br>
+                  </external-link>
+                </template>
+                <template v-for="(attribute, attrIndex) in url.attributes">
+                  <span
+                    v-if="attribute.name !== 'template'"
+                    :key="attrIndex"
+                  >
+                    {{ attribute.name }}: {{ attribute.value }}<br>
+                  </span>
+                </template>
+              </dd>
+            </div>
+          </template>
+        </template>
       </properties-list>
     </panel-section>
 
@@ -82,16 +120,13 @@
       },
       previewUrl() {
         const params = new URLSearchParams()
-        params.set('title', 'YouTube')
+        params.set('title', this.shortName)
         params.set('theme', this.themeClass)
 
         return `/opensearch-preview/opensearch-preview.html?${params}`
       },
       fileUrl() {
         return findLinkHref(this.head, 'search')
-      },
-      linkListData() {
-        return this.head.link
       },
       shortName() {
         const element = findXMLElement(this.fileContent, 'ShortName')
@@ -101,9 +136,9 @@
         const element = findXMLElement(this.fileContent, 'Description')
         return element ? element[0].value : null
       },
-      url() {
-        const element = findXMLElement(this.fileContent, 'Url')
-        return element ? element[0].attributes.template : null
+      urls() {
+        const elements = findXMLElement(this.fileContent, 'Url')
+        return elements ? elements : null
       },
       image() {
         const element = findXMLElement(this.fileContent, 'Image')
@@ -126,16 +161,6 @@
             value: this.description,
           },
           {
-            keyName: 'url',
-            title: 'Url',
-            value: this.url,
-          },
-          {
-            keyName: 'image',
-            title: 'Image',
-            value: this.image,
-          },
-          {
             keyName: 'input-encoding',
             title: 'InputEncoding',
             value: this.inputEncoding,
@@ -148,6 +173,10 @@
       this.getOpenSearchFileContent()
     },
     methods: {
+      absoluteUrl(url) {
+        if (!url) return
+        return url.startsWith('http') ? url : new URL(this.head.url).origin + url
+      },
       getOpenSearchFileContent() {
         const request = new XMLHttpRequest();
         request.onreadystatechange = (e) => {

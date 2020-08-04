@@ -47,25 +47,28 @@ export function findXMLElement(text, tagName) {
   const xml = parser.parseFromString(text, 'text/xml')
 
   const tags = Object.values(xml.documentElement.childNodes)
+    .filter(node => node.nodeName !== '#text')
     .filter(node => node.nodeName === tagName)
 
   return tags.length ? getElementDetails(tags) : null
 }
 
 function getElementDetails(tags) {
-  return tags.map(node => {
-    let attributes = {}
+  return tags.map(node => ({
+    attributes: getNodeAttributes(node),
+    name: node.nodeName,
+    value: node.textContent ? node.textContent : null,
+  }))
+}
 
-    for (let entry of Object.entries(node.attributes)) {
-      attributes[entry[1].name] = entry[1].value
-    }
+function getNodeAttributes(node) {
+  let attributes = []
 
-    return {
-      attributes: attributes,
-      name: node.nodeName,
-      value: node.textContent ? node.textContent : null,
-    }
-  })
+  for (let entry of Object.entries(node.attributes)) {
+    attributes.push({ name: entry[1].name, value: entry[1].value })
+  }
+
+  return attributes
 }
 
 export function findFavicons(head) {
