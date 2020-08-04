@@ -38,7 +38,10 @@
           <template v-slot:default>
             {{ item.title }}
           </template>
-          <template v-if="item.keyName === 'urls'" v-slot:value>
+          <template
+            v-if="item.keyName === 'urls'"
+            v-slot:value
+          >
             <template v-for="(url, index) in item.value">
               <p :key="index">
                 <template v-for="(attribute, attrIndex) in url.attributes">
@@ -61,7 +64,10 @@
               </p>
             </template>
           </template>
-          <template v-else-if="item.keyName === 'image'" v-slot:value>
+          <template
+            v-if="item.keyName === 'image'"
+            v-slot:value
+          >
             <img
               alt=""
               :src="absoluteUrl(item.value)"
