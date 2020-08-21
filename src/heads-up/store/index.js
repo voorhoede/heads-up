@@ -6,6 +6,7 @@ export function createStore() {
   return new Vuex.Store({
     state: () => ({
       head: {},
+      robots: [],
       theme: 'default'
     }),
     mutations: {
@@ -14,7 +15,10 @@ export function createStore() {
       },
       SET_THEME (state, { theme }) {
         state.theme = theme
-      }
+      },
+      SET_ROBOTS (state, { robots }) {
+        state.robots = robots
+      },
     }
   })
 }
