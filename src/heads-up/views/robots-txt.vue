@@ -68,7 +68,7 @@
       ...mapState(['head', 'robots']),
     },
     mounted() {
-      this.getRobotsTxt(this.head.url)
+      this.getRobotsTxt(this.head.domain)
     },
     methods: {
       getRobotsTxt(url) {
