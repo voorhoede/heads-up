@@ -55,7 +55,6 @@
   import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components'
 
   const robots = robotsParser({
-    userAgent: 'Googlebot',
     allowOnNeutral: false
   })
 
