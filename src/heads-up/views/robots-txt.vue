@@ -1,8 +1,5 @@
 <template>
   <div>
-    <panel-section v-if="!robots.length">
-      <p>No robots.txt file was found on this domain.</p>
-    </panel-section>
     <panel-section
       v-for="robot in robots"
       :key="robot.name"
