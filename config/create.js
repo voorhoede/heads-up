@@ -1,5 +1,5 @@
 const webpack = require('webpack')
-const merge = require('webpack-merge')
+const { merge } = require('webpack-merge')
 const { VueLoaderPlugin } = require('vue-loader')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const path = require('path');
