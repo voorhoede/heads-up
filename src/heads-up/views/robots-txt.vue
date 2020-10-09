@@ -1,5 +1,11 @@
 <template>
   <div>
+    <panel-section title="Current Page">
+      <properties-list>
+        <dt>URL:</dt><dd>{{ head.url }}</dd>
+        <dt>Crawlable:</dt><dd>{{ urlIsCrawlable }}</dd>
+      </properties-list>
+    </panel-section>
     <panel-section
       v-for="robot in robots"
       :key="robot.name"
@@ -51,27 +57,14 @@
 
 <script>
   import { mapState } from 'vuex'
-  import robotsParser from 'robots-txt-parser'
   import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components'
-
-  const robots = robotsParser({
-    allowOnNeutral: false
-  })
 
   export default {
     components: { ExternalLink, PanelSection, PropertiesList, ResourceList },
     computed: {
-      ...mapState(['head', 'robots']),
-    },
-    mounted() {
-      this.getRobotsTxt(this.head.domain)
+      ...mapState(['head', 'robots', 'urlIsCrawlable']),
     },
     methods: {
-      getRobotsTxt(url) {
-        robots.useRobotsFor(url)
-          .then((result) => this.transformResult(result))
-          .catch((error) => console.error(error))
-      },
       robotData(robot) {
         return [
           {
@@ -90,18 +83,6 @@
             value: robot.disallow
           },
         ]
-      },
-      transformResult(result) {
-        if (result.sitemaps) {
-          delete result.sitemaps
-        }
-
-        const robots = Object.keys(result).map((key) => ({
-          name: key === '*' ? '* (all user agents)' : key,
-          ...result[key],
-        }))
-
-        this.$store.commit('SET_ROBOTS', { robots: robots })
       },
     },
   }
