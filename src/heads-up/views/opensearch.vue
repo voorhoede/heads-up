@@ -35,12 +35,12 @@
           :key-name="item.keyName"
           :schema="schema"
         >
-          <template v-slot:default>
+          <template #default>
             {{ item.title }}
           </template>
           <template
             v-if="item.keyName === 'urls'"
-            v-slot:value
+            #value
           >
             <template v-for="(url, index) in item.value">
               <p :key="index">
@@ -66,7 +66,7 @@
           </template>
           <template
             v-else-if="item.keyName === 'image'"
-            v-slot:value
+            #value
           >
             <img
               alt=""
