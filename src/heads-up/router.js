@@ -113,6 +113,14 @@ export default new VueRouter({
       },
       component: () => import(/* webpackChunkName:'views/robots-txt' */ './views/robots-txt.vue')
     },
+    {
+      path: '/sitemap',
+      name: 'sitemap',
+      meta: {
+        title: 'Sitemap',
+      },
+      component: () => import(/* webpackChunkName:'views/sitemap' */ './views/sitemap.vue')
+    },
   ]
 })
 
