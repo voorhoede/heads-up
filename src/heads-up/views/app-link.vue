@@ -1,7 +1,7 @@
 <template>
   <div>
     <panel-section title="Rel">
-      <collapsible-link-list :data="linkListData" />
+      <collapsible-list :data="linkListData" />
     </panel-section>
 
     <panel-section title="Resources">
@@ -18,10 +18,10 @@
 
 <script>
   import { mapState } from 'vuex'
-  import { CollapsibleLinkList, ExternalLink, PanelSection, ResourceList } from '../components'
+  import { CollapsibleList, ExternalLink, PanelSection, ResourceList } from '../components'
 
   export default {
-    components: { CollapsibleLinkList, ExternalLink, PanelSection, ResourceList },
+    components: { CollapsibleList, ExternalLink, PanelSection, ResourceList },
     computed: {
       ...mapState(['head']),
       linkListData() {
