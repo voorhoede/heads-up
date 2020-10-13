@@ -23,7 +23,11 @@ export default {
     const url = ref('');
     const onSubmit = () => {
       repo.getMetaForUrl(url.value)
-        .then(res => console.log(res));
+        .then(res => console.log(res))
+        .catch(err => {
+          console.error(err);
+        })
+      ;
     };
 
     return {
