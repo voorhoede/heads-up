@@ -27,7 +27,7 @@
           <slot />
         </span>
 
-        <template v-slot:info>
+        <template #info>
           <span v-if="warnings && !errors">
             <template v-if="warnings.length === 1">
               {{ warningMessage }}
@@ -65,7 +65,7 @@
           />
         </template>
 
-        <template v-slot:link>
+        <template #link>
           <external-link
             class="properties-item__link"
             :href="link"
