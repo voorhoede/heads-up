@@ -53,6 +53,14 @@
             <RobotIcon class="sidebar__icon" />Robots.txt
           </router-link>
         </li>
+        <li class="sidebar-list__item">
+          <router-link
+            class="sidebar__button"
+            :to="{ name: 'sitemap' }"
+          >
+            <SitemapIcon class="sidebar__icon" />Sitemap
+          </router-link>
+        </li>
       </ul>
     </section>
     <div class="sidebar__divider" />
@@ -153,6 +161,7 @@ import ExternalLink from "../components/external-link.vue";
 import FacebookIcon from "../assets/icons/facebook.svg";
 import SearchIcon from "../assets/icons/search.svg";
 import RobotIcon from "../assets/icons/robot.svg";
+import SitemapIcon from "../assets/icons/sitemap.svg";
 
 export default {
   components: {
@@ -169,6 +178,7 @@ export default {
     SearchIcon,
     SlackIcon,
     RobotIcon,
+    SitemapIcon,
   }
 };
 </script>
