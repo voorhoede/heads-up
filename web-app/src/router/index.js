@@ -1,11 +1,20 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../views/Home.vue';
+
+import Meta from '@/views/Meta.vue';
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    redirect: '/meta',
+  },
+  {
+    path: '/meta',
+    name: 'meta',
+    component: Meta,
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/',
   },
 ];
 
