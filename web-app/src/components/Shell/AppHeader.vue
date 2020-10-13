@@ -3,8 +3,18 @@
     <div class="app-logo">
       Heads Up
     </div>
+    <input-url class="center-content" />
   </header>
 </template>
+
+<script>
+import InputUrl from '@/components/InputUrl/InputUrl';
+export default {
+  components: {
+    InputUrl,
+  },
+};
+</script>
 
 <style scoped>
 .app-header {
@@ -18,6 +28,12 @@
   box-sizing: border-box;
   padding: 0 2rem;
   border-bottom: thin solid var(--color-divider);
+}
+
+.center-content {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .app-logo {
