@@ -3,5 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "main": "api.js",
-  "dependencies": {}
+  "dependencies": {
+    "html-metadata": "^1.7.1"
+  }
 }
