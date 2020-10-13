@@ -10,10 +10,10 @@
           :attrs="item.attrs"
           :schema="schema"
         >
-          <template v-slot:default>
+          <template #default>
             {{ item.title }}
           </template>
-          <template v-slot:value>
+          <template #value>
             <span
               v-if="item.keyName === 'theme-color' && item.value"
               :style="{ backgroundColor: item.value }"

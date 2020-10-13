@@ -54,34 +54,32 @@
 
     <panel-section title="Properties">
       <properties-list>
-        <template>
-          <dt>
-            <p v-if="!og.title">
+        <dt>
+          <p v-if="!og.title">
+            og:title
+          </p>
+          <app-tooltip
+            class="properties-item__tooltip"
+            placement="bottom-start"
+          >
+            <InfoIcon
+              v-if="!og.title"
+              class="properties-item__icon"
+            />
+            <p v-else>
               og:title
             </p>
-            <app-tooltip
-              class="properties-item__tooltip"
-              placement="bottom-start"
-            >
-              <InfoIcon
-                v-if="!og.title"
-                class="properties-item__icon"
+            <template #info>
+              <property-data
+                type="og:title"
+                :exist="tooltip.title.exist"
+                :tag="tooltip.title.tag"
+                :value="tooltip.title.content"
               />
-              <p v-else>
-                og:title
-              </p>
-              <template v-slot:info>
-                <property-data
-                  type="og:title"
-                  :exist="tooltip.title.exist"
-                  :tag="tooltip.title.tag"
-                  :value="tooltip.title.content"
-                />
-              </template>
-            </app-tooltip>
-          </dt>
-          <dd>{{ og.title }}</dd>
-        </template>
+            </template>
+          </app-tooltip>
+        </dt>
+        <dd>{{ og.title }}</dd>
         <template v-if="og.description">
           <dt>
             <p v-if="!og.description">
@@ -98,7 +96,7 @@
               <p v-else>
                 og:description
               </p>
-              <template v-slot:info>
+              <template #info>
                 <property-data
                   type="og:description"
                   :exist="tooltip.description.exist"
@@ -112,47 +110,45 @@
           </dt>
           <dd>{{ og.description }}</dd>
         </template>
-        <template>
-          <dt>
-            <p v-if="!og.image">
+        <dt>
+          <p v-if="!og.image">
+            og:image
+          </p>
+          <app-tooltip
+            class="properties-item__tooltip"
+            placement="bottom-start"
+          >
+            <InfoIcon
+              v-if="!og.image"
+              class="properties-item__icon"
+            />
+            <p v-else>
               og:image
             </p>
-            <app-tooltip
-              class="properties-item__tooltip"
-              placement="bottom-start"
-            >
-              <InfoIcon
-                v-if="!og.image"
-                class="properties-item__icon"
+            <template #info>
+              <property-data
+                type="og:image"
+                :exist="tooltip.image.exist"
+                :has-variation="tooltip.image.hasVariation"
+                :required-sizes="tooltip.image.requiredSizes"
+                :size="tooltip.image.size"
+                :tag="tooltip.image.tag"
               />
-              <p v-else>
-                og:image
-              </p>
-              <template v-slot:info>
-                <property-data
-                  type="og:image"
-                  :exist="tooltip.image.exist"
-                  :has-variation="tooltip.image.hasVariation"
-                  :required-sizes="tooltip.image.requiredSizes"
-                  :size="tooltip.image.size"
-                  :tag="tooltip.image.tag"
-                />
-              </template>
-            </app-tooltip>
-          </dt>
-          <dd>
-            <external-link :href="absoluteUrl(og.image)">
-              <img
-                alt
-                :src="absoluteUrl(og.image)"
-              >
-              <span>{{ og.image }}</span>
-            </external-link>
-            <p v-if="imageDimensions">
-              ({{ imageDimensions.width }} x {{ imageDimensions.height }}px)
-            </p>
-          </dd>
-        </template>
+            </template>
+          </app-tooltip>
+        </dt>
+        <dd>
+          <external-link :href="absoluteUrl(og.image)">
+            <img
+              alt
+              :src="absoluteUrl(og.image)"
+            >
+            <span>{{ og.image }}</span>
+          </external-link>
+          <p v-if="imageDimensions">
+            ({{ imageDimensions.width }} x {{ imageDimensions.height }}px)
+          </p>
+        </dd>
       </properties-list>
     </panel-section>
   </div>
