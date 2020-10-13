@@ -16,12 +16,14 @@
 
 <script>
 import { ref } from 'vue';
+import repo from '@/repo';
 
 export default {
   setup() {
     const url = ref('');
     const onSubmit = () => {
-      console.log(url.value);
+      repo.getMetaForUrl(url.value)
+        .then(res => console.log(res));
     };
 
     return {
