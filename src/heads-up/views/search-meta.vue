@@ -9,7 +9,7 @@
           :key-name="item.keyName"
           :schema="schema"
         >
-          <template v-slot:default>
+          <template #default>
             {{ item.title }}
           </template>
         </properties-item>
