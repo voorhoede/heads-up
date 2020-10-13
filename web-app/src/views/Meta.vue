@@ -1,13 +1,18 @@
 <template>
 <section class="content-section">
   <div class="content-container">
-    Show me the meta
+    <pre v-if="meta">{{ meta }}</pre>
+    <span v-else>Show me the meta</span>
   </div>
 </section>
 </template>
 
 <script>
 export default {
-
+  computed: {
+    meta() {
+      return this.$store.getters['meta/meta'];
+    },
+  },
 };
 </script>

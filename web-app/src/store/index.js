@@ -1,12 +1,9 @@
 import { createStore } from 'vuex';
+import meta from './modules/meta.store';
+
 
 export default createStore({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
   modules: {
+    meta,
   },
 });
