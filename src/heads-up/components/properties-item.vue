@@ -27,7 +27,7 @@
           <slot />
         </span>
 
-        <template v-slot:info>
+        <template #info>
           <span v-if="warnings && !errors">
             <template v-if="warnings.length === 1">
               {{ warningMessage }}
@@ -65,7 +65,7 @@
           />
         </template>
 
-        <template v-slot:link>
+        <template #link>
           <external-link
             class="properties-item__link"
             :href="link"
@@ -181,12 +181,12 @@ export default {
     }
   },
   mounted() {
-    if (!this.schema) {
-      throw new Error("No schema is provided.");
-    }
-
     if (this.$slots && this.$slots.value) {
       this.valueSlot = this.$slots.value;
+    }
+
+    if (!this.schema) {
+      throw new Error("No schema is provided.");
     }
 
     if (this.schema[this.keyName] && this.schema[this.keyName].meta) {
@@ -203,7 +203,7 @@ export default {
         value: this.value,
         attrs: this.attrs
       }
-      
+
       this.errors = validateErrorSchema(schemaTemplate)
       this.warnings = validateWarningSchema(schemaTemplate)
     }
@@ -248,9 +248,12 @@ export default {
   fill: #eac250;
 }
 
-.properties-item__extra span {
+.properties-item__extra > * {
+  margin-left: 4px;
+}
+
+.properties-item__extra > span {
   display: inline-block;
-  margin-left: 3px;
   width: 10px;
   height: 10px;
   border: 1px solid #888;

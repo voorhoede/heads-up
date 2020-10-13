@@ -31,6 +31,7 @@ chrome.runtime.onMessage.addListener((message) => {
 
 function getHeadData() {
   return {
+    domain: window.location.hostname,
     url: window.location.href,
     title: document.title,
     lang: document.documentElement.lang,

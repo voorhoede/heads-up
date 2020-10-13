@@ -9,14 +9,8 @@
           :key-name="item.keyName"
           :schema="schema"
         >
-          <template v-slot:default>
+          <template #default>
             {{ item.title }}
-          </template>
-          <template v-slot:value>
-            <span
-              v-if="item.keyName === 'theme-color' && item.value"
-              :style="{ backgroundColor: item.value }"
-            />
           </template>
         </properties-item>
       </properties-list>

@@ -42,6 +42,35 @@ export function findMetaProperty(head, name) {
   return item ? item.content : null
 }
 
+export function findXMLElement(text, tagName) {
+  const parser = new DOMParser()
+  const xml = parser.parseFromString(text, 'text/xml')
+
+  const tags = Object.values(xml.documentElement.childNodes)
+    .filter(node => node.nodeName !== '#text')
+    .filter(node => node.nodeName === tagName)
+
+  return tags.length ? getElementDetails(tags) : null
+}
+
+function getElementDetails(tags) {
+  return tags.map(node => ({
+    attributes: getNodeAttributes(node),
+    name: node.nodeName,
+    value: node.textContent ? node.textContent : null,
+  }))
+}
+
+function getNodeAttributes(node) {
+  let attributes = []
+
+  for (let entry of Object.entries(node.attributes)) {
+    attributes.push({ name: entry[1].name, value: entry[1].value })
+  }
+
+  return attributes
+}
+
 export function findFavicons(head) {
   return head.link
     .filter(link => link.rel === 'shortcut icon' || link.rel === 'icon')
