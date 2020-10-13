@@ -45,6 +45,14 @@
             <OpenGraphIcon class="sidebar__icon" />Open Graph
           </router-link>
         </li>
+        <li class="sidebar-list__item">
+          <router-link
+            class="sidebar__button"
+            :to="{ name: 'robots-txt' }"
+          >
+            <RobotIcon class="sidebar__icon" />Robots.txt
+          </router-link>
+        </li>
       </ul>
     </section>
     <div class="sidebar__divider" />
@@ -135,6 +143,7 @@ import LinkedInIcon from "../assets/icons/linkedin.svg";
 import SlackIcon from "../assets/icons/slack.svg";
 import ExternalLink from "../components/external-link.vue";
 import FacebookIcon from "../assets/icons/facebook.svg";
+import RobotIcon from "../assets/icons/robot.svg";
 
 export default {
   components: {
@@ -148,7 +157,8 @@ export default {
     WhatsappIcon,
     FacebookIcon,
     LinkedInIcon,
-    SlackIcon
+    SlackIcon,
+    RobotIcon
   }
 };
 </script>

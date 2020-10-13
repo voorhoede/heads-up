@@ -96,6 +96,14 @@ export default new VueRouter({
         title: 'Search Meta',
       },
       component: () => import(/* webpackChunkName:'views/search-meta' */ './views/search-meta.vue')
+    },
+    {
+      path: '/robots-txt',
+      name: 'robots-txt',
+      meta: {
+        title: 'Robots.txt',
+      },
+      component: () => import(/* webpackChunkName:'views/robots-txt' */ './views/robots-txt.vue')
     }
   ]
 })
