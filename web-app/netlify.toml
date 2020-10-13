@@ -1,0 +1,8 @@
+[build]
+  command = "npm run postinstall && npm run build"
+  functions = "functions"
+  publish = "dist"
+
+[dev]
+  command = "npm start"
+  publish = "src"
