@@ -4,5 +4,5 @@
   publish = "dist"
 
 [dev]
-  command = "npm start"
+  command = "npm run serve"
   publish = "src"
