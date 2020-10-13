@@ -28,13 +28,13 @@ export function createStore() {
               ...result[key],
             }))
 
-            commit('SET_ROBOTS', { robots: robots })
+            commit('SET_ROBOTS', { robots })
           })
           .catch((error) => console.error(error))
       },
       CHECK_CRAWLABLE_URL ({ commit, state }) {
         robotsTxt.canCrawl(state.head.url)
-          .then((crawlable) => commit('SET_CRAWLABLE_URL', { crawlable: crawlable }))
+          .then((crawlable) => commit('SET_CRAWLABLE_URL', { crawlable }))
           .catch((error) => console.error(error))
       }
     },
