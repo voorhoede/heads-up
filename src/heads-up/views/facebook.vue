@@ -278,8 +278,8 @@ export default {
       );
       return `${
         this.mode === "desktop"
-          ? `/previews/facebook-desktop.html?${params}`
-          : `/previews/facebook-mobile.html?${params}`
+          ? `/previews/facebook-desktop/facebook-desktop.html?${params}`
+          : `/previews/facebook-mobile/facebook-mobile.html?${params}`
       }`;
     },
   },
