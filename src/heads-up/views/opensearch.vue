@@ -125,8 +125,13 @@
 
         return `/opensearch-preview/opensearch-preview.html?${params}`
       },
-      fileUrl() {
+      metaTagValue() {
         return findLinkHref(this.head, 'search')
+      },
+      fileUrl() {
+        return this.metaTagValue.startsWith('/')
+          ? `https://${this.head.domain}${this.metaTagValue}`
+          : this.metaTagValue
       },
       shortName() {
         const element = findXMLElement(this.fileContent, 'ShortName')

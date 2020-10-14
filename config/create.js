@@ -15,6 +15,9 @@ module.exports = (config, target = { chrome: 63, firefox: 48 }) => {
   }
 
   const baseConfig = {
+    node: {
+      fs: 'empty'
+    },
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
     module: {
       rules: [
