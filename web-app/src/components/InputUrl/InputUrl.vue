@@ -1,11 +1,12 @@
 <template>
 <form
   class="input-url"
-  @submit.prevent="onSubmit"
+  @submit.prevent="metadata.getForUrl(url)"
 >
   <input
     type="url"
     v-model="url"
+    name="url-to-get-meta-from"
     required
   />
   <button type="submit">
@@ -16,26 +17,16 @@
 
 <script>
 import { ref } from 'vue';
-import store from '@/store';
-import repo from '@/repo';
+import useMetadata from '@/composables/useMetadata';
 
 export default {
   setup() {
+    const metadata = useMetadata();
     const url = ref('');
-    const onSubmit = () => {
-      repo.getMetaForUrl(url.value)
-        .then(res => {
-          store.dispatch('meta/setMeta', res);
-        })
-        .catch(err => {
-          console.error(err);
-        })
-      ;
-    };
 
     return {
+      metadata,
       url,
-      onSubmit,
     };
   },
 };

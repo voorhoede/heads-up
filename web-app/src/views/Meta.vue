@@ -8,11 +8,11 @@
 </template>
 
 <script>
+import useMetadata from '@/composables/useMetadata';
+
 export default {
-  computed: {
-    meta() {
-      return this.$store.getters['meta/meta'];
-    },
-  },
+  setup: () => ({
+    meta: useMetadata().data,
+  }),
 };
 </script>
