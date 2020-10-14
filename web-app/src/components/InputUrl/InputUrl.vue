@@ -20,15 +20,10 @@ import { ref } from 'vue';
 import useMetadata from '@/composables/useMetadata';
 
 export default {
-  setup() {
-    const metadata = useMetadata();
-    const url = ref('');
-
-    return {
-      metadata,
-      url,
-    };
-  },
+  setup: () => ({
+    metadata: useMetadata(),
+    url: ref(''),
+  }),
 };
 </script>
 

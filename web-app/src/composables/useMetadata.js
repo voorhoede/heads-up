@@ -7,7 +7,7 @@ const setMetadata = payload => _metadata.value = payload;
 
 const getForUrl = url => repo
   .getMetaForUrl(url)
-  .then(res => { setMetadata(res); })
+  .then(setMetadata)
   .catch(err => {
     console.error(err);
   })
