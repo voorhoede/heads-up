@@ -239,7 +239,7 @@ export default {
         "validImage",
         this.imageDimensions.height > 0 && this.imageDimensions.width > 0
       );
-      return `/slack-preview/slack-preview.html?${params}`;
+      return `/previews/slack.html?${params}`;
     },
   },
   watch:{

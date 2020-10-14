@@ -1,15 +1,15 @@
-import html from '../heads-up/lib/html'
+import html from '../../heads-up/lib/html'
 
 createPreview()
 
 function createPreview() {
   const params = (new URL(window.location.href)).searchParams
-  const title = params.get('title')
-  const description = params.get('description')
+  const title = params.get('title').substring(0, 247)
+  const description = params.get('description').substring(0, 250)
   const url = params.get('url')
   const imageSpecified = (params.get('imageSpecified') === 'true')
   const img = params.get('image')
-  const mobileImgIsBig = (params.get('mobileImgIsBig') === 'true')
+  const desktopImgIsBig = (params.get('desktopImgIsBig') === 'true')
   const theme = params.get('theme')
 
   const facebookElement = document.querySelector('[data-facebook-preview-card]')
@@ -18,7 +18,7 @@ function createPreview() {
     description,
     img,
     url,
-    mobileImgIsBig,
+    desktopImgIsBig,
     imageSpecified,
     theme
   })
@@ -35,12 +35,12 @@ function getHostName(url) {
     : hostname
 }
 
-function getfacebookMarkup({ title, description, img, url, mobileImgIsBig, imageSpecified, theme
+function getfacebookMarkup({ title, description, img, url, desktopImgIsBig, imageSpecified, theme
 }) {
 
   return html`
   <div class="facebook-preview">
-    <a rel="noopener" target="_blank" class="facebook-preview__link-container facebook-preview__link-container--vertical ${mobileImgIsBig ? "" : "facebook-preview__small"}">
+    <a rel="noopener" target="_blank" class="facebook-preview__link-container facebook-preview__link-container--vertical ${desktopImgIsBig ? "" : "facebook-preview__small"}">
 
     ${imageSpecified ? html`
     <div class="${ img === "undefined"
@@ -56,7 +56,7 @@ function getfacebookMarkup({ title, description, img, url, mobileImgIsBig, image
       <div class="facebook-preview__wrapper">
       <div class="facebook-preview__hostname">${ getHostName(url)}</div>
         <div class="facebook-preview__content">
-          <div class="facebook-preview__title">${ title}</div>
+          <div class="facebook-preview__title">${ title ? title : getHostName(url)}</div>
           ${description === "null" ? "" : html`<div class="facebook-preview__description">${description}</div>`}
         </div>
       </div>
@@ -72,5 +72,7 @@ function getfacebookMarkup({ title, description, img, url, mobileImgIsBig, image
       </div>
     </div>
   </div>
+
+
 `
 }

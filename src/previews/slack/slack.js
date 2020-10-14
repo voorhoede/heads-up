@@ -1,4 +1,4 @@
-import html from '../heads-up/lib/html'
+import html from '../../heads-up/lib/html'
 createPreview()
 
 function createPreview() {

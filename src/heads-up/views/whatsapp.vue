@@ -285,7 +285,7 @@ export default {
       }
 
       params.set("url", this.head.url);
-      return `/whatsapp-preview/whatsapp-preview.html?${params}`;
+      return `/previews/whatsapp.html?${params}`;
     },
   },
   watch: {

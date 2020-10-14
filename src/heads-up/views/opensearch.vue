@@ -123,7 +123,7 @@
         params.set('title', this.shortName)
         params.set('theme', this.themeClass)
 
-        return `/opensearch-preview/opensearch-preview.html?${params}`
+        return `/previews/opensearch.html?${params}`
       },
       metaTagValue() {
         return findLinkHref(this.head, 'search')

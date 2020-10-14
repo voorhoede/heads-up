@@ -9,13 +9,13 @@ module.exports = createConfig({
     '../devtools/devtools': './src/devtools/devtools.js',
     '../devtools/background': './src/devtools/background.js',
     '../devtools/content': './src/devtools/content.js',
-    '../twitter-preview/twitter-preview': './src/twitter-preview/twitter-preview.js',
-    '../whatsapp-preview/whatsapp-preview': './src/whatsapp-preview/whatsapp-preview.js',
-    '../linkedin-preview/linkedin-preview': './src/linkedin-preview/linkedin-preview.js',
-    '../facebook-desktop-preview/facebook-desktop-preview': './src/facebook-desktop-preview/facebook-desktop-preview.js',
-    '../facebook-mobile-preview/facebook-mobile-preview': './src/facebook-mobile-preview/facebook-mobile-preview.js',
-    '../slack-preview/slack-preview': './src/slack-preview/slack-preview.js',
-    '../opensearch-preview/opensearch-preview': './src/opensearch-preview/opensearch-preview.js',
+    '../previews/facebook-desktop/facebook-desktop': './src/previews/facebook-desktop/facebook-desktop.js',
+    '../previews/facebook-mobile/facebook-mobile': './src/previews/facebook-mobile/facebook-mobile.js',
+    '../previews/linkedin/linkedin': './src/previews/linkedin/linkedin.js',
+    '../previews/opensearch/opensearch': './src/previews/opensearch/opensearch.js',
+    '../previews/slack/slack': './src/previews/slack/slack.js',
+    '../previews/twitter/twitter': './src/previews/twitter/twitter.js',
+    '../previews/whatsapp/whatsapp': './src/previews/whatsapp/whatsapp.js',
   },
   output: {
     path: path.join(__dirname, 'dist/heads-up'),
@@ -33,39 +33,39 @@ module.exports = createConfig({
       chunks: []
     }),
     new HtmlWebpackPlugin({
-      filename: '../twitter-preview/twitter-preview.html',
-      template: 'src/twitter-preview/twitter-preview.html',
-      chunks: ['../twitter-preview/twitter-preview']
+      filename: '../previews/facebook-desktop/facebook-desktop.html',
+      template: 'src/previews/facebook-desktop/facebook-desktop.ejs',
+      chunks: ['../previews/facebook-desktop/facebook-desktop'],
     }),
     new HtmlWebpackPlugin({
-      filename: '../whatsapp-preview/whatsapp-preview.html',
-      template: 'src/whatsapp-preview/whatsapp-preview.html',
-      chunks: ['../whatsapp-preview/whatsapp-preview']
+      filename: '../previews/facebook-mobile/facebook-mobile.html',
+      template: 'src/previews/facebook-mobile/facebook-mobile.ejs',
+      chunks: ['../previews/facebook-mobile/facebook-mobile'],
     }),
     new HtmlWebpackPlugin({
-      filename: '../linkedin-preview/linkedin-preview.html',
-      template: 'src/linkedin-preview/linkedin-preview.html',
-      chunks: ['../linkedin-preview/linkedin-preview']
+      filename: '../previews/linkedin/linkedin.html',
+      template: 'src/previews/linkedin/linkedin.html',
+      chunks: ['../previews/linkedin/linkedin'],
     }),
     new HtmlWebpackPlugin({
-      filename: '../facebook-desktop-preview/facebook-desktop-preview.html',
-      template: 'src/facebook-desktop-preview/facebook-desktop-preview.ejs',
-      chunks: ['../facebook-desktop-preview/facebook-desktop-preview']
+      filename: '../previews/opensearch/opensearch.html',
+      template: 'src/previews/opensearch/opensearch.html',
+      chunks: ['../previews/opensearch/opensearch'],
     }),
     new HtmlWebpackPlugin({
-      filename: '../facebook-mobile-preview/facebook-mobile-preview.html',
-      template: 'src/facebook-mobile-preview/facebook-mobile-preview.ejs',
-      chunks: ['../facebook-mobile-preview/facebook-mobile-preview']
+      filename: '../previews/slack/slack.html',
+      template: 'src/previews/slack/slack.html',
+      chunks: ['../previews/slack/slack'],
     }),
     new HtmlWebpackPlugin({
-      filename: '../slack-preview/slack-preview.html',
-      template: 'src/slack-preview/slack-preview.html',
-      chunks: ['../slack-preview/slack-preview']
+      filename: '../previews/twitter/twitter.html',
+      template: 'src/previews/twitter/twitter.html',
+      chunks: ['../previews/twitter/twitter'],
     }),
     new HtmlWebpackPlugin({
-      filename: '../opensearch-preview/opensearch-preview.html',
-      template: 'src/opensearch-preview/opensearch-preview.html',
-      chunks: ['../opensearch-preview/opensearch-preview']
+      filename: '../previews/whatsapp/whatsapp.html',
+      template: 'src/previews/whatsapp/whatsapp.html',
+      chunks: ['../previews/whatsapp/whatsapp'],
     }),
     new CopyPlugin([
       { from: 'src/devtools/assets/', to: '../devtools/assets' },
