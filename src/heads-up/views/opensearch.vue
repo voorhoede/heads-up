@@ -94,10 +94,10 @@
 
 <script>
   import { mapState } from 'vuex'
-  import { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList } from '../components'
-  import getTheme from '../lib/theme'
-  import { findLinkHref, findXMLElement } from '../lib/find-meta'
-  import schema  from '../lib/schemas/opensearch-schema'
+  import { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList } from '../../../shared/components'
+  import getTheme from '../../../shared/lib/theme'
+  import { findLinkHref, findXMLElement } from '../../../shared/lib/find-meta'
+  import schema  from '../../../shared/lib/schemas/opensearch-schema'
 
   export default {
     components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList },

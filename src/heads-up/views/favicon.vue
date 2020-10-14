@@ -47,9 +47,9 @@ import {
   PanelSection,
   PropertiesList,
   ResourceList
-} from "../components";
-import { findFavicons } from "../lib/find-meta";
-import WarningIcon from "../assets/icons/warning.svg";
+} from '../../../shared/components';
+import { findFavicons } from '../../../shared/lib/find-meta';
+import WarningIcon from '../../../shared/assets/icons/warning.svg';
 
 export default {
   components: {

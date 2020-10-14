@@ -124,7 +124,7 @@
 </template>
 
 <script>
-import InfoIcon from "../assets/icons/info.svg";
+import InfoIcon from '../../../shared/assets/icons/info.svg';
 import { mapState } from "vuex";
 import {
   ExternalLink,
@@ -132,14 +132,14 @@ import {
   PropertiesList,
   AppTooltip,
   PropertyData
-} from "../components";
+} from '../../../shared/components';
 import {
   findMetaContent,
   findMetaProperty,
   findImageDimensions,
   findFavicons,
   findAdditionSlackData
-} from "../lib/find-meta";
+} from '../../../shared/lib/find-meta';
 
 export default {
   components: {

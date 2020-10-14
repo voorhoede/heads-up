@@ -1,5 +1,5 @@
 import { debounce } from 'debounce'
-import * as actions from '../heads-up/lib/message-actions'
+import * as actions from '../../shared/lib/message-actions'
 
 const isDev = (process.env.NODE_ENV === 'development')
 const log = (...args) => isDev && console.log('%c[heads-up]', 'color:blue', ...args)

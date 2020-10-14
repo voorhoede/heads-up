@@ -37,9 +37,9 @@
 
 <script>
   import { mapState } from 'vuex'
-  import { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList } from '../components'
-  import { findCharset, findMetaContent, findAttrs } from '../lib/find-meta'
-  import schema  from '../lib/schemas/app-meta-schema'
+  import { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList } from '../../../shared/components'
+  import { findCharset, findMetaContent, findAttrs } from '../../../shared/lib/find-meta'
+  import schema  from '../../../shared/lib/schemas/app-meta-schema'
 
   export default {
     components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList },

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import * as actions from './lib/message-actions'
+import * as actions from '../../shared/lib/message-actions'
 import router from './router'
 import VTooltip from 'v-tooltip'
 import { createStore } from './store'

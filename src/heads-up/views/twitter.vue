@@ -111,10 +111,10 @@
 
 
 <script>
-  import getTheme from '../lib/theme'
+  import getTheme from '../../../shared/lib/theme'
   import { mapState } from 'vuex'
-  import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components'
-  import { findMetaContent, findMetaProperty } from '../lib/find-meta'
+  import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../../../shared/components'
+  import { findMetaContent, findMetaProperty } from '../../../shared/lib/find-meta'
 
   const validCards = ['summary', 'summary_large_image', 'app', 'player']
   export const supportedCards = ['summary', 'summary_large_image']

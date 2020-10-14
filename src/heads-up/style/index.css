@@ -1,5 +1,5 @@
-@import "variables.css";
-@import "css-defaults.css";
+@import "../../../shared/style/variables.css";
+@import "../../../shared/style/css-defaults.css";
 
 html {
   height: 100%;
