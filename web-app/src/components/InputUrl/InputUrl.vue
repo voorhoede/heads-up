@@ -16,12 +16,21 @@
 
 <script>
 import { ref } from 'vue';
+import store from '@/store';
+import repo from '@/repo';
 
 export default {
   setup() {
     const url = ref('');
     const onSubmit = () => {
-      console.log(url.value);
+      repo.getMetaForUrl(url.value)
+        .then(res => {
+          store.dispatch('meta/setMeta', res);
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      ;
     };
 
     return {

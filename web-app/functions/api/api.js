@@ -10,7 +10,7 @@ exports.handler = async function(event) {
         { statusCode: 400, error: 'No URL provided.' },
         null,
         2
-      )
+      ),
     };
   }
 
@@ -20,25 +20,25 @@ exports.handler = async function(event) {
       body: JSON.stringify(
         {
           statusCode: 400,
-          error: `Invalid URL, it should start with 'http' or 'https'.`
+          error: 'Invalid URL, it should start with \'http\' or \'https\'.',
         },
         null,
         2
-      )
+      ),
     };
   }
 
   try {
     const options = {
       url,
-      headers: { 'User-Agent': 'webscraper' }
+      headers: { 'User-Agent': 'webscraper' },
     };
 
     const metadata = await scrape(options);
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ ...metadata }, null, 2)
+      body: JSON.stringify({ ...metadata }, null, 2),
     };
   } catch (error) {
     const statusCode = error.status || 500;
@@ -49,7 +49,7 @@ exports.handler = async function(event) {
         { statusCode, error: error.message },
         null,
         2
-      )
+      ),
     };
   }
 };
