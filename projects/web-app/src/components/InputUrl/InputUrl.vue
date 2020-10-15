@@ -24,7 +24,7 @@ export default {
     return {
       metadata,
       url,
-    }
+    };
   },
 };
 </script>
