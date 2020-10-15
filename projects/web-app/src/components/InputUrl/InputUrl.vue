@@ -17,10 +17,15 @@ import { ref } from 'vue';
 import useMetadata from '@/composables/useMetadata';
 
 export default {
-  setup: () => ({
-    metadata: useMetadata(),
-    url: ref('https://voorhoede.nl'),
-  }),
+  setup: () => {
+    const metadata = useMetadata();
+    const url = ref('https://voorhoede.nl');
+
+    return {
+      metadata,
+      url,
+    }
+  },
 };
 </script>
 

@@ -2,7 +2,7 @@
   <div class="app">
     <app-header />
     <app-sidebar />
-    <main class="main">
+    <main class="app-main">
       <router-view />
     </main>
   </div>
@@ -28,7 +28,7 @@ export default {
   overflow-x: hidden;
 }
 
-.main {
+.app-main {
   flex: 1 1 auto;
   border-top: 1px solid var(--color-gray);
   margin-top: var(--header-height);

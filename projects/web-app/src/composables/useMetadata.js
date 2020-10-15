@@ -10,8 +10,7 @@ const getForUrl = url => repo
   .then(setMetadata)
   .catch(err => {
     console.error(err);
-  })
-;
+  });
 
 export default () => ({
   data: readonly(_metadata),
