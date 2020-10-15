@@ -15,8 +15,10 @@ jobs:
 
     - name: install npm dependencies
       run: npm install --no-optional
+      working-directory: 'projects/browser-extension'
       env:
         CI: true
 
     - name: lint files
       run: npm run lint -- --max-warnings 0
+      working-directory: 'projects/browser-extension'
