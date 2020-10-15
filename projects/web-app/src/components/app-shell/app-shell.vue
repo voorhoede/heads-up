@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import AppHeader from './components/AppHeader/AppHeader';
-import AppSidebar from './components/AppSidebar/AppSidebar';
+import AppHeader from './app-header';
+import AppSidebar from './app-sidebar';
 
 export default {
   components: {

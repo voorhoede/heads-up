@@ -6,43 +6,43 @@
         <ul class="app-sidebar__list">
           <li>
             <router-link :to="{ name: 'meta' }" class="app-sidebar__link">
-              <img src="../../assets/icons/code.svg" width="16" height="16" alt="" />
+              <img src="@/assets/icons/code.svg" width="16" height="16" alt="" />
               <span>Meta</span>
             </router-link>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
-              <img src="../../assets/icons/link.svg" width="16" height="16" alt="" />
+              <img src="@/assets/icons/link.svg" width="16" height="16" alt="" />
               <span>Link</span>
             </a>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
-              <img src="../../assets/icons/image.svg" width="16" height="16" alt="" />
+              <img src="@/assets/icons/image.svg" width="16" height="16" alt="" />
               <span>Favicon</span>
             </a>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
-              <img src="../../assets/icons/apple.svg" width="16" height="16" alt="" />
+              <img src="@/assets/icons/apple.svg" width="16" height="16" alt="" />
               <span>Apple iOS</span>
             </a>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
-              <img src="../../assets/icons/open-graph.svg" width="16" height="16" alt="" />
+              <img src="@/assets/icons/open-graph.svg" width="16" height="16" alt="" />
               <span>OpenGraph</span>
             </a>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
-              <img src="../../assets/icons/robot.svg" width="16" height="16" alt="" />
+              <img src="@/assets/icons/robot.svg" width="16" height="16" alt="" />
               <span>Robots.txt</span>
             </a>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
-              <img src="../../assets/icons/sitemap.svg" width="16" height="16" alt="" />
+              <img src="@/assets/icons/sitemap.svg" width="16" height="16" alt="" />
               <span>Sitemap</span>
             </a>
           </li>
@@ -53,31 +53,31 @@
         <ul class="app-sidebar__list">
           <li>
             <a href="#" class="app-sidebar__link">
-              <img src="../../assets/icons/twitter.svg" width="16" height="16" alt="" />
+              <img src="@/assets/icons/twitter.svg" width="16" height="16" alt="" />
               <span>Twitter</span>
             </a>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
-              <img src="../../assets/icons/whatsapp.svg" width="16" height="16" alt="" />
+              <img src="@/assets/icons/whatsapp.svg" width="16" height="16" alt="" />
               <span>WhatsApp</span>
             </a>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
-              <img src="../../assets/icons/linkedin.svg" width="16" height="16" alt="" />
+              <img src="@/assets/icons/linkedin.svg" width="16" height="16" alt="" />
               <span>LinkedIn</span>
             </a>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
-              <img src="../../assets/icons/facebook.svg" width="16" height="16" alt="" />
+              <img src="@/assets/icons/facebook.svg" width="16" height="16" alt="" />
               <span>Facebook</span>
             </a>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
-              <img src="../../assets/icons/slack.svg" width="16" height="16" alt="" />
+              <img src="@/assets/icons/slack.svg" width="16" height="16" alt="" />
               <span>Slack</span>
             </a>
           </li>
@@ -88,13 +88,13 @@
         <ul class="app-sidebar__list">
           <li>
             <a href="#" class="app-sidebar__link">
-              <img src="../../assets/icons/code.svg" width="16" height="16" alt="" />
+              <img src="@/assets/icons/code.svg" width="16" height="16" alt="" />
               <span>Search Meta</span>
             </a>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
-              <img src="../../assets/icons/search.svg" width="16" height="16" alt="" />
+              <img src="@/assets/icons/search.svg" width="16" height="16" alt="" />
               <span>OpenSearch</span>
             </a>
           </li>

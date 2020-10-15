@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import Meta from '@/views/Meta.vue';
+import Meta from '@/views/meta.vue';
 
 const routes = [
   {

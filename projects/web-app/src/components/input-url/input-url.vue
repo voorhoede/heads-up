@@ -1,7 +1,7 @@
 <template>
 <form
   class="input-url"
-  @submit.prevent="metadata.getForUrl(url)"
+  @submit.prevent="getHeadForUrl(url)"
 >
   <input
     type="url"
@@ -14,16 +14,16 @@
 
 <script>
 import { ref } from 'vue';
-import useMetadata from '@/composables/useMetadata';
+import useHead from '@/composables/use-head';
 
 export default {
   setup: () => {
-    const metadata = useMetadata();
     const url = ref('https://voorhoede.nl');
+    const getHeadForUrl = useHead().getForUrl;
 
     return {
-      metadata,
       url,
+      getHeadForUrl,
     };
   },
 };
