@@ -123,7 +123,7 @@ export default {
       params.set('title', this.shortName);
       params.set('theme', this.themeClass);
 
-      return `previews/opensearch/opensearch.html?${ params }`;
+      return `/previews/opensearch/opensearch.html?${ params }`;
     },
     metaTagValue() {
       return findLinkHref(this.head, 'search');
