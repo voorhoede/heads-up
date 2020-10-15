@@ -1,9 +1,9 @@
 import Vue from 'vue';
-import App from './App.vue';
 import * as actions from './lib/message-actions';
 import router from './router';
 import VTooltip from 'v-tooltip';
 import { createStore } from './store';
+import { AppShell } from '../components';
 const store = createStore();
 const background = chrome.runtime.connect({ name: 'devtools' });
 const tabId = chrome.devtools.inspectedWindow.tabId;
@@ -32,7 +32,7 @@ import './style/index.css';
 
 const app = new Vue({
   el: '#app',
-  components: { App },
+  components: { AppShell },
   router,
   store,
   render(h) {

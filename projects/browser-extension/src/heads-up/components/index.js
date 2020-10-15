@@ -1,3 +1,4 @@
+export { default as AppShell } from './app-shell.vue';
 export { default as AppTooltip } from './app-tooltip.vue';
 export { default as AppSidebar } from './app-sidebar.vue';
 export { default as CollapsibleList } from './collapsible-list.vue';
