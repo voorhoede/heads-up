@@ -2,16 +2,16 @@ module.exports = {
   root: true,
 
   env: {
-    node: true
+    node: true,
   },
 
   'extends': [
     'plugin:vue/vue3-essential',
-    'eslint:recommended'
+    'eslint:recommended',
   ],
 
   parserOptions: {
-    parser: 'babel-eslint'
+    parser: 'babel-eslint',
   },
 
   rules: {
@@ -37,4 +37,4 @@ module.exports = {
     'template-curly-spacing': [ 'warn', 'always' ],
     'arrow-parens': [ 'warn', 'as-needed' ],
   },
-}
+};
