@@ -1,0 +1,34 @@
+input {
+  background: var(--very-dim);
+  border: 1px solid transparent;
+  color: var(--black);
+  border-radius: 4px;
+  padding: 16px 20px;
+}
+
+input:focus,
+input:hover {
+  outline: none;
+  border-color: var(--dim);
+}
+
+label {
+  font-size: 16px;
+  font-weight: normal;
+  margin: 4px;
+}
+
+button {
+  background: #ffe400;
+  border: none;
+  padding: 16px 20px;
+  border-radius: 4px;
+  margin-top: 20px;
+  color: #484832;
+  font-weight: bold;
+}
+
+button:hover,
+button:focus {
+  background: var(--active-yellow);
+}

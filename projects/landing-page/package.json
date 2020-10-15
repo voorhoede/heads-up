@@ -9,7 +9,7 @@
     "prestart": "npm run build",
     "start": "run-p start:server watch",
     "start:server": "serve dist",
-    "watch": "chokidar 'src/**/*.*' --command 'npm run build:all'"
+    "watch": "chokidar 'src/**/*.*' --command 'npm run build'"
   },
   "author": "",
   "license": "ISC",

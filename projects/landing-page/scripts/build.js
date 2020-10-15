@@ -18,6 +18,12 @@ gulp
   .on('error', onStreamError)
   .pipe(gulp.dest(paths.scripts.dest));
 
+//Build assets
+gulp
+  .src(paths.assets.src)
+  .on('error', onStreamError)
+  .pipe(gulp.dest(paths.assets.dest));
+
 //Build HTML
 gulp
   .src('src/*.html')
