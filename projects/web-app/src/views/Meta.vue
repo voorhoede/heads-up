@@ -1,9 +1,7 @@
 <template>
-<section class="content-section">
-  <div class="content-container">
-    <pre v-if="meta">{{ meta }}</pre>
-    <span v-else>Show me the meta</span>
-  </div>
+<section class="content">
+  <pre v-if="meta">{{ meta }}</pre>
+  <span v-else>Show me the meta</span>
 </section>
 </template>
 

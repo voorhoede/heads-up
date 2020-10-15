@@ -1,0 +1,50 @@
+<template>
+  <header class="app-header">
+    <div class="app-header__logo">
+      <img src="../../assets/images/logo-with-text.svg" height="32" alt="De Voorhoede">
+    </div>
+    <div class="app-header__search">
+      <input-url />
+    </div>
+  </header>
+</template>
+
+<script>
+import InputUrl from '@/components/InputUrl/InputUrl';
+
+export default {
+  components: {
+    InputUrl,
+  },
+};
+</script>
+
+<style>
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  height: var(--header-height);
+  padding: 1rem;
+}
+
+.app-header__logo {
+  display: flex;
+  flex: 0 0 var(--sidebar-width);
+  align-items: center;
+  color: var(--color-blue);
+}
+
+.app-header__logo img {
+  height: 32px;
+}
+
+.app-header__search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 calc(100% - var(--sidebar-width));
+}
+</style>

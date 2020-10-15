@@ -1,0 +1,98 @@
+/* CSS Defaults https://github.com/anandgraves/css-defaults */
+
+/**
+  * Resetting the margins of the paragraphs, headings and other elements
+  * makes creating a new vertical rhythm easier. It also easily shows
+  * what elements don't have a vertical rhythm yet.
+  */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+/**
+  * 1. Apply a natural box layout model to all elements, but allowing
+  *    components to change.
+  *    https://www.paulirish.com/2012/box-sizing-border-box-ftw/
+  */
+html {
+  box-sizing: border-box; /* 1 */
+}
+
+/**
+  * All the headings have by default a divergent font size from the font size
+  * set on html. Set the font size of all headings the same and slightly bigger
+  * than the default text. This allows for styling all headings easily with
+  * classes instead of the headings itself.
+  * https://csswizardry.com/2016/02/managing-typography-on-large-apps/
+  */
+h1, h2, h3, h4, h5, h6 {
+  font-size: 1.2rem;
+  font-weight: normal;
+}
+
+/**
+  * 1. Switch display mode to block, since that's what we usually want for images.
+  * 2. If you override, and make an image inline, it's likely you'll want middle vertical alignment.
+       Setting vertical-align removes the whitespace that appears under img elements when they are
+       dropped into a page as-is. Is a safer alternative to using display: block.
+  * 3. Make images and video flexible by default.
+  * 4. Ensure images and video maintain their aspect ratio when max-width comes into play
+  https://github.com/inuitcss/inuitcss/blob/develop/elements/_elements.images.scss
+  https://github.com/mozdevs/cssremedy/blob/master/remedy.css
+  */
+img, video  {
+  display: block; /* 1 */
+  vertical-align: middle;  /* 2 */
+  max-width: 100%; /* 3 */
+  height: auto; /* 4 */
+}
+
+/**
+  * The color set on html isn't inherited by default by button, input, select
+  * and textarea. This inherits the color. Button, input, textarea and select do
+  * not inherit the font family and font weight by default. Button, input,
+  * textarea and select do not inherit the font size. This rule normalizes all
+  * font sizes.
+  */
+button, input, select, textarea {
+  color: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: 100%;
+}
+
+/**
+  * Add the correct display in IE 10+.
+  */
+template {
+  display: none;
+}
+
+/**
+  * Remove the spacing between table cells.
+  */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/**
+  * Add the correct display for main up to and including IE 11.
+  */
+main {
+  display: block;
+}
+
+/**
+  * Add the correct display in IE 10.
+  */
+[hidden] {
+  display: none;
+}
