@@ -1,0 +1,13 @@
+{
+  "name": "heads-up",
+  "version": "1.0.0",
+  "author": "De Voorhoede",
+  "husky": {
+    "hooks": {
+      "pre-commit": ""
+    }
+  },
+  "devDependencies": {
+    "husky": "^3.1.0"
+  }
+}

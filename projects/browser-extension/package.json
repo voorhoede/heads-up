@@ -1,5 +1,5 @@
 {
-  "name": "heads-up",
+  "name": "heads-up-browser-extension",
   "version": "1.0.0",
   "description": "View your `<head>` data for easier developing.",
   "main": "devtools.js",

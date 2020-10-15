@@ -1,4 +1,4 @@
-# Heads Up
+# Heads Up Browser Extension
 
 **Visualise everything in your `<head>` with the Heads Up Devtools**
 
@@ -58,7 +58,7 @@
 
 ## Live feedback
 
-Heads Up provides their users with live feedback. The feedback will be shown after hovering over icons and titles. The feedback will give you a description of the item, feedback to improve or an error with a solution. 
+Heads Up provides their users with live feedback. The feedback will be shown after hovering over icons and titles. The feedback will give you a description of the item, feedback to improve or an error with a solution.
 
 <details open>
 <summary>Error message</summary>
@@ -141,9 +141,9 @@ After installing dependencies using `npm install` the following scripts are avai
 
 ## HTML syntax highlighting in `*-preview.js` files
 
-Since the markup of the preview is generated with template literals in plain 
+Since the markup of the preview is generated with template literals in plain
 `.js` files, you don't get syntax highlighting for the markup.
-For VS Code there is a solution in the form of the LitHtml extension. Although 
+For VS Code there is a solution in the form of the LitHtml extension. Although
 this project does not use LitHtml, we can trick the plugin in thinking it does,
 and thus provide syntax highlighting.
 
