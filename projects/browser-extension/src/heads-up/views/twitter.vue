@@ -179,7 +179,7 @@ export default {
       params.set('image', this.image);
       params.set('url', this.head.url);
       params.set('theme', getTheme() !== 'default' && 'dark');
-      return `/twitter-preview/twitter-preview.html?${ params }`;
+      return `previews/twitter/twitter.html?${ params }`;
     },
   },
   mounted() {

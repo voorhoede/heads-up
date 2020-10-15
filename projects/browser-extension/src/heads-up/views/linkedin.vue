@@ -207,7 +207,7 @@ export default {
         this.imageDimensions.height > 400 && this.imageDimensions.width > 400
       );
 
-      return `/linkedin-preview/linkedin-preview.html?${ params }`;
+      return `previews/linkedin/linkedin.html?${ params }`;
     },
   },
   watch: {
