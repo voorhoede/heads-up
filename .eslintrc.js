@@ -5,15 +5,19 @@ module.exports = {
     node: true,
   },
 
-  extends: [
-    'eslint:recommended',
-  ],
-
   parserOptions: {
     parser: 'babel-eslint',
   },
 
+  plugins: [ 'sonarjs' ],
+
+  extends: [
+    'eslint:recommended',
+    'plugin:sonarjs/recommended',
+  ],
+
   rules: {
+    'sonarjs/no-duplicate-string': 0,
     'semi': [ 'warn', 'always' ],
     'no-unused-vars': [
       'warn',

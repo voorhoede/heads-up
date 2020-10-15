@@ -2,12 +2,19 @@
   "name": "heads-up",
   "version": "1.0.0",
   "author": "De Voorhoede",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/voorhoede/heads-up.git"
+  },
   "husky": {
     "hooks": {
       "pre-commit": ""
     }
   },
   "devDependencies": {
+    "eslint": "^7.11.0",
+    "eslint-plugin-sonarjs": "^0.5.0",
     "husky": "^3.1.0"
   }
 }
