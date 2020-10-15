@@ -1,4 +1,4 @@
-import uniqueSchemaValidations from './uniqueSchemaValidations';
+import uniqueSchemaValidations from './unique-schema-validations';
 
 // @todo: refactor function to reduce cognitive complexity
 // eslint-disable-next-line sonarjs/cognitive-complexity
@@ -36,7 +36,7 @@ export default function validateSchema({ schema, key, value, attrs }) {
     });
   }
 
-  // uniqueSchemaValidations.js check on errors
+  // unique-schema-validations.js check on errors
   if (schema[key].error && schema[key].error.length) {
     schema[key].error.forEach(item => {
       if (!uniqueSchemaValidations[item](valueTrimmed, attrs)) {
