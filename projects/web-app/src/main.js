@@ -2,10 +2,11 @@ import { createApp } from 'vue';
 import '@/sw/register';
 import router from '@/router';
 // import store from '@/store';
-import Shell from '@/components/Shell/Shell';
+import App from '@/App.vue';
 
-createApp(Shell)
+import './style/index.css';
+
+createApp(App)
   // .use(store)
   .use(router)
-  .mount('#app')
-;
+  .mount('#app');

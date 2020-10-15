@@ -1,0 +1,14 @@
+:root {
+  /* colors */
+  --color-yellow: #ffe400;
+  --color-blue: #0000ff;
+  --color-black: #141414;
+  --color-gray: #c0c0c0;
+  --color-white: #ffffff;
+
+  /* fonts */
+  --font-default: 'apercu', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, Verdana, sans-serif;
+
+  --header-height: 70px;
+  --sidebar-width: 17rem;
+}
