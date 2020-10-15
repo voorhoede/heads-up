@@ -29,7 +29,6 @@ import { AppSidebar, ExternalLink, RefreshButton } from './components';
 import getTheme from './lib/theme';
 
 export default {
-  name: 'App',
   components: { AppSidebar, ExternalLink, RefreshButton },
   computed: {
     ...mapState([ 'head' ]),

@@ -3,7 +3,7 @@ import * as actions from './lib/message-actions';
 import router from './router';
 import VTooltip from 'v-tooltip';
 import { createStore } from './store';
-import { AppShell } from '../components';
+import AppShell from './app-shell.vue';
 const store = createStore();
 const background = chrome.runtime.connect({ name: 'devtools' });
 const tabId = chrome.devtools.inspectedWindow.tabId;
@@ -36,7 +36,7 @@ const app = new Vue({
   router,
   store,
   render(h) {
-    return h('App');
+    return h('AppShell');
   },
 });
 
