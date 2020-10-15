@@ -36,52 +36,52 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
-  import { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList } from '../components'
-  import { findCharset, findMetaContent, findAttrs } from '../lib/find-meta'
-  import schema  from '../lib/schemas/app-meta-schema'
+import { mapState } from 'vuex';
+import { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList } from '../components';
+import { findCharset, findMetaContent, findAttrs } from '../lib/find-meta';
+import schema  from '../lib/schemas/app-meta-schema';
 
-  export default {
-    components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList },
-    computed: {
-      ...mapState(['head']),
-      appMetaData() {
-        const { head } = this
-        return [
-          {
-            keyName: 'title',
-            title: 'title',
-            value: head.title
-          },
-          {
-            keyName: 'lang',
-            title: 'language',
-            value: head.lang
-          },
-          {
-            keyName: 'charset',
-            title: 'charset',
-            value: findCharset(head),
-            attrs: findAttrs(head, 'charset') || findAttrs(head, 'http-equiv')
-          },
-          {
-            keyName: 'viewport',
-            title: 'viewport',
-            value: findMetaContent(head, 'viewport')
-          },
-          {
-            keyName: 'description',
-            title: 'description',
-            value: findMetaContent(head, 'description')
-          },
-          {
-            keyName: 'theme-color',
-            title: 'theme-color',
-            value: findMetaContent(head, 'theme-color')
-          }
-        ]
-      },
-      schema() { return schema }
-    }
-  }
+export default {
+  components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList },
+  computed: {
+    ...mapState([ 'head' ]),
+    appMetaData() {
+      const { head } = this;
+      return [
+        {
+          keyName: 'title',
+          title: 'title',
+          value: head.title,
+        },
+        {
+          keyName: 'lang',
+          title: 'language',
+          value: head.lang,
+        },
+        {
+          keyName: 'charset',
+          title: 'charset',
+          value: findCharset(head),
+          attrs: findAttrs(head, 'charset') || findAttrs(head, 'http-equiv'),
+        },
+        {
+          keyName: 'viewport',
+          title: 'viewport',
+          value: findMetaContent(head, 'viewport'),
+        },
+        {
+          keyName: 'description',
+          title: 'description',
+          value: findMetaContent(head, 'description'),
+        },
+        {
+          keyName: 'theme-color',
+          title: 'theme-color',
+          value: findMetaContent(head, 'theme-color'),
+        },
+      ];
+    },
+    schema() { return schema; },
+  },
+};
 </script>

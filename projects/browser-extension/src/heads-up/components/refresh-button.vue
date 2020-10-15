@@ -11,10 +11,10 @@
 export default {
   methods: {
     reload() {
-      window.location.reload()
-    }
-  }
-}
+      window.location.reload();
+    },
+  },
+};
 </script>
 
 <style scoped>

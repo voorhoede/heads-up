@@ -124,22 +124,22 @@
 </template>
 
 <script>
-import InfoIcon from "../assets/icons/info.svg";
-import { mapState } from "vuex";
+import InfoIcon from '../assets/icons/info.svg';
+import { mapState } from 'vuex';
 import {
   ExternalLink,
   PanelSection,
   PropertiesList,
   AppTooltip,
   PropertyData
-} from "../components";
+} from '../components';
 import {
   findMetaContent,
   findMetaProperty,
   findImageDimensions,
   findFavicons,
   findAdditionSlackData
-} from "../lib/find-meta";
+} from '../lib/find-meta';
 
 export default {
   components: {
@@ -148,11 +148,11 @@ export default {
     PropertiesList,
     AppTooltip,
     PropertyData,
-    InfoIcon
+    InfoIcon,
   },
   data() {
     return {
-      iframeHeight: "auto",
+      iframeHeight: 'auto',
       imageDimensions: { width: undefined, height: undefined },
       showImageTooltip: false,
       tooltip: {
@@ -160,18 +160,18 @@ export default {
           exist: null,
           required: false,
           tag: null,
-          value: null
+          value: null,
         },
 
         description: {
           exist: null,
           required: false,
-          tag: "og:description",
+          tag: 'og:description',
           value: null,
           valueLength: {
             max: 700,
-            tooLong: null
-          }
+            tooLong: null,
+          },
         },
 
         image: {
@@ -181,39 +181,39 @@ export default {
           requiredSizes: {
             minimum: {
               width: 1,
-              height: 1
+              height: 1,
             },
             variation: {
               width: 202,
-              height: 202
-            }
+              height: 202,
+            },
           },
           size: {
             width: null,
-            height: null
+            height: null,
           },
-          tag: "og:image"
-        }
-      }
+          tag: 'og:image',
+        },
+      },
     };
   },
   computed: {
-    ...mapState(["head"]),
+    ...mapState([ 'head' ]),
     hasRequiredData() {
       return this.og.title !== null || this.og.description !== null;
     },
     og() {
       return {
-        title: this.propertyValue("og:title"),
-        description: this.propertyValue("og:description"),
-        image: this.absoluteUrl(this.propertyValue("og:image"))
+        title: this.propertyValue('og:title'),
+        description: this.propertyValue('og:description'),
+        image: this.absoluteUrl(this.propertyValue('og:image')),
       };
     },
     additional() {
       try {
         return {
           favicon: findFavicons(this.head)[0].url,
-          additionalData: findAdditionSlackData(this.head)
+          additionalData: findAdditionSlackData(this.head),
         };
       } catch (error) {
         return error;
@@ -221,60 +221,60 @@ export default {
     },
     previewUrl() {
       const params = new URLSearchParams();
-      params.set("title", this.og.title || this.head.title || "Weblink");
-      params.set("url", this.head.url);
-      params.set("image", this.og.image);
-      params.set("theme", this.themeClass);
-      params.set("description", this.og.description);
-      params.set("favicon", this.additional.favicon);
+      params.set('title', this.og.title || this.head.title || 'Weblink');
+      params.set('url', this.head.url);
+      params.set('image', this.og.image);
+      params.set('theme', this.themeClass);
+      params.set('description', this.og.description);
+      params.set('favicon', this.additional.favicon);
       params.set(
-        "additionalData",
+        'additionalData',
         JSON.stringify(this.additional.additionalData)
       );
       params.set(
-        "imageIsBig",
+        'imageIsBig',
         this.imageDimensions.height > 201 && this.imageDimensions.width > 201
       );
       params.set(
-        "validImage",
+        'validImage',
         this.imageDimensions.height > 0 && this.imageDimensions.width > 0
       );
-      return `/slack-preview/slack-preview.html?${params}`;
+      return `/slack-preview/slack-preview.html?${ params }`;
     },
   },
   watch:{
     'og.image'(){
-      this.findImageDimensions()
-    }
+      this.findImageDimensions();
+    },
   },
   mounted() {
-    window.addEventListener("resize", this.onResize);
+    window.addEventListener('resize', this.onResize);
   },
   created() {
-    this.findImageDimensions()
+    this.findImageDimensions();
   },
   destroyed() {
-    window.removeEventListener("resize", this.onResize);
+    window.removeEventListener('resize', this.onResize);
   },
   methods: {
     findImageDimensions(){
-      findImageDimensions(this.head, "og:image").then(imageDimensions => {
+      findImageDimensions(this.head, 'og:image').then(imageDimensions => {
         this.imageDimensions = imageDimensions;
         this.setTooltipData(imageDimensions);
         this.showImageTooltip = true;
-    });
+      });
     },
     absoluteUrl(url) {
       if (!url) return;
-      return url.startsWith("http") ? url : new URL(this.head.url).origin + url;
+      return url.startsWith('http') ? url : new URL(this.head.url).origin + url;
     },
     setTooltipData(imageDimensions) {
-      if (this.propertyValue("og:title") !== null) {
-        this.tooltip.title.tag = "og:title";
-        this.tooltip.title.value = this.propertyValue("og:title");
+      if (this.propertyValue('og:title') !== null) {
+        this.tooltip.title.tag = 'og:title';
+        this.tooltip.title.value = this.propertyValue('og:title');
         this.tooltip.title.exist = true;
       } else if (this.head.title !== null) {
-        this.tooltip.title.tag = "<title>";
+        this.tooltip.title.tag = '<title>';
         this.tooltip.title.value = this.head.title;
         this.tooltip.title.exist = false;
       } else {
@@ -283,11 +283,11 @@ export default {
         this.tooltip.title.exist = false;
       }
 
-      if (this.propertyValue("og:description") !== null) {
-        this.tooltip.description.value = this.propertyValue("og:description");
+      if (this.propertyValue('og:description') !== null) {
+        this.tooltip.description.value = this.propertyValue('og:description');
         this.tooltip.description.exist = true;
         this.tooltip.description.valueLength.tooLong =
-          this.propertyValue("og:description").length > 300;
+          this.propertyValue('og:description').length > 300;
       } else {
         this.tooltip.description.exist = false;
       }
@@ -308,9 +308,9 @@ export default {
       this.iframeHeight =
         parseInt(
           this.$refs.iframe.contentWindow.document.body.scrollHeight + 2
-        ) + "px";
-    }
-  }
+        ) + 'px';
+    },
+  },
 };
 </script>
 

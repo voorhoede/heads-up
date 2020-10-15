@@ -62,37 +62,37 @@
 </template>
 
 <script>
-  import ChevronRightIcon from '../assets/icons/chevron-right.svg'
+import ChevronRightIcon from '../assets/icons/chevron-right.svg';
 
-  export default {
-    components: { ChevronRightIcon },
-    props: {
-      data: {
-        type: Array,
-        required: true,
-      },
+export default {
+  components: { ChevronRightIcon },
+  props: {
+    data: {
+      type: Array,
+      required: true,
     },
-    computed: {
-      formattedListData() {
-        return this.data
-          .filter(item => item.rel)
-          .map(item => {
-            return Object.keys(item)
-              .filter(key => /data-/.test(key) === false)
-              .reduce((object, key) => ({ ...object, [key]: item[key] }), {})
-          })
-          .reduce((collection, item) => {
-            if (collection[item.rel] === undefined) {
-              collection[item.rel] = []
-            }
+  },
+  computed: {
+    formattedListData() {
+      return this.data
+        .filter(item => item.rel)
+        .map(item => {
+          return Object.keys(item)
+            .filter(key => /data-/.test(key) === false)
+            .reduce((object, key) => ({ ...object, [key]: item[key] }), {});
+        })
+        .reduce((collection, item) => {
+          if (collection[item.rel] === undefined) {
+            collection[item.rel] = [];
+          }
 
-            const { rel, ...rest } = item
-            collection[rel].push(Object.entries(rest))
-            return collection
-          }, {})
-      },
+          const { rel, ...rest } = item;
+          collection[rel].push(Object.entries(rest));
+          return collection;
+        }, {});
     },
-  }
+  },
+};
 </script>
 
 <style>

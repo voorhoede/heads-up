@@ -78,41 +78,41 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
-  import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components'
-  import { findMetaContent } from '../lib/find-meta'
+import { mapState } from 'vuex';
+import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components';
+import { findMetaContent } from '../lib/find-meta';
 
-  export default {
-    components: { ExternalLink, PanelSection, PropertiesList, ResourceList },
-    computed: {
-      ...mapState(['head']),
-      appCapable() { return this.metaValue('apple-mobile-web-app-capable') },
-      title() { return this.metaValue('apple-mobile-web-app-title') },
-      statusBarStyle() { return this.metaValue('apple-mobile-web-app-status-bar-style') },
-      formatDetection() { return this.metaValue('format-detection') },
-      itunesApp() { return this.metaValue('apple-itunes-app') },
-      touchIcons() {
-        return this.head.link
-          .filter(link => link.rel === 'apple-touch-icon')
-          .map(icon => ({ ...icon, url: this.absoluteUrl(icon.href) }))
-      },
-      startupImages() {
-        return this.head.link
-          .filter(link => link.rel === 'apple-touch-startup-image')
-          .map(image => ({
-            ...image,
-            filename: image.href.split('/').pop(),
-            url: this.absoluteUrl(image.href)
-          }))
-      }
+export default {
+  components: { ExternalLink, PanelSection, PropertiesList, ResourceList },
+  computed: {
+    ...mapState([ 'head' ]),
+    appCapable() { return this.metaValue('apple-mobile-web-app-capable'); },
+    title() { return this.metaValue('apple-mobile-web-app-title'); },
+    statusBarStyle() { return this.metaValue('apple-mobile-web-app-status-bar-style'); },
+    formatDetection() { return this.metaValue('format-detection'); },
+    itunesApp() { return this.metaValue('apple-itunes-app'); },
+    touchIcons() {
+      return this.head.link
+        .filter(link => link.rel === 'apple-touch-icon')
+        .map(icon => ({ ...icon, url: this.absoluteUrl(icon.href) }));
     },
-    methods: {
-      absoluteUrl(url) {
-        return url.startsWith('http') ? url : new URL(this.head.url).origin + url
-      },
-      metaValue(metaName) {
-        return findMetaContent(this.head, metaName)
-      }
-    }
-  }
+    startupImages() {
+      return this.head.link
+        .filter(link => link.rel === 'apple-touch-startup-image')
+        .map(image => ({
+          ...image,
+          filename: image.href.split('/').pop(),
+          url: this.absoluteUrl(image.href),
+        }));
+    },
+  },
+  methods: {
+    absoluteUrl(url) {
+      return url.startsWith('http') ? url : new URL(this.head.url).origin + url;
+    },
+    metaValue(metaName) {
+      return findMetaContent(this.head, metaName);
+    },
+  },
+};
 </script>

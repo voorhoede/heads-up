@@ -102,12 +102,12 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import validateErrorSchema from "../lib/validate-error-schema";
-import validateWarningSchema from "../lib/validate-warning-schema";
-import { AppTooltip, ExternalLink } from "../components";
-import InfoIcon from "../assets/icons/info.svg";
-import WarningIcon from "../assets/icons/warning.svg";
+import { mapState } from 'vuex';
+import validateErrorSchema from '../lib/validate-error-schema';
+import validateWarningSchema from '../lib/validate-warning-schema';
+import { AppTooltip, ExternalLink } from '../components';
+import InfoIcon from '../assets/icons/info.svg';
+import WarningIcon from '../assets/icons/warning.svg';
 
 export default {
   components: { AppTooltip, ExternalLink, InfoIcon, WarningIcon },
@@ -117,36 +117,36 @@ export default {
       required: false,
       default() {
         return null;
-      }
+      },
     },
     keyName: {
       type: String,
-      required: true
+      required: true,
     },
     value: {
       type: String,
       required: false,
       default() {
-        return ''
-      }
+        return '';
+      },
     },
     attrs: {
       type: Object,
       required: false,
       default: undefined,
-    }
+    },
   },
   data() {
     return {
-      info: "",
-      link: "",
+      info: '',
+      link: '',
       errors: null,
       warnings: null,
-      valueSlot: null
+      valueSlot: null,
     };
   },
   computed: {
-    ...mapState(["head"]),
+    ...mapState([ 'head' ]),
     errorMessage() {
       if (this.errors && this.errors.length > 0) {
         return this.errors[0].message;
@@ -160,25 +160,25 @@ export default {
       return null;
     },
     valueWithExceededLength() {
-      if (this.errors && this.errors.length > 0 && this.errors[0]["length"]) {
-        return this.value.slice(this.errors[0]["length"] * -1);
+      if (this.errors && this.errors.length > 0 && this.errors[0]['length']) {
+        return this.value.slice(this.errors[0]['length'] * -1);
       }
       return null;
     },
     valueMinusExceededLength() {
-      if (this.errors && this.errors.length > 0 && this.errors[0]["length"]) {
+      if (this.errors && this.errors.length > 0 && this.errors[0]['length']) {
         return this.value.slice(
           0,
-          this.value.length - this.errors[0]["length"]
+          this.value.length - this.errors[0]['length']
         );
       }
       return null;
-    }
+    },
   },
   watch:{
     'head'() {
-      this.validateSchema()
-    }
+      this.validateSchema();
+    },
   },
   mounted() {
     if (this.$slots && this.$slots.value) {
@@ -186,14 +186,14 @@ export default {
     }
 
     if (!this.schema) {
-      throw new Error("No schema is provided.");
+      throw new Error('No schema is provided.');
     }
 
     if (this.schema[this.keyName] && this.schema[this.keyName].meta) {
       this.info = this.schema[this.keyName].meta.info;
       this.link = this.schema[this.keyName].meta.link;
     }
-    this.validateSchema()
+    this.validateSchema();
   },
   methods:{
     validateSchema() {
@@ -201,12 +201,12 @@ export default {
         schema: this.schema,
         key: this.keyName,
         value: this.value,
-        attrs: this.attrs
-      }
+        attrs: this.attrs,
+      };
 
-      this.errors = validateErrorSchema(schemaTemplate)
-      this.warnings = validateWarningSchema(schemaTemplate)
-    }
+      this.errors = validateErrorSchema(schemaTemplate);
+      this.warnings = validateWarningSchema(schemaTemplate);
+    },
   },
 };
 </script>

@@ -162,9 +162,9 @@
 </template>
 
 <script>
-import InfoIcon from "../assets/icons/info.svg";
-import WarningIcon from "../assets/icons/warning.svg";
-import { mapState } from "vuex";
+import InfoIcon from '../assets/icons/info.svg';
+import WarningIcon from '../assets/icons/warning.svg';
+import { mapState } from 'vuex';
 import {
   ExternalLink,
   PanelSection,
@@ -172,12 +172,12 @@ import {
   ResourceList,
   AppTooltip,
   PropertyData
-} from "../components";
+} from '../components';
 import {
   findMetaContent,
   findMetaProperty,
   findImageDimensions
-} from "../lib/find-meta";
+} from '../lib/find-meta';
 
 export default {
   components: {
@@ -188,11 +188,11 @@ export default {
     AppTooltip,
     PropertyData,
     InfoIcon,
-    WarningIcon
+    WarningIcon,
   },
   data() {
     return {
-      iframeHeight: "auto",
+      iframeHeight: 'auto',
       imageDimensions: { width: undefined, height: undefined },
       showTooltip: false,
       tooltip: {
@@ -200,18 +200,18 @@ export default {
           exist: null,
           required: false,
           tag: null,
-          value: null
+          value: null,
         },
 
         description: {
           exist: null,
           required: true,
-          tag: "og:description",
+          tag: 'og:description',
           value: null,
           valueLength: {
             max: 300,
-            tooLong: null
-          }
+            tooLong: null,
+          },
         },
 
         image: {
@@ -221,35 +221,35 @@ export default {
           requiredSizes: {
             minimum: {
               width: 100,
-              height: 100
+              height: 100,
             },
             variation: {
               width: null,
-              height: null
-            }
+              height: null,
+            },
           },
           size: {
             width: null,
-            height: null
+            height: null,
           },
-          tag: "og:image"
-        }
-      }
+          tag: 'og:image',
+        },
+      },
     };
   },
   computed: {
-    ...mapState(["head"]),
+    ...mapState([ 'head' ]),
     og() {
       return {
-        title: this.propertyValue("og:title"),
-        description: this.propertyValue("og:description"),
-        type: this.propertyValue("og:type"),
-        image: this.propertyValue("og:image"),
-        url: this.propertyValue("og:url")
+        title: this.propertyValue('og:title'),
+        description: this.propertyValue('og:description'),
+        type: this.propertyValue('og:type'),
+        image: this.propertyValue('og:image'),
+        url: this.propertyValue('og:url'),
       };
     },
     title() {
-      return this.propertyValue("og:title") || this.head.title || "";
+      return this.propertyValue('og:title') || this.head.title || '';
     },
     description() {
       return this.og.description;
@@ -277,55 +277,55 @@ export default {
     },
     previewUrl() {
       const params = new URLSearchParams();
-      params.set("title", this.og.title || this.title);
-      params.set("description", this.description);
+      params.set('title', this.og.title || this.title);
+      params.set('description', this.description);
 
       if (this.imageDimensions.height >= 100 && this.imageDimensions.width >= 100) {
-        params.set("image", this.image);
+        params.set('image', this.image);
       }
 
-      params.set("url", this.head.url);
-      return `/whatsapp-preview/whatsapp-preview.html?${params}`;
+      params.set('url', this.head.url);
+      return `/whatsapp-preview/whatsapp-preview.html?${ params }`;
     },
   },
   watch: {
     'og.image'() {
-      this.findImageDimensions()
-    }
+      this.findImageDimensions();
+    },
   },
   mounted() {
-    window.addEventListener("resize", this.onResize);
+    window.addEventListener('resize', this.onResize);
   },
   created() {
-    this.findImageDimensions()
+    this.findImageDimensions();
   },
   destroyed() {
-    window.removeEventListener("resize", this.onResize);
+    window.removeEventListener('resize', this.onResize);
   },
   methods: {
     findImageDimensions(){
-      findImageDimensions(this.head, "og:image").then(imageDimensions => {
-      this.imageDimensions = imageDimensions;
-      this.setTooltipData(imageDimensions);
-      this.showTooltip = true;
-    });
+      findImageDimensions(this.head, 'og:image').then(imageDimensions => {
+        this.imageDimensions = imageDimensions;
+        this.setTooltipData(imageDimensions);
+        this.showTooltip = true;
+      });
     },
     absoluteUrl(url) {
       if (url !== null) {
-        return url.startsWith("http")
+        return url.startsWith('http')
           ? url
           : new URL(this.head.url).origin + url;
       }
 
-      return "";
+      return '';
     },
     setTooltipData(imageDimensions) {
-      if (this.propertyValue("og:title") !== null) {
-        this.tooltip.title.tag = "og:title";
-        this.tooltip.title.value = this.propertyValue("og:title");
+      if (this.propertyValue('og:title') !== null) {
+        this.tooltip.title.tag = 'og:title';
+        this.tooltip.title.value = this.propertyValue('og:title');
         this.tooltip.title.exist = true;
       } else if (this.head.title !== null) {
-        this.tooltip.title.tag = "<title>";
+        this.tooltip.title.tag = '<title>';
         this.tooltip.title.value = this.head.title;
         this.tooltip.title.exist = false;
       } else {
@@ -334,11 +334,11 @@ export default {
         this.tooltip.title.exist = false;
       }
 
-      if (this.propertyValue("og:description") !== null) {
-        this.tooltip.description.value = this.propertyValue("og:description");
+      if (this.propertyValue('og:description') !== null) {
+        this.tooltip.description.value = this.propertyValue('og:description');
         this.tooltip.description.exist = true;
         this.tooltip.description.valueLength.tooLong =
-          this.propertyValue("og:description").length > 300;
+          this.propertyValue('og:description').length > 300;
       } else {
         this.tooltip.description.exist = false;
       }
@@ -359,9 +359,9 @@ export default {
       this.iframeHeight =
         parseInt(
           this.$refs.iframe.contentWindow.document.body.scrollHeight + 2
-        ) + "px";
-    }
-  }
+        ) + 'px';
+    },
+  },
 };
 </script>
 

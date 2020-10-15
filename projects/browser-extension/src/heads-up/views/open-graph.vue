@@ -26,17 +26,17 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
-  import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components'
+import { mapState } from 'vuex';
+import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components';
 
-  export default {
-    components: { ExternalLink, PanelSection, PropertiesList, ResourceList },
-    computed: {
-      ...mapState(['head']),
-      ogMeta() {
-        return this.head.meta
-          .filter(meta => meta.property && meta.property.startsWith('og:'))
-      }
+export default {
+  components: { ExternalLink, PanelSection, PropertiesList, ResourceList },
+  computed: {
+    ...mapState([ 'head' ]),
+    ogMeta() {
+      return this.head.meta
+        .filter(meta => meta.property && meta.property.startsWith('og:'));
     },
-  }
+  },
+};
 </script>

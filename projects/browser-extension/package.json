@@ -15,10 +15,6 @@
     "lint:fix": "npm run lint -- --fix",
     "test": "npm run lint"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/voorhoede/heads-up.git"
-  },
   "author": "De Voorhoede",
   "license": "MIT",
   "bugs": {

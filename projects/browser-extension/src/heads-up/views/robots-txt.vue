@@ -56,34 +56,34 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
-  import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components'
+import { mapState } from 'vuex';
+import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components';
 
-  export default {
-    components: { ExternalLink, PanelSection, PropertiesList, ResourceList },
-    computed: {
-      ...mapState(['head', 'robots', 'urlIsCrawlable']),
+export default {
+  components: { ExternalLink, PanelSection, PropertiesList, ResourceList },
+  computed: {
+    ...mapState([ 'head', 'robots', 'urlIsCrawlable' ]),
+  },
+  methods: {
+    robotData(robot) {
+      return [
+        {
+          keyName: 'allow',
+          title: 'allow',
+          value: robot.allow,
+        },
+        {
+          keyName: 'crawl-delay',
+          title: 'crawlDelay',
+          value: robot.crawlDelay.toString(),
+        },
+        {
+          keyName: 'disallow',
+          title: 'disallow',
+          value: robot.disallow,
+        },
+      ];
     },
-    methods: {
-      robotData(robot) {
-        return [
-          {
-            keyName: 'allow',
-            title: 'allow',
-            value: robot.allow
-          },
-          {
-            keyName: 'crawl-delay',
-            title: 'crawlDelay',
-            value: robot.crawlDelay.toString()
-          },
-          {
-            keyName: 'disallow',
-            title: 'disallow',
-            value: robot.disallow
-          },
-        ]
-      },
-    },
-  }
+  },
+};
 </script>

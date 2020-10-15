@@ -1,13 +1,13 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import robotsParser from 'robots-txt-parser'
-import xmlJs from 'xml-js'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import robotsParser from 'robots-txt-parser';
+import xmlJs from 'xml-js';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const robotsTxt = robotsParser({
-  allowOnNeutral: false
-})
+  allowOnNeutral: false,
+});
 
 export function createStore() {
   return new Vuex.Store({
@@ -16,67 +16,67 @@ export function createStore() {
       head: {},
       robots: [],
       sitemap: {},
-      theme: 'default'
+      theme: 'default',
     }),
     actions: {
       GET_ROBOTS_TXT ({ commit, state }) {
         robotsTxt.fetch(state.head.domain)
-          .then((result) => {
+          .then(result => {
             if (result.sitemaps) {
-              delete result.sitemaps
+              delete result.sitemaps;
             }
 
-            const robots = Object.keys(result).map((key) => ({
+            const robots = Object.keys(result).map(key => ({
               name: key,
               ...result[key],
-            }))
+            }));
 
-            commit('SET_ROBOTS', { robots })
+            commit('SET_ROBOTS', { robots });
           })
-          .catch((error) => console.error(error))
+          .catch(error => console.error(error));
       },
       CHECK_CRAWLABLE_URL ({ commit, state }) {
         robotsTxt.canCrawl(state.head.url)
-          .then((crawlable) => commit('SET_CRAWLABLE_URL', { crawlable }))
-          .catch((error) => console.error(error))
+          .then(crawlable => commit('SET_CRAWLABLE_URL', { crawlable }))
+          .catch(error => console.error(error));
       },
       GET_SITEMAP ({ commit, state }) {
-        fetch(`https://${state.head.domain}/sitemap.xml`)
-          .then((res) => res.text())
-          .then((text) => {
-            const json = xmlJs.xml2json(text)
+        fetch(`https://${ state.head.domain }/sitemap.xml`)
+          .then(res => res.text())
+          .then(text => {
+            const json = xmlJs.xml2json(text);
             // Convert to JSON first to set a fixed indentation
             // even if source code was minified.
-            const sitemap = xmlJs.json2xml(json, { spaces: 2 })
+            const sitemap = xmlJs.json2xml(json, { spaces: 2 });
 
-            commit('SET_SITEMAP', { sitemap })
+            commit('SET_SITEMAP', { sitemap });
           })
-          .catch((err) => {
-            console.log(err)
-            commit('SET_SITEMAP', { sitemap: null })
-          })
+          .catch(err => {
+            console.log(err);
+            commit('SET_SITEMAP', { sitemap: null });
+          });
       },
     },
     mutations: {
       SET_CRAWLABLE_URL (state, { crawlable }) {
-        state.urlIsCrawlable = crawlable
+        state.urlIsCrawlable = crawlable;
       },
       SET_HEAD (state, { head }) {
-        state.head = head
+        state.head = head;
       },
       SET_ROBOTS (state, { robots }) {
-        state.robots = robots
+        state.robots = robots;
       },
       SET_SITEMAP (state, { sitemap }) {
-        state.sitemap = sitemap
+        state.sitemap = sitemap;
       },
       SET_THEME (state, { theme }) {
-        state.theme = theme
+        state.theme = theme;
       },
-    }
-  })
+    },
+  });
 }
 
-const store = createStore()
+const store = createStore();
 
-export default store
+export default store;

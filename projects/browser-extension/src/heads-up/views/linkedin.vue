@@ -102,23 +102,23 @@
 </template>
 
 <script>
-import InfoIcon from "../assets/icons/info.svg";
-import WarningIcon from "../assets/icons/warning.svg";
-import { mapState } from "vuex";
-import getTheme from "../lib/theme";
+import InfoIcon from '../assets/icons/info.svg';
+import WarningIcon from '../assets/icons/warning.svg';
+import { mapState } from 'vuex';
+import getTheme from '../lib/theme';
 import {
   ExternalLink,
   PanelSection,
   PropertiesList,
   AppTooltip,
   PropertyData
-} from "../components";
+} from '../components';
 
 import {
   findMetaContent,
   findMetaProperty,
   findImageDimensions
-} from "../lib/find-meta";
+} from '../lib/find-meta';
 
 export default {
   components: {
@@ -128,11 +128,11 @@ export default {
     AppTooltip,
     PropertyData,
     WarningIcon,
-    InfoIcon
+    InfoIcon,
   },
   data() {
     return {
-      iframeHeight: "auto",
+      iframeHeight: 'auto',
       imageDimensions: { width: undefined, height: undefined },
       showTooltip: false,
       tooltip: {
@@ -140,7 +140,7 @@ export default {
           exist: null,
           required: false,
           tag: null,
-          value: null
+          value: null,
         },
 
         image: {
@@ -150,34 +150,34 @@ export default {
           requiredSizes: {
             minimum: {
               width: 1,
-              height: 1
+              height: 1,
             },
             variation: {
               width: 400,
-              height: 400
-            }
+              height: 400,
+            },
           },
           size: {
             width: null,
-            height: null
+            height: null,
           },
-          tag: "og:image"
-        }
-      }
+          tag: 'og:image',
+        },
+      },
     };
   },
   computed: {
-    ...mapState(["head"]),
+    ...mapState([ 'head' ]),
     hasOgImage() {
       return Boolean(this.og.image);
     },
     title() {
-      return this.head.title || "Weblink";
+      return this.head.title || 'Weblink';
     },
     og() {
       return {
-        title: this.propertyValue("og:title"),
-        image: this.absoluteUrl(this.propertyValue("og:image"))
+        title: this.propertyValue('og:title'),
+        image: this.absoluteUrl(this.propertyValue('og:image')),
       };
     },
     hasSmallImage() {
@@ -194,39 +194,39 @@ export default {
        * class '-theme-with-dark-background' is taken from original dev tools repo
        * src: https://github.com/ChromeDevTools/devtools-frontend/blob/02a851d01de158d8c0a8fd1d3af06649b5379bd6/front_end/ui/inspectorStyle.css
        */
-      return getTheme() === "dark" ? "-theme-with-dark-background" : "";
+      return getTheme() === 'dark' ? '-theme-with-dark-background' : '';
     },
     previewUrl() {
       const params = new URLSearchParams();
-      params.set("title", this.og.title || this.head.title || "Weblink");
-      params.set("url", this.head.url);
-      params.set("image", this.og.image);
-      params.set("theme", this.themeClass);
+      params.set('title', this.og.title || this.head.title || 'Weblink');
+      params.set('url', this.head.url);
+      params.set('image', this.og.image);
+      params.set('theme', this.themeClass);
       params.set(
-        "imageIsBig",
+        'imageIsBig',
         this.imageDimensions.height > 400 && this.imageDimensions.width > 400
       );
 
-      return `/linkedin-preview/linkedin-preview.html?${params}`;
+      return `/linkedin-preview/linkedin-preview.html?${ params }`;
     },
   },
   watch: {
     'og.image'() {
       this.findImageDimensions();
-    }
+    },
   },
   mounted() {
-    window.addEventListener("resize", this.onResize);
+    window.addEventListener('resize', this.onResize);
   },
   created() {
-    this.findImageDimensions()
+    this.findImageDimensions();
   },
   destroyed() {
-    window.removeEventListener("resize", this.onResize);
+    window.removeEventListener('resize', this.onResize);
   },
   methods: {
     findImageDimensions() {
-      findImageDimensions(this.head, "og:image").then(imageDimensions => {
+      findImageDimensions(this.head, 'og:image').then(imageDimensions => {
         this.imageDimensions = imageDimensions;
         this.setTooltipData(imageDimensions);
         this.showTooltip = true;
@@ -234,15 +234,15 @@ export default {
     },
     absoluteUrl(url) {
       if (!url) return;
-      return url.startsWith("http") ? url : new URL(this.head.url).origin + url;
+      return url.startsWith('http') ? url : new URL(this.head.url).origin + url;
     },
     setTooltipData(imageDimensions) {
       if (this.og.title !== null) {
-        this.tooltip.title.tag = "og:title";
+        this.tooltip.title.tag = 'og:title';
         this.tooltip.title.value = this.og.title;
         this.tooltip.title.exist = true;
       } else if (this.head.title !== null) {
-        this.tooltip.title.tag = "<title>";
+        this.tooltip.title.tag = '<title>';
         this.tooltip.title.value = this.head.title;
         this.tooltip.title.exist = false;
       } else {
@@ -266,9 +266,9 @@ export default {
       this.iframeHeight =
         parseInt(
           this.$refs.iframe.contentWindow.document.body.scrollHeight + 2
-        ) + "px";
-    }
-  }
+        ) + 'px';
+    },
+  },
 };
 </script>
 

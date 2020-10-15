@@ -2,6 +2,11 @@
   "name": "heads-up",
   "version": "1.0.0",
   "author": "De Voorhoede",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/voorhoede/heads-up.git"
+  },
   "husky": {
     "hooks": {
       "pre-commit": ""

@@ -17,14 +17,14 @@
 </template>
 
 <script>
-import getTheme from "../lib/theme";
+import getTheme from '../lib/theme';
 
 export default {
   props: {
     placement: {
       type: String,
-      default: "top-end"
-    }
+      default: 'top-end',
+    },
   },
   computed: {
     themeClass() {
@@ -32,9 +32,9 @@ export default {
        * class '-theme-with-dark-background' is taken from original dev tools repo
        * src: https://github.com/ChromeDevTools/devtools-frontend/blob/02a851d01de158d8c0a8fd1d3af06649b5379bd6/front_end/ui/inspectorStyle.css
        */
-      return getTheme() === "dark" ? "-theme-with-dark-background" : "";
-    }
-  }
+      return getTheme() === 'dark' ? '-theme-with-dark-background' : '';
+    },
+  },
 };
 </script>
 
