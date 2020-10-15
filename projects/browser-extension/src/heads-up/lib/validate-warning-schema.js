@@ -1,9 +1,9 @@
-import uniqueSchemaValidations from './uniqueSchemaValidations'
+import uniqueSchemaValidations from './uniqueSchemaValidations';
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
 export default function validateWarningSchema({ schema, key, value, attrs }) {
-  const valueTrimmed = (value && value.length) ? value.trim() : value
-  let warnings = []
+  const valueTrimmed = (value && value.length) ? value.trim() : value;
+  let warnings = [];
 
   // Descriptive
   if (schema[key]['descriptive-words'] &&
@@ -11,15 +11,15 @@ export default function validateWarningSchema({ schema, key, value, attrs }) {
       valueTrimmed.split(' ').length < schema[key]['descriptive-words']) {
     warnings.push({
       message: schema[key].message['descriptive-words'],
-    })
+    });
   }
 
-   // Max characters
+  // Max characters
   if (schema[key]['max-characters'] &&
       valueTrimmed.length > schema[key]['max-characters']) {
     warnings.push({
       message: schema[key].message['max-characters'],
-    })
+    });
   }
 
   // uniqueSchemaValidations.js check on warnings
@@ -28,14 +28,14 @@ export default function validateWarningSchema({ schema, key, value, attrs }) {
       if (!uniqueSchemaValidations[item](valueTrimmed, attrs)) {
         warnings.push({
           message: schema[key].message.warning[item],
-        })
+        });
       }
-    })
+    });
   }
 
   if (warnings.length) {
-    return warnings
+    return warnings;
   }
 
-  return null
+  return null;
 }

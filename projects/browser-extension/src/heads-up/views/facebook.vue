@@ -155,9 +155,9 @@
 </template>
 
 <script>
-import InfoIcon from "../assets/icons/info.svg";
-import { mapState } from "vuex";
-import getTheme from "../lib/theme";
+import InfoIcon from '../assets/icons/info.svg';
+import { mapState } from 'vuex';
+import getTheme from '../lib/theme';
 import {
   ExternalLink,
   PanelSection,
@@ -165,12 +165,12 @@ import {
   SwitchButtons,
   AppTooltip,
   PropertyData
-} from "../components";
+} from '../components';
 import {
   findMetaContent,
   findMetaProperty,
   findImageDimensions
-} from "../lib/find-meta";
+} from '../lib/find-meta';
 
 export default {
   components: {
@@ -180,41 +180,41 @@ export default {
     SwitchButtons,
     AppTooltip,
     InfoIcon,
-    PropertyData
+    PropertyData,
   },
   data() {
     return {
-      iframeHeight: "auto",
+      iframeHeight: 'auto',
       imageDimensions: { width: 0, height: 0 },
       imageSpecified: true,
       switchButtons: [
         {
-          label: "Mobile",
-          value: "mobile"
+          label: 'Mobile',
+          value: 'mobile',
         },
         {
-          label: "Desktop",
-          value: "desktop"
-        }
+          label: 'Desktop',
+          value: 'desktop',
+        },
       ],
-      mode: "mobile",
+      mode: 'mobile',
       tooltip: {
         title: {
           exist: null,
           required: false,
           tag: null,
-          value: null
+          value: null,
         },
 
         description: {
           exist: null,
           required: false,
-          tag: "og:description",
+          tag: 'og:description',
           value: null,
           valueLength: {
             max: 250,
-            tooLong: null
-          }
+            tooLong: null,
+          },
         },
 
         image: {
@@ -224,29 +224,29 @@ export default {
           requiredSizes: {
             minimum: {
               width: 100,
-              height: 100
+              height: 100,
             },
             variation: {
               width: 415,
-              height: 415
-            }
+              height: 415,
+            },
           },
           size: {
             width: null,
-            height: null
+            height: null,
           },
-          tag: "og:image"
-        }
-      }
+          tag: 'og:image',
+        },
+      },
     };
   },
   computed: {
-    ...mapState(["head"]),
+    ...mapState([ 'head' ]),
     og() {
       return {
-        title: this.propertyValue("og:title"),
-        image: this.absoluteUrl(this.propertyValue("og:image")),
-        description: this.propertyValue("og:description")
+        title: this.propertyValue('og:title'),
+        image: this.absoluteUrl(this.propertyValue('og:image')),
+        description: this.propertyValue('og:description'),
       };
     },
     themeClass() {
@@ -254,52 +254,52 @@ export default {
        * class '-theme-with-dark-background' is taken from original dev tools repo
        * src: https://github.com/ChromeDevTools/devtools-frontend/blob/02a851d01de158d8c0a8fd1d3af06649b5379bd6/front_end/ui/inspectorStyle.css
        */
-      return getTheme() === "dark" ? "-theme-with-dark-background" : "";
+      return getTheme() === 'dark' ? '-theme-with-dark-background' : '';
     },
-     previewUrl() {
+    previewUrl() {
       const params = new URLSearchParams();
-      params.set("title", this.og.title || this.head.title);
-      params.set("url", this.head.url);
-      params.set("image", this.og.image);
-      params.set("theme", this.themeClass);
-      params.set("imageSpecified", this.imageSpecified);
-      params.set("description", this.og.description);
+      params.set('title', this.og.title || this.head.title);
+      params.set('url', this.head.url);
+      params.set('image', this.og.image);
+      params.set('theme', this.themeClass);
+      params.set('imageSpecified', this.imageSpecified);
+      params.set('description', this.og.description);
       if (this.og.image !== undefined) {
         params.set(
-          "mobileImgIsBig",
+          'mobileImgIsBig',
           (this.imageDimensions.height > 359 && this.imageDimensions.width > 359) ||
             (this.imageSpecified &&
               (this.imageDimensions.height === 0 || this.imageDimensions.width === 0))
         );
       }
       params.set(
-        "desktopImgIsBig",
+        'desktopImgIsBig',
         this.imageDimensions.height >= 415 && this.imageDimensions.width >= 415
       );
       return `${
-        this.mode === "desktop"
-          ? `/facebook-desktop-preview/facebook-desktop-preview.html?${params}`
-          : `/facebook-mobile-preview/facebook-mobile-preview.html?${params}`
+        this.mode === 'desktop'
+          ? `/facebook-desktop-preview/facebook-desktop-preview.html?${ params }`
+          : `/facebook-mobile-preview/facebook-mobile-preview.html?${ params }`
       }`;
     },
   },
-   watch: {
+  watch: {
     'og.image'() {
-      this.findImageDimensions()
-    }
+      this.findImageDimensions();
+    },
   },
   mounted() {
-    window.addEventListener("resize", this.onResize);
+    window.addEventListener('resize', this.onResize);
   },
   created() {
-    this.findImageDimensions()
+    this.findImageDimensions();
   },
   destroyed() {
-    window.removeEventListener("resize", this.onResize);
+    window.removeEventListener('resize', this.onResize);
   },
   methods: {
     findImageDimensions() {
-      findImageDimensions(this.head, "og:image").then(imageDimensions => {
+      findImageDimensions(this.head, 'og:image').then(imageDimensions => {
         this.imageDimensions = imageDimensions;
         this.setTooltipData(imageDimensions);
       });
@@ -307,20 +307,20 @@ export default {
     toggle(newMode) {
       this.mode = newMode;
       this.previewUrl = this.previewUrl({
-        imageDimensions: this.imageDimensions
+        imageDimensions: this.imageDimensions,
       });
     },
     absoluteUrl(url) {
       if (!url) return;
-      return url.startsWith("http") ? url : new URL(this.head.url).origin + url;
+      return url.startsWith('http') ? url : new URL(this.head.url).origin + url;
     },
     setTooltipData(imageDimensions) {
-      if (this.propertyValue("og:title") !== null) {
-        this.tooltip.title.tag = "og:title";
-        this.tooltip.title.value = this.propertyValue("og:title");
+      if (this.propertyValue('og:title') !== null) {
+        this.tooltip.title.tag = 'og:title';
+        this.tooltip.title.value = this.propertyValue('og:title');
         this.tooltip.title.exist = true;
       } else if (this.head.title !== null) {
-        this.tooltip.title.tag = "<title>";
+        this.tooltip.title.tag = '<title>';
         this.tooltip.title.value = this.head.title;
         this.tooltip.title.exist = false;
       } else {
@@ -329,11 +329,11 @@ export default {
         this.tooltip.title.exist = false;
       }
 
-      if (this.propertyValue("og:description") !== null) {
-        this.tooltip.description.value = this.propertyValue("og:description");
+      if (this.propertyValue('og:description') !== null) {
+        this.tooltip.description.value = this.propertyValue('og:description');
         this.tooltip.description.exist = true;
         this.tooltip.description.valueLength.tooLong =
-          this.propertyValue("og:description").length > 250;
+          this.propertyValue('og:description').length > 250;
       } else {
         this.tooltip.description.exist = false;
       }
@@ -354,9 +354,9 @@ export default {
       this.iframeHeight =
         parseInt(
           this.$refs.iframe.contentWindow.document.body.scrollHeight + 2
-        ) + "px";
-    }
-  }
+        ) + 'px';
+    },
+  },
 };
 </script>
 

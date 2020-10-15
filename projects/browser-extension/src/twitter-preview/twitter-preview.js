@@ -1,63 +1,63 @@
-import html from '../heads-up/lib/html'
+import html from '../heads-up/lib/html';
 
-createPreview()
+createPreview();
 
 function createPreview() {
-  const params = (new URL(window.location.href)).searchParams
-  const title = params.get('title')
-  const description = params.get('description')
-  const image = params.get('image')
-  const url = params.get('url')
-  const type = params.get('card')
-  const theme = params.get('theme')
+  const params = (new URL(window.location.href)).searchParams;
+  const title = params.get('title');
+  const description = params.get('description');
+  const image = params.get('image');
+  const url = params.get('url');
+  const type = params.get('card');
+  const theme = params.get('theme');
 
-  const twitterElement = document.querySelector('[data-twitter-preview-card]')
+  const twitterElement = document.querySelector('[data-twitter-preview-card]');
   twitterElement.innerHTML = getTwitterMarkup({
     title,
     description,
     image,
     url,
-    type
-  })
+    type,
+  });
 
   /**
    * setting 'theme_dark' class if parent window is in dark mode
    * class '-theme-with-dark-background' is taken from dev tools env
    * src: https://github.com/ChromeDevTools/devtools-frontend/blob/02a851d01de158d8c0a8fd1d3af06649b5379bd6/front_end/ui/inspectorStyle.css
    */
-  if(theme === 'dark') document.body.classList.add('-theme-with-dark-background')
+  if(theme === 'dark') document.body.classList.add('-theme-with-dark-background');
 }
 
 
 function getTwitterMarkup({ title, description, image, url, type }) {
-    const twitterLink = url ? `href="${ url }"` : ''
+  const twitterLink = url ? `href="${ url }"` : '';
 
-    function getHostName(url) {
-      if (!url) {
-        return ''
-      }
-
-      const hostname = (new URL(url).hostname)
-      const wwwPrefix = 'www.'
-      return hostname.startsWith(wwwPrefix)
-        ? hostname.slice(wwwPrefix.length)
-        : hostname
-
+  function getHostName(url) {
+    if (!url) {
+      return '';
     }
 
-    return html`
-      <div class="${ type === 'summary' ? `twitter-preview is-small` : `twitter-preview` }">
-        <a rel="noopener" target="_blank" ${ twitterLink } class="${ type === 'summary' ? `twitter-preview__link-container` : `twitter-preview__link-container twitter-preview__link-container--vertical` } ">
+    const hostname = (new URL(url).hostname);
+    const wwwPrefix = 'www.';
+    return hostname.startsWith(wwwPrefix)
+      ? hostname.slice(wwwPrefix.length)
+      : hostname;
+
+  }
+
+  return html`
+      <div class="${ type === 'summary' ? 'twitter-preview is-small' : 'twitter-preview' }">
+        <a rel="noopener" target="_blank" ${ twitterLink } class="${ type === 'summary' ? 'twitter-preview__link-container' : 'twitter-preview__link-container twitter-preview__link-container--vertical' } ">
           <div class="${ image
-            ? `${ type === 'summary'
-              ? `twitter-preview__media`
-              : `twitter-preview__fixed-ratio twitter-preview__ratio` }`
-            : `twitter-preview__media twitter-preview__media--image-fallback` }">
+    ? `${ type === 'summary'
+      ? 'twitter-preview__media'
+      : 'twitter-preview__fixed-ratio twitter-preview__ratio' }`
+    : 'twitter-preview__media twitter-preview__media--image-fallback' }">
             ${ image
-              ? html`<img src="${ image }" class="${ type === 'summary'
-                ? `twitter-preview__image`
-                : `twitter-preview__fixed-ratio-content` }" />`
-              : html`<div class="twitter-preview__image-fallback"></div>` }
+    ? html`<img src="${ image }" class="${ type === 'summary'
+      ? 'twitter-preview__image'
+      : 'twitter-preview__fixed-ratio-content' }" />`
+    : html`<div class="twitter-preview__image-fallback"></div>` }
           </div>
 
           <div class="twitter-preview__content">
@@ -69,5 +69,5 @@ function getTwitterMarkup({ title, description, image, url, type }) {
           </div>
         </a>
       </div>
-    `
+    `;
 }

@@ -1,13 +1,13 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 export default new VueRouter({
   routes: [
     {
       path: '/',
-      redirect: '/app-meta'
+      redirect: '/app-meta',
     },
     {
       path: '/app-meta',
@@ -15,7 +15,7 @@ export default new VueRouter({
       meta: {
         title: 'Meta',
       },
-      component: () => import(/* webpackChunkName:'views/app-meta' */ './views/app-meta.vue')
+      component: () => import(/* webpackChunkName:'views/app-meta' */ './views/app-meta.vue'),
     },
     {
       path: '/app-link',
@@ -23,7 +23,7 @@ export default new VueRouter({
       meta: {
         title: 'Link',
       },
-      component: () => import(/* webpackChunkName:'views/app-link' */ './views/app-link.vue')
+      component: () => import(/* webpackChunkName:'views/app-link' */ './views/app-link.vue'),
     },
     {
       path: '/favicon',
@@ -31,7 +31,7 @@ export default new VueRouter({
       meta: {
         title: 'Favicon',
       },
-      component: () => import(/* webpackChunkName:'views/app-meta' */ './views/favicon.vue')
+      component: () => import(/* webpackChunkName:'views/app-meta' */ './views/favicon.vue'),
     },
     {
       path: '/apple-ios',
@@ -39,7 +39,7 @@ export default new VueRouter({
       meta: {
         title: 'Apple iOS',
       },
-      component: () => import(/* webpackChunkName:'views/apple-ios' */ './views/apple-ios.vue')
+      component: () => import(/* webpackChunkName:'views/apple-ios' */ './views/apple-ios.vue'),
     },
     {
       path: '/open-graph',
@@ -47,7 +47,7 @@ export default new VueRouter({
       meta: {
         title: 'Open Graph',
       },
-      component: () => import(/* webpackChunkName:'views/open-graph' */ './views/open-graph.vue')
+      component: () => import(/* webpackChunkName:'views/open-graph' */ './views/open-graph.vue'),
     },
     {
       path: '/twitter',
@@ -55,7 +55,7 @@ export default new VueRouter({
       meta: {
         title: 'Twitter',
       },
-      component: () => import(/* webpackChunkName:'views/twitter' */ './views/twitter.vue')
+      component: () => import(/* webpackChunkName:'views/twitter' */ './views/twitter.vue'),
     },
     {
       path: '/whatsapp',
@@ -63,7 +63,7 @@ export default new VueRouter({
       meta: {
         title: 'WhatsApp',
       },
-      component: () => import(/* webpackChunkName:'views/whatsapp' */ './views/whatsapp.vue')
+      component: () => import(/* webpackChunkName:'views/whatsapp' */ './views/whatsapp.vue'),
     },
     {
       path: '/linkedin',
@@ -71,7 +71,7 @@ export default new VueRouter({
       meta: {
         title: 'LinkedIn',
       },
-      component: () => import(/* webpackChunkName:'views/linkedin' */ './views/linkedin.vue')
+      component: () => import(/* webpackChunkName:'views/linkedin' */ './views/linkedin.vue'),
     },
     {
       path: '/facebook',
@@ -79,7 +79,7 @@ export default new VueRouter({
       meta: {
         title: 'Facebook',
       },
-      component: () => import(/* webpackChunkName:'views/facebook' */ './views/facebook.vue')
+      component: () => import(/* webpackChunkName:'views/facebook' */ './views/facebook.vue'),
     },
     {
       path: '/slack',
@@ -87,7 +87,7 @@ export default new VueRouter({
       meta: {
         title: 'Slack',
       },
-      component: () => import(/* webpackChunkName:'views/slack' */ './views/slack.vue')
+      component: () => import(/* webpackChunkName:'views/slack' */ './views/slack.vue'),
     },
     {
       path: '/search-meta',
@@ -95,7 +95,7 @@ export default new VueRouter({
       meta: {
         title: 'Search Meta',
       },
-      component: () => import(/* webpackChunkName:'views/search-meta' */ './views/search-meta.vue')
+      component: () => import(/* webpackChunkName:'views/search-meta' */ './views/search-meta.vue'),
     },
     {
       path: '/opensearch',
@@ -103,7 +103,7 @@ export default new VueRouter({
       meta: {
         title: 'OpenSearch',
       },
-      component: () => import(/* webpackChunkName:'views/open-search' */ './views/opensearch.vue')
+      component: () => import(/* webpackChunkName:'views/open-search' */ './views/opensearch.vue'),
     },
     {
       path: '/robots-txt',
@@ -111,7 +111,7 @@ export default new VueRouter({
       meta: {
         title: 'Robots.txt',
       },
-      component: () => import(/* webpackChunkName:'views/robots-txt' */ './views/robots-txt.vue')
+      component: () => import(/* webpackChunkName:'views/robots-txt' */ './views/robots-txt.vue'),
     },
     {
       path: '/sitemap',
@@ -119,8 +119,8 @@ export default new VueRouter({
       meta: {
         title: 'Sitemap',
       },
-      component: () => import(/* webpackChunkName:'views/sitemap' */ './views/sitemap.vue')
+      component: () => import(/* webpackChunkName:'views/sitemap' */ './views/sitemap.vue'),
     },
-  ]
-})
+  ],
+});
 

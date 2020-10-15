@@ -34,70 +34,70 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
-  import { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList } from '../components'
-  import { findLinkHref, findMetaContent } from '../lib/find-meta'
-  import schema from '../lib/schemas/search-meta-schema'
+import { mapState } from 'vuex';
+import { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList } from '../components';
+import { findLinkHref, findMetaContent } from '../lib/find-meta';
+import schema from '../lib/schemas/search-meta-schema';
 
-  export default {
-    components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList },
-    computed: {
-      ...mapState(['head']),
-      searchMetaData() {
-        return [
-          {
-            keyName: 'title',
-            title: 'title',
-            value: this.head.title
-          },
-          {
-            keyName: 'description',
-            title: 'description',
-            value: findMetaContent(this.head, 'description')
-          },
-          {
-            keyName: 'search',
-            title: 'search',
-            value: findLinkHref(this.head, 'search'),
-          },
-          {
-            keyName: 'canonical',
-            title: 'canonical',
-            value: findLinkHref(this.head, 'canonical'),
-          },
-          {
-            keyName: 'robots',
-            title: 'robots',
-            value: findMetaContent(this.head, 'robots')
-          },
-          {
-            keyName: 'googlebot',
-            title: 'googlebot',
-            value: findMetaContent(this.head, 'googlebot')
-          },
-          {
-            keyName: 'google',
-            title: 'google',
-            value: findMetaContent(this.head, 'google')
-          },
-          {
-            keyName: 'google-site-verification',
-            title: 'google-site-verification',
-            value: findMetaContent(this.head, 'google-site-verification')
-          },
-          {
-            keyName: 'msvalidate.01',
-            title: 'msvalidate.01',
-            value: findMetaContent(this.head, 'msvalidate.01')
-          },
-          {
-            keyName: 'yandex-verification',
-            title: 'yandex-verification',
-            value: findMetaContent(this.head, 'yandex-verification')
-          },
-        ]
-      },
-      schema() { return schema }
+export default {
+  components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList },
+  computed: {
+    ...mapState([ 'head' ]),
+    searchMetaData() {
+      return [
+        {
+          keyName: 'title',
+          title: 'title',
+          value: this.head.title,
+        },
+        {
+          keyName: 'description',
+          title: 'description',
+          value: findMetaContent(this.head, 'description'),
+        },
+        {
+          keyName: 'search',
+          title: 'search',
+          value: findLinkHref(this.head, 'search'),
+        },
+        {
+          keyName: 'canonical',
+          title: 'canonical',
+          value: findLinkHref(this.head, 'canonical'),
+        },
+        {
+          keyName: 'robots',
+          title: 'robots',
+          value: findMetaContent(this.head, 'robots'),
+        },
+        {
+          keyName: 'googlebot',
+          title: 'googlebot',
+          value: findMetaContent(this.head, 'googlebot'),
+        },
+        {
+          keyName: 'google',
+          title: 'google',
+          value: findMetaContent(this.head, 'google'),
+        },
+        {
+          keyName: 'google-site-verification',
+          title: 'google-site-verification',
+          value: findMetaContent(this.head, 'google-site-verification'),
+        },
+        {
+          keyName: 'msvalidate.01',
+          title: 'msvalidate.01',
+          value: findMetaContent(this.head, 'msvalidate.01'),
+        },
+        {
+          keyName: 'yandex-verification',
+          title: 'yandex-verification',
+          value: findMetaContent(this.head, 'yandex-verification'),
+        },
+      ];
     },
-  }
+    schema() { return schema; },
+  },
+};
 </script>

@@ -17,16 +17,16 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
-  import { CollapsibleList, ExternalLink, PanelSection, ResourceList } from '../components'
+import { mapState } from 'vuex';
+import { CollapsibleList, ExternalLink, PanelSection, ResourceList } from '../components';
 
-  export default {
-    components: { CollapsibleList, ExternalLink, PanelSection, ResourceList },
-    computed: {
-      ...mapState(['head']),
-      linkListData() {
-        return this.head.link
-      },
+export default {
+  components: { CollapsibleList, ExternalLink, PanelSection, ResourceList },
+  computed: {
+    ...mapState([ 'head' ]),
+    linkListData() {
+      return this.head.link;
     },
-  }
+  },
+};
 </script>

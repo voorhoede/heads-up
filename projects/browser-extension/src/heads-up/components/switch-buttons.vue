@@ -30,29 +30,29 @@ export default {
   props: {
     buttons: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     value: {
       type: String,
-      default: ""
-    }
+      default: '',
+    },
   },
   data() {
     return {
-      controlIndicatorStyle: {}
+      controlIndicatorStyle: {},
     };
   },
   watch: {
     value() {
       this.calculateIndicatorPosition();
-    }
+    },
   },
   mounted() {
     this.calculateIndicatorPosition();
   },
   methods: {
     toggle(index) {
-      this.$emit("change", index);
+      this.$emit('change', index);
     },
     calculateIndicatorPosition() {
       const selectedButtonIndex = this.buttons.findIndex(
@@ -63,11 +63,11 @@ export default {
       const selectedButtonElement = this.$refs.button[selectedButtonIndex];
 
       this.controlIndicatorStyle = {
-        transform: `translateX(${buttonElements.offsetLeft - 2}px)`,
-        width: `${selectedButtonElement.offsetWidth + 4}px`
+        transform: `translateX(${ buttonElements.offsetLeft - 2 }px)`,
+        width: `${ selectedButtonElement.offsetWidth + 4 }px`,
       };
-    }
-  }
+    },
+  },
 };
 </script>
 

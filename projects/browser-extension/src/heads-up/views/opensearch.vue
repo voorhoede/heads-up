@@ -93,121 +93,121 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
-  import { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList } from '../components'
-  import getTheme from '../lib/theme'
-  import { findLinkHref, findXMLElement } from '../lib/find-meta'
-  import schema  from '../lib/schemas/opensearch-schema'
+import { mapState } from 'vuex';
+import { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList } from '../components';
+import getTheme from '../lib/theme';
+import { findLinkHref, findXMLElement } from '../lib/find-meta';
+import schema  from '../lib/schemas/opensearch-schema';
 
-  export default {
-    components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList },
-    data() {
-      return {
-        fileContent: '',
-      }
+export default {
+  components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList },
+  data() {
+    return {
+      fileContent: '',
+    };
+  },
+  computed: {
+    ...mapState([ 'head' ]),
+    hasOpenSearchFile() {
+      return this.fileUrl && this.fileContent;
     },
-    computed: {
-      ...mapState(['head']),
-      hasOpenSearchFile() {
-        return this.fileUrl && this.fileContent
-      },
-      themeClass() {
-        /**
+    themeClass() {
+      /**
          * class '-theme-with-dark-background' is taken from original dev tools repo
          * src: https://github.com/ChromeDevTools/devtools-frontend/blob/02a851d01de158d8c0a8fd1d3af06649b5379bd6/front_end/ui/inspectorStyle.css
          */
-        return getTheme() === 'dark' ? '-theme-with-dark-background' : ''
-      },
-      previewUrl() {
-        const params = new URLSearchParams()
-        params.set('title', this.shortName)
-        params.set('theme', this.themeClass)
+      return getTheme() === 'dark' ? '-theme-with-dark-background' : '';
+    },
+    previewUrl() {
+      const params = new URLSearchParams();
+      params.set('title', this.shortName);
+      params.set('theme', this.themeClass);
 
-        return `/opensearch-preview/opensearch-preview.html?${params}`
-      },
-      metaTagValue() {
-        return findLinkHref(this.head, 'search')
-      },
-      fileUrl() {
-        return this.metaTagValue.startsWith('/')
-          ? `https://${this.head.domain}${this.metaTagValue}`
-          : this.metaTagValue
-      },
-      shortName() {
-        const element = findXMLElement(this.fileContent, 'ShortName')
-        return element ? element[0].value : null
-      },
-      description() {
-        const element = findXMLElement(this.fileContent, 'Description')
-        return element ? element[0].value : null
-      },
-      urls() {
-        const elements = findXMLElement(this.fileContent, 'Url')
-        return elements ? elements : null
-      },
-      image() {
-        const element = findXMLElement(this.fileContent, 'Image')
-        return element ? element[0].value : null
-      },
-      inputEncoding() {
-        const element = findXMLElement(this.fileContent, 'InputEncoding')
-        return element ? element[0].value : null
-      },
-      opensearchData() {
-        return [
-          {
-            keyName: 'shortname',
-            title: 'ShortName',
-            value: this.shortName,
-          },
-          {
-            keyName: 'description',
-            title: 'Description',
-            value: this.description,
-          },
-          {
-            keyName: 'urls',
-            title: 'Url(s)',
-            value: this.urls,
-          },
-          {
-            keyName: 'image',
-            title: 'Image',
-            value: this.image,
-          },
-          {
-            keyName: 'input-encoding',
-            title: 'InputEncoding',
-            value: this.inputEncoding,
-          },
-        ]
-      },
-      schema() { return schema }
+      return `/opensearch-preview/opensearch-preview.html?${ params }`;
     },
-    created() {
-      this.getOpenSearchFileContent()
+    metaTagValue() {
+      return findLinkHref(this.head, 'search');
     },
-    methods: {
-      absoluteUrl(url) {
-        if (!url) return
-        return url.startsWith('http') ? url : new URL(this.head.url).origin + url
-      },
-      getOpenSearchFileContent() {
-        const request = new XMLHttpRequest();
-        request.onreadystatechange = (e) => {
-          const { readyState, response, status } = e.target
-          if (readyState === 4 && status === 200) {
-            this.fileContent = response
-          }
+    fileUrl() {
+      return this.metaTagValue.startsWith('/')
+        ? `https://${ this.head.domain }${ this.metaTagValue }`
+        : this.metaTagValue;
+    },
+    shortName() {
+      const element = findXMLElement(this.fileContent, 'ShortName');
+      return element ? element[0].value : null;
+    },
+    description() {
+      const element = findXMLElement(this.fileContent, 'Description');
+      return element ? element[0].value : null;
+    },
+    urls() {
+      const elements = findXMLElement(this.fileContent, 'Url');
+      return elements ? elements : null;
+    },
+    image() {
+      const element = findXMLElement(this.fileContent, 'Image');
+      return element ? element[0].value : null;
+    },
+    inputEncoding() {
+      const element = findXMLElement(this.fileContent, 'InputEncoding');
+      return element ? element[0].value : null;
+    },
+    opensearchData() {
+      return [
+        {
+          keyName: 'shortname',
+          title: 'ShortName',
+          value: this.shortName,
+        },
+        {
+          keyName: 'description',
+          title: 'Description',
+          value: this.description,
+        },
+        {
+          keyName: 'urls',
+          title: 'Url(s)',
+          value: this.urls,
+        },
+        {
+          keyName: 'image',
+          title: 'Image',
+          value: this.image,
+        },
+        {
+          keyName: 'input-encoding',
+          title: 'InputEncoding',
+          value: this.inputEncoding,
+        },
+      ];
+    },
+    schema() { return schema; },
+  },
+  created() {
+    this.getOpenSearchFileContent();
+  },
+  methods: {
+    absoluteUrl(url) {
+      if (!url) return;
+      return url.startsWith('http') ? url : new URL(this.head.url).origin + url;
+    },
+    getOpenSearchFileContent() {
+      const request = new XMLHttpRequest();
+      request.onreadystatechange = e => {
+        const { readyState, response, status } = e.target;
+        if (readyState === 4 && status === 200) {
+          this.fileContent = response;
         }
-        request.onerror = () => {
-          throw new Error('An error occurred, request failed.')
-        }
-        request.open('GET', this.fileUrl, true)
-        request.send()
-      },
+      };
+      request.onerror = () => {
+        throw new Error('An error occurred, request failed.');
+      };
+      request.open('GET', this.fileUrl, true);
+      request.send();
     },
-  }
+  },
+};
 </script>
 
 <style>

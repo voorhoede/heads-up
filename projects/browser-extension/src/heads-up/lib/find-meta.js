@@ -1,56 +1,56 @@
 export function findAttrs(head, attr) {
-  return head.meta.find(item => item[attr])
+  return head.meta.find(item => item[attr]);
 }
 
 export function findCharset(head) {
-  const item = head.meta.find(item => Object.keys(item).includes('charset'))
-  let charset = item ? item.charset : null
+  const item = head.meta.find(item => Object.keys(item).includes('charset'));
+  let charset = item ? item.charset : null;
 
   if (charset === null) {
     const item = head.meta.find(item => {
       return item['http-equiv'] &&
              item['http-equiv'].toLowerCase() === 'content-type' &&
              item['content'] &&
-             /charset=./.test(item['content'])
-    })
-    if (!item) return charset
+             /charset=./.test(item['content']);
+    });
+    if (!item) return charset;
 
     try {
       charset = item['content']
         .split(';')
         .find(section => /charset=/.test(section))
-        .split('=')[1]
+        .split('=')[1];
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
   }
-  return charset
+  return charset;
 }
 
 export function findLinkHref(head, name) {
-  const link = head.link.find(link => link.rel && link.rel === name)
-  return link ? link.href : null
+  const link = head.link.find(link => link.rel && link.rel === name);
+  return link ? link.href : null;
 }
 
 export function findMetaContent(head, name) {
-  const item = head.meta.find(item => item.name === name)
-  return item ? item.content : null
+  const item = head.meta.find(item => item.name === name);
+  return item ? item.content : null;
 }
 
 export function findMetaProperty(head, name) {
-  const item = head.meta.find(item => item.property === name)
-  return item ? item.content : null
+  const item = head.meta.find(item => item.property === name);
+  return item ? item.content : null;
 }
 
 export function findXMLElement(text, tagName) {
-  const parser = new DOMParser()
-  const xml = parser.parseFromString(text, 'text/xml')
+  const parser = new DOMParser();
+  const xml = parser.parseFromString(text, 'text/xml');
 
   const tags = Object.values(xml.documentElement.childNodes)
     .filter(node => node.nodeName !== '#text')
-    .filter(node => node.nodeName === tagName)
+    .filter(node => node.nodeName === tagName);
 
-  return tags.length ? getElementDetails(tags) : null
+  return tags.length ? getElementDetails(tags) : null;
 }
 
 function getElementDetails(tags) {
@@ -58,17 +58,17 @@ function getElementDetails(tags) {
     attributes: getNodeAttributes(node),
     name: node.nodeName,
     value: node.textContent ? node.textContent : null,
-  }))
+  }));
 }
 
 function getNodeAttributes(node) {
-  let attributes = []
+  let attributes = [];
 
   for (let entry of Object.entries(node.attributes)) {
-    attributes.push({ name: entry[1].name, value: entry[1].value })
+    attributes.push({ name: entry[1].name, value: entry[1].value });
   }
 
-  return attributes
+  return attributes;
 }
 
 export function findFavicons(head) {
@@ -77,47 +77,47 @@ export function findFavicons(head) {
     .map(favicon => {
       const url = favicon.href.startsWith('http')
         ? favicon.href
-        : new URL(head.url).origin + favicon.href
-      return { ...favicon, url }
-    })
+        : new URL(head.url).origin + favicon.href;
+      return { ...favicon, url };
+    });
 }
 
 function getImageDetails(url) {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     var img = new Image();
     img.src = url;
     img.onload = () => resolve(img);
-    img.onerror = () => resolve({ width: 0, height: 0, })
-  })
+    img.onerror = () => resolve({ width: 0, height: 0 });
+  });
 }
 
 export function findImageDimensions(head, name) {
-  const url = findMetaProperty(head, name)
+  const url = findMetaProperty(head, name);
 
   if (url === null) {
-    return Promise.resolve({ width: 0, height: 0 })
+    return Promise.resolve({ width: 0, height: 0 });
   }
-  const correctUrl = url.startsWith("http") ? url : new URL(head.url).origin + url;
+  const correctUrl = url.startsWith('http') ? url : new URL(head.url).origin + url;
   return getImageDetails(correctUrl)
-    .then(({ width, height }) => ({ width, height }))
+    .then(({ width, height }) => ({ width, height }));
 }
 
 function AdditionSlackCheck(head, name) {
-  const item = head.meta.find(item => item.name === name)
+  const item = head.meta.find(item => item.name === name);
   return item
     ? item.value
-    : null
+    : null;
 }
 
 export function findAdditionSlackData(head) {
   return [
     {
       label: AdditionSlackCheck(head, 'twitter:label1'),
-      value: AdditionSlackCheck(head, 'twitter:data1')
+      value: AdditionSlackCheck(head, 'twitter:data1'),
     },
     {
       label: AdditionSlackCheck(head, 'twitter:label2'),
-      value: AdditionSlackCheck(head, 'twitter:data2')
-    }
-  ].filter(item => item.label && item.value)
+      value: AdditionSlackCheck(head, 'twitter:data2'),
+    },
+  ].filter(item => item.label && item.value);
 }

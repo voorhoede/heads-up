@@ -13,7 +13,7 @@
  * const htmlString = html`<p>Some markup here</p>`
  */
 export default function html (strings, ...values) {
-  let str = "";
+  let str = '';
   strings.forEach((string, i) => {
     str += values[i]
       ? string + values[i]

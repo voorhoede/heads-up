@@ -41,15 +41,15 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 import {
   ExternalLink,
   PanelSection,
   PropertiesList,
   ResourceList
-} from "../components";
-import { findFavicons } from "../lib/find-meta";
-import WarningIcon from "../assets/icons/warning.svg";
+} from '../components';
+import { findFavicons } from '../lib/find-meta';
+import WarningIcon from '../assets/icons/warning.svg';
 
 export default {
   components: {
@@ -57,14 +57,14 @@ export default {
     PanelSection,
     PropertiesList,
     ResourceList,
-    WarningIcon
+    WarningIcon,
   },
   computed: {
-    ...mapState(["head"]),
+    ...mapState([ 'head' ]),
     favicons() {
       return findFavicons(this.head);
-    }
-  }
+    },
+  },
 };
 </script>
 

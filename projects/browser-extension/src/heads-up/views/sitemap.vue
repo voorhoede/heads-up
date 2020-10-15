@@ -30,16 +30,16 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
-  import { ExternalLink, PanelSection, ResourceList } from '../components'
+import { mapState } from 'vuex';
+import { ExternalLink, PanelSection, ResourceList } from '../components';
 
-  export default {
-    components: { ExternalLink, PanelSection, ResourceList },
-    computed: {
-      ...mapState(['head', 'sitemap']),
-      sitemapUrl() {
-        return this.head.domain + '/sitemap.xml'
-      },
+export default {
+  components: { ExternalLink, PanelSection, ResourceList },
+  computed: {
+    ...mapState([ 'head', 'sitemap' ]),
+    sitemapUrl() {
+      return this.head.domain + '/sitemap.xml';
     },
-  }
+  },
+};
 </script>

@@ -14,7 +14,7 @@ export default {
     href: {
       type: String,
       required: true,
-    }
-  }
-}
+    },
+  },
+};
 </script>
