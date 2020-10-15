@@ -3,7 +3,7 @@
 @import "list.css";
 
 body {
-  background: #fffeca;
+  background: var(--paper);
   color: black;
   font-family: sans-serif;
   margin: 0;
@@ -42,8 +42,9 @@ header::after {
 }
 
 main {
-  padding: 90px 0;
-  margin-top: 180px;
+  margin-top: 50px;
+  padding: 130px 0;
+  background: white;
 }
 
 section {
@@ -52,6 +53,7 @@ section {
 
 .content {
   max-width: 900px;
+  padding: 0 16px;
   margin: 0 auto;
 }
 
@@ -88,6 +90,7 @@ header {
 
 .header__product-tagline {
   font-size: 45px;
+  padding: 0 20px;
 }
 
 .tagline {
@@ -114,6 +117,7 @@ header {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  z-index: 2;
 }
 
 .header__form-label {
@@ -136,18 +140,15 @@ header {
 section {
   padding: 20px;
   border-radius: 40px;
-  text-align: center;
-}
-
-section:nth-of-type(odd) {
-  background: var(--white);
+  background: #fbfbea;
   color: #484832;
-  margin-left: 30%;
 }
 
 section:nth-of-type(even) {
-  background: #2E2F69;
-  color: var(--white);
+  margin-left: 30%;
+}
+
+section:nth-of-type(odd) {
   margin-right: 30%;
 }
 
