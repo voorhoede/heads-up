@@ -5,7 +5,6 @@ module.exports = {
 
   globals: {
     chrome: true,
-    process: true,
   },
 
   extends: [
