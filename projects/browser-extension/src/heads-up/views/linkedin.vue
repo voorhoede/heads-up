@@ -102,8 +102,8 @@
 </template>
 
 <script>
-import InfoIcon from '../assets/icons/info.svg';
-import WarningIcon from '../assets/icons/warning.svg';
+import InfoIcon from '@shared/assets/icons/info.svg';
+import WarningIcon from '@shared/assets/icons/warning.svg';
 import { mapState } from 'vuex';
 import getTheme from '../lib/theme';
 import {

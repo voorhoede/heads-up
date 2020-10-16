@@ -25,8 +25,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import { AppSidebar, ExternalLink, RefreshButton } from './components';
-import getTheme from './lib/theme';
+import { AppSidebar, ExternalLink, RefreshButton } from '@/components';
+import getTheme from '@/lib/theme';
 
 export default {
   components: { AppSidebar, ExternalLink, RefreshButton },

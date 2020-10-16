@@ -1,7 +1,7 @@
 <template>
   <header class="app-header">
     <div class="app-header__logo">
-      <img src="@/assets/images/logo-with-text.svg" height="32" alt="De Voorhoede">
+      <img src="@shared/assets/images/logo-with-text.svg" height="32" alt="De Voorhoede">
     </div>
     <div class="app-header__search">
       <input-url />
