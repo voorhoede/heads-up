@@ -4,10 +4,20 @@ const paths = require('../lib/paths');
 const postcss = require('gulp-postcss');
 const minify = require('gulp-minify');
 
+const processors = [
+  require('postcss-import'),              // combine imports into one file
+  require('postcss-custom-properties'),   // replace variables by their calculated values
+  require('postcss-color-function'),      // replaces color functions with rgba values
+  require('postcss-color-rgba-fallback'), // adds a hex value before every rgba value
+  require('pixrem'),                      // adds pixel fallback before every rem value
+  require('postcss-calc'),                // pre-calculcates calc functions where possible
+  require('autoprefixer')                 // vendor prefix for older browsers
+];
+
 // Build CSS
 gulp
   .src(paths.styles.src)
-  .pipe(postcss([require('autoprefixer')]))
+  .pipe(postcss(processors))
   .on('error', onStreamError)
   .pipe(gulp.dest(paths.styles.dest));
 

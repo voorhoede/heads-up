@@ -46,7 +46,4 @@
   --grid-content-smallest-start: 12;
   --grid-content-smallest-end: 40;
   --grid-page-end: 51;
-  --grid-page: var(--grid-page-start)/var(--grid-page-end);
-  --grid-page-left: var(--grid-page-start)/var(--grid-center);
-  --grid-page-right: var(--grid-center)/var(--grid-page-end);
 }

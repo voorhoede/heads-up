@@ -1,6 +1,6 @@
 module.exports = {
   styles: {
-    src: 'src/styles/*.css',
+    src: 'src/styles/index.css',
     dest: 'dist/styles'
   },
   scripts: {
