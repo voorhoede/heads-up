@@ -1,4 +1,4 @@
-import uniqueSchemaValidations from './uniqueSchemaValidations';
+import uniqueSchemaValidations from './unique-schema-validations';
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
 export default function validateWarningSchema({ schema, key, value, attrs }) {
@@ -22,7 +22,7 @@ export default function validateWarningSchema({ schema, key, value, attrs }) {
     });
   }
 
-  // uniqueSchemaValidations.js check on warnings
+  // unique-schema-validations.js check on warnings
   if (schema[key].warning && schema[key].warning.length) {
     schema[key].warning.forEach(item => {
       if (!uniqueSchemaValidations[item](valueTrimmed, attrs)) {

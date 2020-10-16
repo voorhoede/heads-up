@@ -1,16 +1,16 @@
 <template>
 <section class="content">
-  <pre v-if="meta">{{ meta }}</pre>
+  <pre v-if="headData">{{ headData }}</pre>
   <span v-else>Show me the meta</span>
 </section>
 </template>
 
 <script>
-import useMetadata from '@/composables/useMetadata';
+import useHead from '@/composables/use-head';
 
 export default {
   setup: () => ({
-    meta: useMetadata().data,
+    headData: useHead().data,
   }),
 };
 </script>
