@@ -2,7 +2,7 @@
   command = "npm run postinstall && npm run build"
   functions = "functions"
   publish = "dist"
-  ignore = "git diff --quiet HEAD^ HEAD -- projects/web-app"
+  ignore = "git diff --quiet HEAD^ HEAD projects/web-app/ projects/@shared/"
 
 [dev]
   command = "npm run serve"
