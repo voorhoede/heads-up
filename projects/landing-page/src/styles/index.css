@@ -4,7 +4,7 @@
 
 body {
   background: var(--paper);
-  color: black;
+  color: #484832;
   font-family: sans-serif;
   margin: 0;
   padding: 0;
@@ -16,8 +16,9 @@ header {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 40px;
+  padding: 40px 0;
   min-height: 450px;
+  position: relative;
 }
 
 header::before,
@@ -25,20 +26,20 @@ header::after {
   content: '<';
   display: block;
   position: absolute;
-  top: 25%;
+  top: 0;
   left: -40px;
   font-size: 400px;
   font-family: system-ui;
-  transform: scale(1, 1.4) translate(0,-50%);
-  opacity: 0.2;
+  opacity: 0.06;
+  line-height: 0;
 }
 
 header::after {
   content: '>';
-  top: 75%;
-  right: 0;
+  bottom: 30px;
+  right: -40px;
   left: auto;
-  letter-spacing: -40px;
+  top: auto;
 }
 
 main {
@@ -91,6 +92,7 @@ header {
 .header__product-tagline {
   font-size: 45px;
   padding: 0 20px;
+  max-width: 520px;
 }
 
 .tagline {
@@ -129,12 +131,7 @@ header {
 }
 
 .header__form-button {
-  background: var(--html-blue);
-  border-radius: 4px;
-  padding: .375rem .9375rem;
-  border: none;
-  color: white;
-  text-decoration: none;
+  font-size: 18px;
 }
 
 section {
