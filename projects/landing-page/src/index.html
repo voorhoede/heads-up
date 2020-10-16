@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Heads up! - discover how Google and social media platforms see you site.</title>
+    <link href="styles/index.css" rel="stylesheet" />
+  </head>
+  <body>
+
+    <header>
+      <div class="content">
+        <picture class="header__logo">
+          <img src="assets/headsup-logo.png" width="56" height="56" alt="Heads up! Logo">
+        </picture>
+        <h1 class="header__product-description">
+          <span class="header__product-title">Heads up!</span>
+          <span class="header__product-subtitle">Quickly see share previews</span>
+        </h1>
+        <h2 class="header__product-tagline tagline">Discover how your site will be shown by <br> Google and social media platforms</h2>
+        <!--<p>With our tool you can quickly check your website appereance on different platforms</p>-->
+
+        <form class="header__form" action="/the-web-app" method="post">
+          <label class="header__form-label">Website url:</label>
+          <input type="text" class="header__form-input" placeholder="https://" />
+          <button class="button" href="/" class="header__form-button">Check out your score!</button>
+        </form>
+      </div>
+    </header>
+
+    <main>
+      <div class="content">
+        <section class="content__section">
+          <div class="content__section-inner">
+            <h2>Learn more about Heads up!</h2>
+            <p>Please don't judge the design its a work in progress :P </p>
+            <p>With Head up! you can quickly check how your website is displayed when shared.</p>
+
+            <p class="tagline">Works with:</p>
+            <!-- @todo inline svg's to style them -->
+            <ul class="header__product-support list--unstyled list--inline">
+              <li><img src="assets/facebook.svg" width="40"></li>
+              <li><img src="assets/whatsapp.svg" width="40"></li>
+              <li><img src="assets/twitter.svg" width="40"></li>
+              <li><img src="assets/slack.svg" width="40"></li>
+            </ul>
+          </div>
+        </section>
+
+        <div class="video-container">
+          <iframe src="https://www.youtube.com/embed/HboZ0MGvuCQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <section>
+          <h2>Live feedback</h2>
+          <p>Heads Up provides their users with live feedback.
+          The feedback will be shown after hovering over icons and titles.
+          The feedback will give you a description of the item,
+          feedback to improve or an error with a solution.</p>
+        </section>
+
+        <section>
+          <h2>Features</h2>
+          <ul>
+            <li>Presents key page meta (title, charset, viewport, ...) and favicons.</li>
+            <li>Presents all link relations (rel="") and values (name, href, type, ...).</li>
+            <li>Presents all favicon images with sizes and type names (x-icon, png).</li>
+            <li>Presents Apple iOS (apple-mobile-web-*) settings, touch icons and startup images.</li>
+            <li>Presents all Open Graph (og:*) properties found in the page.</li>
+            <li>Presents Twitter settings (twitter:*) and a preview of a Twitter card.</li>
+            <li>Presents WhatsApp settings (og:*) and a preview of a WhatsApp unfurled link.</li>
+            <li>Presents LinkedIn settings (og:*) and a preview of a LinkedIn unfurled link.</li>
+            <li>Presents Facebook settings (og:*) and a preview of a Facebook mobile and desktop unfurled link.</li>
+            <li>Presents Slack settings (og:*) and a preview of a Slack unfurled link.</li>
+            <li>Works with any site and web app (incl. localhost).</li>
+            <li>Supports editing in devtools and hot module reloading.</li>
+            <li>Gives feedback to improve your code with tooltips.</li>
+          </ul>
+        </section>
+
+
+        <section>
+          <h2>Previews</h2>
+          <p>Heads up! can generate previews for all kinds of socialmedia platforms.</p>
+
+        </section>
+
+        <section>
+          <h2>Chrome Extension</h2>
+          <p>Are you usign our tool a lot? Maybe you can consider to speed up the process and use our awesome chrome extension!</p>
+        </section>
+      </div>
+    </main>
+
+    <footer>Made with ♥️ by De Voorhoede</footer>
+  </body>
+</html>
