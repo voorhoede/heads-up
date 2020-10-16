@@ -124,7 +124,7 @@
 </template>
 
 <script>
-import InfoIcon from '../assets/icons/info.svg';
+import InfoIcon from '@shared/assets/icons/info.svg';
 import { mapState } from 'vuex';
 import {
   ExternalLink,
@@ -239,7 +239,7 @@ export default {
         'validImage',
         this.imageDimensions.height > 0 && this.imageDimensions.width > 0
       );
-      return `/slack-preview/slack-preview.html?${ params }`;
+      return `/previews/slack/slack.html?${ params }`;
     },
   },
   watch:{

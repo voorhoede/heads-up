@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import Meta from '@/views/meta.vue';
+import Meta from '@/views/meta-renaming-error.vue';
 
 const routes = [
   {

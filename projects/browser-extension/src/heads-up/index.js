@@ -1,9 +1,10 @@
+import '@/style/index.css';
 import Vue from 'vue';
-import * as actions from './lib/message-actions';
-import router from './router';
+import * as actions from '@/lib/message-actions';
+import router from '@/router';
 import VTooltip from 'v-tooltip';
-import { createStore } from './store';
-import AppShell from './app-shell.vue';
+import { createStore } from '@/store';
+import AppShell from '@/app-shell.vue';
 const store = createStore();
 const background = chrome.runtime.connect({ name: 'devtools' });
 const tabId = chrome.devtools.inspectedWindow.tabId;
@@ -28,7 +29,6 @@ background.onMessage.addListener(message => {
 Vue.use(VTooltip);
 Vue.config.devtools = true;
 
-import './style/index.css';
 
 const app = new Vue({
   el: '#app',

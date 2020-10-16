@@ -155,7 +155,7 @@
 </template>
 
 <script>
-import InfoIcon from '../assets/icons/info.svg';
+import InfoIcon from '@shared/assets/icons/info.svg';
 import { mapState } from 'vuex';
 import getTheme from '../lib/theme';
 import {
@@ -278,8 +278,8 @@ export default {
       );
       return `${
         this.mode === 'desktop'
-          ? `/facebook-desktop-preview/facebook-desktop-preview.html?${ params }`
-          : `/facebook-mobile-preview/facebook-mobile-preview.html?${ params }`
+          ? `/previews/facebook-desktop/facebook-desktop.html?${ params }`
+          : `/previews/facebook-mobile/facebook-mobile.html?${ params }`
       }`;
     },
   },

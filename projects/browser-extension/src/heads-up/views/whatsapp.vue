@@ -162,8 +162,8 @@
 </template>
 
 <script>
-import InfoIcon from '../assets/icons/info.svg';
-import WarningIcon from '../assets/icons/warning.svg';
+import InfoIcon from '@shared/assets/icons/info.svg';
+import WarningIcon from '@shared/assets/icons/warning.svg';
 import { mapState } from 'vuex';
 import {
   ExternalLink,
@@ -285,7 +285,7 @@ export default {
       }
 
       params.set('url', this.head.url);
-      return `/whatsapp-preview/whatsapp-preview.html?${ params }`;
+      return `/previews/whatsapp/whatsapp.html?${ params }`;
     },
   },
   watch: {

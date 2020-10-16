@@ -106,8 +106,8 @@ import { mapState } from 'vuex';
 import validateErrorSchema from '../lib/validate-error-schema';
 import validateWarningSchema from '../lib/validate-warning-schema';
 import { AppTooltip, ExternalLink } from '../components';
-import InfoIcon from '../assets/icons/info.svg';
-import WarningIcon from '../assets/icons/warning.svg';
+import InfoIcon from '@shared/assets/icons/info.svg';
+import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
   components: { AppTooltip, ExternalLink, InfoIcon, WarningIcon },
