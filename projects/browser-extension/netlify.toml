@@ -1,7 +1,7 @@
 [build]
   command = "npm run build"
   publish = "dist"
-  ignore = "git diff HEAD^ HEAD -- projects/browser-extension/ projects/@shared/"
+  ignore = "git diff --quiet HEAD^ HEAD -- projects/browser-extension/ projects/@shared/"
 
 [build.environment]
   CI = "1"
