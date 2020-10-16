@@ -124,7 +124,7 @@
 </template>
 
 <script>
-import InfoIcon from '../assets/icons/info.svg';
+import InfoIcon from '@shared/assets/icons/info.svg';
 import { mapState } from 'vuex';
 import {
   ExternalLink,

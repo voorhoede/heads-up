@@ -2,6 +2,7 @@ const path = require('path');
 const createConfig = require('./config/create');
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const resolve = dir => path.join(__dirname, dir);
 
 module.exports = createConfig({
   entry: {
@@ -18,7 +19,7 @@ module.exports = createConfig({
     '../opensearch-preview/opensearch-preview': './src/opensearch-preview/opensearch-preview.js',
   },
   output: {
-    path: path.join(__dirname, 'dist/heads-up'),
+    path: resolve('dist/heads-up'),
     filename: '[name].js',
   },
   plugins: [
@@ -75,4 +76,10 @@ module.exports = createConfig({
   devtool: process.env.NODE_ENV !== 'production'
     ? '#inline-source-map'
     : false,
+  resolve: {
+    alias: {
+      '@shared': resolve('../@shared'),
+      '@': resolve('src/heads-up'),
+    },
+  },
 });

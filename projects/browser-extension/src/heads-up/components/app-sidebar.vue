@@ -148,20 +148,20 @@
 </template>
 
 <script>
-import AppleIcon from '../assets/icons/apple.svg';
-import CodeIcon from '../assets/icons/code.svg';
-import LinkIcon from '../assets/icons/link.svg';
-import ImageIcon from '../assets/icons/image.svg';
-import OpenGraphIcon from '../assets/icons/open-graph.svg';
-import TwitterIcon from '../assets/icons/twitter.svg';
-import WhatsappIcon from '../assets/icons/whatsapp.svg';
-import LinkedInIcon from '../assets/icons/linkedin.svg';
-import SlackIcon from '../assets/icons/slack.svg';
-import ExternalLink from '../components/external-link.vue';
-import FacebookIcon from '../assets/icons/facebook.svg';
-import SearchIcon from '../assets/icons/search.svg';
-import RobotIcon from '../assets/icons/robot.svg';
-import SitemapIcon from '../assets/icons/sitemap.svg';
+import { ExternalLink } from '../components';
+import AppleIcon from '@shared/assets/icons/apple.svg';
+import CodeIcon from '@shared/assets/icons/code.svg';
+import LinkIcon from '@shared/assets/icons/link.svg';
+import ImageIcon from '@shared/assets/icons/image.svg';
+import OpenGraphIcon from '@shared/assets/icons/open-graph.svg';
+import TwitterIcon from '@shared/assets/icons/twitter.svg';
+import WhatsappIcon from '@shared/assets/icons/whatsapp.svg';
+import LinkedInIcon from '@shared/assets/icons/linkedin.svg';
+import SlackIcon from '@shared/assets/icons/slack.svg';
+import FacebookIcon from '@shared/assets/icons/facebook.svg';
+import SearchIcon from '@shared/assets/icons/search.svg';
+import RobotIcon from '@shared/assets/icons/robot.svg';
+import SitemapIcon from '@shared/assets/icons/sitemap.svg';
 
 export default {
   components: {
