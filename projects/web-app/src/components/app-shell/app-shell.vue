@@ -33,5 +33,17 @@ export default {
   border-top: 1px solid var(--color-gray);
   margin-top: var(--header-height);
   padding: 2rem;
+  overflow: auto;
+}
+
+.content {
+  height: 100%;
+}
+
+.content-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 </style>

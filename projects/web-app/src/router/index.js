@@ -1,11 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import Meta from '@/views/meta-renaming-error.vue';
+import Favicon from '@/views/Favicon.vue';
+import Meta from '@/views/Meta.vue';
 
 const routes = [
   {
     path: '/',
     redirect: '/meta',
+  },
+  {
+    path: '/favicon',
+    name: 'favicon',
+    component: Favicon,
   },
   {
     path: '/meta',
