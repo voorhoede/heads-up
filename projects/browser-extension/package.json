@@ -8,7 +8,7 @@
     "dev": "run-p dev:* devtools",
     "dev:app": "webpack --watch",
     "dev:examples": "serve examples/",
-    "prebuild": "rimraf ./dist",
+    "prebuild": "rimraf ./dist && mkdir -p ./dist/previews && cp -R ../rich-previews/dist/** ./dist/previews",
     "build": "cross-env NODE_ENV=production webpack --progress",
     "devtools": "vue-devtools",
     "lint": "eslint --ext .js,.vue src",

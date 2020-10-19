@@ -104,7 +104,7 @@ function getslackMarkup({ title, image, url, imageIsBig, favicon, description, i
         </a>
 
         <div class="slack-preview__emoji ${ theme }">
-          <img class="slack-preview__emoji-image" src="${ require('./assets/parrot.gif').default }" alt="">
+          <img class="slack-preview__emoji-image" src="./assets/parrot.gif" alt="">
           <p class="slack-preview__emoji-count">${ Math.floor(Math.random() * 8) + 1 }</p>
         </div>
   `;

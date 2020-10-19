@@ -1,0 +1,14 @@
+{
+  "name": "heads-up-rich-previews",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "cross-env NODE_ENV=production webpack --progress"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^6.2.1",
+    "cross-env": "^7.0.2",
+    "html-webpack-plugin": "^4.5.0",
+    "webpack": "^4.44.2"
+  }
+}
