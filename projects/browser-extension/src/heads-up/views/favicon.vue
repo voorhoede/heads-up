@@ -27,7 +27,7 @@
     </panel-section>
 
     <panel-section title="Resources">
-      <resource-list>
+      <ul class="resource-list">
         <li>
           <external-link
             href="https://bitsofco.de/all-about-favicons-and-touch-icons/"
@@ -35,7 +35,7 @@
             All About Favicons
           </external-link>
         </li>
-      </resource-list>
+      </ul>
     </panel-section>
   </div>
 </template>
@@ -45,8 +45,7 @@ import { mapState } from 'vuex';
 import PanelSection from '@shared/components/panel-section.vue';
 import {
   ExternalLink,
-  PropertiesList,
-  ResourceList
+  PropertiesList
 } from '../components';
 import { findFavicons } from '../lib/find-meta';
 import WarningIcon from '@shared/assets/icons/warning.svg';
@@ -56,7 +55,6 @@ export default {
     ExternalLink,
     PanelSection,
     PropertiesList,
-    ResourceList,
     WarningIcon,
   },
   computed: {

@@ -2,6 +2,15 @@
   <panel-section title="Rel">
     <collapsible-list :data="linkListData_mocked" />
   </panel-section>
+  <panel-section title="Resources">
+    <ul class="resource-list">
+      <li>
+        <external-link href="https://htmlhead.dev/">
+          Guide to HTML5 <code>&lt;head&gt;</code> elements
+        </external-link>
+      </li>
+    </ul>
+  </panel-section>
 </template>
 
 <script>

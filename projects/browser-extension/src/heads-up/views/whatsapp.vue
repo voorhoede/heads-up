@@ -139,7 +139,7 @@
     </panel-section>
 
     <panel-section title="Resources">
-      <resource-list>
+      <ul class="resource-list">
         <ul>
           <li>
             <external-link
@@ -156,7 +156,7 @@
             </external-link>
           </li>
         </ul>
-      </resource-list>
+      </ul>
     </panel-section>
   </div>
 </template>
@@ -170,7 +170,6 @@ import PanelSection from '@shared/components/panel-section.vue';
 import {
   ExternalLink,
   PropertiesList,
-  ResourceList,
   AppTooltip,
   PropertyData
 } from '../components';
@@ -185,7 +184,6 @@ export default {
     ExternalLink,
     PanelSection,
     PropertiesList,
-    ResourceList,
     AppTooltip,
     PropertyData,
     InfoIcon,

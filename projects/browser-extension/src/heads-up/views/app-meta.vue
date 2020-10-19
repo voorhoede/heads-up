@@ -24,13 +24,13 @@
     </panel-section>
 
     <panel-section title="Resources">
-      <resource-list>
+      <ul class="resource-list">
         <li>
           <external-link href="https://htmlhead.dev/">
             Guide to HTML5 <code>&lt;head&gt;</code> elements
           </external-link>
         </li>
-      </resource-list>
+      </ul>
     </panel-section>
   </div>
 </template>
@@ -38,12 +38,12 @@
 <script>
 import { mapState } from 'vuex';
 import PanelSection from '@shared/components/panel-section.vue';
-import { ExternalLink, PropertiesItem, PropertiesList, ResourceList } from '../components';
+import { ExternalLink, PropertiesItem, PropertiesList } from '../components';
 import { findCharset, findMetaContent, findAttrs } from '../lib/find-meta';
 import schema  from '../lib/schemas/app-meta-schema';
 
 export default {
-  components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList },
+  components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList },
   computed: {
     ...mapState([ 'head' ]),
     appMetaData() {

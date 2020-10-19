@@ -5,13 +5,13 @@
     </panel-section>
 
     <panel-section title="Resources">
-      <resource-list>
+      <ul class="resource-list">
         <li>
           <external-link href="https://htmlhead.dev/">
             Guide to HTML5 <code>&lt;head&gt;</code> elements
           </external-link>
         </li>
-      </resource-list>
+      </ul>
     </panel-section>
   </div>
 </template>
@@ -20,10 +20,10 @@
 import { mapState } from 'vuex';
 import PanelSection from '@shared/components/panel-section.vue';
 import CollapsibleList from '@shared/components/collapsible-list.vue';
-import { ExternalLink, ResourceList } from '@/components';
+import { ExternalLink } from '@/components';
 
 export default {
-  components: { CollapsibleList, ExternalLink, PanelSection, ResourceList },
+  components: { CollapsibleList, ExternalLink, PanelSection },
   computed: {
     ...mapState([ 'head' ]),
     linkListData() {

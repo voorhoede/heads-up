@@ -88,7 +88,7 @@
     </panel-section>
 
     <panel-section title="Resources">
-      <resource-list>
+      <ul class="resource-list">
         <li>
           <external-link href="https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards.html">
             About Twitter cards
@@ -104,7 +104,7 @@
             Twitter card validator (requires Twitter login)
           </external-link>
         </li>
-      </resource-list>
+      </ul>
     </panel-section>
   </div>
 </template>
@@ -114,14 +114,14 @@
 import getTheme from '../lib/theme';
 import { mapState } from 'vuex';
 import PanelSection from '@shared/components/panel-section.vue';
-import { ExternalLink, PropertiesList, ResourceList } from '../components';
+import { ExternalLink, PropertiesList } from '../components';
 import { findMetaContent, findMetaProperty } from '../lib/find-meta';
 
 const validCards = [ 'summary', 'summary_large_image', 'app', 'player' ];
 export const supportedCards = [ 'summary', 'summary_large_image' ];
 
 export default {
-  components: { ExternalLink, PanelSection, PropertiesList, ResourceList },
+  components: { ExternalLink, PanelSection, PropertiesList },
   data() {
     return {
       iframeHeight: 'auto',
