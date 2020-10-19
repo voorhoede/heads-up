@@ -12,7 +12,6 @@ export default {
   getMetaForUrl(url) {
     return fetch(BASE_URL + '?url=' + url)
       .then(handleErrors)
-      .then(res => res.json())
-    ;
+      .then(res => res.json());
   },
 };
