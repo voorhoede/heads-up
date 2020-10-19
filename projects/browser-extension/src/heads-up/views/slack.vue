@@ -124,11 +124,12 @@
 </template>
 
 <script>
-import InfoIcon from '@shared/assets/icons/info.svg';
 import { mapState } from 'vuex';
+import InfoIcon from '@shared/assets/icons/info.svg';
+import PanelSection from '@shared/components/panel-section.vue';
+
 import {
   ExternalLink,
-  PanelSection,
   PropertiesList,
   AppTooltip,
   PropertyData

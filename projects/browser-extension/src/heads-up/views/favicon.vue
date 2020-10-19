@@ -42,9 +42,9 @@
 
 <script>
 import { mapState } from 'vuex';
+import PanelSection from '@shared/components/panel-section.vue';
 import {
   ExternalLink,
-  PanelSection,
   PropertiesList,
   ResourceList
 } from '../components';

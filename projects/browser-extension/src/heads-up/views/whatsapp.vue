@@ -162,12 +162,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import InfoIcon from '@shared/assets/icons/info.svg';
 import WarningIcon from '@shared/assets/icons/warning.svg';
-import { mapState } from 'vuex';
+import PanelSection from '@shared/components/panel-section.vue';
+
 import {
   ExternalLink,
-  PanelSection,
   PropertiesList,
   ResourceList,
   AppTooltip,
