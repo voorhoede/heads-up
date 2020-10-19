@@ -6,7 +6,13 @@
       class="collapsible-list__section"
       open
     >
-      <summary><ChevronRightIcon />{{ key }}</summary>
+      <summary>
+        <ChevronRightIcon
+          width="12"
+          height="12"
+        />
+        {{ key }}
+      </summary>
       <ul class="collapsible-list__list">
         <li
           v-for="(item, index) in section"
@@ -27,7 +33,10 @@
             class="collapsible-list__property-table"
           >
             <summary>
-              <ChevronRightIcon />
+              <ChevronRightIcon
+                width="12"
+                height="12"
+              />
               <span class="collapsible-list__attribute-value">
                 <span class="collapsible-list__attribute">{{ item[0][0] }}</span> <span
                   class="collapsible-list__value"
