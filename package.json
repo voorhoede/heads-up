@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "author": "De Voorhoede",
   "license": "MIT",
+  "scripts": {
+    "build:rich-previews": "cd ./projects/rich-previews && npm i && npm run build",
+    "build:browser-extension": "cd ./projects/browser-extension && npm i && npm run build",
+    "build:landing-page": "cd ./projects/landing-page && npm i && npm run build",
+    "build:web-app": "cd ./projects/web-app && npm i && npm run build",
+    "build": "npm-run-all build:**"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/voorhoede/heads-up.git"
@@ -13,6 +20,7 @@
     }
   },
   "devDependencies": {
-    "husky": "^3.1.0"
+    "husky": "^3.1.0",
+    "npm-run-all": "^4.1.5"
   }
 }
