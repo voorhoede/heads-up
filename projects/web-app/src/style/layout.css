@@ -11,8 +11,9 @@ dl dd {
 }
 
 dl dt {
-  justify-content: flex-end;
   display: inline-flex;
+  align-items: flex-end;
+  flex-direction: column;
   width: 150px;
   vertical-align: top;
   color: var(--color-blue);
