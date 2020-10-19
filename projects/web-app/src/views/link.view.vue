@@ -2,6 +2,7 @@
   <panel-section title="Rel">
     <collapsible-list :data="linkListData_mocked" />
   </panel-section>
+
   <panel-section title="Resources">
     <ul class="resource-list">
       <li>
@@ -18,6 +19,7 @@
 import useHead from '@/composables/use-head';
 import PanelSection from '@shared/components/panel-section';
 import CollapsibleList from '@shared/components/collapsible-list';
+import ExternalLink from '@shared/components/external-link.vue';
 
 export default {
   setup() {
@@ -198,6 +200,7 @@ export default {
   components: {
     PanelSection,
     CollapsibleList,
+    ExternalLink,
   },
 };
 </script>

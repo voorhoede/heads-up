@@ -43,10 +43,8 @@
 <script>
 import { mapState } from 'vuex';
 import PanelSection from '@shared/components/panel-section.vue';
-import {
-  ExternalLink,
-  PropertiesList
-} from '../components';
+import ExternalLink from '@shared/components/external-link.vue';
+import { PropertiesList } from '../components';
 import { findFavicons } from '../lib/find-meta';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 

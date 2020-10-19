@@ -58,7 +58,8 @@
 <script>
 import { mapState } from 'vuex';
 import PanelSection from '@shared/components/panel-section.vue';
-import { ExternalLink, PropertiesList } from '../components';
+import ExternalLink from '@shared/components/external-link.vue';
+import { PropertiesList } from '../components';
 
 export default {
   components: { ExternalLink, PanelSection, PropertiesList },

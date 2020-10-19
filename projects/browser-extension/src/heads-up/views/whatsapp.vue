@@ -166,9 +166,9 @@ import { mapState } from 'vuex';
 import InfoIcon from '@shared/assets/icons/info.svg';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 import PanelSection from '@shared/components/panel-section.vue';
+import ExternalLink from '@shared/components/external-link.vue';
 
 import {
-  ExternalLink,
   PropertiesList,
   AppTooltip,
   PropertyData
