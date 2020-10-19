@@ -17,10 +17,10 @@
             </a>
           </li>
           <li>
-            <a href="#" class="app-sidebar__link">
+            <router-link :to="{ name: 'favicon' }" class="app-sidebar__link">
               <img src="@shared/assets/icons/image.svg" width="16" height="16" alt="" />
               <span>Favicon</span>
-            </a>
+            </router-link>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
@@ -101,11 +101,19 @@
         </ul>
       </section>
     </nav>
+    <footer class="app-sidebar__footer">
+      Made with love by <br>
+      <a href="https://www.voorhoede.nl" rel="noopener" target="_blank">
+        De Voorhoede
+      </a>
+    </footer>
   </aside>
 </template>
 
 <style>
 .app-sidebar {
+  display: flex;
+  flex-direction: column;
   flex: 0 0 var(--sidebar-width);
   padding-top: var(--header-height);
   border-right: 1px solid var(--color-gray);
@@ -144,5 +152,12 @@
   font-weight: 500;
   color: var(--color-blue);
   margin-bottom: 0.75rem;
+}
+
+.app-sidebar__footer {
+  margin-top: auto;
+  padding: .75rem 1.5rem;
+  text-align: center;
+  font-size: 0.75rem;
 }
 </style>
