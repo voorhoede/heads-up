@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import Favicon from '@/views/Favicon.vue';
-import Meta from '@/views/Meta.vue';
+import Favicon from '@/views/favicon.vue';
+import Meta from '@/views/meta.vue';
 
 const routes = [
   {
