@@ -4,11 +4,11 @@
     <dl>
       <div v-for="icon in icons" :key="`${icon.url}-key`">
         <dt>
-          <span v-if="icon.sizes">
-            {{ icon.sizes }}
-          </span>
           <span v-if="icon.type">
             {{ icon.type }}
+          </span>
+          <span v-if="icon.sizes">
+            {{ icon.sizes }}
           </span>
         </dt>
         <dd :key="`${icon.href}-value`">
