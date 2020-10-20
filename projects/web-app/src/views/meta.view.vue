@@ -46,40 +46,43 @@ import PropertiesItem from '@shared/components/properties-item.vue';
 
 export default {
   setup: () => {
-    const headData = useHead().data.value;
-    const appMetaData = computed(() => [
-      {
-        keyName: 'title',
-        title: 'title',
-        value: headData.head.general.title,
-      },
-      {
-        keyName: 'lang',
-        title: 'language',
-        value: headData.head.general.lang,
-      },
-      // {
-      //   keyName: 'charset',
-      //   title: 'charset',
-      //   value: findCharset(head),
-      //   attrs: findAttrs(head, 'charset') || findAttrs(head, 'http-equiv'),
-      // },
-      // {
-      //   keyName: 'viewport',
-      //   title: 'viewport',
-      //   value: findMetaContent(head, 'viewport'),
-      // },
-      // {
-      //   keyName: 'description',
-      //   title: 'description',
-      //   value: findMetaContent(head, 'description'),
-      // },
-      // {
-      //   keyName: 'theme-color',
-      //   title: 'theme-color',
-      //   value: findMetaContent(head, 'theme-color'),
-      // },
-    ]);
+    const headData = useHead().data;
+    const appMetaData = computed(() => {
+      const { head } = headData.value;
+      return [
+        {
+          keyName: 'title',
+          title: 'title',
+          value: head.general.title,
+        },
+        {
+          keyName: 'lang',
+          title: 'language',
+          value: head.general.lang,
+        },
+        // {
+        //   keyName: 'charset',
+        //   title: 'charset',
+        //   value: findCharset(head),
+        //   attrs: findAttrs(head, 'charset') || findAttrs(head, 'http-equiv'),
+        // },
+        // {
+        //   keyName: 'viewport',
+        //   title: 'viewport',
+        //   value: findMetaContent(head, 'viewport'),
+        // },
+        // {
+        //   keyName: 'description',
+        //   title: 'description',
+        //   value: findMetaContent(head, 'description'),
+        // },
+        // {
+        //   keyName: 'theme-color',
+        //   title: 'theme-color',
+        //   value: findMetaContent(head, 'theme-color'),
+        // },
+      ]
+    });
 
     return {
       appMetaData,

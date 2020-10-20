@@ -14,7 +14,6 @@ requestData();
 
 // Listen to messages from the background script.
 background.onMessage.addListener(message => {
-  // console.log('received message in panel', message)
   if (!message.action) return;
   if (message.action === actions.CONTENT_CHANGED) {
     requestData();
