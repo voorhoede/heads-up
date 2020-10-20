@@ -4,6 +4,10 @@
   "private": true,
   "main": "api.js",
   "dependencies": {
-    "html-metadata": "^1.7.1"
+    "cheerio": "^1.0.0-rc.3",
+    "node-fetch": "^2.6.1",
+    "robots-txt-parser": "^1.0.1",
+    "tldts": "^5.6.60",
+    "xml-js": "^1.6.11"
   }
 }
