@@ -1,6 +1,5 @@
 import uniqueSchemaValidations from './unique-schema-validations';
 
-// eslint-disable-next-line sonarjs/cognitive-complexity
 export default function validateWarningSchema({ schema, key, value, attrs }) {
   const valueTrimmed = (value && value.length) ? value.trim() : value;
   let warnings = [];
