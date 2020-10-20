@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,9 +31,12 @@
       *    https://www.paulirish.com/2012/box-sizing-border-box-ftw/
       */
     html {
-      -webkit-font-smoothing: antialiased; /* 1 */
-      -moz-osx-font-smoothing: grayscale; /* 1 */
-      box-sizing: border-box; /* 2 */
+      -webkit-font-smoothing: antialiased;
+      /* 1 */
+      -moz-osx-font-smoothing: grayscale;
+      /* 1 */
+      box-sizing: border-box;
+      /* 2 */
     }
 
     /**
@@ -42,7 +46,12 @@
       * classes instead of the headings itself.
       * https://csswizardry.com/2016/02/managing-typography-on-large-apps/
       */
-    h1, h2, h3, h4, h5, h6 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       font-size: 1.2rem;
       font-weight: normal;
     }
@@ -57,11 +66,14 @@
       https://github.com/inuitcss/inuitcss/blob/develop/elements/_elements.images.scss
       https://github.com/mozdevs/cssremedy/blob/master/remedy.css
       */
-    img, video  {
-      display: block; /* 1 */
-      vertical-align: middle;  /* 2 */
-      max-width: 100%; /* 3 */
-      height: auto; /* 4 */
+    img,
+    video {
+      display: block;
+      /* 1 */
+      max-width: 100%;
+      /* 2 */
+      height: auto;
+      /* 3 */
     }
 
     /**
@@ -71,7 +83,10 @@
       * textarea and select do not inherit the font size. This rule normalizes all
       * font sizes.
       */
-    button, input, select, textarea {
+    button,
+    input,
+    select,
+    textarea {
       color: inherit;
       font-family: inherit;
       font-weight: inherit;
@@ -108,76 +123,79 @@
     }
 
     :root {
-      --border-radius: 14px;
       --color-border: #E1E8ED;
       --image-small-size: 85px;
       --image-medium-size: 104px;
       --image-large-size: 124px;
       --base-color: #292F33;
-      --muted-color: #8899A6;
-      --bg-color-hover: #F5F8FA;
+      --muted-color: rgba(0, 0, 0, 0.6);
+      --background-color: #f3f6f8
     }
 
     .-theme-with-dark-background {
       --color-border: rgb(56, 68, 77);
       --base-color: #fff;
-      --bg-color-hover: rgba(255, 255, 255, 0.03);
     }
 
     html {
-      font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Ubuntu,"Helvetica Neue",sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+      overflow: hidden;
     }
 
-    .twitter-preview {
+    .linkedin-preview {
       font-size: 14px;
+      background-color: var(--background-color);
     }
 
-    .twitter-preview__link-container {
-      display: flex;
+    .linkedin-preview__link-container {
+      display: block;
       height: 100%;
-      border-radius: var(--border-radius);
       border: 1px solid var(--color-border);
       text-decoration: none;
       cursor: pointer;
     }
 
-    .twitter-preview__link-container--vertical {
+    .linkedin-preview__link-container--vertical {
       display: block;
     }
 
-    .twitter-preview__ratio  {
+    .linkedin-preview__ratio {
       padding-bottom: 52.356%;
     }
 
-    .twitter-preview__fixed-ratio {
+    .linkedin-preview__fixed-ratio {
       display: block;
       position: relative;
       height: 0;
       overflow: hidden;
     }
 
-    .twitter-preview__fixed-ratio-content {
+    .linkedin-preview__fixed-ratio-content {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       max-width: inherit;
-      border-top-left-radius: var(--border-radius);
-      border-top-right-radius: var(--border-radius);
       object-fit: cover;
     }
 
-    .twitter-preview__image {
+    .linkedin-preview__fixed-ratio-content::before {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 100%;
+      background-color: var(--background-color);
+    }
+
+    .linkedin-preview__image {
       width: 100%;
       height: 100%;
       object-fit: cover;
       max-width: none;
-      border-top-left-radius: var(--border-radius);
-      border-bottom-left-radius: var(--border-radius);
     }
 
-    .twitter-preview__media {
+    .linkedin-preview__media {
       height: 100%;
       flex-grow: 0;
       flex-shrink: 0;
@@ -185,123 +203,87 @@
       border-right: 1px solid var(--color-border);
     }
 
-    .twitter-preview__media--image-fallback {
-      border-top-left-radius: var(--border-radius);
-      border-bottom-left-radius: var(--border-radius);
+    .linkedin-preview__media--image-fallback {
       background-color: var(--color-border);
     }
 
-    .twitter-preview__image-fallback {
+    .linkedin-preview__image-fallback {
       height: 100%;
-      background-image: url('./assets/icons/image-not-found.svg');
+      background-image: url('./assets/image-not-found.svg');
       background-size: 3em;
       background-repeat: no-repeat;
       background-position: center;
     }
 
-    .twitter-preview__content {
+    .linkedin-preview__content {
       position: relative;
       display: flex;
       flex-direction: column;
       justify-content: center;
       padding: 10px;
       overflow: hidden;
-
-      border-radius: 0 0 var(--border-radius) var(--border-radius);
       background-color: transparent;
       transition: background-color 0.15s linear;
     }
 
-    .twitter-preview__link-container:hover .twitter-preview__content {
-      background-color: var(--bg-color-hover);
-    }
-
-    .twitter-preview__title {
-      margin-bottom: 0.35em;
-
-      /* Display on 2 lines and if longer than available space, cut off with '...' */
+    .linkedin-preview__title {
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
-
       font-size: 1em;
       color: var(--base-color);
       font-weight: bold;
     }
 
-    .twitter-preview__description {
-      display: none;
-      margin-bottom: 2px;
-      color: var(--base-color);
-    }
-
-    .twitter-preview__domain {
-      display: flex;
-      align-items: center;
-      margin-top: 0.4em;
-      color: var(--muted-color);
-    }
-
-    .twitter-preview__icon {
-      height: 1.25em;
-      font-size: 13px;
-      fill: currentcolor;
-    }
-
-    .twitter-preview__hostname {
+    .linkedin-preview__hostname {
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
+      color: var(--muted-color);
     }
 
-    @media (min-width: 416px) {
-      .twitter-preview.is-small {
-        height: calc(var(--image-medium-size) + 2px);
-      }
-
-      .twitter-preview__media {
-        flex-basis: calc(var(--image-medium-size) + 1px);
-      }
+    .linkedin-preview__like {
+      display: flex;
+      color: var(--muted-color);
+      font-size: 12px;
+      margin: 8px 16px;
     }
 
-    @media (min-width: 416px) and (max-width: 449px) {
-      .twitter-preview__description {
-        display: block;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
-      }
+    .linkedin-preview__like svg {
+      height: 1.3em;
+      margin-right: 4px;
     }
 
-    @media (min-width: 450px) {
-      .twitter-preview.is-small {
-        height: calc(var(--image-large-size) + 2px);
-      }
-
-      .twitter-preview__media {
-        flex-basis: calc(var(--image-large-size) + 1px);
-      }
-
-      /* Show on 1 line */
-      .twitter-preview__title {
-        display: block;
-        text-overflow: ellipsis;
-        white-space: nowrap
-      }
-
-      /* Display on 2 lines and if longer than available space, cut off with '...' */
-      .twitter-preview__description {
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-      }
+    .linkedin-preview__small {
+      padding: 12px 16px;
+      display: flex;
     }
+
+    .linkedin-preview__small .linkedin-preview__fixed-ratio {
+      min-width: 138px;
+      min-height: 72px;
+      height: auto;
+    }
+
+    .linkedin-preview__small .linkedin-preview__ratio {
+      padding-bottom: 0;
+    }
+
+    .linkedin-preview__like-count {
+      color: var(--base-color);
+    }
+
+    .-theme-with-dark-background.linkedin-preview__like-count {
+      color: var(--base-color);
+    }
+
   </style>
-  <title>Twitter preview</title>
+  <title>linkedin preview</title>
 </head>
+
 <body>
-  <div data-twitter-preview-card></div>
+  <div data-linkedin-preview-card></div>
 </body>
+
 </html>
