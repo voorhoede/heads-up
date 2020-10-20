@@ -15,7 +15,6 @@
 </template>
 
 <script>
-// import { computed } from 'vue';
 import useHead from '@/composables/use-head';
 import PanelSection from '@shared/components/panel-section';
 import CollapsibleList from '@shared/components/collapsible-list';
@@ -24,7 +23,7 @@ import ExternalLink from '@shared/components/external-link.vue';
 export default {
   setup() {
     const headData = useHead().data;
-    console.log(headData.value);
+    return { headData };
   },
 
   computed: {
