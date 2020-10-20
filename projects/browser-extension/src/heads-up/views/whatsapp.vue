@@ -177,7 +177,7 @@ import {
   findMetaContent,
   findMetaProperty,
   findImageDimensions
-} from '../lib/find-meta';
+} from '@shared/lib/find-meta';
 
 export default {
   components: {

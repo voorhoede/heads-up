@@ -140,7 +140,7 @@ import {
   findImageDimensions,
   findFavicons,
   findAdditionSlackData
-} from '../lib/find-meta';
+} from '@shared/lib/find-meta';
 
 export default {
   components: {

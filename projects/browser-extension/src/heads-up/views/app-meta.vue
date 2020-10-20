@@ -42,7 +42,7 @@ import PanelSection from '@shared/components/panel-section.vue';
 import ExternalLink from '@shared/components/external-link.vue';
 import PropertiesList from '@shared/components/properties-list.vue';
 import PropertiesItem from '@shared/components/properties-item.vue';
-import { findCharset, findMetaContent, findAttrs } from '../lib/find-meta';
+import { findCharset, findMetaContent, findAttrs } from '@shared/lib/find-meta';
 import schema  from '@shared/lib/schemas/app-meta-schema';
 
 export default {
