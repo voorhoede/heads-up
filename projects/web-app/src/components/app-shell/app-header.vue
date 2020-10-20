@@ -1,7 +1,7 @@
 <template>
   <header class="app-header">
     <div class="app-header__logo">
-      <img src="@shared/assets/images/logo-with-text.svg" height="32" alt="De Voorhoede">
+      <voorhoede-logo height="32" />
     </div>
     <div class="app-header__search">
       <input-url />
@@ -10,10 +10,12 @@
 </template>
 
 <script>
+import VoorhoedeLogo from '@shared/assets/images/logo-with-text.svg';
 import InputUrl from '@/components/input-url/input-url';
 
 export default {
   components: {
+    VoorhoedeLogo,
     InputUrl,
   },
 };

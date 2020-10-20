@@ -18,7 +18,9 @@
 
 <script>
 import { mapState } from 'vuex';
-import { CollapsibleList, ExternalLink, PanelSection, ResourceList } from '../components';
+import PanelSection from '@shared/components/panel-section.vue';
+import CollapsibleList from '@shared/components/collapsible-list.vue';
+import { ExternalLink, ResourceList } from '@/components';
 
 export default {
   components: { CollapsibleList, ExternalLink, PanelSection, ResourceList },
