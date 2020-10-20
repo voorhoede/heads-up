@@ -8,8 +8,9 @@
     "build": "node scripts/build.js",
     "prestart": "npm run build",
     "start": "run-p start:server watch",
-    "start:server": "serve dist",
-    "watch": "chokidar 'src/**/*.*' --command 'npm run build'"
+    "start:server": "serve dist -l 5050",
+    "watch": "chokidar 'src/**/*.*' --command 'npm run build'",
+    "help": "serve --help"
   },
   "author": "",
   "license": "ISC",
