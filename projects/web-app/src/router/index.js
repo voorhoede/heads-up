@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import Favicon from '@/views/favicon.vue';
-import Meta from '@/views/meta.vue';
+import Meta from '@/views/meta.view.vue';
+import Link from '@/views/link.view.vue';
+import Favicon from '@/views/favicon.view.vue';
 
 const routes = [
   {
@@ -9,14 +10,19 @@ const routes = [
     redirect: '/meta',
   },
   {
-    path: '/favicon',
-    name: 'favicon',
-    component: Favicon,
-  },
-  {
     path: '/meta',
     name: 'meta',
     component: Meta,
+  },
+  {
+    path: '/link',
+    name: 'link',
+    component: Link,
+  },
+  {
+    path: '/favicon',
+    name: 'favicon',
+    component: Favicon,
   },
   {
     path: '/:pathMatch(.*)*',

@@ -1,7 +1,7 @@
-const webpack = require('webpack')
-const { merge } = require('webpack-merge')
-const { VueLoaderPlugin } = require('vue-loader')
-const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+const webpack = require('webpack');
+const { merge } = require('webpack-merge');
+const { VueLoaderPlugin } = require('vue-loader');
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const path = require('path');
 
 module.exports = (config, target = { chrome: 63, firefox: 48 }) => {
@@ -10,13 +10,13 @@ module.exports = (config, target = { chrome: 63, firefox: 48 }) => {
     objectAssign: 'Object.assign',
     transforms: {
       forOf: false,
-      modules: false
-    }
-  }
+      modules: false,
+    },
+  };
 
   const baseConfig = {
     node: {
-      fs: 'empty'
+      fs: 'empty',
     },
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
     module: {
@@ -25,24 +25,24 @@ module.exports = (config, target = { chrome: 63, firefox: 48 }) => {
           test: /\.js$/,
           loader: 'buble-loader',
           exclude: /node_modules|vue\/dist|vuex\/dist/,
-          options: bubleOptions
+          options: bubleOptions,
         },
         {
           test: /\.vue$/,
           loader: 'vue-loader',
           options: {
             compilerOptions: {
-              preserveWhitespace: false
+              preserveWhitespace: false,
             },
-            transpileOptions: bubleOptions
-          }
+            transpileOptions: bubleOptions,
+          },
         },
         {
           test: /\.css$/,
           use: [
             'vue-style-loader',
             'css-loader',
-          ]
+          ],
         },
         {
           test: /\.svg$/,
@@ -59,39 +59,42 @@ module.exports = (config, target = { chrome: 63, firefox: 48 }) => {
               const srcFolder = path.join(process.cwd(), './src');
               const dir = path.dirname(file).substr(srcFolder.length);
               // the dots are required to load the file
-              return `..${dir}/[name].[ext]`;
+              return `..${ dir }/[name].[ext]`;
             },
             limit: 0,
-          }
+          },
         },
 
         {
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
-          exclude: /node_modules/
+          exclude: /node_modules/,
+          options: {
+            configFile: path.join(__dirname, '../.eslintrc.js'),
+          },
         },
-      ]
+      ],
     },
     performance: {
-      hints: false
+      hints: false,
     },
     plugins: [
       new VueLoaderPlugin(),
       new FriendlyErrorsPlugin(),
       new webpack.DefinePlugin({
         'process.env': {
-          NODE_ENV: process.env.NODE_ENV ? `"${process.env.NODE_ENV}"` : '"development"'
-        }
+          NODE_ENV: process.env.NODE_ENV ? `"${ process.env.NODE_ENV }"` : '"development"',
+        },
       }),
     ],
     stats: {
-      colors: true
-    }
-  }
+      colors: true,
+    },
+  };
 
   if (process.env.NODE_ENV === 'production') {
-    const UglifyPlugin = require('uglifyjs-webpack-plugin')
+    const UglifyPlugin = require('uglifyjs-webpack-plugin');
     baseConfig.optimization = {
       minimizer: [
         new UglifyPlugin({
@@ -126,19 +129,19 @@ module.exports = (config, target = { chrome: 63, firefox: 48 }) => {
               // required features to drop conditional branches
               conditionals: true,
               dead_code: true,
-              evaluate: true
+              evaluate: true,
             },
             mangle: {
-              safari10: true
-            }
+              safari10: true,
+            },
           },
           sourceMap: false,
           cache: true,
-          parallel: true
-        })
-      ]
-    }
+          parallel: true,
+        }),
+      ],
+    };
   }
 
-  return merge(baseConfig, config)
-}
+  return merge(baseConfig, config);
+};

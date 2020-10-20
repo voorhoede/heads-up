@@ -11,10 +11,10 @@
             </router-link>
           </li>
           <li>
-            <a href="#" class="app-sidebar__link">
+            <router-link :to="{ name: 'link' }" class="app-sidebar__link">
               <img src="@shared/assets/icons/link.svg" width="16" height="16" alt="" />
               <span>Link</span>
-            </a>
+            </router-link>
           </li>
           <li>
             <router-link :to="{ name: 'favicon' }" class="app-sidebar__link">

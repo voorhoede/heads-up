@@ -79,7 +79,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components';
+import PanelSection from '@shared/components/panel-section.vue';
+import { ExternalLink, PropertiesList, ResourceList } from '../components';
 import { findMetaContent } from '../lib/find-meta';
 
 export default {

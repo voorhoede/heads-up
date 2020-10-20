@@ -113,7 +113,8 @@
 <script>
 import getTheme from '../lib/theme';
 import { mapState } from 'vuex';
-import { ExternalLink, PanelSection, PropertiesList, ResourceList } from '../components';
+import PanelSection from '@shared/components/panel-section.vue';
+import { ExternalLink, PropertiesList, ResourceList } from '../components';
 import { findMetaContent, findMetaProperty } from '../lib/find-meta';
 
 const validCards = [ 'summary', 'summary_large_image', 'app', 'player' ];

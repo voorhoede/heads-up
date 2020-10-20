@@ -94,7 +94,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList } from '../components';
+import PanelSection from '@shared/components/panel-section.vue';
+import { ExternalLink, PropertiesItem, PropertiesList, ResourceList } from '../components';
 import getTheme from '../lib/theme';
 import { findLinkHref, findXMLElement } from '../lib/find-meta';
 import schema  from '../lib/schemas/opensearch-schema';

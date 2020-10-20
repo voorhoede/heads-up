@@ -12,6 +12,7 @@
     "prebuild": "rimraf ./dist && mkdir -p ./dist/previews && cp -R ../rich-previews/dist/** ./dist/previews",
     "build-netlify": "npm run prebuild-netlify && npm run build",
     "build": "cross-env NODE_ENV=production webpack --progress",
+    "start": "npm run dev",
     "devtools": "vue-devtools",
     "lint": "eslint --ext .js,.vue src",
     "lint:fix": "npm run lint -- --fix",

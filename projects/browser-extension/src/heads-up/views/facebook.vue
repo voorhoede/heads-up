@@ -158,9 +158,9 @@
 import InfoIcon from '@shared/assets/icons/info.svg';
 import { mapState } from 'vuex';
 import getTheme from '../lib/theme';
+import PanelSection from '@shared/components/panel-section.vue';
 import {
   ExternalLink,
-  PanelSection,
   PropertiesList,
   SwitchButtons,
   AppTooltip,

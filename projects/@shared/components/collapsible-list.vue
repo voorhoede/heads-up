@@ -6,7 +6,13 @@
       class="collapsible-list__section"
       open
     >
-      <summary><ChevronRightIcon />{{ key }}</summary>
+      <summary>
+        <chevron-right-icon
+          width="12"
+          height="12"
+        />
+        {{ key }}
+      </summary>
       <ul class="collapsible-list__list">
         <li
           v-for="(item, index) in section"
@@ -27,7 +33,10 @@
             class="collapsible-list__property-table"
           >
             <summary>
-              <ChevronRightIcon />
+              <chevron-right-icon
+                width="12"
+                height="12"
+              />
               <span class="collapsible-list__attribute-value">
                 <span class="collapsible-list__attribute">{{ item[0][0] }}</span> <span
                   class="collapsible-list__value"
@@ -38,10 +47,12 @@
 
             <dl class="collapsible-list__table-row collapsible-list__attribute-value">
               <template v-for="(row, rowIndex) in item">
-                <template v-for="(column, i) in row">
+                <div
+                  v-for="(column, i) in row"
+                  :key="`${row}${column}`"
+                >
                   <component
                     :is="i === 0 ? 'dt' : 'dd'"
-                    :key="`${row}${column}`"
                     :class="{
                       'collapsible-list__attribute': i === 0,
                       'collapsible-list__value': i === 1
@@ -51,7 +62,7 @@
                   >
                     {{ column }}
                   </component>
-                </template>
+                </div>
               </template>
             </dl>
           </details>
