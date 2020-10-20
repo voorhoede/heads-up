@@ -102,13 +102,12 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
 import validateErrorSchema from '../lib/validate-error-schema';
 import validateWarningSchema from '../lib/validate-warning-schema';
-import ExternalLink from '@shared/components/external-link.vue';
-import { AppTooltip } from '../components';
-import InfoIcon from '@shared/assets/icons/info.svg';
-import WarningIcon from '@shared/assets/icons/warning.svg';
+import ExternalLink from './external-link.vue';
+import AppTooltip from './app-tooltip.vue';
+import InfoIcon from '../assets/icons/info.svg';
+import WarningIcon from '../assets/icons/warning.svg';
 
 export default {
   components: { AppTooltip, ExternalLink, InfoIcon, WarningIcon },
@@ -136,6 +135,10 @@ export default {
       required: false,
       default: undefined,
     },
+    headData: {
+      type: Object,
+      required: true,
+    },
   },
   data() {
     return {
@@ -147,7 +150,6 @@ export default {
     };
   },
   computed: {
-    ...mapState([ 'head' ]),
     errorMessage() {
       if (this.errors && this.errors.length > 0) {
         return this.errors[0].message;
@@ -177,7 +179,7 @@ export default {
     },
   },
   watch:{
-    'head'() {
+    headData() {
       this.validateSchema();
     },
   },

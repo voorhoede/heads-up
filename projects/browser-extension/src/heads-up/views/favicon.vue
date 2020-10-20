@@ -44,7 +44,7 @@
 import { mapState } from 'vuex';
 import PanelSection from '@shared/components/panel-section.vue';
 import ExternalLink from '@shared/components/external-link.vue';
-import { PropertiesList } from '../components';
+import PropertiesList from '@shared/components/properties-list.vue';
 import { findFavicons } from '../lib/find-meta';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 

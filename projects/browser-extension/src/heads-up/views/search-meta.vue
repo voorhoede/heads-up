@@ -8,6 +8,7 @@
           :value="item.value"
           :key-name="item.keyName"
           :schema="schema"
+          :head-data="head"
         >
           <template #default>
             {{ item.title }}
@@ -37,7 +38,8 @@
 import { mapState } from 'vuex';
 import PanelSection from '@shared/components/panel-section.vue';
 import ExternalLink from '@shared/components/external-link.vue';
-import { PropertiesItem, PropertiesList } from '../components';
+import PropertiesList from '@shared/components/properties-list.vue';
+import PropertiesItem from '@shared/components/properties-item.vue';
 import { findLinkHref, findMetaContent } from '../lib/find-meta';
 import schema from '../lib/schemas/search-meta-schema';
 

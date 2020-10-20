@@ -102,15 +102,16 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import getTheme from '@shared/lib/theme';
 import InfoIcon from '@shared/assets/icons/info.svg';
 import WarningIcon from '@shared/assets/icons/warning.svg';
-import { mapState } from 'vuex';
-import getTheme from '../lib/theme';
 import PanelSection from '@shared/components/panel-section.vue';
 import ExternalLink from '@shared/components/external-link.vue';
+import PropertiesList from '@shared/components/properties-list.vue';
+import AppTooltip from '@shared/components/app-tooltip.vue';
+
 import {
-  PropertiesList,
-  AppTooltip,
   PropertyData
 } from '../components';
 

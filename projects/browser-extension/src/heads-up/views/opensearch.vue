@@ -34,6 +34,7 @@
           :value="item.keyName !== 'urls' && item.keyName !== 'image' ? item.value : null"
           :key-name="item.keyName"
           :schema="schema"
+          :head-data="head"
         >
           <template #default>
             {{ item.title }}
@@ -94,12 +95,13 @@
 
 <script>
 import { mapState } from 'vuex';
-import PanelSection from '@shared/components/panel-section.vue';
-import ExternalLink from '@shared/components/external-link.vue';
-import { PropertiesItem, PropertiesList } from '../components';
-import getTheme from '../lib/theme';
+import getTheme from '@shared/lib/theme';
 import { findLinkHref, findXMLElement } from '../lib/find-meta';
 import schema  from '../lib/schemas/opensearch-schema';
+import PanelSection from '@shared/components/panel-section.vue';
+import ExternalLink from '@shared/components/external-link.vue';
+import PropertiesList from '@shared/components/properties-list.vue';
+import PropertiesItem from '@shared/components/properties-item.vue';
 
 export default {
   components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList },
@@ -131,7 +133,7 @@ export default {
       return findLinkHref(this.head, 'search');
     },
     fileUrl() {
-      return this.metaTagValue.startsWith('/')
+      return this.metaTagValue && this.metaTagValue.startsWith('/')
         ? `https://${ this.head.domain }${ this.metaTagValue }`
         : this.metaTagValue;
     },

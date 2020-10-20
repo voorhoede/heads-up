@@ -128,10 +128,10 @@ import { mapState } from 'vuex';
 import InfoIcon from '@shared/assets/icons/info.svg';
 import PanelSection from '@shared/components/panel-section.vue';
 import ExternalLink from '@shared/components/external-link.vue';
+import PropertiesList from '@shared/components/properties-list.vue';
+import AppTooltip from '@shared/components/app-tooltip.vue';
 
 import {
-  PropertiesList,
-  AppTooltip,
   PropertyData
 } from '../components';
 import {
