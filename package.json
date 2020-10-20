@@ -9,6 +9,9 @@
     "build:browser-extension": "cd ./projects/browser-extension && npm run build",
     "build:landing-page": "cd ./projects/landing-page && npm run build",
     "build:web-app": "cd ./projects/web-app && npm run build",
+    "dev:browser-extension": "cd ./projects/browser-extension && npm start",
+    "dev:landing-page": "cd ./projects/landing-page && npm start",
+    "dev:web-app": "cd ./projects/web-app && npm start",
     "build": "npm-run-all build:**"
   },
   "repository": {
