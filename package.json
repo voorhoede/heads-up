@@ -4,10 +4,11 @@
   "author": "De Voorhoede",
   "license": "MIT",
   "scripts": {
-    "build:rich-previews": "cd ./projects/rich-previews && npm i && npm run build",
-    "build:browser-extension": "cd ./projects/browser-extension && npm i && npm run build",
-    "build:landing-page": "cd ./projects/landing-page && npm i && npm run build",
-    "build:web-app": "cd ./projects/web-app && npm i && npm run build",
+    "postinstall": "npm-recursive-install --rootDir=projects",
+    "build:rich-previews": "cd ./projects/rich-previews && npm run build",
+    "build:browser-extension": "cd ./projects/browser-extension && npm run build",
+    "build:landing-page": "cd ./projects/landing-page && npm run build",
+    "build:web-app": "cd ./projects/web-app && npm run build",
     "build": "npm-run-all build:**"
   },
   "repository": {
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "husky": "^3.1.0",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "recursive-install": "^1.4.0"
   }
 }

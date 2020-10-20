@@ -3,7 +3,6 @@ const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  node: { fs: 'empty' },
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   entry: {
     'facebook-desktop/facebook-desktop': './src/facebook-desktop/facebook-desktop.js',
