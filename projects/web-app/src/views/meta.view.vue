@@ -53,12 +53,12 @@ export default {
         {
           keyName: 'title',
           title: 'title',
-          value: head.general.title,
+          value: head.title,
         },
         {
           keyName: 'lang',
           title: 'language',
-          value: head.general.lang,
+          value: head.lang,
         },
         // {
         //   keyName: 'charset',
