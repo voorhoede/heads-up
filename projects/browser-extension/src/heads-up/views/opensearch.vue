@@ -34,7 +34,7 @@
           :value="item.keyName !== 'urls' && item.keyName !== 'image' ? item.value : null"
           :key-name="item.keyName"
           :schema="schema"
-          :head-data="head"
+          :refresh-on="opensearchData"
         >
           <template #default>
             {{ item.title }}

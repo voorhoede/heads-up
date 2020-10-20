@@ -2,7 +2,12 @@ module.exports = {
   root: true,
 
   env: {
+    browser: true,
     node: true,
+  },
+
+  globals: {
+    chrome: true,
   },
 
   parserOptions: {

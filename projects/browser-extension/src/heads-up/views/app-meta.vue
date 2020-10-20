@@ -9,7 +9,7 @@
           :key-name="item.keyName"
           :attrs="item.attrs"
           :schema="schema"
-          :head-data="head"
+          :refresh-on="appMetaData"
         >
           <template #default>
             {{ item.title }}
@@ -43,7 +43,7 @@ import ExternalLink from '@shared/components/external-link.vue';
 import PropertiesList from '@shared/components/properties-list.vue';
 import PropertiesItem from '@shared/components/properties-item.vue';
 import { findCharset, findMetaContent, findAttrs } from '../lib/find-meta';
-import schema  from '../lib/schemas/app-meta-schema';
+import schema  from '@shared/lib/schemas/app-meta-schema';
 
 export default {
   components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList },

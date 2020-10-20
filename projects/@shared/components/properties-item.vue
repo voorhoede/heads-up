@@ -135,8 +135,8 @@ export default {
       required: false,
       default: undefined,
     },
-    headData: {
-      type: Object,
+    refreshOn: {
+      type: Array,
       required: true,
     },
   },
@@ -179,7 +179,7 @@ export default {
     },
   },
   watch:{
-    headData() {
+    refreshOn() {
       this.validateSchema();
     },
   },

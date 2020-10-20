@@ -1,5 +1,6 @@
 <template>
   <v-popover
+    v-if="!IS_WEB_APP"
     trigger="hover"
     :placement="placement"
     :delay="{ show: 500 }"
@@ -9,15 +10,18 @@
   >
     <slot />
 
-    <span slot="popover">
+    <template #[slotname]>
       <slot name="info" />
       <slot name="link" />
-    </span>
+    </template>
   </v-popover>
 </template>
 
 <script>
 import getTheme from '../lib/theme';
+// @TEMPORARY :: Turn off tooltips until both apps are in Vue3
+// and we can use the updated v-tooltip package
+const IS_WEB_APP = process.env.VUE_APP_IS_WEB_APP === 'true';
 
 export default {
   props: {
@@ -26,6 +30,10 @@ export default {
       default: 'top-end',
     },
   },
+  data: () => ({
+    slotname: 'popover',
+    IS_WEB_APP,
+  }),
   computed: {
     themeClass() {
       /**

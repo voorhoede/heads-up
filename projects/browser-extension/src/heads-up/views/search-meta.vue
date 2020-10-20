@@ -8,7 +8,7 @@
           :value="item.value"
           :key-name="item.keyName"
           :schema="schema"
-          :head-data="head"
+          :refresh-on="searchMetaData"
         >
           <template #default>
             {{ item.title }}
