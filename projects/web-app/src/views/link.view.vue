@@ -2,18 +2,28 @@
   <panel-section title="Rel">
     <collapsible-list :data="linkListData_mocked" />
   </panel-section>
+
+  <panel-section title="Resources">
+    <ul class="resource-list">
+      <li>
+        <external-link href="https://htmlhead.dev/">
+          Guide to HTML5 <code>&lt;head&gt;</code> elements
+        </external-link>
+      </li>
+    </ul>
+  </panel-section>
 </template>
 
 <script>
-// import { computed } from 'vue';
 import useHead from '@/composables/use-head';
 import PanelSection from '@shared/components/panel-section';
 import CollapsibleList from '@shared/components/collapsible-list';
+import ExternalLink from '@shared/components/external-link.vue';
 
 export default {
   setup() {
     const headData = useHead().data;
-    console.log(headData.value);
+    return { headData };
   },
 
   computed: {
@@ -189,6 +199,7 @@ export default {
   components: {
     PanelSection,
     CollapsibleList,
+    ExternalLink,
   },
 };
 </script>

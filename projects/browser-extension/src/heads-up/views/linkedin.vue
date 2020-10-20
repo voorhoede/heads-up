@@ -107,8 +107,8 @@ import WarningIcon from '@shared/assets/icons/warning.svg';
 import { mapState } from 'vuex';
 import getTheme from '../lib/theme';
 import PanelSection from '@shared/components/panel-section.vue';
+import ExternalLink from '@shared/components/external-link.vue';
 import {
-  ExternalLink,
   PropertiesList,
   AppTooltip,
   PropertyData

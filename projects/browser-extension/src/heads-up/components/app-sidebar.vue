@@ -148,7 +148,7 @@
 </template>
 
 <script>
-import ExternalLink from './external-link.vue';
+import ExternalLink from '@shared/components/external-link.vue';
 import AppleIcon from '@shared/assets/icons/apple.svg';
 import CodeIcon from '@shared/assets/icons/code.svg';
 import LinkIcon from '@shared/assets/icons/link.svg';

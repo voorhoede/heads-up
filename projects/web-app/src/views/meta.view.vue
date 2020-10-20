@@ -1,6 +1,5 @@
 <template>
-<section class="content">
-  <div v-if="headData">
+  <panel-section title="Properties">
     <dl>
       <div v-if="title">
         <dt>Title:</dt>
@@ -15,16 +14,24 @@
         <dd>{{ description }}</dd>
       </div>
     </dl>
-  </div>
-  <div v-else class="content-message">
-    <h2>Visualise everything in your &lt;head&gt; with Heads Up.</h2>
-  </div>
-</section>
+  </panel-section>
+
+  <panel-section title="Resources">
+    <ul class="resource-list">
+      <li>
+        <external-link href="https://htmlhead.dev/">
+          Guide to HTML5 <code>&lt;head&gt;</code> elements
+        </external-link>
+      </li>
+    </ul>
+  </panel-section>
 </template>
 
 <script>
 import { computed } from 'vue';
 import useHead from '@/composables/use-head';
+import PanelSection from '@shared/components/panel-section';
+import ExternalLink from '@shared/components/external-link.vue';
 
 export default {
   setup: () => {
@@ -39,6 +46,11 @@ export default {
       lang,
       description,
     };
+  },
+
+  components: {
+    PanelSection,
+    ExternalLink,
   },
 };
 </script>
