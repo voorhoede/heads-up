@@ -2,13 +2,13 @@
   <panel-section title="Properties">
     <properties-list>
       <properties-item
-        v-for="item in appMetaData"
+        v-for="item in siteMetadata"
         :key="item.keyName"
         :value="item.value"
         :key-name="item.keyName"
         :attrs="item.attrs"
         :schema="schema"
-        :refresh-on="appMetaData"
+        :refresh-on="siteMetadata"
       >
         <template #default>
           {{ item.title }}
@@ -47,7 +47,7 @@ import PropertiesItem from '@shared/components/properties-item.vue';
 export default {
   setup: () => {
     const headData = useHead().data;
-    const appMetaData = computed(() => {
+    const siteMetadata = computed(() => {
       const { head } = headData.value;
       return [
         {
@@ -60,32 +60,33 @@ export default {
           title: 'language',
           value: head.lang,
         },
-        // {
-        //   keyName: 'charset',
-        //   title: 'charset',
-        //   value: findCharset(head),
-        //   attrs: findAttrs(head, 'charset') || findAttrs(head, 'http-equiv'),
-        // },
-        // {
-        //   keyName: 'viewport',
-        //   title: 'viewport',
-        //   value: findMetaContent(head, 'viewport'),
-        // },
-        // {
-        //   keyName: 'description',
-        //   title: 'description',
-        //   value: findMetaContent(head, 'description'),
-        // },
-        // {
-        //   keyName: 'theme-color',
-        //   title: 'theme-color',
-        //   value: findMetaContent(head, 'theme-color'),
-        // },
-      ]
+        {
+          keyName: 'charset',
+          title: 'charset',
+          value: findCharset(head),
+          attrs: findAttrs(head, 'charset') || findAttrs(head, 'http-equiv'),
+        },
+        {
+          keyName: 'viewport',
+          title: 'viewport',
+          value: findMetaContent(head, 'viewport'),
+        },
+        {
+          keyName: 'description',
+          title: 'description',
+          value: findMetaContent(head, 'description'),
+        },
+        {
+          keyName: 'theme-color',
+          title: 'theme-color',
+          value: findMetaContent(head, 'theme-color'),
+        },
+      ];
     });
 
     return {
-      appMetaData,
+      headData,
+      siteMetadata,
       schema,
     };
   },
