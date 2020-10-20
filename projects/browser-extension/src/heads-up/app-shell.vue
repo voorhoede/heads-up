@@ -7,14 +7,14 @@
 
     <main class="app__panel">
       <template v-if="head && head.url">
-        <header class="section">
-          <h1 class="heading-default heading">
-            {{ $route.meta.title }}
-          </h1>
+        <panel-section
+          is-header
+          :title="$route.meta.title"
+        >
           <external-link :href="head.url">
             {{ head.url }}
           </external-link>
-        </header>
+        </panel-section>
         <router-view />
       </template>
     </main>
@@ -25,12 +25,13 @@
 
 <script>
 import { mapState } from 'vuex';
+import PanelSection from '@shared/components/panel-section.vue';
 import ExternalLink from '@shared/components/external-link.vue';
 import { AppSidebar, RefreshButton } from '@/components';
 import getTheme from '@/lib/theme';
 
 export default {
-  components: { AppSidebar, ExternalLink, RefreshButton },
+  components: { AppSidebar, ExternalLink, PanelSection, RefreshButton },
   computed: {
     ...mapState([ 'head' ]),
     themeClass() {
@@ -63,15 +64,6 @@ export default {
   .app__panel {
     width: calc(100% - var(--sidebar-width));
     margin-left: var(--sidebar-width);
-  }
-
-  .section {
-    padding: 16px;
-    border-bottom: 1px solid var(--divider-color);
-  }
-
-  .section:last-child {
-    border-bottom: none;
   }
 
   .heading {
