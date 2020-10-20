@@ -1,13 +1,13 @@
 module.exports = {
-  plugins: [ 'sonarjs' ],
+  // plugins: [ 'sonarjs' ],
 
   extends: [
     'plugin:vue/recommended',
-    'plugin:sonarjs/recommended',
+    // 'plugin:sonarjs/recommended',
   ],
 
   rules: {
-    'sonarjs/no-duplicate-string': 0,
+    // 'sonarjs/no-duplicate-string': 0,
     'vue/no-v-html': 'off',
   },
 };
