@@ -1,19 +1,5 @@
 <template>
   <panel-section title="Properties">
-    <dl>
-      <div v-if="title">
-        <dt>Title:</dt>
-        <dd>{{ title }}</dd>
-      </div>
-      <div v-if="lang">
-        <dt>Language:</dt>
-        <dd>{{ lang }}</dd>
-      </div>
-      <div v-if="description">
-        <dt>Description:</dt>
-        <dd>{{ description }}</dd>
-      </div>
-    </dl>
     <properties-list>
       <properties-item
         v-for="item in appMetaData"
@@ -52,6 +38,7 @@
 import { computed } from 'vue';
 import useHead from '@/composables/use-head';
 import schema  from '@shared/lib/schemas/app-meta-schema';
+import { findCharset, findMetaContent, findAttrs } from '@shared/lib/find-meta';
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link.vue';
 import PropertiesList from '@shared/components/properties-list.vue';
@@ -59,18 +46,18 @@ import PropertiesItem from '@shared/components/properties-item.vue';
 
 export default {
   setup: () => {
-    const headData = useHead().data;
+    const headData = useHead().data.value;
     const appMetaData = computed(() => [
       {
         keyName: 'title',
         title: 'title',
-        value: 'head.title',
+        value: headData.head.general.title,
       },
-      // {
-      //   keyName: 'lang',
-      //   title: 'language',
-      //   value: head.lang,
-      // },
+      {
+        keyName: 'lang',
+        title: 'language',
+        value: headData.head.general.lang,
+      },
       // {
       //   keyName: 'charset',
       //   title: 'charset',
@@ -94,18 +81,7 @@ export default {
       // },
     ]);
 
-    // OLD
-    const title = computed(() => (headData?.value?.general?.title));
-    const lang = computed(() => (headData?.value?.general?.lang));
-    const description = computed(() => (headData?.value?.general?.description));
-
     return {
-      headData,
-
-      title,
-      lang,
-      description,
-
       appMetaData,
       schema,
     };

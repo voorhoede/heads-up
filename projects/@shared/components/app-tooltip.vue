@@ -15,6 +15,9 @@
       <slot name="link" />
     </template>
   </v-popover>
+  <div v-else>
+    <slot />
+  </div>
 </template>
 
 <script>
