@@ -17,7 +17,7 @@
     </panel-section>
 
     <panel-section title="Resources">
-      <resource-list>
+      <ul class="resource-list">
         <li>
           <external-link href="https://htmlhead.dev/#meta">
             Guide to HTML5 <code>&lt;head&gt;</code> elements
@@ -28,7 +28,7 @@
             Special tags that Google understands
           </external-link>
         </li>
-      </resource-list>
+      </ul>
     </panel-section>
   </div>
 </template>
@@ -36,12 +36,13 @@
 <script>
 import { mapState } from 'vuex';
 import PanelSection from '@shared/components/panel-section.vue';
-import { ExternalLink, PropertiesItem, PropertiesList, ResourceList } from '../components';
+import ExternalLink from '@shared/components/external-link.vue';
+import { PropertiesItem, PropertiesList } from '../components';
 import { findLinkHref, findMetaContent } from '../lib/find-meta';
 import schema from '../lib/schemas/search-meta-schema';
 
 export default {
-  components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList },
+  components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList },
   computed: {
     ...mapState([ 'head' ]),
     searchMetaData() {

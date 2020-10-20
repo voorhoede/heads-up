@@ -34,7 +34,7 @@
       </properties-list>
     </panel-section>
     <panel-section title="Resources">
-      <resource-list>
+      <ul class="resource-list">
         <li>
           <external-link href="https://www.robotstxt.org/robotstxt.html">
             About robots.txt
@@ -50,7 +50,7 @@
             Robots.txt specification by Yandex
           </external-link>
         </li>
-      </resource-list>
+      </ul>
     </panel-section>
   </div>
 </template>
@@ -58,10 +58,11 @@
 <script>
 import { mapState } from 'vuex';
 import PanelSection from '@shared/components/panel-section.vue';
-import { ExternalLink, PropertiesList, ResourceList } from '../components';
+import ExternalLink from '@shared/components/external-link.vue';
+import { PropertiesList } from '../components';
 
 export default {
-  components: { ExternalLink, PanelSection, PropertiesList, ResourceList },
+  components: { ExternalLink, PanelSection, PropertiesList },
   computed: {
     ...mapState([ 'head', 'robots', 'urlIsCrawlable' ]),
   },

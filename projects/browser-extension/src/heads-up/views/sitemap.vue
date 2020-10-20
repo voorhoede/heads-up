@@ -13,7 +13,7 @@
       </p>
     </panel-section>
     <panel-section title="Resources">
-      <resource-list>
+      <ul class="resource-list">
         <li>
           <external-link href="https://www.sitemaps.org/">
             Sitemaps.org
@@ -24,7 +24,7 @@
             Build and submit a sitemap - Google Support
           </external-link>
         </li>
-      </resource-list>
+      </ul>
     </panel-section>
   </div>
 </template>
@@ -32,10 +32,10 @@
 <script>
 import { mapState } from 'vuex';
 import PanelSection from '@shared/components/panel-section.vue';
-import { ExternalLink, ResourceList } from '../components';
+import ExternalLink from '@shared/components/external-link.vue';
 
 export default {
-  components: { ExternalLink, PanelSection, ResourceList },
+  components: { ExternalLink, PanelSection },
   computed: {
     ...mapState([ 'head', 'sitemap' ]),
     sitemapUrl() {

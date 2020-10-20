@@ -81,13 +81,13 @@
     </panel-section>
 
     <panel-section title="Resources">
-      <resource-list>
+      <ul class="resource-list">
         <li>
           <external-link href="https://developer.mozilla.org/en-US/docs/Web/OpenSearch">
             MDN web docs: OpenSearch description format
           </external-link>
         </li>
-      </resource-list>
+      </ul>
     </panel-section>
   </div>
 </template>
@@ -95,13 +95,14 @@
 <script>
 import { mapState } from 'vuex';
 import PanelSection from '@shared/components/panel-section.vue';
-import { ExternalLink, PropertiesItem, PropertiesList, ResourceList } from '../components';
+import ExternalLink from '@shared/components/external-link.vue';
+import { PropertiesItem, PropertiesList } from '../components';
 import getTheme from '../lib/theme';
 import { findLinkHref, findXMLElement } from '../lib/find-meta';
 import schema  from '../lib/schemas/opensearch-schema';
 
 export default {
-  components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList, ResourceList },
+  components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList },
   data() {
     return {
       fileContent: '',

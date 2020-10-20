@@ -103,12 +103,22 @@
     </nav>
     <footer class="app-sidebar__footer">
       Made with love by <br>
-      <a href="https://www.voorhoede.nl" rel="noopener" target="_blank">
+      <external-link  href="https://www.voorhoede.nl">
         De Voorhoede
-      </a>
+      </external-link>
     </footer>
   </aside>
 </template>
+
+<script>
+import ExternalLink from '@shared/components/external-link.vue';
+
+export default {
+  components: {
+    ExternalLink,
+  },
+};
+</script>
 
 <style>
 .app-sidebar {
