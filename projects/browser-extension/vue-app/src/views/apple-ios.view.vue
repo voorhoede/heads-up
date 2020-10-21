@@ -49,7 +49,6 @@
         >
           <dt>
             {{ image.filename }}
-            {{ image.filename }}
             <div v-if="image.sizes">
               {{ image.sizes }}
             </div>

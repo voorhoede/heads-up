@@ -6,43 +6,43 @@
         <ul class="app-sidebar__list">
           <li>
             <router-link :to="{ name: 'meta' }" class="app-sidebar__link">
-              <img src="@shared/assets/icons/code.svg" width="16" height="16" alt="" />
+              <CodeIcon />
               <span>Meta</span>
             </router-link>
           </li>
           <li>
             <router-link :to="{ name: 'link' }" class="app-sidebar__link">
-              <img src="@shared/assets/icons/link.svg" width="16" height="16" alt="" />
+              <LinkIcon />
               <span>Link</span>
             </router-link>
           </li>
           <li>
             <router-link :to="{ name: 'favicon' }" class="app-sidebar__link">
-              <img src="@shared/assets/icons/image.svg" width="16" height="16" alt="" />
+              <ImageIcon />
               <span>Favicon</span>
             </router-link>
           </li>
           <li>
-            <a href="#" class="app-sidebar__link">
-              <img src="@shared/assets/icons/apple.svg" width="16" height="16" alt="" />
+            <router-link :to="{ name: 'apple-ios' }" class="app-sidebar__link">
+              <AppleIcon />
               <span>Apple iOS</span>
-            </a>
+            </router-link>
           </li>
           <li>
-            <a href="#" class="app-sidebar__link">
-              <img src="@shared/assets/icons/open-graph.svg" width="16" height="16" alt="" />
+            <router-link :to="{ name: 'open-graph' }" class="app-sidebar__link">
+              <OpenGraphIcon />
               <span>OpenGraph</span>
-            </a>
+            </router-link>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
-              <img src="@shared/assets/icons/robot.svg" width="16" height="16" alt="" />
+              <RobotIcon />
               <span>Robots.txt</span>
             </a>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
-              <img src="@shared/assets/icons/sitemap.svg" width="16" height="16" alt="" />
+              <SitemapIcon />
               <span>Sitemap</span>
             </a>
           </li>
@@ -53,31 +53,31 @@
         <ul class="app-sidebar__list">
           <li>
             <a href="#" class="app-sidebar__link">
-              <img src="@shared/assets/icons/twitter.svg" width="16" height="16" alt="" />
+              <TwitterIcon />
               <span>Twitter</span>
             </a>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
-              <img src="@shared/assets/icons/whatsapp.svg" width="16" height="16" alt="" />
+              <WhatsappIcon />
               <span>WhatsApp</span>
             </a>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
-              <img src="@shared/assets/icons/linkedin.svg" width="16" height="16" alt="" />
+              <LinkedinIcon />
               <span>LinkedIn</span>
             </a>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
-              <img src="@shared/assets/icons/facebook.svg" width="16" height="16" alt="" />
+              <FacebookIcon />
               <span>Facebook</span>
             </a>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
-              <img src="@shared/assets/icons/slack.svg" width="16" height="16" alt="" />
+              <SlackIcon />
               <span>Slack</span>
             </a>
           </li>
@@ -88,13 +88,13 @@
         <ul class="app-sidebar__list">
           <li>
             <a href="#" class="app-sidebar__link">
-              <img src="@shared/assets/icons/code.svg" width="16" height="16" alt="" />
+              <CodeIcon />
               <span>Search Meta</span>
             </a>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
-              <img src="@shared/assets/icons/search.svg" width="16" height="16" alt="" />
+              <SearchIcon />
               <span>OpenSearch</span>
             </a>
           </li>
@@ -111,11 +111,37 @@
 </template>
 
 <script>
+import AppleIcon from '@shared/assets/icons/apple.svg';
+import CodeIcon from '@shared/assets/icons/code.svg';
 import ExternalLink from '@shared/components/external-link.vue';
+import FacebookIcon from '@shared/assets/icons/facebook.svg';
+import ImageIcon from '@shared/assets/icons/image.svg';
+import LinkIcon from '@shared/assets/icons/link.svg';
+import LinkedinIcon from '@shared/assets/icons/linkedin.svg';
+import OpenGraphIcon from '@shared/assets/icons/open-graph.svg';
+import RobotIcon from '@shared/assets/icons/robot.svg';
+import SearchIcon from '@shared/assets/icons/search.svg';
+import SitemapIcon from '@shared/assets/icons/sitemap.svg';
+import SlackIcon from '@shared/assets/icons/slack.svg';
+import TwitterIcon from '@shared/assets/icons/twitter.svg';
+import WhatsappIcon from '@shared/assets/icons/whatsapp.svg';
 
 export default {
   components: {
+    AppleIcon,
+    CodeIcon,
     ExternalLink,
+    FacebookIcon,
+    ImageIcon,
+    LinkIcon,
+    LinkedinIcon,
+    OpenGraphIcon,
+    RobotIcon,
+    SearchIcon,
+    SitemapIcon,
+    SlackIcon,
+    TwitterIcon,
+    WhatsappIcon,
   },
 };
 </script>
@@ -138,19 +164,28 @@ export default {
   align-items: center;
   text-decoration: none;
   color: var(--color-black);
-  padding: 0.125rem;
-  margin-bottom: 0.5rem;
+  padding: 0.5rem 0.5rem;
+  border-radius: 3px;
+  transition: background-color .15s ease, color .15s ease, fill .15s ease;
+  background-color: rgba(0, 0, 255, 0);
 }
 
 .app-sidebar__link:hover {
-  text-decoration: underline;
   color: var(--color-blue);
+  fill: var(--color-blue);
+  background-color: rgba(0, 0, 255, 0.05);
 }
 
-.app-sidebar__link img {
-  width: 16px;
-  height: 16px;
-  margin-right: 0.5rem;
+.app-sidebar__link.router-link-active {
+  color: var(--color-blue);
+  fill: var(--color-blue);
+  background-color: rgba(0, 0, 255, 0.15);
+}
+
+.app-sidebar__link svg {
+  width: 18px;
+  height: 18px;
+  margin-right: 0.625rem;
 }
 
 .app-sidebar__section {

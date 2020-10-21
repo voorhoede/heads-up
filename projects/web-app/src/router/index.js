@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import Meta from '@/views/meta.view.vue';
-import Link from '@/views/link.view.vue';
+import AppleIos from '@/views/apple-ios.view.vue';
 import Favicon from '@/views/favicon.view.vue';
+import Link from '@/views/link.view.vue';
+import Meta from '@/views/meta.view.vue';
+import Opengraph from '@/views/open-graph.view.vue';
 
 const routes = [
   {
@@ -23,6 +25,16 @@ const routes = [
     path: '/favicon',
     name: 'favicon',
     component: Favicon,
+  },
+  {
+    path: '/apple-ios',
+    name: 'apple-ios',
+    component: AppleIos,
+  },
+  {
+    path: '/open-graph',
+    name: 'open-graph',
+    component: Opengraph,
   },
   {
     path: '/:pathMatch(.*)*',

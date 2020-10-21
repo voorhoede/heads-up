@@ -22,7 +22,6 @@
       </properties-item>
     </properties-list>
   </panel-section>
-
   <panel-section title="Resources">
     <ul class="resource-list">
       <li>
@@ -90,7 +89,6 @@ export default {
       schema,
     };
   },
-
   components: {
     PanelSection,
     ExternalLink,
