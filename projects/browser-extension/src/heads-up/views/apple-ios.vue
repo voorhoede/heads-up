@@ -43,7 +43,6 @@
         <template v-for="image in startupImages">
           <dt :key="`${image.url}-key`">
             {{ image.filename }}
-            {{ image.filename }}
             <div v-if="image.sizes">
               {{ image.sizes }}
             </div>
