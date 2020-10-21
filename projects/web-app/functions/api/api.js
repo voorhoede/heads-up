@@ -1,4 +1,3 @@
-const { parse } = require('tldts');
 const cheerio = require('cheerio');
 const fetch = require('node-fetch');
 const robotsParser = require('robots-txt-parser')({ allowOnNeutral: false });
@@ -37,7 +36,7 @@ async function createHeadResponse(domain, url) {
 }
 
 function createSitemapResponse(domain) {
-  return fetch(`https://${ domain }/sitemap.xml`)
+  return fetch(`${domain}/sitemap.xml`)
     .then(res => res.text())
     .then(text => {
       const json = xmlJs.xml2json(text);
@@ -83,7 +82,7 @@ exports.handler = async function(event) {
   }
 
   try {
-    const { domain } = parse(url);
+    const domain = new URL(url).origin;
     const urlIsCrawlable = await robotsParser.canCrawl(url);
 
     return {

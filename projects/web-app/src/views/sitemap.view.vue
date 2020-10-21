@@ -39,8 +39,7 @@ export default {
     const headData = useHead().data;
     const sitemap = computed(() => headData.value.sitemap);
     const sitemapUrl = computed(() => {
-      const headUrl = headData.value.head.url;
-      return new URL(headUrl).origin + '/sitemap.xml';
+      return headData.value.head.domain + '/sitemap.xml';
     });
 
     return {
