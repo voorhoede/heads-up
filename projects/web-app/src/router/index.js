@@ -4,6 +4,7 @@ import AppleIos from '@/views/apple-ios.view.vue';
 import Favicon from '@/views/favicon.view.vue';
 import Link from '@/views/link.view.vue';
 import Meta from '@/views/meta.view.vue';
+import RobotsTxt from '@/views/robots-txt.view.vue';
 
 const routes = [
   {
@@ -29,6 +30,11 @@ const routes = [
     path: '/apple-ios',
     name: 'apple-ios',
     component: AppleIos,
+  },
+  {
+    path: '/robots-txt',
+    name: 'robots-txt',
+    component: RobotsTxt,
   },
   {
     path: '/:pathMatch(.*)*',
