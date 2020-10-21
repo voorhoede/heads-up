@@ -23,10 +23,10 @@
             </router-link>
           </li>
           <li>
-            <a href="#" class="app-sidebar__link">
+            <router-link :to="{ name: 'apple-ios' }" class="app-sidebar__link">
               <AppleIcon />
               <span>Apple iOS</span>
-            </a>
+            </router-link>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">

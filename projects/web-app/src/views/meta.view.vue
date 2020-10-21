@@ -90,7 +90,6 @@ export default {
       schema,
     };
   },
-
   components: {
     PanelSection,
     ExternalLink,
