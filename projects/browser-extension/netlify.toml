@@ -1,7 +1,6 @@
 [build]
   command = "npm run build-netlify"
   publish = "dist"
-  #ignore = "git diff --quiet HEAD^ HEAD projects/browser-extension/ -- projects/@shared/"
 
 [build.environment]
   CI = "1"
