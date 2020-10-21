@@ -5,6 +5,7 @@ import Favicon from '@/views/favicon.view.vue';
 import Link from '@/views/link.view.vue';
 import Meta from '@/views/meta.view.vue';
 import RobotsTxt from '@/views/robots-txt.view.vue';
+import Opengraph from '@/views/open-graph.view.vue';
 
 const routes = [
   {
@@ -35,6 +36,11 @@ const routes = [
     path: '/robots-txt',
     name: 'robots-txt',
     component: RobotsTxt,
+  },
+  {
+    path: '/open-graph',
+    name: 'open-graph',
+    component: Opengraph,
   },
   {
     path: '/:pathMatch(.*)*',
