@@ -1,10 +1,10 @@
 <template>
   <div class="facebook">
-    <switch-buttons
+    <!-- <switch-buttons
       :buttons="switchButtons"
       :value="mode"
       @change="toggle"
-    />
+    /> -->
 
     <panel-section
       v-if="mode === 'mobile'"
@@ -164,7 +164,7 @@ import PropertiesList from '@shared/components/properties-list.vue';
 import AppTooltip from '@shared/components/app-tooltip.vue';
 
 import {
-  SwitchButtons,
+  // SwitchButtons,
   PropertyData
 } from '../components';
 import {
@@ -178,7 +178,7 @@ export default {
     ExternalLink,
     PanelSection,
     PropertiesList,
-    SwitchButtons,
+    // SwitchButtons,
     AppTooltip,
     InfoIcon,
     PropertyData,
