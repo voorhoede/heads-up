@@ -12,8 +12,10 @@
     "debounce": "^1.2.0"
   },
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "copy-webpack-plugin": "^6.2.1",
     "cross-env": "^7.0.2",
+    "eslint": "^7.11.0",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "html-webpack-plugin": "^4.5.0",
     "npm-run-all": "^4.1.5",
@@ -21,7 +23,6 @@
     "webpack": "^5.1.3",
     "webpack-cli": "^4.1.0"
   },
-  "optionalDependencies": {},
   "scripts": {
     "predev": "npm run prebuild",
     "dev:wrapper": "webpack --watch",
@@ -33,6 +34,7 @@
     "build": "cross-env NODE_ENV=production run-p build:*",
     "prebuild-netlify": "cd ../rich-previews && npm i && npm run build && cd ../browser-extension && npm run prebuild",
     "build-netlify": "npm run prebuild-netlify && npm run build",
-    "start": "npm run dev"
+    "start": "npm run dev",
+    "lint": ""
   }
 }
