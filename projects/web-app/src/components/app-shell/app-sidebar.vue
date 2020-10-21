@@ -41,10 +41,10 @@
             </a>
           </li>
           <li>
-            <a href="#" class="app-sidebar__link">
+            <router-link :to="{ name: 'sitemap' }" class="app-sidebar__link">
               <SitemapIcon />
               <span>Sitemap</span>
-            </a>
+            </router-link>
           </li>
         </ul>
       </section>

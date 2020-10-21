@@ -5,6 +5,7 @@ import Favicon from '@/views/favicon.view.vue';
 import Link from '@/views/link.view.vue';
 import Meta from '@/views/meta.view.vue';
 import Opengraph from '@/views/open-graph.view.vue';
+import Sitemap from '@/views/sitemap.view.vue';
 
 const routes = [
   {
@@ -35,6 +36,11 @@ const routes = [
     path: '/open-graph',
     name: 'open-graph',
     component: Opengraph,
+  },
+  {
+    path: '/sitemap',
+    name: 'sitemap',
+    component: Sitemap,
   },
   {
     path: '/:pathMatch(.*)*',
