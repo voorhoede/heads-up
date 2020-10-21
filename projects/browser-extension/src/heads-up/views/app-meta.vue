@@ -51,7 +51,6 @@ export default {
     ...mapState([ 'head' ]),
     appMetaData() {
       const { head } = this;
-      console.log(head);
       return [
         {
           keyName: 'title',
