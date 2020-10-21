@@ -2,7 +2,6 @@
   <panel-section title="Rel">
     <collapsible-list :data="linkMetadata" />
   </panel-section>
-
   <panel-section title="Resources">
     <ul class="resource-list">
       <li>
@@ -27,7 +26,6 @@ export default {
     const linkMetadata = computed(() => headData.value.head.link);
 
     return {
-      headData,
       linkMetadata,
     };
   },
