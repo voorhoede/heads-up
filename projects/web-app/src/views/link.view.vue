@@ -1,6 +1,6 @@
 <template>
   <panel-section title="Rel">
-    <collapsible-list :data="linkListData_mocked" />
+    <collapsible-list :data="linkMetadata" />
   </panel-section>
 
   <panel-section title="Resources">
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { computed } from 'vue';
 import useHead from '@/composables/use-head';
 import PanelSection from '@shared/components/panel-section';
 import CollapsibleList from '@shared/components/collapsible-list';
@@ -23,7 +24,12 @@ import ExternalLink from '@shared/components/external-link.vue';
 export default {
   setup() {
     const headData = useHead().data;
-    return { headData };
+    const linkMetadata = computed(() => headData.value.head.link);
+
+    return {
+      headData,
+      linkMetadata,
+    };
   },
 
   computed: {
