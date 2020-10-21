@@ -24,6 +24,7 @@
     "webpack-cli": "^4.1.0"
   },
   "scripts": {
+    "postinstall": "cd ./vue-app && npm i",
     "predev": "npm run prebuild",
     "dev:wrapper": "webpack --watch",
     "dev:vue-app": "cd ./vue-app && npm run dev",
