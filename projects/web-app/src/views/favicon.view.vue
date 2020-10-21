@@ -49,7 +49,6 @@ export default {
     const favicons = computed(() => (findFavicons(headData.value.head)));
 
     return {
-      headData,
       favicons,
     };
   },
