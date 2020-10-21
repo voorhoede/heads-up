@@ -77,7 +77,6 @@ import WarningIcon from '@shared/assets/icons/warning.svg';
 export default {
   setup: () => {
     const headData = useHead().data;
-
     const capable = computed(() => metaValue('apple-mobile-web-app-capable'));
     const title = computed(() => metaValue('apple-mobile-web-app-title'));
     const statusBarStyle = computed(() => metaValue('apple-mobile-web-app-status-bar-style'));
