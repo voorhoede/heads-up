@@ -9,6 +9,7 @@
           :key-name="item.keyName"
           :attrs="item.attrs"
           :schema="schema"
+          :refresh-on="appMetaData"
         >
           <template #default>
             {{ item.title }}
@@ -39,9 +40,10 @@
 import { mapState } from 'vuex';
 import PanelSection from '@shared/components/panel-section.vue';
 import ExternalLink from '@shared/components/external-link.vue';
-import { PropertiesItem, PropertiesList } from '../components';
-import { findCharset, findMetaContent, findAttrs } from '../lib/find-meta';
-import schema  from '../lib/schemas/app-meta-schema';
+import PropertiesList from '@shared/components/properties-list.vue';
+import PropertiesItem from '@shared/components/properties-item.vue';
+import { findCharset, findMetaContent, findAttrs } from '@shared/lib/find-meta';
+import schema  from '@shared/lib/schemas/app-meta-schema';
 
 export default {
   components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList },

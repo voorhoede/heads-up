@@ -7,3 +7,8 @@
 [dev]
   command = "npm run serve"
   publish = "src"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

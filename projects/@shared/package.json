@@ -1,0 +1,8 @@
+{
+  "name": "heads-up-shared-resources",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "v-tooltip": "^3.0.0-alpha.13"
+  }
+}

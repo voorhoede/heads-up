@@ -19,7 +19,7 @@ async function createHeadResponse(domain, url) {
       const $ = cheerio.load(dom);
 
       return {
-        title: $('title').text(),
+        title: $('head title').text(),
         lang: $('html').attr('lang'),
         link: $('link').get(),
         meta: $('meta').get(),
@@ -37,7 +37,7 @@ async function createHeadResponse(domain, url) {
 }
 
 function createSitemapResponse(domain) {
-  return fetch(`https://${domain}/sitemap.xml`)
+  return fetch(`https://${ domain }/sitemap.xml`)
     .then(res => res.text())
     .then(text => {
       const json = xmlJs.xml2json(text);

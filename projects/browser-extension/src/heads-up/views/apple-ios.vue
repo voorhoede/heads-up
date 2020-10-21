@@ -81,8 +81,8 @@
 import { mapState } from 'vuex';
 import PanelSection from '@shared/components/panel-section.vue';
 import ExternalLink from '@shared/components/external-link.vue';
-import { PropertiesList } from '../components';
-import { findMetaContent } from '../lib/find-meta';
+import PropertiesList from '@shared/components/properties-list.vue';
+import { findMetaContent } from '@shared/lib/find-meta';
 
 export default {
   components: { ExternalLink, PanelSection, PropertiesList },

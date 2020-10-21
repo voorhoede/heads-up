@@ -1,6 +1,7 @@
 @import './variables.css';
 @import './css-defaults.css';
+
+@import './core.css';
 @import './fonts.css';
-@import './layout.css';
 @import './buttons.css';
 @import './lists.css';

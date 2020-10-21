@@ -9,7 +9,7 @@
       <template v-if="head && head.url">
         <panel-section
           is-header
-          :title="$route.meta.title"
+          :title="$route.meta.title || 'Loading...'"
         >
           <external-link :href="head.url">
             {{ head.url }}
@@ -25,10 +25,10 @@
 
 <script>
 import { mapState } from 'vuex';
+import getTheme from '@shared/lib/theme';
 import PanelSection from '@shared/components/panel-section.vue';
 import ExternalLink from '@shared/components/external-link.vue';
 import { AppSidebar, RefreshButton } from '@/components';
-import getTheme from '@/lib/theme';
 
 export default {
   components: { AppSidebar, ExternalLink, PanelSection, RefreshButton },

@@ -1,5 +1,6 @@
 <template>
-<section class="content">
+<div>This page needs to be re-done</div>
+<!-- <section class="content">
   <div v-if="headData">
     <dl>
       <div v-for="icon in icons" :key="`${icon.url}-key`">
@@ -23,7 +24,7 @@
   <div v-else class="content-message">
     <h2>Visualise everything in your &lt;head&gt; with Heads Up.</h2>
   </div>
-</section>
+</section> -->
 </template>
 
 <script>
