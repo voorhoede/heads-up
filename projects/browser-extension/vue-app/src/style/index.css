@@ -1,0 +1,34 @@
+@import "variables.css";
+@import "css-defaults.css";
+@import "lists.css";
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  font-size: 12px;
+  font-family: '.SFNSDisplay-Regular', 'Helvetica Neue', 'Lucida Grande', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+a {
+  font-weight: normal;
+  color: var(--accent-color);
+  text-decoration: underline;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.-theme-with-dark-background a {
+  --accent-color: var(--base-color);
+}
+
+.info-icon {
+  fill: currentColor;
+}
