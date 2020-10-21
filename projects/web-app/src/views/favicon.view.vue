@@ -4,7 +4,7 @@
     <WarningIcon class="warning-icon" />No favicons detected.
   </p>
   <properties-list v-else>
-    <div v-for="favicon in favicons" :key="`${favicon.url}-key`">
+    <div v-for="favicon in favicons" :key="favicon.url">
       <dt>
         <div v-if="favicon.sizes">
           {{ favicon.sizes }}
@@ -13,12 +13,9 @@
           &nbsp;{{ favicon.type }}
         </div>
       </dt>
-      <dd :key="`${favicon.url}-value`">
+      <dd>
         <external-link :href="favicon.url">
-          <img
-            alt
-            :src="favicon.url"
-          >
+          <img :src="favicon.url" alt="" />
         </external-link>
       </dd>
     </div>
