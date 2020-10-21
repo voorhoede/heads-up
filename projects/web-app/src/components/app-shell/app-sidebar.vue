@@ -29,10 +29,10 @@
             </router-link>
           </li>
           <li>
-            <a href="#" class="app-sidebar__link">
+            <router-link :to="{ name: 'open-graph' }" class="app-sidebar__link">
               <OpenGraphIcon />
               <span>OpenGraph</span>
-            </a>
+            </router-link>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
