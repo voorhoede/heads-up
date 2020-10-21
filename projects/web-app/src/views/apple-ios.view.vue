@@ -9,9 +9,10 @@
     </properties-list>
   </panel-section>
   <panel-section title="Touch icons">
-    <p v-if="!touchIcons.length">
-      No touch icons detected.
-    </p>
+    <div v-if="!touchIcons.length" class="warning-message">
+      <WarningIcon class="icon" />
+      <p>No touch icons detected.</p>
+    </div>
     <properties-list v-else>
       <div v-for="icon in touchIcons" :key="icon.url">
         <dt v-if="icon.sizes">
@@ -26,9 +27,10 @@
     </properties-list>
   </panel-section>
   <panel-section title="Startup images">
-    <p v-if="!startupImages.length">
-      No startup images detected.
-    </p>
+    <div v-if="!startupImages.length" class="warning-message">
+      <WarningIcon class="icon" />
+      <p>No startup images detected.</p>
+    </div>
     <properties-list v-else>
       <div v-for="image in startupImages" :key="image.url">
         <dt>
@@ -70,6 +72,7 @@ import { findMetaContent } from '@shared/lib/find-meta';
 import ExternalLink from '@shared/components/external-link.vue';
 import PanelSection from '@shared/components/panel-section.vue';
 import PropertiesList from '@shared/components/properties-list.vue';
+import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
   setup: () => {
@@ -111,6 +114,7 @@ export default {
     ExternalLink,
     PanelSection,
     PropertiesList,
+    WarningIcon,
   },
 };
 </script>

@@ -1,6 +1,10 @@
 <template>
   <panel-section title="Rel">
-    <collapsible-list :data="linkMetadata" />
+    <div v-if="!linkMetadata.length" class="warning-message">
+      <WarningIcon class="icon" />
+      <p>No link meta properties detected.</p>
+    </div>
+    <collapsible-list v-else :data="linkMetadata" />
   </panel-section>
   <panel-section title="Resources">
     <ul class="resource-list">
@@ -19,6 +23,7 @@ import useHead from '@/composables/use-head';
 import PanelSection from '@shared/components/panel-section';
 import CollapsibleList from '@shared/components/collapsible-list';
 import ExternalLink from '@shared/components/external-link.vue';
+import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
   setup() {
@@ -204,6 +209,7 @@ export default {
     PanelSection,
     CollapsibleList,
     ExternalLink,
+    WarningIcon,
   },
 };
 </script>
