@@ -98,7 +98,6 @@ export default {
     const metaValue = metaName => findMetaContent(headData.value.head, metaName);
 
     return {
-      headData,
       capable,
       title,
       statusBarStyle,
