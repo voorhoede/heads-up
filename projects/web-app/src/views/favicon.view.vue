@@ -1,37 +1,38 @@
 <template>
-<panel-section title="Favicons">
-  <p v-if="!favicons.length">
-    <WarningIcon class="warning-icon" />No favicons detected.
-  </p>
-  <properties-list v-else>
-    <div v-for="favicon in favicons" :key="favicon.url">
-      <dt>
-        <div v-if="favicon.sizes">
-          {{ favicon.sizes }}
-        </div>
-        <div v-if="favicon.type">
-          &nbsp;{{ favicon.type }}
-        </div>
-      </dt>
-      <dd>
-        <external-link :href="favicon.url">
-          <img :src="favicon.url" alt="" />
-        </external-link>
-      </dd>
+  <panel-section title="Favicons">
+    <div v-if="!favicons.length" class="warning-message">
+      <WarningIcon class="icon" />
+      <p>No Open Graph properties detected.</p>
     </div>
-  </properties-list>
-</panel-section>
-<panel-section title="Resources">
-  <ul class="resource-list">
-    <li>
-      <external-link
-        href="https://bitsofco.de/all-about-favicons-and-touch-icons/"
-      >
-        All About Favicons
-      </external-link>
-    </li>
-  </ul>
-</panel-section>
+    <properties-list v-else>
+      <div v-for="favicon in favicons" :key="favicon.url">
+        <dt>
+          <div v-if="favicon.sizes">
+            {{ favicon.sizes }}
+          </div>
+          <div v-if="favicon.type">
+            &nbsp;{{ favicon.type }}
+          </div>
+        </dt>
+        <dd>
+          <external-link :href="favicon.url">
+            <img :src="favicon.url" alt="" />
+          </external-link>
+        </dd>
+      </div>
+    </properties-list>
+  </panel-section>
+  <panel-section title="Resources">
+    <ul class="resource-list">
+      <li>
+        <external-link
+          href="https://bitsofco.de/all-about-favicons-and-touch-icons/"
+        >
+          All About Favicons
+        </external-link>
+      </li>
+    </ul>
+  </panel-section>
 </template>
 
 <script>
