@@ -1,23 +1,16 @@
 <template>
-  <panel-section title="Favicons">
-    <div v-if="!favicons.length" class="warning-message">
+  <panel-section title="Properties">
+    <div v-if="!ogMeta.length" class="warning-message">
       <WarningIcon class="icon" />
       <p>No Open Graph properties detected.</p>
     </div>
     <properties-list v-else>
-      <div v-for="favicon in favicons" :key="favicon.url">
+      <div v-for="meta in ogMeta" :key="meta.property">
         <dt>
-          <div v-if="favicon.sizes">
-            {{ favicon.sizes }}
-          </div>
-          <div v-if="favicon.type">
-            &nbsp;{{ favicon.type }}
-          </div>
+          {{ meta.property }}
         </dt>
         <dd>
-          <external-link :href="favicon.url">
-            <img :src="favicon.url" alt="" />
-          </external-link>
+          {{ meta.content }}
         </dd>
       </div>
     </properties-list>
@@ -25,10 +18,8 @@
   <panel-section title="Resources">
     <ul class="resource-list">
       <li>
-        <external-link
-          href="https://bitsofco.de/all-about-favicons-and-touch-icons/"
-        >
-          All About Favicons
+        <external-link href="https://ogp.me/">
+          The Open Graph Protocol
         </external-link>
       </li>
     </ul>
@@ -38,8 +29,7 @@
 <script>
 import { computed } from 'vue';
 import useHead from '@/composables/use-head';
-import { findFavicons } from '@shared/lib/find-meta';
-import PanelSection from '@shared/components/panel-section';
+import PanelSection from '@shared/components/panel-section.vue';
 import ExternalLink from '@shared/components/external-link.vue';
 import PropertiesList from '@shared/components/properties-list.vue';
 import WarningIcon from '@shared/assets/icons/warning.svg';
@@ -47,15 +37,18 @@ import WarningIcon from '@shared/assets/icons/warning.svg';
 export default {
   setup: () => {
     const headData = useHead().data;
-    const favicons = computed(() => (findFavicons(headData.value.head)));
+    const ogMeta = computed(() => {
+      return headData.value.head.meta
+        .filter(meta => meta.property && meta.property.startsWith('og:'));
+    });
 
     return {
-      favicons,
+      ogMeta,
     };
   },
   components: {
-    PanelSection,
     ExternalLink,
+    PanelSection,
     PropertiesList,
     WarningIcon,
   },
