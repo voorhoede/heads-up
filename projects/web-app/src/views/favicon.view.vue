@@ -1,45 +1,66 @@
 <template>
-<div>This page needs to be re-done</div>
-<!-- <section class="content">
-  <div v-if="headData">
-    <dl>
-      <div v-for="icon in icons" :key="`${icon.url}-key`">
-        <dt>
-          <span v-if="icon.type">
-            {{ icon.type }}
-          </span>
-          <span v-if="icon.sizes">
-            {{ icon.sizes }}
-          </span>
-        </dt>
-        <dd :key="`${icon.href}-value`">
-          <span>{{ icon.href }}</span>
-          <a :href="icon.href">
-            <img :src="`https://www.voorhoede.nl${icon.href}`" alt="">
-          </a>
-        </dd>
-      </div>
-    </dl>
-  </div>
-  <div v-else class="content-message">
-    <h2>Visualise everything in your &lt;head&gt; with Heads Up.</h2>
-  </div>
-</section> -->
+<panel-section title="Favicons">
+  <p v-if="!favicons.length">
+    <WarningIcon class="warning-icon" />No favicons detected.
+  </p>
+  <properties-list v-else>
+    <div v-for="favicon in favicons" :key="`${favicon.url}-key`">
+      <dt>
+        <div v-if="favicon.sizes">
+          {{ favicon.sizes }}
+        </div>
+        <div v-if="favicon.type">
+          &nbsp;{{ favicon.type }}
+        </div>
+      </dt>
+      <dd :key="`${favicon.url}-value`">
+        <external-link :href="favicon.url">
+          <img
+            alt
+            :src="favicon.url"
+          >
+        </external-link>
+      </dd>
+    </div>
+  </properties-list>
+</panel-section>
+<panel-section title="Resources">
+  <ul class="resource-list">
+    <li>
+      <external-link
+        href="https://bitsofco.de/all-about-favicons-and-touch-icons/"
+      >
+        All About Favicons
+      </external-link>
+    </li>
+  </ul>
+</panel-section>
 </template>
 
 <script>
 import { computed } from 'vue';
 import useHead from '@/composables/use-head';
+import { findFavicons } from '@shared/lib/find-meta';
+import PanelSection from '@shared/components/panel-section';
+import ExternalLink from '@shared/components/external-link.vue';
+import PropertiesList from '@shared/components/properties-list.vue';
+import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
   setup: () => {
     const headData = useHead().data;
-    const icons = computed(() => (headData?.value?.general?.icons));
+    const favicons = computed(() => (findFavicons(headData.value.head)));
 
     return {
       headData,
-      icons,
+      favicons,
     };
+  },
+  components: {
+    PanelSection,
+    ExternalLink,
+    PropertiesList,
+    WarningIcon,
   },
 };
 </script>
