@@ -164,19 +164,28 @@ export default {
   align-items: center;
   text-decoration: none;
   color: var(--color-black);
-  padding: 0.125rem;
-  margin-bottom: 0.5rem;
+  padding: 0.5rem 0.5rem;
+  border-radius: 3px;
+  transition: background-color .15s ease, color .15s ease, fill .15s ease;
+  background-color: rgba(0, 0, 255, 0);
 }
 
 .app-sidebar__link:hover {
-  text-decoration: underline;
   color: var(--color-blue);
+  fill: var(--color-blue);
+  background-color: rgba(0, 0, 255, 0.05);
 }
 
-.app-sidebar__link img {
-  width: 16px;
-  height: 16px;
-  margin-right: 0.5rem;
+.app-sidebar__link.router-link-active {
+  color: var(--color-blue);
+  fill: var(--color-blue);
+  background-color: rgba(0, 0, 255, 0.15);
+}
+
+.app-sidebar__link svg {
+  width: 18px;
+  height: 18px;
+  margin-right: 0.625rem;
 }
 
 .app-sidebar__section {
