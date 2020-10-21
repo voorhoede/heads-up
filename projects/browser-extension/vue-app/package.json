@@ -4,16 +4,16 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "start": "npm run serve"
+    "build": "vue-cli-service build --dest '../dist/app'",
+    "dev": "vue-cli-service build --dest '../dist/app' --watch",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "core-js": "^3.6.5",
     "robots-txt-parser": "^1.0.1",
-    "vue": "^3.0.0",
+    "vue": "^3.0.2",
     "vue-router": "^4.0.0-0",
-    "vuex": "^4.0.0-0",
+    "vuex": "^4.0.0-beta.4",
     "xml-js": "^1.6.11"
   },
   "devDependencies": {
