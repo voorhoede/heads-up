@@ -314,6 +314,7 @@ export default {
       }
     },
 
+    // eslint-disable-next-line sonarjs/cognitive-complexity
     $_show () {
       const reference = this.$refs.trigger;
       const popoverNode = this.$refs.popover;

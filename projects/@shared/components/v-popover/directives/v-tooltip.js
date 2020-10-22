@@ -85,6 +85,7 @@ export const defaultOptions = {
   },
 };
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 export function getOptions (options) {
   const result = {
     placement: typeof options.placement !== 'undefined' ? options.placement : directive.options.defaultPlacement,
