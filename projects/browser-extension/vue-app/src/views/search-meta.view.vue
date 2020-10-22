@@ -41,7 +41,7 @@ import ExternalLink from '@shared/components/external-link.vue';
 import PropertiesList from '@shared/components/properties-list.vue';
 import PropertiesItem from '@shared/components/properties-item.vue';
 import { findLinkHref, findMetaContent } from '@shared/lib/find-meta';
-import schema from '../lib/schemas/search-meta-schema';
+import schema from '@shared/lib/schemas/search-meta-schema';
 
 export default {
   components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList },

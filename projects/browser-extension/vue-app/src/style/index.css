@@ -32,3 +32,20 @@ a {
 .info-icon {
   fill: currentColor;
 }
+
+.warning-message {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.warning-message p {
+  margin: 0;
+}
+
+.warning-message .icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 0.5rem;
+  fill: #eac250;
+}

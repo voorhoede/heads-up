@@ -1,16 +1,13 @@
 <template>
   <div>
     <panel-section title="Contents">
-      <code v-if="sitemap">
+      <div v-if="!sitemap" class="warning-message">
+        <WarningIcon class="icon" />
+        <p>No sitemaps were detected.</p>
+      </div>
+      <code v-else>
         <pre>{{ sitemap }}</pre>
       </code>
-      <p v-else>
-        No sitemap.xml file was found at
-        <external-link :href="sitemapUrl">
-          {{ sitemapUrl }}
-        </external-link>
-        .
-      </p>
     </panel-section>
     <panel-section title="Resources">
       <ul class="resource-list">
@@ -33,9 +30,10 @@
 import { mapState } from 'vuex';
 import PanelSection from '@shared/components/panel-section.vue';
 import ExternalLink from '@shared/components/external-link.vue';
+import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
-  components: { ExternalLink, PanelSection },
+  components: { ExternalLink, PanelSection, WarningIcon },
   computed: {
     ...mapState([ 'head', 'sitemap' ]),
     sitemapUrl() {

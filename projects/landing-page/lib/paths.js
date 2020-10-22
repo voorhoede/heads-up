@@ -8,7 +8,11 @@ module.exports = {
     dest: 'dist/scripts'
   },
   assets: {
-    src: 'src/assets/*.*',
+    src: 'src/assets/**/*.*',
+    dest: 'dist/assets'
+  },
+  sharedAssets: {
+    src: __dirname + '/' + '../../@shared/assets/**/*.*',
     dest: 'dist/assets'
   },
   html: {

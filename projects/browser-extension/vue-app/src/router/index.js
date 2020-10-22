@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router';
 
 
 const routes = [
@@ -95,12 +95,12 @@ const routes = [
     component: () => import(/* webpackChunkName:'views/search-meta' */ '@/views/search-meta.view.vue'),
   },
   {
-    path: '/opensearch',
-    name: 'opensearch',
+    path: '/open-search',
+    name: 'open-search',
     meta: {
       title: 'OpenSearch',
     },
-    component: () => import(/* webpackChunkName:'views/open-search' */ '@/views/opensearch.view.vue'),
+    component: () => import(/* webpackChunkName:'views/open-search' */ '@/views/open-search.view.vue'),
   },
   {
     path: '/robots-txt',
@@ -118,11 +118,11 @@ const routes = [
     },
     component: () => import(/* webpackChunkName:'views/sitemap' */ '@/views/sitemap.view.vue'),
   },
-]
+];
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

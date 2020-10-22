@@ -13,10 +13,11 @@
     </panel-section>
 
     <panel-section title="Touch icons">
-      <p v-if="!touchIcons.length">
-        No touch icons detected.
-      </p>
-      <properties-list>
+      <div v-if="!touchIcons.length" class="warning-message">
+        <WarningIcon class="icon" />
+        <p>No touch icons detected.</p>
+      </div>
+      <properties-list v-else>
         <template
           v-for="icon in touchIcons"
           :key="`${icon.url}-key`"
@@ -84,13 +85,14 @@
 
 <script>
 import { mapState } from 'vuex';
+import { findMetaContent } from '@shared/lib/find-meta';
 import PanelSection from '@shared/components/panel-section.vue';
 import ExternalLink from '@shared/components/external-link.vue';
 import PropertiesList from '@shared/components/properties-list.vue';
-import { findMetaContent } from '@shared/lib/find-meta';
+import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
-  components: { ExternalLink, PanelSection, PropertiesList },
+  components: { ExternalLink, PanelSection, PropertiesList, WarningIcon },
   computed: {
     ...mapState([ 'head' ]),
     appCapable() { return this.metaValue('apple-mobile-web-app-capable'); },
