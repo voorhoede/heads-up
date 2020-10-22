@@ -36,12 +36,6 @@
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
-              <RobotIcon />
-              <span>Robots.txt</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="app-sidebar__link">
               <SitemapIcon />
               <span>Sitemap</span>
             </a>
@@ -96,6 +90,12 @@
             <a href="#" class="app-sidebar__link">
               <SearchIcon />
               <span>OpenSearch</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="app-sidebar__link">
+              <RobotIcon />
+              <span>Robots.txt</span>
             </a>
           </li>
         </ul>
