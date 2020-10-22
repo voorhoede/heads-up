@@ -91,7 +91,7 @@ exports.handler = async function(event) {
         {
           urlIsCrawlable,
           head: await createHeadResponse(domain, url),
-          robots: await createRobotsResponse(domain),
+          robots: await createRobotsResponse(url),
           sitemap: await createSitemapResponse(domain),
         }
       ),
