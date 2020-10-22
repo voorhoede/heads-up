@@ -1,10 +1,11 @@
 <template>
   <div>
     <panel-section title="Favicons">
-      <p v-if="!favicons.length">
-        <WarningIcon class="warning-icon" />No favicons detected.
-      </p>
-      <properties-list>
+      <div v-if="!favicons.length" class="warning-message">
+        <WarningIcon class="icon" />
+        <p>No favicons detected.</p>
+      </div>
+      <properties-list v-else>
         <template
           v-for="favicon in favicons"
           :key="`${favicon.url}-key`"
@@ -66,14 +67,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.warning-icon {
-  display: inline-block;
-  width: 1.5em;
-  height: 1.5em;
-  vertical-align: text-top;
-  fill: #eac250;
-  margin-right: 4px;
-}
-</style>

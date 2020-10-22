@@ -48,14 +48,6 @@
         <li class="sidebar-list__item">
           <router-link
             class="sidebar__button"
-            :to="{ name: 'robots-txt' }"
-          >
-            <RobotIcon class="sidebar__icon" />Robots.txt
-          </router-link>
-        </li>
-        <li class="sidebar-list__item">
-          <router-link
-            class="sidebar__button"
             :to="{ name: 'sitemap' }"
           >
             <SitemapIcon class="sidebar__icon" />Sitemap
@@ -128,9 +120,17 @@
         <li class="sidebar-list__item">
           <router-link
             class="sidebar__button"
-            :to="{ name: 'opensearch' }"
+            :to="{ name: 'open-search' }"
           >
             <SearchIcon class="sidebar__icon" />OpenSearch
+          </router-link>
+        </li>
+        <li class="sidebar-list__item">
+          <router-link
+            class="sidebar__button"
+            :to="{ name: 'robots-txt' }"
+          >
+            <RobotIcon class="sidebar__icon" />Robots.txt
           </router-link>
         </li>
       </ul>
