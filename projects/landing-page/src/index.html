@@ -17,12 +17,9 @@
           <span class="header__product-subtitle">Quickly see share previews</span>
         </h1>
         <h2 class="header__product-tagline tagline">Discover how your site will be shown by Google and social media platforms</h2>
-        <!--<p>With our tool you can quickly check your website appereance on different platforms</p>-->
-
-        <form class="header__form" action="/the-web-app" method="post">
+        <form class="header__form" action="https://heads-up-web-app.netlify.app/meta" method="GET">
           <label class="header__form-label">Website url:</label>
-          <input type="text" class="header__form-input" placeholder="https://" />
-
+          <input id="url" name="url" type="url" required class="header__form-input" placeholder="https://" />
           <button class="button header__form-button" href="/" class="header__form-button">Check out your score!</button>
         </form>
       </div>
