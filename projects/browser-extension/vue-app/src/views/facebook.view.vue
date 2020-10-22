@@ -1,13 +1,12 @@
 <template>
   <div class="facebook">
-    <!-- <switch-buttons
-      :buttons="switchButtons"
-      :value="mode"
-      @change="toggle"
-    /> -->
+    <tab-selecter
+      v-model="openTab"
+      :tabs="TABS"
+    />
 
     <panel-section
-      v-if="mode === 'mobile'"
+      v-if="openTab === 'mobile'"
       title="Preview"
     >
       <figure>
@@ -29,7 +28,7 @@
     </panel-section>
 
     <panel-section
-      v-if="mode === 'desktop'"
+      v-if="openTab === 'desktop'"
       title="Preview"
     >
       <figure>
@@ -157,28 +156,34 @@
 <script>
 import { mapState } from 'vuex';
 import getTheme from '@shared/lib/theme';
+import { findMetaContent, findMetaProperty, findImageDimensions } from '@shared/lib/find-meta';
 import InfoIcon from '@shared/assets/icons/info.svg';
+import TabSelecter from '@shared/components/tab-selecter';
 import PanelSection from '@shared/components/panel-section.vue';
 import ExternalLink from '@shared/components/external-link.vue';
 import PropertiesList from '@shared/components/properties-list.vue';
 import AppTooltip from '@shared/components/app-tooltip.vue';
-
 import {
-  // SwitchButtons,
   PropertyData
 } from '../components';
-import {
-  findMetaContent,
-  findMetaProperty,
-  findImageDimensions
-} from '@shared/lib/find-meta';
+
+const TABS = [
+  {
+    label: 'Mobile',
+    value: 'mobile',
+  },
+  {
+    label: 'Desktop',
+    value: 'desktop',
+  },
+];
 
 export default {
   components: {
+    TabSelecter,
     ExternalLink,
     PanelSection,
     PropertiesList,
-    // SwitchButtons,
     AppTooltip,
     InfoIcon,
     PropertyData,
@@ -188,17 +193,8 @@ export default {
       iframeHeight: 'auto',
       imageDimensions: { width: 0, height: 0 },
       imageSpecified: true,
-      switchButtons: [
-        {
-          label: 'Mobile',
-          value: 'mobile',
-        },
-        {
-          label: 'Desktop',
-          value: 'desktop',
-        },
-      ],
-      mode: 'mobile',
+      TABS,
+      openTab: TABS[0].value,
       tooltip: {
         title: {
           exist: null,
@@ -278,7 +274,7 @@ export default {
         this.imageDimensions.height >= 415 && this.imageDimensions.width >= 415
       );
       return `${
-        this.mode === 'desktop'
+        this.openTab === 'desktop'
           ? `/previews/facebook-desktop/facebook-desktop.html?${ params }`
           : `/previews/facebook-mobile/facebook-mobile.html?${ params }`
       }`;
@@ -303,12 +299,6 @@ export default {
       findImageDimensions(this.head, 'og:image').then(imageDimensions => {
         this.imageDimensions = imageDimensions;
         this.setTooltipData(imageDimensions);
-      });
-    },
-    toggle(newMode) {
-      this.mode = newMode;
-      this.previewUrl = this.previewUrl({
-        imageDimensions: this.imageDimensions,
       });
     },
     absoluteUrl(url) {
