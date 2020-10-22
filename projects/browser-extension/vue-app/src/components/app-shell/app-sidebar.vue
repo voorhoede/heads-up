@@ -120,7 +120,7 @@
         <li class="sidebar-list__item">
           <router-link
             class="sidebar__button"
-            :to="{ name: 'opensearch' }"
+            :to="{ name: 'open-search' }"
           >
             <SearchIcon class="sidebar__icon" />OpenSearch
           </router-link>

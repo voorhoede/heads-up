@@ -2,13 +2,13 @@
   <div class="opensearch">
     <panel-section title="Preview">
       <p v-if="!hasOpenSearchFile">
-        This page does not contain a reference to an OpenSearch description file.
+        This page does not contain a reference to an Open Search description file.
       </p>
 
       <figure v-if="hasOpenSearchFile">
         <iframe
           ref="iframe"
-          title="OpenSearch preview"
+          title="Open Search preview"
           :src="previewUrl"
           height="auto"
           width="100%"

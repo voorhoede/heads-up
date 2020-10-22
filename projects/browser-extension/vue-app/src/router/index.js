@@ -95,12 +95,12 @@ const routes = [
     component: () => import(/* webpackChunkName:'views/search-meta' */ '@/views/search-meta.view.vue'),
   },
   {
-    path: '/opensearch',
-    name: 'opensearch',
+    path: '/open-search',
+    name: 'open-search',
     meta: {
       title: 'OpenSearch',
     },
-    component: () => import(/* webpackChunkName:'views/open-search' */ '@/views/opensearch.view.vue'),
+    component: () => import(/* webpackChunkName:'views/open-search' */ '@/views/open-search.view.vue'),
   },
   {
     path: '/robots-txt',
