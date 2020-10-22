@@ -5,10 +5,12 @@
   "scripts": {
     "postinstall": "npm-recursive-install --rootDir=functions --production",
     "serve": "vue-cli-service serve",
+    "dev": "netlify dev",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
+    "prebuild-netlify": "cd ../@shared && npm i",
+    "build-netlify": "npm run build",
     "start": "npm run dev",
-    "dev": "netlify dev"
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "core-js": "^3.6.5",

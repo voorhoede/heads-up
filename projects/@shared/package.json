@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "v-tooltip": "^3.0.0-alpha.13"
+    "lodash": "^4.17.20",
+    "popper.js": "^1.16.1",
+    "vue-resize": "^0.5.0"
   }
 }
