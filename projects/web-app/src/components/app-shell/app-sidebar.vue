@@ -81,10 +81,10 @@
         <h3 class="app-sidebar__section-title">Search</h3>
         <ul class="app-sidebar__list">
           <li>
-            <a href="#" class="app-sidebar__link">
+            <router-link :to="{ name: 'search-meta' }" class="app-sidebar__link">
               <CodeIcon />
               <span>Search Meta</span>
-            </a>
+            </router-link>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
