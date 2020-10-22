@@ -657,7 +657,6 @@ export default {
       }
     },
   },
-  /*eslint-enable */
 };
 
 if (typeof document !== 'undefined' && typeof window !== 'undefined') {

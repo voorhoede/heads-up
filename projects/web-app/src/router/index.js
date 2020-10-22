@@ -7,6 +7,8 @@ import Meta from '@/views/meta.view';
 import Opengraph from '@/views/open-graph.view';
 import SearchMeta from '@/views/search-meta.view';
 import Facebook from '@/views/facebook.view';
+import RobotsTxt from '@/views/robots-txt.view';
+import Sitemap from '@/views/sitemap.view';
 
 const routes = [
   {
@@ -48,6 +50,7 @@ const routes = [
     name: 'facebook',
     component: Facebook,
   },
+  {
     path: '/sitemap',
     name: 'sitemap',
     component: Sitemap,
