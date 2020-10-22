@@ -34,6 +34,11 @@ const routes = [
     component: AppleIos,
   },
   {
+    path: '/robots-txt',
+    name: 'robots-txt',
+    component: RobotsTxt,
+  },
+  {
     path: '/open-graph',
     name: 'open-graph',
     component: Opengraph,
@@ -42,6 +47,10 @@ const routes = [
     path: '/facebook',
     name: 'facebook',
     component: Facebook,
+  },
+    path: '/sitemap',
+    name: 'sitemap',
+    component: Sitemap,
   },
   {
     path: '/search-meta',

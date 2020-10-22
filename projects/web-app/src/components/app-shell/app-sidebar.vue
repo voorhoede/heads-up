@@ -34,12 +34,6 @@
               <span>OpenGraph</span>
             </router-link>
           </li>
-          <li>
-            <a href="#" class="app-sidebar__link">
-              <SitemapIcon />
-              <span>Sitemap</span>
-            </a>
-          </li>
         </ul>
       </section>
       <section class="app-sidebar__section">
@@ -90,6 +84,12 @@
             <a href="#" class="app-sidebar__link">
               <SearchIcon />
               <span>OpenSearch</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="app-sidebar__link">
+              <SitemapIcon />
+              <span>Sitemap</span>
             </a>
           </li>
           <li>

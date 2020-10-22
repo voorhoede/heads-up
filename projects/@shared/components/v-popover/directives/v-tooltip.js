@@ -84,7 +84,6 @@ export const defaultOptions = {
     defaultHandleResize: true,
   },
 };
-
 // eslint-disable-next-line sonarjs/cognitive-complexity
 export function getOptions (options) {
   const result = {
@@ -130,6 +129,7 @@ export function getOptions (options) {
 
   return result;
 }
+/* eslint-disable */
 
 export function getPlacement (value, modifiers) {
   var placement = value.placement;
