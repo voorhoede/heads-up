@@ -1,11 +1,11 @@
 @import "variables.css";
+@import "fonts.css";
+@import "typography.css";
 @import "form.css";
 @import "list.css";
 
 body {
   background: var(--paper);
-  color: #484832;
-  font-family: sans-serif;
   margin: 0;
   padding: 0;
 }
