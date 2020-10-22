@@ -13,10 +13,11 @@
     </panel-section>
 
     <panel-section title="Touch icons">
-      <p v-if="!touchIcons.length">
-        No touch icons detected.
-      </p>
-      <properties-list>
+      <div v-if="!touchIcons.length" class="warning-message">
+        <WarningIcon class="icon" />
+        <p>No touch icons detected.</p>
+      </div>
+      <properties-list v-else>
         <template
           v-for="icon in touchIcons"
           :key="`${icon.url}-key`"
