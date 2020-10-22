@@ -1,8 +1,7 @@
 [build]
-  command = "npm run postinstall && npm run build"
+  command = "npm run build-netlify"
   functions = "functions"
   publish = "dist"
-  #ignore = "git diff --quiet HEAD^ HEAD -- projects/web-app/ projects/@shared/"
 
 [dev]
   command = "npm run serve"

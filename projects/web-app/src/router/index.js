@@ -7,6 +7,7 @@ import Meta from '@/views/meta.view.vue';
 import RobotsTxt from '@/views/robots-txt.view.vue';
 import Opengraph from '@/views/open-graph.view.vue';
 import Sitemap from '@/views/sitemap.view.vue';
+import SearchMeta from '@/views/search-meta.view.vue';
 
 const routes = [
   {
@@ -47,6 +48,11 @@ const routes = [
     path: '/sitemap',
     name: 'sitemap',
     component: Sitemap,
+  },
+  {
+    path: '/search-meta',
+    name: 'search-meta',
+    component: SearchMeta,
   },
   {
     path: '/:pathMatch(.*)*',

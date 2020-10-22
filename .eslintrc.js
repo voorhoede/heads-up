@@ -16,9 +16,12 @@ module.exports = {
 
   extends: [
     'eslint:recommended',
+    'plugin:vue/vue3-essential',
+    'plugin:sonarjs/recommended',
   ],
 
   rules: {
+    'sonarjs/no-duplicate-string': 0,
     'semi': [ 'warn', 'always' ],
     'no-unused-vars': [
       'warn',

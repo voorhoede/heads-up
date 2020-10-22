@@ -34,18 +34,6 @@
               <span>OpenGraph</span>
             </router-link>
           </li>
-          <li>
-            <router-link :to="{ name: 'robots-txt' }" class="app-sidebar__link">
-              <RobotIcon />
-              <span>Robots.txt</span>
-            </router-link>
-          </li>
-          <li>
-            <router-link :to="{ name: 'sitemap' }" class="app-sidebar__link">
-              <SitemapIcon />
-              <span>Sitemap</span>
-            </router-link>
-          </li>
         </ul>
       </section>
       <section class="app-sidebar__section">
@@ -87,15 +75,27 @@
         <h3 class="app-sidebar__section-title">Search</h3>
         <ul class="app-sidebar__list">
           <li>
-            <a href="#" class="app-sidebar__link">
+            <router-link :to="{ name: 'search-meta' }" class="app-sidebar__link">
               <CodeIcon />
               <span>Search Meta</span>
-            </a>
+            </router-link>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
               <SearchIcon />
               <span>OpenSearch</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="app-sidebar__link">
+              <SitemapIcon />
+              <span>Sitemap</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="app-sidebar__link">
+              <RobotIcon />
+              <span>Robots.txt</span>
             </a>
           </li>
         </ul>

@@ -14,13 +14,13 @@ module.exports = {
       .loader('vue-svg-loader');
 
     // Fix ESLint error when importing from external folder
-    config.module
-      .rule('eslint')
-      .use('eslint-loader')
-      .tap(options => {
-        options.configFile = path.resolve(__dirname, '.eslintrc.js');
-        return options;
-      });
+    // config.module
+    //   .rule('eslint')
+    //   .use('eslint-loader')
+    //   .tap(options => {
+    //     options.configFile = path.resolve(__dirname, '../../.eslintrc.js');
+    //     return options;
+    //   });
 
     // Add alias for external folder
     config.resolve.alias
