@@ -25,7 +25,7 @@ export function addClasses (el, classes) {
   } else {
     classList = convertToArray(el.className);
   }
-  newClasses.forEach((newClass) => {
+  newClasses.forEach(newClass => {
     if (classList.indexOf(newClass) === -1) {
       classList.push(newClass);
     }
@@ -52,12 +52,12 @@ export function removeClasses (el, classes) {
   } else {
     classList = convertToArray(el.className);
   }
-  newClasses.forEach((newClass) => {
+  newClasses.forEach(newClass => {
     const index = classList.indexOf(newClass);
     if (index !== -1) {
       classList.splice(index, 1);
     }
-  })
+  });
   if (el instanceof SVGElement) {
     el.setAttribute('class', classList.join(' '));
   } else {
@@ -73,9 +73,9 @@ if (typeof window !== 'undefined') {
     var opts = Object.defineProperty({}, 'passive', {
       get () {
         supportsPassive = true;
-        return;
+        return supportsPassive;
       },
-    })
+    });
     window.addEventListener('test', null, opts);
   } catch (e) {
     console.error(e);
