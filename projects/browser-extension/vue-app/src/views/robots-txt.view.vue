@@ -1,6 +1,6 @@
 <template>
   <div>
-    <panel-section title="Current Page">
+    <panel-section title="Current page">
       <properties-list>
         <dt>URL:</dt><dd>{{ head.url }}</dd>
         <dt>Crawlable:</dt><dd>{{ urlIsCrawlable }}</dd>
