@@ -1,4 +1,4 @@
-import { createStore } from 'vuex'
+import { createStore } from 'vuex';
 import robotsParser from 'robots-txt-parser';
 import xmlJs from 'xml-js';
 
@@ -70,4 +70,4 @@ export default createStore({
       state.theme = theme;
     },
   },
-})
+});
