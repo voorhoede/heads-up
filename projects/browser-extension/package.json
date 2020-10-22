@@ -33,8 +33,8 @@
     "build:wrapper": "webpack",
     "build:vue-app": "cd ./vue-app && npm run build",
     "build": "cross-env NODE_ENV=production run-p build:*",
-    "prebuild-netlify": "cd ../rich-previews && npm i && npm run build && cd ../browser-extension && npm run prebuild",
-    "build-netlify": "npm run prebuild-netlify && npm run build",
+    "prebuild-netlify": "cd ../rich-previews && npm i && npm run build && cd ../@shared && npm i",
+    "build-netlify": "npm run build",
     "start": "npm run dev",
     "lint": ""
   }
