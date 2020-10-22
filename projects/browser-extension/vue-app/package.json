@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "vue-cli-service build --dest '../dist/app'",
+    "build": "vue-cli-service build --dest '../dist/app' --skip-plugins @vue/cli-plugin-eslint",
     "dev": "vue-cli-service build --dest '../dist/app' --watch",
     "lint": "vue-cli-service lint"
   },
@@ -22,9 +22,6 @@
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0-0",
     "vue-svg-loader": "^0.17.0-beta.2"
   }
 }

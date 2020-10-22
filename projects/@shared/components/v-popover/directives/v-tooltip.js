@@ -1,9 +1,9 @@
-import Tooltip from '../lib/tooltip'
-import { addClasses, removeClasses } from '../utils'
+import Tooltip from '../lib/tooltip';
+import { addClasses, removeClasses } from '../utils';
 
 export let state = {
   enabled: true,
-}
+};
 
 const positions = [
   'top',
@@ -18,7 +18,7 @@ const positions = [
   'left',
   'left-start',
   'left-end',
-]
+];
 
 export const defaultOptions = {
   // Default tooltip placement relative to target element
@@ -83,8 +83,8 @@ export const defaultOptions = {
     // Update popper on content resize
     defaultHandleResize: true,
   },
-}
-
+};
+/* eslint-disable */
 export function getOptions (options) {
   const result = {
     placement: typeof options.placement !== 'undefined' ? options.placement : directive.options.defaultPlacement,
@@ -104,112 +104,113 @@ export function getOptions (options) {
     popperOptions: {
       ...(typeof options.popperOptions !== 'undefined' ? options.popperOptions : directive.options.defaultPopperOptions),
     },
-  }
+  };
 
   if (result.offset) {
-    const typeofOffset = typeof result.offset
-    let offset = result.offset
+    const typeofOffset = typeof result.offset;
+    let offset = result.offset;
 
     // One value -> switch
     if (typeofOffset === 'number' || (typeofOffset === 'string' && offset.indexOf(',') === -1)) {
-      offset = `0, ${offset}`
+      offset = `0, ${ offset }`;
     }
 
     if (!result.popperOptions.modifiers) {
-      result.popperOptions.modifiers = {}
+      result.popperOptions.modifiers = {};
     }
     result.popperOptions.modifiers.offset = {
       offset,
-    }
+    };
   }
 
   if (result.trigger && result.trigger.indexOf('click') !== -1) {
-    result.hideOnTargetClick = false
+    result.hideOnTargetClick = false;
   }
 
-  return result
+  return result;
 }
+/* eslint-disable */
 
 export function getPlacement (value, modifiers) {
-  var placement = value.placement
+  var placement = value.placement;
   for (var i = 0; i < positions.length; i++) {
-    var pos = positions[i]
+    var pos = positions[i];
     if (modifiers[pos]) {
-      placement = pos
+      placement = pos;
     }
   }
-  return placement
+  return placement;
 }
 
 export function getContent (value) {
-  const type = typeof value
+  const type = typeof value;
   if (type === 'string') {
-    return value
+    return value;
   } else if (value && type === 'object') {
-    return value.content
+    return value.content;
   } else {
-    return false
+    return false;
   }
 }
 
 export function createTooltip (el, value, modifiers = {}) {
-  const content = getContent(value)
-  let classes = typeof value.classes !== 'undefined' ? value.classes : directive.options.defaultClass
+  const content = getContent(value);
+  let classes = typeof value.classes !== 'undefined' ? value.classes : directive.options.defaultClass;
   const opts = {
     title: content,
     ...getOptions({
       ...value,
       placement: getPlacement(value, modifiers),
     }),
-  }
-  const tooltip = el._tooltip = new Tooltip(el, opts)
-  tooltip.setClasses(classes)
-  tooltip._vueEl = el
+  };
+  const tooltip = el._tooltip = new Tooltip(el, opts);
+  tooltip.setClasses(classes);
+  tooltip._vueEl = el;
 
   // Class on target
-  const targetClasses = typeof value.targetClasses !== 'undefined' ? value.targetClasses : directive.options.defaultTargetClass
-  el._tooltipTargetClasses = targetClasses
-  addClasses(el, targetClasses)
+  const targetClasses = typeof value.targetClasses !== 'undefined' ? value.targetClasses : directive.options.defaultTargetClass;
+  el._tooltipTargetClasses = targetClasses;
+  addClasses(el, targetClasses);
 
-  return tooltip
+  return tooltip;
 }
 
 export function destroyTooltip (el) {
   if (el._tooltip) {
-    el._tooltip.dispose()
-    delete el._tooltip
-    delete el._tooltipOldShow
+    el._tooltip.dispose();
+    delete el._tooltip;
+    delete el._tooltipOldShow;
   }
 
   if (el._tooltipTargetClasses) {
-    removeClasses(el, el._tooltipTargetClasses)
-    delete el._tooltipTargetClasses
+    removeClasses(el, el._tooltipTargetClasses);
+    delete el._tooltipTargetClasses;
   }
 }
 
-export function bind (el, { value, oldValue, modifiers }) {
-  const content = getContent(value)
+export function bind (el, { value, modifiers }) {
+  const content = getContent(value);
   if (!content || !state.enabled) {
-    destroyTooltip(el)
+    destroyTooltip(el);
   } else {
-    let tooltip
+    let tooltip;
     if (el._tooltip) {
-      tooltip = el._tooltip
+      tooltip = el._tooltip;
       // Content
-      tooltip.setContent(content)
+      tooltip.setContent(content);
       // Options
       tooltip.setOptions({
         ...value,
         placement: getPlacement(value, modifiers),
-      })
+      });
     } else {
-      tooltip = createTooltip(el, value, modifiers)
+      tooltip = createTooltip(el, value, modifiers);
     }
 
     // Manual show
     if (typeof value.show !== 'undefined' && value.show !== el._tooltipOldShow) {
-      el._tooltipOldShow = value.show
-      value.show ? tooltip.show() : tooltip.hide()
+      el._tooltipOldShow = value.show;
+      value.show ? tooltip.show() : tooltip.hide();
     }
   }
 }
@@ -219,8 +220,8 @@ export const directive = {
   bind,
   update: bind,
   unbind (el) {
-    destroyTooltip(el)
+    destroyTooltip(el);
   },
-}
+};
 
-export default directive
+export default directive;

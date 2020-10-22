@@ -1,8 +1,8 @@
 import '@/style/index.css';
-import { createApp } from 'vue'
+import { createApp } from 'vue';
 import * as actions from '@/lib/message-actions';
-import router from './router'
-import store from './store'
+import router from './router';
+import store from './store';
 import AppShell from '@/components/app-shell/app-shell';
 
 const background = chrome.runtime.connect({ name: 'devtools' });
