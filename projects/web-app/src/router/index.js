@@ -15,6 +15,8 @@ const routes = [
     path: '/',
     redirect: '/meta',
   },
+
+  // Application
   {
     path: '/meta',
     name: 'meta',
@@ -36,19 +38,23 @@ const routes = [
     component: AppleIos,
   },
   {
-    path: '/robots-txt',
-    name: 'robots-txt',
-    component: RobotsTxt,
-  },
-  {
     path: '/open-graph',
     name: 'open-graph',
     component: Opengraph,
   },
+
+  // Social Media
   {
     path: '/facebook',
     name: 'facebook',
     component: Facebook,
+  },
+
+  // Search
+  {
+    path: '/search-meta',
+    name: 'search-meta',
+    component: SearchMeta,
   },
   {
     path: '/sitemap',
@@ -56,10 +62,12 @@ const routes = [
     component: Sitemap,
   },
   {
-    path: '/search-meta',
-    name: 'search-meta',
-    component: SearchMeta,
+    path: '/robots-txt',
+    name: 'robots-txt',
+    component: RobotsTxt,
   },
+
+  // Catch all fallback
   {
     path: '/:pathMatch(.*)*',
     redirect: '/',
