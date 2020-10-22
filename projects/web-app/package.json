@@ -6,7 +6,7 @@
     "postinstall": "npm-recursive-install --rootDir=functions --production",
     "serve": "vue-cli-service serve",
     "dev": "netlify dev",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --skip-plugins @vue/cli-plugin-eslint",
     "prebuild-netlify": "cd ../@shared && npm i",
     "build-netlify": "npm run build",
     "start": "npm run dev",
