@@ -314,6 +314,7 @@ export default {
       }
     },
 
+    /* eslint-disable */
     $_show () {
       const reference = this.$refs.trigger;
       const popoverNode = this.$refs.popover;
@@ -656,6 +657,7 @@ export default {
       }
     },
   },
+  /*eslint-enable */
 };
 
 if (typeof document !== 'undefined' && typeof window !== 'undefined') {

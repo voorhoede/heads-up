@@ -84,7 +84,7 @@ export const defaultOptions = {
     defaultHandleResize: true,
   },
 };
-
+/* eslint-disable */
 export function getOptions (options) {
   const result = {
     placement: typeof options.placement !== 'undefined' ? options.placement : directive.options.defaultPlacement,
@@ -129,6 +129,7 @@ export function getOptions (options) {
 
   return result;
 }
+/* eslint-disable */
 
 export function getPlacement (value, modifiers) {
   var placement = value.placement;
