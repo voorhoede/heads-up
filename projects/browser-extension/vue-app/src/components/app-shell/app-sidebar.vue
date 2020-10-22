@@ -53,14 +53,6 @@
             <RobotIcon class="sidebar__icon" />Robots.txt
           </router-link>
         </li>
-        <li class="sidebar-list__item">
-          <router-link
-            class="sidebar__button"
-            :to="{ name: 'sitemap' }"
-          >
-            <SitemapIcon class="sidebar__icon" />Sitemap
-          </router-link>
-        </li>
       </ul>
     </section>
     <div class="sidebar__divider" />
@@ -131,6 +123,14 @@
             :to="{ name: 'opensearch' }"
           >
             <SearchIcon class="sidebar__icon" />OpenSearch
+          </router-link>
+        </li>
+        <li class="sidebar-list__item">
+          <router-link
+            class="sidebar__button"
+            :to="{ name: 'sitemap' }"
+          >
+            <SitemapIcon class="sidebar__icon" />Sitemap
           </router-link>
         </li>
       </ul>
