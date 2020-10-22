@@ -26,8 +26,8 @@
 <script>
 import { mapState } from 'vuex';
 import getTheme from '@shared/lib/theme';
-import PanelSection from '@shared/components/panel-section.vue';
-import ExternalLink from '@shared/components/external-link.vue';
+import PanelSection from '@shared/components/panel-section';
+import ExternalLink from '@shared/components/external-link';
 import AppSidebar from './app-sidebar';
 import RefreshButton from './refresh-button';
 

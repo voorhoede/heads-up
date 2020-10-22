@@ -156,16 +156,18 @@
 <script>
 import { mapState } from 'vuex';
 import getTheme from '@shared/lib/theme';
-import { findMetaContent, findMetaProperty, findImageDimensions } from '@shared/lib/find-meta';
+import {
+  findMetaContent,
+  findMetaProperty,
+  findImageDimensions
+} from '@shared/lib/find-meta';
 import InfoIcon from '@shared/assets/icons/info.svg';
 import TabSelecter from '@shared/components/tab-selecter';
-import PanelSection from '@shared/components/panel-section.vue';
-import ExternalLink from '@shared/components/external-link.vue';
-import PropertiesList from '@shared/components/properties-list.vue';
-import AppTooltip from '@shared/components/app-tooltip.vue';
-import {
-  PropertyData
-} from '../components';
+import PanelSection from '@shared/components/panel-section';
+import ExternalLink from '@shared/components/external-link';
+import PropertiesList from '@shared/components/properties-list';
+import AppTooltip from '@shared/components/app-tooltip';
+import PropertyData from '@/components/property-data';
 
 const TABS = [
   {

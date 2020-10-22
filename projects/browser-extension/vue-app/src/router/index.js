@@ -12,7 +12,7 @@ const routes = [
     meta: {
       title: 'Meta',
     },
-    component: () => import(/* webpackChunkName:'views/meta' */ '@/views/meta.view.vue'),
+    component: () => import(/* webpackChunkName:'views/meta' */ '@/views/meta.view'),
   },
   {
     path: '/link',
@@ -20,7 +20,7 @@ const routes = [
     meta: {
       title: 'Link',
     },
-    component: () => import(/* webpackChunkName:'views/link' */ '@/views/link.view.vue'),
+    component: () => import(/* webpackChunkName:'views/link' */ '@/views/link.view'),
   },
   {
     path: '/favicon',
@@ -28,7 +28,7 @@ const routes = [
     meta: {
       title: 'Favicon',
     },
-    component: () => import(/* webpackChunkName:'views/favicon' */ '@/views/favicon.view.vue'),
+    component: () => import(/* webpackChunkName:'views/favicon' */ '@/views/favicon.view'),
   },
   {
     path: '/apple-ios',
@@ -36,7 +36,7 @@ const routes = [
     meta: {
       title: 'Apple iOS',
     },
-    component: () => import(/* webpackChunkName:'views/apple-ios' */ '@/views/apple-ios.view.vue'),
+    component: () => import(/* webpackChunkName:'views/apple-ios' */ '@/views/apple-ios.view'),
   },
   {
     path: '/open-graph',
@@ -44,7 +44,7 @@ const routes = [
     meta: {
       title: 'Open Graph',
     },
-    component: () => import(/* webpackChunkName:'views/open-graph' */ '@/views/open-graph.view.vue'),
+    component: () => import(/* webpackChunkName:'views/open-graph' */ '@/views/open-graph.view'),
   },
   {
     path: '/twitter',
@@ -52,7 +52,7 @@ const routes = [
     meta: {
       title: 'Twitter',
     },
-    component: () => import(/* webpackChunkName:'views/twitter' */ '@/views/twitter.view.vue'),
+    component: () => import(/* webpackChunkName:'views/twitter' */ '@/views/twitter.view'),
   },
   {
     path: '/whatsapp',
@@ -60,7 +60,7 @@ const routes = [
     meta: {
       title: 'WhatsApp',
     },
-    component: () => import(/* webpackChunkName:'views/whatsapp' */ '@/views/whatsapp.view.vue'),
+    component: () => import(/* webpackChunkName:'views/whatsapp' */ '@/views/whatsapp.view'),
   },
   {
     path: '/linkedin',
@@ -68,7 +68,7 @@ const routes = [
     meta: {
       title: 'LinkedIn',
     },
-    component: () => import(/* webpackChunkName:'views/linkedin' */ '@/views/linkedin.view.vue'),
+    component: () => import(/* webpackChunkName:'views/linkedin' */ '@/views/linkedin.view'),
   },
   {
     path: '/facebook',
@@ -76,7 +76,7 @@ const routes = [
     meta: {
       title: 'Facebook',
     },
-    component: () => import(/* webpackChunkName:'views/facebook' */ '@/views/facebook.view.vue'),
+    component: () => import(/* webpackChunkName:'views/facebook' */ '@/views/facebook.view'),
   },
   {
     path: '/slack',
@@ -84,7 +84,7 @@ const routes = [
     meta: {
       title: 'Slack',
     },
-    component: () => import(/* webpackChunkName:'views/slack' */ '@/views/slack.view.vue'),
+    component: () => import(/* webpackChunkName:'views/slack' */ '@/views/slack.view'),
   },
   {
     path: '/search-meta',
@@ -92,7 +92,7 @@ const routes = [
     meta: {
       title: 'Search Meta',
     },
-    component: () => import(/* webpackChunkName:'views/search-meta' */ '@/views/search-meta.view.vue'),
+    component: () => import(/* webpackChunkName:'views/search-meta' */ '@/views/search-meta.view'),
   },
   {
     path: '/open-search',
@@ -100,7 +100,7 @@ const routes = [
     meta: {
       title: 'OpenSearch',
     },
-    component: () => import(/* webpackChunkName:'views/open-search' */ '@/views/open-search.view.vue'),
+    component: () => import(/* webpackChunkName:'views/open-search' */ '@/views/open-search.view'),
   },
   {
     path: '/robots-txt',
@@ -108,7 +108,7 @@ const routes = [
     meta: {
       title: 'Robots.txt',
     },
-    component: () => import(/* webpackChunkName:'views/robots-txt' */ '@/views/robots-txt.view.vue'),
+    component: () => import(/* webpackChunkName:'views/robots-txt' */ '@/views/robots-txt.view'),
   },
   {
     path: '/sitemap',
@@ -116,7 +116,7 @@ const routes = [
     meta: {
       title: 'Sitemap',
     },
-    component: () => import(/* webpackChunkName:'views/sitemap' */ '@/views/sitemap.view.vue'),
+    component: () => import(/* webpackChunkName:'views/sitemap' */ '@/views/sitemap.view'),
   },
 ];
 
