@@ -12,6 +12,7 @@ export default createStore({
     head: {},
     robots: [],
     sitemap: {},
+    sitemapUrls: [],
     theme: 'default',
   }),
   actions: {
@@ -19,6 +20,7 @@ export default createStore({
       robotsTxt.fetch(state.head.domain)
         .then(result => {
           if (result.sitemaps) {
+            commit('SET_SITEMAP_URLS', { urls: result.sitemaps });
             delete result.sitemaps;
           }
 
@@ -65,6 +67,9 @@ export default createStore({
     },
     SET_SITEMAP (state, { sitemap }) {
       state.sitemap = sitemap;
+    },
+    SET_SITEMAP_URLS (state, { urls }) {
+      state.sitemapUrls = urls;
     },
     SET_THEME (state, { theme }) {
       state.theme = theme;

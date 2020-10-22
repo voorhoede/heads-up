@@ -6,6 +6,23 @@
         <dt>Crawlable:</dt><dd>{{ urlIsCrawlable }}</dd>
       </properties-list>
     </panel-section>
+    <panel-section title="Sitemap">
+      <div v-if="!sitemapUrls.length" class="warning-message">
+        <WarningIcon class="icon" />
+        <p>No sitemaps detected.</p>
+      </div>
+      <properties-list v-else>
+        <div v-for="(url, index) in sitemapUrls" :key="index">
+          <dt>Url:</dt>
+          <dd>
+            <external-link :href="url">{{ url }}</external-link>
+          </dd>
+        </div>
+      </properties-list>
+      <p v-if="sitemapUrls.length">
+        Go to <router-link :to="{ name: 'sitemap' }">Sitemap</router-link> for more details.
+      </p>
+    </panel-section>
     <panel-section
       v-for="robot in robots"
       :key="robot.name"
@@ -63,14 +80,15 @@
 
 <script>
 import { mapState } from 'vuex';
-import PanelSection from '@shared/components/panel-section.vue';
 import ExternalLink from '@shared/components/external-link.vue';
+import PanelSection from '@shared/components/panel-section.vue';
 import PropertiesList from '@shared/components/properties-list.vue';
+import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
-  components: { ExternalLink, PanelSection, PropertiesList },
+  components: { ExternalLink, PanelSection, PropertiesList, WarningIcon },
   computed: {
-    ...mapState([ 'head', 'robots', 'urlIsCrawlable' ]),
+    ...mapState([ 'head', 'robots', 'sitemapUrls', 'urlIsCrawlable' ]),
   },
   methods: {
     robotData(robot) {
