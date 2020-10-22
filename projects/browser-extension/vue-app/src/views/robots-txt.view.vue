@@ -29,17 +29,20 @@
       :title="robot.name"
     >
       <properties-list>
-        <div v-for="item in robotData(robot)" :key="item.keyName">
-          <dt>{{ item.title }}</dt>
-          <dd v-if="typeof item.value === 'string'">
-            {{ item.value }}
-          </dd>
-          <dd v-else>
-            <div v-for="(value, index) in item.value" :key="index">
-              <span>{{ value.path }}<br></span>
-            </div>
-          </dd>
-        </div>
+        <dt>Allow</dt>
+        <dd>
+          <div v-for="(rule, index) in robot.allow" :key="index">
+            <span v-if="rule.path">{{ rule.path }}</span>
+          </div>
+        </dd>
+        <dt>CrawlDelay</dt>
+        <dd>{{ robot.crawlDelay }}</dd>
+        <dt>Disallow</dt>
+        <dd>
+          <div v-for="(rule, index) in robot.disallow" :key="index">
+            <span v-if="rule.path">{{ rule.path }}</span>
+          </div>
+        </dd>
       </properties-list>
     </panel-section>
     <panel-section title="Resources">
@@ -75,27 +78,6 @@ export default {
   components: { ExternalLink, PanelSection, PropertiesList, WarningIcon },
   computed: {
     ...mapState([ 'head', 'robots', 'sitemapUrls', 'urlIsCrawlable' ]),
-  },
-  methods: {
-    robotData(robot) {
-      return [
-        {
-          keyName: 'allow',
-          title: 'allow',
-          value: robot.allow,
-        },
-        {
-          keyName: 'crawl-delay',
-          title: 'crawlDelay',
-          value: robot.crawlDelay.toString(),
-        },
-        {
-          keyName: 'disallow',
-          title: 'disallow',
-          value: robot.disallow,
-        },
-      ];
-    },
   },
 };
 </script>
