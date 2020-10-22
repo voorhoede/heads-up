@@ -30,9 +30,10 @@
 import { mapState } from 'vuex';
 import PanelSection from '@shared/components/panel-section.vue';
 import ExternalLink from '@shared/components/external-link.vue';
+import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
-  components: { ExternalLink, PanelSection },
+  components: { ExternalLink, PanelSection, WarningIcon },
   computed: {
     ...mapState([ 'head', 'sitemap' ]),
     sitemapUrl() {
