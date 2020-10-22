@@ -30,7 +30,7 @@ header::after {
   left: -40px;
   font-size: 400px;
   font-family: system-ui;
-  opacity: 0.06;
+  opacity: 0.03;
   line-height: 0;
 }
 
@@ -53,7 +53,7 @@ section {
 }
 
 .content {
-  max-width: 900px;
+  max-width: 640px;
   padding: 0 16px;
   margin: 0 auto;
 }
@@ -80,6 +80,7 @@ header {
   margin-top: 12px;
   margin-bottom: 0;
   font-weight: normal;
+  line-height: 1;
 }
 
 .header__product-subtitle {
@@ -87,12 +88,14 @@ header {
   font-size: 14px;
   margin-top: 8px;
   font-weight: normal;
+  line-height: 1.2;
 }
 
 .header__product-tagline {
   font-size: 45px;
-  padding: 0 20px;
+  padding: 24px 20px;
   max-width: 520px;
+  color: #484832;
 }
 
 .tagline {
@@ -132,21 +135,6 @@ header {
 
 .header__form-button {
   font-size: 18px;
-}
-
-section {
-  padding: 20px;
-  border-radius: 40px;
-  background: #fbfbea;
-  color: #484832;
-}
-
-section:nth-of-type(even) {
-  margin-left: 30%;
-}
-
-section:nth-of-type(odd) {
-  margin-right: 30%;
 }
 
 .video-container {
