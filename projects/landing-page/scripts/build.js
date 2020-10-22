@@ -28,7 +28,13 @@ gulp
   .on('error', onStreamError)
   .pipe(gulp.dest(paths.scripts.dest));
 
-//Build assets
+//Build shared assets
+gulp
+  .src(paths.sharedAssets.src)
+  .on('error', onStreamError)
+  .pipe(gulp.dest(paths.sharedAssets.dest));
+
+//Build landingpage own assets
 gulp
   .src(paths.assets.src)
   .on('error', onStreamError)

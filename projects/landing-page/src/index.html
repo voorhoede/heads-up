@@ -10,19 +10,16 @@
     <header>
       <div class="content">
         <picture class="header__logo">
-          <img src="assets/headsup-logo.png" width="56" height="56" alt="Heads up! Logo">
+          <img src="assets/images/headsup-logo.png" width="56" height="56" alt="Heads up! Logo">
         </picture>
         <h1 class="header__product-description">
           <span class="header__product-title">Heads up!</span>
           <span class="header__product-subtitle">Quickly see share previews</span>
         </h1>
         <h2 class="header__product-tagline tagline">Discover how your site will be shown by Google and social media platforms</h2>
-        <!--<p>With our tool you can quickly check your website appereance on different platforms</p>-->
-
-        <form class="header__form" action="/the-web-app" method="post">
+        <form class="header__form" action="https://heads-up-web-app.netlify.app/meta" method="GET">
           <label class="header__form-label">Website url:</label>
-          <input type="text" class="header__form-input" placeholder="https://" />
-
+          <input id="url" name="url" type="url" required class="header__form-input" placeholder="https://" />
           <button class="button header__form-button" href="/" class="header__form-button">Check out your score!</button>
         </form>
       </div>
@@ -39,10 +36,10 @@
             <p class="tagline">Works with:</p>
             <!-- @todo inline svg's to style them -->
             <ul class="header__product-support list--unstyled list--inline">
-              <li><img src="assets/facebook.svg" width="40"></li>
-              <li><img src="assets/whatsapp.svg" width="40"></li>
-              <li><img src="assets/twitter.svg" width="40"></li>
-              <li><img src="assets/slack.svg" width="40"></li>
+              <li><img src="assets/icons/facebook.svg" width="40"></li>
+              <li><img src="assets/icons/whatsapp.svg" width="40"></li>
+              <li><img src="assets/icons/twitter.svg" width="40"></li>
+              <li><img src="assets/icons/slack.svg" width="40"></li>
             </ul>
           </div>
         </section>
