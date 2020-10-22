@@ -39,9 +39,9 @@ import useHead from '@/composables/use-head';
 import schema  from '@shared/lib/schemas/app-meta-schema';
 import { findCharset, findMetaContent, findAttrs } from '@shared/lib/find-meta';
 import PanelSection from '@shared/components/panel-section';
-import ExternalLink from '@shared/components/external-link.vue';
-import PropertiesList from '@shared/components/properties-list.vue';
-import PropertiesItem from '@shared/components/properties-item.vue';
+import ExternalLink from '@shared/components/external-link';
+import PropertiesList from '@shared/components/properties-list';
+import PropertiesItem from '@shared/components/properties-item';
 
 export default {
   setup: () => {

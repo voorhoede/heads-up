@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import AppleIos from '@/views/apple-ios.view.vue';
-import Favicon from '@/views/favicon.view.vue';
-import Link from '@/views/link.view.vue';
-import Meta from '@/views/meta.view.vue';
-import Opengraph from '@/views/open-graph.view.vue';
-import SearchMeta from '@/views/search-meta.view.vue';
+import AppleIos from '@/views/apple-ios.view';
+import Favicon from '@/views/favicon.view';
+import Link from '@/views/link.view';
+import Meta from '@/views/meta.view';
+import Opengraph from '@/views/open-graph.view';
+import SearchMeta from '@/views/search-meta.view';
+import Facebook from '@/views/facebook.view';
 
 const routes = [
   {
@@ -36,6 +37,11 @@ const routes = [
     path: '/open-graph',
     name: 'open-graph',
     component: Opengraph,
+  },
+  {
+    path: '/facebook',
+    name: 'facebook',
+    component: Facebook,
   },
   {
     path: '/search-meta',
