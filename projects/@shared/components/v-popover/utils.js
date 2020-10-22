@@ -1,13 +1,13 @@
-let SVGAnimatedString = function () {}
+let SVGAnimatedString = function () {};
 if (typeof window !== 'undefined') {
-  SVGAnimatedString = window.SVGAnimatedString
+  SVGAnimatedString = window.SVGAnimatedString;
 }
 
 export function convertToArray (value) {
   if (typeof value === 'string') {
-    value = value.split(' ')
+    value = value.split(' ');
   }
-  return value
+  return value;
 }
 
 /**
@@ -18,22 +18,22 @@ export function convertToArray (value) {
  * @param {classes} string - List of space separated classes to be added to the element.
  */
 export function addClasses (el, classes) {
-  const newClasses = convertToArray(classes)
-  let classList
+  const newClasses = convertToArray(classes);
+  let classList;
   if (el.className instanceof SVGAnimatedString) {
-    classList = convertToArray(el.className.baseVal)
+    classList = convertToArray(el.className.baseVal);
   } else {
-    classList = convertToArray(el.className)
+    classList = convertToArray(el.className);
   }
   newClasses.forEach((newClass) => {
     if (classList.indexOf(newClass) === -1) {
-      classList.push(newClass)
+      classList.push(newClass);
     }
-  })
+  });
   if (el instanceof SVGElement) {
-    el.setAttribute('class', classList.join(' '))
+    el.setAttribute('class', classList.join(' '));
   } else {
-    el.className = classList.join(' ')
+    el.className = classList.join(' ');
   }
 }
 
@@ -45,36 +45,39 @@ export function addClasses (el, classes) {
  * @param {any} classes List of space separated classes to be removed from the element.
  */
 export function removeClasses (el, classes) {
-  const newClasses = convertToArray(classes)
-  let classList
+  const newClasses = convertToArray(classes);
+  let classList;
   if (el.className instanceof SVGAnimatedString) {
-    classList = convertToArray(el.className.baseVal)
+    classList = convertToArray(el.className.baseVal);
   } else {
-    classList = convertToArray(el.className)
+    classList = convertToArray(el.className);
   }
   newClasses.forEach((newClass) => {
-    const index = classList.indexOf(newClass)
+    const index = classList.indexOf(newClass);
     if (index !== -1) {
-      classList.splice(index, 1)
+      classList.splice(index, 1);
     }
   })
   if (el instanceof SVGElement) {
-    el.setAttribute('class', classList.join(' '))
+    el.setAttribute('class', classList.join(' '));
   } else {
-    el.className = classList.join(' ')
+    el.className = classList.join(' ');
   }
 }
 
-export let supportsPassive = false
+export let supportsPassive = false;
 
 if (typeof window !== 'undefined') {
-  supportsPassive = false
+  supportsPassive = false;
   try {
     var opts = Object.defineProperty({}, 'passive', {
       get () {
-        supportsPassive = true
+        supportsPassive = true;
+        return;
       },
     })
-    window.addEventListener('test', null, opts)
-  } catch (e) {}
+    window.addEventListener('test', null, opts);
+  } catch (e) {
+    console.error(e);
+  }
 }

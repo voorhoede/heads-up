@@ -1,5 +1,5 @@
 [build]
-  command = "npm run postinstall && npm run build-netlify"
+  command = "npm run build-netlify"
   functions = "functions"
   publish = "dist"
 
