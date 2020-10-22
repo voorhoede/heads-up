@@ -29,31 +29,17 @@
       :title="robot.name"
     >
       <properties-list>
-        <template
-          v-for="item in robotData(robot)"
-          :key="`${item.keyName}-key`"
-        >
-          <dt>
-            {{ item.title }}
-          </dt>
-          <dd
-            v-if="typeof item.value === 'string'"
-            :key="`${item.keyName}-value`"
-          >
+        <div v-for="item in robotData(robot)" :key="item.keyName">
+          <dt>{{ item.title }}</dt>
+          <dd v-if="typeof item.value === 'string'">
             {{ item.value }}
           </dd>
-          <dd
-            v-else
-            :key="`${item.keyName}-value`"
-          >
-            <template
-              v-for="(value, index) in item.value"
-              :key="index"
-            >
+          <dd v-else>
+            <div v-for="(value, index) in item.value" :key="index">
               <span>{{ value.path }}<br></span>
-            </template>
+            </div>
           </dd>
-        </template>
+        </div>
       </properties-list>
     </panel-section>
     <panel-section title="Resources">
