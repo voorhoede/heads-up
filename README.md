@@ -9,32 +9,32 @@
 ## Monorepo project
 This is a 'monorepo', containing the following projects:
 
-### Browser Extension
+#### Browser Extension
 `/projects/browser-extension`
 
 
 A browser devtools extension to visualize everything in the `<head>` of the current page.
 More info in the [browser-extension README.md](./projects/browser-extension).
 
-### Landing Page
+#### Landing Page
 `/projects/landing-page`
 
 
 The Heads Up landing page.
 
-### Rich Previews
+#### Rich Previews
 `/projects/rich-previews`
 
 
 A separate project to build rich previews. These previews are automatically copied into dependent projects to avoid CORS errors.
 
-### Web App
+#### Web App
 `/projects/web-app`
 
 
 Heads Up as a web application, where you can enter the URL of your website and receive all information necessary to inspect and improve upon your website's `<head>`
 
-### @shared
+#### @shared
 `/projects/@shared`
 
 
