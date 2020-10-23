@@ -4,24 +4,18 @@
       <p v-if="!hasOgImage">
         This page does not contain og:image meta data to create a preview.
       </p>
-
-      <figure v-if="hasOgImage">
-        <iframe
-          ref="iframe"
-          title="linkedin preview"
-          :src="previewUrl"
-          :height="iframeHeight"
-          width="100%"
-          class="linkedin__preview"
-          @load="onResize"
-        />
-        <figcaption class="linkedin__preview-caption">
+      <preview-iframe
+        v-if="hasOgImage"
+        :url="previewUrl"
+        iframeClass="linkedin__preview"
+      >
+        <template v-slot:caption>
           Preview based on
           <external-link href="https://linkedin.com/">
             linkedin.com
           </external-link>.
-        </figcaption>
-      </figure>
+        </template>
+      </preview-iframe>
     </panel-section>
 
     <panel-section title="Properties">
@@ -111,6 +105,7 @@ import ExternalLink from '@shared/components/external-link';
 import PropertiesList from '@shared/components/properties-list';
 import AppTooltip from '@shared/components/app-tooltip';
 import PropertyData from '@/components/property-data';
+import PreviewIframe from '@shared/components/preview-iframe';
 import {
   findMetaContent,
   findMetaProperty,
@@ -124,12 +119,12 @@ export default {
     PropertiesList,
     AppTooltip,
     PropertyData,
+    PreviewIframe,
     WarningIcon,
     InfoIcon,
   },
   data() {
     return {
-      iframeHeight: 'auto',
       imageDimensions: { width: undefined, height: undefined },
       showTooltip: false,
       tooltip: {
@@ -259,12 +254,6 @@ export default {
     propertyValue(propName) {
       return findMetaProperty(this.head, propName);
     },
-    onResize() {
-      this.iframeHeight =
-        parseInt(
-          this.$refs.iframe.contentWindow.document.body.scrollHeight + 2
-        ) + 'px';
-    },
   },
 };
 </script>
@@ -273,14 +262,8 @@ export default {
 .linkedin__preview {
   max-width: 521px;
   min-height: 350px;
-  margin-bottom: 1em;
-  padding: 0;
-  border: none;
 }
 
-.linkedin__preview-caption {
-  color: var(--label-color);
-}
 .linkedin .properties-item__icon {
   margin-left: 4px;
 }
