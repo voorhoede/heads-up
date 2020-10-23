@@ -41,7 +41,12 @@ const routes = [
   {
     path: '/open-graph',
     name: 'open-graph',
-    component: Opengraph,
+    component: OpenGraph,
+  },
+  {
+    path: '/opensearch',
+    name: 'opensearch',
+    component: OpenSearch,
   },
 
   // Social Media

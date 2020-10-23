@@ -81,10 +81,10 @@
             </router-link>
           </li>
           <li>
-            <a href="#" class="app-sidebar__link">
+            <router-link :to="{ name: 'opensearch' }" class="app-sidebar__link">
               <SearchIcon />
               <span>OpenSearch</span>
-            </a>
+            </router-link>
           </li>
           <li>
             <router-link :to="{ name: 'sitemap' }" class="app-sidebar__link">
