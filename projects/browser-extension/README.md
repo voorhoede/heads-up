@@ -29,31 +29,31 @@
 <details open>
 <summary>Twitter Card preview</summary>
 
-![Twitter card preview](../@shared/assets/images/demo//twitter-card-preview.png)
+![Twitter card preview](../@shared/assets/images/demo/twitter-card-preview.png)
 </details>
 
 <details>
 <summary>WhatsApp Card preview</summary>
 
-![WhatsApp card preview](./src/devtools/assets/images/whatsapp-card-preview.png)
+![WhatsApp card preview](../@shared/assets/images/demo/whatsapp-card-preview.png)
 </details>
 
 <details>
 <summary>LinkedIn Card preview</summary>
 
-![LinkedIn card preview](./src/devtools/assets/images/linkedin-card-preview.png)
+![LinkedIn card preview](../@shared/assets/images/demo/linkedin-card-preview.png)
 </details>
 
 <details>
 <summary>Facebook Card preview</summary>
 
-![Facebook card preview](./src/devtools/assets/images/facebook-card-preview.png)
+![Facebook card preview](../@shared/assets/images/demo/facebook-card-preview.png)
 </details>
 
 <details>
 <summary>Slack Card preview</summary>
 
-![Slack card preview](./src/devtools/assets/images/slack-card-preview.png)
+![Slack card preview](../@shared/assets/images/demo/slack-card-preview.png)
 </details>
 
 ## Live feedback
@@ -69,13 +69,13 @@ Heads Up provides their users with live feedback. The feedback will be shown aft
 <details>
 <summary>Warning message</summary>
 
-![Error message](./src/devtools/assets/images/tooltip-warning.png)
+![Error message](../@shared/assets/images/demo/tooltip-warning.png)
 </details>
 
 <details>
 <summary>success message</summary>
 
-![Error message](./src/devtools/assets/images/tooltip-perfect.png)
+![Error message](../@shared/assets/images/demo/tooltip-perfect.png)
 </details>
 
 ## Development
@@ -95,6 +95,7 @@ wrapper/          <- Wraps vue-app as a devtool
     content.js
     devtools.html
     devtools.js
+
 vue-app/          <- Heads Up app, built with Vue 3
   public/
   src/
