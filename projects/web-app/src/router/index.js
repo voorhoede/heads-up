@@ -4,7 +4,8 @@ import AppleIos from '@/views/apple-ios.view.vue';
 import Favicon from '@/views/favicon.view.vue';
 import Link from '@/views/link.view.vue';
 import Meta from '@/views/meta.view.vue';
-import Opengraph from '@/views/open-graph.view.vue';
+import OpenGraph from '@/views/open-graph.view.vue';
+import OpenSearch from '@/views/opensearch.view.vue';
 import SearchMeta from '@/views/search-meta.view.vue';
 
 const routes = [
@@ -35,7 +36,12 @@ const routes = [
   {
     path: '/open-graph',
     name: 'open-graph',
-    component: Opengraph,
+    component: OpenGraph,
+  },
+  {
+    path: '/opensearch',
+    name: 'opensearch',
+    component: OpenSearch,
   },
   {
     path: '/search-meta',
