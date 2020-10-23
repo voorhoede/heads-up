@@ -1,6 +1,7 @@
 <template>
 <figure>
   <iframe
+    :class="[ 'preview-iframe', iframeClass ]"
     ref="iframe"
     :src="url"
     :height="iframeHeight"
@@ -9,7 +10,7 @@
     scrolling="no"
     @load="onResize"
   />
-  <figcaption class="twitter__preview-caption">
+  <figcaption class="preview-iframe__caption">
     <slot name="caption" />
   </figcaption>
 </figure>
@@ -23,6 +24,10 @@ export default {
     url: {
       type: String,
       required: true,
+    },
+    iframeClass: {
+      type: String,
+      default: '',
     },
   },
 
@@ -41,3 +46,15 @@ export default {
   },
 };
 </script>
+
+<style>
+.preview-iframe {
+  margin-bottom: 1em;
+  padding: 0;
+  border: none;
+}
+
+.preview-iframe__caption {
+  color: var(--label-color);
+}
+</style>

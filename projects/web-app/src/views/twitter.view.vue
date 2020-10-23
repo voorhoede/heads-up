@@ -2,9 +2,9 @@
   <panel-section title="Preview">
     <preview-iframe
       :url="twitterUrl"
-      class="twitter__preview"
+      iframeClass="twitter__preview"
     >
-      <template v-slot:caption class="twitter__preview-caption">
+      <template v-slot:caption>
         Preview based on <external-link href="https://mobile.twitter.com/">mobile.twitter.com</external-link>.
       </template>
     </preview-iframe>
@@ -41,12 +41,5 @@ export default {
 <style>
   .twitter__preview {
     max-width: 521px;
-    margin-bottom: 1em;
-    padding: 0;
-    border: none;
-  }
-
-  .twitter__preview-caption {
-    color: var(--label-color);
   }
 </style>
