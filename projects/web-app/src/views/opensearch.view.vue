@@ -19,8 +19,8 @@
       </figcaption>
     </figure>
   </panel-section>
-  <panel-section title="Tags">
-    <properties-list v-if="hasOpenSearchFile">
+  <panel-section v-if="hasOpenSearchFile" title="Tags">
+    <properties-list>
       <properties-item
         v-for="item in opensearchData"
         :key="item.keyName"
@@ -33,27 +33,25 @@
           {{ item.title }}
         </template>
         <template v-if="item.keyName === 'urls'" #value>
-          <div v-for="(url, index) in item.value" :key="index">
-            <p>
-              <template v-for="(attribute, attrIndex) in url.attributes">
-                <external-link
-                  v-if="attribute.name === 'template'"
-                  :key="attrIndex"
-                  :href="absoluteUrl(attribute.value)"
-                >
-                  {{ attribute.value }}<br>
-                </external-link>
-              </template>
-              <template v-for="(attribute, attrIndex) in url.attributes">
-                <span
-                  v-if="attribute.name !== 'template'"
-                  :key="attrIndex"
-                >
-                  {{ attribute.name }}: {{ attribute.value }}<br>
-                </span>
-              </template>
-            </p>
-          </div>
+          <p v-for="(url, index) in item.value" :key="index">
+            <template v-for="(attribute, attrIndex) in url.attributes">
+              <external-link
+                v-if="attribute.name === 'template'"
+                :key="attrIndex"
+                :href="absoluteUrl(attribute.value)"
+              >
+                {{ attribute.value }}<br>
+              </external-link>
+            </template>
+            <template v-for="(attribute, attrIndex) in url.attributes">
+              <span
+                v-if="attribute.name !== 'template'"
+                :key="attrIndex"
+              >
+                {{ attribute.name }}: {{ attribute.value }}<br>
+              </span>
+            </template>
+          </p>
         </template>
         <template v-else-if="item.keyName === 'image'" #value>
           <img :src="absoluteUrl(item.value)" alt="" />
