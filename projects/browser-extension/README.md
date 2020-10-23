@@ -22,14 +22,14 @@
 
 ## Video
 
-[![Heads Up video](./src/devtools/assets/images/thumpnail-youtube-video.png)](https://www.youtube.com/watch?v=HboZ0MGvuCQ)
+[![Heads Up video](../@shared/assets/images/demo/thumbnail-youtube-video.png)](https://www.youtube.com/watch?v=HboZ0MGvuCQ)
 
 ## Social media
 
 <details open>
 <summary>Twitter Card preview</summary>
 
-![Twitter card preview](./src/devtools/assets/images/twitter-card-preview.png)
+![Twitter card preview](../@shared/assets/images/demo//twitter-card-preview.png)
 </details>
 
 <details>
@@ -63,7 +63,7 @@ Heads Up provides their users with live feedback. The feedback will be shown aft
 <details open>
 <summary>Error message</summary>
 
-![Error message](./src/devtools/assets/images/tooltip-error.png)
+![Error message](../@shared/assets/images/demo//tooltip-error.png)
 </details>
 
 <details>
@@ -84,26 +84,35 @@ Heads Up is a [Chrome Devtools extension](https://developer.chrome.com/extension
 
 ### Setup
 
-The source code lives in the `src/` directory:
+The source code lives in two directories:
 
 ```
-examples/         <- Static examples to test Devtools
-src/
+wrapper/          <- Wraps vue-app as a devtool
   manifest.json   <- Devtools extension entry file
   devtools/       <- Devtools specific files
     assets/
     background.js
     content.js
+    devtools.html
     devtools.js
-  heads-up/       <- Heads Up app, built with Vue.js
+vue-app/          <- Heads Up app, built with Vue 3
+  public/
+  src/
     components/
+    lib/
+    router/
     store/
+    style/
     views/
-    App.vue
-    index.html
-    index.js
-    router.js
+    main.js
+
+../@shared/       <- Resources shared with other apps
+    assets/
+    components/
+    lib/
 ```
+
+This browser-extension shares files with the landing page and the web-app. These files are imported from an adjacent project directory `../@stared/`.
 
 The `manifest.json` registers our extension and bootstraps our Devtools (`src/devtools/devtools.(html|js)`), which in turn creates a Devtools panel with Heads Up (`src/heads-up/index.(html|js)`), which starts our Heads Up app (`src/heads-up/App.vue`).
 
@@ -114,11 +123,13 @@ The Heads Up app receives its data from the Devtools via messages (in `src/heads
 The development workflow is a bit different from regular web apps:
 
 * Clone the [repository](https://github.com/voorhoede/heads-up)
-* Install dependencies: `npm install`
-* Start develpment: `npm run dev`
+* Install dependencies: `npm install` from the root of the repository.
+* Start development
+  * from root directory: `npm run dev:web-app`
+  * from this directory: `npm run start`
 * Open Chrome and go to [`chrome://extensions/`](chrome://extensions/)
 * Enable __Developer mode__
-* Hit __Load unpacked__ and select the `dist/` directory of the repository
+* Hit __Load unpacked__ and select the `dist/` directory of the project folder
 * Visit any web page, open the Devtools and find the Heads Up panel
 * If you make changes to anything in `src/devtools/` you need to reload the extension via [`chrome://extensions/`](chrome://extensions/)
 * If you make changes to `src/heads-up/` you only need to hit the __refresh__ button in the top-right corner of the Heads Up panel.
@@ -132,30 +143,11 @@ After installing dependencies using `npm install` the following scripts are avai
 `npm run ...` | Description
 ---|---
 `build` | Builds devtools package to `dist/`.
-`dev` | Runs `dev:app` and `dev:examples` in parallel.
-`dev:app` | Compiles Vue app to `dist/` on file changes.
-`dev:examples` | Serves `examples/` on [`http://localhost:5000`](http://localhost:5000)
+`dev` | Runs `dev:wrapper` and `dev:vue-app` in parallel.
+`dev:wrapper` | Compiles the devtools wrapping code
+`dev:vue-app` | Compiles Vue app to `dist/` on file changes.
 `lint` | Checks code for code style violations.
 `lint:fix` | Checks code for code style violations and fixes them when possible.
-`test` | Runs linting.
-
-## HTML syntax highlighting in `*-preview.js` files
-
-Since the markup of the preview is generated with template literals in plain
-`.js` files, you don't get syntax highlighting for the markup.
-For VS Code there is a solution in the form of the LitHtml extension. Although
-this project does not use LitHtml, we can trick the plugin in thinking it does,
-and thus provide syntax highlighting.
-
-The `html` lib function is a mock function which tricks the LitHtml extension
-into providing the syntax highlight.
-
-### Setup
-
-1. Install the [extension](https://marketplace.visualstudio.com/items?itemName=bierner.lit-html)
-2. Import the lib function `html` from `/src/heads-up/lib/html.js` in your file
-3. Tag the template literal with the `html` function `const htmlString = html``<p>Some markup here</p>`
-
 
 ## License
 
