@@ -5,23 +5,18 @@
         This page does not contain an Open Graph description to create a
         preview.
       </p>
-      <figure v-if="hasDescription && previewUrl">
-        <iframe
-          ref="iframe"
-          title="whatsapp preview"
-          :src="previewUrl"
-          :height="iframeHeight"
-          width="100%"
-          class="whatsapp__preview"
-          @load="onResize"
-        />
-        <figcaption class="whatsapp__preview-caption">
+      <preview-iframe
+        v-if="hasDescription && previewUrl"
+        :url="previewUrl"
+        iframeClass="whatsapp__preview"
+      >
+        <template v-slot:caption>
           Preview based on
           <external-link href="https://web.whatsapp.com/">
             web.whatsapp.com
           </external-link>
-        </figcaption>
-      </figure>
+        </template>
+      </preview-iframe>
     </panel-section>
 
     <panel-section title="Properties">
@@ -170,6 +165,7 @@ import ExternalLink from '@shared/components/external-link';
 import PropertiesList from '@shared/components/properties-list';
 import AppTooltip from '@shared/components/app-tooltip';
 import PropertyData from '@/components/property-data';
+import PreviewIframe from '@shared/components/preview-iframe';
 import {
   findMetaContent,
   findMetaProperty,
@@ -185,10 +181,10 @@ export default {
     PropertyData,
     InfoIcon,
     WarningIcon,
+    PreviewIframe,
   },
   data() {
     return {
-      iframeHeight: 'auto',
       imageDimensions: { width: undefined, height: undefined },
       showTooltip: false,
       tooltip: {
@@ -351,12 +347,6 @@ export default {
     propertyValue(propName) {
       return findMetaProperty(this.head, propName);
     },
-    onResize() {
-      this.iframeHeight =
-        parseInt(
-          this.$refs.iframe.contentWindow.document.body.scrollHeight + 2
-        ) + 'px';
-    },
   },
 };
 </script>
@@ -364,13 +354,6 @@ export default {
 <style>
 .whatsapp__preview {
   max-width: 521px;
-  margin-bottom: 1em;
-  padding: 0;
-  border: none;
-}
-
-.whatsapp__preview-caption {
-  color: var(--label-color);
 }
 
 .properties-item__tooltip {

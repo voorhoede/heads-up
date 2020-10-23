@@ -10,23 +10,15 @@
         <!-- eslint-disable-next-line vue/no-v-html -->
         <span v-html="supportedCards.map(v => `<code>${v}</code>`).join(', ')" />.
       </p>
-      <figure v-if="isValidCard && isSupportedCard">
-        <iframe
-          ref="iframe"
-          :src="twitterUrl"
-          :height="iframeHeight"
-          width="100%"
-          frameborder="0"
-          scrolling="no"
-          class="twitter__preview"
-          @load="onResize"
-        />
-        <figcaption class="twitter__preview-caption">
-          Preview based on <external-link href="https://mobile.twitter.com/">
-            mobile.twitter.com
-          </external-link>.
-        </figcaption>
-      </figure>
+      <preview-iframe
+        v-if="isValidCard && isSupportedCard"
+        :url="twitterUrl"
+        iframeClass="twitter__preview"
+      >
+        <template v-slot:caption>
+          Preview based on <external-link href="https://mobile.twitter.com/">mobile.twitter.com</external-link>.
+        </template>
+      </preview-iframe>
     </panel-section>
 
     <panel-section title="Properties">
@@ -117,17 +109,13 @@ import { findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
 import PropertiesList from '@shared/components/properties-list';
+import PreviewIframe from '@shared/components/preview-iframe';
 
 const validCards = [ 'summary', 'summary_large_image', 'app', 'player' ];
 export const supportedCards = [ 'summary', 'summary_large_image' ];
 
 export default {
-  components: { ExternalLink, PanelSection, PropertiesList },
-  data() {
-    return {
-      iframeHeight: 'auto',
-    };
-  },
+  components: { ExternalLink, PanelSection, PropertiesList, PreviewIframe },
   computed: {
     ...mapState([ 'head' ]),
     card() {
@@ -201,9 +189,6 @@ export default {
     propertyValue(propName) {
       return findMetaProperty(this.head, propName);
     },
-    onResize() {
-      this.iframeHeight = parseInt(this.$refs.iframe.contentWindow.document.body.scrollHeight + 2) + 'px';
-    },
   },
 };
 </script>
@@ -211,12 +196,5 @@ export default {
 <style>
   .twitter__preview {
     max-width: 521px;
-    margin-bottom: 1em;
-    padding: 0;
-    border: none;
-  }
-
-  .twitter__preview-caption {
-    color: var(--label-color);
   }
 </style>
