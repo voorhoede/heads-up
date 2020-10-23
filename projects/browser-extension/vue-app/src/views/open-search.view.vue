@@ -200,18 +200,10 @@ export default {
       return url.startsWith('http') ? url : new URL(this.head.url).origin + url;
     },
     getOpenSearchFileContent() {
-      const request = new XMLHttpRequest();
-      request.onreadystatechange = e => {
-        const { readyState, response, status } = e.target;
-        if (readyState === 4 && status === 200) {
-          this.fileContent = response;
-        }
-      };
-      request.onerror = () => {
-        throw new Error('An error occurred, request failed.');
-      };
-      request.open('GET', this.fileUrl, true);
-      request.send();
+      fetch(this.fileUrl)
+        .then(res => res.text())
+        .then(text => this.fileContent = text)
+        .catch((error) => console.error(error));
     },
   },
 };
