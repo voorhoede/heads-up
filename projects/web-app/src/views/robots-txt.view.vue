@@ -5,26 +5,44 @@
       <dt>Crawlable:</dt><dd>{{ urlIsCrawlable }}</dd>
     </properties-list>
   </panel-section>
+  <panel-section title="Sitemap">
+    <div v-if="!sitemapUrls.length" class="warning-message">
+      <WarningIcon class="icon" />
+      <p>No sitemaps detected.</p>
+    </div>
+    <properties-list v-else>
+      <div v-for="(url, index) in sitemapUrls" :key="index">
+        <dt>Url:</dt>
+        <dd>
+          <external-link :href="url">{{ url }}</external-link>
+        </dd>
+      </div>
+    </properties-list>
+    <p v-if="sitemapUrls.length">
+      Go to <router-link :to="{ name: 'sitemap' }">Sitemap</router-link> for more details.
+    </p>
+  </panel-section>
   <panel-section
     v-for="robot in robots"
     :key="robot.name"
     :title="robot.name"
   >
     <properties-list>
-      <div v-for="item in robotData(robot)" :key="item.keyName">
-        <dt>
-          {{ item.title }}
-        </dt>
-        <dd v-if="typeof item.value === 'string'">
-          {{ item.value }}
-        </dd>
-        <dd v-else>
-          <div v-for="(value, index) in item.value" :key="index">
-            <span>{{ value.path }}<br></span>
+        <dt>Allow</dt>
+        <dd>
+          <div v-for="(rule, index) in robot.allow" :key="index">
+            <span v-if="rule.path">{{ rule.path }}</span>
           </div>
         </dd>
-      </div>
-    </properties-list>
+        <dt>CrawlDelay</dt>
+        <dd>{{ robot.crawlDelay }}</dd>
+        <dt>Disallow</dt>
+        <dd>
+          <div v-for="(rule, index) in robot.disallow" :key="index">
+            <span v-if="rule.path">{{ rule.path }}</span>
+          </div>
+        </dd>
+      </properties-list>
   </panel-section>
   <panel-section title="Resources">
     <ul class="resource-list">
@@ -53,39 +71,23 @@ import useHead from '@/composables/use-head';
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
 import PropertiesList from '@shared/components/properties-list';
+import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
   setup: () => {
     const headData = useHead().data;
-    const url = computed(() => headData.value.head.url);
     const robots = computed(() => headData.value.robots);
+    const sitemapUrls = computed(() => headData.value.sitemapUrls);
+    const url = computed(() => headData.value.head.url);
     const urlIsCrawlable = computed(() => headData.value.urlIsCrawlable);
 
-    const robotData = robot => [
-      {
-        keyName: 'allow',
-        title: 'allow',
-        value: robot.allow,
-      },
-      {
-        keyName: 'crawl-delay',
-        title: 'crawlDelay',
-        value: robot.crawlDelay.toString(),
-      },
-      {
-        keyName: 'disallow',
-        title: 'disallow',
-        value: robot.disallow,
-      },
-    ];
-
     return  {
-      url,
       robots,
+      sitemapUrls,
+      url,
       urlIsCrawlable,
-      robotData,
     };
   },
-  components: { ExternalLink, PanelSection, PropertiesList },
+  components: { ExternalLink, PanelSection, PropertiesList, WarningIcon },
 };
 </script>

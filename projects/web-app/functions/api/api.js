@@ -59,6 +59,14 @@ function createRobotsResponse(domain) {
   });
 }
 
+function createSitemapUrlsResponse(domain) {
+  return robotsParser.fetch(domain).then(result => {
+    if (result.sitemaps) {
+      return result.sitemaps;
+    }
+  });
+}
+
 exports.handler = async function(event) {
   const url = event.queryStringParameters.url;
   let body = null;
@@ -93,6 +101,7 @@ exports.handler = async function(event) {
           head: await createHeadResponse(domain, url),
           robots: await createRobotsResponse(url),
           sitemap: await createSitemapResponse(domain),
+          sitemapUrls: await createSitemapUrlsResponse(domain),
         }
       ),
     };
