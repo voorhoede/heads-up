@@ -10,7 +10,7 @@
     "prebuild-netlify": "cd ../@shared && npm i",
     "build-netlify": "npm run build",
     "start": "npm run dev",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint --no-fix"
   },
   "dependencies": {
     "core-js": "^3.6.5",
