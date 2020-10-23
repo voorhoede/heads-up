@@ -5,7 +5,7 @@
   "scripts": {
     "build": "vue-cli-service build --dest '../dist/app' --skip-plugins @vue/cli-plugin-eslint",
     "dev": "vue-cli-service build --dest '../dist/app' --watch",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint --no-fix"
   },
   "dependencies": {
     "core-js": "^3.6.5",

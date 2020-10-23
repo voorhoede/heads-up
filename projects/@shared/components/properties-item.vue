@@ -104,8 +104,8 @@
 <script>
 import validateErrorSchema from '../lib/validate-error-schema';
 import validateWarningSchema from '../lib/validate-warning-schema';
-import ExternalLink from './external-link.vue';
-import AppTooltip from './app-tooltip.vue';
+import ExternalLink from './external-link';
+import AppTooltip from './app-tooltip';
 import InfoIcon from '../assets/icons/info.svg';
 import WarningIcon from '../assets/icons/warning.svg';
 

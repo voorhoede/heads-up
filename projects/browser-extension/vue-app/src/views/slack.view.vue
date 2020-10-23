@@ -4,24 +4,18 @@
       <p v-if="!hasRequiredData">
         This page does not contain og:image meta data to create a preview.
       </p>
-
-      <figure v-if="hasRequiredData">
-        <iframe
-          ref="iframe"
-          :src="previewUrl"
-          :height="iframeHeight"
-          title="Slack preview"
-          width="100%"
-          class="slack__preview"
-          @load="onResize"
-        />
-        <figcaption class="slack__preview-caption">
+      <preview-iframe
+        v-if="hasRequiredData"
+        :url="previewUrl"
+        iframeClass="slack__preview"
+      >
+        <template v-slot:caption>
           Preview based on
           <external-link href="https://slack.com/">
             slack.com
           </external-link>.
-        </figcaption>
-      </figure>
+        </template>
+      </preview-iframe>
     </panel-section>
 
     <panel-section title="Properties">
@@ -125,15 +119,14 @@
 
 <script>
 import { mapState } from 'vuex';
+import getTheme from '@shared/lib/theme';
 import InfoIcon from '@shared/assets/icons/info.svg';
-import PanelSection from '@shared/components/panel-section.vue';
-import ExternalLink from '@shared/components/external-link.vue';
-import PropertiesList from '@shared/components/properties-list.vue';
-import AppTooltip from '@shared/components/app-tooltip.vue';
-
-import {
-  PropertyData
-} from '../components';
+import PanelSection from '@shared/components/panel-section';
+import ExternalLink from '@shared/components/external-link';
+import PropertiesList from '@shared/components/properties-list';
+import AppTooltip from '@shared/components/app-tooltip';
+import PropertyData from '@/components/property-data';
+import PreviewIframe from '@shared/components/preview-iframe';
 import {
   findMetaContent,
   findMetaProperty,
@@ -150,10 +143,10 @@ export default {
     AppTooltip,
     PropertyData,
     InfoIcon,
+    PreviewIframe,
   },
   data() {
     return {
-      iframeHeight: 'auto',
       imageDimensions: { width: undefined, height: undefined },
       showImageTooltip: false,
       tooltip: {
@@ -219,6 +212,13 @@ export default {
       } catch (error) {
         return error;
       }
+    },
+    themeClass() {
+      /**
+       * class '-theme-with-dark-background' is taken from original dev tools repo
+       * src: https://github.com/ChromeDevTools/devtools-frontend/blob/02a851d01de158d8c0a8fd1d3af06649b5379bd6/front_end/ui/inspectorStyle.css
+       */
+      return getTheme() === 'dark' ? '-theme-with-dark-background' : '';
     },
     previewUrl() {
       const params = new URLSearchParams();
@@ -305,12 +305,6 @@ export default {
     propertyValue(propName) {
       return findMetaProperty(this.head, propName);
     },
-    onResize() {
-      this.iframeHeight =
-        parseInt(
-          this.$refs.iframe.contentWindow.document.body.scrollHeight + 2
-        ) + 'px';
-    },
   },
 };
 </script>
@@ -318,14 +312,7 @@ export default {
 <style>
 .slack__preview {
   max-width: 521px;
-  min-height: 360px;
-  margin-bottom: 1em;
-  padding: 0;
-  border: none;
-}
-
-.slack__preview-caption {
-  color: var(--label-color);
+  min-height: 264px;
 }
 
 .slack .properties-item__icon {

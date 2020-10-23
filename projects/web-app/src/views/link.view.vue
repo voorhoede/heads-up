@@ -22,7 +22,7 @@ import { computed } from 'vue';
 import useHead from '@/composables/use-head';
 import PanelSection from '@shared/components/panel-section';
 import CollapsibleList from '@shared/components/collapsible-list';
-import ExternalLink from '@shared/components/external-link.vue';
+import ExternalLink from '@shared/components/external-link';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {

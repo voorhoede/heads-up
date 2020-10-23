@@ -40,10 +40,10 @@
         <h3 class="app-sidebar__section-title">Social Media</h3>
         <ul class="app-sidebar__list">
           <li>
-            <a href="#" class="app-sidebar__link">
+            <router-link :to="{ name: 'twitter' }" class="app-sidebar__link">
               <TwitterIcon />
               <span>Twitter</span>
-            </a>
+            </router-link>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
@@ -58,10 +58,10 @@
             </a>
           </li>
           <li>
-            <a href="#" class="app-sidebar__link">
+            <router-link :to="{ name: 'facebook' }" class="app-sidebar__link">
               <FacebookIcon />
               <span>Facebook</span>
-            </a>
+            </router-link>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
@@ -87,16 +87,16 @@
             </router-link>
           </li>
           <li>
-            <a href="#" class="app-sidebar__link">
+            <router-link :to="{ name: 'sitemap' }" class="app-sidebar__link">
               <SitemapIcon />
               <span>Sitemap</span>
-            </a>
+            </router-link>
           </li>
           <li>
-            <a href="#" class="app-sidebar__link">
+            <router-link :to="{ name: 'robots-txt' }" class="app-sidebar__link">
               <RobotIcon />
               <span>Robots.txt</span>
-            </a>
+            </router-link>
           </li>
         </ul>
       </section>
@@ -113,7 +113,7 @@
 <script>
 import AppleIcon from '@shared/assets/icons/apple.svg';
 import CodeIcon from '@shared/assets/icons/code.svg';
-import ExternalLink from '@shared/components/external-link.vue';
+import ExternalLink from '@shared/components/external-link';
 import FacebookIcon from '@shared/assets/icons/facebook.svg';
 import ImageIcon from '@shared/assets/icons/image.svg';
 import LinkIcon from '@shared/assets/icons/link.svg';

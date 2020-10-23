@@ -1,55 +1,42 @@
 <template>
   <div class="facebook">
-    <!-- <switch-buttons
-      :buttons="switchButtons"
-      :value="mode"
-      @change="toggle"
-    /> -->
+    <tab-selecter
+      v-model="openTab"
+      :tabs="TABS"
+    />
 
     <panel-section
-      v-if="mode === 'mobile'"
+      v-if="openTab === 'mobile'"
       title="Preview"
     >
-      <figure>
-        <iframe
-          ref="iframe"
-          :src="previewUrl"
-          :height="iframeHeight"
-          width="100%"
-          class="facebook__preview"
-          @load="onResize"
-        />
-        <figcaption class="facebook__preview-caption">
+      <preview-iframe
+        :url="previewUrl"
+        iframeClass="facebook__preview"
+      >
+        <template v-slot:caption>
           Preview based on
           <external-link href="https://m.facebook.com/">
             m.facebook.com
           </external-link>.
-        </figcaption>
-      </figure>
+        </template>
+      </preview-iframe>
     </panel-section>
 
     <panel-section
-      v-if="mode === 'desktop'"
+      v-if="openTab === 'desktop'"
       title="Preview"
     >
-      <figure>
-        <iframe
-          ref="iframe"
-          :src="previewUrl"
-          :height="iframeHeight"
-          width="100%"
-          frameborder="0"
-          scrolling="no"
-          class="facebook__preview"
-          @load="onResize"
-        />
-        <figcaption class="facebook__preview-caption">
+      <preview-iframe
+        :url="previewUrl"
+        class="facebook__preview"
+      >
+        <template v-slot:caption>
           Preview based on
           <external-link href="https://facebook.com/">
             facebook.com
           </external-link>.
-        </figcaption>
-      </figure>
+        </template>
+      </preview-iframe>
     </panel-section>
 
     <panel-section title="Properties">
@@ -157,48 +144,48 @@
 <script>
 import { mapState } from 'vuex';
 import getTheme from '@shared/lib/theme';
-import InfoIcon from '@shared/assets/icons/info.svg';
-import PanelSection from '@shared/components/panel-section.vue';
-import ExternalLink from '@shared/components/external-link.vue';
-import PropertiesList from '@shared/components/properties-list.vue';
-import AppTooltip from '@shared/components/app-tooltip.vue';
-
-import {
-  // SwitchButtons,
-  PropertyData
-} from '../components';
 import {
   findMetaContent,
   findMetaProperty,
   findImageDimensions
 } from '@shared/lib/find-meta';
+import InfoIcon from '@shared/assets/icons/info.svg';
+import TabSelecter from '@shared/components/tab-selecter';
+import PanelSection from '@shared/components/panel-section';
+import ExternalLink from '@shared/components/external-link';
+import PropertiesList from '@shared/components/properties-list';
+import AppTooltip from '@shared/components/app-tooltip';
+import PropertyData from '@/components/property-data';
+import PreviewIframe from '@shared/components/preview-iframe';
+
+const TABS = [
+  {
+    label: 'Mobile',
+    value: 'mobile',
+  },
+  {
+    label: 'Desktop',
+    value: 'desktop',
+  },
+];
 
 export default {
   components: {
+    TabSelecter,
     ExternalLink,
     PanelSection,
     PropertiesList,
-    // SwitchButtons,
     AppTooltip,
     InfoIcon,
     PropertyData,
+    PreviewIframe,
   },
   data() {
     return {
-      iframeHeight: 'auto',
       imageDimensions: { width: 0, height: 0 },
       imageSpecified: true,
-      switchButtons: [
-        {
-          label: 'Mobile',
-          value: 'mobile',
-        },
-        {
-          label: 'Desktop',
-          value: 'desktop',
-        },
-      ],
-      mode: 'mobile',
+      TABS,
+      openTab: TABS[0].value,
       tooltip: {
         title: {
           exist: null,
@@ -278,7 +265,7 @@ export default {
         this.imageDimensions.height >= 415 && this.imageDimensions.width >= 415
       );
       return `${
-        this.mode === 'desktop'
+        this.openTab === 'desktop'
           ? `/previews/facebook-desktop/facebook-desktop.html?${ params }`
           : `/previews/facebook-mobile/facebook-mobile.html?${ params }`
       }`;
@@ -303,12 +290,6 @@ export default {
       findImageDimensions(this.head, 'og:image').then(imageDimensions => {
         this.imageDimensions = imageDimensions;
         this.setTooltipData(imageDimensions);
-      });
-    },
-    toggle(newMode) {
-      this.mode = newMode;
-      this.previewUrl = this.previewUrl({
-        imageDimensions: this.imageDimensions,
       });
     },
     absoluteUrl(url) {
@@ -351,12 +332,6 @@ export default {
     propertyValue(propName) {
       return findMetaProperty(this.head, propName);
     },
-    onResize() {
-      this.iframeHeight =
-        parseInt(
-          this.$refs.iframe.contentWindow.document.body.scrollHeight + 2
-        ) + 'px';
-    },
   },
 };
 </script>
@@ -365,13 +340,6 @@ export default {
 .facebook__preview {
   max-width: 521px;
   min-height: 400px;
-  margin-bottom: 1em;
-  padding: 0;
-  border: none;
-}
-
-.facebook__preview-caption {
-  color: var(--label-color);
 }
 
 .facebook .properties-item__icon {
