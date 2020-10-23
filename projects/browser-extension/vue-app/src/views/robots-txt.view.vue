@@ -69,9 +69,9 @@
 
 <script>
 import { mapState } from 'vuex';
-import ExternalLink from '@shared/components/external-link.vue';
-import PanelSection from '@shared/components/panel-section.vue';
-import PropertiesList from '@shared/components/properties-list.vue';
+import ExternalLink from '@shared/components/external-link';
+import PanelSection from '@shared/components/panel-section';
+import PropertiesList from '@shared/components/properties-list';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {

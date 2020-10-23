@@ -245,6 +245,7 @@ export default class Tooltip {
   }
 
   _applyContent (title, options) {
+    // eslint-disable-next-line sonarjs/cognitive-complexity
     return new Promise((resolve, reject) => {
       const allowHtml = options.html;
       const rootNode = this._tooltipNode;
@@ -312,6 +313,7 @@ export default class Tooltip {
     return result;
   }
 
+  // eslint-disable-next-line sonarjs/cognitive-complexity
   _ensureShown (reference, options) {
     // don't show if it's already visible
     if (this._isOpen) {

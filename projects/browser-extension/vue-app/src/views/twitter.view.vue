@@ -114,9 +114,9 @@
 import { mapState } from 'vuex';
 import getTheme from '@shared/lib/theme';
 import { findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
-import PanelSection from '@shared/components/panel-section.vue';
-import ExternalLink from '@shared/components/external-link.vue';
-import PropertiesList from '@shared/components/properties-list.vue';
+import PanelSection from '@shared/components/panel-section';
+import ExternalLink from '@shared/components/external-link';
+import PropertiesList from '@shared/components/properties-list';
 
 const validCards = [ 'summary', 'summary_large_image', 'app', 'player' ];
 export const supportedCards = [ 'summary', 'summary_large_image' ];

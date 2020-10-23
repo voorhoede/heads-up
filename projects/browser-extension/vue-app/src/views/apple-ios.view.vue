@@ -86,9 +86,9 @@
 <script>
 import { mapState } from 'vuex';
 import { findMetaContent } from '@shared/lib/find-meta';
-import PanelSection from '@shared/components/panel-section.vue';
-import ExternalLink from '@shared/components/external-link.vue';
-import PropertiesList from '@shared/components/properties-list.vue';
+import PanelSection from '@shared/components/panel-section';
+import ExternalLink from '@shared/components/external-link';
+import PropertiesList from '@shared/components/properties-list';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {

@@ -1,19 +1,22 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import AppleIos from '@/views/apple-ios.view.vue';
-import Favicon from '@/views/favicon.view.vue';
-import Link from '@/views/link.view.vue';
-import Meta from '@/views/meta.view.vue';
-import RobotsTxt from '@/views/robots-txt.view.vue';
-import Opengraph from '@/views/open-graph.view.vue';
-import Sitemap from '@/views/sitemap.view.vue';
-import SearchMeta from '@/views/search-meta.view.vue';
+import AppleIos from '@/views/apple-ios.view';
+import Favicon from '@/views/favicon.view';
+import Link from '@/views/link.view';
+import Meta from '@/views/meta.view';
+import Opengraph from '@/views/open-graph.view';
+import SearchMeta from '@/views/search-meta.view';
+import Facebook from '@/views/facebook.view';
+import RobotsTxt from '@/views/robots-txt.view';
+import Sitemap from '@/views/sitemap.view';
 
 const routes = [
   {
     path: '/',
     redirect: '/meta',
   },
+
+  // Application
   {
     path: '/meta',
     name: 'meta',
@@ -35,14 +38,23 @@ const routes = [
     component: AppleIos,
   },
   {
-    path: '/robots-txt',
-    name: 'robots-txt',
-    component: RobotsTxt,
-  },
-  {
     path: '/open-graph',
     name: 'open-graph',
     component: Opengraph,
+  },
+
+  // Social Media
+  {
+    path: '/facebook',
+    name: 'facebook',
+    component: Facebook,
+  },
+
+  // Search
+  {
+    path: '/search-meta',
+    name: 'search-meta',
+    component: SearchMeta,
   },
   {
     path: '/sitemap',
@@ -50,10 +62,12 @@ const routes = [
     component: Sitemap,
   },
   {
-    path: '/search-meta',
-    name: 'search-meta',
-    component: SearchMeta,
+    path: '/robots-txt',
+    name: 'robots-txt',
+    component: RobotsTxt,
   },
+
+  // Catch all fallback
   {
     path: '/:pathMatch(.*)*',
     redirect: '/',

@@ -58,10 +58,10 @@
             </a>
           </li>
           <li>
-            <a href="#" class="app-sidebar__link">
+            <router-link :to="{ name: 'facebook' }" class="app-sidebar__link">
               <FacebookIcon />
               <span>Facebook</span>
-            </a>
+            </router-link>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
@@ -113,7 +113,7 @@
 <script>
 import AppleIcon from '@shared/assets/icons/apple.svg';
 import CodeIcon from '@shared/assets/icons/code.svg';
-import ExternalLink from '@shared/components/external-link.vue';
+import ExternalLink from '@shared/components/external-link';
 import FacebookIcon from '@shared/assets/icons/facebook.svg';
 import ImageIcon from '@shared/assets/icons/image.svg';
 import LinkIcon from '@shared/assets/icons/link.svg';
