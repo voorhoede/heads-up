@@ -9,6 +9,7 @@ import SearchMeta from '@/views/search-meta.view';
 import Facebook from '@/views/facebook.view';
 import RobotsTxt from '@/views/robots-txt.view';
 import Sitemap from '@/views/sitemap.view';
+import Twitter from '@/views/twitter.view';
 
 const routes = [
   {
@@ -40,10 +41,20 @@ const routes = [
   {
     path: '/open-graph',
     name: 'open-graph',
-    component: Opengraph,
+    component: OpenGraph,
+  },
+  {
+    path: '/opensearch',
+    name: 'opensearch',
+    component: OpenSearch,
   },
 
   // Social Media
+  {
+    path: '/twitter',
+    name: 'twitter',
+    component: Twitter,
+  },
   {
     path: '/facebook',
     name: 'facebook',

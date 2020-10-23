@@ -5,14 +5,14 @@
   "license": "MIT",
   "scripts": {
     "postinstall": "npm-recursive-install --rootDir=projects",
+    "build": "npm-run-all build:**",
     "build:rich-previews": "cd ./projects/rich-previews && npm run build",
     "build:browser-extension": "cd ./projects/browser-extension && npm run build",
     "build:landing-page": "cd ./projects/landing-page && npm run build",
     "build:web-app": "cd ./projects/web-app && npm run build",
     "dev:browser-extension": "cd ./projects/browser-extension && npm start",
     "dev:landing-page": "cd ./projects/landing-page && npm start",
-    "dev:web-app": "cd ./projects/web-app && npm start",
-    "build": "npm-run-all build:**"
+    "dev:web-app": "cd ./projects/web-app && npm start"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
     "husky": "^3.1.0",
     "npm-run-all": "^4.1.5",
     "recursive-install": "^1.4.0",
+    "rimraf": "^3.0.2",
     "sonarjs": "^1.0.0"
   }
 }

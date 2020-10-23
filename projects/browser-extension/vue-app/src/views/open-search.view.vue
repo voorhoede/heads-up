@@ -4,17 +4,12 @@
       <p v-if="!hasOpenSearchFile">
         This page does not contain a reference to an Open Search description file.
       </p>
-
-      <figure v-if="hasOpenSearchFile">
-        <iframe
-          ref="iframe"
-          title="Open Search preview"
-          :src="previewUrl"
-          height="auto"
-          width="100%"
-          class="opensearch__preview"
-        />
-        <figcaption class="opensearch__preview-caption">
+      <preview-iframe
+         v-if="hasOpenSearchFile"
+        :url="previewUrl"
+        iframeClass="opensearch__preview"
+      >
+        <template v-slot:caption>
           Preview based on source file:
           <a
             :href="fileUrl"
@@ -22,8 +17,8 @@
           >
             {{ fileUrl }}
           </a>
-        </figcaption>
-      </figure>
+        </template>
+      </preview-iframe>
     </panel-section>
 
     <panel-section title="Tags">
@@ -105,9 +100,10 @@ import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
 import PropertiesList from '@shared/components/properties-list';
 import PropertiesItem from '@shared/components/properties-item';
+import PreviewIframe from '@shared/components/preview-iframe';
 
 export default {
-  components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList },
+  components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList, PreviewIframe },
   data() {
     return {
       fileContent: '',
@@ -211,13 +207,6 @@ export default {
 
 <style>
   .opensearch__preview {
-    margin-bottom: .5em;
-    padding: 0;
-    border: none;
     height: 140px;
-  }
-
-  .opensearch__preview-caption {
-    color: var(--label-color);
   }
 </style>
