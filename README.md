@@ -41,6 +41,7 @@ Heads Up as a web application, where you can enter the URL of your website and r
 Shared resources between different projects. Contains shared assets, vue components, and library functions.
 
 ## Development
+To install _all_ dependencies for _all_ projects, simply run `npm install` from this directory.
 You can work on the entire monorepo by running it from the root folder, or work on individual projects by running a project from its respective directory.
 For project specifics, please refer to that project's README.md.
 From this folder, we can the following scrips:
