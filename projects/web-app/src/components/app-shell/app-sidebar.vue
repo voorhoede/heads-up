@@ -87,16 +87,16 @@
             </a>
           </li>
           <li>
-            <a href="#" class="app-sidebar__link">
+            <router-link :to="{ name: 'sitemap' }" class="app-sidebar__link">
               <SitemapIcon />
               <span>Sitemap</span>
-            </a>
+            </router-link>
           </li>
           <li>
-            <a href="#" class="app-sidebar__link">
+            <router-link :to="{ name: 'robots-txt' }" class="app-sidebar__link">
               <RobotIcon />
               <span>Robots.txt</span>
-            </a>
+            </router-link>
           </li>
         </ul>
       </section>
