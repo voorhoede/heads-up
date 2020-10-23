@@ -40,10 +40,10 @@
         <h3 class="app-sidebar__section-title">Social Media</h3>
         <ul class="app-sidebar__list">
           <li>
-            <a href="#" class="app-sidebar__link">
+            <router-link :to="{ name: 'twitter' }" class="app-sidebar__link">
               <TwitterIcon />
               <span>Twitter</span>
-            </a>
+            </router-link>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">
