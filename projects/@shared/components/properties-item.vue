@@ -66,12 +66,7 @@
         </template>
 
         <template #link>
-          <external-link
-            class="properties-item__link"
-            :href="link"
-          >
-            Learn more
-          </external-link>
+          <external-link class="properties-item__link" :href="link">Learn more</external-link>
         </template>
       </app-tooltip>
     </span>
