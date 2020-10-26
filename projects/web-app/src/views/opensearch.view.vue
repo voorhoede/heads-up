@@ -162,7 +162,7 @@ export default {
       fetch(fileUrl.value)
         .then(res => res.text())
         .then(text => fileContent.value = text)
-        .catch((error) => console.error(error));
+        .catch(error => console.error(error));
     };
 
     return {
