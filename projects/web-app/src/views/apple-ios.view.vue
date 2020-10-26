@@ -68,6 +68,7 @@
 <script>
 import { computed } from 'vue';
 import useHead from '@/composables/use-head';
+import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findMetaContent } from '@shared/lib/find-meta';
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
@@ -93,10 +94,7 @@ export default {
         .map(image => ({ ...image, filename: image.href.split('/').pop(), url: absoluteUrl(image.href) }));
     });
 
-    const absoluteUrl = url => {
-      const headUrl = headData.value.head.url;
-      return url.startsWith('http') ? url : new URL(headUrl).origin + url;
-    };
+    const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
     const metaValue = metaName => findMetaContent(headData.value.head, metaName);
 
     return {
