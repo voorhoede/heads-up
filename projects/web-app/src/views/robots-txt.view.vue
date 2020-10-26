@@ -1,5 +1,5 @@
 <template>
-  <panel-section title="Robots.txt">
+  <panel-section title="Robots">
     <properties-list>
       <dt>URL:</dt><dd>{{ url }}</dd>
       <dt>Crawlable:</dt><dd>{{ urlIsCrawlable }}</dd>
