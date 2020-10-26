@@ -1,6 +1,6 @@
 <template>
-  <panel-section title="Sitemap">
-    <div v-if="!sitemap" class="warning-message">
+  <panel-section title="Sitemaps">
+    <div v-if="!sitemaps.length" class="warning-message">
       <WarningIcon class="icon" />
       <p>
         No sitemap found at
@@ -8,7 +8,7 @@
       </p>
     </div>
     <code v-else>
-      <pre>{{ sitemap }}</pre>
+      <pre>{{ sitemaps }}</pre>
     </code>
   </panel-section>
   <panel-section title="Resources">
@@ -37,13 +37,13 @@ import WarningIcon from '@shared/assets/icons/warning.svg';
 export default {
   setup: () => {
     const headData = useHead().data;
-    const sitemap = computed(() => headData.value.sitemap);
+    const sitemaps = computed(() => headData.value.sitemaps);
     const sitemapUrl = computed(() => {
       return headData.value.head.domain + '/sitemap.xml';
     });
 
     return {
-      sitemap,
+      sitemaps,
       sitemapUrl,
     };
   },
