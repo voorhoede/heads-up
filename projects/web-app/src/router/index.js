@@ -11,6 +11,7 @@ import Facebook from '@/views/facebook.view';
 import RobotsTxt from '@/views/robots-txt.view';
 import Sitemap from '@/views/sitemap.view';
 import Twitter from '@/views/twitter.view';
+import Whatsapp from '@/views/whatsapp.view';
 
 const routes = [
   {
@@ -55,6 +56,11 @@ const routes = [
     path: '/twitter',
     name: 'twitter',
     component: Twitter,
+  },
+  {
+    path: '/whatsapp',
+    name: 'whatsapp',
+    component: Whatsapp,
   },
   {
     path: '/facebook',
