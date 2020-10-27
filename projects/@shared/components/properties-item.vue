@@ -1,14 +1,12 @@
 <template>
   <div class="properties-item">
-    <span class="properties-item__term">
-      <span
-        v-if="warnings || errors"
-        class="properties-item__term-text"
-      >
+    <dt class="properties-item__term">
+      <span v-if="warnings || errors">
         <slot />
       </span>
 
       <app-tooltip
+        v-if="schema"
         class="properties-item__tooltip"
         placement="top-start"
       >
@@ -18,12 +16,9 @@
         />
         <WarningIcon
           v-else-if="errors"
-          class="properties-item__icon properties-item-icon properties-item-icon--warning"
+          class="properties-item__icon properties-item-icon--warning"
         />
-        <span
-          v-else
-          class="properties-item__term-text"
-        >
+        <span v-else>
           <slot />
         </span>
 
@@ -69,30 +64,33 @@
           <external-link class="properties-item__link" :href="link">Learn more</external-link>
         </template>
       </app-tooltip>
-    </span>
 
-    <span class="properties-item__description">
+      <slot v-else />
+    </dt>
+
+    <dd class="properties-item__description">
       <span
-        v-if="!valueWithExceededLength"
-        class="properties-item__description-text"
-        :class="{
-          'properties-item__strike': errors && !valueWithExceededLength
-        }"
-      >{{ value }}</span>
-      <span v-if="valueWithExceededLength">{{ valueMinusExceededLength }}</span>
-      <span
-        v-if="valueWithExceededLength"
-        class="properties-item__strike"
-      >{{
-        valueWithExceededLength
-      }}</span>
-      <span
-        v-if="valueSlot"
-        class="properties-item__extra"
+        v-if="!valueWithExceededLength && isUrl"
+        :class="{ 'properties-item__strike': errors && !valueWithExceededLength }"
       >
+        <external-link v-if="value" :href="value">{{ value }}</external-link>
+      </span>
+      <span
+        v-else-if="!valueWithExceededLength"
+        :class="{ 'properties-item__strike': errors && !valueWithExceededLength }"
+      >
+        {{ value }}
+      </span>
+      <span v-if="valueWithExceededLength">
+        {{ valueMinusExceededLength }}
+      </span>
+      <span v-if="valueWithExceededLength" class="properties-item__strike">
+        {{ valueWithExceededLength }}
+      </span>
+      <span v-if="valueSlot" class="properties-item__extra">
         <slot name="value" />
       </span>
-    </span>
+    </dd>
   </div>
 </template>
 
@@ -116,7 +114,6 @@ export default {
     },
     keyName: {
       type: String,
-      required: true,
     },
     value: {
       type: String,
@@ -125,6 +122,11 @@ export default {
         return '';
       },
     },
+    isUrl: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
     attrs: {
       type: Object,
       required: false,
@@ -132,7 +134,6 @@ export default {
     },
     refreshOn: {
       type: Array,
-      required: true,
     },
   },
   data() {
@@ -175,7 +176,7 @@ export default {
   },
   watch:{
     refreshOn() {
-      this.validateSchema();
+      if (this.schema) { this.validateSchema(); }
     },
   },
   mounted() {
@@ -183,15 +184,14 @@ export default {
       this.valueSlot = this.$slots.value;
     }
 
-    if (!this.schema) {
-      throw new Error('No schema is provided.');
-    }
+    if (!this.schema) { return; }
 
     if (this.schema[this.keyName] && this.schema[this.keyName].meta) {
       this.info = this.schema[this.keyName].meta.info;
       this.link = this.schema[this.keyName].meta.link;
     }
-    this.validateSchema();
+
+    if (this.schema) { this.validateSchema(); }
   },
   methods:{
     validateSchema() {
@@ -210,116 +210,50 @@ export default {
 </script>
 
 <style>
-:root {
-  --term-width-small: 120px;
-}
-
 .properties-item {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
   width: 100%;
-  margin-bottom: 1.5em;
 }
 
-.properties-item__term {
+.properties-item .properties-item__term {
   display: inline-flex;
   align-items: center;
-}
-
-.properties-item,
-.properties-item__description {
-  display: block;
-  line-height: 1.4em;
+  justify-content: flex-end;
+  color: var(--label-color);
 }
 
 .properties-item__icon {
   display: inline-block;
   position: relative;
   top: -1px;
+  width: 18px;
+  height: 18px;
   margin-left: 5px;
-  width: 1.5em;
-  height: 1.5em;
+  fill: currentcolor;
   vertical-align: middle;
   cursor: help;
-  fill: currentcolor;
 }
 
 .properties-item-icon--warning {
   fill: #eac250;
 }
 
-.properties-item__extra > * {
-  margin-left: 4px;
-}
-
 .properties-item__extra > span {
   display: inline-block;
   width: 10px;
   height: 10px;
+  margin-left: 3px;
   border: 1px solid #888;
 }
 
-.properties-item__term {
-  color: var(--label-color);
-}
-
 .properties-item__strike {
-  text-decoration: line-through;
   color: var(--label-color);
-}
-
-.properties-item__link {
-  margin-left: 5px;
+  text-decoration: line-through;
 }
 
 .properties-item__error-list {
   margin-left: 1rem;
-}
-
-@media (min-width: 500px) {
-  .properties-item {
-    display: flex;
-    align-items: flex-start;
-  }
-
-  .properties-item__term,
-  .properties-item__description {
-    line-height: 1.4em;
-  }
-
-  .properties-item__term {
-    display: flex;
-    justify-content: flex-end;
-    width: var(--term-width-small);
-    padding-right: 5px;
-  }
-
-  .properties-item__term * + * {
-    margin-left: 0.15rem;
-  }
-
-  .properties-item__description {
-    display: flex;
-    align-items: center;
-    width: calc(100% - var(--term-width-small));
-  }
-
-  .properties-item__icon {
-    margin-left: unset;
-  }
-}
-
-@media (min-width: 650px) {
-  .properties-item {
-    max-width: 420px;
-    margin-bottom: 1.5em;
-  }
-
-  .properties-item__term {
-    width: var(--term-width-small);
-    text-align: right;
-  }
-
-  .properties-item__description {
-    width: 300px;
-  }
 }
 </style>

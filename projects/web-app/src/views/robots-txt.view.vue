@@ -1,8 +1,14 @@
 <template>
   <panel-section title="Robots">
     <properties-list>
-      <dt>URL:</dt><dd>{{ url }}</dd>
-      <dt>Crawlable:</dt><dd>{{ urlIsCrawlable }}</dd>
+      <properties-item>
+        <template #default>url</template>
+        <template #value>{{ url }}</template>
+      </properties-item>
+      <properties-item>
+        <template #default>crawlable</template>
+        <template #value>{{ urlIsCrawlable }}</template>
+      </properties-item>
     </properties-list>
   </panel-section>
   <panel-section title="Sitemap">
@@ -11,12 +17,12 @@
       <p>No sitemaps detected.</p>
     </div>
     <properties-list v-else>
-      <div v-for="(url, index) in sitemapUrls" :key="index">
-        <dt>Url:</dt>
-        <dd>
+      <properties-item v-for="(url, index) in sitemapUrls" :key="index">
+        <template #default>url</template>
+        <template #value>
           <external-link :href="url">{{ url }}</external-link>
-        </dd>
-      </div>
+        </template>
+      </properties-item>
     </properties-list>
     <p v-if="sitemapUrls.length">
       Go to <router-link :to="{ name: 'sitemap' }">Sitemap</router-link> for more details.
@@ -28,21 +34,27 @@
     :title="robot.name"
   >
     <properties-list>
-        <dt>Allow</dt>
-        <dd>
+      <properties-item>
+        <template #default>allow</template>
+        <template #value>
           <div v-for="(rule, index) in robot.allow" :key="index">
             <span v-if="rule.path">{{ rule.path }}</span>
           </div>
-        </dd>
-        <dt>CrawlDelay</dt>
-        <dd>{{ robot.crawlDelay }}</dd>
-        <dt>Disallow</dt>
-        <dd>
+        </template>
+      </properties-item>
+      <properties-item>
+        <template #default>crawlDelay</template>
+        <template #value>{{ robot.crawlDelay }}</template>
+      </properties-item>
+      <properties-item>
+        <template #default>disallow</template>
+        <template #value>
           <div v-for="(rule, index) in robot.disallow" :key="index">
             <span v-if="rule.path">{{ rule.path }}</span>
           </div>
-        </dd>
-      </properties-list>
+        </template>
+      </properties-item>
+    </properties-list>
   </panel-section>
   <panel-section title="Resources">
     <ul class="resource-list">
@@ -70,6 +82,7 @@ import { computed } from 'vue';
 import useHead from '@/composables/use-head';
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
+import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 
@@ -88,6 +101,12 @@ export default {
       urlIsCrawlable,
     };
   },
-  components: { ExternalLink, PanelSection, PropertiesList, WarningIcon },
+  components: {
+    ExternalLink,
+    PanelSection,
+    PropertiesItem,
+    PropertiesList,
+    WarningIcon,
+  },
 };
 </script>
