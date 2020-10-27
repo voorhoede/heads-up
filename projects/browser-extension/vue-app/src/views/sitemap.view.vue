@@ -5,9 +5,23 @@
         <WarningIcon class="icon" />
         <p>No sitemaps were detected.</p>
       </div>
-      <code v-else>
-        <pre>{{ sitemaps }}</pre>
-      </code>
+      <div
+        v-else
+        v-for="sitemap in sitemaps"
+        :key="Object.keys(sitemap)[0]"
+        class="sitemap-view__sitemap"
+      >
+        <p class="sitemap-view__sitemap-url">{{ Object.keys(sitemap)[0] }}</p>
+        <tree-menu
+          v-if="Object.values(sitemap)[0].elements[0].elements"
+          :name="Object.values(sitemap)[0].elements[0].name"
+          :elements="Object.values(sitemap)[0].elements[0].elements"
+        />
+        <div v-else class="sitemap-view__sitemap-error warning-message">
+          <WarningIcon class="icon" />
+          <p>Could not read/parse the sitemap.</p>
+        </div>
+      </div>
     </panel-section>
     <panel-section title="Resources">
       <ul class="resource-list">
@@ -28,14 +42,31 @@
 
 <script>
 import { mapState } from 'vuex';
-import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
+import PanelSection from '@shared/components/panel-section';
+import TreeMenu from '@shared/components/tree-menu';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
-  components: { ExternalLink, PanelSection, WarningIcon },
+  components: { ExternalLink, PanelSection, TreeMenu, WarningIcon },
   computed: {
     ...mapState([ 'head', 'sitemaps' ]),
   },
 };
 </script>
+
+<style>
+.sitemap-view__sitemap {
+  margin-top: 1em;
+}
+
+.sitemap-view__sitemap-url {
+  font-weight: bold;
+  margin-bottom: .5em;
+}
+
+.sitemap-view__sitemap-error.warning-message {
+  margin-left: 16px;
+  padding: .125em 0 .25em;
+}
+</style>
