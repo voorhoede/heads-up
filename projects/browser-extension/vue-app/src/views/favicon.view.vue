@@ -66,7 +66,6 @@ export default {
   computed: {
     ...mapState([ 'head' ]),
     favicons() {
-      console.log(findFavicons(this.head))
       return findFavicons(this.head);
     },
   },

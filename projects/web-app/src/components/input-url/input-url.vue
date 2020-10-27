@@ -18,7 +18,7 @@ import useHead from '@/composables/use-head';
 
 export default {
   setup: () => {
-    const url = ref('https://www.npmjs.com/');
+    const url = ref('https://www.voorhoede.nl/en/');
     const getHeadForUrl = useHead().getForUrl;
 
     return {
