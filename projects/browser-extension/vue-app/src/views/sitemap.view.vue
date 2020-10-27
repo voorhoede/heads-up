@@ -1,12 +1,12 @@
 <template>
   <div>
     <panel-section title="Contents">
-      <div v-if="!sitemap" class="warning-message">
+      <div v-if="!sitemaps.length" class="warning-message">
         <WarningIcon class="icon" />
         <p>No sitemaps were detected.</p>
       </div>
       <code v-else>
-        <pre>{{ sitemap }}</pre>
+        <pre>{{ sitemaps }}</pre>
       </code>
     </panel-section>
     <panel-section title="Resources">
@@ -35,10 +35,7 @@ import WarningIcon from '@shared/assets/icons/warning.svg';
 export default {
   components: { ExternalLink, PanelSection, WarningIcon },
   computed: {
-    ...mapState([ 'head', 'sitemap' ]),
-    sitemapUrl() {
-      return this.head.domain + '/sitemap.xml';
-    },
+    ...mapState([ 'head', 'sitemaps' ]),
   },
 };
 </script>
