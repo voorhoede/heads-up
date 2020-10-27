@@ -68,7 +68,7 @@
       <slot v-else />
     </dt>
 
-    <dd class="properties-item__description" v-if="value">
+    <dd class="properties-item__description">
       <span
         v-if="!valueWithExceededLength && isUrl"
         :class="{ 'properties-item__strike': errors && !valueWithExceededLength }"
