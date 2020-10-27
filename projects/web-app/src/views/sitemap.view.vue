@@ -11,14 +11,14 @@
       <div
         v-else
         v-for="sitemap in sitemaps"
-        :key="Object.keys(sitemap)[0]"
+        :key="getSitemapUrl(sitemap)"
         class="sitemap-view__sitemap"
       >
-        <p class="sitemap-view__sitemap-url">{{ Object.keys(sitemap)[0] }}</p>
+        <p class="sitemap-view__sitemap-url">{{ getSitemapUrl(sitemap) }}</p>
         <tree-menu
-          v-if="Object.values(sitemap)[0].elements[0].elements"
-          :name="Object.values(sitemap)[0].elements[0].name"
-          :elements="Object.values(sitemap)[0].elements[0].elements"
+          v-if="getSitemapElements(sitemap)"
+          :name="getSitemapName(sitemap)"
+          :elements="getSitemapElements(sitemap)"
         />
         <div v-else class="sitemap-view__sitemap-error warning-message">
           <WarningIcon class="icon" />
@@ -69,6 +69,17 @@ export default {
     PanelSection,
     TreeMenu,
     WarningIcon,
+  },
+  methods: {
+    getSitemapUrl(sitemap) {
+      return Object.keys(sitemap)[0];
+    },
+    getSitemapName(sitemap) {
+      return Object.values(sitemap)[0].elements[0].name;
+    },
+    getSitemapElements(sitemap) {
+      return Object.values(sitemap)[0].elements[0].elements;
+    },
   },
 };
 </script>

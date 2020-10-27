@@ -35,9 +35,6 @@ export default {
       default: '',
     },
   },
-  data() {
-    return { showChildren: false };
-  },
 };
 </script>
 
