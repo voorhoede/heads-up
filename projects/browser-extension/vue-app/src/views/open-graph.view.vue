@@ -2,17 +2,17 @@
   <div>
     <panel-section title="Properties">
       <properties-list>
-        <template
-          v-for="meta in ogMeta"
-          :key="`${meta.property}-key`"
+        <properties-item
+          v-for="(item, index) in ogMeta"
+          :key="index"
+          :value="item.content"
+          :key-name="item.property"
+          :refresh-on="ogMeta"
         >
-          <dt>
-            {{ meta.property }}
-          </dt>
-          <dd>
-            {{ meta.content }}
-          </dd>
-        </template>
+          <template #default>
+            {{ item.property }}
+          </template>
+        </properties-item>
       </properties-list>
     </panel-section>
 
@@ -32,10 +32,11 @@
 import { mapState } from 'vuex';
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
+import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 
 export default {
-  components: { ExternalLink, PanelSection, PropertiesList },
+  components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList },
   computed: {
     ...mapState([ 'head' ]),
     ogMeta() {
