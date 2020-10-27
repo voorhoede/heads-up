@@ -6,6 +6,7 @@
           v-for="item in searchMetaData"
           :key="item.keyName"
           :value="item.value"
+          :is-url="item.isUrl"
           :key-name="item.keyName"
           :schema="schema"
           :refresh-on="searchMetaData"
@@ -48,56 +49,59 @@ export default {
   computed: {
     ...mapState([ 'head' ]),
     searchMetaData() {
+      const { head } = this;
       return [
         {
           keyName: 'title',
           title: 'title',
-          value: this.head.title,
+          value: head.title,
         },
         {
           keyName: 'description',
           title: 'description',
-          value: findMetaContent(this.head, 'description'),
+          value: findMetaContent(head, 'description'),
         },
         {
           keyName: 'search',
           title: 'search',
-          value: findLinkHref(this.head, 'search'),
+          isUrl: true,
+          value: findLinkHref(head, 'search'),
         },
         {
           keyName: 'canonical',
           title: 'canonical',
-          value: findLinkHref(this.head, 'canonical'),
+          isUrl: true,
+          value: findLinkHref(head, 'canonical'),
         },
         {
           keyName: 'robots',
           title: 'robots',
-          value: findMetaContent(this.head, 'robots'),
+          value: findMetaContent(head, 'robots'),
         },
         {
           keyName: 'googlebot',
           title: 'googlebot',
-          value: findMetaContent(this.head, 'googlebot'),
+          value: findMetaContent(head, 'googlebot'),
         },
         {
           keyName: 'google',
           title: 'google',
-          value: findMetaContent(this.head, 'google'),
+          value: findMetaContent(head, 'google'),
         },
         {
           keyName: 'google-site-verification',
           title: 'google-site-verification',
-          value: findMetaContent(this.head, 'google-site-verification'),
+          value: findMetaContent(head, 'google-site-verification'),
         },
         {
           keyName: 'msvalidate.01',
           title: 'msvalidate.01',
-          value: findMetaContent(this.head, 'msvalidate.01'),
+          value: findMetaContent(head, 'msvalidate.01'),
         },
         {
           keyName: 'yandex-verification',
           title: 'yandex-verification',
-          value: findMetaContent(this.head, 'yandex-verification'),
+          value: findMetaContent(head, 'yandex-verification'),
         },
       ];
     },

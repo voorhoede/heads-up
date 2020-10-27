@@ -14,11 +14,8 @@
           <template #default>
             {{ item.title }}
           </template>
-          <template #value>
-            <span
-              v-if="item.keyName === 'theme-color' && item.value"
-              :style="{ backgroundColor: item.value }"
-            />
+          <template v-if="item.keyName === 'theme-color' && item.value" #value>
+            <span :style="{ backgroundColor: item.value }" />
           </template>
         </properties-item>
       </properties-list>

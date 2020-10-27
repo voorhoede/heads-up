@@ -56,11 +56,7 @@ export default createStore({
       function createSitemapResponse(url) {
         return fetch(url)
           .then(res => res.text())
-          .then(text => {
-            const json = xmlJs.xml2json(text);
-
-            return xmlJs.json2xml(json, { spaces: 2 });
-          })
+          .then(text => JSON.parse(xmlJs.xml2json(text)))
           .catch(() => null);
       }
 

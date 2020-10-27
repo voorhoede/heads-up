@@ -63,7 +63,7 @@
             >
               <WarningIcon
                 v-if="description === null"
-                class="properties-item__icon properties-item-icon properties-item-icon--warning"
+                class="properties-item__icon properties-item-icon--warning"
               />
               <infoIcon
                 v-else-if="tooltip.description.valueLength.tooLong"
