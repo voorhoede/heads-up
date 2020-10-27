@@ -104,8 +104,9 @@
 
 <script>
 import { mapState } from 'vuex';
-import getTheme from '@shared/lib/theme';
+import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
+import getTheme from '@shared/lib/theme';
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
 import PropertiesList from '@shared/components/properties-list';
@@ -180,8 +181,7 @@ export default {
   },
   methods: {
     absoluteUrl(url) {
-      if (!url) return;
-      return url.startsWith('http') ? url : new URL(this.head.url).origin + url;
+      return createAbsoluteUrl(this.head, url);
     },
     metaValue(metaName) {
       return findMetaContent(this.head, metaName);

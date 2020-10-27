@@ -144,6 +144,7 @@
 <script>
 import { mapState } from 'vuex';
 import getTheme from '@shared/lib/theme';
+import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import {
   findMetaContent,
   findMetaProperty,
@@ -293,8 +294,7 @@ export default {
       });
     },
     absoluteUrl(url) {
-      if (!url) return;
-      return url.startsWith('http') ? url : new URL(this.head.url).origin + url;
+      return createAbsoluteUrl(this.head, url);
     },
     setTooltipData(imageDimensions) {
       if (this.propertyValue('og:title') !== null) {
