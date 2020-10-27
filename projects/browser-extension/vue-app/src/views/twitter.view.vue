@@ -12,7 +12,7 @@
       </p>
       <preview-iframe
         v-if="isValidCard && isSupportedCard"
-        :url="twitterUrl"
+        :url="previewUrl"
         iframeClass="twitter__preview"
       >
         <template v-slot:caption>
@@ -139,7 +139,7 @@ export default {
         creator: this.metaValue('twitter:creator'),
       };
     },
-    twitterUrl() {
+    previewUrl() {
       const params = new URLSearchParams();
       params.set('card', this.twitter.card);
       params.set('title', this.title);
