@@ -44,11 +44,13 @@ export default {
 }
 
 .tree-menu--indent {
+  border-left: 1px solid #eee;
   margin-left: 1em;
+  padding-left: .325rem;
 }
 
 .tree-menu__collapsible-node {
-  color: var(--color-blue);
+  color: blue;
   cursor: pointer;
 }
 
