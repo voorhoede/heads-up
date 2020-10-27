@@ -60,7 +60,7 @@
             />
             <WarningIcon
               v-else-if="!og.image"
-              class="properties-item__icon properties-item-icon properties-item-icon--warning"
+              class="properties-item__icon properties-item-icon--warning"
             />
             <p v-else>
               og:image
@@ -97,6 +97,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import getTheme from '@shared/lib/theme';
 import InfoIcon from '@shared/assets/icons/info.svg';
 import WarningIcon from '@shared/assets/icons/warning.svg';
@@ -225,8 +226,7 @@ export default {
       });
     },
     absoluteUrl(url) {
-      if (!url) return;
-      return url.startsWith('http') ? url : new URL(this.head.url).origin + url;
+      return createAbsoluteUrl(this.head, url);
     },
     setTooltipData(imageDimensions) {
       if (this.og.title !== null) {

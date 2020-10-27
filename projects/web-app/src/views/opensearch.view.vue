@@ -76,8 +76,9 @@
 <script>
 import { computed, ref } from 'vue';
 import useHead from '@/composables/use-head';
-import getTheme from '@shared/lib/theme';
+import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findLinkHref, findXMLElement } from '@shared/lib/find-meta';
+import getTheme from '@shared/lib/theme';
 import schema from '@shared/lib/schemas/opensearch-schema';
 import ExternalLink from '@shared/components/external-link.vue';
 import PanelSection from '@shared/components/panel-section.vue';
@@ -153,16 +154,12 @@ export default {
       ];
     });
 
-    const absoluteUrl = url => {
-      if (!url) return;
-      const headUrl = headData.value.head.url;
-      return url.startsWith('http') ? url : new URL(headUrl).origin + url;
-    };
+    const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
     const getFileContent = () => {
       fetch(fileUrl.value)
         .then(res => res.text())
         .then(text => fileContent.value = text)
-        .catch((error) => console.error(error));
+        .catch(error => console.error(error));
     };
 
     return {

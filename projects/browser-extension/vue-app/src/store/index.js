@@ -11,7 +11,7 @@ export default createStore({
     urlIsCrawlable: false,
     head: {},
     robots: [],
-    sitemap: {},
+    sitemaps: [],
     sitemapUrls: [],
     theme: 'default',
   }),
@@ -20,7 +20,6 @@ export default createStore({
       robotsTxt.fetch(state.head.domain)
         .then(result => {
           if (result.sitemaps) {
-            commit('SET_SITEMAP_URLS', { urls: result.sitemaps });
             delete result.sitemaps;
           }
 
@@ -33,26 +32,47 @@ export default createStore({
         })
         .catch(error => console.error(error));
     },
+    async GET_SITEMAP_URLS({ commit, state }) {
+      const urls = await robotsTxt.fetch(state.head.domain)
+        .then(result => {
+          if (result.sitemaps) {
+            return result.sitemaps;
+          }
+        })
+        .catch(error => console.error(error));
+
+      commit('SET_SITEMAP_URLS', { urls });
+    },
     CHECK_CRAWLABLE_URL ({ commit, state }) {
       robotsTxt.canCrawl(state.head.url)
         .then(crawlable => commit('SET_CRAWLABLE_URL', { crawlable }))
         .catch(error => console.error(error));
     },
-    GET_SITEMAP ({ commit, state }) {
-      fetch(`https://${ state.head.domain }/sitemap.xml`)
-        .then(res => res.text())
-        .then(text => {
-          const json = xmlJs.xml2json(text);
-          // Convert to JSON first to set a fixed indentation
-          // even if source code was minified.
-          const sitemap = xmlJs.json2xml(json, { spaces: 2 });
+    async GET_SITEMAP ({ commit, dispatch, state }) {
+      await dispatch('GET_SITEMAP_URLS');
+      const { sitemapUrls } = state;
+      let sitemaps = [];
 
-          commit('SET_SITEMAP', { sitemap });
-        })
-        .catch(err => {
-          console.log(err);
-          commit('SET_SITEMAP', { sitemap: null });
-        });
+      function createSitemapResponse(url) {
+        return fetch(url)
+          .then(res => res.text())
+          .then(text => JSON.parse(xmlJs.xml2json(text)))
+          .catch(() => null);
+      }
+
+      if (sitemapUrls && sitemapUrls.length) {
+        const sitemapResponses = await Promise.all(
+          sitemapUrls.map(url => createSitemapResponse(url))
+        );
+
+        sitemaps = sitemapUrls.map((url, index) => ({
+          [url]: sitemapResponses[index],
+        }));
+      } else {
+        sitemaps = await createSitemapResponse(`${ state.head.domain }/sitemap.xml`) || [];
+      }
+
+      commit('SET_SITEMAPS', { sitemaps });
     },
   },
   mutations: {
@@ -65,8 +85,8 @@ export default createStore({
     SET_ROBOTS (state, { robots }) {
       state.robots = robots;
     },
-    SET_SITEMAP (state, { sitemap }) {
-      state.sitemap = sitemap;
+    SET_SITEMAPS (state, { sitemaps }) {
+      state.sitemaps = sitemaps;
     },
     SET_SITEMAP_URLS (state, { urls }) {
       state.sitemapUrls = urls;

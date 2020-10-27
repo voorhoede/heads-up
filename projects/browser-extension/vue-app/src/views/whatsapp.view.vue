@@ -63,7 +63,7 @@
             >
               <WarningIcon
                 v-if="description === null"
-                class="properties-item__icon properties-item-icon properties-item-icon--warning"
+                class="properties-item__icon properties-item-icon--warning"
               />
               <infoIcon
                 v-else-if="tooltip.description.valueLength.tooLong"
@@ -158,6 +158,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import InfoIcon from '@shared/assets/icons/info.svg';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 import PanelSection from '@shared/components/panel-section';
@@ -303,13 +304,7 @@ export default {
       });
     },
     absoluteUrl(url) {
-      if (url !== null) {
-        return url.startsWith('http')
-          ? url
-          : new URL(this.head.url).origin + url;
-      }
-
-      return '';
+      return createAbsoluteUrl(this.head, url);
     },
     setTooltipData(imageDimensions) {
       if (this.propertyValue('og:title') !== null) {

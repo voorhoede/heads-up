@@ -35,14 +35,10 @@ async function createHeadResponse(domain, url) {
   };
 }
 
-function createSitemapResponse(domain) {
-  return fetch(`${domain}/sitemap.xml`)
+function createSitemapResponse(url) {
+  return fetch(url)
     .then(res => res.text())
-    .then(text => {
-      const json = xmlJs.xml2json(text);
-
-      return xmlJs.json2xml(json, { spaces: 2 });
-    })
+    .then(text => JSON.parse(xmlJs.xml2json(text)))
     .catch(() => null);
 }
 
@@ -90,8 +86,22 @@ exports.handler = async function(event) {
   }
 
   try {
+    let sitemaps = [];
     const domain = new URL(url).origin;
     const urlIsCrawlable = await robotsParser.canCrawl(url);
+    const sitemapUrls = await createSitemapUrlsResponse(domain);
+
+    if (sitemapUrls && sitemapUrls.length) {
+      const sitemapResponses = await Promise.all(
+        sitemapUrls.map(url => createSitemapResponse(url))
+      );
+
+      sitemaps = sitemapUrls.map((url, index) => ({
+        [url]: sitemapResponses[index],
+      }));
+    } else {
+      sitemaps = await createSitemapResponse(`${ domain }/sitemap.xml`) || [];
+    }
 
     return {
       statusCode: 200,
@@ -100,8 +110,8 @@ exports.handler = async function(event) {
           urlIsCrawlable,
           head: await createHeadResponse(domain, url),
           robots: await createRobotsResponse(url),
-          sitemap: await createSitemapResponse(domain),
-          sitemapUrls: await createSitemapUrlsResponse(domain),
+          sitemaps,
+          sitemapUrls,
         }
       ),
     };

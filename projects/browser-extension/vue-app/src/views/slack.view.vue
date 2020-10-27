@@ -119,6 +119,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import getTheme from '@shared/lib/theme';
 import InfoIcon from '@shared/assets/icons/info.svg';
 import PanelSection from '@shared/components/panel-section';
@@ -266,8 +267,7 @@ export default {
       });
     },
     absoluteUrl(url) {
-      if (!url) return;
-      return url.startsWith('http') ? url : new URL(this.head.url).origin + url;
+      return createAbsoluteUrl(this.head, url);
     },
     setTooltipData(imageDimensions) {
       if (this.propertyValue('og:title') !== null) {

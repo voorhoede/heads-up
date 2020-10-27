@@ -5,6 +5,7 @@
         v-for="item in searchMetadata"
         :key="item.keyName"
         :value="item.value"
+        :is-url="item.isUrl"
         :key-name="item.keyName"
         :schema="schema"
         :refresh-on="searchMetadata"
@@ -35,11 +36,12 @@
 import { computed } from 'vue';
 import useHead from '@/composables/use-head';
 import schema from '@shared/lib/schemas/search-meta-schema';
+import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findLinkHref, findMetaContent } from '@shared/lib/find-meta';
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
-import PropertiesList from '@shared/components/properties-list';
 import PropertiesItem from '@shared/components/properties-item';
+import PropertiesList from '@shared/components/properties-list';
 
 export default {
   setup: () => {
@@ -60,11 +62,13 @@ export default {
         {
           keyName: 'search',
           title: 'search',
-          value: findLinkHref(head, 'search'),
+          isUrl: true,
+          value: absoluteUrl(findLinkHref(head, 'search')),
         },
         {
           keyName: 'canonical',
           title: 'canonical',
+          isUrl: true,
           value: findLinkHref(head, 'canonical'),
         },
         {
@@ -100,7 +104,10 @@ export default {
       ];
     });
 
+    const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
+
     return {
+      absoluteUrl,
       searchMetadata,
       schema,
     };

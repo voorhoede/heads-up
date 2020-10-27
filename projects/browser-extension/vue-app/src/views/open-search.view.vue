@@ -93,8 +93,9 @@
 
 <script>
 import { mapState } from 'vuex';
-import getTheme from '@shared/lib/theme';
+import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findLinkHref, findXMLElement } from '@shared/lib/find-meta';
+import getTheme from '@shared/lib/theme';
 import schema  from '../lib/schemas/opensearch-schema';
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
@@ -192,8 +193,7 @@ export default {
   },
   methods: {
     absoluteUrl(url) {
-      if (!url) return;
-      return url.startsWith('http') ? url : new URL(this.head.url).origin + url;
+      return createAbsoluteUrl(this.head, url);
     },
     getOpenSearchFileContent() {
       fetch(this.fileUrl)

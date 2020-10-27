@@ -1,11 +1,21 @@
 <template>
   <panel-section title="Properties">
-    <properties-list>
-      <dt>apple-mobile-web-app-capable</dt><dd>{{ capable }}</dd>
-      <dt>apple-mobile-web-app-title</dt><dd>{{ title }}</dd>
-      <dt>apple-mobile-web-app-status-bar-style</dt><dd>{{ statusBarStyle }}</dd>
-      <dt>format-detection</dt><dd>{{ formatDetection }}</dd>
-      <dt>apple-itunes-app</dt><dd>{{ itunesApp }}</dd>
+    <div v-if="!appleMetadata.length" class="warning-message">
+      <WarningIcon class="icon" />
+      <p>No meta properties detected.</p>
+    </div>
+    <properties-list v-else>
+      <properties-item
+        v-for="item in appleMetadata"
+        :key="item.keyName"
+        :value="item.value"
+        :key-name="item.keyName"
+        :refresh-on="appleMetadata"
+      >
+        <template #default>
+          {{ item.title }}
+        </template>
+      </properties-item>
     </properties-list>
   </panel-section>
   <panel-section title="Touch icons">
@@ -14,16 +24,23 @@
       <p>No touch icons detected.</p>
     </div>
     <properties-list v-else>
-      <div v-for="icon in touchIcons" :key="icon.url">
-        <dt v-if="icon.sizes">
-          {{ icon.sizes }}
-        </dt>
-        <dd>
+      <properties-item
+        v-for="(icon, index) in touchIcons"
+        :key="index"
+        :key-name="icon.sizes"
+        :refresh-on="touchIcons"
+      >
+        <template #default>
+          <template v-if="icon.sizes">
+            {{ icon.sizes }}
+          </template>
+        </template>
+        <template #value>
           <external-link :href="icon.url">
             <img :src="icon.url" alt="" />
           </external-link>
-        </dd>
-      </div>
+        </template>
+      </properties-item>
     </properties-list>
   </panel-section>
   <panel-section title="Startup images">
@@ -32,21 +49,26 @@
       <p>No startup images detected.</p>
     </div>
     <properties-list v-else>
-      <div v-for="image in startupImages" :key="image.url">
-        <dt>
-          <div v-if="image.filename">
+      <properties-item
+        v-for="(image, index) in startupImages"
+        :key="index"
+        :key-name="image.url"
+        :refresh-on="startupImages"
+      >
+        <template #default>
+          <template v-if="image.filename">
             {{ image.filename }}
-          </div>
-          <div v-if="image.sizes">
+          </template>
+          <template v-if="image.sizes">
             {{ image.sizes }}
-          </div>
-        </dt>
-        <dd>
+          </template>
+        </template>
+        <template #value>
           <external-link :href="image.url">
             <img :src="image.url" alt="" />
           </external-link>
-        </dd>
-      </div>
+        </template>
+      </properties-item>
     </properties-list>
   </panel-section>
   <panel-section title="Resources">
@@ -68,20 +90,47 @@
 <script>
 import { computed } from 'vue';
 import useHead from '@/composables/use-head';
+import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findMetaContent } from '@shared/lib/find-meta';
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
+import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
   setup: () => {
     const headData = useHead().data;
-    const capable = computed(() => metaValue('apple-mobile-web-app-capable'));
-    const title = computed(() => metaValue('apple-mobile-web-app-title'));
-    const statusBarStyle = computed(() => metaValue('apple-mobile-web-app-status-bar-style'));
-    const formatDetection = computed(() => metaValue('format-detection'));
-    const itunesApp = computed(() => metaValue('apple-itunes-app'));
+    const appleMetadata = computed(() => {
+      const { head } = headData.value;
+      return [
+        {
+          keyName: 'app-capable',
+          title: 'apple-mobile-web-app-capable',
+          value: findMetaContent(head, 'apple-mobile-web-app-capable'),
+        },
+        {
+          keyName: 'app-title',
+          title: 'apple-mobile-web-app-title',
+          value: findMetaContent(head, 'apple-mobile-web-app-title'),
+        },
+        {
+          keyName: 'status-bar-style',
+          title: 'apple-mobile-web-app-status-bar-style',
+          value: findMetaContent(head, 'apple-mobile-web-app-status-bar-style'),
+        },
+        {
+          keyName: 'format-detection',
+          title: 'format-detection',
+          value: findMetaContent(head, 'format-detection'),
+        },
+        {
+          keyName: 'itunes-app',
+          title: 'apple-itunes-app',
+          value: findMetaContent(head, 'apple-itunes-app'),
+        },
+      ];
+    });
     const touchIcons = computed(() => {
       return headData.value.head.link
         .filter(link => link.rel === 'apple-touch-icon')
@@ -93,18 +142,10 @@ export default {
         .map(image => ({ ...image, filename: image.href.split('/').pop(), url: absoluteUrl(image.href) }));
     });
 
-    const absoluteUrl = url => {
-      const headUrl = headData.value.head.url;
-      return url.startsWith('http') ? url : new URL(headUrl).origin + url;
-    };
-    const metaValue = metaName => findMetaContent(headData.value.head, metaName);
+    const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
 
     return {
-      capable,
-      title,
-      statusBarStyle,
-      formatDetection,
-      itunesApp,
+      appleMetadata,
       touchIcons,
       startupImages,
     };
@@ -112,6 +153,7 @@ export default {
   components: {
     ExternalLink,
     PanelSection,
+    PropertiesItem,
     PropertiesList,
     WarningIcon,
   },
