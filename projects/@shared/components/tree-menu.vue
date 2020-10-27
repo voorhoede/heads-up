@@ -39,12 +39,16 @@ export default {
 </script>
 
 <style>
+.tree-menu summary {
+  outline: none;
+}
+
 .tree-menu--indent {
   margin-left: 1em;
 }
 
 .tree-menu__collapsible-node {
-  color: blue;
+  color: var(--color-blue);
   cursor: pointer;
 }
 
