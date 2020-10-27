@@ -46,10 +46,10 @@
             </router-link>
           </li>
           <li>
-            <a href="#" class="app-sidebar__link">
+            <router-link :to="{ name: 'whatsapp' }" class="app-sidebar__link">
               <WhatsappIcon />
               <span>WhatsApp</span>
-            </a>
+            </router-link>
           </li>
           <li>
             <a href="#" class="app-sidebar__link">

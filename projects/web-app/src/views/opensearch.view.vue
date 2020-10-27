@@ -101,7 +101,7 @@ export default {
     });
     const fileUrl = computed(() => {
       return metaTagValue.value && metaTagValue.value.startsWith('/')
-        ? `https://${ headData.value.head.domain }${ metaTagValue.value }`
+        ? headData.value.head.domain + metaTagValue.value
         : metaTagValue.value;
     });
     const shortName = computed(() => {
