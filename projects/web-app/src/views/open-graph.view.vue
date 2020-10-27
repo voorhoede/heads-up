@@ -5,14 +5,17 @@
       <p>No Open Graph properties detected.</p>
     </div>
     <properties-list v-else>
-      <div v-for="meta in ogMeta" :key="meta.property">
-        <dt>
-          {{ meta.property }}
-        </dt>
-        <dd>
-          {{ meta.content }}
-        </dd>
-      </div>
+      <properties-item
+        v-for="(item, index) in ogMeta"
+        :key="index"
+        :value="item.content"
+        :key-name="item.property"
+        :refresh-on="ogMeta"
+      >
+        <template #default>
+          {{ item.property }}
+        </template>
+      </properties-item>
     </properties-list>
   </panel-section>
   <panel-section title="Resources">
@@ -31,6 +34,7 @@ import { computed } from 'vue';
 import useHead from '@/composables/use-head';
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
+import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 
@@ -38,7 +42,8 @@ export default {
   setup: () => {
     const headData = useHead().data;
     const ogMeta = computed(() => {
-      return headData.value.head.meta
+      const { meta } = headData.value.head;
+      return meta
         .filter(meta => meta.property && meta.property.startsWith('og:'));
     });
 
@@ -49,6 +54,7 @@ export default {
   components: {
     ExternalLink,
     PanelSection,
+    PropertiesItem,
     PropertiesList,
     WarningIcon,
   },

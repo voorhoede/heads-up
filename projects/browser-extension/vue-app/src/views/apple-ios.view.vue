@@ -1,14 +1,22 @@
 <template>
   <div>
     <panel-section title="Properties">
-      <properties-list>
-        <dt>apple-mobile-web-app-capable</dt><dd>{{ appCapable }}</dd>
-        <dt>apple-mobile-web-app-title</dt><dd>{{ title }}</dd>
-        <dt>apple-mobile-web-app-status-bar-style</dt><dd>{{ statusBarStyle }}</dd>
-        <template v-if="formatDetection">
-          <dt>format-detection</dt><dd>{{ formatDetection }}</dd>
-        </template>
-        <dt>apple-itunes-app</dt><dd>{{ itunesApp }}</dd>
+      <div v-if="!appleMetaData.length" class="warning-message">
+        <WarningIcon class="icon" />
+        <p>No meta properties detected.</p>
+      </div>
+      <properties-list v-else>
+        <properties-item
+          v-for="item in appleMetaData"
+          :key="item.keyName"
+          :value="item.value"
+          :key-name="item.keyName"
+          :refresh-on="appleMetaData"
+        >
+          <template #default>
+            {{ item.title }}
+          </template>
+        </properties-item>
       </properties-list>
     </panel-section>
 
@@ -18,51 +26,52 @@
         <p>No touch icons detected.</p>
       </div>
       <properties-list v-else>
-        <template
-          v-for="icon in touchIcons"
-          :key="`${icon.url}-key`"
+        <properties-item
+          v-for="(icon, index) in touchIcons"
+          :key="index"
+          :key-name="icon.sizes"
+          :refresh-on="touchIcons"
         >
-          <dt>
-            <div v-if="icon.sizes">
+          <template #default>
+            <template v-if="icon.sizes">
               {{ icon.sizes }}
-            </div>
-          </dt>
-          <dd>
+            </template>
+          </template>
+          <template #value>
             <external-link :href="icon.url">
-              <img
-                alt=""
-                :src="icon.url"
-              >
+              <img :src="icon.url" alt="" />
             </external-link>
-          </dd>
-        </template>
+          </template>
+        </properties-item>
       </properties-list>
     </panel-section>
 
     <panel-section title="Startup images">
-      <p v-if="!startupImages.length">
-        No startup images detected.
-      </p>
+      <div v-if="!startupImages.length" class="warning-message">
+        <WarningIcon class="icon" />
+        <p>No startup images detected.</p>
+      </div>
       <properties-list>
-        <template
-          v-for="image in startupImages"
-           :key="`${image.url}-key`"
+        <properties-item
+          v-for="(image, index) in startupImages"
+          :key="index"
+          :key-name="image.url"
+          :refresh-on="startupImages"
         >
-          <dt>
-            {{ image.filename }}
-            <div v-if="image.sizes">
+          <template #default>
+            <template v-if="image.filename">
+              {{ image.filename }}
+            </template>
+            <template v-if="image.sizes">
               {{ image.sizes }}
-            </div>
-          </dt>
-          <dd>
+            </template>
+          </template>
+          <template #value>
             <external-link :href="image.url">
-              <img
-                alt=""
-                :src="image.url"
-              >
+              <img :src="image.url" alt="" />
             </external-link>
-          </dd>
-        </template>
+          </template>
+        </properties-item>
       </properties-list>
     </panel-section>
 
@@ -89,18 +98,50 @@ import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findMetaContent } from '@shared/lib/find-meta';
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
+import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
-  components: { ExternalLink, PanelSection, PropertiesList, WarningIcon },
+  components: {
+    ExternalLink,
+    PanelSection,
+    PropertiesItem,
+    PropertiesList,
+    WarningIcon,
+  },
   computed: {
     ...mapState([ 'head' ]),
-    appCapable() { return this.metaValue('apple-mobile-web-app-capable'); },
-    title() { return this.metaValue('apple-mobile-web-app-title'); },
-    statusBarStyle() { return this.metaValue('apple-mobile-web-app-status-bar-style'); },
-    formatDetection() { return this.metaValue('format-detection'); },
-    itunesApp() { return this.metaValue('apple-itunes-app'); },
+    appleMetaData() {
+      const { head } = this;
+      return [
+        {
+          keyName: 'app-capable',
+          title: 'apple-mobile-web-app-capable',
+          value: findMetaContent(head, 'apple-mobile-web-app-capable'),
+        },
+        {
+          keyName: 'app-title',
+          title: 'apple-mobile-web-app-title',
+          value: findMetaContent(head, 'apple-mobile-web-app-title'),
+        },
+        {
+          keyName: 'status-bar-style',
+          title: 'apple-mobile-web-app-status-bar-style',
+          value: findMetaContent(head, 'apple-mobile-web-app-status-bar-style'),
+        },
+        {
+          keyName: 'format-detection',
+          title: 'format-detection',
+          value: findMetaContent(head, 'format-detection'),
+        },
+        {
+          keyName: 'itunes-app',
+          title: 'apple-itunes-app',
+          value: findMetaContent(head, 'apple-itunes-app'),
+        },
+      ];
+    },
     touchIcons() {
       return this.head.link
         .filter(link => link.rel === 'apple-touch-icon')
