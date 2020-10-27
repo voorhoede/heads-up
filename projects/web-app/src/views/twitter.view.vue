@@ -1,6 +1,15 @@
 <template>
   <panel-section title="Preview">
+    <p v-if="!isValidCard">
+      This page does not contain the required meta data to create a preview.
+    </p>
+    <p v-if="isValidCard && !isSupportedCard">
+      Preview is not yet available for <code>{{ card }}</code> cards. <br>
+      Card preview is currently supported for:
+      <span v-html="supportedCards.map(v => `<code>${v}</code>`).join(', ')" />.
+    </p>
     <preview-iframe
+      v-if="isValidCard && isSupportedCard"
       :url="twitterUrl"
       iframeClass="twitter__preview"
     >
@@ -11,59 +20,29 @@
   </panel-section>
   <panel-section title="Properties">
     <properties-list>
-      <dt>twitter:card</dt><dd>{{ twitter.card }}</dd>
-      <dt>twitter:title</dt><dd>{{ twitter.title }}</dd>
-      <dt>twitter:description</dt><dd>{{ twitter.description }}</dd>
-      <template v-if="twitter.image">
-        <dt>twitter:image</dt>
-        <dd>
-          <external-link :href="absoluteUrl(twitter.image)">
-            <img
-              alt=""
-              :src="absoluteUrl(twitter.image)"
-            >
-            <span>{{ twitter.image }}</span>
+      <properties-item
+        v-for="item in twitterMetaData"
+        :key="item.keyName"
+        :key-name="item.keyName"
+      >
+        <template #default>
+          {{ item.title }}
+        </template>
+        <template v-if="item.keyName.includes(':image')" #value>
+         <external-link :href="absoluteUrl(item.value)">
+            <img :src="absoluteUrl(item.value)" alt="" />
+            <span>{{ item.value }}</span>
           </external-link>
-        </dd>
-      </template>
-      <template v-for="username in ['creator', 'site']">
-        <dt
-          v-if="twitter[username]"
-          :key="`${username}-key`"
-        >
-          twitter:{{ username }}
-        </dt>
-        <dd
-          v-if="twitter[username]"
-          :key="`${username}-value`"
-        >
-          <external-link :href="`https://twitter.com/${twitter[username].slice(1)}`">
-            {{ twitter[username] }}
+        </template>
+        <template v-else-if="item.keyName.includes(':creator') || item.keyName.includes(':site')" #value>
+          <external-link v-if="item.value" :href="item.value">
+            {{ item.value }}
           </external-link>
-        </dd>
-      </template>
-
-      <template v-if="og.type">
-        <dt>og:type</dt><dd>{{ og.type }}</dd>
-      </template>
-      <template v-if="og.title">
-        <dt>og:title</dt><dd>{{ og.title }}</dd>
-      </template>
-      <template v-if="og.description">
-        <dt>og:description</dt><dd>{{ og.description }}</dd>
-      </template>
-      <template v-if="og.image">
-        <dt>og:image</dt>
-        <dd>
-          <external-link :href="absoluteUrl(og.image)">
-            <img
-              alt=""
-              :src="absoluteUrl(og.image)"
-            >
-            <span>{{ og.image }}</span>
-          </external-link>
-        </dd>
-      </template>
+        </template>
+        <template v-else #value>
+          {{ item.value }}
+        </template>
+      </properties-item>
     </properties-list>
   </panel-section>
   <panel-section title="Resources">
@@ -96,6 +75,7 @@ import getTheme from '@shared/lib/theme';
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
 import PreviewIframe from '@shared/components/preview-iframe';
+import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 
 export default {
@@ -154,6 +134,64 @@ export default {
       params.set('theme', getTheme() !== 'default' && 'dark');
       return `/previews/twitter/twitter.html?${ params }`;
     });
+    const twitterMetaData = computed(() => {
+      return [
+        {
+          keyName: 'twitter:card',
+          title: 'twitter:card',
+          value: twitter.value.card,
+        },
+        {
+          keyName: 'twitter:title',
+          title: 'twitter:title',
+          value: twitter.value.title,
+        },
+        {
+          keyName: 'twitter:description',
+          title: 'twitter:description',
+          value: twitter.value.description,
+        },
+        {
+          keyName: 'twitter:image',
+          title: 'twitter:image',
+          value: absoluteUrl(twitter.value.image),
+        },
+        {
+          keyName: 'twitter:creator',
+          title: 'twitter:creator',
+          value: twitter.value.creator
+            ? `https://twitter.com/${ twitter.value.creator.slice(1) }`
+            : null,
+        },
+        {
+          keyName: 'twitter:site',
+          title: 'twitter:site',
+          value: twitter.value.site
+            ? `https://twitter.com/${ twitter.value.site.slice(1) }`
+            : null,
+        },
+        {
+          keyName: 'og:type',
+          title: 'og:type',
+          value: og.value.type,
+        },
+        {
+          keyName: 'og:title',
+          title: 'og:title',
+          value: og.value.title,
+        },
+        {
+          keyName: 'og:description',
+          title: 'og:description',
+          value: og.value.description,
+        },
+        {
+          keyName: 'og:image',
+          title: 'og:image',
+          value: absoluteUrl(og.value.image),
+        },
+      ];
+    });
 
     const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
     const metaValue = metaName => findMetaContent(headData.value.head, metaName);
@@ -169,6 +207,7 @@ export default {
       og,
       twitter,
       twitterUrl,
+      twitterMetaData,
       absoluteUrl,
       metaValue,
       propertyValue,
@@ -178,6 +217,7 @@ export default {
     PanelSection,
     ExternalLink,
     PreviewIframe,
+    PropertiesItem,
     PropertiesList,
   },
 };

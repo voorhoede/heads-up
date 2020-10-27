@@ -23,59 +23,29 @@
 
     <panel-section title="Properties">
       <properties-list>
-        <dt>twitter:card</dt><dd>{{ twitter.card }}</dd>
-        <dt>twitter:title</dt><dd>{{ twitter.title }}</dd>
-        <dt>twitter:description</dt><dd>{{ twitter.description }}</dd>
-        <template v-if="twitter.image">
-          <dt>twitter:image</dt>
-          <dd>
-            <external-link :href="absoluteUrl(twitter.image)">
-              <img
-                alt=""
-                :src="absoluteUrl(twitter.image)"
-              >
-              <span>{{ twitter.image }}</span>
+        <properties-item
+          v-for="item in twitterMetaData"
+          :key="item.keyName"
+          :key-name="item.keyName"
+        >
+          <template #default>
+            {{ item.title }}
+          </template>
+          <template v-if="item.keyName.includes(':image')" #value>
+          <external-link :href="absoluteUrl(item.value)">
+              <img :src="absoluteUrl(item.value)" alt="" />
+              <span>{{ item.value }}</span>
             </external-link>
-          </dd>
-        </template>
-        <template v-for="username in ['creator', 'site']">
-          <dt
-            v-if="twitter[username]"
-            :key="`${username}-key`"
-          >
-            twitter:{{ username }}
-          </dt>
-          <dd
-            v-if="twitter[username]"
-            :key="`${username}-value`"
-          >
-            <external-link :href="`https://twitter.com/${twitter[username].slice(1)}`">
-              {{ twitter[username] }}
+          </template>
+          <template v-else-if="item.keyName.includes(':creator') || item.keyName.includes(':site')" #value>
+            <external-link v-if="item.value" :href="item.value">
+              {{ item.value }}
             </external-link>
-          </dd>
-        </template>
-
-        <template v-if="og.type">
-          <dt>og:type</dt><dd>{{ og.type }}</dd>
-        </template>
-        <template v-if="og.title">
-          <dt>og:title</dt><dd>{{ og.title }}</dd>
-        </template>
-        <template v-if="og.description">
-          <dt>og:description</dt><dd>{{ og.description }}</dd>
-        </template>
-        <template v-if="og.image">
-          <dt>og:image</dt>
-          <dd>
-            <external-link :href="absoluteUrl(og.image)">
-              <img
-                alt=""
-                :src="absoluteUrl(og.image)"
-              >
-              <span>{{ og.image }}</span>
-            </external-link>
-          </dd>
-        </template>
+          </template>
+          <template v-else #value>
+            {{ item.value }}
+          </template>
+        </properties-item>
       </properties-list>
     </panel-section>
 
@@ -109,6 +79,7 @@ import { findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
+import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import PreviewIframe from '@shared/components/preview-iframe';
 
@@ -116,7 +87,13 @@ const validCards = [ 'summary', 'summary_large_image', 'app', 'player' ];
 export const supportedCards = [ 'summary', 'summary_large_image' ];
 
 export default {
-  components: { ExternalLink, PanelSection, PropertiesList, PreviewIframe },
+  components: {
+    ExternalLink,
+    PanelSection,
+    PropertiesItem,
+    PropertiesList,
+    PreviewIframe,
+  },
   computed: {
     ...mapState([ 'head' ]),
     card() {
@@ -171,6 +148,64 @@ export default {
       params.set('url', this.head.url);
       params.set('theme', getTheme() !== 'default' && 'dark');
       return `/previews/twitter/twitter.html?${ params }`;
+    },
+    twitterMetaData() {
+      return [
+        {
+          keyName: 'twitter:card',
+          title: 'twitter:card',
+          value: this.twitter.card,
+        },
+        {
+          keyName: 'twitter:title',
+          title: 'twitter:title',
+          value: this.twitter.title,
+        },
+        {
+          keyName: 'twitter:description',
+          title: 'twitter:description',
+          value: this.twitter.description,
+        },
+        {
+          keyName: 'twitter:image',
+          title: 'twitter:image',
+          value: this.absoluteUrl(this.twitter.image),
+        },
+        {
+          keyName: 'twitter:creator',
+          title: 'twitter:creator',
+          value: this.twitter.creator
+            ? `https://twitter.com/${ this.twitter.creator.slice(1) }`
+            : null,
+        },
+        {
+          keyName: 'twitter:site',
+          title: 'twitter:site',
+          value: this.twitter.site
+            ? `https://twitter.com/${ this.twitter.site.slice(1) }`
+            : null,
+        },
+        {
+          keyName: 'og:type',
+          title: 'og:type',
+          value: this.og.type,
+        },
+        {
+          keyName: 'og:title',
+          title: 'og:title',
+          value: this.og.title,
+        },
+        {
+          keyName: 'og:description',
+          title: 'og:description',
+          value: this.og.description,
+        },
+        {
+          keyName: 'og:image',
+          title: 'og:image',
+          value: this.absoluteUrl(this.og.image),
+        },
+      ];
     },
   },
   mounted() {
