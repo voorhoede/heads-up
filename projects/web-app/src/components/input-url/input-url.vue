@@ -13,13 +13,15 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 import useHead from '@/composables/use-head';
 
 export default {
   setup: () => {
     const url = ref('https://www.voorhoede.nl/en/');
     const getHeadForUrl = useHead().getForUrl;
+
+    onMounted(() => getHeadForUrl(url.value));
 
     return {
       url,
