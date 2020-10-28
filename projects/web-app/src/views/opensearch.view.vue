@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import useHead from '@/composables/use-head';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findLinkHref, findXMLElement } from '@shared/lib/find-meta';
@@ -100,9 +100,7 @@ export default {
       return `/previews/opensearch/opensearch.html?${ params }`;
     });
     const fileUrl = computed(() => {
-      return metaTagValue.value && metaTagValue.value.startsWith('/')
-        ? headData.value.head.domain + metaTagValue.value
-        : metaTagValue.value;
+      return createAbsoluteUrl(headData.value.head, metaTagValue.value);
     });
     const shortName = computed(() => {
       const element = findXMLElement(fileContent.value, 'ShortName');
@@ -155,12 +153,23 @@ export default {
     });
 
     const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
-    const getFileContent = () => {
-      fetch(fileUrl.value)
+    const getFileContent = value => {
+      fetch(value)
         .then(res => res.text())
         .then(text => fileContent.value = text)
-        .catch(error => console.error(error));
+        .catch(error => {
+          fileContent.value = '';
+          console.error(error);
+        });
     };
+
+    watch(fileUrl, value => {
+      if (value) {
+        getFileContent(value);
+      } else {
+        fileContent.value = '';
+      }
+    });
 
     return {
       schema,
@@ -186,9 +195,6 @@ export default {
     PropertiesItem,
     PropertiesList,
     WarningIcon,
-  },
-  created() {
-    this.getFileContent();
   },
 };
 </script>
