@@ -1,28 +1,24 @@
 <template>
   <div class="opensearch">
     <panel-section title="Preview">
-      <p v-if="!hasOpenSearchFile">
-        This page does not contain a reference to an Open Search description file.
-      </p>
+      <div v-if="!openSearchContent" class="warning-message">
+        <WarningIcon class="icon" />
+        <p>No OpenSearch file detected.</p>
+      </div>
       <preview-iframe
-         v-if="hasOpenSearchFile"
+         v-if="openSearchContent"
         :url="previewUrl"
         iframeClass="opensearch__preview"
       >
         <template v-slot:caption>
           Preview based on source file:
-          <a
-            :href="fileUrl"
-            target="_blank"
-          >
-            {{ fileUrl }}
-          </a>
+          <a :href="openSearchUrl" target="_blank">{{ openSearchUrl }}</a>
         </template>
       </preview-iframe>
     </panel-section>
 
-    <panel-section title="Tags">
-      <properties-list v-if="hasOpenSearchFile">
+    <panel-section v-if="openSearchContent" title="Tags">
+      <properties-list>
         <properties-item
           v-for="item in opensearchData"
           :key="item.keyName"
@@ -32,49 +28,35 @@
           :refresh-on="opensearchData"
         >
           <template #default>
-            {{ item.title }}
-          </template>
-          <template
-            v-if="item.keyName === 'urls'"
-            #value
-          >
-            <template
-              v-for="(url, index) in item.value"
-              :key="index"
-            >
-              <p>
-                <template v-for="(attribute, attrIndex) in url.attributes">
-                  <external-link
-                    v-if="attribute.name === 'template'"
-                    :key="attrIndex"
-                    :href="absoluteUrl(attribute.value)"
-                  >
-                    {{ attribute.value }}<br>
-                  </external-link>
-                </template>
-                <template v-for="(attribute, attrIndex) in url.attributes">
-                  <span
-                    v-if="attribute.name !== 'template'"
-                    :key="attrIndex"
-                  >
-                    {{ attribute.name }}: {{ attribute.value }}<br>
-                  </span>
-                </template>
-              </p>
+          {{ item.title }}
+        </template>
+        <template v-if="item.keyName === 'urls'" #value>
+          <p v-for="(url, index) in item.value" :key="index">
+            <template v-for="(attribute, attrIndex) in url.attributes">
+              <external-link
+                v-if="attribute.name === 'template'"
+                :key="attrIndex"
+                :href="absoluteUrl(attribute.value)"
+              >
+                {{ attribute.value }}<br>
+              </external-link>
             </template>
-          </template>
-          <template
-            v-else-if="item.keyName === 'image'"
-            #value
-          >
-            <img
-              alt=""
-              :src="absoluteUrl(item.value)"
-            >
-            <external-link :href="absoluteUrl(item.value)">
-              <span>{{ item.value }}</span>
-            </external-link>
-          </template>
+            <template v-for="(attribute, attrIndex) in url.attributes">
+              <span
+                v-if="attribute.name !== 'template'"
+                :key="attrIndex"
+              >
+                {{ attribute.name }}: {{ attribute.value }}<br>
+              </span>
+            </template>
+          </p>
+        </template>
+        <template v-else-if="item.keyName === 'image'" #value>
+          <img :src="absoluteUrl(item.value)" alt="" />
+          <external-link :href="absoluteUrl(item.value)">
+            <span>{{ item.value }}</span>
+          </external-link>
+        </template>
         </properties-item>
       </properties-list>
     </panel-section>
@@ -102,24 +84,24 @@ import ExternalLink from '@shared/components/external-link';
 import PropertiesList from '@shared/components/properties-list';
 import PropertiesItem from '@shared/components/properties-item';
 import PreviewIframe from '@shared/components/preview-iframe';
+import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
-  components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList, PreviewIframe },
-  data() {
-    return {
-      fileContent: '',
-    };
+  components: {
+    ExternalLink,
+    PanelSection,
+    PropertiesItem,
+    PropertiesList,
+    PreviewIframe,
+    WarningIcon,
   },
   computed: {
-    ...mapState([ 'head' ]),
-    hasOpenSearchFile() {
-      return this.fileUrl && this.fileContent;
-    },
+    ...mapState([ 'head', 'openSearchContent', 'openSearchUrl' ]),
     themeClass() {
       /**
-         * class '-theme-with-dark-background' is taken from original dev tools repo
-         * src: https://github.com/ChromeDevTools/devtools-frontend/blob/02a851d01de158d8c0a8fd1d3af06649b5379bd6/front_end/ui/inspectorStyle.css
-         */
+       * class '-theme-with-dark-background' is taken from original dev tools repo
+       * src: https://github.com/ChromeDevTools/devtools-frontend/blob/02a851d01de158d8c0a8fd1d3af06649b5379bd6/front_end/ui/inspectorStyle.css
+       */
       return getTheme() === 'dark' ? '-theme-with-dark-background' : '';
     },
     previewUrl() {
@@ -129,32 +111,24 @@ export default {
 
       return `/previews/opensearch/opensearch.html?${ params }`;
     },
-    metaTagValue() {
-      return findLinkHref(this.head, 'search');
-    },
-    fileUrl() {
-      return this.metaTagValue && this.metaTagValue.startsWith('/')
-        ? `https://${ this.head.domain }${ this.metaTagValue }`
-        : this.metaTagValue;
-    },
     shortName() {
-      const element = findXMLElement(this.fileContent, 'ShortName');
+      const element = findXMLElement(this.openSearchContent, 'ShortName');
       return element ? element[0].value : null;
     },
     description() {
-      const element = findXMLElement(this.fileContent, 'Description');
+      const element = findXMLElement(this.openSearchContent, 'Description');
       return element ? element[0].value : null;
     },
     urls() {
-      const elements = findXMLElement(this.fileContent, 'Url');
+      const elements = findXMLElement(this.openSearchContent, 'Url');
       return elements ? elements : null;
     },
     image() {
-      const element = findXMLElement(this.fileContent, 'Image');
+      const element = findXMLElement(this.openSearchContent, 'Image');
       return element ? element[0].value : null;
     },
     inputEncoding() {
-      const element = findXMLElement(this.fileContent, 'InputEncoding');
+      const element = findXMLElement(this.openSearchContent, 'InputEncoding');
       return element ? element[0].value : null;
     },
     opensearchData() {
@@ -188,26 +162,9 @@ export default {
     },
     schema() { return schema; },
   },
-  created() {
-    this.getOpenSearchFileContent();
-  },
   methods: {
     absoluteUrl(url) {
       return createAbsoluteUrl(this.head, url);
-    },
-    getOpenSearchFileContent() {
-      const request = new XMLHttpRequest();
-      request.onreadystatechange = e => {
-        const { readyState, response, status } = e.target;
-        if (readyState === 4 && status === 200) {
-          this.fileContent = response;
-        }
-      };
-      request.onerror = () => {
-        throw new Error('An error occurred, request failed.');
-      };
-      request.open('GET', this.fileUrl, true);
-      request.send();
     },
   },
 };
