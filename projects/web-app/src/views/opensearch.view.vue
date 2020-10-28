@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import { computed, ref, watch } from 'vue';
+import { computed, ref, onMounted, watch } from 'vue';
 import useHead from '@/composables/use-head';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findLinkHref, findXMLElement } from '@shared/lib/find-meta';
@@ -170,6 +170,8 @@ export default {
         fileContent.value = '';
       }
     });
+
+    onMounted(() => getFileContent(fileUrl.value));
 
     return {
       schema,
