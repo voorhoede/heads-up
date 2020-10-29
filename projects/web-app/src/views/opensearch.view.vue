@@ -54,8 +54,8 @@
           </p>
         </template>
         <template v-else-if="item.keyName === 'image'" #value>
-          <img :src="absoluteUrl(item.value)" alt="" />
-          <external-link :href="absoluteUrl(item.value)">
+          <img v-if="item.value" :src="absoluteUrl(item.value)" alt="" />
+          <external-link v-if="item.value" :href="absoluteUrl(item.value)">
             <span>{{ item.value }}</span>
           </external-link>
         </template>
