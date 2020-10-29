@@ -84,13 +84,14 @@ export default createStore({
       if (href) {
         const url = createAbsoluteUrl(state.head, href);
         commit('SET_OPENSEARCH_URL', { url });
+        return url;
       } else {
         commit('SET_OPENSEARCH_URL', { url: null });
+        return null;
       }
     },
     async GET_OPENSEARCH_FILE ({ commit, dispatch, state }) {
-      await dispatch('GET_OPENSEARCH_URL');
-      const { openSearchUrl } = state;
+      const openSearchUrl = await dispatch('GET_OPENSEARCH_URL');
 
       if (openSearchUrl) {
         const url = createAbsoluteUrl(state.head, openSearchUrl);
