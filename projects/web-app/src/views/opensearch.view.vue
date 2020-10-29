@@ -164,10 +164,10 @@ export default {
     };
 
     watch(fileUrl, value => {
+      fileContent.value = '';
+
       if (value) {
         getFileContent(value);
-      } else {
-        fileContent.value = '';
       }
     });
 

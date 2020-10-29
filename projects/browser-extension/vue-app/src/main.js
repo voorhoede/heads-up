@@ -20,6 +20,7 @@ background.onMessage.addListener(message => {
     store.dispatch('GET_ROBOTS_TXT');
     store.dispatch('CHECK_CRAWLABLE_URL');
     store.dispatch('GET_SITEMAP');
+    store.dispatch('GET_OPENSEARCH_FILE');
   }
 });
 

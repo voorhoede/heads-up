@@ -1,6 +1,8 @@
 import { createStore } from 'vuex';
 import robotsParser from 'robots-txt-parser';
 import xmlJs from 'xml-js';
+import createAbsoluteUrl from '@shared/lib/create-absolute-url';
+import { findLinkHref } from '@shared/lib/find-meta';
 
 const robotsTxt = robotsParser({
   allowOnNeutral: false,
@@ -10,6 +12,8 @@ export default createStore({
   state: () => ({
     urlIsCrawlable: false,
     head: {},
+    openSearchContent: null,
+    openSearchUrl: null,
     robots: [],
     sitemaps: [],
     sitemapUrls: [],
@@ -74,6 +78,31 @@ export default createStore({
 
       commit('SET_SITEMAPS', { sitemaps });
     },
+    async GET_OPENSEARCH_URL ({ commit, state }) {
+      const href = findLinkHref(state.head, 'search');
+
+      if (href) {
+        const url = createAbsoluteUrl(state.head, href);
+        commit('SET_OPENSEARCH_URL', { url });
+        return url;
+      } else {
+        commit('SET_OPENSEARCH_URL', { url: null });
+        return null;
+      }
+    },
+    async GET_OPENSEARCH_FILE ({ commit, dispatch, state }) {
+      const openSearchUrl = await dispatch('GET_OPENSEARCH_URL');
+
+      if (openSearchUrl) {
+        const url = createAbsoluteUrl(state.head, openSearchUrl);
+        fetch(url)
+          .then(res => res.text())
+          .then(content => commit('SET_OPENSEARCH_CONTENT', { content }))
+          .catch(error => console.error(error));
+      } else {
+        commit('SET_OPENSEARCH_CONTENT', { content: null });
+      }
+    },
   },
   mutations: {
     SET_CRAWLABLE_URL (state, { crawlable }) {
@@ -81,6 +110,12 @@ export default createStore({
     },
     SET_HEAD (state, { head }) {
       state.head = head;
+    },
+    SET_OPENSEARCH_CONTENT (state, { content }) {
+      state.openSearchContent = content;
+    },
+    SET_OPENSEARCH_URL (state, { url }) {
+      state.openSearchUrl = url;
     },
     SET_ROBOTS (state, { robots }) {
       state.robots = robots;
