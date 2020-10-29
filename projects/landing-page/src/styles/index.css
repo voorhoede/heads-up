@@ -1,6 +1,7 @@
 @import "variables.css";
 @import "fonts.css";
 @import "typography.css";
+@import "buttons.css";
 @import "form.css";
 @import "list.css";
 
@@ -51,6 +52,10 @@ main {
 section {
   margin-bottom: 90px;
 }
+.section__button {
+  display: inline-block;
+  margin-top: 20px;
+}
 
 .content {
   max-width: 640px;
@@ -64,10 +69,6 @@ section {
 
 .h2 {
   font-size: 36px;
-}
-
-header {
-  text-align: center;
 }
 
 .header__product-description {
@@ -153,4 +154,15 @@ header {
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.center {
+  text-align: center;
+}
+
+.footer {
+  padding: 1rem 0;
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  font-weight: bold;
 }

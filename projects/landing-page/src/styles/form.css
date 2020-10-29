@@ -18,18 +18,3 @@ label {
   margin: 8px 0;
   text-transform: lowercase;
 }
-
-button {
-  background: #ffe400;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 4px;
-  margin-top: 20px;
-  color: #484832;
-  font-weight: bold;
-}
-
-button:hover,
-button:focus {
-  background: var(--active-yellow);
-}
