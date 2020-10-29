@@ -53,7 +53,7 @@
             </template>
           </p>
         </template>
-        <template v-else-if="item.keyName === 'image'" #value>
+        <template v-else-if="item.value && item.keyName === 'image'" #value>
           <img :src="absoluteUrl(item.value)" alt="" />
           <external-link :href="absoluteUrl(item.value)">
             <span>{{ item.value }}</span>
