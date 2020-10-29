@@ -6,33 +6,36 @@
     <link href="styles/index.css" rel="stylesheet" />
   </head>
   <body>
-
-    <header class="center">
-      <div class="content">
-        <picture class="header__logo">
+    <header class="app-header">
+      <div class="app-header__content">
+        <picture class="app-header__logo">
           <img src="assets/images/headsup-logo.png" width="56" height="56" alt="Heads up! Logo">
         </picture>
-        <h1 class="header__product-description">
-          <span class="header__product-title">Heads up!</span>
-          <span class="header__product-subtitle">Quickly see share previews</span>
-        </h1>
-        <h2 class="header__product-tagline tagline">Discover how search engines and social media platforms see your site</h2>
-        <form class="header__form" action="https://heads-up-web-app.netlify.app/meta" method="GET">
-          <label class="header__form-label">Website url:</label>
-          <input id="url" name="url" type="url" required class="header__form-input" placeholder="https://" />
-          <button class="button button--secondary header__form-button" href="/" class="header__form-button">Check out your score!</button>
-        </form>
+        <h1 class="app-header__product-title">Heads up!</h1>
       </div>
     </header>
 
     <main>
+      <section class="hero center">
+        <div class="content">
+          <h2 class="header__product-subtitle">Quickly see share previews</h2>
+          <h2 class="header__product-tagline tagline">Discover how search engines and social media platforms see your site</h2>
+        </div>
+      </section>
+
       <div class="content">
-        <section class="content__section">
-          <div class="content__section-inner">
-            <h2>Improve your Digital appearance with Heads Up</h2>
-            <p>Easily visualize your social media outings and other HEAD related content with Heads Up. Within seconds a clear summary of your site is generated. Scan quickly through your Meta tags, review your SEO keys or even check for Open Search support.</p>
-            <p>You can review your site with Heads Up by using the form on top of this page or by installing our <a href="https://chrome.google.com/webstore/detail/heads-up/ajjdmakdoicbgmgoacfmlplnefljpcke" target="_blank" rel="nofollow">Chrome extension</a>.</p>
-          </div>
+        <section class="form-section">
+          <form class="content header__form" action="https://heads-up-web-app.netlify.app/meta" method="GET">
+            <label class="header__form-label">Website url:</label>
+            <input id="url" name="url" type="url" required class="header__form-input" placeholder="https://" />
+            <button class="button button--secondary" href="/">Check out your score!</button>
+          </form>
+        </section>
+
+        <section>
+          <h2>Improve your Digital appearance with Heads Up</h2>
+          <p>Easily visualize your social media outings and other HEAD related content with Heads Up. Within seconds a clear summary of your site is generated. Scan quickly through your Meta tags, review your SEO keys or even check for Open Search support.</p>
+          <p>You can review your site with Heads Up by using the form on top of this page or by installing our <a href="https://chrome.google.com/webstore/detail/heads-up/ajjdmakdoicbgmgoacfmlplnefljpcke" target="_blank" rel="nofollow">Chrome extension</a>.</p>
         </section>
 
         <section class="video-container">
