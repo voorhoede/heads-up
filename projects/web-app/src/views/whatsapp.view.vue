@@ -26,13 +26,13 @@
         <template #default>
           {{ item.title }}
         </template>
-        <template v-if="item.keyName.includes(':image')" #value>
+        <template v-if="item.value && item.keyName.includes(':image')" #value>
          <external-link :href="absoluteUrl(item.value)">
             <img :src="absoluteUrl(item.value)" alt="" />
             <span>{{ item.value }}</span>
           </external-link>
         </template>
-        <template v-else #value>
+        <template v-else-if="item.value" #value>
           {{ item.value }}
         </template>
       </properties-item>
