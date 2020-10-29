@@ -1,7 +1,7 @@
 <template>
   <header class="app-header">
     <div class="app-header__logo">
-      <voorhoede-logo height="32" />
+      <heads-up-logo height="32" />
     </div>
     <div class="app-header__search">
       <input-url />
@@ -10,12 +10,12 @@
 </template>
 
 <script>
-import VoorhoedeLogo from '@shared/assets/images/logo-with-text.svg';
+import HeadsUpLogo from '@shared/assets/images/heads-up.svg';
 import InputUrl from '@/components/input-url/input-url';
 
 export default {
   components: {
-    VoorhoedeLogo,
+    HeadsUpLogo,
     InputUrl,
   },
 };
