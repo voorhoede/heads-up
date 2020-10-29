@@ -13,15 +13,21 @@
 </template>
 
 <script>
-import { computed, ref, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import useHead from '@/composables/use-head';
 
 export default {
   setup: () => {
-    const url = ref('https://www.voorhoede.nl/en/');
     const getHeadForUrl = useHead().getForUrl;
+    const defaultUrl = 'https://www.voorhoede.nl/en/';
+    const params = new URLSearchParams(window.location.search);
+    const urlParam = params.get('url');
+    const url = ref('');
 
-    onMounted(() => getHeadForUrl(url.value));
+    onMounted(() => {
+      url.value = urlParam ? urlParam : defaultUrl;
+      getHeadForUrl(url.value);
+    });
 
     return {
       url,
