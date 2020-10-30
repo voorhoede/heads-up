@@ -4,42 +4,46 @@
   </div>
 </template>
 
-<style scoped>
+<style>
 .loader-container {
   display: grid;
   align-content: center;
   height: 100%;
 }
+
 .loader {
-	width: 30px;
-	height: 30px;
-	position: relative;
+  width: 30px;
+  height: 30px;
+  position: relative;
   margin: auto;
+}
 
-}
 .loader::before, .loader::after {
-		content: '';
-		position: absolute;
+  content: '';
+  position: absolute;
 }
+
 .loader-list {
-		display: grid;
-		grid-template: repeat(3, 120px) / repeat(3, 120px);
-		grid-gap: 30px;
+  display: grid;
+  grid-template: repeat(3, 120px) / repeat(3, 120px);
+  grid-gap: 30px;
 }
+
 .loader-item {
-		display: flex;
-    background: rgba(0, 0, 0, 0.05);
+  display: flex;
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .loader {
-	border: 1px solid blue;
-	height: 14px;
+  border: 1px solid blue;
+  height: 14px;
   width: 32px;
 }
+
 .loader::before {
   width: 4px;
   height: 10px;
-  background: blue;
+  background-color: blue;
   left: 1px;
   top: calc(50% - 5px);
   animation: blockBar 2s infinite;

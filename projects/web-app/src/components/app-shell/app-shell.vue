@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { ref, onUpdated, onErrorCaptured } from 'vue';
+import { ref, onUpdated } from 'vue';
 import AppHeader from './app-header';
 import AppSidebar from './app-sidebar';
 import Loader from '../loader/loader';
@@ -46,7 +46,7 @@ export default {
   components: {
     AppHeader,
     AppSidebar,
-    Loader
+    Loader,
   },
 };
 </script>
