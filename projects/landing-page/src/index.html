@@ -6,89 +6,62 @@
     <link href="styles/index.css" rel="stylesheet" />
   </head>
   <body>
-
-    <header>
-      <div class="content">
-        <picture class="header__logo">
+    <header class="app-header">
+      <div class="app-header__content">
+        <picture class="app-header__logo">
           <img src="assets/images/headsup-logo.png" width="56" height="56" alt="Heads up! Logo">
         </picture>
-        <h1 class="header__product-description">
-          <span class="header__product-title">Heads up!</span>
-          <span class="header__product-subtitle">Quickly see share previews</span>
-        </h1>
-        <h2 class="header__product-tagline tagline">Discover how your site will be shown by Google and social media platforms</h2>
-        <form class="header__form" action="https://heads-up-web-app.netlify.app/meta" method="GET">
-          <label class="header__form-label">Website url:</label>
-          <input id="url" name="url" type="url" required class="header__form-input" placeholder="https://" />
-          <button class="button header__form-button" href="/" class="header__form-button">Check out your score!</button>
-        </form>
+        <h1 class="app-header__product-title">Heads up!</h1>
       </div>
     </header>
 
     <main>
-      <div class="content">
-        <section class="content__section">
-          <div class="content__section-inner">
-            <h2>Learn more about Heads up!</h2>
-            <p>Please don't judge the design its a work in progress :P </p>
-            <p>With Head up! you can quickly check how your website is displayed when shared.</p>
-
-            <p class="tagline">Works with:</p>
-            <!-- @todo inline svg's to style them -->
-            <ul class="header__product-support list--unstyled list--inline">
-              <li><img src="assets/icons/facebook.svg" width="40"></li>
-              <li><img src="assets/icons/whatsapp.svg" width="40"></li>
-              <li><img src="assets/icons/twitter.svg" width="40"></li>
-              <li><img src="assets/icons/slack.svg" width="40"></li>
-            </ul>
-          </div>
-        </section>
-
-        <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/HboZ0MGvuCQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <section class="hero center">
+        <div class="content">
+          <h2 class="header__product-subtitle">Quickly see share previews</h2>
+          <h2 class="header__product-tagline tagline">Discover how search engines and social media platforms see your site</h2>
         </div>
+      </section>
 
-        <section>
-          <h2>Live feedback</h2>
-          <p>Heads Up provides their users with live feedback.
-          The feedback will be shown after hovering over icons and titles.
-          The feedback will give you a description of the item,
-          feedback to improve or an error with a solution.</p>
+      <div class="content">
+        <section class="form-section">
+          <form class="content header__form" action="https://heads-up-web-app.netlify.app/meta" method="GET">
+            <label class="header__form-label">Website url:</label>
+            <input id="url" name="url" type="url" required class="header__form-input" placeholder="https://" />
+            <button class="button button--secondary" href="/">Check out your score!</button>
+          </form>
         </section>
 
         <section>
-          <h2>Features</h2>
-          <ul>
-            <li>Presents key page meta (title, charset, viewport, ...) and favicons.</li>
-            <li>Presents all link relations (rel="") and values (name, href, type, ...).</li>
-            <li>Presents all favicon images with sizes and type names (x-icon, png).</li>
-            <li>Presents Apple iOS (apple-mobile-web-*) settings, touch icons and startup images.</li>
-            <li>Presents all Open Graph (og:*) properties found in the page.</li>
-            <li>Presents Twitter settings (twitter:*) and a preview of a Twitter card.</li>
-            <li>Presents WhatsApp settings (og:*) and a preview of a WhatsApp unfurled link.</li>
-            <li>Presents LinkedIn settings (og:*) and a preview of a LinkedIn unfurled link.</li>
-            <li>Presents Facebook settings (og:*) and a preview of a Facebook mobile and desktop unfurled link.</li>
-            <li>Presents Slack settings (og:*) and a preview of a Slack unfurled link.</li>
-            <li>Works with any site and web app (incl. localhost).</li>
-            <li>Supports editing in devtools and hot module reloading.</li>
-            <li>Gives feedback to improve your code with tooltips.</li>
-          </ul>
+          <h2>Improve your Digital appearance with Heads Up</h2>
+          <p>Easily visualize your social media outings and other HEAD related content with Heads Up. Within seconds a clear summary of your site is generated. Scan quickly through your Meta tags, review your SEO keys or even check for Open Search support.</p>
+          <p>You can review your site with Heads Up by using the form on top of this page or by installing our <a href="https://chrome.google.com/webstore/detail/heads-up/ajjdmakdoicbgmgoacfmlplnefljpcke" target="_blank" rel="nofollow">Chrome extension</a>.</p>
         </section>
 
+        <section class="video-container">
+          <iframe src="https://www.youtube.com/embed/HboZ0MGvuCQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </section>
+
+        <section>
+          <h2>Need help?</h2>
+          <p>You can always contact us if you need help with improving how your application is displayed.</p>
+          <div class="center"><a class="button section__button" href="https://calendly.com/jasper-voorhoede/advies">Plan a meeting with us</a></div>
+        </section>
 
         <section>
           <h2>Previews</h2>
-          <p>Heads up! can generate previews for all kinds of socialmedia platforms.</p>
-
+          <p>Heads up! can generate previews for all kinds of social media platforms like Whatsapp, Twitter, Facebook and Slack.</p>
+          <p>But it can also create previews of your sitemap, Search Meta and Open Search support.</p>
         </section>
 
         <section>
           <h2>Chrome Extension</h2>
-          <p>Are you usign our tool a lot? Maybe you can consider to speed up the process and use our awesome chrome extension!</p>
+          <p>Are you using our tool a lot? Maybe you can consider to speed up the process and use our awesome <a href="https://chrome.google.com/webstore/detail/heads-up/ajjdmakdoicbgmgoacfmlplnefljpcke" target="_blank" rel="nofollow">Chrome extension</a>!</p>
         </section>
       </div>
     </main>
 
-    <footer>Made with ♥️ by De Voorhoede</footer>
+    <footer class="footer center">Made with <span class="footer__heart">♥️</span> by De Voorhoede</footer>
+
   </body>
 </html>

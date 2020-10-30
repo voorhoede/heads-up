@@ -1,0 +1,32 @@
+
+button,
+.button {
+  background: var(--html-blue);
+  border: none;
+  padding: var(--spacing-small) var(--spacing-medium);
+  border-radius: var(--border-radius);
+  margin-top: var(--spacing-medium);
+  color: var(--white);
+  font-weight: bold;
+  text-decoration: none;
+  font-size: inherit;
+}
+
+button:hover,
+button:focus,
+.button:hover,
+.button:focus {
+  background: var(--active-blue);
+  color: var(--white);
+}
+
+.button--secondary {
+  background: var(--brand-yellow);
+  color: var(--html-blue);
+}
+
+.button--secondary:hover,
+.button--secondary:focus {
+  background: var(--active-yellow);
+  color: var(--html-blue);
+}

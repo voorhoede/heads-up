@@ -102,10 +102,8 @@
       </section>
     </nav>
     <footer class="app-sidebar__footer">
-      Made with love by <br>
-      <external-link  href="https://www.voorhoede.nl">
-        De Voorhoede
-      </external-link>
+      <external-link class="app-sidebar__external-link" href="https://heads-up-landing-page.netlify.app/">About Heads Up</external-link>
+      <madeWithLove />
     </footer>
   </aside>
 </template>
@@ -113,11 +111,12 @@
 <script>
 import AppleIcon from '@shared/assets/icons/apple.svg';
 import CodeIcon from '@shared/assets/icons/code.svg';
-import ExternalLink from '@shared/components/external-link';
 import FacebookIcon from '@shared/assets/icons/facebook.svg';
 import ImageIcon from '@shared/assets/icons/image.svg';
+import ExternalLink from '@shared/components/external-link';
 import LinkIcon from '@shared/assets/icons/link.svg';
 import LinkedinIcon from '@shared/assets/icons/linkedin.svg';
+import MadeWithLove from '@shared/components/made-with-love';
 import OpenGraphIcon from '@shared/assets/icons/open-graph.svg';
 import RobotIcon from '@shared/assets/icons/robot.svg';
 import SearchIcon from '@shared/assets/icons/search.svg';
@@ -135,6 +134,7 @@ export default {
     ImageIcon,
     LinkIcon,
     LinkedinIcon,
+    MadeWithLove,
     OpenGraphIcon,
     RobotIcon,
     SearchIcon,
@@ -153,39 +153,42 @@ export default {
   flex: 0 0 var(--sidebar-width);
   padding-top: var(--header-height);
   border-right: 1px solid var(--color-gray);
+  background-color: var(--paper);
 }
 
 .app-sidebar__list {
   list-style: none;
 }
-
+.app-sidebar__external-link,
 .app-sidebar__link {
   display: flex;
   align-items: center;
   text-decoration: none;
   color: var(--color-black);
   padding: 0.5rem 0.5rem;
-  border-radius: 3px;
-  transition: background-color .15s ease, color .15s ease, fill .15s ease;
+  transition: border-color .15s ease, color .15s ease, fill .15s ease;
   background-color: rgba(0, 0, 255, 0);
+  border-left: 2px solid transparent;
 }
 
-.app-sidebar__link:hover {
-  color: var(--color-blue);
-  fill: var(--color-blue);
-  background-color: rgba(0, 0, 255, 0.05);
-}
-
+.app-sidebar__external-link:hover,
+.app-sidebar__link:hover,
 .app-sidebar__link.router-link-active {
   color: var(--color-blue);
   fill: var(--color-blue);
-  background-color: rgba(0, 0, 255, 0.15);
+  border-color: currentColor;
 }
 
 .app-sidebar__link svg {
   width: 18px;
   height: 18px;
   margin-right: 0.625rem;
+}
+
+.app-sidebar__external-link {
+  justify-content: center;
+  margin-bottom: 12px;
+  border: none;
 }
 
 .app-sidebar__section {

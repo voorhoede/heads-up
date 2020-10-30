@@ -14,7 +14,7 @@
         :key="getSitemapUrl(sitemap)"
         class="sitemap-view__sitemap"
       >
-        <p class="sitemap-view__sitemap-url">{{ getSitemapUrl(sitemap) }}</p>
+        <p class="sitemap-view__sitemap-url">Url: <a :href="getSitemapUrl(sitemap)" target="_blank" rel="nofollow">{{ getSitemapUrl(sitemap) }}</a></p>
         <tree-menu
           v-if="getSitemapElements(sitemap)"
           :name="getSitemapName(sitemap)"
@@ -90,8 +90,7 @@ export default {
 }
 
 .sitemap-view__sitemap-url {
-  font-weight: bold;
-  margin-bottom: .5em;
+  margin-bottom: 1rem;
 }
 
 .sitemap-view__sitemap-error.warning-message {

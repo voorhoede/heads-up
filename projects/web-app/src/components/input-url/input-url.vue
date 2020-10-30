@@ -41,7 +41,7 @@ export default {
   .input-url input {
     border: 1px solid var(--color-blue);
     box-shadow: inset 0 0 0 0 var(--color-blue);
-    border-radius: 2rem;
+    border-radius: 4px;
     padding: 0.625rem 1.25rem;
     outline: none;
     min-width: 300px;
