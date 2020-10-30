@@ -112,10 +112,6 @@ export default {
     font-weight: bold;
   }
 
-  .collapsible-list__section:not(:first-of-type) {
-    padding-top: 0.5rem;
-  }
-
   .collapsible-list__section:not(:last-child)::after {
     content: '';
     display: block;
