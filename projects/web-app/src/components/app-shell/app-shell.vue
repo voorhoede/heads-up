@@ -3,9 +3,11 @@
     <app-header />
     <app-sidebar />
     <main class="app-main">
+      <loader v-if="loading" />
       <router-view v-if="headData" />
+
       <div
-        v-else
+        v-if="!headData"
         class="intro-message"
       >
         <h2>Visualise everything in your &lt;head&gt; with Heads Up.</h2>
@@ -16,18 +18,35 @@
 </template>
 
 <script>
+import { ref, onUpdated } from 'vue';
 import AppHeader from './app-header';
 import AppSidebar from './app-sidebar';
+import Loader from '../loader/loader';
 import useHead from '@/composables/use-head';
 
 export default {
-  setup: () => ({
-    headData: useHead().data,
-  }),
+  setup: () => {
+    const headData = useHead().data;
+    const loading = ref(true);
+
+    onUpdated(() => {
+      if (headData.value && Object.keys(headData.value).length) {
+        loading.value = false;
+      } else {
+        loading.value = true;
+      }
+    });
+
+    return {
+      headData,
+      loading,
+    };
+  },
 
   components: {
     AppHeader,
     AppSidebar,
+    Loader,
   },
 };
 </script>
