@@ -2,6 +2,7 @@
   /* colors */
   --color-orange: #ffa500;
   --color-yellow: #ffe400;
+  --paper: #fffed9;
   --color-blue: #0000ff;
   --color-black: #141414;
   --color-gray: #c0c0c0;
@@ -14,4 +15,6 @@
 
   --header-height: 70px;
   --sidebar-width: 17rem;
+
+  --label-color: #5f5f5f;
 }

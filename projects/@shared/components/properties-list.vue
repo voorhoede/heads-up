@@ -27,5 +27,6 @@
   .properties-list img {
     display: block;
     max-width: 200px;
+    margin-bottom: 4px;
   }
 </style>
