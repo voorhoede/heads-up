@@ -160,3 +160,25 @@ section:not(:last-of-type) {
   text-transform: uppercase;
   font-weight: bold;
 }
+
+.made-with-love a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.made-with-love-heart {
+  color: var(--html-blue);
+  transition: transform 200ms ease-in-out;
+  animation: heartBeat 2s;
+  display: inline-block;
+  animation-iteration-count: infinite;
+}
+
+@keyframes heartBeat {
+  0%, 100% {transform: scale(1);}
+  25% {transform: scale(.97);}
+  35%, 55% {transform: scale(.9);}
+  45%, 65% {transform: scale(1.1);}
+  75% {transform: scale(1.03);}
+}
