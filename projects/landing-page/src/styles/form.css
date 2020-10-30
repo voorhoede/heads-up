@@ -1,35 +1,20 @@
 input {
   background: var(--white);
-  border: 1px solid var(--very-dim);
+  border: 1px solid transparent;
   color: var(--black);
-  border-radius: 4px;
-  padding: 16px 20px;
+  border-radius: var(--border-radius);
+  padding: var(--spacing-small);
 }
 
 input:focus,
 input:hover {
   outline: none;
-  border-color: var(--dim);
+  border-color: var(--active-blue);
 }
 
 label {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: normal;
-  margin: 8px 0;
+  margin: var(--spacing-tiny) 0;
   text-transform: lowercase;
-}
-
-button {
-  background: #ffe400;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 4px;
-  margin-top: 20px;
-  color: #484832;
-  font-weight: bold;
-}
-
-button:hover,
-button:focus {
-  background: var(--active-yellow);
 }
