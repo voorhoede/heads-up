@@ -1,0 +1,11 @@
+/* Style overwrites for the shared components used in the web-app */
+
+.panel-section .heading {
+  margin-bottom: 24px;
+  font-weight: bold;
+  color: var(--color-blue);
+}
+
+.properties-list .properties-item {
+  margin-bottom: 10px;
+}

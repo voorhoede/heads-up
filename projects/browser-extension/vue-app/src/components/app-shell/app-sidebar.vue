@@ -136,24 +136,18 @@
       </ul>
     </section>
     <footer class="sidebar__footer">
-      Made with love by
-      <external-link
-        class="sidebar__footer-link"
-        href="https://www.voorhoede.nl"
-      >
-        De Voorhoede
-      </external-link>
+      <MadeWithLove />
     </footer>
   </nav>
 </template>
 
 <script>
-import ExternalLink from '@shared/components/external-link';
 import AppleIcon from '@shared/assets/icons/apple.svg';
 import CodeIcon from '@shared/assets/icons/code.svg';
 import LinkIcon from '@shared/assets/icons/link.svg';
 import ImageIcon from '@shared/assets/icons/image.svg';
 import OpenGraphIcon from '@shared/assets/icons/open-graph.svg';
+import MadeWithLove from '@shared/components/made-with-love';
 import TwitterIcon from '@shared/assets/icons/twitter.svg';
 import WhatsappIcon from '@shared/assets/icons/whatsapp.svg';
 import LinkedInIcon from '@shared/assets/icons/linkedin.svg';
@@ -165,10 +159,10 @@ import SitemapIcon from '@shared/assets/icons/sitemap.svg';
 
 export default {
   components: {
-    ExternalLink,
     AppleIcon,
     CodeIcon,
     LinkIcon,
+    MadeWithLove,
     OpenGraphIcon,
     TwitterIcon,
     ImageIcon,
@@ -236,15 +230,5 @@ export default {
 
   color: var(--label-color);
   text-align: center;
-}
-
-.sidebar__footer-link {
-  color: var(--accent-color);
-  text-decoration: underline;
-  white-space: nowrap;
-}
-
-.sidebar__footer-link:hover {
-  color: var(--accent-color-hover);
 }
 </style>
