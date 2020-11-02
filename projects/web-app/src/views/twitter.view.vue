@@ -154,7 +154,7 @@ export default {
         {
           keyName: 'twitter:image',
           title: 'twitter:image',
-          value: absoluteUrl(twitter.value.image),
+          value: twitter.value.image ? absoluteUrl(twitter.value.image) : null,
         },
         {
           keyName: 'twitter:creator',
@@ -188,7 +188,7 @@ export default {
         {
           keyName: 'og:image',
           title: 'og:image',
-          value: absoluteUrl(og.value.image),
+          value: og.value.image ? absoluteUrl(og.value.image) : null,
         },
       ];
     });
@@ -198,9 +198,9 @@ export default {
     const propertyValue = propName => findMetaProperty(headData.value.head, propName);
 
     return {
-      card,
       isValidCard,
       isSupportedCard,
+      card,
       title,
       description,
       image,
@@ -224,7 +224,7 @@ export default {
 </script>
 
 <style>
-  .twitter__preview {
-    max-width: 521px;
-  }
+.twitter__preview {
+  max-width: 521px;
+}
 </style>
