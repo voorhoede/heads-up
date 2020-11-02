@@ -52,10 +52,10 @@
             </router-link>
           </li>
           <li>
-            <a href="#" class="app-sidebar__link">
+            <router-link :to="{ name: 'linkedin' }" class="app-sidebar__link">
               <LinkedinIcon />
               <span>LinkedIn</span>
-            </a>
+            </router-link>
           </li>
           <li>
             <router-link :to="{ name: 'facebook' }" class="app-sidebar__link">
@@ -64,10 +64,10 @@
             </router-link>
           </li>
           <li>
-            <a href="#" class="app-sidebar__link">
+            <router-link :to="{ name: 'slack' }" class="app-sidebar__link">
               <SlackIcon />
               <span>Slack</span>
-            </a>
+            </router-link>
           </li>
         </ul>
       </section>

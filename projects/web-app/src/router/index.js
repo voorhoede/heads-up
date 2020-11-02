@@ -8,8 +8,10 @@ import OpenGraph from '@/views/open-graph.view';
 import OpenSearch from '@/views/opensearch.view';
 import SearchMeta from '@/views/search-meta.view';
 import Facebook from '@/views/facebook.view';
+import LinkedIn from '@/views/linkedin.view';
 import RobotsTxt from '@/views/robots-txt.view';
 import Sitemap from '@/views/sitemap.view';
+import Slack from '@/views/slack.view';
 import Twitter from '@/views/twitter.view';
 import Whatsapp from '@/views/whatsapp.view';
 
@@ -63,9 +65,19 @@ const routes = [
     component: Whatsapp,
   },
   {
+    path: '/linkedin',
+    name: 'linkedin',
+    component: LinkedIn,
+  },
+  {
     path: '/facebook',
     name: 'facebook',
     component: Facebook,
+  },
+  {
+    path: '/slack',
+    name: 'slack',
+    component: Slack,
   },
 
   // Search
