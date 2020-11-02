@@ -2,8 +2,7 @@
   <div class="whatsapp">
     <panel-section title="Preview">
       <p v-if="!hasDescription">
-        This page does not contain an Open Graph description to create a
-        preview.
+        This page does not contain an Open Graph description to create a preview.
       </p>
       <preview-iframe
         v-if="hasDescription && previewUrl"
@@ -11,125 +10,33 @@
         iframeClass="whatsapp__preview"
       >
         <template v-slot:caption>
-          Preview based on
-          <external-link href="https://web.whatsapp.com/">
-            web.whatsapp.com
-          </external-link>
+          Preview based on <external-link href="https://web.whatsapp.com/">web.whatsapp.com</external-link>.
         </template>
       </preview-iframe>
     </panel-section>
 
     <panel-section title="Properties">
       <properties-list>
-        <dl>
-          <dt class="title">
-            <p v-if="og.title === null">
-              og:title
-            </p>
-            <app-tooltip
-              class="properties-item__tooltip"
-              placement="bottom-start"
-            >
-              <InfoIcon
-                v-if="og.title === null"
-                class="properties-item__icon"
-              />
-              <p v-else>
-                og:title
-              </p>
-              <template #info>
-                <property-data
-                  type="og:title"
-                  :exist="tooltip.title.exist"
-                  :tag="tooltip.title.tag"
-                  :value="tooltip.title.content"
-                />
-              </template>
-            </app-tooltip>
-          </dt>
-          <dd>{{ title }}</dd>
-          <dt>
-            <p
-              v-if="
-                og.description === null ||
-                  tooltip.description.valueLength.tooLong
-              "
-            >
-              og:description
-            </p>
-            <app-tooltip
-              class="properties-item__tooltip"
-              placement="bottom-start"
-            >
-              <WarningIcon
-                v-if="description === null"
-                class="properties-item__icon properties-item-icon--warning"
-              />
-              <infoIcon
-                v-else-if="tooltip.description.valueLength.tooLong"
-                class="properties-item__icon"
-              />
-
-              <p v-else>
-                og:description
-              </p>
-
-              <template #info>
-                <property-data
-                  type="og:description"
-                  :exist="tooltip.description.exist"
-                  :required="tooltip.description.required"
-                  :tag="tooltip.description.tag"
-                  :value="tooltip.description.value"
-                  :value-length="tooltip.description.valueLength"
-                />
-              </template>
-            </app-tooltip>
-          </dt>
-          <dd>{{ description }}</dd>
-          <dt>
-            <p v-if="og.image === null || !imageHasValidSize">
-              og:image
-            </p>
-            <app-tooltip
-              v-if="showTooltip"
-              class="properties-item__tooltip"
-              placement="bottom-start"
-            >
-              <InfoIcon
-                v-if="og.image === null || !imageHasValidSize"
-                class="properties-item__icon"
-              />
-              <p v-else>
-                og:image
-              </p>
-              <template #info>
-                <property-data
-                  type="og:image"
-                  :exist="tooltip.image.exist"
-                  :has-variation="tooltip.image.hasVariation"
-                  :required-sizes="tooltip.image.requiredSizes"
-                  :size="tooltip.image.size"
-                  :tag="tooltip.image.tag"
-                />
-              </template>
-            </app-tooltip>
-          </dt>
-          <dd v-if="og.image">
-            <external-link :href="absoluteUrl(og.image)">
-              <img
-                alt
-                :src="absoluteUrl(og.image)"
-              >
-              <span>{{ og.image }}</span>
+        <properties-item>
+          <template #default>og:title</template>
+          <template #value>{{ title }}</template>
+        </properties-item>
+        <properties-item>
+          <template #default>og:description</template>
+          <template #value>{{ description }}</template>
+        </properties-item>
+        <properties-item>
+          <template #default>og:image</template>
+          <template v-if="og.image || imageDimensions" #value>
+            <external-link v-if="og.image" :href="absoluteUrl(og.image)">
+              <img alt :src="absoluteUrl(og.image)">
+              {{ og.image }}
             </external-link>
-            <p
-              v-if="imageDimensions"
-            >
-              ({{ imageDimensions.width }} x {{ imageDimensions.height }}px)
+            <p v-if="imageDimensions">
+              ({{ imageDimensions.width }}px &times; {{ imageDimensions.height }}px)
             </p>
-          </dd>
-        </dl>
+          </template>
+        </properties-item>
       </properties-list>
     </panel-section>
 
@@ -137,9 +44,7 @@
       <ul class="resource-list">
         <ul>
           <li>
-            <external-link
-              href="https://stackoverflow.com/a/43154489"
-            >
+            <external-link href="https://stackoverflow.com/a/43154489">
               2019 WhatsApp sharing standards (on StackOverflow)
             </external-link>
           </li>
@@ -163,6 +68,7 @@ import InfoIcon from '@shared/assets/icons/info.svg';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
+import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import AppTooltip from '@shared/components/app-tooltip';
 import PropertyData from '@/components/property-data';
@@ -177,6 +83,7 @@ export default {
   components: {
     ExternalLink,
     PanelSection,
+    PropertiesItem,
     PropertiesList,
     AppTooltip,
     PropertyData,

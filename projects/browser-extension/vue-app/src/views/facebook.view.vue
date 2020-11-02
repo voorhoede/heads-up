@@ -1,141 +1,45 @@
 <template>
   <div class="facebook">
-    <tab-selecter
-      v-model="openTab"
-      :tabs="TABS"
-    />
+    <tab-selecter v-model="openTab" :tabs="TABS" />
 
-    <panel-section
-      v-if="openTab === 'mobile'"
-      title="Preview"
-    >
-      <preview-iframe
-        :url="previewUrl"
-        iframeClass="facebook__preview"
-      >
+    <panel-section v-if="openTab === 'mobile'" title="Preview">
+      <preview-iframe :url="previewUrl" iframeClass="facebook__preview">
         <template v-slot:caption>
-          Preview based on
-          <external-link href="https://m.facebook.com/">
-            m.facebook.com
-          </external-link>.
+          Preview based on <external-link href="https://m.facebook.com/">m.facebook.com</external-link>.
         </template>
       </preview-iframe>
     </panel-section>
 
-    <panel-section
-      v-if="openTab === 'desktop'"
-      title="Preview"
-    >
-      <preview-iframe
-        :url="previewUrl"
-        class="facebook__preview"
-      >
+    <panel-section v-if="openTab === 'desktop'" title="Preview">
+      <preview-iframe :url="previewUrl" class="facebook__preview">
         <template v-slot:caption>
-          Preview based on
-          <external-link href="https://facebook.com/">
-            facebook.com
-          </external-link>.
+          Preview based on <external-link href="https://facebook.com/">facebook.com</external-link>.
         </template>
       </preview-iframe>
     </panel-section>
 
     <panel-section title="Properties">
       <properties-list>
-        <dt>
-          <p v-if="!og.title">
-            og:title
-          </p>
-          <app-tooltip
-            class="properties-item__tooltip"
-            placement="bottom-start"
-          >
-            <InfoIcon
-              v-if="!og.title"
-              class="properties-item__icon"
-            />
-            <p v-else>
-              og:title
+        <properties-item>
+          <template #default>og:title</template>
+          <template #value>{{ og.title }}</template>
+        </properties-item>
+        <properties-item>
+          <template #default>og:description</template>
+          <template #value>{{ og.description }}</template>
+        </properties-item>
+        <properties-item>
+          <template #default>og:image</template>
+          <template v-if="og.image || imageDimensions" #value>
+            <external-link v-if="og.image" :href="absoluteUrl(og.image)">
+              <img alt :src="absoluteUrl(og.image)">
+              {{ og.image }}
+            </external-link>
+            <p v-if="imageDimensions">
+              ({{ imageDimensions.width }}px &times; {{ imageDimensions.height }}px)
             </p>
-            <template #info>
-              <property-data
-                type="og:title"
-                :exist="tooltip.title.exist"
-                :tag="tooltip.title.tag"
-                :value="tooltip.title.content"
-              />
-            </template>
-          </app-tooltip>
-        </dt>
-        <dd>{{ og.title }}</dd>
-        <template v-if="og.description">
-          <dt>
-            <p v-if="!og.description">
-              og:description
-            </p>
-            <app-tooltip
-              class="properties-item__tooltip"
-              placement="bottom-start"
-            >
-              <InfoIcon
-                v-if="!og.description"
-                class="properties-item__icon"
-              />
-              <p v-else>
-                og:description
-              </p>
-              <template #info>
-                <property-data
-                  type="og:description"
-                  :exist="tooltip.description.exist"
-                  :required="tooltip.description.required"
-                  :tag="tooltip.description.tag"
-                  :value="tooltip.description.value"
-                  :value-length="tooltip.description.valueLength"
-                />
-              </template>
-            </app-tooltip>
-          </dt>
-          <dd>{{ og.description }}</dd>
-        </template>
-        <dt>
-          <p v-if="!og.image">
-            og:image
-          </p>
-          <app-tooltip
-            class="properties-item__tooltip"
-            placement="bottom-start"
-          >
-            <InfoIcon
-              v-if="!og.image"
-              class="properties-item__icon"
-            />
-            <p v-else>
-              og:image
-            </p>
-            <template #info>
-              <property-data
-                type="og:image"
-                :exist="tooltip.image.exist"
-                :has-variation="tooltip.image.hasVariation"
-                :required-sizes="tooltip.image.requiredSizes"
-                :size="tooltip.image.size"
-                :tag="tooltip.image.tag"
-              />
-            </template>
-          </app-tooltip>
-        </dt>
-        <dd>
-          <external-link :href="absoluteUrl(og.image)">
-            <img
-              alt
-              :src="absoluteUrl(og.image)"
-            >
-            <span>{{ og.image }}</span>
-          </external-link>
-          <p v-if="imageDimensions">
-            ({{ imageDimensions.width }} x {{ imageDimensions.height }}px)
-          </p>
-        </dd>
+          </template>
+        </properties-item>
       </properties-list>
     </panel-section>
   </div>
@@ -154,6 +58,7 @@ import InfoIcon from '@shared/assets/icons/info.svg';
 import TabSelecter from '@shared/components/tab-selecter';
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
+import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import AppTooltip from '@shared/components/app-tooltip';
 import PropertyData from '@/components/property-data';
@@ -175,6 +80,7 @@ export default {
     TabSelecter,
     ExternalLink,
     PanelSection,
+    PropertiesItem,
     PropertiesList,
     AppTooltip,
     InfoIcon,
