@@ -16,7 +16,7 @@
         class="sitemap-view__sitemap"
       >
         <summary class="sitemap-view__sitemap-url">
-          {{ getSitemapUrl(sitemap) }}
+          sitemap: {{ getSitemapUrl(sitemap) }}
           <small>( <a :href="getSitemapUrl(sitemap)" target="_blank" rel="nofollow">view original</a> )</small>
         </summary>
 

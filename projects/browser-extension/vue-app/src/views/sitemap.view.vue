@@ -5,23 +5,27 @@
         <WarningIcon class="icon" />
         <p>No sitemaps were detected.</p>
       </div>
-      <div
+      <details
         v-else
         v-for="sitemap in sitemaps"
         :key="getSitemapUrl(sitemap)"
+        :open="!sitemap.sitemapData"
         class="sitemap-view__sitemap"
       >
-        <p class="sitemap-view__sitemap-url">{{ getSitemapUrl(sitemap) }}</p>
-        <tree-menu
-          v-if="getSitemapElements(sitemap)"
-          :name="getSitemapName(sitemap)"
-          :elements="getSitemapElements(sitemap)"
-        />
+        <summary class="sitemap-view__sitemap-url">
+          sitemap: {{ getSitemapUrl(sitemap) }}
+          <small>( <external-link :href="getSitemapUrl(sitemap)">view original</external-link> )</small>
+        </summary>
+
+        <div v-if="sitemap.sitemapData">
+          <tree-menu v-for="(item, key) in sitemap.sitemapData" :key="key" :name="key" :elements="item" />
+        </div>
+
         <div v-else class="sitemap-view__sitemap-error warning-message">
           <WarningIcon class="icon" />
           <p>Could not read/parse the sitemap.</p>
         </div>
-      </div>
+      </details>
     </panel-section>
     <panel-section title="Resources">
       <ul class="resource-list">
@@ -54,13 +58,7 @@ export default {
   },
   methods: {
     getSitemapUrl(sitemap) {
-      return Object.keys(sitemap)[0];
-    },
-    getSitemapName(sitemap) {
-      return Object.values(sitemap)[0].elements[0].name;
-    },
-    getSitemapElements(sitemap) {
-      return Object.values(sitemap)[0].elements[0].elements;
+      return sitemap.sitemapUrl;
     },
   },
 };

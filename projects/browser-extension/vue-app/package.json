@@ -13,7 +13,7 @@
     "vue": "^3.0.2",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-beta.4",
-    "xml-js": "^1.6.11"
+    "xml2js": "^0.4.23"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
