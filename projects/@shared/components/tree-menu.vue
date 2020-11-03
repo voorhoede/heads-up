@@ -1,20 +1,16 @@
 <template>
-  <details v-if="elements.length" class="tree-menu tree-menu--indent">
-    <summary>
-      <span class="tree-menu__collapsible-node">{{ name }}</span>
-    </summary>
-
-    <tree-menu
-      v-for="(element, index) in elements"
-      :key="`${element.name}-${index}`"
-      :elements="element.elements"
-      :name="element.name"
-      :text="element.text"
-    >
-    </tree-menu>
-  </details>
-  <div v-else class="tree-menu tree-menu--indent">
-    <span v-if="text" class="tree-menu__final-node">{{ text }}</span>
+  <div class="tree-menu tree-menu--indent">
+    <div v-for="(item, key) in elements" :key="key">
+      <p v-if="typeof item === 'string'">{{name || key}}: {{ item }}</p>
+      <details v-else-if="item?.loc && item?.data">
+        <summary class="tree-menu__collapsible-node">{{name}}: {{item.loc}}</summary>
+        <tree-menu :elements="item.data"></tree-menu>
+      </details>
+      <details v-else-if="item">
+        <summary class="tree-menu__collapsible-node">{{key}}</summary>
+        <tree-menu :elements="item"></tree-menu>
+      </details>
+    </div>
   </div>
 </template>
 
@@ -22,15 +18,11 @@
 export default {
   name: 'treeMenu',
   props: {
-    name: {
-      type: String,
-      default: '',
-    },
     elements: {
-      type: Array,
-      default: () => [],
+      type: Object,
+      required: true,
     },
-    text: {
+    name: {
       type: String,
       default: '',
     },
@@ -40,23 +32,12 @@ export default {
 
 <style>
 .tree-menu summary {
-  outline: none;
+  cursor: pointer;
 }
 
 .tree-menu--indent {
   border-left: 1px solid #eee;
   margin-left: 1em;
   padding-left: .325rem;
-}
-
-.tree-menu__collapsible-node {
-  color: blue;
-  cursor: pointer;
-}
-
-.tree-menu__final-node,
-.tree-menu__collapsible-node {
-  display: inline-block;
-  margin: 2px 0;
 }
 </style>
