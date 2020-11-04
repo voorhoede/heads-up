@@ -46,10 +46,6 @@ export default {
 </script>
 
 <style>
-.tree-menu summary {
-    cursor: pointer;
-}
-
 .tree-menu summary:focus {
   outline: none;
 }
@@ -58,19 +54,36 @@ export default {
   display: none;
 }
 
-.tree-menu--indent {
-  margin-left: 1em;
-  padding-left: .325rem;
-}
-
-.tree-menu__attribute {
-  font-weight: bold;
+.tree-menu summary {
+  position: relative;
+  padding-left: 1rem;
+  list-style: none;
+  cursor: pointer;
 }
 
 .tree-menu__value {
   font-family: monospace;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 100%;
+  font-weight: normal;
+}
+
+.tree-menu summary > svg {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  transition: transform 0.15s ease-out;
+  fill: currentColor;
+}
+
+.tree-menu [open] > summary > svg {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.tree-menu__item {
+  position: relative;
+}
+
+.tree-menu__item p {
+  margin-bottom: 0;
 }
 </style>
