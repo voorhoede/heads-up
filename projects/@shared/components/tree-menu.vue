@@ -1,25 +1,28 @@
 <template>
   <div class="tree-menu tree-menu--indent">
-    <div v-for="(item, key) in elements" :key="key">
-      <p v-if="typeof item === 'string'">
-        <span class="tree-menu__attribute">{{name || key}}: </span>
-        <span class="tree-menu__value">{{ item }}</span></p>
-      <details v-else-if="item?.loc && item?.data">
-        <summary class="tree-menu__collapsible-node">
-          <chevron-right-icon width="12" height="12"/>
-          <span class="tree-menu__attribute">{{name}}: </span>
-          <span class="tree-menu__value">{{item.loc}}</span>
-        </summary>
-        <tree-menu :elements="item.data"></tree-menu>
-      </details>
-      <details v-else-if="item">
-        <summary class="tree-menu__collapsible-node tree-menu__attribute">
-          <chevron-right-icon width="12" height="12"/>
-          {{key}}
-        </summary>
-        <tree-menu :elements="item"></tree-menu>
-      </details>
-    </div>
+    <template v-for="(item, key) in elements" :key="key">
+      <div class="tree-menu__item" v-if="item">
+        <p v-if="typeof item === 'string'">
+          <span class="tree-menu__attribute">{{ name || key }}: </span>
+          <span class="tree-menu__value">{{ item }}</span>
+        </p>
+        <details v-else-if="item?.loc && item?.data">
+          <summary class="tree-menu__collapsible-node">
+            <chevron-right-icon width="12" height="12"/>
+            <span class="tree-menu__attribute">{{ name }}: </span>
+            <span class="tree-menu__value">{{ item.loc }}</span>
+          </summary>
+          <tree-menu :elements="item.data"></tree-menu>
+        </details>
+        <details v-else-if="item">
+          <summary class="tree-menu__collapsible-node tree-menu__attribute">
+            <chevron-right-icon width="12" height="12"/>
+            {{key}}
+          </summary>
+          <tree-menu :elements="item"></tree-menu>
+        </details>
+      </div>
+    </template>
   </div>
 </template>
 
