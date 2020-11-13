@@ -75,6 +75,10 @@ export default {
   fill: currentColor;
 }
 
+.tree-menu details {
+  width: 100%;
+}
+
 .tree-menu [open] > summary > svg {
   transform: translateY(-50%) rotate(90deg);
 }

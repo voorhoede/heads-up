@@ -71,6 +71,8 @@ export default {
 .sitemap-view__sitemap {
   position: relative;
   font-weight: bold;
+  margin: 0 -1rem;
+  overflow: hidden;
 }
 
 .sitemap-view__sitemap:not(:last-child)::after {
@@ -87,12 +89,15 @@ export default {
 }
 
 .sitemap-view__sitemap .tree-menu__item {
-  padding: 4px 0 4px 1rem;
+  display: flex;
+  align-items: center;
+  padding-left: 1.5rem;
+  min-height: 22px;
 }
 
 .sitemap-view__sitemap summary {
   position: relative;
-  padding-left: 1rem;
+  padding-left: 1.5rem;
   list-style: none;
   cursor: pointer;
 }
@@ -113,15 +118,12 @@ export default {
   outline: none;
 }
 
-.sitemap-view__sitemap:focus-within > summary::before {
+.sitemap-view__sitemap:focus-within > summary {
   background-color: var(--selection-inactive-bg-color);
 }
 
 .sitemap-view__sitemap summary:focus:not(:hover) {
   color: var(--selection-fg-color);
-}
-
-.sitemap-view__sitemap summary:focus:not(:hover)::before {
   background-color: var(--selection-bg-color);
 }
 
@@ -129,6 +131,7 @@ export default {
   padding-top: 0.5rem;
   padding-right: 0.25rem;
   padding-bottom: 0.5rem;
+  padding-left: 2rem;
 }
 
 .sitemap-view__sitemap summary::-webkit-details-marker {
@@ -142,10 +145,14 @@ export default {
 .sitemap-view__sitemap summary > svg {
   position: absolute;
   top: 50%;
-  left: 0;
+  left: 0.5rem;
   transform: translateY(-50%);
   transition: transform 0.15s ease-out;
   fill: currentColor;
+}
+
+.sitemap-view__sitemap > summary > svg {
+  left: 1rem;
 }
 
 .sitemap-view__sitemap[open] > summary > svg {
@@ -159,7 +166,7 @@ export default {
 }
 
 .sitemap-view__sitemap .tree-menu__collapsible-node {
-  padding: 4px 0 4px 1rem;
+  padding: 0.25rem 0 0.25rem 1.5rem;
 }
 
 .sitemap-view__sitemap-item small {
