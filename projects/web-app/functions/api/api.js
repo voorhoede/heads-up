@@ -1,7 +1,7 @@
 const cheerio = require('cheerio');
 const fetch = require('node-fetch');
 const robotsParser = require('robots-txt-parser')({ allowOnNeutral: false });
-const xmlJs = require('xml-js');
+const xml2js = require('xml2js');
 
 function elementsToJson(elements) {
   return Array.from(elements).map(element => {
@@ -38,7 +38,14 @@ async function createHeadResponse(domain, url) {
 function createSitemapResponse(url) {
   return fetch(url)
     .then(res => res.text())
-    .then(text => JSON.parse(xmlJs.xml2json(text)))
+    .then(text => xml2js.parseStringPromise(text, {
+      emptyTag: null,
+      explicitArray: false,
+      explicitRoot: false,
+      ignoreAttrs: true,
+      normalizeTags: true,
+      trim: true,
+    }))
     .catch(() => null);
 }
 
@@ -61,6 +68,26 @@ function createSitemapUrlsResponse(domain) {
       return result.sitemaps;
     }
   });
+}
+
+function formatSitemapData(data) {
+  return data.map(item => {
+    const { loc, ...data } = item;
+
+    if (Object.keys(item).length === 1 && Object.keys(item)[0] === 'loc') {
+      return loc;
+    }
+
+    return { loc, data };
+  });
+}
+
+function objectMap (obj, fn) {
+  return Object.fromEntries(
+    Object.entries(obj).map(
+      ([ k, v ], i) => [ k, fn(v, k, i) ]
+    )
+  );
 }
 
 exports.handler = async function(event) {
@@ -96,11 +123,21 @@ exports.handler = async function(event) {
         sitemapUrls.map(url => createSitemapResponse(url))
       );
 
-      sitemaps = sitemapUrls.map((url, index) => ({
-        [url]: sitemapResponses[index],
-      }));
-    } else {
-      sitemaps = await createSitemapResponse(`${ domain }/sitemap.xml`) || [];
+      sitemaps = sitemapUrls.map((url, index) => {
+        const sitemapResponse = sitemapResponses[index];
+
+        if (!sitemapResponse) {
+          return {
+            sitemapData: null,
+            sitemapUrl: url,
+          };
+        }
+
+        return {
+          sitemapData: objectMap(sitemapResponse, v => formatSitemapData(v)),
+          sitemapUrl: url,
+        };
+      });
     }
 
     return {

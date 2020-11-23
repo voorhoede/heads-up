@@ -42,3 +42,22 @@ export default {
   },
 };
 </script>
+
+<style>
+.collapsible-list__section:not(:last-child)::after,
+.collapsible-list__section summary::before,
+.collapsible-list__list-item::before {
+  display: none;
+}
+
+.collapsible-list__list {
+  margin-left: 0;
+}
+
+.collapsible-list__list-item,
+.collapsible-list__property-table > :not(summary) {
+  margin-left: 0.375rem;
+  padding-left: 0.625rem;
+  border-left: 1px solid var(--color-gray);
+}
+</style>

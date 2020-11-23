@@ -1,6 +1,7 @@
 import { createStore } from 'vuex';
+import { parseStringPromise } from 'xml2js';
 import robotsParser from 'robots-txt-parser';
-import xmlJs from 'xml-js';
+
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findLinkHref } from '@shared/lib/find-meta';
 
@@ -60,8 +61,35 @@ export default createStore({
       function createSitemapResponse(url) {
         return fetch(url)
           .then(res => res.text())
-          .then(text => JSON.parse(xmlJs.xml2json(text)))
+          .then(text => parseStringPromise(text, {
+            emptyTag: null,
+            explicitArray: false,
+            explicitRoot: false,
+            ignoreAttrs: true,
+            normalizeTags: true,
+            trim: true,
+          }))
           .catch(() => null);
+      }
+
+      function formatSitemapData(data) {
+        return data.map(item => {
+          const { loc, ...data } = item;
+
+          if (Object.keys(item).length === 1 && Object.keys(item)[0] === 'loc') {
+            return loc;
+          }
+
+          return { loc, data };
+        });
+      }
+
+      function objectMap (obj, fn) {
+        return Object.fromEntries(
+          Object.entries(obj).map(
+            ([ k, v ], i) => [ k, fn(v, k, i) ]
+          )
+        );
       }
 
       if (sitemapUrls && sitemapUrls.length) {
@@ -69,11 +97,21 @@ export default createStore({
           sitemapUrls.map(url => createSitemapResponse(url))
         );
 
-        sitemaps = sitemapUrls.map((url, index) => ({
-          [url]: sitemapResponses[index],
-        }));
-      } else {
-        sitemaps = await createSitemapResponse(`${ state.head.domain }/sitemap.xml`) || [];
+        sitemaps = sitemapUrls.map((url, index) => {
+          const sitemapResponse = sitemapResponses[index];
+
+          if (!sitemapResponse) {
+            return {
+              sitemapData: null,
+              sitemapUrl: url,
+            };
+          }
+
+          return {
+            sitemapData: objectMap(sitemapResponse, v => formatSitemapData(v)),
+            sitemapUrl: url,
+          };
+        });
       }
 
       commit('SET_SITEMAPS', { sitemaps });
