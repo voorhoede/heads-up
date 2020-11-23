@@ -126,11 +126,6 @@ export default {
   fill: currentColor;
 }
 
-.sitemap-view__sitemap[open] > summary,
-.sitemap-view__sitemap [open] > summary {
-  color: var(--color-blue);
-}
-
 .sitemap-view__sitemap[open] > summary > svg {
   transform: translateY(-50%) rotate(90deg);
 }

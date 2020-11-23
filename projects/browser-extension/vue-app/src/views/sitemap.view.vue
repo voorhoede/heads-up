@@ -127,6 +127,10 @@ export default {
   background-color: var(--selection-bg-color);
 }
 
+.sitemap-view__sitemap summary:focus:not(:hover) a {
+  color: var(--selection-fg-color);
+}
+
 .sitemap-view__sitemap > summary {
   padding-top: 0.5rem;
   padding-right: 0.25rem;
