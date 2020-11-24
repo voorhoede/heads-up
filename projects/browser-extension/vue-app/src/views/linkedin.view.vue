@@ -20,76 +20,24 @@
 
     <panel-section title="Properties">
       <properties-list>
-        <dt>
-          <p v-if="!og.title">
-            og:title
-          </p>
-          <app-tooltip
-            class="properties-item__tooltip"
-            placement="bottom-start"
-          >
-            <div v-if="og.title">
-              og:title
-            </div>
-            <div v-else>
-              <InfoIcon class="properties-item__icon" />
-            </div>
-            <template #info>
-              <property-data
-                type="og:title"
-                :exist="tooltip.title.exist"
-                :tag="tooltip.title.tag"
-                :value="tooltip.title.content"
-              />
-            </template>
-          </app-tooltip>
-        </dt>
-        <dd>{{ og.title || title }}</dd>
-        <dt>
-          <p v-if="!og.image || hasSmallImage">
-            og:image
-          </p>
-          <app-tooltip
-            v-if="showTooltip"
-            class="properties-item__tooltip"
-            placement="bottom-start"
-          >
-            <InfoIcon
-              v-if="og.image && hasSmallImage"
-              class="properties-item__icon"
-            />
-            <WarningIcon
-              v-else-if="!og.image"
-              class="properties-item__icon properties-item-icon--warning"
-            />
-            <p v-else>
-              og:image
-            </p>
-            <template #info>
-              <property-data
-                type="og:image"
-                :exist="tooltip.image.exist"
-                :has-variation="tooltip.image.hasVariation"
-                :required="tooltip.image.required"
-                :required-sizes="tooltip.image.requiredSizes"
-                :size="tooltip.image.size"
-                :tag="tooltip.image.tag"
-              />
-            </template>
-          </app-tooltip>
-        </dt>
-        <dd>
-          <external-link
-            v-if="og.image"
-            :href="absoluteUrl(og.image)"
-          >
-            <img :src="absoluteUrl(og.image)">
-            <span>{{ og.image }}</span>
-          </external-link>
-          <p v-if="imageDimensions">
-            ({{ imageDimensions.width }} x {{ imageDimensions.height }}px)
-          </p>
-        </dd>
+        <properties-item
+          v-for="item in linkedinMetaData"
+          :key="item.keyName"
+          :key-name="item.keyName"
+        >
+          <template #default>
+            {{ item.title }}
+          </template>
+          <template v-if="item.value && item.keyName.includes(':image')" #value>
+            <external-link :href="absoluteUrl(item.value)">
+              <img :src="absoluteUrl(item.value)" alt="" />
+              <span>{{ item.value }}</span>
+            </external-link>
+          </template>
+          <template v-else-if="item.value" #value>
+            {{ item.value }}
+          </template>
+        </properties-item>
       </properties-list>
     </panel-section>
   </div>
@@ -97,32 +45,26 @@
 
 <script>
 import { mapState } from 'vuex';
-import createAbsoluteUrl from '@shared/lib/create-absolute-url';
-import getTheme from '@shared/lib/theme';
-import InfoIcon from '@shared/assets/icons/info.svg';
-import WarningIcon from '@shared/assets/icons/warning.svg';
-import PanelSection from '@shared/components/panel-section';
-import ExternalLink from '@shared/components/external-link';
-import PropertiesList from '@shared/components/properties-list';
-import AppTooltip from '@shared/components/app-tooltip';
-import PropertyData from '@/components/property-data';
-import PreviewIframe from '@shared/components/preview-iframe';
 import {
+  findImageDimensions,
   findMetaContent,
-  findMetaProperty,
-  findImageDimensions
+  findMetaProperty
 } from '@shared/lib/find-meta';
+import createAbsoluteUrl from '@shared/lib/create-absolute-url';
+import ExternalLink from '@shared/components/external-link';
+import getTheme from '@shared/lib/theme';
+import PanelSection from '@shared/components/panel-section';
+import PreviewIframe from '@shared/components/preview-iframe';
+import PropertiesItem from '@shared/components/properties-item';
+import PropertiesList from '@shared/components/properties-list';
 
 export default {
   components: {
     ExternalLink,
     PanelSection,
-    PropertiesList,
-    AppTooltip,
-    PropertyData,
     PreviewIframe,
-    WarningIcon,
-    InfoIcon,
+    PropertiesItem,
+    PropertiesList,
   },
   data() {
     return {
@@ -201,6 +143,20 @@ export default {
       );
 
       return `/previews/linkedin/linkedin.html?${ params }`;
+    },
+    linkedinMetaData() {
+      return [
+        {
+          keyName: 'og:title',
+          title: 'og:title',
+          value: this.og.title,
+        },
+        {
+          keyName: 'og:image',
+          title: 'og:image',
+          value: this.og.image,
+        },
+      ];
     },
   },
   watch: {

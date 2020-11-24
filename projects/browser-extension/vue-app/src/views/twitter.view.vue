@@ -32,7 +32,7 @@
             {{ item.title }}
           </template>
           <template v-if="item.keyName.includes(':image')" #value>
-          <external-link :href="absoluteUrl(item.value)">
+            <external-link :href="absoluteUrl(item.value)">
               <img :src="absoluteUrl(item.value)" alt="" />
               <span>{{ item.value }}</span>
             </external-link>
