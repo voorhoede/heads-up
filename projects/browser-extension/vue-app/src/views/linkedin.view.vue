@@ -21,12 +21,21 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="item in linkedinMetaData"
+          v-for="item in linkedinProperties"
           :key="item.keyName"
           :key-name="item.keyName"
         >
           <template #default>
-            {{ item.title }}
+            <social-media-tooltip
+              :exist="tooltip[item.keyName].exist"
+              :has-variation="tooltip[item.keyName].hasVariation"
+              :required-sizes="tooltip[item.keyName].requiredSizes"
+              :required="tooltip[item.keyName].required"
+              :size="tooltip[item.keyName].size"
+              :tag="tooltip[item.keyName].tag"
+              :type="item.keyName"
+              :value="item.value"
+            />
           </template>
           <template v-if="item.value && item.keyName.includes(':image')" #value>
             <external-link :href="absoluteUrl(item.value)">
@@ -47,16 +56,16 @@
 import { mapState } from 'vuex';
 import {
   findImageDimensions,
-  findMetaContent,
   findMetaProperty
 } from '@shared/lib/find-meta';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
-import ExternalLink from '@shared/components/external-link';
 import getTheme from '@shared/lib/theme';
+import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
+import SocialMediaTooltip from '@/components/social-media-tooltip.vue';
 
 export default {
   components: {
@@ -65,20 +74,23 @@ export default {
     PreviewIframe,
     PropertiesItem,
     PropertiesList,
+    SocialMediaTooltip,
   },
   data() {
     return {
-      imageDimensions: { width: undefined, height: undefined },
-      showTooltip: false,
+      imageDimensions: {
+        height: undefined,
+        width: undefined,
+      },
       tooltip: {
-        title: {
+        'og:title': {
           exist: null,
           required: false,
           tag: null,
           value: null,
         },
 
-        image: {
+        'og:image': {
           exist: false,
           hasVariation: true,
           required: true,
@@ -115,15 +127,6 @@ export default {
         image: this.absoluteUrl(this.propertyValue('og:image')),
       };
     },
-    hasSmallImage() {
-      return (
-        (this.tooltip.image.hasVariation &&
-          this.tooltip.image.size.width <
-            this.tooltip.image.requiredSizes.variation.width) ||
-        this.tooltip.image.size.heigth <
-          this.tooltip.image.requiredSizes.variation.height
-      );
-    },
     themeClass() {
       /**
        * class '-theme-with-dark-background' is taken from original dev tools repo
@@ -137,19 +140,16 @@ export default {
       params.set('url', this.head.url);
       params.set('image', this.og.image);
       params.set('theme', this.themeClass);
-      params.set(
-        'imageIsBig',
-        this.imageDimensions.height > 400 && this.imageDimensions.width > 400
-      );
+      params.set('imageIsBig', this.imageDimensions.height > 400 && this.imageDimensions.width > 400);
 
       return `/previews/linkedin/linkedin.html?${ params }`;
     },
-    linkedinMetaData() {
+    linkedinProperties() {
       return [
         {
           keyName: 'og:title',
           title: 'og:title',
-          value: this.og.title,
+          value: this.og.title || this.title,
         },
         {
           keyName: 'og:image',
@@ -178,7 +178,6 @@ export default {
       findImageDimensions(this.head, 'og:image').then(imageDimensions => {
         this.imageDimensions = imageDimensions;
         this.setTooltipData(imageDimensions);
-        this.showTooltip = true;
       });
     },
     absoluteUrl(url) {
@@ -186,26 +185,23 @@ export default {
     },
     setTooltipData(imageDimensions) {
       if (this.og.title !== null) {
-        this.tooltip.title.tag = 'og:title';
-        this.tooltip.title.value = this.og.title;
-        this.tooltip.title.exist = true;
+        this.tooltip['og:title'].tag = 'og:title';
+        this.tooltip['og:title'].value = this.og.title;
+        this.tooltip['og:title'].exist = true;
       } else if (this.head.title !== null) {
-        this.tooltip.title.tag = '<title>';
-        this.tooltip.title.value = this.head.title;
-        this.tooltip.title.exist = false;
+        this.tooltip['og:title'].tag = '<title>';
+        this.tooltip['og:title'].value = this.head.title;
+        this.tooltip['og:title'].exist = false;
       } else {
-        this.tooltip.title.tag = false;
-        this.tooltip.title.value = false;
-        this.tooltip.title.exist = false;
+        this.tooltip['og:title'].tag = false;
+        this.tooltip['og:title'].value = false;
+        this.tooltip['og:title'].exist = false;
       }
       this.og.image
-        ? (this.tooltip.image.exist = true)
-        : (this.tooltip.image.exist = false);
+        ? (this.tooltip['og:image'].exist = true)
+        : (this.tooltip['og:image'].exist = false);
 
-      this.tooltip.image.size = imageDimensions;
-    },
-    metaValue(metaName) {
-      return findMetaContent(this.head, metaName);
+      this.tooltip['og:image'].size = imageDimensions;
     },
     propertyValue(propName) {
       return findMetaProperty(this.head, propName);

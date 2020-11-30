@@ -1,9 +1,36 @@
 <template>
-  <span>{{ tooltipMessage }}</span>
+  <app-tooltip class="properties-item__tooltip" placement="bottom-start">
+    <p v-if="!tooltipIconType">
+      {{ type }}
+    </p>
+    <p v-else>
+      {{ type }}
+      <InfoIcon
+        v-if="tooltipIconType === 'info'"
+        class="properties-item__icon"
+      />
+      <WarningIcon
+        v-if="tooltipIconType === 'warning'"
+        class="properties-item__icon properties-item-icon--warning"
+      />
+    </p>
+    <template #info>
+      <span>{{ tooltipMessage }}</span>
+    </template>
+  </app-tooltip>
 </template>
 
 <script>
+import AppTooltip from '@shared/components/app-tooltip';
+import InfoIcon from '@shared/assets/icons/info.svg';
+import WarningIcon from '@shared/assets/icons/warning.svg';
+
 export default {
+  components: {
+    AppTooltip,
+    InfoIcon,
+    WarningIcon,
+  },
   props: {
     exist: {
       type: Boolean,
@@ -41,6 +68,11 @@ export default {
       type: Object,
       default: () => ({}),
     },
+  },
+  data() {
+    return {
+      tooltipIconType: null,
+    };
   },
   computed: {
     tooltipMessage() {
