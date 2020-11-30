@@ -98,6 +98,8 @@ export default {
       }
 
       if (result.length === 0) {
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.tooltipIconType = null;
         result += `The ${ this.type } tag is perfectly implemented. `;
       }
 
@@ -105,17 +107,28 @@ export default {
     },
   },
   methods: {
+    isRequired(tag) {
+      this.tooltipIconType = 'info';
+      return `The ${ tag } is required to create an unfurling link on this platform. `;
+    },
     isDefined(tag) {
       const isImg = tag === 'og:image';
       const metaTagContent = isImg ? 'Your source' : 'Your content';
 
+      this.tooltipIconType = this.required ? 'warning' : 'info';
       return `There is no ${ tag } defined. You can create the ${ tag } in the <head> like <meta property="${ tag }" content="${ metaTagContent }."> `;
     },
     isTooLong(length) {
+      this.tooltipIconType = this.tooltipIconType ? this.tooltipIconType : 'info';
       return `The content has more than ${ length } characters. Consider shorten your content. `;
     },
-    isRequired(tag) {
-      return `The ${ tag } is required to create an unfurling link on this platform. `;
+    isCorrectUrl(tag, correct) {
+      if (correct) {
+        return '';
+      }
+
+      this.tooltipIconType = 'warning';
+      return `The ${ tag } URL can't be reached. `;
     },
     isBigImg(tag, smallVariant, imgSize, requiredSize) {
       const imageHeightIsBigEnough =
@@ -124,6 +137,7 @@ export default {
         requiredSize.variation.width > imgSize.width;
 
       if (smallVariant && imageHeightIsBigEnough && imageWidthIsBigEnough) {
+        this.tooltipIconType = this.tooltipIconType ? this.tooltipIconType : 'info';
         return `The ${ tag } is ${ imgSize.width } by ${ imgSize.height }px, where ${ requiredSize.variation.width } by ${ requiredSize.variation.height }px is required for a big unfurling preview. `;
       }
 
@@ -131,17 +145,11 @@ export default {
         requiredSize.minimum.width > imgSize.width ||
         requiredSize.minimum.height > imgSize.height
       ) {
+        this.tooltipIconType = 'warning';
         return `The ${ tag } sizes are too small for a preview. You need at least an image of ${ requiredSize.minimum.width } by ${ requiredSize.minimum.height }px. `;
       }
 
       return '';
-    },
-    isCorrectUrl(tag, correct) {
-      if (correct) {
-        return '';
-      }
-
-      return `The ${ tag } URL can't be reached. `;
     },
   },
 };
