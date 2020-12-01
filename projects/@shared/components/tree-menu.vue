@@ -1,36 +1,43 @@
 <template>
-  <details v-if="elements.length" class="tree-menu tree-menu--indent">
-    <summary>
-      <span class="tree-menu__collapsible-node">{{ name }}</span>
-    </summary>
-
-    <tree-menu
-      v-for="(element, index) in elements"
-      :key="`${element.name}-${index}`"
-      :elements="element.elements"
-      :name="element.name"
-      :text="element.text"
-    >
-    </tree-menu>
-  </details>
-  <div v-else class="tree-menu tree-menu--indent">
-    <span v-if="text" class="tree-menu__final-node">{{ text }}</span>
+  <div class="tree-menu tree-menu--indent">
+    <template v-for="(item, key) in elements" :key="key">
+      <div class="tree-menu__item" v-if="item">
+        <p v-if="typeof item === 'string'">
+          <span class="tree-menu__attribute">{{ name || key }}: </span>
+          <span class="tree-menu__value">{{ item }}</span>
+        </p>
+        <details v-else-if="item?.loc && item?.data">
+          <summary class="tree-menu__collapsible-node">
+            <chevron-right-icon width="12" height="12"/>
+            <span class="tree-menu__attribute">{{ name }}: </span>
+            <span class="tree-menu__value">{{ item.loc }}</span>
+          </summary>
+          <tree-menu :elements="item.data"></tree-menu>
+        </details>
+        <details v-else-if="item">
+          <summary class="tree-menu__collapsible-node tree-menu__attribute">
+            <chevron-right-icon width="12" height="12"/>
+            {{key}}
+          </summary>
+          <tree-menu :elements="item"></tree-menu>
+        </details>
+      </div>
+    </template>
   </div>
 </template>
 
 <script>
+import ChevronRightIcon from '@shared/assets/icons/chevron-right.svg';
+
 export default {
   name: 'treeMenu',
+  components: { ChevronRightIcon },
   props: {
-    name: {
-      type: String,
-      default: '',
-    },
     elements: {
-      type: Array,
-      default: () => [],
+      type: Object,
+      required: true,
     },
-    text: {
+    name: {
       type: String,
       default: '',
     },
@@ -39,24 +46,48 @@ export default {
 </script>
 
 <style>
-.tree-menu summary {
+.tree-menu summary:focus {
   outline: none;
 }
 
-.tree-menu--indent {
-  border-left: 1px solid #eee;
-  margin-left: 1em;
-  padding-left: .325rem;
+.tree-menu summary::-webkit-details-marker {
+  display: none;
 }
 
-.tree-menu__collapsible-node {
-  color: blue;
+.tree-menu summary {
+  position: relative;
+  padding-left: 1rem;
+  list-style: none;
   cursor: pointer;
 }
 
-.tree-menu__final-node,
-.tree-menu__collapsible-node {
-  display: inline-block;
-  margin: 2px 0;
+.tree-menu__value {
+  font-family: monospace;
+  font-weight: normal;
+}
+
+.tree-menu summary > svg {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  transition: transform 0.15s ease-out;
+  fill: currentColor;
+}
+
+.tree-menu details {
+  width: 100%;
+}
+
+.tree-menu [open] > summary > svg {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.tree-menu__item {
+  position: relative;
+}
+
+.tree-menu__item p {
+  margin-bottom: 0;
 }
 </style>

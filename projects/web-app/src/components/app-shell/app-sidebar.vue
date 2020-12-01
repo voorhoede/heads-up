@@ -81,21 +81,21 @@
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'sitemap' }" class="app-sidebar__link">
-              <SitemapIcon />
-              <span>Sitemap</span>
-            </router-link>
-          </li>
-          <li>
             <router-link :to="{ name: 'robots-txt' }" class="app-sidebar__link">
               <RobotIcon />
               <span>Robots</span>
             </router-link>
           </li>
           <li>
+            <router-link :to="{ name: 'sitemap' }" class="app-sidebar__link">
+              <SitemapIcon />
+              <span>Sitemap</span>
+            </router-link>
+          </li>
+          <li>
             <router-link :to="{ name: 'opensearch' }" class="app-sidebar__link">
               <SearchIcon />
-              <span>OpenSearch</span>
+              <span>Open Search</span>
             </router-link>
           </li>
         </ul>

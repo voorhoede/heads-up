@@ -112,14 +112,6 @@
         <li class="sidebar-list__item">
           <router-link
             class="sidebar__button"
-            :to="{ name: 'sitemap' }"
-          >
-            <SitemapIcon class="sidebar__icon" />Sitemap
-          </router-link>
-        </li>
-        <li class="sidebar-list__item">
-          <router-link
-            class="sidebar__button"
             :to="{ name: 'robots-txt' }"
           >
             <RobotIcon class="sidebar__icon" />Robots
@@ -128,9 +120,17 @@
         <li class="sidebar-list__item">
           <router-link
             class="sidebar__button"
+            :to="{ name: 'sitemap' }"
+          >
+            <SitemapIcon class="sidebar__icon" />Sitemap
+          </router-link>
+        </li>
+        <li class="sidebar-list__item">
+          <router-link
+            class="sidebar__button"
             :to="{ name: 'open-search' }"
           >
-            <SearchIcon class="sidebar__icon" />OpenSearch
+            <SearchIcon class="sidebar__icon" />Open Search
           </router-link>
         </li>
       </ul>

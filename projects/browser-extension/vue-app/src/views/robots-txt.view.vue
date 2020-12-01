@@ -1,17 +1,5 @@
 <template>
   <div>
-    <panel-section title="Current page">
-      <properties-list>
-        <properties-item>
-          <template #default>url</template>
-          <template #value>{{ head.url }}</template>
-        </properties-item>
-        <properties-item>
-          <template #default>crawlable</template>
-          <template #value>{{ urlIsCrawlable }}</template>
-        </properties-item>
-      </properties-list>
-    </panel-section>
     <panel-section title="Sitemap">
       <div v-if="!sitemapUrls.length" class="warning-message">
         <WarningIcon class="icon" />
@@ -21,13 +9,10 @@
         <properties-item v-for="(url, index) in sitemapUrls" :key="index">
           <template #default>url</template>
           <template #value>
-            <external-link :href="url">{{ url }}</external-link>
+            <router-link :to="{ name: 'sitemap' }">{{ url }}</router-link>
           </template>
         </properties-item>
       </properties-list>
-      <p v-if="sitemapUrls.length">
-        Go to <router-link :to="{ name: 'sitemap' }">Sitemap</router-link> for more details.
-      </p>
     </panel-section>
     <panel-section
       v-for="robot in robots"
@@ -54,6 +39,18 @@
               <span v-if="rule.path">{{ rule.path }}</span>
             </div>
           </template>
+        </properties-item>
+      </properties-list>
+    </panel-section>
+    <panel-section title="Current page">
+      <properties-list>
+        <properties-item>
+          <template #default>url</template>
+          <template #value>{{ head.url }}</template>
+        </properties-item>
+        <properties-item>
+          <template #default>crawlable</template>
+          <template #value>{{ urlIsCrawlable }}</template>
         </properties-item>
       </properties-list>
     </panel-section>
