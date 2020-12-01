@@ -1,9 +1,9 @@
 <template>
   <app-tooltip class="properties-item__tooltip" placement="bottom-start">
-    <p v-if="!tooltipIconType">
+    <span v-if="!tooltipIconType">
       {{ type }}
-    </p>
-    <p v-else>
+    </span>
+    <span v-else>
       {{ type }}
       <InfoIcon
         v-if="tooltipIconType === 'info'"
@@ -13,7 +13,7 @@
         v-if="tooltipIconType === 'warning'"
         class="properties-item__icon properties-item-icon--warning"
       />
-    </p>
+    </span>
     <template #info>
       <span>{{ tooltipMessage }}</span>
     </template>
@@ -74,7 +74,7 @@ export default {
     tooltipMessage() {
       let result = '';
 
-      this.required ? (result += this.isRequired(this.tag)) : '';
+      this.required && !this.exist ? (result += this.isRequired(this.tag)) : '';
       this.exist ? '' : (result += this.isDefined(this.type));
 
       if (this.valueLength !== undefined) {
@@ -103,7 +103,7 @@ export default {
   },
   methods: {
     isRequired(tag) {
-      this.tooltipIconType = 'info';
+      this.tooltipIconType = 'warning';
       return `The ${ tag } is required to create an unfurling link on this platform. `;
     },
     isDefined(tag) {
