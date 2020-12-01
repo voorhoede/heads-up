@@ -1,5 +1,5 @@
 <template>
-  <app-tooltip class="properties-item__tooltip" placement="bottom-start">
+  <app-tooltip v-if="!ignore" class="properties-item__tooltip" placement="bottom-start">
     <span v-if="!tooltipIconType">
       {{ type }}
     </span>
@@ -18,6 +18,7 @@
       <span>{{ tooltipMessage }}</span>
     </template>
   </app-tooltip>
+  <span v-else>{{ type }}</span>
 </template>
 
 <script>
@@ -63,6 +64,10 @@ export default {
     size: {
       type: Object,
       default: () => ({}),
+    },
+    ignore: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {

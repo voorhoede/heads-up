@@ -42,6 +42,7 @@
               :size="tooltip[item.keyName].size"
               :tag="tooltip[item.keyName].tag"
               :type="item.keyName"
+              :value-length="tooltip[item.keyName].valueLength"
             />
           </template>
           <template v-if="item.value && item.keyName.includes(':image')" #value>

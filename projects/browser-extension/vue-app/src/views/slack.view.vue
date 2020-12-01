@@ -91,8 +91,8 @@ export default {
     return {
       appMetaSchema,
       imageDimensions: {
-        width: undefined,
         height: undefined,
+        width: undefined,
       },
       tooltip: {
         'og:title': {
