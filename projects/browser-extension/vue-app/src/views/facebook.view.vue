@@ -42,12 +42,30 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="item in facebookMetaData"
+          v-if="head.title !== og.title"
+          :schema="appMetaSchema"
+          :value="head.title"
+          key-name="title"
+        >
+          <template #default>title</template>
+        </properties-item>
+        <properties-item
+          v-for="item in facebookProperties"
           :key="item.keyName"
           :key-name="item.keyName"
         >
           <template #default>
-            {{ item.title }}
+            <social-media-tooltip
+              :exist="tooltip[item.keyName].exist"
+              :has-variation="tooltip[item.keyName].hasVariation"
+              :required-sizes="tooltip[item.keyName].requiredSizes"
+              :required="tooltip[item.keyName].required"
+              :size="tooltip[item.keyName].size"
+              :tag="tooltip[item.keyName].tag"
+              :type="item.keyName"
+              :value-length="tooltip[item.keyName].valueLength"
+              :value="item.value"
+            />
           </template>
           <template v-if="item.value && item.keyName.includes(':image')" #value>
             <external-link :href="absoluteUrl(item.value)">
@@ -67,17 +85,18 @@
 <script>
 import { mapState } from 'vuex';
 import {
-  findMetaContent,
   findMetaProperty,
   findImageDimensions
 } from '@shared/lib/find-meta';
+import appMetaSchema from '@shared/lib/schemas/app-meta-schema';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
-import ExternalLink from '@shared/components/external-link';
 import getTheme from '@shared/lib/theme';
+import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
+import SocialMediaTooltip from '@shared/components/social-media-tooltip';
 import TabSelecter from '@shared/components/tab-selecter';
 
 const TABS = [
@@ -98,23 +117,28 @@ export default {
     PreviewIframe,
     PropertiesItem,
     PropertiesList,
+    SocialMediaTooltip,
     TabSelecter,
   },
   data() {
     return {
-      imageDimensions: { width: 0, height: 0 },
+      appMetaSchema,
+      imageDimensions: {
+        height: undefined,
+        width: undefined,
+      },
       imageSpecified: true,
       TABS,
       openTab: TABS[0].value,
       tooltip: {
-        title: {
+        'og:title': {
           exist: null,
           required: false,
           tag: null,
           value: null,
         },
 
-        description: {
+        'og:description': {
           exist: null,
           required: false,
           tag: 'og:description',
@@ -125,7 +149,7 @@ export default {
           },
         },
 
-        image: {
+        'og:image': {
           exist: false,
           hasVariation: true,
           required: false,
@@ -190,7 +214,7 @@ export default {
           : `/previews/facebook-mobile/facebook-mobile.html?${ params }`
       }`;
     },
-    facebookMetaData() {
+    facebookProperties() {
       return [
         {
           keyName: 'og:title',
@@ -236,36 +260,33 @@ export default {
     },
     setTooltipData(imageDimensions) {
       if (this.propertyValue('og:title') !== null) {
-        this.tooltip.title.tag = 'og:title';
-        this.tooltip.title.value = this.propertyValue('og:title');
-        this.tooltip.title.exist = true;
+        this.tooltip['og:title'].tag = 'og:title';
+        this.tooltip['og:title'].value = this.propertyValue('og:title');
+        this.tooltip['og:title'].exist = true;
       } else if (this.head.title !== null) {
-        this.tooltip.title.tag = '<title>';
-        this.tooltip.title.value = this.head.title;
-        this.tooltip.title.exist = false;
+        this.tooltip['og:title'].tag = '<title>';
+        this.tooltip['og:title'].value = this.head.title;
+        this.tooltip['og:title'].exist = false;
       } else {
-        this.tooltip.title.tag = false;
-        this.tooltip.title.value = false;
-        this.tooltip.title.exist = false;
+        this.tooltip['og:title'].tag = false;
+        this.tooltip['og:title'].value = false;
+        this.tooltip['og:title'].exist = false;
       }
 
       if (this.propertyValue('og:description') !== null) {
-        this.tooltip.description.value = this.propertyValue('og:description');
-        this.tooltip.description.exist = true;
-        this.tooltip.description.valueLength.tooLong =
+        this.tooltip['og:description'].value = this.propertyValue('og:description');
+        this.tooltip['og:description'].exist = true;
+        this.tooltip['og:description'].valueLength.tooLong =
           this.propertyValue('og:description').length > 250;
       } else {
-        this.tooltip.description.exist = false;
+        this.tooltip['og:description'].exist = false;
       }
 
       this.og.image
-        ? (this.tooltip.image.exist = true)
-        : (this.tooltip.image.exist = false);
+        ? (this.tooltip['og:image'].exist = true)
+        : (this.tooltip['og:image'].exist = false);
 
-      this.tooltip.image.size = imageDimensions;
-    },
-    metaValue(metaName) {
-      return findMetaContent(this.head, metaName);
+      this.tooltip['og:image'].size = imageDimensions;
     },
     propertyValue(propName) {
       return findMetaProperty(this.head, propName);

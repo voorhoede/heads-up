@@ -21,6 +21,14 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
+          v-if="head.title !== og.title"
+          :schema="appMetaSchema"
+          :value="head.title"
+          key-name="title"
+        >
+          <template #default>title</template>
+        </properties-item>
+        <properties-item
           v-for="item in linkedinProperties"
           :key="item.keyName"
           :key-name="item.keyName"
@@ -58,6 +66,7 @@ import {
   findImageDimensions,
   findMetaProperty
 } from '@shared/lib/find-meta';
+import appMetaSchema from '@shared/lib/schemas/app-meta-schema';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import getTheme from '@shared/lib/theme';
 import ExternalLink from '@shared/components/external-link';
@@ -65,7 +74,7 @@ import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
-import SocialMediaTooltip from '@/components/social-media-tooltip.vue';
+import SocialMediaTooltip from '@shared/components/social-media-tooltip';
 
 export default {
   components: {
@@ -78,6 +87,7 @@ export default {
   },
   data() {
     return {
+      appMetaSchema,
       imageDimensions: {
         height: undefined,
         width: undefined,
@@ -118,9 +128,6 @@ export default {
     hasOgImage() {
       return Boolean(this.og.image);
     },
-    title() {
-      return this.head.title || 'Weblink';
-    },
     og() {
       return {
         title: this.propertyValue('og:title'),
@@ -149,7 +156,7 @@ export default {
         {
           keyName: 'og:title',
           title: 'og:title',
-          value: this.og.title || this.title,
+          value: this.og.title,
         },
         {
           keyName: 'og:image',
