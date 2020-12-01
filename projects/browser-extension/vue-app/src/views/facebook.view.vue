@@ -64,7 +64,6 @@
               :tag="tooltip[item.keyName].tag"
               :type="item.keyName"
               :value-length="tooltip[item.keyName].valueLength"
-              :value="item.value"
             />
           </template>
           <template v-if="item.value && item.keyName.includes(':image')" #value>
@@ -135,14 +134,12 @@ export default {
           exist: null,
           required: false,
           tag: null,
-          value: null,
         },
 
         'og:description': {
           exist: null,
           required: false,
           tag: 'og:description',
-          value: null,
           valueLength: {
             max: 250,
             tooLong: null,
@@ -261,20 +258,16 @@ export default {
     setTooltipData(imageDimensions) {
       if (this.propertyValue('og:title') !== null) {
         this.tooltip['og:title'].tag = 'og:title';
-        this.tooltip['og:title'].value = this.propertyValue('og:title');
         this.tooltip['og:title'].exist = true;
       } else if (this.head.title !== null) {
         this.tooltip['og:title'].tag = '<title>';
-        this.tooltip['og:title'].value = this.head.title;
         this.tooltip['og:title'].exist = false;
       } else {
         this.tooltip['og:title'].tag = false;
-        this.tooltip['og:title'].value = false;
         this.tooltip['og:title'].exist = false;
       }
 
       if (this.propertyValue('og:description') !== null) {
-        this.tooltip['og:description'].value = this.propertyValue('og:description');
         this.tooltip['og:description'].exist = true;
         this.tooltip['og:description'].valueLength.tooLong =
           this.propertyValue('og:description').length > 250;

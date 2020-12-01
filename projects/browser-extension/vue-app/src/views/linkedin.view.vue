@@ -42,7 +42,6 @@
               :size="tooltip[item.keyName].size"
               :tag="tooltip[item.keyName].tag"
               :type="item.keyName"
-              :value="item.value"
             />
           </template>
           <template v-if="item.value && item.keyName.includes(':image')" #value>
@@ -97,7 +96,6 @@ export default {
           exist: null,
           required: false,
           tag: null,
-          value: null,
         },
 
         'og:image': {
@@ -193,15 +191,12 @@ export default {
     setTooltipData(imageDimensions) {
       if (this.og.title !== null) {
         this.tooltip['og:title'].tag = 'og:title';
-        this.tooltip['og:title'].value = this.og.title;
         this.tooltip['og:title'].exist = true;
       } else if (this.head.title !== null) {
         this.tooltip['og:title'].tag = '<title>';
-        this.tooltip['og:title'].value = this.head.title;
         this.tooltip['og:title'].exist = false;
       } else {
         this.tooltip['og:title'].tag = false;
-        this.tooltip['og:title'].value = false;
         this.tooltip['og:title'].exist = false;
       }
       this.og.image
