@@ -97,4 +97,14 @@ const router = createRouter({
   routes,
 });
 
+router.beforeEach((to, from, next) => {
+  const url = from.query.url;
+
+  if (url && !to.query.url) {
+    return next({ path: to.path, query: { url } });
+  }
+
+  return next();
+});
+
 export default router;
