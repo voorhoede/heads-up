@@ -11,10 +11,7 @@
         iframeClass="whatsapp__preview"
       >
         <template v-slot:caption>
-          Preview based on
-          <external-link href="https://web.whatsapp.com/">
-            web.whatsapp.com
-          </external-link>
+          Preview based on <external-link href="https://web.whatsapp.com/">web.whatsapp.com</external-link>.
         </template>
       </preview-iframe>
     </panel-section>

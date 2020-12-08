@@ -10,108 +10,56 @@
         iframeClass="slack__preview"
       >
         <template v-slot:caption>
-          Preview based on
-          <external-link href="https://slack.com/">
-            slack.com
-          </external-link>.
+          Preview based on <external-link href="https://slack.com/">slack.com</external-link>.
         </template>
       </preview-iframe>
     </panel-section>
 
     <panel-section title="Properties">
       <properties-list>
-        <dt>
-          <p v-if="!og.title">
-            og:title
-          </p>
-          <app-tooltip
-            class="properties-item__tooltip"
-            placement="bottom-start"
-          >
-            <div v-if="og.title">
-              og:title
-            </div>
-            <div v-else>
-              <InfoIcon class="properties-item__icon" />
-            </div>
-            <template #info>
-              <property-data
-                type="og:title"
-                :exist="tooltip.title.exist"
-                :tag="tooltip.title.tag"
-                :value="tooltip.title.content"
-              />
-            </template>
-          </app-tooltip>
-        </dt>
-        <dd>{{ og.title }}</dd>
-        <dt>
-          <p v-if="tooltip.image.size.width === 0 || tooltip.image.size.height === 0">
-            og:image
-          </p>
-          <app-tooltip
-            v-if="showImageTooltip"
-            class="properties-item__tooltip"
-            placement="bottom-start"
-          >
-            <InfoIcon
-              v-if="tooltip.image.size.width === 0 || tooltip.image.size.height === 0"
-              class="properties-item__icon"
+        <properties-item
+          v-if="!og.title"
+          :schema="appMetaSchema"
+          :value="head.title"
+          key-name="title"
+        >
+          <template #default>title</template>
+        </properties-item>
+        <properties-item
+          v-if="!og.description"
+          :schema="appMetaSchema"
+          :value="headDescription"
+          key-name="description"
+        >
+          <template #default>description</template>
+        </properties-item>
+        <properties-item
+          v-for="item in slackProperties"
+          :key="item.keyName"
+          :key-name="item.keyName"
+        >
+          <template #default>
+            <social-media-tooltip
+              :exist="tooltip[item.keyName].exist"
+              :has-variation="tooltip[item.keyName].hasVariation"
+              :required-sizes="tooltip[item.keyName].requiredSizes"
+              :required="tooltip[item.keyName].required"
+              :size="tooltip[item.keyName].size"
+              :tag="tooltip[item.keyName].tag"
+              :type="item.keyName"
+              :value-length="tooltip[item.keyName].valueLength"
             />
-            <p v-else>
-              og:image
-            </p>
-            <template #info>
-              <property-data
-                type="og:image"
-                :exist="tooltip.image.exist"
-                :has-variation="tooltip.image.hasVariation"
-                :required-sizes="tooltip.image.requiredSizes"
-                :size="tooltip.image.size"
-                :tag="tooltip.image.tag"
-              />
-            </template>
-          </app-tooltip>
-        </dt>
-        <dd>
-          <external-link :href="absoluteUrl(og.image)">
-            <img
-              alt
-              :src="absoluteUrl(og.image)"
-            >
-            <span>{{ og.image }}</span>
-          </external-link>
-          <p v-if="imageDimensions">
-            ({{ imageDimensions.width }} x {{ imageDimensions.height }}px)
-          </p>
-        </dd>
-        <dt>
-          <p v-if="!og.description">
-            og:description
-          </p>
-          <app-tooltip
-            class="properties-item__tooltip"
-            placement="bottom-start"
-          >
-            <InfoIcon
-              v-if="!og.description"
-              class="properties-item__icon"
-            />
-
-            <p v-else>
-              og:description
-            </p>
-            <template #info>
-              <property-data
-                type="og:description"
-                :exist="tooltip.description.exist"
-                :tag="tooltip.description.tag"
-                :value="tooltip.description.content"
-              />
-            </template>
-          </app-tooltip>
-        </dt>
-        <dd>{{ og.description }}</dd>
+          </template>
+          <template v-if="item.value && item.keyName.includes(':image')" #value>
+            <external-link :href="absoluteUrl(item.value)">
+              <img :src="absoluteUrl(item.value)" alt="" />
+              <span>{{ item.value }}</span>
+            </external-link>
+          </template>
+          <template v-else-if="item.value" #value>
+            {{ item.value }}
+          </template>
+        </properties-item>
       </properties-list>
     </panel-section>
   </div>
@@ -119,60 +67,66 @@
 
 <script>
 import { mapState } from 'vuex';
+import {
+  findAdditionSlackData,
+  findFavicons,
+  findImageDimensions,
+  findMetaContent,
+  findMetaProperty
+} from '@shared/lib/find-meta';
+import appMetaSchema from '@shared/lib/schemas/app-meta-schema';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import getTheme from '@shared/lib/theme';
-import InfoIcon from '@shared/assets/icons/info.svg';
-import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
-import PropertiesList from '@shared/components/properties-list';
-import AppTooltip from '@shared/components/app-tooltip';
-import PropertyData from '@/components/property-data';
+import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
-import {
-  findMetaContent,
-  findMetaProperty,
-  findImageDimensions,
-  findFavicons,
-  findAdditionSlackData
-} from '@shared/lib/find-meta';
+import PropertiesItem from '@shared/components/properties-item';
+import PropertiesList from '@shared/components/properties-list';
+import SocialMediaTooltip from '@shared/components/social-media-tooltip';
 
 export default {
   components: {
     ExternalLink,
     PanelSection,
-    PropertiesList,
-    AppTooltip,
-    PropertyData,
-    InfoIcon,
     PreviewIframe,
+    PropertiesItem,
+    PropertiesList,
+    SocialMediaTooltip,
   },
   data() {
     return {
-      imageDimensions: { width: undefined, height: undefined },
-      showImageTooltip: false,
+      appMetaSchema,
+      imageDimensions: {
+        height: undefined,
+        width: undefined,
+      },
       tooltip: {
-        title: {
+        'og:title': {
           exist: null,
           required: false,
-          tag: null,
-          value: null,
+          tag: 'og:title',
         },
 
-        description: {
+        'og:description': {
           exist: null,
           required: false,
           tag: 'og:description',
-          value: null,
           valueLength: {
             max: 700,
             tooLong: null,
           },
         },
 
-        image: {
+        'og:site_name': {
+          exist: null,
+          required: false,
+          tag: 'og:site_name',
+        },
+
+        'og:image': {
           exist: false,
           hasVariation: false,
-          required: true,
+          required: false,
           requiredSizes: {
             minimum: {
               width: 1,
@@ -195,14 +149,21 @@ export default {
   computed: {
     ...mapState([ 'head' ]),
     hasRequiredData() {
-      return this.og.title !== null || this.og.description !== null;
+      return (
+        (this.og.title || this.head.title) &&
+        (this.og.description || this.headDescription)
+      );
     },
     og() {
       return {
         title: this.propertyValue('og:title'),
         description: this.propertyValue('og:description'),
+        site_name: this.propertyValue('og:site_name'),
         image: this.absoluteUrl(this.propertyValue('og:image')),
       };
+    },
+    headDescription() {
+      return findMetaContent(this.head, 'description');
     },
     additional() {
       try {
@@ -223,25 +184,41 @@ export default {
     },
     previewUrl() {
       const params = new URLSearchParams();
+      params.set('additionalData', JSON.stringify(this.additional.additionalData));
+      params.set('description', this.og.description || this.headDescription);
+      params.set('favicon', this.additional.favicon);
+      params.set('image', this.og.image);
+      params.set('imageIsBig', this.imageDimensions.height > 201 && this.imageDimensions.width > 201);
+      params.set('siteName', this.og.site_name);
+      params.set('theme', this.themeClass);
       params.set('title', this.og.title || this.head.title || 'Weblink');
       params.set('url', this.head.url);
-      params.set('image', this.og.image);
-      params.set('theme', this.themeClass);
-      params.set('description', this.og.description);
-      params.set('favicon', this.additional.favicon);
-      params.set(
-        'additionalData',
-        JSON.stringify(this.additional.additionalData)
-      );
-      params.set(
-        'imageIsBig',
-        this.imageDimensions.height > 201 && this.imageDimensions.width > 201
-      );
-      params.set(
-        'validImage',
-        this.imageDimensions.height > 0 && this.imageDimensions.width > 0
-      );
+      params.set('validImage', this.imageDimensions.height > 0 && this.imageDimensions.width > 0);
       return `/previews/slack/slack.html?${ params }`;
+    },
+    slackProperties() {
+      return [
+        {
+          keyName: 'og:title',
+          title: 'og:title',
+          value: this.og.title,
+        },
+        {
+          keyName: 'og:description',
+          title: 'og:description',
+          value: this.og.description,
+        },
+        {
+          keyName: 'og:site_name',
+          title: 'og:site_name',
+          value: this.og.site_name,
+        },
+        {
+          keyName: 'og:image',
+          title: 'og:image',
+          value: this.og.image,
+        },
+      ];
     },
   },
   watch:{
@@ -263,47 +240,33 @@ export default {
       findImageDimensions(this.head, 'og:image').then(imageDimensions => {
         this.imageDimensions = imageDimensions;
         this.setTooltipData(imageDimensions);
-        this.showImageTooltip = true;
       });
     },
     absoluteUrl(url) {
       return createAbsoluteUrl(this.head, url);
     },
     setTooltipData(imageDimensions) {
-      if (this.propertyValue('og:title') !== null) {
-        this.tooltip.title.tag = 'og:title';
-        this.tooltip.title.value = this.propertyValue('og:title');
-        this.tooltip.title.exist = true;
-      } else if (this.head.title !== null) {
-        this.tooltip.title.tag = '<title>';
-        this.tooltip.title.value = this.head.title;
-        this.tooltip.title.exist = false;
-      } else {
-        this.tooltip.title.tag = false;
-        this.tooltip.title.value = false;
-        this.tooltip.title.exist = false;
-      }
+      this.og.title
+        ? (this.tooltip['og:title'].exist = true)
+        : (this.tooltip['og:title'].exist = false);
 
-      if (this.propertyValue('og:description') !== null) {
-        this.tooltip.description.value = this.propertyValue('og:description');
-        this.tooltip.description.exist = true;
-        this.tooltip.description.valueLength.tooLong =
-          this.propertyValue('og:description').length > 300;
-      } else {
-        this.tooltip.description.exist = false;
-      }
+      this.og.description
+        ? (this.tooltip['og:description'].exist = true)
+        : (this.tooltip['og:description'].exist = false);
+
+      this.og.site_name
+        ? (this.tooltip['og:site_name'].exist = true)
+        : (this.tooltip['og:site_name'].exist = false);
 
       this.og.image
-        ? (this.tooltip.image.exist = true)
-        : (this.tooltip.image.exist = false);
+        ? (this.tooltip['og:image'].exist = true)
+        : (this.tooltip['og:image'].exist = false);
 
-      this.tooltip.image.size = imageDimensions;
-    },
-    metaValue(metaName) {
-      return findMetaContent(this.head, metaName);
+      this.tooltip['og:description'].valueLength.tooLong = this.og.description?.length > 300;
+      this.tooltip['og:image'].size = imageDimensions;
     },
     propertyValue(propName) {
-      return findMetaProperty(this.head, propName);
+      return findMetaProperty(this.head, propName) || findMetaContent(this.head, propName);
     },
   },
 };
@@ -312,7 +275,6 @@ export default {
 <style>
 .slack__preview {
   max-width: 521px;
-  min-height: 264px;
 }
 
 .slack .properties-item__icon {
