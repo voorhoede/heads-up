@@ -3,7 +3,7 @@ const BASE_URL = '.netlify/functions/api';
 const handleErrors = async res => {
   if(!res.ok) {
     const errorBody = await res.json();
-    throw new Error(`URL parser failed with statuscode ${ errorBody.statusCode }: ${ errorBody.error }`);
+    throw new Error(`URL parser failed with statuscode ${ res.status }: ${ errorBody.error }`);
   }
   return res;
 };
