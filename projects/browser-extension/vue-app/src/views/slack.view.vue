@@ -2,7 +2,7 @@
   <div class="slack">
     <panel-section title="Preview">
       <p v-if="!hasRequiredData">
-        This page does not contain og:image meta data to create a preview.
+        This page does not contain the necessary metadata to create a preview.
       </p>
       <preview-iframe
         v-if="hasRequiredData"

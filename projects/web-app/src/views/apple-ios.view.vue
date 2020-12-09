@@ -8,12 +8,14 @@
       <properties-item
         v-for="item in appleMetadata"
         :key="item.keyName"
-        :value="item.value"
         :key-name="item.keyName"
         :refresh-on="appleMetadata"
       >
         <template #default>
           {{ item.title }}
+        </template>
+        <template #value>
+          {{ item.value }}
         </template>
       </properties-item>
     </properties-list>

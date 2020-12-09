@@ -5,16 +5,18 @@
         <WarningIcon class="icon" />
         <p>No meta properties detected.</p>
       </div>
-      <properties-list v-else>
+      <properties-list class="apple-ios__properties-list" v-else>
         <properties-item
           v-for="item in appleMetaData"
           :key="item.keyName"
-          :value="item.value"
           :key-name="item.keyName"
           :refresh-on="appleMetaData"
         >
           <template #default>
             {{ item.title }}
+          </template>
+          <template #value>
+            {{ item.value }}
           </template>
         </properties-item>
       </properties-list>
@@ -167,3 +169,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.apple-ios__properties-list dt {
+  max-width: 224px;
+}
+</style>
