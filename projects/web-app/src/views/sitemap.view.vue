@@ -147,7 +147,8 @@ export default {
 }
 
 .sitemap-view__sitemap-error.warning-message {
-  padding: 0.5rem 0;
   font-weight: normal;
+  margin-left: -0.1rem;
+  padding: 0.5rem 0;
 }
 </style>
