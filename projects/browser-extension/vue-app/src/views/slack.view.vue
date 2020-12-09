@@ -10,10 +10,7 @@
         iframeClass="slack__preview"
       >
         <template v-slot:caption>
-          Preview based on
-          <external-link href="https://slack.com/">
-            slack.com
-          </external-link>.
+          Preview based on <external-link href="https://slack.com/">slack.com</external-link>.
         </template>
       </preview-iframe>
     </panel-section>
@@ -21,12 +18,20 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-if="head.title !== og.title"
+          v-if="!og.title"
           :schema="appMetaSchema"
           :value="head.title"
           key-name="title"
         >
           <template #default>title</template>
+        </properties-item>
+        <properties-item
+          v-if="!og.description"
+          :schema="appMetaSchema"
+          :value="headDescription"
+          key-name="description"
+        >
+          <template #default>description</template>
         </properties-item>
         <properties-item
           v-for="item in slackProperties"
@@ -66,6 +71,7 @@ import {
   findAdditionSlackData,
   findFavicons,
   findImageDimensions,
+  findMetaContent,
   findMetaProperty
 } from '@shared/lib/find-meta';
 import appMetaSchema from '@shared/lib/schemas/app-meta-schema';
@@ -98,7 +104,7 @@ export default {
         'og:title': {
           exist: null,
           required: false,
-          tag: null,
+          tag: 'og:title',
         },
 
         'og:description': {
@@ -109,6 +115,12 @@ export default {
             max: 700,
             tooLong: null,
           },
+        },
+
+        'og:site_name': {
+          exist: null,
+          required: false,
+          tag: 'og:site_name',
         },
 
         'og:image': {
@@ -137,14 +149,21 @@ export default {
   computed: {
     ...mapState([ 'head' ]),
     hasRequiredData() {
-      return this.og.description !== null && this.og.image !== null;
+      return (
+        (this.og.title || this.head.title) &&
+        (this.og.description || this.headDescription)
+      );
     },
     og() {
       return {
         title: this.propertyValue('og:title'),
         description: this.propertyValue('og:description'),
+        site_name: this.propertyValue('og:site_name'),
         image: this.absoluteUrl(this.propertyValue('og:image')),
       };
+    },
+    headDescription() {
+      return findMetaContent(this.head, 'description');
     },
     additional() {
       try {
@@ -165,24 +184,16 @@ export default {
     },
     previewUrl() {
       const params = new URLSearchParams();
+      params.set('additionalData', JSON.stringify(this.additional.additionalData));
+      params.set('description', this.og.description || this.headDescription);
+      params.set('favicon', this.additional.favicon);
+      params.set('image', this.og.image);
+      params.set('imageIsBig', this.imageDimensions.height > 201 && this.imageDimensions.width > 201);
+      params.set('siteName', this.og.site_name);
+      params.set('theme', this.themeClass);
       params.set('title', this.og.title || this.head.title || 'Weblink');
       params.set('url', this.head.url);
-      params.set('image', this.og.image);
-      params.set('theme', this.themeClass);
-      params.set('description', this.og.description);
-      params.set('favicon', this.additional.favicon);
-      params.set(
-        'additionalData',
-        JSON.stringify(this.additional.additionalData)
-      );
-      params.set(
-        'imageIsBig',
-        this.imageDimensions.height > 201 && this.imageDimensions.width > 201
-      );
-      params.set(
-        'validImage',
-        this.imageDimensions.height > 0 && this.imageDimensions.width > 0
-      );
+      params.set('validImage', this.imageDimensions.height > 0 && this.imageDimensions.width > 0);
       return `/previews/slack/slack.html?${ params }`;
     },
     slackProperties() {
@@ -196,6 +207,11 @@ export default {
           keyName: 'og:description',
           title: 'og:description',
           value: this.og.description,
+        },
+        {
+          keyName: 'og:site_name',
+          title: 'og:site_name',
+          value: this.og.site_name,
         },
         {
           keyName: 'og:image',
@@ -230,33 +246,27 @@ export default {
       return createAbsoluteUrl(this.head, url);
     },
     setTooltipData(imageDimensions) {
-      if (this.propertyValue('og:title') !== null) {
-        this.tooltip['og:title'].tag = 'og:title';
-        this.tooltip['og:title'].exist = true;
-      } else if (this.head.title !== null) {
-        this.tooltip['og:title'].tag = '<title>';
-        this.tooltip['og:title'].exist = false;
-      } else {
-        this.tooltip['og:title'].tag = false;
-        this.tooltip['og:title'].exist = false;
-      }
+      this.og.title
+        ? (this.tooltip['og:title'].exist = true)
+        : (this.tooltip['og:title'].exist = false);
 
-      if (this.propertyValue('og:description') !== null) {
-        this.tooltip['og:description'].exist = true;
-        this.tooltip['og:description'].valueLength.tooLong =
-          this.propertyValue('og:description').length > 300;
-      } else {
-        this.tooltip['og:description'].exist = false;
-      }
+      this.og.description
+        ? (this.tooltip['og:description'].exist = true)
+        : (this.tooltip['og:description'].exist = false);
+
+      this.og.site_name
+        ? (this.tooltip['og:site_name'].exist = true)
+        : (this.tooltip['og:site_name'].exist = false);
 
       this.og.image
         ? (this.tooltip['og:image'].exist = true)
         : (this.tooltip['og:image'].exist = false);
 
+      this.tooltip['og:description'].valueLength.tooLong = this.og.description?.length > 300;
       this.tooltip['og:image'].size = imageDimensions;
     },
     propertyValue(propName) {
-      return findMetaProperty(this.head, propName);
+      return findMetaProperty(this.head, propName) || findMetaContent(this.head, propName);
     },
   },
 };
@@ -265,7 +275,6 @@ export default {
 <style>
 .slack__preview {
   max-width: 521px;
-  min-height: 264px;
 }
 
 .slack .properties-item__icon {

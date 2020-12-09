@@ -1,14 +1,15 @@
 <template>
 <figure>
+  <p v-if="isLoading" class="preview-iframe__loading">Loading...</p>
   <iframe
     :class="[ 'preview-iframe', iframeClass ]"
-    ref="iframe"
-    :src="url"
     :height="iframeHeight"
-    width="100%"
+    :src="url"
+    @load="onLoad"
     frameborder="0"
+    ref="iframe"
     scrolling="no"
-    @load="onResize"
+    width="100%"
   />
   <figcaption class="preview-iframe__caption">
     <slot name="caption" />
@@ -33,15 +34,21 @@ export default {
 
   setup() {
     const iframe = ref(null);
-    const iframeHeight = ref('auto');
-    const onResize = () => {
-      iframeHeight.value = parseInt(iframe.value.contentWindow.document.body.scrollHeight + 2) + 'px';
-    };
+    const iframeHeight = ref('0');
+    const isLoading = ref(true);
+
+    const onLoad = (() => {
+      setTimeout(function () {
+        iframeHeight.value = parseInt(iframe.value.contentWindow.document.body.scrollHeight) + 'px';
+        isLoading.value = false;
+      }, 500);
+    });
 
     return {
       iframe,
       iframeHeight,
-      onResize,
+      isLoading,
+      onLoad,
     };
   },
 };
@@ -49,12 +56,16 @@ export default {
 
 <style>
 .preview-iframe {
+  border: none;
   margin-bottom: 1em;
   padding: 0;
-  border: none;
 }
 
 .preview-iframe__caption {
   color: var(--label-color);
+}
+
+.preview-iframe__loading {
+  margin: 0;
 }
 </style>

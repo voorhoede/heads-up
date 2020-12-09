@@ -10,10 +10,7 @@
         iframeClass="linkedin__preview"
       >
         <template v-slot:caption>
-          Preview based on
-          <external-link href="https://linkedin.com/">
-            linkedin.com
-          </external-link>.
+          Preview based on <external-link href="https://linkedin.com/">linkedin.com</external-link>.
         </template>
       </preview-iframe>
     </panel-section>
@@ -216,7 +213,6 @@ export default {
 <style>
 .linkedin__preview {
   max-width: 521px;
-  min-height: 350px;
 }
 
 .linkedin .properties-item__icon {

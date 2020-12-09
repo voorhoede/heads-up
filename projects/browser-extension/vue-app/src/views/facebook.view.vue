@@ -14,10 +14,7 @@
         iframeClass="facebook__preview"
       >
         <template v-slot:caption>
-          Preview based on
-          <external-link href="https://m.facebook.com/">
-            m.facebook.com
-          </external-link>.
+          Preview based on <external-link href="https://m.facebook.com/">m.facebook.com</external-link>.
         </template>
       </preview-iframe>
     </panel-section>
@@ -31,10 +28,7 @@
         class="facebook__preview"
       >
         <template v-slot:caption>
-          Preview based on
-          <external-link href="https://facebook.com/">
-            facebook.com
-          </external-link>.
+          Preview based on <external-link href="https://facebook.com/">facebook.com</external-link>.
         </template>
       </preview-iframe>
     </panel-section>
@@ -291,7 +285,6 @@ export default {
 <style>
 .facebook__preview {
   max-width: 521px;
-  min-height: 400px;
 }
 
 .facebook .properties-item__icon {

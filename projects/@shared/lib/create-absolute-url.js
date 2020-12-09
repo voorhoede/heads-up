@@ -1,5 +1,5 @@
 export default function createAbsoluteUrl(head, url) {
-  if (!url) { return; }
+  if (!url) { return ''; }
   const currentUrlIsAbsolute = url.startsWith('http');
   const formattedAbsoluteUrl = new URL(head.url).origin + url;
 
