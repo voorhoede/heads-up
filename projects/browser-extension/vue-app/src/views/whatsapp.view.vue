@@ -1,12 +1,11 @@
 <template>
   <div class="whatsapp">
     <panel-section title="Preview">
-      <p v-if="!hasDescription">
-        This page does not contain an Open Graph description to create a
-        preview.
+      <p v-if="!hasRequiredData">
+        This page does not contain the necessary metadata to create a preview.
       </p>
       <preview-iframe
-        v-if="hasDescription && previewUrl"
+        v-else
         :url="previewUrl"
         iframeClass="whatsapp__preview"
       >
@@ -19,12 +18,20 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-if="head.title !== og.title"
+          v-if="!og.title"
           :schema="appMetaSchema"
           :value="head.title"
           key-name="title"
         >
           <template #default>title</template>
+        </properties-item>
+        <properties-item
+          v-if="!og.description"
+          :schema="appMetaSchema"
+          :value="headDescription"
+          key-name="description"
+        >
+          <template #default>description</template>
         </properties-item>
         <properties-item
           v-for="item in whatsappProperties"
@@ -83,8 +90,9 @@
 <script>
 import { mapState } from 'vuex';
 import {
-  findMetaProperty,
-  findImageDimensions
+  findImageDimensions,
+  findMetaContent,
+  findMetaProperty
 } from '@shared/lib/find-meta';
 import appMetaSchema from '@shared/lib/schemas/app-meta-schema';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
@@ -113,86 +121,69 @@ export default {
       },
       tooltip: {
         'og:title': {
-          exist: null,
+          exist: false,
           required: false,
-          tag: null,
+          tag: 'og:title',
+        },
+
+        'og:url': {
+          exist: false,
+          required: false,
+          tag: 'og:url',
         },
 
         'og:description': {
-          exist: null,
-          required: true,
+          exist: false,
+          required: false,
           tag: 'og:description',
-          valueLength: {
-            max: 300,
-            tooLong: null,
-          },
-        },
-
-        'og:type': {
-          ignore: true,
         },
 
         'og:image': {
           exist: false,
-          hasVariation: false,
           required: false,
+          tag: 'og:image',
           requiredSizes: {
             minimum: {
-              width: 100,
-              height: 100,
-            },
-            variation: {
-              width: null,
-              height: null,
+              height: 200,
+              width: 300,
             },
           },
           size: {
-            width: null,
             height: null,
+            width: null,
           },
-          tag: 'og:image',
-        },
-
-        'og:url': {
-          ignore: true,
         },
       },
     };
   },
   computed: {
     ...mapState([ 'head' ]),
+    hasRequiredData() {
+      return (
+        (this.og.title || this.head.title) &&
+        (this.og.description || this.headDescription)
+      );
+    },
     og() {
       return {
         title: this.propertyValue('og:title'),
-        description: this.propertyValue('og:description'),
-        type: this.propertyValue('og:type'),
-        image: this.propertyValue('og:image'),
         url: this.propertyValue('og:url'),
+        description: this.propertyValue('og:description'),
+        image: this.absoluteUrl(this.propertyValue('og:image')),
       };
     },
-    description() {
-      return this.og.description;
-    },
-    hasDescription() {
-      return this.og.description !== null && this.og.description.length > 0;
-    },
-    image() {
-      if (this.og.image !== undefined) {
-        return this.absoluteUrl(this.og.image);
-      } else {
-        return this.og.image;
-      }
+    headDescription() {
+      return findMetaContent(this.head, 'description');
     },
     previewUrl() {
       const params = new URLSearchParams();
-      params.set('title', this.og.title || this.title);
-      params.set('description', this.description);
-
-      if (this.imageDimensions.height >= 100 && this.imageDimensions.width >= 100) {
-        params.set('image', this.image);
+      params.set('title', this.og.title || this.head.title);
+      params.set('url', this.og.url || this.head.url);
+      params.set('description', this.og.description || this.headDescription);
+      if (this.imageDimensions.height >= 200 && this.imageDimensions.width >= 300) {
+        params.set('image', this.og.image);
       }
 
-      params.set('url', this.head.url);
       return `/previews/whatsapp/whatsapp.html?${ params }`;
     },
     whatsappProperties() {
@@ -203,24 +194,19 @@ export default {
           value: this.og.title,
         },
         {
+          keyName: 'og:url',
+          title: 'og:url',
+          value: this.og.url,
+        },
+        {
           keyName: 'og:description',
           title: 'og:description',
           value: this.og.description,
         },
         {
-          keyName: 'og:type',
-          title: 'og:type',
-          value: this.og.type,
-        },
-        {
           keyName: 'og:image',
           title: 'og:image',
-          value: this.absoluteUrl(this.og.image),
-        },
-        {
-          keyName: 'og:url',
-          title: 'og:url',
-          value: this.og.url,
+          value: this.og.image,
         },
       ];
     },
@@ -250,33 +236,14 @@ export default {
       return createAbsoluteUrl(this.head, url);
     },
     setTooltipData(imageDimensions) {
-      if (this.propertyValue('og:title') !== null) {
-        this.tooltip['og:title'].tag = 'og:title';
-        this.tooltip['og:title'].exist = true;
-      } else if (this.head.title !== null) {
-        this.tooltip['og:title'].tag = '<title>';
-        this.tooltip['og:title'].exist = false;
-      } else {
-        this.tooltip['og:title'].tag = false;
-        this.tooltip['og:title'].exist = false;
+      for (const [ key, value ] of Object.entries(this.og)) {
+        this.tooltip[`og:${ key }`].exist = Boolean(value);
       }
-
-      if (this.propertyValue('og:description') !== null) {
-        this.tooltip['og:description'].exist = true;
-        this.tooltip['og:description'].valueLength.tooLong =
-          this.propertyValue('og:description').length > 300;
-      } else {
-        this.tooltip['og:description'].exist = false;
-      }
-
-      this.og.image
-        ? (this.tooltip['og:image'].exist = true)
-        : (this.tooltip['og:image'].exist = false);
 
       this.tooltip['og:image'].size = imageDimensions;
     },
     propertyValue(propName) {
-      return findMetaProperty(this.head, propName);
+      return findMetaProperty(this.head, propName) || findMetaContent(this.head, propName);
     },
   },
 };
@@ -284,7 +251,7 @@ export default {
 
 <style>
 .whatsapp__preview {
-  max-width: 521px;
+  max-width: 520px;
 }
 
 .properties-item__tooltip {

@@ -5,7 +5,7 @@
         This page does not contain the necessary metadata to create a preview.
       </p>
       <preview-iframe
-        v-if="hasRequiredData"
+        v-else
         :url="previewUrl"
         iframeClass="slack__preview"
       >
@@ -102,23 +102,23 @@ export default {
       },
       tooltip: {
         'og:title': {
-          exist: null,
+          exist: false,
           required: false,
           tag: 'og:title',
         },
 
         'og:description': {
-          exist: null,
+          exist: false,
           required: false,
           tag: 'og:description',
           valueLength: {
             max: 700,
-            tooLong: null,
+            tooLong: false,
           },
         },
 
         'og:site_name': {
-          exist: null,
+          exist: false,
           required: false,
           tag: 'og:site_name',
         },
@@ -246,23 +246,12 @@ export default {
       return createAbsoluteUrl(this.head, url);
     },
     setTooltipData(imageDimensions) {
-      this.og.title
-        ? (this.tooltip['og:title'].exist = true)
-        : (this.tooltip['og:title'].exist = false);
+      for (const [ key, value ] of Object.entries(this.og)) {
+        this.tooltip[`og:${ key }`].exist = Boolean(value);
+      }
 
-      this.og.description
-        ? (this.tooltip['og:description'].exist = true)
-        : (this.tooltip['og:description'].exist = false);
-
-      this.og.site_name
-        ? (this.tooltip['og:site_name'].exist = true)
-        : (this.tooltip['og:site_name'].exist = false);
-
-      this.og.image
-        ? (this.tooltip['og:image'].exist = true)
-        : (this.tooltip['og:image'].exist = false);
-
-      this.tooltip['og:description'].valueLength.tooLong = this.og.description?.length > 300;
+      this.tooltip['og:description'].valueLength.tooLong =
+        this.og.description?.length > this.tooltip['og:description'].valueLength.max;
       this.tooltip['og:image'].size = imageDimensions;
     },
     propertyValue(propName) {
