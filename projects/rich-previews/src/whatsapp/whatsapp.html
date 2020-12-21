@@ -122,7 +122,6 @@
       --base-color: #292F33;
       --label-color: rgba(0, 0, 0, .6);
       --accent-color: #039be5;
-      --url-color: #000000;
       --background-color: #dcf8c6;
       --content-background-color: rgba(0, 0, 0, 0.05);
       --lh: 1.2rem
@@ -135,21 +134,20 @@
 
     .whatsapp-top {
       display: flex;
-      align-items: center;
+      justify-content: space-between;
       background-color: var(--content-background-color);
       border-radius: 7.5px;
       margin-bottom: 6px;
     }
 
     .whatsapp-preview__media {
-      height: 90px;
-      min-width: 90px;
-      max-width: 90px;
+      height: 69px;
+      min-width: 69px;
+      max-width: 69px;
     }
 
     .whatsapp-preview__image {
-      border-top-left-radius: 7.5px;
-      border-bottom-left-radius: 7.5px;
+      border-top-right-radius: 7.5px;
       object-fit: cover;
       height: 100%;
       display: block;
@@ -157,7 +155,6 @@
 
     .whatsapp-preview__content {
       margin: 6px 10px 0;
-      max-height: calc(var(--lh) * 3);
       overflow: hidden;
     }
 
@@ -176,8 +173,8 @@
     }
 
     .whatsapp-preview__url {
-      color: var(--url-color);
-      font-size: 12px;
+      color: var(--base-color);
+      font-size: 11px;
       line-height: var(--lh);
       padding: 0 10px 6px;
     }
@@ -190,12 +187,10 @@
 
     .whatsapp-preview {
       box-shadow: 0 1px 0.5px rgba(0, 0, 0, .13);
-      border-radius: 7.5px 0 7.5px 7.5px;
+      border-radius: 7.5px;
       padding: 3px 3px 8px 3px;
       background-color: var(--background-color);
       position: relative;
-      width: calc(100% - 12px);
-      min-width: 326px;
     }
 
     .whatsapp-preview__domain {
@@ -220,12 +215,19 @@
 
     .whatsapp-preview__checkmark {
       position: absolute;
+      right: -1px;
+      top: 2px;
+    }
+
+    .whatsapp-preview__checkmark svg {
+      height: auto;
+      width: 16px;
     }
 
     .whatsapp-preview__time {
       color: rgba(0, 0, 0, .45);
       font-size: 11px;
-      margin-right: 18px;
+      margin-right: 20px;
     }
 
     @media (min-width: 400px) {

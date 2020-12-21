@@ -18,7 +18,8 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+import debounce from '@shared/lib/debounce';
 
 export default {
   props: {
@@ -37,11 +38,23 @@ export default {
     const iframeHeight = ref('0');
     const isLoading = ref(true);
 
-    const onLoad = (() => {
-      setTimeout(function () {
+    const onLoad = () => {
+      setTimeout(() => {
         iframeHeight.value = parseInt(iframe.value.contentWindow.document.body.scrollHeight) + 'px';
         isLoading.value = false;
       }, 500);
+    };
+
+    const onResize = debounce(() => {
+      iframeHeight.value = parseInt(iframe.value.contentWindow.document.body.scrollHeight) + 'px';
+    }, 500);
+
+    onMounted(() => {
+      window.addEventListener('resize', onResize);
+    });
+
+    onBeforeUnmount(() => {
+      window.removeEventListener('resize', onResize);
     });
 
     return {

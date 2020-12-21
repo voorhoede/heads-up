@@ -123,8 +123,8 @@ export default {
       return `The content has more than ${ length } characters. Consider shorten your content. `;
     },
     isBigImg(tag, smallVariant, imgSize, requiredSize) {
-      const imageHeightIsBigEnough = requiredSize.variation.height > imgSize.height;
-      const imageWidthIsBigEnough = requiredSize.variation.width > imgSize.width;
+      const imageHeightIsBigEnough = requiredSize?.variation?.height > imgSize.height;
+      const imageWidthIsBigEnough = requiredSize?.variation?.width > imgSize.width;
       let result = '';
 
       if (

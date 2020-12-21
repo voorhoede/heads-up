@@ -49,14 +49,14 @@ function getwhatsappMarkup({ title, description, image, url }) {
     <div class="whatsapp-preview">
       <a rel="noopener" target="_blank">
         <div class="whatsapp-top">
-          ${ imagePreviewHtml }
           <div>
             <div class="whatsapp-preview__content">
               ${ previewTitleHtml }
               <div class="whatsapp-preview__description">${ description }</div>
             </div>
-            <div class="whatsapp-preview__url">${ getHostName(url) }</div>
+            <div class="whatsapp-preview__url">www.${ getHostName(url) }</div>
           </div>
+          ${ imagePreviewHtml }
         </div>
         <div class="whatsapp-preview__domain">
           <div class="whatsapp-preview__hostname">${ url }
@@ -70,11 +70,6 @@ function getwhatsappMarkup({ title, description, image, url }) {
             </span>
           </div>
         </a>
-        <span class="whatsapp-preview__tail">
-          <svg enable-background="new 0 0 14.3 22.9" version="1.1" viewBox="0 0 14.3 22.9" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
-            <path fill="#DCF8C6" d="M13.7,4.8L0,22.9V0h11.3C13.8,0,15.2,2.8,13.7,4.8z"/>
-          </svg>
-        </span>
       </div>
   `;
 }

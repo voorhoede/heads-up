@@ -22,6 +22,7 @@
 
   .properties-list dd {
     color: var(--value-color);
+    width: 100%;
   }
 
   .properties-list img {
