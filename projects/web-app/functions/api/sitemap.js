@@ -3,11 +3,18 @@ const xml2js = require('xml2js');
 const robotsParser = require('robots-txt-parser')({ allowOnNeutral: false });
 
 const isXml = url => /.xml$/.test(url);
+const isTxt = url => /.txt$/.test(url);
 const objectMap = (obj, fn) => Object.fromEntries(
   Object.entries(obj).map(
     ([ k, v ], i) => [ k, fn(v, k, i) ]
   )
 );
+
+const parseTextContent = content => ({
+  sitemap: content
+    .split('\n')
+    .map(line => ({ loc: line })),
+});
 
 function formatSitemapData(data) {
   return data.map(item => {
@@ -35,6 +42,10 @@ async function createSitemapResponse(url) {
       normalizeTags: true,
       trim: true,
     });
+  }
+
+  if (isTxt(url)) {
+    content = parseTextContent(content);
   }
 
   return content;
