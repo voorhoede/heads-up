@@ -58,18 +58,36 @@ export default createStore({
       const { sitemapUrls } = state;
       let sitemaps = [];
 
-      function createSitemapResponse(url) {
-        return fetch(url)
-          .then(res => res.text())
-          .then(text => parseStringPromise(text, {
+      async function createSitemapResponse(url) {
+        const isXml = url => /.xml$/.test(url);
+        const isTxt = url => /.txt$/.test(url);
+
+        const parseTextContent = content => ({
+          sitemap: content
+            .split('\n')
+            .map(line => ({ loc: line })),
+        });
+
+        let content = await fetch(url)
+          .then(res => res.text());
+
+        if (isXml(url)) {
+          content = parseStringPromise(content, {
             emptyTag: null,
             explicitArray: false,
             explicitRoot: false,
             ignoreAttrs: true,
             normalizeTags: true,
             trim: true,
-          }))
-          .catch(() => null);
+          })
+            .catch(() => null);
+        }
+
+        if (isTxt(url)) {
+          content = parseTextContent(content);
+        }
+
+        return content;
       }
 
       function formatSitemapData(data) {

@@ -30,8 +30,7 @@ function formatSitemapData(data) {
 
 async function createSitemapResponse(url) {
   let content = await fetch(url)
-    .then(res => res.text())
-    .catch(() => null);
+    .then(res => res.text());
 
   if (isXml(url)) {
     content = await xml2js.parseStringPromise(content, {
@@ -41,7 +40,8 @@ async function createSitemapResponse(url) {
       ignoreAttrs: true,
       normalizeTags: true,
       trim: true,
-    });
+    })
+      .catch(() => null);
   }
 
   if (isTxt(url)) {
