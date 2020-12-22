@@ -4,23 +4,31 @@ const opensearchMetaSchema = {
     message: {
       required: 'The shortname element is required.',
       'max-characters': 'Avoid 16 characters or more.',
+      warning: {
+        doesNotContainMarkup: 'The value must not contain HTML or other markup.',
+      },
     },
     meta: {
       info: 'A short name for the search engine. It must be <strong>16 or fewer characters</strong> of plain text, with no HTML or other markup.',
       link: 'https://developer.mozilla.org/en-US/docs/Web/OpenSearch',
     },
     'max-characters': 16,
+    warning: [ 'doesNotContainMarkup' ],
   },
 
   'description': {
     message: {
       'max-characters': 'Avoid 1024 characters or more.',
+      warning: {
+        doesNotContainMarkup: 'The value must not contain HTML or other markup.',
+      },
     },
     meta: {
       info: 'A brief description of the search engine. It must be <strong>1024 or fewer characters</strong> of plain text, with no HTML or other markup.',
       link: 'https://developer.mozilla.org/en-US/docs/Web/OpenSearch',
     },
     'max-characters': 1024,
+    warning: [ 'doesNotContainMarkup' ],
   },
 
   'urls': {
