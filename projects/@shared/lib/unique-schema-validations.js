@@ -40,7 +40,7 @@ function hasValue(value) {
 
 function hasValidViewportContent(value) {
   const arrayOfValues = value.replace(' ', '').split(',');
-  
+
   return arrayOfValues.every(entry => {
     const [ entryKey, entryValue ] = entry.split('=');
     return entryKey in viewportContentCheck && viewportContentCheck[entryKey].test(entryValue);
@@ -73,6 +73,16 @@ function usesZoomBlockingViewportContent(value) {
   });
 }
 
+function doesNotContainMarkup(value) {
+  const parser = new DOMParser();
+  const result = parser.parseFromString(value, 'text/html');
+  const htmlElements = Object
+    .values(result.body.childNodes)
+    .filter(node => node.nodeName !== '#text');
+
+  return htmlElements.length === 0;
+}
+
 export default {
   hasLetterA,
   hasLength5,
@@ -83,4 +93,5 @@ export default {
   hasValidViewportContent,
   usesZoomBlockingViewportContent,
   hasValidViewportKeys,
+  doesNotContainMarkup,
 };
