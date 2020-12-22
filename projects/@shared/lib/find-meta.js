@@ -55,6 +55,7 @@ export function findXMLElement(text, tagName) {
 
 function getElementDetails(tags) {
   return tags.map(node => ({
+    node: node,
     attributes: getNodeAttributes(node),
     name: node.nodeName,
     value: node.textContent ? node.textContent : null,

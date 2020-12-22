@@ -113,11 +113,11 @@ export default {
     },
     shortName() {
       const element = findXMLElement(this.openSearchContent, 'ShortName');
-      return element ? element[0].value : null;
+      return element ? element[0].node.innerHTML : null;
     },
     description() {
       const element = findXMLElement(this.openSearchContent, 'Description');
-      return element ? element[0].value : null;
+      return element ? element[0].node.innerHTML : null;
     },
     urls() {
       const elements = findXMLElement(this.openSearchContent, 'Url');
