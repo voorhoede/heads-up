@@ -514,34 +514,14 @@ export default {
       return findMetaProperty(this.head, propName);
     },
     setTooltipData(dimensions) {
-      this.tooltip['twitter:app:id:iphone'].exist = Boolean(this.twitter.appIdIphone);
-      this.tooltip['twitter:app:id:ipad'].exist = Boolean(this.twitter.appIdIpad);
-      this.tooltip['twitter:app:id:googleplay'].exist = Boolean(this.twitter.appIdGoogle);
-      this.tooltip['twitter:app:url:iphone'].exist = Boolean(this.twitter.appUrlIphone);
-      this.tooltip['twitter:app:url:ipad'].exist = Boolean(this.twitter.appUrlIpad);
-      this.tooltip['twitter:app:url:googleplay'].exist = Boolean(this.twitter.appUrlGoogle);
-      this.tooltip['twitter:app:country'].exist = Boolean(this.twitter.appCountry);
-      this.tooltip['twitter:app:name:iphone'].exist = Boolean(this.twitter.appNameIphone);
-      this.tooltip['twitter:app:name:ipad'].exist = Boolean(this.twitter.appNameIpad);
-      this.tooltip['twitter:app:name:googleplay'].exist = Boolean(this.twitter.appNameGoogle);
-      this.tooltip['twitter:card'].exist = Boolean(this.twitter.card);
-      this.tooltip['twitter:site'].exist = Boolean(this.twitter.site);
-      this.tooltip['twitter:site:id'].exist = Boolean(this.twitter.siteId);
-      this.tooltip['twitter:creator'].exist = Boolean(this.twitter.creator);
-      this.tooltip['twitter:creator:id'].exist = Boolean(this.twitter.creatorId);
-      this.tooltip['twitter:title'].exist = Boolean(this.twitter.title);
-      this.tooltip['twitter:card'].exist = Boolean(this.twitter.card);
-      this.tooltip['twitter:description'].exist = Boolean(this.twitter.description);
-      this.tooltip['twitter:image'].exist = Boolean(this.twitter.image);
-      this.tooltip['twitter:image:alt'].exist = Boolean(this.twitter.imageAlt);
-      this.tooltip['twitter:player'].exist = Boolean(this.twitter.player);
-      this.tooltip['twitter:player:width'].exist = Boolean(this.twitter.playerWidth);
-      this.tooltip['twitter:player:height'].exist = Boolean(this.twitter.playerHeight);
-      this.tooltip['twitter:player:stream'].exist = Boolean(this.twitter.playerStream);
-      this.tooltip['og:type'].exist = Boolean(this.og.type);
-      this.tooltip['og:title'].exist = Boolean(this.og.title);
-      this.tooltip['og:description'].exist = Boolean(this.og.description);
-      this.tooltip['og:image'].exist = Boolean(this.og.image);
+      for (const [ key, value ] of Object.entries(this.twitter)) {
+        this.tooltip[`og:${ key }`].exist = Boolean(value);
+      }
+
+      for (const [ key, value ] of Object.entries(this.og)) {
+        this.tooltip[`og:${ key }`].exist = Boolean(value);
+      }
+
       this.tooltip['og:image'].size = dimensions;
     },
   },
