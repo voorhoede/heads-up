@@ -260,6 +260,10 @@ export default {
           exist: false,
           required: false,
           tag: 'og:description',
+          valueLength: {
+            max: 700,
+            tooLong: false,
+          },
         },
         'og:image': {
           exist: false,
