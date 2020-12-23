@@ -522,6 +522,9 @@ export default {
         this.tooltip[`og:${ key }`].exist = Boolean(value);
       }
 
+      this.tooltip['og:description'].valueLength.tooLong =
+        this.og.description?.length > this.tooltip['og:description'].valueLength.max;
+
       this.tooltip['og:image'].size = dimensions;
     },
   },
