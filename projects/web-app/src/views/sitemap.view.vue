@@ -4,8 +4,8 @@
       <div v-if="!sitemaps.length" class="warning-message">
         <WarningIcon class="icon" />
         <p>
-          No sitemap found at
-          <external-link :href="sitemapUrl">{{ sitemapUrl }}</external-link>.
+          No Sitemap reference found in
+          <external-link :href="`${url}/robots.txt`">/robots.txt</external-link>.
         </p>
       </div>
       <details
@@ -62,13 +62,10 @@ export default {
   setup: () => {
     const headData = useHead().data;
     const sitemaps = computed(() => headData.value.sitemaps);
-    const sitemapUrl = computed(() => {
-      return headData.value.head.domain + '/sitemap.xml';
-    });
 
     return {
       sitemaps,
-      sitemapUrl,
+      url: headData.value.head.url,
     };
   },
   components: {

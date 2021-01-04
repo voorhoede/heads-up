@@ -1,7 +1,7 @@
 const cheerio = require('cheerio');
 const fetch = require('node-fetch');
 const robotsParser = require('robots-txt-parser')({ allowOnNeutral: false });
-const xml2js = require('xml2js');
+const sitemap = require('./sitemap');
 
 function elementsToJson(elements) {
   return Array.from(elements).map(element => {
@@ -35,20 +35,6 @@ async function createHeadResponse(domain, url) {
   };
 }
 
-function createSitemapResponse(url) {
-  return fetch(url)
-    .then(res => res.text())
-    .then(text => xml2js.parseStringPromise(text, {
-      emptyTag: null,
-      explicitArray: false,
-      explicitRoot: false,
-      ignoreAttrs: true,
-      normalizeTags: true,
-      trim: true,
-    }))
-    .catch(() => null);
-}
-
 function createRobotsResponse(domain) {
   return robotsParser.fetch(domain).then(result => {
     if (result.sitemaps) {
@@ -60,34 +46,6 @@ function createRobotsResponse(domain) {
       ...result[key],
     }));
   });
-}
-
-function createSitemapUrlsResponse(domain) {
-  return robotsParser.fetch(domain).then(result => {
-    if (result.sitemaps) {
-      return result.sitemaps;
-    }
-  });
-}
-
-function formatSitemapData(data) {
-  return data.map(item => {
-    const { loc, ...data } = item;
-
-    if (Object.keys(item).length === 1 && Object.keys(item)[0] === 'loc') {
-      return loc;
-    }
-
-    return { loc, data };
-  });
-}
-
-function objectMap (obj, fn) {
-  return Object.fromEntries(
-    Object.entries(obj).map(
-      ([ k, v ], i) => [ k, fn(v, k, i) ]
-    )
-  );
 }
 
 exports.handler = async function(event) {
@@ -113,32 +71,9 @@ exports.handler = async function(event) {
   }
 
   try {
-    let sitemaps = [];
     const domain = new URL(url).origin;
     const urlIsCrawlable = await robotsParser.canCrawl(url);
-    const sitemapUrls = await createSitemapUrlsResponse(domain);
-
-    if (sitemapUrls && sitemapUrls.length) {
-      const sitemapResponses = await Promise.all(
-        sitemapUrls.map(url => createSitemapResponse(url))
-      );
-
-      sitemaps = sitemapUrls.map((url, index) => {
-        const sitemapResponse = sitemapResponses[index];
-
-        if (!sitemapResponse) {
-          return {
-            sitemapData: null,
-            sitemapUrl: url,
-          };
-        }
-
-        return {
-          sitemapData: objectMap(sitemapResponse, v => formatSitemapData(v)),
-          sitemapUrl: url,
-        };
-      });
-    }
+    const sitemapData = await sitemap(domain);
 
     return {
       statusCode: 200,
@@ -147,8 +82,7 @@ exports.handler = async function(event) {
           urlIsCrawlable,
           head: await createHeadResponse(domain, url),
           robots: await createRobotsResponse(url),
-          sitemaps,
-          sitemapUrls,
+          ...sitemapData,
         }
       ),
     };
