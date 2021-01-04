@@ -14,7 +14,8 @@
 
   .properties-list dt {
     width: 50%;
-    max-width: 150px;
+    min-width: 200px;
+    max-width: 200px;
     padding-right: 12px;
     color: var(--label-color);
     text-align: right;
