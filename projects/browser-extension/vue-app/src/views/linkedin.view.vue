@@ -1,11 +1,11 @@
 <template>
   <div class="linkedin">
     <panel-section title="Preview">
-      <p v-if="!hasOgImage">
+      <p v-if="!hasRequiredData">
         This page does not contain the necessary metadata to create a preview.
       </p>
       <preview-iframe
-        v-if="hasOgImage"
+        v-else
         :url="previewUrl"
         iframeClass="linkedin__preview"
       >
@@ -17,14 +17,6 @@
 
     <panel-section title="Properties">
       <properties-list>
-        <properties-item
-          v-if="head.title !== og.title"
-          :schema="appMetaSchema"
-          :value="head.title"
-          key-name="title"
-        >
-          <template #default>title</template>
-        </properties-item>
         <properties-item
           v-for="item in linkedinProperties"
           :key="item.keyName"
@@ -61,6 +53,7 @@
 import { mapState } from 'vuex';
 import {
   findImageDimensions,
+  findMetaContent,
   findMetaProperty
 } from '@shared/lib/find-meta';
 import appMetaSchema from '@shared/lib/schemas/app-meta-schema';
@@ -91,9 +84,9 @@ export default {
       },
       tooltip: {
         'og:title': {
-          exist: null,
-          required: false,
-          tag: null,
+          exist: false,
+          required: true,
+          tag: 'og:title',
         },
 
         'og:image': {
@@ -102,32 +95,51 @@ export default {
           required: true,
           requiredSizes: {
             minimum: {
-              width: 1,
               height: 1,
+              width: 1,
             },
             variation: {
-              width: 400,
               height: 400,
+              width: 400,
             },
           },
           size: {
-            width: null,
             height: null,
+            width: null,
           },
           tag: 'og:image',
+        },
+
+        'og:description': {
+          exist: false,
+          required: true,
+          tag: 'og:description',
+        },
+
+        'og:url': {
+          exist: false,
+          required: true,
+          tag: 'og:url',
         },
       },
     };
   },
   computed: {
     ...mapState([ 'head' ]),
-    hasOgImage() {
-      return Boolean(this.og.image);
+    hasRequiredData() {
+      return (
+        Boolean(this.og.title) &&
+        Boolean(this.og.image) &&
+        Boolean(this.og.description) &&
+        Boolean(this.og.url)
+      );
     },
     og() {
       return {
         title: this.propertyValue('og:title'),
         image: this.absoluteUrl(this.propertyValue('og:image')),
+        description: this.propertyValue('og:description'),
+        url: this.propertyValue('og:url'),
       };
     },
     themeClass() {
@@ -139,11 +151,12 @@ export default {
     },
     previewUrl() {
       const params = new URLSearchParams();
-      params.set('title', this.og.title || this.head.title || 'Weblink');
-      params.set('url', this.head.url);
+      params.set('title', this.og.title);
       params.set('image', this.og.image);
+      params.set('description', this.og.description);
+      params.set('url', this.og.url);
       params.set('theme', this.themeClass);
-      params.set('imageIsBig', this.imageDimensions.height > 400 && this.imageDimensions.width > 400);
+      params.set('imageIsBig', this.imageDimensions.height >= 400 && this.imageDimensions.width >= 400);
 
       return `/previews/linkedin/linkedin.html?${ params }`;
     },
@@ -158,6 +171,16 @@ export default {
           keyName: 'og:image',
           title: 'og:image',
           value: this.og.image,
+        },
+        {
+          keyName: 'og:description',
+          title: 'og:description',
+          value: this.og.description,
+        },
+        {
+          keyName: 'og:url',
+          title: 'og:url',
+          value: this.og.url,
         },
       ];
     },
@@ -187,24 +210,14 @@ export default {
       return createAbsoluteUrl(this.head, url);
     },
     setTooltipData(imageDimensions) {
-      if (this.og.title !== null) {
-        this.tooltip['og:title'].tag = 'og:title';
-        this.tooltip['og:title'].exist = true;
-      } else if (this.head.title !== null) {
-        this.tooltip['og:title'].tag = '<title>';
-        this.tooltip['og:title'].exist = false;
-      } else {
-        this.tooltip['og:title'].tag = false;
-        this.tooltip['og:title'].exist = false;
+      for (const [ key, value ] of Object.entries(this.og)) {
+        this.tooltip[`og:${ key }`].exist = Boolean(value);
       }
-      this.og.image
-        ? (this.tooltip['og:image'].exist = true)
-        : (this.tooltip['og:image'].exist = false);
 
       this.tooltip['og:image'].size = imageDimensions;
     },
     propertyValue(propName) {
-      return findMetaProperty(this.head, propName);
+      return findMetaProperty(this.head, propName) || findMetaContent(this.head, propName);
     },
   },
 };
@@ -212,7 +225,7 @@ export default {
 
 <style>
 .linkedin__preview {
-  max-width: 521px;
+  max-width: 520px;
 }
 
 .linkedin .properties-item__icon {
