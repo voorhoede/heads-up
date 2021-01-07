@@ -416,7 +416,7 @@ export default {
     absoluteUrl(url) {
       return createAbsoluteUrl(this.head, url);
     },
-    setTooltipData(imageDimensions) {
+    setTooltipData(dimensions) {
       for (const [ key, value ] of Object.entries(this.og)) {
         this.tooltip[`og:${ key }`].exist = Boolean(value);
       }
@@ -429,7 +429,10 @@ export default {
         ? (this.tooltip['og:image'].exist = true)
         : (this.tooltip['og:image'].exist = false);
 
-      this.tooltip['og:image'].size = imageDimensions;
+      this.tooltip['og:description'].valueLength.tooLong =
+        this.og.description?.length > this.tooltip['og:description'].valueLength.max;
+
+      this.tooltip['og:image'].size = dimensions;
     },
     propertyValue(propName) {
       return findMetaProperty(this.head, propName);
