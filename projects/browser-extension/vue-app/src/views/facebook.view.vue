@@ -44,7 +44,7 @@
           <template #default>title</template>
         </properties-item>
         <properties-item
-          v-for="item in facebookProperties"
+          v-for="item in facebookMetaData"
           :key="item.keyName"
           :key-name="item.keyName"
         >
@@ -124,22 +124,40 @@ export default {
       TABS,
       openTab: TABS[0].value,
       tooltip: {
+        'fb:app_id': {
+          exist: false,
+          required: true,
+          tag: 'fb:app_id',
+        },
+        'og:type': {
+          exist: false,
+          required: false,
+          tag: 'og:type',
+        },
+        'og:url': {
+          exist: false,
+          required: true,
+          tag: 'og:url',
+        },
+        'og:locale': {
+          exist: false,
+          required: false,
+          tag: 'og:locale',
+        },
         'og:title': {
           exist: null,
-          required: false,
+          required: true,
           tag: null,
         },
-
         'og:description': {
           exist: null,
-          required: false,
+          required: true,
           tag: 'og:description',
           valueLength: {
             max: 250,
             tooLong: null,
           },
         },
-
         'og:image': {
           exist: false,
           hasVariation: true,
@@ -160,6 +178,61 @@ export default {
           },
           tag: 'og:image',
         },
+        'og:image:url': {
+          exist: false,
+          required: false,
+          tag: 'og:image:url',
+        },
+        'og:image:secure_url': {
+          exist: false,
+          required: false,
+          tag: 'og:image:secure_url',
+        },
+        'og:image:type': {
+          exist: false,
+          required: false,
+          tag: 'og:image:type',
+        },
+        'og:image:width': {
+          exist: false,
+          required: false,
+          tag: 'og:image:width',
+        },
+        'og:image:height': {
+          exist: false,
+          required: false,
+          tag: 'og:image:height',
+        },
+        'og:video': {
+          exist: false,
+          required: false,
+          tag: 'og:video',
+        },
+        'og:video:url': {
+          exist: false,
+          required: false,
+          tag: 'og:video:url',
+        },
+        'og:video:secure_url': {
+          exist: false,
+          required: false,
+          tag: 'og:video:secure_url',
+        },
+        'og:video:type': {
+          exist: false,
+          required: false,
+          tag: 'og:video:type',
+        },
+        'og:video:width': {
+          exist: false,
+          required: false,
+          tag: 'og:video:width',
+        },
+        'og:video:height': {
+          exist: false,
+          required: false,
+          tag: 'og:video:height',
+        },
       },
     };
   },
@@ -167,9 +240,28 @@ export default {
     ...mapState([ 'head' ]),
     og() {
       return {
+        type: this.propertyValue('og:type'),
+        url: this.absoluteUrl(this.propertyValue('og:url')),
+        locale: this.absoluteUrl(this.propertyValue('og:locale')),
         title: this.propertyValue('og:title'),
-        image: this.absoluteUrl(this.propertyValue('og:image')),
         description: this.propertyValue('og:description'),
+        image: this.absoluteUrl(this.propertyValue('og:image')),
+        imageUrl: this.absoluteUrl(this.propertyValue('og:image:url')),
+        imageSecureUrl: this.absoluteUrl(this.propertyValue('og:image:secure_url')),
+        imageType: this.propertyValue('og:image:type'),
+        imageWidth: this.propertyValue('og:image:width'),
+        imageHeight: this.propertyValue('og:image:height'),
+        video: this.absoluteUrl(this.propertyValue('og:video')),
+        videoUrl: this.absoluteUrl(this.propertyValue('og:video:url')),
+        videoSecureUrl: this.absoluteUrl(this.propertyValue('og:video:secure_url')),
+        videoType: this.propertyValue('og:video:type'),
+        videoWidth: this.propertyValue('og:video:width'),
+        videoHeight: this.propertyValue('og:video:height'),
+      };
+    },
+    facebookProperties() {
+      return {
+        appId: this.propertyValue('fb:app_id'),
       };
     },
     themeClass() {
@@ -205,8 +297,28 @@ export default {
           : `/previews/facebook-mobile/facebook-mobile.html?${ params }`
       }`;
     },
-    facebookProperties() {
+    facebookMetaData() {
       return [
+        {
+          keyName: 'fb:app_id',
+          title: 'fb:app_id',
+          value: this.facebookProperties.appId,
+        },
+        {
+          keyName: 'og:type',
+          title: 'og:type',
+          value: this.og.type,
+        },
+        {
+          keyName: 'og:url',
+          title: 'og:url',
+          value: this.og.url,
+        },
+        {
+          keyName: 'og:locale',
+          title: 'og:locale',
+          value: this.og.locale,
+        },
         {
           keyName: 'og:title',
           title: 'og:title',
@@ -221,6 +333,61 @@ export default {
           keyName: 'og:image',
           title: 'og:image',
           value: this.og.image,
+        },
+        {
+          keyName: 'og:image:url',
+          title: 'og:image:url',
+          value: this.og.imageUrl,
+        },
+        {
+          keyName: 'og:image:secure_url',
+          title: 'og:image:secure_url',
+          value: this.og.imageSecureUrl,
+        },
+        {
+          keyName: 'og:image:type',
+          title: 'og:image:type',
+          value: this.og.imageType,
+        },
+        {
+          keyName: 'og:image:width',
+          title: 'og:image:width',
+          value: this.og.imageWidth,
+        },
+        {
+          keyName: 'og:image:height',
+          title: 'og:image:height',
+          value: this.og.imageHeight,
+        },
+        {
+          keyName: 'og:video',
+          title: 'og:video',
+          value: this.og.video,
+        },
+        {
+          keyName: 'og:video:url',
+          title: 'og:video:url',
+          value: this.og.videoUrl,
+        },
+        {
+          keyName: 'og:video:secure_url',
+          title: 'og:video:secure_url',
+          value: this.og.videoSecureUrl,
+        },
+        {
+          keyName: 'og:video:type',
+          title: 'og:video:type',
+          value: this.og.videoType,
+        },
+        {
+          keyName: 'og:video:width',
+          title: 'og:video:width',
+          value: this.og.videoWidth,
+        },
+        {
+          keyName: 'og:video:height',
+          title: 'og:video:height',
+          value: this.og.videoHeight,
         },
       ];
     },
@@ -250,23 +417,12 @@ export default {
       return createAbsoluteUrl(this.head, url);
     },
     setTooltipData(imageDimensions) {
-      if (this.propertyValue('og:title') !== null) {
-        this.tooltip['og:title'].tag = 'og:title';
-        this.tooltip['og:title'].exist = true;
-      } else if (this.head.title !== null) {
-        this.tooltip['og:title'].tag = '<title>';
-        this.tooltip['og:title'].exist = false;
-      } else {
-        this.tooltip['og:title'].tag = false;
-        this.tooltip['og:title'].exist = false;
+      for (const [ key, value ] of Object.entries(this.og)) {
+        this.tooltip[`og:${ key }`].exist = Boolean(value);
       }
 
-      if (this.propertyValue('og:description') !== null) {
-        this.tooltip['og:description'].exist = true;
-        this.tooltip['og:description'].valueLength.tooLong =
-          this.propertyValue('og:description').length > 250;
-      } else {
-        this.tooltip['og:description'].exist = false;
+      for (const [ key, value ] of Object.entries(this.facebookProperties)) {
+        this.tooltip[`fb:${ key }`].exist = Boolean(value);
       }
 
       this.og.image
