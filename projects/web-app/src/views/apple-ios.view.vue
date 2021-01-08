@@ -6,17 +6,11 @@
     </div>
     <properties-list v-else>
       <properties-item
-        v-for="item in appleMetadata"
-        :key="item.keyName"
-        :key-name="item.keyName"
-        :refresh-on="appleMetadata"
+        v-for="(item, index) in appleMetadata"
+        :key="index"
+        :term="item.keyName"
+        :value="item.value"
       >
-        <template #default>
-          {{ item.title }}
-        </template>
-        <template #value>
-          {{ item.value }}
-        </template>
       </properties-item>
     </properties-list>
   </panel-section>
@@ -29,19 +23,11 @@
       <properties-item
         v-for="(icon, index) in touchIcons"
         :key="index"
-        :key-name="icon.sizes"
-        :refresh-on="touchIcons"
+        :term="`${icon.rel} ${icon.sizes}`"
+        :value="icon.url"
+        :image="icon"
+        type="image"
       >
-        <template #default>
-          <template v-if="icon.sizes">
-            {{ icon.sizes }}
-          </template>
-        </template>
-        <template #value>
-          <external-link :href="icon.url">
-            <img :src="icon.url" alt="" />
-          </external-link>
-        </template>
       </properties-item>
     </properties-list>
   </panel-section>
@@ -54,22 +40,11 @@
       <properties-item
         v-for="(image, index) in startupImages"
         :key="index"
-        :key-name="image.url"
-        :refresh-on="startupImages"
+        :term="image.href"
+        :value="image.url"
+        :image="image"
+        type="image"
       >
-        <template #default>
-          <template v-if="image.filename">
-            {{ image.filename }}
-          </template>
-          <template v-if="image.sizes">
-            {{ image.sizes }}
-          </template>
-        </template>
-        <template #value>
-          <external-link :href="image.url">
-            <img :src="image.url" alt="" />
-          </external-link>
-        </template>
       </properties-item>
     </properties-list>
   </panel-section>
@@ -134,6 +109,9 @@ export default {
       ];
     });
     const touchIcons = computed(() => {
+      console.log(headData.value.head.link
+        .filter(link => link.rel === 'apple-touch-icon')
+        .map(icon => ({ ...icon, url: absoluteUrl(icon.href) })))
       return headData.value.head.link
         .filter(link => link.rel === 'apple-touch-icon')
         .map(icon => ({ ...icon, url: absoluteUrl(icon.href) }));
@@ -141,7 +119,7 @@ export default {
     const startupImages = computed(() => {
       return headData.value.head.link
         .filter(link => link.rel === 'apple-touch-startup-image')
-        .map(image => ({ ...image, filename: image.href.split('/').pop(), url: absoluteUrl(image.href) }));
+        .map(image => ({ ...image, filename: image.href, url: absoluteUrl(image.href) }));
     });
 
     const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);

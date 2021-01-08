@@ -21,27 +21,11 @@
   <panel-section title="Properties">
     <properties-list>
       <properties-item
-        v-for="item in twitterMetaData"
-        :key="item.keyName"
-        :key-name="item.keyName"
+        v-for="(item, index) in twitterMetaData"
+        :key="index"
+        :term="item.keyName"
+        :value="item.value"
       >
-        <template #default>
-          {{ item.title }}
-        </template>
-        <template v-if="item.value && item.keyName.includes(':image')" #value>
-         <external-link :href="absoluteUrl(item.value)">
-            <img :src="absoluteUrl(item.value)" alt="" />
-            <span>{{ item.value }}</span>
-          </external-link>
-        </template>
-        <template v-else-if="item.value && (item.keyName.includes(':creator') || item.keyName.includes(':site'))" #value>
-          <external-link :href="item.value">
-            {{ item.value }}
-          </external-link>
-        </template>
-        <template v-else-if="item.value" #value>
-          {{ item.value }}
-        </template>
       </properties-item>
     </properties-list>
   </panel-section>

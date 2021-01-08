@@ -36,39 +36,11 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-if="head.title !== og.title"
-          :schema="appMetaSchema"
-          :value="head.title"
-          key-name="title"
+          v-for="(item, index) in facebookProperties"
+          :key="index"
+          :term="item.keyName"
+          :value="item.value"
         >
-          <template #default>title</template>
-        </properties-item>
-        <properties-item
-          v-for="item in facebookProperties"
-          :key="item.keyName"
-          :key-name="item.keyName"
-        >
-          <template #default>
-            <social-media-tooltip
-              :exist="tooltip[item.keyName].exist"
-              :has-variation="tooltip[item.keyName].hasVariation"
-              :required-sizes="tooltip[item.keyName].requiredSizes"
-              :required="tooltip[item.keyName].required"
-              :size="tooltip[item.keyName].size"
-              :tag="tooltip[item.keyName].tag"
-              :type="item.keyName"
-              :value-length="tooltip[item.keyName].valueLength"
-            />
-          </template>
-          <template v-if="item.value && item.keyName.includes(':image')" #value>
-            <external-link :href="absoluteUrl(item.value)">
-              <img :src="absoluteUrl(item.value)" alt="" />
-              <span>{{ item.value }}</span>
-            </external-link>
-          </template>
-          <template v-else-if="item.value" #value>
-            {{ item.value }}
-          </template>
         </properties-item>
       </properties-list>
     </panel-section>
@@ -89,7 +61,6 @@ import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
-import SocialMediaTooltip from '@shared/components/social-media-tooltip';
 import TabSelecter from '@shared/components/tab-selecter';
 
 const TABS = [
@@ -110,7 +81,6 @@ export default {
     PreviewIframe,
     PropertiesItem,
     PropertiesList,
-    SocialMediaTooltip,
     TabSelecter,
   },
   data() {
@@ -123,44 +93,6 @@ export default {
       imageSpecified: true,
       TABS,
       openTab: TABS[0].value,
-      tooltip: {
-        'og:title': {
-          exist: null,
-          required: false,
-          tag: null,
-        },
-
-        'og:description': {
-          exist: null,
-          required: false,
-          tag: 'og:description',
-          valueLength: {
-            max: 250,
-            tooLong: null,
-          },
-        },
-
-        'og:image': {
-          exist: false,
-          hasVariation: true,
-          required: false,
-          requiredSizes: {
-            minimum: {
-              width: 100,
-              height: 100,
-            },
-            variation: {
-              width: 415,
-              height: 415,
-            },
-          },
-          size: {
-            width: null,
-            height: null,
-          },
-          tag: 'og:image',
-        },
-      },
     };
   },
   computed: {
@@ -243,37 +175,10 @@ export default {
     findImageDimensions() {
       findImageDimensions(this.head, 'og:image').then(imageDimensions => {
         this.imageDimensions = imageDimensions;
-        this.setTooltipData(imageDimensions);
       });
     },
     absoluteUrl(url) {
       return createAbsoluteUrl(this.head, url);
-    },
-    setTooltipData(imageDimensions) {
-      if (this.propertyValue('og:title') !== null) {
-        this.tooltip['og:title'].tag = 'og:title';
-        this.tooltip['og:title'].exist = true;
-      } else if (this.head.title !== null) {
-        this.tooltip['og:title'].tag = '<title>';
-        this.tooltip['og:title'].exist = false;
-      } else {
-        this.tooltip['og:title'].tag = false;
-        this.tooltip['og:title'].exist = false;
-      }
-
-      if (this.propertyValue('og:description') !== null) {
-        this.tooltip['og:description'].exist = true;
-        this.tooltip['og:description'].valueLength.tooLong =
-          this.propertyValue('og:description').length > 250;
-      } else {
-        this.tooltip['og:description'].exist = false;
-      }
-
-      this.og.image
-        ? (this.tooltip['og:image'].exist = true)
-        : (this.tooltip['og:image'].exist = false);
-
-      this.tooltip['og:image'].size = imageDimensions;
     },
     propertyValue(propName) {
       return findMetaProperty(this.head, propName);
@@ -285,9 +190,5 @@ export default {
 <style>
 .facebook__preview {
   max-width: 521px;
-}
-
-.facebook .properties-item__icon {
-  margin-left: 4px;
 }
 </style>

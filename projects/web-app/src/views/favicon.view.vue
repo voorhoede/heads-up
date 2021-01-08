@@ -8,25 +8,9 @@
       <properties-item
         v-for="(item, index) in favicons"
         :key="index"
-        :key-name="item.sizes"
-        :refresh-on="favicons"
+        :term="`${item.type} ${item.rel} ${item.sizes}`"
+        :value="item.url"
       >
-        <template #default>
-          <template v-if="item.sizes">
-            {{ item.sizes }}<br>
-          </template>
-          <template v-if="item.type">
-            {{ item.type }}<br>
-          </template>
-          <template v-if="item.rel">
-            {{ item.rel }}
-          </template>
-        </template>
-        <template #value>
-          <external-link :href="item.url">
-            <img :src="item.url" alt="" />
-          </external-link>
-        </template>
       </properties-item>
     </properties-list>
   </panel-section>

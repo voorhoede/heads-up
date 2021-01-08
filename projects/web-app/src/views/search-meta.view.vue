@@ -2,17 +2,11 @@
   <panel-section title="Properties">
     <properties-list>
       <properties-item
-        v-for="item in searchMetadata"
-        :key="item.keyName"
+        v-for="(item, index) in siteMetaData"
+        :key="index"
         :value="item.value"
-        :is-url="item.isUrl"
-        :key-name="item.keyName"
-        :schema="schema"
-        :refresh-on="searchMetadata"
+        :term="item.keyName"
       >
-        <template #default>
-          {{ item.title }}
-        </template>
       </properties-item>
     </properties-list>
   </panel-section>
@@ -46,7 +40,7 @@ import PropertiesList from '@shared/components/properties-list';
 export default {
   setup: () => {
     const headData = useHead().data;
-    const searchMetadata = computed(() => {
+    const siteMetaData = computed(() => {
       const { head } = headData.value;
       return [
         {
@@ -108,7 +102,7 @@ export default {
 
     return {
       absoluteUrl,
-      searchMetadata,
+      siteMetaData,
       schema,
     };
   },

@@ -24,36 +24,11 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="item in twitterMetaData"
-          :key="item.keyName"
-          :key-name="item.keyName"
+          v-for="(item, index) in twitterMetaData"
+          :key="index"
+          :term="item.keyName"
+          :value="item.value"
         >
-          <template #default>
-            <social-media-tooltip
-              :exist="tooltip[item.keyName].exist"
-              :has-variation="tooltip[item.keyName].hasVariation"
-              :required-sizes="tooltip[item.keyName].requiredSizes"
-              :required="tooltip[item.keyName].required"
-              :size="tooltip[item.keyName].size"
-              :tag="tooltip[item.keyName].tag"
-              :type="item.keyName"
-              :value-length="tooltip[item.keyName].valueLength"
-            />
-          </template>
-          <template v-if="item.keyName.includes(':image')" #value>
-            <external-link :href="absoluteUrl(item.value)">
-              <img :src="absoluteUrl(item.value)" alt="" />
-              <span>{{ item.value }}</span>
-            </external-link>
-          </template>
-          <template v-else-if="item.keyName.includes(':creator') || item.keyName.includes(':site')" #value>
-            <external-link v-if="item.value" :href="item.value">
-              {{ item.value }}
-            </external-link>
-          </template>
-          <template v-else #value>
-            {{ item.value }}
-          </template>
         </properties-item>
       </properties-list>
     </panel-section>
@@ -95,7 +70,6 @@ import ExternalLink from '@shared/components/external-link';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import PreviewIframe from '@shared/components/preview-iframe';
-import SocialMediaTooltip from '@shared/components/social-media-tooltip';
 
 const validCards = [ 'summary', 'summary_large_image', 'app', 'player' ];
 export const supportedCards = [ 'summary', 'summary_large_image' ];
@@ -107,184 +81,12 @@ export default {
     PropertiesItem,
     PropertiesList,
     PreviewIframe,
-    SocialMediaTooltip,
   },
   data() {
     return {
       imageDimensions: {
         height: undefined,
         width: undefined,
-      },
-      tooltip: {
-        'twitter:app:id:iphone': {
-          exist: false,
-          required: false,
-          tag: 'twitter:app:id:iphone',
-        },
-        'twitter:app:id:ipad': {
-          exist: false,
-          required: false,
-          tag: 'twitter:app:id:ipad',
-        },
-        'twitter:app:id:googleplay': {
-          exist: false,
-          required: false,
-          tag: 'twitter:app:id:googleplay',
-        },
-        'twitter:app:url:iphone': {
-          exist: false,
-          required: false,
-          tag: 'twitter:app:url:iphone',
-        },
-        'twitter:app:url:ipad': {
-          exist: false,
-          required: false,
-          tag: 'twitter:app:url:ipad',
-        },
-        'twitter:app:url:googleplay': {
-          exist: false,
-          required: false,
-          tag: 'twitter:app:url:googleplay',
-        },
-        'twitter:app:country': {
-          exist: false,
-          required: false,
-          tag: 'twitter:app:country',
-        },
-        'twitter:app:name:iphone': {
-          exist: false,
-          required: false,
-          tag: 'twitter:app:name:iphone',
-        },
-        'twitter:app:name:ipad': {
-          exist: false,
-          required: false,
-          tag: 'twitter:app:name:ipad',
-        },
-        'twitter:app:name:googleplay': {
-          exist: false,
-          required: false,
-          tag: 'twitter:app:name:googleplay',
-        },
-        'twitter:card': {
-          exist: false,
-          required: true,
-          tag: 'twitter:card',
-        },
-        'twitter:site': {
-          exist: false,
-          required: false,
-          tag: 'twitter:site',
-        },
-        'twitter:site:id': {
-          exist: false,
-          required: false,
-          tag: 'twitter:site:id',
-        },
-        'twitter:creator': {
-          exist: false,
-          required: false,
-          tag: 'twitter:creator',
-        },
-        'twitter:creator:id': {
-          exist: false,
-          required: false,
-          tag: 'twitter:creator:id',
-        },
-        'twitter:title': {
-          exist: false,
-          required: true,
-          tag: 'twitter:title',
-        },
-        'twitter:description': {
-          exist: false,
-          required: false,
-          tag: 'twitter:description',
-        },
-        'twitter:player': {
-          exist: false,
-          required: false,
-          tag: 'twitter:player',
-        },
-        'twitter:player:width': {
-          exist: false,
-          required: false,
-          tag: 'twitter:player:width',
-        },
-        'twitter:player:height': {
-          exist: false,
-          required: false,
-          tag: 'twitter:player:height',
-        },
-        'twitter:player:stream': {
-          exist: false,
-          required: false,
-          tag: 'twitter:player:stream',
-        },
-        'twitter:image': {
-          exist: false,
-          hasVariation: false,
-          required: false,
-          requiredSizes: {
-            minimum: {
-              width: 144,
-              height: 144,
-            },
-            variation: {
-              width: 300,
-              height: 157,
-            },
-          },
-          size: {
-            width: null,
-            height: null,
-          },
-          tag: 'twitter:image',
-        },
-        'twitter:image:alt': {
-          exist: false,
-          required: false,
-          tag: 'twitter:image:alt',
-        },
-        'og:type': {
-          exist: false,
-          required: false,
-          tag: 'og:type',
-        },
-        'og:title': {
-          exist: false,
-          required: false,
-          tag: 'og:title',
-        },
-        'og:description': {
-          exist: false,
-          required: false,
-          tag: 'og:description',
-          valueLength: {
-            max: 700,
-            tooLong: false,
-          },
-        },
-        'og:image': {
-          exist: false,
-          hasVariation: false,
-          required: false,
-          requiredSizes: {
-            minimum: {
-              width: 144,
-              height: 144,
-            },
-            variation: {
-              width: 300,
-              height: 157,
-            },
-          },
-          size: {
-            width: null,
-            height: null,
-          },
-          tag: 'og:image',
-        },
       },
     };
   },
@@ -504,7 +306,6 @@ export default {
 
       findImageDimensions(this.head, name).then(dimensions => {
         this.imageDimensions = dimensions;
-        this.setTooltipData(dimensions);
       });
     },
     metaValue(metaName) {
@@ -513,26 +314,12 @@ export default {
     propertyValue(propName) {
       return findMetaProperty(this.head, propName);
     },
-    setTooltipData(dimensions) {
-      for (const [ key, value ] of Object.entries(this.twitter)) {
-        this.tooltip[`og:${ key }`].exist = Boolean(value);
-      }
-
-      for (const [ key, value ] of Object.entries(this.og)) {
-        this.tooltip[`og:${ key }`].exist = Boolean(value);
-      }
-
-      this.tooltip['og:description'].valueLength.tooLong =
-        this.og.description?.length > this.tooltip['og:description'].valueLength.max;
-
-      this.tooltip['og:image'].size = dimensions;
-    },
   },
 };
 </script>
 
 <style>
-  .twitter__preview {
-    max-width: 521px;
-  }
+.twitter__preview {
+  max-width: 521px;
+}
 </style>

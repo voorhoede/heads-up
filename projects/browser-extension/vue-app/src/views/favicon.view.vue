@@ -7,27 +7,13 @@
       </div>
       <properties-list v-else>
         <properties-item
-          v-for="(item, index) in favicons"
+          v-for="(image, index) in favicons"
           :key="index"
-          :key-name="item.sizes"
-          :refresh-on="favicons"
+          :term="[image.type, image.rel, image.sizes]"
+          :value="image.url"
+          :image="image"
+          type="image"
         >
-          <template #default>
-            <template v-if="item.sizes">
-              {{ item.sizes }}<br>
-            </template>
-            <template v-if="item.type">
-              {{ item.type }}<br>
-            </template>
-            <template v-if="item.rel">
-              {{ item.rel }}
-            </template>
-          </template>
-          <template #value>
-            <external-link :href="item.url">
-              <img :src="item.url" alt="" />
-            </external-link>
-          </template>
         </properties-item>
       </properties-list>
     </panel-section>

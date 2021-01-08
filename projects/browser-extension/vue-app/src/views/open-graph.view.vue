@@ -9,13 +9,9 @@
         <properties-item
           v-for="(item, index) in ogMeta"
           :key="index"
+          :term="item.property"
           :value="item.content"
-          :key-name="item.property"
-          :refresh-on="ogMeta"
         >
-          <template #default>
-            {{ item.property }}
-          </template>
         </properties-item>
       </properties-list>
     </panel-section>

@@ -3,17 +3,11 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="item in searchMetaData"
-          :key="item.keyName"
+          v-for="(item, index) in searchMetaData"
+          :key="index"
           :value="item.value"
-          :is-url="item.isUrl"
-          :key-name="item.keyName"
-          :schema="schema"
-          :refresh-on="searchMetaData"
+          :term="item.keyName"
         >
-          <template #default>
-            {{ item.title }}
-          </template>
         </properties-item>
       </properties-list>
     </panel-section>

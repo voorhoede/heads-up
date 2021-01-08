@@ -18,48 +18,11 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-if="!og.title"
-          :schema="appMetaSchema"
-          :value="head.title"
-          key-name="title"
+          v-for="(item, index) in whatsappProperties"
+          :key="index"
+          :term="item.keyName"
+          :value="item.value"
         >
-          <template #default>title</template>
-        </properties-item>
-        <properties-item
-          v-if="!og.description"
-          :schema="appMetaSchema"
-          :value="headDescription"
-          key-name="description"
-        >
-          <template #default>description</template>
-        </properties-item>
-        <properties-item
-          v-for="item in whatsappProperties"
-          :key="item.keyName"
-          :key-name="item.keyName"
-        >
-          <template #default>
-            <social-media-tooltip
-              :exist="tooltip[item.keyName].exist"
-              :has-variation="tooltip[item.keyName].hasVariation"
-              :ignore="tooltip[item.keyName].ignore"
-              :required-sizes="tooltip[item.keyName].requiredSizes"
-              :required="tooltip[item.keyName].required"
-              :size="tooltip[item.keyName].size"
-              :tag="tooltip[item.keyName].tag"
-              :type="item.keyName"
-              :value-length="tooltip[item.keyName].valueLength"
-            />
-          </template>
-          <template v-if="item.value && item.keyName.includes(':image')" #value>
-            <external-link :href="absoluteUrl(item.value)">
-              <img :src="absoluteUrl(item.value)" alt="" />
-              <span>{{ item.value }}</span>
-            </external-link>
-          </template>
-          <template v-else-if="item.value" #value>
-            {{ item.value }}
-          </template>
         </properties-item>
       </properties-list>
     </panel-section>
@@ -101,7 +64,6 @@ import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
-import SocialMediaTooltip from '@shared/components/social-media-tooltip';
 
 export default {
   components: {
@@ -110,7 +72,6 @@ export default {
     PreviewIframe,
     PropertiesItem,
     PropertiesList,
-    SocialMediaTooltip,
   },
   data() {
     return {
@@ -118,41 +79,6 @@ export default {
       imageDimensions: {
         height: undefined,
         width: undefined,
-      },
-      tooltip: {
-        'og:title': {
-          exist: false,
-          required: false,
-          tag: 'og:title',
-        },
-
-        'og:url': {
-          exist: false,
-          required: false,
-          tag: 'og:url',
-        },
-
-        'og:description': {
-          exist: false,
-          required: false,
-          tag: 'og:description',
-        },
-
-        'og:image': {
-          exist: false,
-          required: false,
-          tag: 'og:image',
-          requiredSizes: {
-            minimum: {
-              height: 200,
-              width: 300,
-            },
-          },
-          size: {
-            height: null,
-            width: null,
-          },
-        },
       },
     };
   },
@@ -252,32 +178,5 @@ export default {
 <style>
 .whatsapp__preview {
   max-width: 520px;
-}
-
-.properties-item__tooltip {
-  display: inline-block;
-}
-
-@media (min-width: 500px) {
-  .properties-item {
-    display: flex;
-    align-items: flex-start;
-  }
-  .properties-item__term {
-    display: flex;
-    justify-content: flex-end;
-    width: var(--term-width-small);
-    padding-right: 5px;
-  }
-  .whatsapp .properties-item__term * + * {
-    margin-left: 0.15rem;
-  }
-}
-.whatsapp .properties-item__icon {
-  margin-left: 4px;
-}
-
-.properties-item-icon--warning {
-  fill: #eac250;
 }
 </style>

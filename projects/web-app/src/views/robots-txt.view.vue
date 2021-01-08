@@ -5,11 +5,11 @@
       <p>No sitemaps detected.</p>
     </div>
     <properties-list v-else>
-      <properties-item v-for="(url, index) in sitemapUrls" :key="index">
-        <template #default>url</template>
-        <template #value>
-          <router-link :to="{ name: 'sitemap' }">{{ url }}</router-link>
-        </template>
+      <properties-item
+        v-for="(url, index) in sitemapUrls"
+        :key="index"
+        term="url"
+        :value="url">
       </properties-item>
     </properties-list>
   </panel-section>
@@ -19,37 +19,29 @@
     :title="robot.name"
   >
     <properties-list>
-      <properties-item>
-        <template #default>allow</template>
-        <template #value>
-          <div v-for="(rule, index) in robot.allow" :key="index">
-            <span v-if="rule.path">{{ rule.path }}</span>
-          </div>
-        </template>
+      <properties-item
+        term="allow"
+        :value="robot.allow">
       </properties-item>
-      <properties-item>
-        <template #default>crawlDelay</template>
-        <template #value>{{ robot.crawlDelay }}</template>
+      <properties-item
+        term="crawlDelay"
+        :value="robot.crawlDelay">
       </properties-item>
-      <properties-item>
-        <template #default>disallow</template>
-        <template #value>
-          <div v-for="(rule, index) in robot.disallow" :key="index">
-            <span v-if="rule.path">{{ rule.path }}</span>
-          </div>
-        </template>
+      <properties-item
+        term="disallow"
+        :value="robot.disallow">
       </properties-item>
     </properties-list>
   </panel-section>
-  <panel-section title="Current Page">
+  <panel-section title="Current page">
     <properties-list>
-      <properties-item>
-        <template #default>url</template>
-        <template #value>{{ url }}</template>
+      <properties-item
+        term="url"
+        :value="url">
       </properties-item>
-      <properties-item>
-        <template #default>crawlable</template>
-        <template #value>{{ urlIsCrawlable }}</template>
+      <properties-item
+        term="crawlable"
+        :value="urlIsCrawlable">
       </properties-item>
     </properties-list>
   </panel-section>

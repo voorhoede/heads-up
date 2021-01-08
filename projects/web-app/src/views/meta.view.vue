@@ -2,23 +2,12 @@
   <panel-section title="Properties">
     <properties-list>
       <properties-item
-        v-for="item in siteMetadata"
-        :key="item.keyName"
+        v-for="(item, index) in siteMetaData"
+        :key="index"
         :value="item.value"
-        :key-name="item.keyName"
-        :attrs="item.attrs"
+        :term="item.keyName"
         :schema="schema"
-        :refresh-on="siteMetadata"
       >
-        <template #default>
-          {{ item.title }}
-        </template>
-        <template #value>
-          <span
-            v-if="item.keyName === 'theme-color' && item.value"
-            :style="{ backgroundColor: item.value }"
-          />
-        </template>
       </properties-item>
     </properties-list>
   </panel-section>
@@ -46,7 +35,7 @@ import PropertiesItem from '@shared/components/properties-item';
 export default {
   setup: () => {
     const headData = useHead().data;
-    const siteMetadata = computed(() => {
+    const siteMetaData = computed(() => {
       const { head } = headData.value;
       return [
         {
@@ -84,7 +73,7 @@ export default {
     });
 
     return {
-      siteMetadata,
+      siteMetaData,
       schema,
     };
   },

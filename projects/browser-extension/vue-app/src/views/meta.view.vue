@@ -3,20 +3,13 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="item in appMetaData"
-          :key="item.keyName"
+          v-for="(item, index) in appMetaData"
+          :key="index"
           :value="item.value"
-          :key-name="item.keyName"
-          :attrs="item.attrs"
+          :term="item.keyName"
+          :type="item.type"
           :schema="schema"
-          :refresh-on="appMetaData"
         >
-          <template #default>
-            {{ item.title }}
-          </template>
-          <template v-if="item.keyName === 'theme-color' && item.value" #value>
-            <span :style="{ backgroundColor: item.value }" />
-          </template>
         </properties-item>
       </properties-list>
     </panel-section>
@@ -79,6 +72,7 @@ export default {
           keyName: 'theme-color',
           title: 'theme-color',
           value: findMetaContent(head, 'theme-color'),
+          type: 'color',
         },
       ];
     },

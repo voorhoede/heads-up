@@ -18,47 +18,11 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-if="!og.title"
-          :schema="appMetaSchema"
-          :value="head.title"
-          key-name="title"
+          v-for="(item, index) in slackProperties"
+          :key="index"
+          :term="item.keyName"
+          :value="item.value"
         >
-          <template #default>title</template>
-        </properties-item>
-        <properties-item
-          v-if="!og.description"
-          :schema="appMetaSchema"
-          :value="headDescription"
-          key-name="description"
-        >
-          <template #default>description</template>
-        </properties-item>
-        <properties-item
-          v-for="item in slackProperties"
-          :key="item.keyName"
-          :key-name="item.keyName"
-        >
-          <template #default>
-            <social-media-tooltip
-              :exist="tooltip[item.keyName].exist"
-              :has-variation="tooltip[item.keyName].hasVariation"
-              :required-sizes="tooltip[item.keyName].requiredSizes"
-              :required="tooltip[item.keyName].required"
-              :size="tooltip[item.keyName].size"
-              :tag="tooltip[item.keyName].tag"
-              :type="item.keyName"
-              :value-length="tooltip[item.keyName].valueLength"
-            />
-          </template>
-          <template v-if="item.value && item.keyName.includes(':image')" #value>
-            <external-link :href="absoluteUrl(item.value)">
-              <img :src="absoluteUrl(item.value)" alt="" />
-              <span>{{ item.value }}</span>
-            </external-link>
-          </template>
-          <template v-else-if="item.value" #value>
-            {{ item.value }}
-          </template>
         </properties-item>
       </properties-list>
     </panel-section>
@@ -82,7 +46,6 @@ import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
-import SocialMediaTooltip from '@shared/components/social-media-tooltip';
 
 export default {
   components: {
@@ -91,7 +54,6 @@ export default {
     PreviewIframe,
     PropertiesItem,
     PropertiesList,
-    SocialMediaTooltip,
   },
   data() {
     return {
@@ -99,50 +61,6 @@ export default {
       imageDimensions: {
         height: undefined,
         width: undefined,
-      },
-      tooltip: {
-        'og:title': {
-          exist: false,
-          required: false,
-          tag: 'og:title',
-        },
-
-        'og:description': {
-          exist: false,
-          required: false,
-          tag: 'og:description',
-          valueLength: {
-            max: 700,
-            tooLong: false,
-          },
-        },
-
-        'og:site_name': {
-          exist: false,
-          required: false,
-          tag: 'og:site_name',
-        },
-
-        'og:image': {
-          exist: false,
-          hasVariation: false,
-          required: false,
-          requiredSizes: {
-            minimum: {
-              width: 1,
-              height: 1,
-            },
-            variation: {
-              width: 202,
-              height: 202,
-            },
-          },
-          size: {
-            width: null,
-            height: null,
-          },
-          tag: 'og:image',
-        },
       },
     };
   },
@@ -264,9 +182,5 @@ export default {
 <style>
 .slack__preview {
   max-width: 521px;
-}
-
-.slack .properties-item__icon {
-  margin-left: 4px;
 }
 </style>
