@@ -163,6 +163,7 @@ export default {
     color: var(--value-color);
     flex: 0 0 70%;
     margin-left: 1rem;
+    word-break: break-word;
   }
 
   .properties-item__value-section {
