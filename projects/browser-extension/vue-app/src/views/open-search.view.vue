@@ -24,6 +24,7 @@
           :key="index"
           :value="item.value"
           :term="item.keyName"
+          :image="item.image"
           :type="item.type"
         >
         </properties-item>
@@ -122,6 +123,11 @@ export default {
           keyName: 'image',
           title: 'Image',
           value: this.image,
+          image: {
+            href: this.image,
+            url: this.absoluteUrl(this.image),
+          },
+          type: 'image',
         },
         {
           keyName: 'input-encoding',
