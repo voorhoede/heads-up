@@ -6,6 +6,6 @@
 
 <style>
   .properties-list .properties-item {
-    margin-bottom: 1em;
+    margin-bottom: 8px;
   }
 </style>
