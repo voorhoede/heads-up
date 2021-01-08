@@ -1,7 +1,12 @@
 <template>
   <div v-if="showItem" class="properties-item">
     <dt class="properties-item__term">
-      <span>{{ term }}</span>
+      <template v-if="termIsIterable">
+        <template v-for="(item, index) in term">
+          <span v-if="item" :key="index">{{ item }}</span>
+        </template>
+      </template>
+      <span v-else>{{ term }}</span>
     </dt>
 
     <dd v-if="isImageValue" class="properties-item__value">
@@ -58,7 +63,7 @@ export default {
       },
     },
     term: {
-      type: [ String, Array ],
+      type: [ String, Object ],
       required: true,
     },
     type: {
@@ -82,6 +87,9 @@ export default {
     },
     isImageValue() {
       return this.type === 'image' && this.image;
+    },
+    termIsIterable() {
+      return typeof this.term === 'object';
     },
     isUrlValue() {
       return this.type === 'url';

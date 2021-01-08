@@ -9,7 +9,7 @@
         <properties-item
           v-for="(image, index) in favicons"
           :key="index"
-          :term="[image.type, image.rel, image.sizes]"
+          :term="image.term"
           :value="image.url"
           :image="image"
           type="image"
@@ -52,7 +52,14 @@ export default {
   computed: {
     ...mapState([ 'head' ]),
     favicons() {
-      return findFavicons(this.head);
+      return findFavicons(this.head).map((image) => ({
+        ...image,
+        term: {
+          type: image.type,
+          rel: image.rel,
+          sizes: image.sizes,
+        },
+      }));
     },
   },
 };

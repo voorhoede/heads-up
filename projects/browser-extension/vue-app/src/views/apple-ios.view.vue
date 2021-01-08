@@ -25,7 +25,7 @@
         <properties-item
           v-for="(icon, index) in touchIcons"
           :key="index"
-          :term="icon.sizes"
+          :term="icon.term"
           :value="icon.url"
           :image="icon"
           type="image"
@@ -43,7 +43,7 @@
         <properties-item
           v-for="(image, index) in startupImages"
           :key="index"
-          :term="image.href"
+          :term="image.term"
           :value="image.url"
           :image="image"
           type="image"
@@ -117,12 +117,27 @@ export default {
     touchIcons() {
       return this.head.link
         .filter(link => link.rel === 'apple-touch-icon')
-        .map(icon => ({ ...icon, url: this.absoluteUrl(icon.href) }));
+        .map(icon => ({
+          ...icon,
+          url: this.absoluteUrl(icon.href),
+          term: {
+            rel: icon.rel,
+            sizes: icon.sizes,
+          },
+        }));
     },
     startupImages() {
       return this.head.link
         .filter(link => link.rel === 'apple-touch-startup-image')
-        .map(image => ({ ...image, url: this.absoluteUrl(image.href) }));
+        .map(image => ({
+          ...image,
+          url: this.absoluteUrl(image.href),
+          term: {
+            rel: image.rel,
+            sizes: image.sizes,
+            media: image.media,
+          },
+        }));
     },
   },
   methods: {

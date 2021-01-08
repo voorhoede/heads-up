@@ -8,7 +8,7 @@
       <properties-item
         v-for="(item, index) in appleMetadata"
         :key="index"
-        :term="item.keyName"
+        :term="item.term"
         :value="item.value"
       >
       </properties-item>
@@ -23,7 +23,7 @@
       <properties-item
         v-for="(icon, index) in touchIcons"
         :key="index"
-        :term="`${icon.rel} ${icon.sizes}`"
+        :term="icon.term"
         :value="icon.url"
         :image="icon"
         type="image"
@@ -40,7 +40,7 @@
       <properties-item
         v-for="(image, index) in startupImages"
         :key="index"
-        :term="image.href"
+        :term="image.term"
         :value="image.url"
         :image="image"
         type="image"
@@ -82,44 +82,51 @@ export default {
       const { head } = headData.value;
       return [
         {
-          keyName: 'app-capable',
-          title: 'apple-mobile-web-app-capable',
+          term: 'apple-mobile-web-app-capable',
           value: findMetaContent(head, 'apple-mobile-web-app-capable'),
         },
         {
-          keyName: 'app-title',
-          title: 'apple-mobile-web-app-title',
+          term: 'apple-mobile-web-app-title',
           value: findMetaContent(head, 'apple-mobile-web-app-title'),
         },
         {
-          keyName: 'status-bar-style',
-          title: 'apple-mobile-web-app-status-bar-style',
+          term: 'apple-mobile-web-app-status-bar-style',
           value: findMetaContent(head, 'apple-mobile-web-app-status-bar-style'),
         },
         {
-          keyName: 'format-detection',
-          title: 'format-detection',
+          term: 'format-detection',
           value: findMetaContent(head, 'format-detection'),
         },
         {
-          keyName: 'itunes-app',
-          title: 'apple-itunes-app',
+          term: 'apple-itunes-app',
           value: findMetaContent(head, 'apple-itunes-app'),
         },
       ];
     });
     const touchIcons = computed(() => {
-      console.log(headData.value.head.link
-        .filter(link => link.rel === 'apple-touch-icon')
-        .map(icon => ({ ...icon, url: absoluteUrl(icon.href) })))
       return headData.value.head.link
         .filter(link => link.rel === 'apple-touch-icon')
-        .map(icon => ({ ...icon, url: absoluteUrl(icon.href) }));
+        .map(icon => ({
+          ...icon,
+          url: absoluteUrl(icon.href),
+          term: {
+            rel: icon.rel,
+            sizes: icon.sizes,
+          },
+        }));
     });
     const startupImages = computed(() => {
       return headData.value.head.link
         .filter(link => link.rel === 'apple-touch-startup-image')
-        .map(image => ({ ...image, filename: image.href, url: absoluteUrl(image.href) }));
+        .map(image => ({
+          ...image,
+          url: absoluteUrl(image.href),
+          term: {
+            rel: image.rel,
+            sizes: image.sizes,
+            media: image.media,
+          },
+        }));
     });
 
     const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);

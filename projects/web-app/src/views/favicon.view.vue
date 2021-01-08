@@ -6,10 +6,12 @@
     </div>
     <properties-list v-else>
       <properties-item
-        v-for="(item, index) in favicons"
+        v-for="(image, index) in favicons"
         :key="index"
-        :term="`${item.type} ${item.rel} ${item.sizes}`"
-        :value="item.url"
+        :term="image.term"
+        :value="image.url"
+        :image="image"
+        type="image"
       >
       </properties-item>
     </properties-list>
@@ -40,7 +42,16 @@ import WarningIcon from '@shared/assets/icons/warning.svg';
 export default {
   setup: () => {
     const headData = useHead().data;
-    const favicons = computed(() => (findFavicons(headData.value.head)));
+    const favicons = computed(() => (
+      findFavicons(headData.value.head).map((image) => ({
+        ...image,
+        term: {
+          type: image.type,
+          rel: image.rel,
+          sizes: image.sizes,
+        },
+      }))
+    ));
 
     return {
       favicons,
