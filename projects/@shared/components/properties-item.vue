@@ -78,7 +78,7 @@ export default {
       },
     },
     term: {
-      type: [ String, Object ],
+      type: [ Object, String ],
       required: true,
     },
     type: {
@@ -88,7 +88,7 @@ export default {
       validator: type => [ 'string', 'link', 'urls', 'image', 'color' ].indexOf(type) !== -1,
     },
     value: {
-      type: [ String, Number ],
+      type: [ Array, Number, String ],
       required: true,
     },
   },
@@ -98,15 +98,29 @@ export default {
   },
   computed: {
     isColorValue() {
+      /*
+        Required value prop format:
+        - String
+        - Hex value
+       */
       return this.type === 'color';
     },
     isImageValue() {
+      /*
+        Required value prop format:
+        - Object
+        - { url: '', title (optional): '', href: '' }
+       */
       return this.type === 'image' && this.image;
     },
     termIsIterable() {
       return typeof this.term === 'object';
     },
     isLinkValue() {
+      /*
+        Required value prop format:
+        - String
+       */
       return this.type === 'link';
     },
     isUrlsValue() {
