@@ -44,7 +44,7 @@
 <script>
 import { mapState } from 'vuex';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
-import { findLinkHref, findXMLElement } from '@shared/lib/find-meta';
+import { findXMLElement } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
 import schema  from '../lib/schemas/opensearch-schema';
 import PanelSection from '@shared/components/panel-section';

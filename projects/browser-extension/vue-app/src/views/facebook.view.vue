@@ -36,7 +36,7 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="(item, index) in facebookProperties"
+          v-for="(item, index) in facebookMetaData"
           :key="index"
           :term="item.keyName"
           :value="item.value"
