@@ -1,5 +1,6 @@
 import { shallowRef, readonly } from 'vue';
 import repo from '@/repo';
+import router from '@/router';
 
 const _headData = shallowRef(null);
 
@@ -10,6 +11,7 @@ const getForUrl = url => repo
   .then(setHeadData)
   .catch(err => {
     console.error(err);
+    console.log(router);
   });
 
 export default () => ({

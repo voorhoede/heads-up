@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
+import Home from '@/views/home.view';
 import AppleIos from '@/views/apple-ios.view';
 import Favicon from '@/views/favicon.view';
 import Link from '@/views/link.view';
@@ -16,7 +17,8 @@ import Whatsapp from '@/views/whatsapp.view';
 const routes = [
   {
     path: '/',
-    redirect: '/meta',
+    name: 'home',
+    component: Home,
   },
 
   // Application

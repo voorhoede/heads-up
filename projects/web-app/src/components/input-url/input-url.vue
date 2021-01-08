@@ -1,7 +1,7 @@
 <template>
 <form
   class="input-url"
-  @submit.prevent="getHeadForUrl(url)"
+  @submit.prevent="getHeadData"
 >
   <input
     type="url"
@@ -19,19 +19,32 @@ import useHead from '@/composables/use-head';
 export default {
   setup: () => {
     const getHeadForUrl = useHead().getForUrl;
-    const defaultUrl = 'https://www.voorhoede.nl/en/';
     const params = new URLSearchParams(window.location.search);
     const urlParam = params.get('url');
     const url = ref('');
 
+    const getHeadData = () => {
+      console.log('get head data!');
+      getHeadForUrl(url.value)
+        .then(res => {
+          console.log('great success!', res);
+        })
+        .catch(err => {
+          console.log('no success!', err);
+        })
+      ;
+    };
+
     onMounted(() => {
-      url.value = urlParam ? urlParam : defaultUrl;
-      getHeadForUrl(url.value);
+      if(urlParam) {
+        url.value = urlParam;
+        getHeadData();
+      }
     });
 
     return {
       url,
-      getHeadForUrl,
+      getHeadData,
     };
   },
 };
