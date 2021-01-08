@@ -26,6 +26,7 @@
         :key="index"
         :value="item.value"
         :term="item.keyName"
+        :type="item.type"
       >
       </properties-item>
     </properties-list>
@@ -105,7 +106,8 @@ export default {
         {
           keyName: 'urls',
           title: 'Url(s)',
-          value: urls.value,
+          value: formatUrlsObject(urls.value),
+          type: 'urls',
         },
         {
           keyName: 'image',
@@ -121,6 +123,17 @@ export default {
     });
 
     const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
+    const formatUrlsObject = urls => urls.map(item => {
+      const templateAttr = item.attributes.find(({ name }) => name === 'template');
+      const url = templateAttr ? templateAttr.value : null;
+      const attributes = item.attributes
+        .filter(({ name }) => name !== 'template')
+        .reduce((obj, { name, value }) => (
+          Object.assign(obj, { [name]: value })
+        ), {});
+
+      return { url, attributes };
+    });
     const getFileContent = value => {
       fetch(value)
         .then(res => res.text())
@@ -156,6 +169,7 @@ export default {
       inputEncoding,
       opensearchData,
       absoluteUrl,
+      formatUrlsObject,
       getFileContent,
     };
   },

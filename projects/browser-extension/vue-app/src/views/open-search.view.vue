@@ -24,6 +24,7 @@
           :key="index"
           :value="item.value"
           :term="item.keyName"
+          :type="item.type"
         >
         </properties-item>
       </properties-list>
@@ -114,7 +115,8 @@ export default {
         {
           keyName: 'urls',
           title: 'Url(s)',
-          value: this.urls,
+          value: this.formatUrlsObject(this.urls),
+          type: 'urls',
         },
         {
           keyName: 'image',
@@ -133,6 +135,19 @@ export default {
   methods: {
     absoluteUrl(url) {
       return createAbsoluteUrl(this.head, url);
+    },
+    formatUrlsObject(urls) {
+      return urls.map(item => {
+        const templateAttr = item.attributes.find(({ name }) => name === 'template');
+        const url = templateAttr ? templateAttr.value : null;
+        const attributes = item.attributes
+          .filter(({ name }) => name !== 'template')
+          .reduce((obj, { name, value }) => (
+            Object.assign(obj, { [name]: value })
+          ), {});
+
+        return { url, attributes };
+      });
     },
   },
 };

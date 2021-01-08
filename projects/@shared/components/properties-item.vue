@@ -20,7 +20,7 @@
       </external-link>
     </dd>
 
-    <dd v-else-if="isUrlValue" class="properties-item__value">
+    <dd v-else-if="isLinkValue" class="properties-item__value">
       <external-link :href="value">
         {{ value }}
       </external-link>
@@ -29,6 +29,21 @@
     <dd v-else-if="isColorValue" class="properties-item__value">
       <span>{{ value }}</span>
       <span class="properties-item__color" :style="{ backgroundColor: value }"></span>
+    </dd>
+
+    <dd v-else-if="isUrlsValue" class="properties-item__value">
+      <div v-for="(item, index) in value" :key="index" class="properties-item__value-section">
+        <template v-if="item.url">
+          <external-link :href="item.url">
+            <span>{{ item.url }}</span>
+          </external-link>
+        </template>
+        <template v-if="item.attributes">
+          <span v-for="(attribute, name) in item.attributes" :key="name">
+            {{ name }}: {{ attribute }}
+          </span>
+        </template>
+      </div>
     </dd>
 
     <dd v-else class="properties-item__value">
@@ -70,7 +85,7 @@ export default {
       type: String,
       required: false,
       default: 'string',
-      validator: type => [ 'string', 'url', 'image', 'color' ].indexOf(type) !== -1,
+      validator: type => [ 'string', 'link', 'urls', 'image', 'color' ].indexOf(type) !== -1,
     },
     value: {
       type: [ String, Number ],
@@ -91,8 +106,16 @@ export default {
     termIsIterable() {
       return typeof this.term === 'object';
     },
-    isUrlValue() {
-      return this.type === 'url';
+    isLinkValue() {
+      return this.type === 'link';
+    },
+    isUrlsValue() {
+      /*
+        Required value prop format:
+        - Array
+        - [ { url: '', attributes (optional): {...} } ]
+       */
+      return this.type === 'urls';
     },
     showItem() {
       return this.term && this.value || this.required;
@@ -116,7 +139,8 @@ export default {
     min-width: 120px;
   }
 
-  .properties-item__term > span {
+  .properties-item__term > span,
+  .properties-item__value > span {
     display: block;
     margin-bottom: 4px;
   }
@@ -125,6 +149,14 @@ export default {
     color: var(--value-color);
     flex: 0 0 70%;
     margin-left: 1rem;
+  }
+
+  .properties-item__value-section {
+    margin-bottom: 6px;
+  }
+
+  .properties-item__value-section > span {
+    display: block;
   }
 
   .properties-item__color {
