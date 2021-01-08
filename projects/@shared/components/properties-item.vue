@@ -10,14 +10,14 @@
     </dt>
 
     <dd v-if="isImageValue" class="properties-item__value">
+      <img
+        class="properties-item__image"
+        :src="image.url"
+        :alt="image.title ? image.title : ''"
+      />
       <external-link :href="image.url">
-        <img
-          class="properties-item__image"
-          :src="image.url"
-          :alt="image.title ? image.title : ''"
-        />
+        <span>{{ image.href }}</span>
       </external-link>
-      <span>{{ image.href }}</span>
     </dd>
 
     <dd v-else-if="isUrlValue" class="properties-item__value">
@@ -116,6 +116,11 @@ export default {
     min-width: 120px;
   }
 
+  .properties-item__term > span {
+    display: block;
+    margin-bottom: 4px;
+  }
+
   .properties-item__value {
     color: var(--value-color);
     flex: 0 0 70%;
@@ -133,5 +138,6 @@ export default {
   .properties-item__image {
     display: block;
     max-width: 200px;
+    margin-bottom: 4px;
   }
 </style>
