@@ -43,7 +43,7 @@ export default {
   setup: () => {
     const headData = useHead().data;
     const favicons = computed(() => (
-      findFavicons(headData.value.head).map((image) => ({
+      findFavicons(headData.value.head).map(image => ({
         ...image,
         term: {
           type: image.type,

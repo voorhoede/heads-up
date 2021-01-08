@@ -52,7 +52,7 @@ export default {
   computed: {
     ...mapState([ 'head' ]),
     favicons() {
-      return findFavicons(this.head).map((image) => ({
+      return findFavicons(this.head).map(image => ({
         ...image,
         term: {
           type: image.type,
