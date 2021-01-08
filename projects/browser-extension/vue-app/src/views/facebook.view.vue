@@ -99,9 +99,28 @@ export default {
     ...mapState([ 'head' ]),
     og() {
       return {
+        type: this.propertyValue('og:type'),
+        url: this.absoluteUrl(this.propertyValue('og:url')),
+        locale: this.absoluteUrl(this.propertyValue('og:locale')),
         title: this.propertyValue('og:title'),
-        image: this.absoluteUrl(this.propertyValue('og:image')),
         description: this.propertyValue('og:description'),
+        image: this.absoluteUrl(this.propertyValue('og:image')),
+        imageUrl: this.absoluteUrl(this.propertyValue('og:image:url')),
+        imageSecureUrl: this.absoluteUrl(this.propertyValue('og:image:secure_url')),
+        imageType: this.propertyValue('og:image:type'),
+        imageWidth: this.propertyValue('og:image:width'),
+        imageHeight: this.propertyValue('og:image:height'),
+        video: this.absoluteUrl(this.propertyValue('og:video')),
+        videoUrl: this.absoluteUrl(this.propertyValue('og:video:url')),
+        videoSecureUrl: this.absoluteUrl(this.propertyValue('og:video:secure_url')),
+        videoType: this.propertyValue('og:video:type'),
+        videoWidth: this.propertyValue('og:video:width'),
+        videoHeight: this.propertyValue('og:video:height'),
+      };
+    },
+    facebookProperties() {
+      return {
+        appId: this.propertyValue('fb:app_id'),
       };
     },
     themeClass() {
@@ -137,8 +156,28 @@ export default {
           : `/previews/facebook-mobile/facebook-mobile.html?${ params }`
       }`;
     },
-    facebookProperties() {
+    facebookMetaData() {
       return [
+        {
+          keyName: 'fb:app_id',
+          title: 'fb:app_id',
+          value: this.facebookProperties.appId,
+        },
+        {
+          keyName: 'og:type',
+          title: 'og:type',
+          value: this.og.type,
+        },
+        {
+          keyName: 'og:url',
+          title: 'og:url',
+          value: this.og.url,
+        },
+        {
+          keyName: 'og:locale',
+          title: 'og:locale',
+          value: this.og.locale,
+        },
         {
           keyName: 'og:title',
           title: 'og:title',
@@ -153,6 +192,61 @@ export default {
           keyName: 'og:image',
           title: 'og:image',
           value: this.og.image,
+        },
+        {
+          keyName: 'og:image:url',
+          title: 'og:image:url',
+          value: this.og.imageUrl,
+        },
+        {
+          keyName: 'og:image:secure_url',
+          title: 'og:image:secure_url',
+          value: this.og.imageSecureUrl,
+        },
+        {
+          keyName: 'og:image:type',
+          title: 'og:image:type',
+          value: this.og.imageType,
+        },
+        {
+          keyName: 'og:image:width',
+          title: 'og:image:width',
+          value: this.og.imageWidth,
+        },
+        {
+          keyName: 'og:image:height',
+          title: 'og:image:height',
+          value: this.og.imageHeight,
+        },
+        {
+          keyName: 'og:video',
+          title: 'og:video',
+          value: this.og.video,
+        },
+        {
+          keyName: 'og:video:url',
+          title: 'og:video:url',
+          value: this.og.videoUrl,
+        },
+        {
+          keyName: 'og:video:secure_url',
+          title: 'og:video:secure_url',
+          value: this.og.videoSecureUrl,
+        },
+        {
+          keyName: 'og:video:type',
+          title: 'og:video:type',
+          value: this.og.videoType,
+        },
+        {
+          keyName: 'og:video:width',
+          title: 'og:video:width',
+          value: this.og.videoWidth,
+        },
+        {
+          keyName: 'og:video:height',
+          title: 'og:video:height',
+          value: this.og.videoHeight,
         },
       ];
     },
