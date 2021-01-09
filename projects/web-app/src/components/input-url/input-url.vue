@@ -1,7 +1,7 @@
 <template>
 <form
   class="input-url"
-  @submit.prevent="getHeadData"
+  @submit.prevent="submitUrl"
 >
   <input
     type="url"
@@ -13,38 +13,22 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import useHead from '@/composables/use-head';
 
 export default {
   setup: () => {
-    const getHeadForUrl = useHead().getForUrl;
-    const params = new URLSearchParams(window.location.search);
-    const urlParam = params.get('url');
-    const url = ref('');
+    const head = useHead();
+    // Initialize local ref with stored global url
+    const url = ref(head.url.value);
 
-    const getHeadData = () => {
-      console.log('get head data!');
-      getHeadForUrl(url.value)
-        .then(res => {
-          console.log('great success!', res);
-        })
-        .catch(err => {
-          console.log('no success!', err);
-        })
-      ;
+    const submitUrl = () => {
+      head.getDataForUrl(url.value);
     };
-
-    onMounted(() => {
-      if(urlParam) {
-        url.value = urlParam;
-        getHeadData();
-      }
-    });
 
     return {
       url,
-      getHeadData,
+      submitUrl,
     };
   },
 };

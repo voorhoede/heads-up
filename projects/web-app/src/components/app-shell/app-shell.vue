@@ -3,43 +3,42 @@
     <app-header />
     <app-sidebar />
     <main class="app-main">
-      <loader v-if="loading" />
-      <router-view v-if="headData" />
-
-      <div
-        v-if="!headData"
-        class="intro-message"
-      >
-        <h2>Visualise everything in your &lt;head&gt; with Heads Up.</h2>
-        <p>Enter your website in the top bar to begin.</p>
-      </div>
+      <loader v-if="isLoadingHeadData" />
+      <router-view v-else-if="hasData" />
     </main>
   </div>
 </template>
 
 <script>
-import { ref, onUpdated } from 'vue';
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
+import useHead from '@/composables/use-head';
 import AppHeader from './app-header';
 import AppSidebar from './app-sidebar';
 import Loader from '../loader/loader';
-import useHead from '@/composables/use-head';
 
 export default {
   setup: () => {
-    const headData = useHead().data;
-    const loading = ref(true);
+    const router = useRouter();
+    const head = useHead();
+    const isLoadingHeadData = head.isLoading;
 
-    onUpdated(() => {
-      if (headData.value && Object.keys(headData.value).length) {
-        loading.value = false;
-      } else {
-        loading.value = true;
-      }
-    });
+    // We get `url` query param here to do initial load if available
+    const params = new URLSearchParams(window.location.search);
+    const urlParam = params.get('url');
+
+    if(urlParam) {
+      head.getDataForUrl(urlParam);
+    }
+    else if(router.currentRoute.value.name !== 'home') {
+      router.replace({ name: 'home' });
+    }
+
+    const hasData = computed(() => head.data.value && Object.keys(head.data.value).length);
 
     return {
-      headData,
-      loading,
+      isLoadingHeadData,
+      hasData,
     };
   },
 
@@ -64,13 +63,5 @@ export default {
   border-top: 1px solid var(--color-gray);
   margin-top: var(--header-height);
   overflow: auto;
-}
-
-.intro-message {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
 }
 </style>
