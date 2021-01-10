@@ -13,17 +13,41 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
 import useHead from '@/composables/use-head';
 
 export default {
   setup: () => {
+    const router = useRouter();
     const head = useHead();
+
     // Initialize local ref with stored global url
     const url = ref(head.url.value);
+    watch(head.url, newUrl => {
+      if(url.value !== newUrl) url.value = newUrl;
+    });
 
     const submitUrl = () => {
-      head.getDataForUrl(url.value);
+      head.getDataForUrl(url.value)
+        .then(data => {
+          if(data && Object.keys(data).length) {
+            if(router.currentRoute.value.name === 'home') {
+              router.replace({ name: 'meta' });
+            }
+          }
+          else {
+            router.replace({ name: 'home' });
+          }
+        })
+        .catch(err => {
+          // @TODO :: Nicer error messaging to user
+          console.error(`Failed to load head data for "${ url.value }".`, err);
+          if(router.currentRoute.value.name !== 'home') {
+            router.replace({ name: 'home' });
+          }
+        })
+      ;
     };
 
     return {

@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import useHead from '@/composables/use-head';
 
 import Home from '@/views/home.view';
 import AppleIos from '@/views/apple-ios.view';
@@ -99,12 +100,62 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  const url = from.query.url;
+let isFirstRoute = true;
 
-  if (url && !to.query.url) {
-    return next({ path: to.path, query: { url } });
+// eslint-disable-next-line sonarjs/cognitive-complexity
+router.beforeEach(async (to, from, next) => {
+  const toQueryUrl = to.query.url;
+  const head = useHead();
+
+  /**
+   * Route Guard for first route
+   */
+  if(isFirstRoute) {
+    isFirstRoute = false;
+    if(toQueryUrl) {
+      try {
+        const headData = await head.getDataForUrl(toQueryUrl);
+        if(headData && Object.keys(headData).length) {
+          if(to.name === 'home') {
+            return next({ name: 'meta' });
+          }
+          return next();
+        }
+        else {
+          // @TODO :: Nicer error messaging to user
+          console.error(`Failed to load head data for "${ toQueryUrl }".`);
+          if(to.name !== 'home') {
+            return next({ name: 'home' });
+          }
+        }
+      }
+      catch(err) {
+        // @TODO :: Nicer error messaging to user
+        console.error(`Failed to load head data for "${ toQueryUrl }".`, err);
+        if(to.name !== 'home') {
+          return next({ name: 'home' });
+        }
+      }
+    }
+    else if(to.name !== 'home') {
+      return next({ name: 'home' });
+    }
   }
+  isFirstRoute = false;
+
+  /**
+   * Route Guard for any subsequent route that isn't `home`
+   * Check if data is present
+   */
+  if(to.name !== 'home' && !(head.data.value && Object.keys(head.data.value).length)) {
+    return next({ name: 'home' });
+  }
+
+  // Pass url query string along to each route if it exists
+  // const fromQueryUrl = from.query.url;
+  // if(fromQueryUrl && !toQueryUrl) {
+  //   return next({ path: to.path, query: { url: fromQueryUrl } });
+  // }
 
   return next();
 });
