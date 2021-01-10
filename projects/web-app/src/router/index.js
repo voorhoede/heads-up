@@ -114,7 +114,6 @@ router.beforeEach(async (to, from, next) => {
     isFirstRoute = false;
     if(toQueryUrl) {
       const routeguarded = await getDataGuarded(toQueryUrl);
-      console.log(routeguarded);
       if(routeguarded) return;
     }
     else if(to.name !== 'home') {

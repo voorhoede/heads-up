@@ -22,17 +22,17 @@ const getDataForUrl = url => {
     // We use `then` after `catch` so the error possibly
     // thrown here isn't immediately caught
     .then(data => {
-      // If we get empty data, throw error
-      if(Object.keys(data).length) {
+      // If we get invalid or empty data, throw error
+      if(!data || !Object.keys(data).length) {
         const errorMsg = `Received invalid or empty data for "${ url }".`;
         // @TODO :: Nicer error messaging to user
         console.error(errorMsg);
-        _headData.value = data;
+        _headData.value = null;
         throw new Error(errorMsg);
       }
       _headData.value = data;
-      return data;
       // @TODO :: Session storage?
+      return data;
     })
     .finally(() => {
       _isLoading.value = false;
