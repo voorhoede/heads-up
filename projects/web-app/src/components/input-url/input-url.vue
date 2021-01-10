@@ -29,25 +29,7 @@ export default {
     });
 
     const submitUrl = () => {
-      head.getDataForUrl(url.value)
-        .then(data => {
-          if(data && Object.keys(data).length) {
-            if(router.currentRoute.value.name === 'home') {
-              router.replace({ name: 'meta' });
-            }
-          }
-          else {
-            router.replace({ name: 'home' });
-          }
-        })
-        .catch(err => {
-          // @TODO :: Nicer error messaging to user
-          console.error(`Failed to load head data for "${ url.value }".`, err);
-          if(router.currentRoute.value.name !== 'home') {
-            router.replace({ name: 'home' });
-          }
-        })
-      ;
+      head.getDataForUrlWithRouteGuard(router.currentRoute.value.name, router.replace)(url.value);
     };
 
     return {

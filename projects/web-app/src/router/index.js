@@ -102,10 +102,10 @@ const router = createRouter({
 
 let isFirstRoute = true;
 
-// eslint-disable-next-line sonarjs/cognitive-complexity
 router.beforeEach(async (to, from, next) => {
   const toQueryUrl = to.query.url;
   const head = useHead();
+  const getDataGuarded = head.getDataForUrlWithRouteGuard(to.name, next);
 
   /**
    * Route Guard for first route
@@ -113,33 +113,14 @@ router.beforeEach(async (to, from, next) => {
   if(isFirstRoute) {
     isFirstRoute = false;
     if(toQueryUrl) {
-      try {
-        const headData = await head.getDataForUrl(toQueryUrl);
-        if(headData && Object.keys(headData).length) {
-          if(to.name === 'home') {
-            return next({ name: 'meta' });
-          }
-          return next();
-        }
-        else {
-          // @TODO :: Nicer error messaging to user
-          console.error(`Failed to load head data for "${ toQueryUrl }".`);
-          if(to.name !== 'home') {
-            return next({ name: 'home' });
-          }
-        }
-      }
-      catch(err) {
-        // @TODO :: Nicer error messaging to user
-        console.error(`Failed to load head data for "${ toQueryUrl }".`, err);
-        if(to.name !== 'home') {
-          return next({ name: 'home' });
-        }
-      }
+      const routeguarded = await getDataGuarded(toQueryUrl);
+      console.log(routeguarded);
+      if(routeguarded) return;
     }
     else if(to.name !== 'home') {
       return next({ name: 'home' });
     }
+    return next();
   }
   isFirstRoute = false;
 
@@ -147,7 +128,7 @@ router.beforeEach(async (to, from, next) => {
    * Route Guard for any subsequent route that isn't `home`
    * Check if data is present
    */
-  if(to.name !== 'home' && !(head.data.value && Object.keys(head.data.value).length)) {
+  if(to.name !== 'home' && !head.data.value) {
     return next({ name: 'home' });
   }
 
