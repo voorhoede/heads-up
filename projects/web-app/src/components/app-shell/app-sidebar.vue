@@ -1,6 +1,6 @@
 <template>
   <aside class="app-sidebar">
-    <nav>
+    <nav :class="{ disabled: !hasData }">
       <section class="app-sidebar__section">
         <h3 class="app-sidebar__section-title">Application</h3>
         <ul class="app-sidebar__list">
@@ -109,6 +109,8 @@
 </template>
 
 <script>
+import { computed } from 'vue';
+import useHead from '@/composables/use-head';
 import AppleIcon from '@shared/assets/icons/apple.svg';
 import CodeIcon from '@shared/assets/icons/code.svg';
 import FacebookIcon from '@shared/assets/icons/facebook.svg';
@@ -126,6 +128,11 @@ import TwitterIcon from '@shared/assets/icons/twitter.svg';
 import WhatsappIcon from '@shared/assets/icons/whatsapp.svg';
 
 export default {
+  setup() {
+    const hasData = computed(() => !!useHead().data.value);
+    return { hasData };
+  },
+
   components: {
     AppleIcon,
     CodeIcon,
@@ -166,7 +173,7 @@ export default {
   text-decoration: none;
   color: var(--color-black);
   padding: 0.5rem 0.5rem;
-  transition: border-color .15s ease, color .15s ease, fill .15s ease;
+  transition: opacity .3s ease-out, border-color .15s ease, color .15s ease, fill .15s ease;
   background-color: rgba(0, 0, 255, 0);
   border-left: 2px solid transparent;
 }
@@ -183,6 +190,17 @@ export default {
   width: 18px;
   height: 18px;
   margin-right: 0.625rem;
+}
+
+.disabled .app-sidebar__link {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.disabled .app-sidebar__link:hover {
+  color: var(--color-black);
+  fill: var(--color-black);
+  border-color: transparent;
 }
 
 .app-sidebar__external-link {

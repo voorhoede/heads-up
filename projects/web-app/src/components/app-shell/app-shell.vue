@@ -3,43 +3,25 @@
     <app-header />
     <app-sidebar />
     <main class="app-main">
-      <loader v-if="loading" />
-      <router-view v-if="headData" />
-
-      <div
-        v-if="!headData"
-        class="intro-message"
-      >
-        <h2>Visualise everything in your &lt;head&gt; with Heads Up.</h2>
-        <p>Enter your website in the top bar to begin.</p>
-      </div>
+      <loader v-if="isLoadingHeadData" />
+      <router-view v-else />
     </main>
   </div>
 </template>
 
 <script>
-import { ref, onUpdated } from 'vue';
+import useHead from '@/composables/use-head';
 import AppHeader from './app-header';
 import AppSidebar from './app-sidebar';
-import Loader from '../loader/loader';
-import useHead from '@/composables/use-head';
+import Loader from '@/components/loader/loader';
 
 export default {
   setup: () => {
-    const headData = useHead().data;
-    const loading = ref(true);
-
-    onUpdated(() => {
-      if (headData.value && Object.keys(headData.value).length) {
-        loading.value = false;
-      } else {
-        loading.value = true;
-      }
-    });
+    const head = useHead();
+    const isLoadingHeadData = head.isLoading;
 
     return {
-      headData,
-      loading,
+      isLoadingHeadData,
     };
   },
 
@@ -64,13 +46,5 @@ export default {
   border-top: 1px solid var(--color-gray);
   margin-top: var(--header-height);
   overflow: auto;
-}
-
-.intro-message {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
 }
 </style>
