@@ -16,7 +16,6 @@ const getDataForUrl = url => {
     .catch(err => {
       // @TODO :: Nicer error messaging to user
       console.error(`Failed to load head data for "${ url }".`, err);
-      _headData.value = null;
       throw err;
     })
     // We use `then` after `catch` so the error possibly
@@ -27,11 +26,13 @@ const getDataForUrl = url => {
         const errorMsg = `Received invalid or empty data for "${ url }".`;
         // @TODO :: Nicer error messaging to user
         console.error(errorMsg);
-        _headData.value = null;
         throw new Error(errorMsg);
       }
+      // On success, save and return data
       _headData.value = data;
-      // @TODO :: Session storage?
+      if(sessionStorage) {
+        sessionStorage.setItem('url', url);
+      }
       return data;
     })
     .finally(() => {
@@ -51,7 +52,10 @@ const getDataForUrlWithRouteGuard = (routeName, routeResolver) => async url => {
   }
   catch(err) {
     if(routeName !== 'home') {
-      routeResolver({ name: 'home' });
+      await routeResolver({ name: 'home' });
+      // We reset `headData` only here so we've already routed
+      // away from any page that might depend on that data
+      _headData.value = null;
       routed = true;
     }
   }
