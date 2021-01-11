@@ -57,3 +57,5 @@ From this folder, we can the following scrips:
 `dev:landing-page` | Compiles and live updates landing page
 `dev:web-app` | Compiles and hot-reloads web application
 `lint` | Checks projects for code style violations.
+
+# test
