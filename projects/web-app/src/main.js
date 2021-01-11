@@ -10,5 +10,3 @@ createApp(AppShell)
   // .use(store)
   .use(router)
   .mount('#app');
-
-// Specific test for web-app
