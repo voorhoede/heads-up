@@ -9,6 +9,7 @@
          v-if="openSearchContent"
         :url="previewUrl"
         iframeClass="opensearch__preview"
+        :loading-height="140"
       >
         <template v-slot:caption>
           Preview based on source file:
