@@ -5,11 +5,11 @@ const _url = shallowRef('');
 const _headData = shallowRef(null);
 const _isLoading = shallowRef(false);
 
-const getDataForUrl = url => {
-  if(url === _url.value) return Promise.resolve(_headData);
+const setUrl = url => _url.value = url;
 
+const getDataForUrl = url => {
   _isLoading.value = true;
-  _url.value = url;
+  setUrl(url);
 
   return repo
     .getMetaForUrl(url)
@@ -67,6 +67,7 @@ export default () => {
     url: readonly(_url),
     isLoading: readonly(_isLoading),
     data: readonly(_headData),
+    setUrl,
     getDataForUrlWithRouteGuard,
   };
 };

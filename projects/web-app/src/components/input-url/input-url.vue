@@ -29,7 +29,7 @@ export default {
     });
 
     const submitUrl = () => {
-      head.getDataForUrlWithRouteGuard(router.currentRoute.value.name, router.replace)(url.value);
+      head.getDataForUrlWithRouteGuard(router.currentRoute.value.name, router.push)(url.value);
     };
 
     return {

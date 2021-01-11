@@ -105,6 +105,7 @@ let isFirstRoute = true;
 router.beforeEach(async (to, from, next) => {
   const head = useHead();
   const getDataGuarded = head.getDataForUrlWithRouteGuard(to.name, next);
+  const atHome = to.name === 'home';
 
   /**
    * Route Guard for first route:
@@ -112,12 +113,23 @@ router.beforeEach(async (to, from, next) => {
    */
   if(isFirstRoute) {
     isFirstRoute = false;
-    const initialUrl = to.query.url || (sessionStorage && sessionStorage.getItem('url'));
-    if(initialUrl) {
-      const routeguarded = await getDataGuarded(initialUrl);
+    const queryUrl = to.query.url;
+    const storedUrl = sessionStorage && sessionStorage.getItem('url');
+
+    if(queryUrl) {
+      const routeguarded = await getDataGuarded(queryUrl);
       if(routeguarded) return;
     }
-    else if(to.name !== 'home') {
+    else if(storedUrl) {
+      if(atHome) {
+        head.setUrl(storedUrl);
+      }
+      else {
+        const routeguarded = await getDataGuarded(storedUrl);
+        if(routeguarded) return;
+      }
+    }
+    else if(!atHome) {
       return next({ name: 'home' });
     }
     return next();
@@ -128,7 +140,7 @@ router.beforeEach(async (to, from, next) => {
    * Route Guard for any subsequent route that isn't `home`
    * - Check if data is present or reroute home
    */
-  if(to.name !== 'home' && !head.data.value) {
+  if(!atHome && !head.data.value) {
     return next({ name: 'home' });
   }
 
