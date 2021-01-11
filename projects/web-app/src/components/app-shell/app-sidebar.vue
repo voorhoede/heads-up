@@ -81,6 +81,12 @@
             </router-link>
           </li>
           <li>
+            <router-link :to="{ name: 'structured-data' }" class="app-sidebar__link">
+              <CodeIcon />
+              <span>Structured Data</span>
+            </router-link>
+          </li>
+          <li>
             <router-link :to="{ name: 'robots-txt' }" class="app-sidebar__link">
               <RobotIcon />
               <span>Robots</span>
