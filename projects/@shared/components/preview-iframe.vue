@@ -1,8 +1,13 @@
 <template>
-<figure>
-  <p v-if="isLoading" class="preview-iframe__loading">Loading...</p>
+<figure class="preview-iframe">
+  <p
+    v-if="isLoading"
+    class="preview-iframe__loading"
+  >
+    Loading...
+  </p>
   <iframe
-    :class="[ 'preview-iframe', iframeClass ]"
+    :class="[ 'preview-iframe__iframe', iframeClass ]"
     :height="iframeHeight"
     :src="url"
     @load="onLoad"
@@ -31,23 +36,29 @@ export default {
       type: String,
       default: '',
     },
+    loadingHeight: {
+      type: Number,
+      default: 100,
+    },
   },
 
-  setup() {
+  setup(props) {
     const iframe = ref(null);
-    const iframeHeight = ref('0');
+    const iframeHeight = ref(props.loadingHeight + 'px');
     const isLoading = ref(true);
 
-    const onLoad = () => {
-      setTimeout(() => {
-        iframeHeight.value = parseInt(iframe.value.contentWindow.document.body.scrollHeight) + 'px';
-        isLoading.value = false;
-      }, 500);
+    const setIframeHeight = () => {
+      iframeHeight.value = parseInt(iframe.value.contentWindow.document.body.scrollHeight) + 'px';
     };
 
-    const onResize = debounce(() => {
-      iframeHeight.value = parseInt(iframe.value.contentWindow.document.body.scrollHeight) + 'px';
-    }, 500);
+    const onResize = debounce(setIframeHeight, 500);
+
+    const onLoad = () => {
+      isLoading.value = false;
+      // We update the height with a final value based on the inner
+      // content height to make sure the iframe fits perfectly
+      onResize();
+    };
 
     onMounted(() => {
       window.addEventListener('resize', onResize);
@@ -69,6 +80,10 @@ export default {
 
 <style>
 .preview-iframe {
+  position: relative;
+}
+
+.preview-iframe__iframe {
   border: none;
   margin-bottom: 1em;
   padding: 0;
@@ -79,6 +94,9 @@ export default {
 }
 
 .preview-iframe__loading {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
   margin: 0;
 }
 </style>

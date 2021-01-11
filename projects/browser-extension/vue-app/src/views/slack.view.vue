@@ -8,6 +8,7 @@
         v-else
         :url="previewUrl"
         iframeClass="slack__preview"
+        :loading-height="263"
       >
         <template v-slot:caption>
           Preview based on <external-link href="https://slack.com/">slack.com</external-link>.

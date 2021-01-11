@@ -184,7 +184,7 @@ export default {
       this.valueSlot = this.$slots.value;
     }
 
-    if (!this.schema) { return; }
+    if (!this.schema) return;
 
     if (this.schema[this.keyName] && this.schema[this.keyName].meta) {
       this.info = this.schema[this.keyName].meta.info;
