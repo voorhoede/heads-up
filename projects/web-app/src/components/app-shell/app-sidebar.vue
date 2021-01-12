@@ -81,12 +81,6 @@
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'structured-data' }" class="app-sidebar__link">
-              <CodeIcon />
-              <span>Structured Data</span>
-            </router-link>
-          </li>
-          <li>
             <router-link :to="{ name: 'robots-txt' }" class="app-sidebar__link">
               <RobotIcon />
               <span>Robots</span>
@@ -102,6 +96,12 @@
             <router-link :to="{ name: 'opensearch' }" class="app-sidebar__link">
               <SearchIcon />
               <span>Open Search</span>
+            </router-link>
+          </li>
+          <li>
+            <router-link :to="{ name: 'structured-data' }" class="app-sidebar__link">
+              <SitemapIcon />
+              <span>Structured Data</span>
             </router-link>
           </li>
         </ul>

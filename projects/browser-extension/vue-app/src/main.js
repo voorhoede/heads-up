@@ -17,6 +17,7 @@ background.onMessage.addListener(message => {
     requestData();
   } else if (message.action === actions.NEW_DATA && message.tabId === tabId) {
     store.commit('SET_HEAD', { head: message.data.head });
+    store.dispatch('GET_STRUCTURED_DATA');
     store.dispatch('GET_ROBOTS_TXT');
     store.dispatch('CHECK_CRAWLABLE_URL');
     store.dispatch('GET_SITEMAP');
