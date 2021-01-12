@@ -1,20 +1,23 @@
 <template>
-  <panel-section title="Rel">
-    <div v-if="!linkMetadata.length" class="warning-message">
-      <WarningIcon class="icon" />
-      <p>No link meta properties detected.</p>
-    </div>
-    <collapsible-list v-else :data="linkMetadata" />
-  </panel-section>
-  <panel-section title="Resources">
-    <ul class="resource-list">
-      <li>
-        <external-link href="https://htmlhead.dev/">
-          Guide to HTML5 <code>&lt;head&gt;</code> elements
-        </external-link>
-      </li>
-    </ul>
-  </panel-section>
+  <div>
+    <h1>Link</h1>
+    <panel-section title="Rel">
+      <div v-if="!linkMetadata.length" class="warning-message">
+        <WarningIcon class="icon" />
+        <p>No link meta properties detected.</p>
+      </div>
+      <collapsible-list v-else :data="linkMetadata" />
+    </panel-section>
+    <panel-section title="Resources">
+      <ul class="resource-list">
+        <li>
+          <external-link href="https://htmlhead.dev/">
+            Guide to HTML5 <code>&lt;head&gt;</code> elements
+          </external-link>
+        </li>
+      </ul>
+    </panel-section>
+  </div>
 </template>
 
 <script>

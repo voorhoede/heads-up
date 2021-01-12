@@ -1,32 +1,35 @@
 <template>
-  <panel-section title="Properties">
-    <div v-if="!ogMeta.length" class="warning-message">
-      <WarningIcon class="icon" />
-      <p>No Open Graph properties detected.</p>
-    </div>
-    <properties-list v-else>
-      <properties-item
-        v-for="(item, index) in ogMeta"
-        :key="index"
-        :value="item.content"
-        :key-name="item.property"
-        :refresh-on="ogMeta"
-      >
-        <template #default>
-          {{ item.property }}
-        </template>
-      </properties-item>
-    </properties-list>
-  </panel-section>
-  <panel-section title="Resources">
-    <ul class="resource-list">
-      <li>
-        <external-link href="https://ogp.me/">
-          The Open Graph Protocol
-        </external-link>
-      </li>
-    </ul>
-  </panel-section>
+  <div>
+    <h1>OpenGraph</h1>
+    <panel-section title="Properties">
+      <div v-if="!ogMeta.length" class="warning-message">
+        <WarningIcon class="icon" />
+        <p>No Open Graph properties detected.</p>
+      </div>
+      <properties-list v-else>
+        <properties-item
+          v-for="(item, index) in ogMeta"
+          :key="index"
+          :value="item.content"
+          :key-name="item.property"
+          :refresh-on="ogMeta"
+        >
+          <template #default>
+            {{ item.property }}
+          </template>
+        </properties-item>
+      </properties-list>
+    </panel-section>
+    <panel-section title="Resources">
+      <ul class="resource-list">
+        <li>
+          <external-link href="https://ogp.me/">
+            The Open Graph Protocol
+          </external-link>
+        </li>
+      </ul>
+    </panel-section>
+  </div>
 </template>
 
 <script>
