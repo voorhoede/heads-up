@@ -43,7 +43,7 @@ export default createStore({
       const dom = await fetch(state.head.url).then(res => res.text());
       const { metatags, ...structuredData } = new WAE().parse(dom);
 
-      commit('SET_STRUCTURED_DATA', { structuredData: { ...structuredData } });
+      commit('SET_STRUCTURED_DATA', { structuredData });
     },
     async GET_SITEMAP_URLS({ commit, state }) {
       const urls = await robotsTxt.fetch(state.head.domain)
