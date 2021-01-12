@@ -1,13 +1,13 @@
 <template>
   <div>
     <panel-section v-if="hasMicrodata" title="Microdata">
-      <pre>{{ structuredData.microdata }}</pre>
+      <pre class="structured-data__code-block">{{ structuredData.microdata }}</pre>
     </panel-section>
     <panel-section v-if="hasJsonld" title="JSON-LD">
-      <pre>{{ structuredData.jsonld }}</pre>
+      <pre class="structured-data__code-block">{{ structuredData.jsonld }}</pre>
     </panel-section>
     <panel-section v-if="hasRdfa" title="RDFa">
-      <pre>{{ structuredData.rdfa }}</pre>
+      <pre class="structured-data__code-block">{{ structuredData.rdfa }}</pre>
     </panel-section>
 
     <panel-section v-if="hasNoData" title="Structured Data">
@@ -70,3 +70,13 @@ export default {
   },
 };
 </script>
+
+<style>
+  .structured-data__code-block {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    max-height: 50vh;
+    overflow: auto;
+    padding: 0.5rem;
+  }
+</style>
