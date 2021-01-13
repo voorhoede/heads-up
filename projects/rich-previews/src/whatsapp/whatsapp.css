@@ -1,0 +1,120 @@
+@import "../../@shared/css/defaults.css";
+
+:root {
+  --color-border: #E1E8ED;
+  --base-color: #292F33;
+  --label-color: rgba(0, 0, 0, .6);
+  --accent-color: #039be5;
+  --background-color: #dcf8c6;
+  --content-background-color: rgba(0, 0, 0, 0.05);
+  --lh: 1.2rem
+}
+
+html {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  text-decoration: none;
+}
+
+.whatsapp-top {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--content-background-color);
+  border-radius: 7.5px;
+  margin-bottom: 6px;
+}
+
+.whatsapp-preview__media {
+  height: 69px;
+  min-width: 69px;
+  max-width: 69px;
+}
+
+.whatsapp-preview__image {
+  border-top-right-radius: 7.5px;
+  object-fit: cover;
+  height: 100%;
+  display: block;
+}
+
+.whatsapp-preview__content {
+  margin: 6px 10px 0;
+  overflow: hidden;
+}
+
+.whatsapp-preview__title {
+  font-size: 13px;
+  color: var(--base-color);
+  line-height: var(--lh);
+  color: black;
+  font-weight: 400;
+}
+
+.whatsapp-preview__description {
+  color: var(--label-color);
+  line-height: var(--lh);
+  font-size: 12px;
+}
+
+.whatsapp-preview__url {
+  color: var(--base-color);
+  font-size: 11px;
+  line-height: var(--lh);
+  padding: 0 10px 6px;
+}
+
+.whatsapp-preview__hostname {
+  color: var(--accent-color);
+  font-size: 12px;
+  overflow-wrap: break-word;
+}
+
+.whatsapp-preview {
+  box-shadow: 0 1px 0.5px rgba(0, 0, 0, .13);
+  border-radius: 7.5px;
+  padding: 3px 3px 8px 3px;
+  background-color: var(--background-color);
+  position: relative;
+}
+
+.whatsapp-preview__domain {
+  padding: 0 4px 0 6px;
+}
+
+.whatsapp-preview__tail {
+  width: 12px;
+  height: 19px;
+  top: 0;
+  right: -12px;
+  position: absolute;
+}
+
+.whatsapp-preview__timewrapper {
+  position: relative;
+  display: flex;
+  flex-flow: row-reverse;
+  padding-top: 3px;
+  float: right;
+}
+
+.whatsapp-preview__checkmark {
+  position: absolute;
+  right: -1px;
+  top: 2px;
+}
+
+.whatsapp-preview__checkmark svg {
+  height: auto;
+  width: 16px;
+}
+
+.whatsapp-preview__time {
+  color: rgba(0, 0, 0, .45);
+  font-size: 11px;
+  margin-right: 20px;
+}
+
+@media (min-width: 400px) {
+  .whatsapp-preview__description {
+    display: -webkit-box;
+  }
+}

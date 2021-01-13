@@ -1,4 +1,4 @@
-import { getHostname } from '../../@shared/js/utils';
+import { getHostname } from '../../@shared/js/utils.js';
 
 const app = Vue.createApp({
   setup() {
@@ -10,9 +10,8 @@ const app = Vue.createApp({
       title: params.get('title'),
       description: params.get('description'),
       image: params.get('image'),
-      type: params.get('card'),
       hostname: getHostname(url),
-      dark: params.get('theme') === 'dark',
+      currentTime: new Date().toLocaleTimeString().substr(0, 5),
     };
   },
 });

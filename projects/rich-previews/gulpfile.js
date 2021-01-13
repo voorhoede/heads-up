@@ -5,6 +5,8 @@ const del = require('del');
 const merge = require('merge-stream');
 const cssImport = require('gulp-cssimport');
 const minifyCss = require('gulp-csso');
+const tap = require('gulp-tap');
+const browserify = require('browserify');
 const uglify = require('gulp-uglify');
 const htmlmin = require('gulp-htmlmin');
 
@@ -32,6 +34,9 @@ const processCss = () => merge(
 const processJs = () => merge(
   previewDirs.map(dir =>
     gulp.src(`${ SOURCE_DIR }/${ dir }/**/*.js`)
+      .pipe(tap(file => {
+        file.contents = browserify(file.path, { debug: true }).bundle(),
+      }))
       .pipe(uglify())
       .pipe(gulp.dest(join(PUBLISH_DIR, dir)))
   )

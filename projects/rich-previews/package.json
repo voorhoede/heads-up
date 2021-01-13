@@ -6,11 +6,13 @@
     "build": "gulp run:build"
   },
   "devDependencies": {
+    "browserify": "^17.0.0",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
     "gulp-cssimport": "^7.0.0",
     "gulp-csso": "^4.0.1",
     "gulp-htmlmin": "^5.0.1",
+    "gulp-tap": "^2.0.0",
     "gulp-uglify": "^3.0.2",
     "merge-stream": "^2.0.0"
   }
