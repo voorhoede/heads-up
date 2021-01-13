@@ -8,6 +8,7 @@
         v-else
         :url="previewUrl"
         iframeClass="whatsapp__preview"
+        :loading-height="122"
       >
         <template v-slot:caption>
           Preview based on <external-link href="https://web.whatsapp.com/">web.whatsapp.com</external-link>.

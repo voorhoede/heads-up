@@ -12,6 +12,7 @@
       v-if="isValidCard && isSupportedCard"
       :url="previewUrl"
       iframeClass="twitter__preview"
+      :loading-height="346"
     >
       <template v-slot:caption>
         Preview based on <external-link href="https://mobile.twitter.com/">mobile.twitter.com</external-link>.

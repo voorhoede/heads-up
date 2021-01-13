@@ -22,6 +22,7 @@ module.exports = {
 
   rules: {
     'sonarjs/no-duplicate-string': 0,
+    'sonarjs/cognitive-complexity': [ 'warn', 20 ],
     'semi': [ 'warn', 'always' ],
     'no-unused-vars': [
       'warn',

@@ -7,6 +7,7 @@
       v-if="hasDescription && previewUrl"
       :url="previewUrl"
       iframeClass="whatsapp__preview"
+      :loading-height="122"
     >
       <template v-slot:caption>
         Preview based on

@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import useHead from '@/composables/use-head';
 
+import Home from '@/views/home.view';
 import AppleIos from '@/views/apple-ios.view';
 import Favicon from '@/views/favicon.view';
 import Link from '@/views/link.view';
@@ -16,7 +18,8 @@ import Whatsapp from '@/views/whatsapp.view';
 const routes = [
   {
     path: '/',
-    redirect: '/meta',
+    name: 'home',
+    component: Home,
   },
 
   // Application
@@ -97,11 +100,48 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  const url = from.query.url;
+let isFirstRoute = true;
 
-  if (url && !to.query.url) {
-    return next({ path: to.path, query: { url } });
+router.beforeEach(async (to, from, next) => {
+  const head = useHead();
+  const getDataGuarded = head.getDataForUrlWithRouteGuard(to.name, next);
+  const atHome = to.name === 'home';
+
+  /**
+   * Route Guard for first route:
+   * - Try to fetch data for initial url and (re-)route accordingly
+   */
+  if(isFirstRoute) {
+    isFirstRoute = false;
+    const queryUrl = to.query.url;
+    const storedUrl = sessionStorage && sessionStorage.getItem('url');
+
+    if(queryUrl) {
+      const routeguarded = await getDataGuarded(queryUrl);
+      if(routeguarded) return;
+    }
+    else if(storedUrl) {
+      if(atHome) {
+        head.setUrl(storedUrl);
+      }
+      else {
+        const routeguarded = await getDataGuarded(storedUrl);
+        if(routeguarded) return;
+      }
+    }
+    else if(!atHome) {
+      return next({ name: 'home' });
+    }
+    return next();
+  }
+  isFirstRoute = false;
+
+  /**
+   * Route Guard for any subsequent route that isn't `home`
+   * - Check if data is present or reroute home
+   */
+  if(!atHome && !head.data.value) {
+    return next({ name: 'home' });
   }
 
   return next();

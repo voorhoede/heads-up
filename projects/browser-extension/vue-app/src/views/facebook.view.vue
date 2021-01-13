@@ -12,6 +12,7 @@
       <preview-iframe
         :url="previewUrl"
         iframeClass="facebook__preview"
+        :loading-height="359"
       >
         <template v-slot:caption>
           Preview based on <external-link href="https://m.facebook.com/">m.facebook.com</external-link>.
@@ -26,6 +27,7 @@
       <preview-iframe
         :url="previewUrl"
         class="facebook__preview"
+        :loading-height="368"
       >
         <template v-slot:caption>
           Preview based on <external-link href="https://facebook.com/">facebook.com</external-link>.

@@ -8,6 +8,7 @@
         v-else
         :url="previewUrl"
         iframeClass="linkedin__preview"
+        :loading-height="348"
       >
         <template v-slot:caption>
           Preview based on <external-link href="https://linkedin.com/">linkedin.com</external-link>.

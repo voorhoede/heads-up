@@ -1,7 +1,7 @@
 <template>
 <form
   class="input-url"
-  @submit.prevent="getHeadForUrl(url)"
+  @submit.prevent="submitUrl"
 >
   <input
     type="url"
@@ -13,25 +13,28 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
+import { ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
 import useHead from '@/composables/use-head';
 
 export default {
   setup: () => {
-    const getHeadForUrl = useHead().getForUrl;
-    const defaultUrl = 'https://www.voorhoede.nl/en/';
-    const params = new URLSearchParams(window.location.search);
-    const urlParam = params.get('url');
-    const url = ref('');
+    const router = useRouter();
+    const head = useHead();
 
-    onMounted(() => {
-      url.value = urlParam ? urlParam : defaultUrl;
-      getHeadForUrl(url.value);
+    // Initialize local ref with stored global url
+    const url = ref(head.url.value);
+    watch(head.url, newUrl => {
+      if(url.value !== newUrl) url.value = newUrl;
     });
+
+    const submitUrl = () => {
+      head.getDataForUrlWithRouteGuard(router.currentRoute.value.name, router.push)(url.value);
+    };
 
     return {
       url,
-      getHeadForUrl,
+      submitUrl,
     };
   },
 };

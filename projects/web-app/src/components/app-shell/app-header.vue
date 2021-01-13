@@ -1,8 +1,8 @@
 <template>
   <header class="app-header">
-    <div class="app-header__logo">
+    <router-link :to="{ name: 'home' }" class="app-header__logo">
       <heads-up-logo height="32" />
-    </div>
+    </router-link>
     <div class="app-header__search">
       <input-url />
     </div>
