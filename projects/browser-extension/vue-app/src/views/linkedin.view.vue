@@ -147,18 +147,10 @@ export default {
     findImageDimensions() {
       findImageDimensions(this.head, 'og:image').then(imageDimensions => {
         this.imageDimensions = imageDimensions;
-        this.setTooltipData(imageDimensions);
       });
     },
     absoluteUrl(url) {
       return createAbsoluteUrl(this.head, url);
-    },
-    setTooltipData(imageDimensions) {
-      for (const [ key, value ] of Object.entries(this.og)) {
-        this.tooltip[`og:${ key }`].exist = Boolean(value);
-      }
-
-      this.tooltip['og:image'].size = imageDimensions;
     },
     propertyValue(propName) {
       return findMetaProperty(this.head, propName) || findMetaContent(this.head, propName);

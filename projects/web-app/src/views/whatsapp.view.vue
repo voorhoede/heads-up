@@ -26,7 +26,6 @@
         :value="item.value"
         :image="item.image"
         :type="item.type"
-        :schema="schema"
       >
       </properties-item>
     </properties-list>
@@ -63,7 +62,6 @@ import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
-import schema from '@shared/lib/schemas/app-meta-schema';
 
 export default {
   setup() {
@@ -137,7 +135,6 @@ export default {
       whatsappMetaData,
       absoluteUrl,
       propertyValue,
-      schema,
     };
   },
   components: {
