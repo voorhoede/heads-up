@@ -8,6 +8,7 @@
         :value="item.value"
         :type="item.type"
         :schema="schema"
+        :attrs="item.attrs"
       >
       </properties-item>
     </properties-list>
@@ -26,7 +27,7 @@
 <script>
 import { computed } from 'vue';
 import useHead from '@/composables/use-head';
-import schema  from '@shared/lib/schemas/app-meta-schema';
+import schema from '@shared/lib/schemas/app-meta-schema';
 import { findCharset, findMetaContent, findAttrs } from '@shared/lib/find-meta';
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';

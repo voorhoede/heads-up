@@ -33,10 +33,15 @@ import ExternalLink from '@shared/components/external-link';
 import PropertiesList from '@shared/components/properties-list';
 import PropertiesItem from '@shared/components/properties-item';
 import { findCharset, findMetaContent, findAttrs } from '@shared/lib/find-meta';
-import schema  from '@shared/lib/schemas/app-meta-schema';
+import schema from '@shared/lib/schemas/app-meta-schema';
 
 export default {
   components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList },
+  data() {
+    return {
+      schema,
+    };
+  },
   computed: {
     ...mapState([ 'head' ]),
     appMetaData() {
@@ -70,7 +75,6 @@ export default {
         },
       ];
     },
-    schema() { return schema; },
   },
 };
 </script>

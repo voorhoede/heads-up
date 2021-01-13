@@ -7,6 +7,7 @@
           :key="index"
           :term="item.term"
           :value="item.value"
+          :schema="schema"
         >
         </properties-item>
       </properties-list>
@@ -40,6 +41,11 @@ import schema from '@shared/lib/schemas/search-meta-schema';
 
 export default {
   components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList },
+  data() {
+    return {
+      schema,
+    };
+  },
   computed: {
     ...mapState([ 'head' ]),
     searchMetaData() {
@@ -89,7 +95,6 @@ export default {
         },
       ];
     },
-    schema() { return schema; },
   },
 };
 </script>

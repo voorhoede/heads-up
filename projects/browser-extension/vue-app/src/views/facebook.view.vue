@@ -44,6 +44,7 @@
           :value="item.value"
           :image="item.image"
           :type="item.type"
+          :schema="schema"
         >
         </properties-item>
       </properties-list>
@@ -57,7 +58,7 @@ import {
   findImageDimensions,
   findMetaProperty
 } from '@shared/lib/find-meta';
-import appMetaSchema from '@shared/lib/schemas/app-meta-schema';
+import schema from '@shared/lib/schemas/app-meta-schema';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import getTheme from '@shared/lib/theme';
 import ExternalLink from '@shared/components/external-link';
@@ -89,7 +90,7 @@ export default {
   },
   data() {
     return {
-      appMetaSchema,
+      schema,
       imageDimensions: {
         height: undefined,
         width: undefined,

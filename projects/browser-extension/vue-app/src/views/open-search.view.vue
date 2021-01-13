@@ -27,6 +27,7 @@
           :value="item.value"
           :image="item.image"
           :type="item.type"
+          :schema="schema"
         >
         </properties-item>
       </properties-list>
@@ -49,7 +50,7 @@ import { mapState } from 'vuex';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findXMLElement } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
-import schema  from '../lib/schemas/opensearch-schema';
+import schema from '../lib/schemas/opensearch-schema';
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
 import PropertiesList from '@shared/components/properties-list';
@@ -65,6 +66,11 @@ export default {
     PropertiesList,
     PreviewIframe,
     WarningIcon,
+  },
+  data() {
+    return {
+      schema,
+    };
   },
   computed: {
     ...mapState([ 'head', 'openSearchContent', 'openSearchUrl' ]),
@@ -132,7 +138,6 @@ export default {
         },
       ];
     },
-    schema() { return schema; },
   },
   methods: {
     absoluteUrl(url) {

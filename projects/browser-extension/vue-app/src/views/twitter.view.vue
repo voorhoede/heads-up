@@ -31,6 +31,7 @@
           :value="item.value"
           :image="item.image"
           :type="item.type"
+          :schema="schema"
         >
         </properties-item>
       </properties-list>
@@ -73,6 +74,7 @@ import ExternalLink from '@shared/components/external-link';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import PreviewIframe from '@shared/components/preview-iframe';
+import schema from '@shared/lib/schemas/app-meta-schema';
 
 const validCards = [ 'summary', 'summary_large_image', 'app', 'player' ];
 export const supportedCards = [ 'summary', 'summary_large_image' ];
@@ -87,6 +89,7 @@ export default {
   },
   data() {
     return {
+      schema,
       imageDimensions: {
         height: undefined,
         width: undefined,
