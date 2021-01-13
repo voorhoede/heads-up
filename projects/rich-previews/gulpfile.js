@@ -7,6 +7,8 @@ const cssImport = require('gulp-cssimport');
 const minifyCss = require('gulp-csso');
 const tap = require('gulp-tap');
 const browserify = require('browserify');
+const babelify = require("babelify");
+const buffer = require('gulp-buffer');
 const uglify = require('gulp-uglify');
 const htmlmin = require('gulp-htmlmin');
 
@@ -33,10 +35,14 @@ const processCss = () => merge(
 // Task: Process JavaScript
 const processJs = () => merge(
   previewDirs.map(dir =>
-    gulp.src(`${ SOURCE_DIR }/${ dir }/**/*.js`)
+    gulp.src(`${ SOURCE_DIR }/${ dir }/**/*.js`, { read: false })
       .pipe(tap(file => {
-        file.contents = browserify(file.path, { debug: true }).bundle(),
+        file.contents = browserify(file.path, {
+          debug: true,
+          transform: [ babelify.configure({ presets: [ '@babel/preset-env' ] }) ],
+        }).bundle();
       }))
+      .pipe(buffer())
       .pipe(uglify())
       .pipe(gulp.dest(join(PUBLISH_DIR, dir)))
   )
