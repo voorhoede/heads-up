@@ -1,12 +1,63 @@
 <template>
   <div v-if="showItem" class="properties-item">
-    <dt class="properties-item__term">
-      <template v-if="termIsIterable">
+    <dt class="properties-item__terms">
+
+      <app-tooltip v-if="schema" class="properties-item__tooltip" placement="top-start">
+
+        <template v-if="termIsIterable">
+          <template v-for="(item, index) in term">
+            <span v-if="item" :key="index" class="properties-item__term">
+              {{ item }}
+            </span>
+          </template>
+        </template>
+
+        <span v-else class="properties-item__term">
+          {{ term }}
+        </span>
+
+        <InfoIcon v-if="warnings && !errors" />
+        <WarningIcon v-else-if="errors" />
+
+        <template #info>
+          <span v-if="warnings && !errors">
+            <template v-if="warnings.length === 1">
+              {{ warningMessage }}
+            </template>
+            <ul v-else class="properties-item__error-list">
+              <li v-for="(warning, index) in warnings" :key="index" v-html="warning.message" />
+            </ul>
+          </span>
+
+          <span v-if="errors">
+            <template v-if="errors.length === 1">
+              {{ errorMessage }}
+            </template>
+            <ul v-else class="properties-item__error-list">
+              <li v-for="(error, index) in errors" :key="index" v-html="error.message" />
+            </ul>
+          </span>
+          <span v-if="!errors && !warnings" v-html="info" />
+        </template>
+
+        <template #link>
+          <external-link :href="link">Learn more</external-link>
+        </template>
+
+      </app-tooltip>
+
+      <template v-if="termIsIterable && !schema">
         <template v-for="(item, index) in term">
-          <span v-if="item" :key="index">{{ item }}</span>
+          <span v-if="item" :key="index" class="properties-item__term">
+            {{ item }}
+          </span>
         </template>
       </template>
-      <span v-else>{{ term }}</span>
+
+      <span v-else-if="!schema" class="properties-item__term">
+        {{ term }}
+      </span>
+
     </dt>
 
     <dd v-if="isImageValue" class="properties-item__value properties-item__value--image">
@@ -53,18 +104,27 @@
 </template>
 
 <script>
+import AppTooltip from './app-tooltip';
 import ExternalLink from './external-link';
-// import AppTooltip from './app-tooltip';
+import InfoIcon from '../assets/icons/info.svg';
+import WarningIcon from '../assets/icons/warning.svg';
+
+import validateErrorSchema from '../lib/validate-error-schema';
+import validateWarningSchema from '../lib/validate-warning-schema';
 
 export default {
-  components: { ExternalLink },
+  components: { AppTooltip, ExternalLink, InfoIcon, WarningIcon },
   props: {
+    attrs: {
+      type: Object,
+      required: false,
+      default: undefined,
+    },
     image: {
       type: Object,
       default() {
-        return null;
+        return {};
       },
-      validator: image => (image.url && image.href),
     },
     required: {
       type: Boolean,
@@ -89,50 +149,78 @@ export default {
     },
     value: {
       type: [ Array, Number, String ],
-      required: true,
+      required: false,
+      default() {
+        return '';
+      },
     },
   },
   data() {
     return {
+      info: '',
+      link: '',
+      errors: null,
+      warnings: null,
     };
   },
+  watch: {
+    term() {
+      if (this.schema) { this.validateSchema(); }
+    },
+  },
   computed: {
+    errorMessage() {
+      if (this.errors && this.errors.length > 0) {
+        return this.errors[0].message;
+      }
+      return null;
+    },
     isColorValue() {
-      /*
-        Required value prop format:
-        - String
-        - Hex value
-       */
       return this.type === 'color';
     },
     isImageValue() {
-      /*
-        Required value prop format:
-        - Object
-        - { url: '', title (optional): '', href: '' }
-       */
-      return this.type === 'image' && this.image;
+      return this.type === 'image' && this.image !== null;
+    },
+    isLinkValue() {
+      return this.type === 'link';
+    },
+    isUrlsValue() {
+      return this.type === 'urls';
+    },
+    showItem() {
+      return this.term && this.value;
     },
     termIsIterable() {
       return typeof this.term === 'object';
     },
-    isLinkValue() {
-      /*
-        Required value prop format:
-        - String
-       */
-      return this.type === 'link';
+    warningMessage() {
+      if (this.warnings && this.warnings.length > 0) {
+        return this.warnings[0].message;
+      }
+      return null;
     },
-    isUrlsValue() {
-      /*
-        Required value prop format:
-        - Array
-        - [ { url: '', attributes (optional): {...} } ]
-       */
-      return this.type === 'urls';
-    },
-    showItem() {
-      return this.term && this.value || this.required;
+  },
+  mounted() {
+    if (!this.schema) { return; }
+
+    if (this.schema[this.term] && this.schema[this.term].meta) {
+      this.info = this.schema[this.term].meta.info;
+      this.link = this.schema[this.term].meta.link;
+    }
+
+    if (this.schema) { this.validateSchema(); }
+  },
+  methods: {
+    validateSchema() {
+      const schemaTemplate = {
+        schema: this.schema,
+        key: this.term,
+        value: this.value,
+        attrs: this.attrs,
+      };
+
+      this.errors = validateErrorSchema(schemaTemplate);
+      this.warnings = validateWarningSchema(schemaTemplate);
     },
   },
 };
@@ -145,12 +233,20 @@ export default {
     align-items: flex-start;
   }
 
-  .properties-item__term {
+  .properties-item__tooltip {
+    display: inline-block;
+  }
+
+  .properties-item__terms {
     color: var(--label-color);
     flex: 1 1 auto;
     text-align: right;
     word-break: break-word;
     min-width: 120px;
+  }
+
+  .properties-item__term {
+    display: inline-block;
   }
 
   .properties-item__value {
