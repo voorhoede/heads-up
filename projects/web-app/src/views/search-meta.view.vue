@@ -4,7 +4,7 @@
       <properties-item
         v-for="(item, index) in siteMetaData"
         :key="index"
-        :term="item.keyName"
+        :term="item.term"
         :value="item.value"
       >
       </properties-item>
@@ -44,55 +44,45 @@ export default {
       const { head } = headData.value;
       return [
         {
-          keyName: 'title',
-          title: 'title',
+          term: 'title',
           value: head.title,
         },
         {
-          keyName: 'description',
-          title: 'description',
+          term: 'description',
           value: findMetaContent(head, 'description'),
         },
         {
-          keyName: 'search',
-          title: 'search',
+          term: 'search',
           isUrl: true,
           value: absoluteUrl(findLinkHref(head, 'search')),
         },
         {
-          keyName: 'canonical',
-          title: 'canonical',
+          term: 'canonical',
           isUrl: true,
           value: findLinkHref(head, 'canonical'),
         },
         {
-          keyName: 'robots',
-          title: 'robots',
+          term: 'robots',
           value: findMetaContent(head, 'robots'),
         },
         {
-          keyName: 'googlebot',
-          title: 'googlebot',
+          term: 'googlebot',
           value: findMetaContent(head, 'googlebot'),
         },
         {
-          keyName: 'google',
-          title: 'google',
+          term: 'google',
           value: findMetaContent(head, 'google'),
         },
         {
-          keyName: 'google-site-verification',
-          title: 'google-site-verification',
+          term: 'google-site-verification',
           value: findMetaContent(head, 'google-site-verification'),
         },
         {
-          keyName: 'msvalidate.01',
-          title: 'msvalidate.01',
+          term: 'msvalidate.01',
           value: findMetaContent(head, 'msvalidate.01'),
         },
         {
-          keyName: 'yandex-verification',
-          title: 'yandex-verification',
+          term: 'yandex-verification',
           value: findMetaContent(head, 'yandex-verification'),
         },
       ];

@@ -40,7 +40,7 @@
         <properties-item
           v-for="(item, index) in facebookMetaData"
           :key="index"
-          :term="item.keyName"
+          :term="item.term"
           :value="item.value"
           :image="item.image"
           :type="item.type"
@@ -164,44 +164,36 @@ export default {
     facebookMetaData() {
       return [
         {
-          keyName: 'fb:app_id',
-          title: 'fb:app_id',
+          term: 'fb:app_id',
           value: this.facebookProperties.appId,
         },
         {
-          keyName: 'fb:pages',
-          title: 'fb:pages',
+          term: 'fb:pages',
           value: this.facebookProperties.pages,
         },
         {
-          keyName: 'og:type',
-          title: 'og:type',
+          term: 'og:type',
           value: this.og.type,
         },
         {
-          keyName: 'og:url',
-          title: 'og:url',
+          term: 'og:url',
           value: this.og.url,
           type: 'link',
         },
         {
-          keyName: 'og:locale',
-          title: 'og:locale',
+          term: 'og:locale',
           value: this.og.locale,
         },
         {
-          keyName: 'og:title',
-          title: 'og:title',
+          term: 'og:title',
           value: this.og.title,
         },
         {
-          keyName: 'og:description',
-          title: 'og:description',
+          term: 'og:description',
           value: this.og.description,
         },
         {
-          keyName: 'og:image',
-          title: 'og:image',
+          term: 'og:image',
           value: this.og.image,
           image: {
             href: this.og.image,
@@ -210,35 +202,29 @@ export default {
           type: 'image',
         },
         {
-          keyName: 'og:image:url',
-          title: 'og:image:url',
+          term: 'og:image:url',
           value: this.og.imageUrl,
           type: 'link',
         },
         {
-          keyName: 'og:image:secure_url',
-          title: 'og:image:secure_url',
+          term: 'og:image:secure_url',
           value: this.og.imageSecureUrl,
           type: 'link',
         },
         {
-          keyName: 'og:image:type',
-          title: 'og:image:type',
+          term: 'og:image:type',
           value: this.og.imageType,
         },
         {
-          keyName: 'og:image:width',
-          title: 'og:image:width',
+          term: 'og:image:width',
           value: this.og.imageWidth,
         },
         {
-          keyName: 'og:image:height',
-          title: 'og:image:height',
+          term: 'og:image:height',
           value: this.og.imageHeight,
         },
         {
-          keyName: 'og:video',
-          title: 'og:video',
+          term: 'og:video',
           value: this.og.video,
           image: {
             href: this.og.video,
@@ -247,30 +233,25 @@ export default {
           type: 'image',
         },
         {
-          keyName: 'og:video:url',
-          title: 'og:video:url',
+          term: 'og:video:url',
           value: this.og.videoUrl,
           type: 'link',
         },
         {
-          keyName: 'og:video:secure_url',
-          title: 'og:video:secure_url',
+          term: 'og:video:secure_url',
           value: this.og.videoSecureUrl,
           type: 'link',
         },
         {
-          keyName: 'og:video:type',
-          title: 'og:video:type',
+          term: 'og:video:type',
           value: this.og.videoType,
         },
         {
-          keyName: 'og:video:width',
-          title: 'og:video:width',
+          term: 'og:video:width',
           value: this.og.videoWidth,
         },
         {
-          keyName: 'og:video:height',
-          title: 'og:video:height',
+          term: 'og:video:height',
           value: this.og.videoHeight,
         },
       ];

@@ -21,7 +21,7 @@
         <properties-item
           v-for="(item, value) in linkedinProperties"
           :key="value"
-          :term="item.keyName"
+          :term="item.term"
           :value="item.value"
           :image="item.image"
           :type="item.type"
@@ -104,13 +104,11 @@ export default {
     linkedinProperties() {
       return [
         {
-          keyName: 'og:title',
-          title: 'og:title',
+          term: 'og:title',
           value: this.og.title,
         },
         {
-          keyName: 'og:image',
-          title: 'og:image',
+          term: 'og:image',
           value: this.og.image,
           image: {
             href: this.og.image,
@@ -119,13 +117,11 @@ export default {
           type: 'image',
         },
         {
-          keyName: 'og:description',
-          title: 'og:description',
+          term: 'og:description',
           value: this.og.description,
         },
         {
-          keyName: 'og:url',
-          title: 'og:url',
+          term: 'og:url',
           value: this.og.url,
           type: 'link',
         },

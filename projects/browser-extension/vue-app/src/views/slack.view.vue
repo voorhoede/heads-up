@@ -21,7 +21,7 @@
         <properties-item
           v-for="(item, index) in slackProperties"
           :key="index"
-          :term="item.keyName"
+          :term="item.term"
           :value="item.value"
           :image="item.image"
           :type="item.type"
@@ -120,23 +120,19 @@ export default {
     slackProperties() {
       return [
         {
-          keyName: 'og:title',
-          title: 'og:title',
+          term: 'og:title',
           value: this.og.title,
         },
         {
-          keyName: 'og:description',
-          title: 'og:description',
+          term: 'og:description',
           value: this.og.description,
         },
         {
-          keyName: 'og:site_name',
-          title: 'og:site_name',
+          term: 'og:site_name',
           value: this.og.site_name,
         },
         {
-          keyName: 'og:image',
-          title: 'og:image',
+          term: 'og:image',
           value: this.og.image,
           image: {
             href: this.og.image,

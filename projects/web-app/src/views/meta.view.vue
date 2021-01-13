@@ -4,7 +4,7 @@
       <properties-item
         v-for="(item, index) in siteMetaData"
         :key="index"
-        :term="item.keyName"
+        :term="item.term"
         :value="item.value"
         :type="item.type"
         :schema="schema"
@@ -40,34 +40,28 @@ export default {
       const { head } = headData.value;
       return [
         {
-          keyName: 'title',
-          title: 'title',
+          term: 'title',
           value: head.title,
         },
         {
-          keyName: 'lang',
-          title: 'language',
+          term: 'lang',
           value: head.lang,
         },
         {
-          keyName: 'charset',
-          title: 'charset',
+          term: 'charset',
           value: findCharset(head),
           attrs: findAttrs(head, 'charset') || findAttrs(head, 'http-equiv'),
         },
         {
-          keyName: 'viewport',
-          title: 'viewport',
+          term: 'viewport',
           value: findMetaContent(head, 'viewport'),
         },
         {
-          keyName: 'description',
-          title: 'description',
+          term: 'description',
           value: findMetaContent(head, 'description'),
         },
         {
-          keyName: 'theme-color',
-          title: 'theme-color',
+          term: 'theme-color',
           value: findMetaContent(head, 'theme-color'),
           type: 'color',
         },

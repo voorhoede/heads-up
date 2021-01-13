@@ -23,7 +23,7 @@
         <properties-item
           v-for="(item, index) in opensearchData"
           :key="index"
-          :term="item.keyName"
+          :term="item.term"
           :value="item.value"
           :image="item.image"
           :type="item.type"
@@ -105,24 +105,20 @@ export default {
     opensearchData() {
       return [
         {
-          keyName: 'shortname',
-          title: 'ShortName',
+          term: 'shortname',
           value: this.shortName,
         },
         {
-          keyName: 'description',
-          title: 'Description',
+          term: 'description',
           value: this.description,
         },
         {
-          keyName: 'urls',
-          title: 'Url(s)',
+          term: 'urls',
           value: this.formatUrlsObject(this.urls),
           type: 'urls',
         },
         {
-          keyName: 'image',
-          title: 'Image',
+          term: 'image',
           value: this.image,
           image: {
             href: this.image,
@@ -131,8 +127,7 @@ export default {
           type: 'image',
         },
         {
-          keyName: 'input-encoding',
-          title: 'InputEncoding',
+          term: 'input-encoding',
           value: this.inputEncoding,
         },
       ];

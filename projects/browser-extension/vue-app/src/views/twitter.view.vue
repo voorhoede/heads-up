@@ -27,7 +27,7 @@
         <properties-item
           v-for="(item, index) in twitterMetaData"
           :key="index"
-          :term="item.keyName"
+          :term="item.term"
           :value="item.value"
           :image="item.image"
           :type="item.type"
@@ -168,20 +168,16 @@ export default {
     twitterMetaData() {
       return [
         {
-          keyName: 'og:type',
-          title: 'og:type',
+          term: 'og:type',
           value: this.og.type,
         }, {
-          keyName: 'og:title',
-          title: 'og:title',
+          term: 'og:title',
           value: this.og.title,
         }, {
-          keyName: 'og:description',
-          title: 'og:description',
+          term: 'og:description',
           value: this.og.description,
         }, {
-          keyName: 'og:image',
-          title: 'og:image',
+          term: 'og:image',
           value: this.absoluteUrl(this.og.image),
           image: {
             href: this.og.image,
@@ -189,20 +185,16 @@ export default {
           },
           type: 'image',
         }, {
-          keyName: 'twitter:card',
-          title: 'twitter:card',
+          term: 'twitter:card',
           value: this.twitter.card,
         }, {
-          keyName: 'twitter:title',
-          title: 'twitter:title',
+          term: 'twitter:title',
           value: this.twitter.title,
         }, {
-          keyName: 'twitter:description',
-          title: 'twitter:description',
+          term: 'twitter:description',
           value: this.twitter.description,
         }, {
-          keyName: 'twitter:image',
-          title: 'twitter:image',
+          term: 'twitter:image',
           value: this.absoluteUrl(this.twitter.image),
           image: {
             href: this.twitter.image,
@@ -210,89 +202,70 @@ export default {
           },
           type: 'image',
         },{
-          keyName: 'twitter:image:alt',
-          title: 'twitter:image:alt',
+          term: 'twitter:image:alt',
           value: this.twitter.imageAlt,
         }, {
-          keyName: 'twitter:creator',
-          title: 'twitter:creator',
+          term: 'twitter:creator',
           value: this.twitter.creator
             ? `https://twitter.com/${ this.twitter.creator.slice(1) }`
             : null,
           type: 'link',
         }, {
-          keyName: 'twitter:creator:id',
-          title: 'twitter:creator:id',
+          term: 'twitter:creator:id',
           value: this.twitter.creatorId,
         }, {
-          keyName: 'twitter:site',
-          title: 'twitter:site',
+          term: 'twitter:site',
           value: this.twitter.site
             ? `https://twitter.com/${ this.twitter.site.slice(1) }`
             : null,
           type: 'link',
         }, {
-          keyName: 'twitter:site:id',
-          title: 'twitter:site:id',
+          term: 'twitter:site:id',
           value: this.twitter.site,
         }, {
-          keyName: 'twitter:player',
-          title: 'twitter:player',
+          term: 'twitter:player',
           value: this.twitter.player,
         }, {
-          keyName: 'twitter:player:width',
-          title: 'twitter:player:width',
+          term: 'twitter:player:width',
           value: this.twitter.playerWidth,
         }, {
-          keyName: 'twitter:player:height',
-          title: 'twitter:player:height',
+          term: 'twitter:player:height',
           value: this.twitter.playerHeight,
         }, {
-          keyName: 'twitter:player:stream',
-          title: 'twitter:player:stream',
+          term: 'twitter:player:stream',
           value: this.twitter.playerStream,
         }, {
-          keyName: 'twitter:app:id:iphone',
-          title: 'twitter:app:id:iphone',
+          term: 'twitter:app:id:iphone',
           value: this.twitter.appIdIphone,
         }, {
-          keyName: 'twitter:app:id:ipad',
-          title: 'twitter:app:id:ipad',
+          term: 'twitter:app:id:ipad',
           value: this.twitter.appIdIpad,
         }, {
-          keyName: 'twitter:app:id:googleplay',
-          title: 'twitter:app:id:googleplay',
+          term: 'twitter:app:id:googleplay',
           value: this.twitter.appIdGoogle,
         }, {
-          keyName: 'twitter:app:url:iphone',
-          title: 'twitter:app:url:iphone',
+          term: 'twitter:app:url:iphone',
           value: this.twitter.appUrlIphone,
           type: 'link',
         }, {
-          keyName: 'twitter:app:url:ipad',
-          title: 'twitter:app:url:ipad',
+          term: 'twitter:app:url:ipad',
           value: this.twitter.appUrlIpad,
           type: 'link',
         }, {
-          keyName: 'twitter:app:url:googleplay',
-          title: 'twitter:app:url:googleplay',
+          term: 'twitter:app:url:googleplay',
           value: this.twitter.appUrlGoogle,
           type: 'link',
         }, {
-          keyName: 'twitter:app:country',
-          title: 'twitter:app:country',
+          term: 'twitter:app:country',
           value: this.twitter.appCountry,
         }, {
-          keyName: 'twitter:app:name:iphone',
-          title: 'twitter:app:name:iphone',
+          term: 'twitter:app:name:iphone',
           value: this.twitter.appNameIphone,
         }, {
-          keyName: 'twitter:app:name:ipad',
-          title: 'twitter:app:name:ipad',
+          term: 'twitter:app:name:ipad',
           value: this.twitter.appNameIpad,
         }, {
-          keyName: 'twitter:app:name:googleplay',
-          title: 'twitter:app:name:googleplay',
+          term: 'twitter:app:name:googleplay',
           value: this.twitter.appNameGoogle,
         },
       ];

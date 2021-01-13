@@ -22,7 +22,7 @@
       <properties-item
         v-for="(item, index) in whatsappMetaData"
         :key="index"
-        :term="item.keyName"
+        :term="item.term"
         :value="item.value"
         :image="item.image"
         :type="item.type"
@@ -94,23 +94,19 @@ export default {
     const whatsappMetaData = computed(() => {
       return [
         {
-          keyName: 'og:title',
-          title: 'og:title',
+          term: 'og:title',
           value: og.value.title,
         },
         {
-          keyName: 'og:description',
-          title: 'og:description',
+          term: 'og:description',
           value: og.value.description,
         },
         {
-          keyName: 'og:type',
-          title: 'og:type',
+          term: 'og:type',
           value: og.value.type,
         },
         {
-          keyName: 'og:image',
-          title: 'og:image',
+          term: 'og:image',
           value: absoluteUrl(og.value.image),
           image: {
             href: og.value.image,
@@ -119,8 +115,7 @@ export default {
           type: 'image',
         },
         {
-          keyName: 'og:url',
-          title: 'og:url',
+          term: 'og:url',
           value: og.value.url,
           type: 'link',
         },

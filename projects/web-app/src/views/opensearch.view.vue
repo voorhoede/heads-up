@@ -24,7 +24,7 @@
       <properties-item
         v-for="(item, index) in opensearchData"
         :key="index"
-        :term="item.keyName"
+        :term="item.term"
         :value="item.value"
         :image="item.image"
         :type="item.type"
@@ -95,24 +95,20 @@ export default {
     const opensearchData = computed(() => {
       return [
         {
-          keyName: 'shortname',
-          title: 'ShortName',
+          term: 'shortname',
           value: shortName.value,
         },
         {
-          keyName: 'description',
-          title: 'Description',
+          term: 'description',
           value: description.value,
         },
         {
-          keyName: 'urls',
-          title: 'Url(s)',
+          term: 'urls',
           value: formatUrlsObject(urls.value),
           type: 'urls',
         },
         {
-          keyName: 'image',
-          title: 'Image',
+          term: 'image',
           value: image.value,
           image: {
             href: image.value,
@@ -121,8 +117,7 @@ export default {
           type: 'image',
         },
         {
-          keyName: 'input-encoding',
-          title: 'InputEncoding',
+          term: 'input-encoding',
           value: inputEncoding.value,
         },
       ];

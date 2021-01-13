@@ -24,7 +24,7 @@
       <properties-item
         v-for="(item, index) in twitterMetaData"
         :key="index"
-        :term="item.keyName"
+        :term="item.term"
         :value="item.value"
         :image="item.image"
         :type="item.type"
@@ -124,23 +124,19 @@ export default {
     const twitterMetaData = computed(() => {
       return [
         {
-          keyName: 'twitter:card',
-          title: 'twitter:card',
+          term: 'twitter:card',
           value: twitter.value.card,
         },
         {
-          keyName: 'twitter:title',
-          title: 'twitter:title',
+          term: 'twitter:title',
           value: twitter.value.title,
         },
         {
-          keyName: 'twitter:description',
-          title: 'twitter:description',
+          term: 'twitter:description',
           value: twitter.value.description,
         },
         {
-          keyName: 'twitter:image',
-          title: 'twitter:image',
+          term: 'twitter:image',
           value: absoluteUrl(twitter.value.image),
           image: {
             href: twitter.value.image,
@@ -149,39 +145,33 @@ export default {
           type: 'image',
         },
         {
-          keyName: 'twitter:creator',
-          title: 'twitter:creator',
+          term: 'twitter:creator',
           value: twitter.value.creator
             ? `https://twitter.com/${ twitter.value.creator.slice(1) }`
             : null,
           type: 'link',
         },
         {
-          keyName: 'twitter:site',
-          title: 'twitter:site',
+          term: 'twitter:site',
           value: twitter.value.site
             ? `https://twitter.com/${ twitter.value.site.slice(1) }`
             : null,
           type: 'link',
         },
         {
-          keyName: 'og:type',
-          title: 'og:type',
+          term: 'og:type',
           value: og.value.type,
         },
         {
-          keyName: 'og:title',
-          title: 'og:title',
+          term: 'og:title',
           value: og.value.title,
         },
         {
-          keyName: 'og:description',
-          title: 'og:description',
+          term: 'og:description',
           value: og.value.description,
         },
         {
-          keyName: 'og:image',
-          title: 'og:image',
+          term: 'og:image',
           value: absoluteUrl(og.value.image),
           image: {
             href: og.value.image,
