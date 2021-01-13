@@ -1,4 +1,4 @@
-import { getHostname } from '../../@shared/js/utils';
+import { getHostname } from '../../@shared/js/utils.js';
 
 const app = Vue.createApp({
   setup() {
