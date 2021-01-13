@@ -1,20 +1,25 @@
+const getHostname = url => {
+  if(!url) return '';
+  const hostname = (new URL(url).hostname);
+  const wwwPrefix = 'www.';
+  return hostname.startsWith(wwwPrefix)
+    ? hostname.slice(wwwPrefix.length)
+    : hostname;
+};
+
 const app = Vue.createApp({
   setup() {
     const params = (new URL(window.location.href)).searchParams;
     const url = params.get('url');
 
-    // const description = ref(params.get('description'));
-
-    // const type = ref(params.get('type'));
-    // const theme = ref(params.get('theme'));
-
     return {
       url,
       title: params.get('title'),
-      // description,
+      description: params.get('description'),
       image: params.get('image'),
       type: params.get('card'),
-      // theme,
+      hostname: getHostname(url),
+      dark: params.get('theme') === 'dark',
     };
   },
 });

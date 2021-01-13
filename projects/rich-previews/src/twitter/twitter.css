@@ -1,0 +1,195 @@
+@import "../../@shared/css/defaults.css";
+
+:root {
+  --border-radius: 14px;
+  --color-border: #e1e8ed;
+  --image-small-size: 85px;
+  --image-medium-size: 104px;
+  --image-large-size: 124px;
+  --base-color: #292f33;
+  --muted-color: #8899a6;
+  --bg-color-hover: #f5f8fa;
+}
+
+.-theme-with-dark-background {
+  --color-border: rgb(56, 68, 77);
+  --base-color: #fff;
+  --bg-color-hover: rgba(255, 255, 255, 0.03);
+}
+
+html {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Ubuntu, "Helvetica Neue", sans-serif;
+}
+
+.twitter-preview {
+  font-size: 14px;
+}
+
+.twitter-preview__link-container {
+  display: flex;
+  height: 100%;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-border);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.twitter-preview__link-container--vertical {
+  display: block;
+}
+
+.twitter-preview__ratio {
+  padding-bottom: 52.356%;
+}
+
+.twitter-preview__fixed-ratio {
+  display: block;
+  position: relative;
+  height: 0;
+  overflow: hidden;
+}
+
+.twitter-preview__fixed-ratio-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  max-width: inherit;
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+  object-fit: cover;
+}
+
+.twitter-preview__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  max-width: none;
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+}
+
+.twitter-preview__media {
+  height: 100%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: calc(var(--image-small-size) + 1px);
+  border-right: 1px solid var(--color-border);
+}
+
+.twitter-preview__media--image-fallback {
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+  background-color: var(--color-border);
+}
+
+.twitter-preview__image-fallback {
+  height: 100%;
+  background-image: url("./assets/image-not-found.svg");
+  background-size: 3em;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.twitter-preview__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+  overflow: hidden;
+  width: 100%;
+
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  background-color: transparent;
+  transition: background-color 0.15s linear;
+}
+
+.twitter-preview__link-container:hover .twitter-preview__content {
+  background-color: var(--bg-color-hover);
+}
+
+.twitter-preview__title {
+  margin-bottom: 0.35em;
+
+  /* Display on 2 lines and if longer than available space, cut off with '...' */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  font-size: 1em;
+  color: var(--base-color);
+  font-weight: bold;
+}
+
+.twitter-preview__description {
+  display: none;
+  margin-bottom: 2px;
+  color: var(--base-color);
+}
+
+.twitter-preview__domain {
+  display: flex;
+  align-items: center;
+  margin-top: 0.4em;
+  color: var(--muted-color);
+}
+
+.twitter-preview__icon {
+  height: 1.25em;
+  font-size: 13px;
+  fill: currentcolor;
+}
+
+.twitter-preview__hostname {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media (min-width: 416px) {
+  .twitter-preview.is-small {
+    height: calc(var(--image-medium-size) + 2px);
+  }
+
+  .twitter-preview__media {
+    flex-basis: calc(var(--image-medium-size) + 1px);
+  }
+}
+
+@media (min-width: 416px) and (max-width: 449px) {
+  .twitter-preview__description {
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 450px) {
+  .twitter-preview.is-small {
+    height: calc(var(--image-large-size) + 2px);
+  }
+
+  .twitter-preview__media {
+    flex-basis: calc(var(--image-large-size) + 1px);
+  }
+
+  /* Show on 1 line */
+  .twitter-preview__title {
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Display on 2 lines and if longer than available space, cut off with '...' */
+  .twitter-preview__description {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
