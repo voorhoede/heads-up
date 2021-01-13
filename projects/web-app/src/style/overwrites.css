@@ -9,3 +9,11 @@
 .properties-list .properties-item {
   margin-bottom: 12px;
 }
+
+.properties-item__image {
+  margin-bottom: 0;
+}
+
+.properties-item__value--image a {
+  font-size: 12px;
+}

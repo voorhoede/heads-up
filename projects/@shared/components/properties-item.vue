@@ -9,7 +9,7 @@
       <span v-else>{{ term }}</span>
     </dt>
 
-    <dd v-if="isImageValue" class="properties-item__value">
+    <dd v-if="isImageValue" class="properties-item__value properties-item__value--image">
       <img
         class="properties-item__image"
         :src="image.url"
@@ -20,19 +20,19 @@
       </external-link>
     </dd>
 
-    <dd v-else-if="isLinkValue" class="properties-item__value">
+    <dd v-else-if="isLinkValue" class="properties-item__value properties-item__value--link">
       <external-link :href="value">
         {{ value }}
       </external-link>
     </dd>
 
-    <dd v-else-if="isColorValue" class="properties-item__value">
+    <dd v-else-if="isColorValue" class="properties-item__value properties-item__value--color">
       <span>{{ value }}</span>
       <span class="properties-item__color" :style="{ backgroundColor: value }"></span>
     </dd>
 
-    <dd v-else-if="isUrlsValue" class="properties-item__value">
-      <div v-for="(item, index) in value" :key="index" class="properties-item__value-section">
+    <dd v-else-if="isUrlsValue" class="properties-item__value properties-item__value--urls">
+      <div v-for="(item, index) in value" :key="index">
         <template v-if="item.url">
           <external-link :href="item.url">
             <span>{{ item.url }}</span>
@@ -153,12 +153,6 @@ export default {
     min-width: 120px;
   }
 
-  .properties-item__term > span,
-  .properties-item__value > span {
-    display: block;
-    margin-bottom: 4px;
-  }
-
   .properties-item__value {
     color: var(--value-color);
     flex: 0 0 70%;
@@ -166,19 +160,24 @@ export default {
     word-break: break-word;
   }
 
-  .properties-item__value-section {
+  .properties-item__value--color {
+    display: flex;
+    align-items: center;
+  }
+
+  .properties-item__value--urls div {
     margin-bottom: 6px;
   }
 
-  .properties-item__value-section > span {
+  .properties-item__value--urls span {
     display: block;
   }
 
   .properties-item__color {
     display: inline-block;
-    width: 10px;
-    height: 10px;
-    margin-left: 3px;
+    width: 12px;
+    height: 12px;
+    margin-left: 4px;
     border: 1px solid #888;
   }
 
