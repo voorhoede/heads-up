@@ -22,6 +22,8 @@
           :key="index"
           :term="item.keyName"
           :value="item.value"
+          :image="item.image"
+          :type="item.type"
         >
         </properties-item>
       </properties-list>
@@ -93,9 +95,10 @@ export default {
     og() {
       return {
         title: this.propertyValue('og:title'),
-        url: this.propertyValue('og:url'),
         description: this.propertyValue('og:description'),
+        type: this.propertyValue('og:type'),
         image: this.absoluteUrl(this.propertyValue('og:image')),
+        url: this.propertyValue('og:url'),
       };
     },
     headDescription() {
@@ -120,19 +123,30 @@ export default {
           value: this.og.title,
         },
         {
-          keyName: 'og:url',
-          title: 'og:url',
-          value: this.og.url,
-        },
-        {
           keyName: 'og:description',
           title: 'og:description',
           value: this.og.description,
         },
         {
+          keyName: 'og:type',
+          title: 'og:type',
+          value: this.og.type,
+        },
+        {
           keyName: 'og:image',
           title: 'og:image',
           value: this.og.image,
+          image: {
+            href: this.og.image,
+            url: this.absoluteUrl(this.og.image),
+          },
+          type: 'image',
+        },
+        {
+          keyName: 'og:url',
+          title: 'og:url',
+          value: this.og.url,
+          type: 'link',
         },
       ];
     },

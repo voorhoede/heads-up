@@ -22,8 +22,8 @@
         <properties-item
           v-for="(item, index) in opensearchData"
           :key="index"
-          :value="item.value"
           :term="item.keyName"
+          :value="item.value"
           :image="item.image"
           :type="item.type"
         >

@@ -5,8 +5,8 @@
         <properties-item
           v-for="(item, index) in appMetaData"
           :key="index"
-          :value="item.value"
           :term="item.keyName"
+          :value="item.value"
           :type="item.type"
           :schema="schema"
         >

@@ -22,6 +22,8 @@
           :key="value"
           :term="item.keyName"
           :value="item.value"
+          :image="item.image"
+          :type="item.type"
         >
         </properties-item>
       </properties-list>
@@ -77,7 +79,7 @@ export default {
         title: this.propertyValue('og:title'),
         image: this.absoluteUrl(this.propertyValue('og:image')),
         description: this.propertyValue('og:description'),
-        url: this.propertyValue('og:url'),
+        url: this.absoluteUrl(this.propertyValue('og:url')),
       };
     },
     themeClass() {
@@ -109,6 +111,11 @@ export default {
           keyName: 'og:image',
           title: 'og:image',
           value: this.og.image,
+          image: {
+            href: this.og.image,
+            url: this.absoluteUrl(this.og.image),
+          },
+          type: 'image',
         },
         {
           keyName: 'og:description',
@@ -119,6 +126,7 @@ export default {
           keyName: 'og:url',
           title: 'og:url',
           value: this.og.url,
+          type: 'link',
         },
       ];
     },

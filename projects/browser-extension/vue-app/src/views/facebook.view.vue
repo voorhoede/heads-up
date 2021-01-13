@@ -40,6 +40,8 @@
           :key="index"
           :term="item.keyName"
           :value="item.value"
+          :image="item.image"
+          :type="item.type"
         >
         </properties-item>
       </properties-list>
@@ -50,8 +52,8 @@
 <script>
 import { mapState } from 'vuex';
 import {
-  findMetaProperty,
-  findImageDimensions
+  findImageDimensions,
+  findMetaProperty
 } from '@shared/lib/find-meta';
 import appMetaSchema from '@shared/lib/schemas/app-meta-schema';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
@@ -121,6 +123,7 @@ export default {
     facebookProperties() {
       return {
         appId: this.propertyValue('fb:app_id'),
+        pages: this.propertyValue('fb:pages'),
       };
     },
     themeClass() {
@@ -164,6 +167,11 @@ export default {
           value: this.facebookProperties.appId,
         },
         {
+          keyName: 'fb:pages',
+          title: 'fb:pages',
+          value: this.facebookProperties.pages,
+        },
+        {
           keyName: 'og:type',
           title: 'og:type',
           value: this.og.type,
@@ -172,6 +180,7 @@ export default {
           keyName: 'og:url',
           title: 'og:url',
           value: this.og.url,
+          type: 'link',
         },
         {
           keyName: 'og:locale',
@@ -192,16 +201,23 @@ export default {
           keyName: 'og:image',
           title: 'og:image',
           value: this.og.image,
+          image: {
+            href: this.og.image,
+            url: this.absoluteUrl(this.og.image),
+          },
+          type: 'image',
         },
         {
           keyName: 'og:image:url',
           title: 'og:image:url',
           value: this.og.imageUrl,
+          type: 'link',
         },
         {
           keyName: 'og:image:secure_url',
           title: 'og:image:secure_url',
           value: this.og.imageSecureUrl,
+          type: 'link',
         },
         {
           keyName: 'og:image:type',
@@ -222,16 +238,23 @@ export default {
           keyName: 'og:video',
           title: 'og:video',
           value: this.og.video,
+          image: {
+            href: this.og.video,
+            url: this.absoluteUrl(this.og.video),
+          },
+          type: 'image',
         },
         {
           keyName: 'og:video:url',
           title: 'og:video:url',
           value: this.og.videoUrl,
+          type: 'link',
         },
         {
           keyName: 'og:video:secure_url',
           title: 'og:video:secure_url',
           value: this.og.videoSecureUrl,
+          type: 'link',
         },
         {
           keyName: 'og:video:type',

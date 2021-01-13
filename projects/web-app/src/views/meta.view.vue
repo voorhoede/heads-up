@@ -4,8 +4,9 @@
       <properties-item
         v-for="(item, index) in siteMetaData"
         :key="index"
-        :value="item.value"
         :term="item.keyName"
+        :value="item.value"
+        :type="item.type"
         :schema="schema"
       >
       </properties-item>
@@ -68,6 +69,7 @@ export default {
           keyName: 'theme-color',
           title: 'theme-color',
           value: findMetaContent(head, 'theme-color'),
+          type: 'color',
         },
       ];
     });

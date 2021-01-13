@@ -25,6 +25,8 @@
         :key="index"
         :term="item.keyName"
         :value="item.value"
+        :image="item.image"
+        :type="item.type"
       >
       </properties-item>
     </properties-list>
@@ -139,6 +141,11 @@ export default {
           keyName: 'twitter:image',
           title: 'twitter:image',
           value: absoluteUrl(twitter.value.image),
+          image: {
+            href: twitter.value.image,
+            url: absoluteUrl(twitter.value.image),
+          },
+          type: 'image',
         },
         {
           keyName: 'twitter:creator',
@@ -146,6 +153,7 @@ export default {
           value: twitter.value.creator
             ? `https://twitter.com/${ twitter.value.creator.slice(1) }`
             : null,
+          type: 'link',
         },
         {
           keyName: 'twitter:site',
@@ -153,6 +161,7 @@ export default {
           value: twitter.value.site
             ? `https://twitter.com/${ twitter.value.site.slice(1) }`
             : null,
+          type: 'link',
         },
         {
           keyName: 'og:type',
@@ -173,6 +182,11 @@ export default {
           keyName: 'og:image',
           title: 'og:image',
           value: absoluteUrl(og.value.image),
+          image: {
+            href: og.value.image,
+            url: absoluteUrl(og.value.image),
+          },
+          type: 'image',
         },
       ];
     });

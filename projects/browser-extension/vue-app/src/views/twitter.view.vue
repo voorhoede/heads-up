@@ -28,6 +28,8 @@
           :key="index"
           :term="item.keyName"
           :value="item.value"
+          :image="item.image"
+          :type="item.type"
         >
         </properties-item>
       </properties-list>
@@ -180,6 +182,11 @@ export default {
           keyName: 'og:image',
           title: 'og:image',
           value: this.absoluteUrl(this.og.image),
+          image: {
+            href: this.og.image,
+            url: this.absoluteUrl(this.og.image),
+          },
+          type: 'image',
         }, {
           keyName: 'twitter:card',
           title: 'twitter:card',
@@ -196,6 +203,11 @@ export default {
           keyName: 'twitter:image',
           title: 'twitter:image',
           value: this.absoluteUrl(this.twitter.image),
+          image: {
+            href: this.twitter.image,
+            url: this.absoluteUrl(this.twitter.image),
+          },
+          type: 'image',
         },{
           keyName: 'twitter:image:alt',
           title: 'twitter:image:alt',
@@ -206,6 +218,7 @@ export default {
           value: this.twitter.creator
             ? `https://twitter.com/${ this.twitter.creator.slice(1) }`
             : null,
+          type: 'link',
         }, {
           keyName: 'twitter:creator:id',
           title: 'twitter:creator:id',
@@ -216,6 +229,7 @@ export default {
           value: this.twitter.site
             ? `https://twitter.com/${ this.twitter.site.slice(1) }`
             : null,
+          type: 'link',
         }, {
           keyName: 'twitter:site:id',
           title: 'twitter:site:id',
@@ -252,14 +266,17 @@ export default {
           keyName: 'twitter:app:url:iphone',
           title: 'twitter:app:url:iphone',
           value: this.twitter.appUrlIphone,
+          type: 'link',
         }, {
           keyName: 'twitter:app:url:ipad',
           title: 'twitter:app:url:ipad',
           value: this.twitter.appUrlIpad,
+          type: 'link',
         }, {
           keyName: 'twitter:app:url:googleplay',
           title: 'twitter:app:url:googleplay',
           value: this.twitter.appUrlGoogle,
+          type: 'link',
         }, {
           keyName: 'twitter:app:country',
           title: 'twitter:app:country',

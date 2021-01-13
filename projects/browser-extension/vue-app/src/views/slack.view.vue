@@ -22,6 +22,8 @@
           :key="index"
           :term="item.keyName"
           :value="item.value"
+          :image="item.image"
+          :type="item.type"
         >
         </properties-item>
       </properties-list>
@@ -135,6 +137,11 @@ export default {
           keyName: 'og:image',
           title: 'og:image',
           value: this.og.image,
+          image: {
+            href: this.og.image,
+            url: this.absoluteUrl(this.og.image),
+          },
+          type: 'image',
         },
       ];
     },

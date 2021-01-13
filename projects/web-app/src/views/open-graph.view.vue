@@ -8,8 +8,8 @@
       <properties-item
         v-for="(item, index) in ogMeta"
         :key="index"
-        :term="item.content"
-        :value="item.property"
+        :term="item.property"
+        :value="item.content"
       >
       </properties-item>
     </properties-list>

@@ -4,8 +4,8 @@
       <properties-item
         v-for="(item, index) in siteMetaData"
         :key="index"
-        :value="item.value"
         :term="item.keyName"
+        :value="item.value"
       >
       </properties-item>
     </properties-list>
