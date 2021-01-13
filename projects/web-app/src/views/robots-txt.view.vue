@@ -9,7 +9,8 @@
         v-for="(url, index) in sitemapUrls"
         :key="index"
         term="url"
-        :value="url">
+        :value="url"
+      >
       </properties-item>
     </properties-list>
   </panel-section>
