@@ -11,6 +11,7 @@
           :key="index"
           :term="item.term"
           :value="item.value"
+          :schema="schema"
         >
         </properties-item>
       </properties-list>
@@ -35,6 +36,7 @@ import ExternalLink from '@shared/components/external-link';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import WarningIcon from '@shared/assets/icons/warning.svg';
+import schema from '@shared/lib/schemas/open-graph-schema';
 
 export default {
   components: {
@@ -43,6 +45,11 @@ export default {
     PropertiesItem,
     PropertiesList,
     WarningIcon,
+  },
+  data() {
+    return {
+      schema,
+    };
   },
   computed: {
     ...mapState([ 'head' ]),
