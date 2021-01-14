@@ -1,3 +1,5 @@
+@import "../../@shared/css/defaults.css";
+
 :root {
   --color-border: #E1E8ED;
   --image-small-size: 85px;
