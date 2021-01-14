@@ -18,6 +18,12 @@
   font-size: 12px;
 }
 
+.properties-item__icon {
+  width: 20px;
+  height: 20px;
+  top: -2px;
+}
+
 /* tooltip */
 .tooltip {
   box-shadow: none;

@@ -17,7 +17,7 @@
         </span>
 
         <InfoIcon v-if="warnings && !errors" class="properties-item__icon" />
-        <WarningIcon v-else-if="errors" class="properties-item__icon" />
+        <WarningIcon v-else-if="errors" class="properties-item__icon properties-item__icon--warning" />
 
         <template #info>
           <span v-if="warnings && !errors">
@@ -258,12 +258,16 @@ export default {
     display: inline-block;
     position: relative;
     top: -1px;
-    width: 18px;
-    height: 18px;
-    margin-left: 5px;
+    width: 15px;
+    height: 15px;
+    margin-left: 4px;
     fill: currentcolor;
     vertical-align: middle;
     cursor: help;
+  }
+
+  .properties-item__icon--warning {
+    fill: #eac250;
   }
 
   .properties-item__value {
