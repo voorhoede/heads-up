@@ -238,21 +238,39 @@ export default {
   }
 
   .properties-item__terms {
-    color: var(--label-color);
     flex: 1 1 auto;
+    min-width: 120px;
+    max-width: 200px;
+    color: var(--label-color);
     text-align: right;
     word-break: break-word;
-    min-width: 120px;
   }
 
   .properties-item__term {
+    display: block;
+  }
+
+  .properties-item__tooltip .properties-item__term {
     display: inline-block;
   }
 
+  .properties-item__icon {
+    display: inline-block;
+    position: relative;
+    top: -1px;
+    width: 18px;
+    height: 18px;
+    margin-left: 5px;
+    fill: currentcolor;
+    vertical-align: middle;
+    cursor: help;
+  }
+
   .properties-item__value {
-    color: var(--value-color);
-    flex: 0 0 70%;
+    flex: 0 1 auto;
+    max-width: 500px;
     margin-left: 1rem;
+    color: var(--value-color);
     word-break: break-word;
   }
 
