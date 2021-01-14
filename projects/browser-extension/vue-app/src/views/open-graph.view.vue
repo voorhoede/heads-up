@@ -9,8 +9,8 @@
         <properties-item
           v-for="(item, index) in ogMeta"
           :key="index"
-          :term="item.property"
-          :value="item.content"
+          :term="item.term"
+          :value="item.value"
         >
         </properties-item>
       </properties-list>
@@ -48,7 +48,13 @@ export default {
     ...mapState([ 'head' ]),
     ogMeta() {
       return this.head.meta
-        .filter(meta => meta.property && meta.property.startsWith('og:'));
+        .filter(meta =>
+          meta.property && meta.property.startsWith('og:') || meta.name && meta.name.startsWith('og:')
+        )
+        .map(meta => ({
+          term: meta.property || meta.name,
+          value: meta.content,
+        }));
     },
   },
 };
