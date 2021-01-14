@@ -6,6 +6,11 @@ export default function validateSchema({ schema, key, value, attrs }) {
   const valueTrimmed = (value && value.length) ? value.trim() : value;
   let errors = [];
 
+  // Skip if key is not present in schema.
+  if (!schema[key]) {
+    return;
+  }
+
   // Required
   if (schema[key].required && !valueTrimmed) {
     errors.push({
@@ -50,5 +55,6 @@ export default function validateSchema({ schema, key, value, attrs }) {
   if (errors.length) {
     return errors;
   }
+
   return null;
 }

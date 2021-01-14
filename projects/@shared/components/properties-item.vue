@@ -2,7 +2,7 @@
   <div v-if="showItem" class="properties-item">
     <dt class="properties-item__terms">
 
-      <app-tooltip v-if="schema" class="properties-item__tooltip" placement="top-start">
+      <app-tooltip v-if="showTooltip" class="properties-item__tooltip" placement="top-start">
 
         <template v-if="termIsIterable">
           <template v-for="(item, index) in term">
@@ -46,7 +46,7 @@
 
       </app-tooltip>
 
-      <template v-if="termIsIterable && !schema">
+      <template v-if="termIsIterable && !showTooltip">
         <template v-for="(item, index) in term">
           <span v-if="item" :key="index" class="properties-item__term">
             {{ item }}
@@ -54,7 +54,7 @@
         </template>
       </template>
 
-      <span v-else-if="!schema" class="properties-item__term">
+      <span v-else-if="!showTooltip" class="properties-item__term">
         {{ term }}
       </span>
 
@@ -190,6 +190,9 @@ export default {
     },
     showItem() {
       return this.term && this.value || this.required;
+    },
+    showTooltip() {
+      return this.schema && this.term && this.info && this.link;
     },
     termIsIterable() {
       return typeof this.term === 'object';

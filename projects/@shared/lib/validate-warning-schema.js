@@ -4,6 +4,11 @@ export default function validateWarningSchema({ schema, key, value, attrs }) {
   const valueTrimmed = (value && value.length) ? value.trim() : value;
   let warnings = [];
 
+  // Skip if key is not present in schema.
+  if (!schema[key]) {
+    return;
+  }
+
   // Descriptive
   if (schema[key]['descriptive-words'] &&
       valueTrimmed.split(' ').length > 0 &&
