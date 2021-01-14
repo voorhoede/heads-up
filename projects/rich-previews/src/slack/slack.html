@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Slack preview</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="slack.css">
+</head>
+
+<body>
+  <div id="app">
+    <div
+      class="slack-preview"
+      :class="{ '-theme-with-dark-background': dark }"
+    >
+      <a
+        rel="noopener"
+        target="_blank"
+        :href="url"
+        class="slack-preview__container"
+      >
+        <span class="slack-preview__sidebar"></span>
+        <div
+          class="slack-preview__content"
+          :class="{ 'slack-preview__small': image && !imageIsBig }"
+        >
+          <div class="slack-preview__content-information">
+            <div class="slack-preview__domain">
+              <div class="slack-preview__hostname">
+                <img
+                  v-if="favicon && favicon !== 'undefined'"
+                  class="slack-preview__favicon" :src="favicon"
+                  alt="favicon"
+                />
+                  {{ siteName && siteName !== 'null' ? siteName : hostname }}
+              </div>
+            </div>
+            <div class="slack-preview__title">
+              {{ title }}
+            </div>
+            <div class="slack-preview__description">
+              <p>
+                {{ description }}
+                <span
+                  v-if="image && imageIsBig"
+                  class="slack-preview__filesize"
+                >
+                  ({{ imageSize }})
+                  <span class="slack-preview__expand">▼</span>
+                </span>
+              </p>
+            </div>
+
+            <div
+              v-if="additionalData && additionalData !== 'undefined'"
+              class="slack-preview__additional"
+            >
+              <div
+                v-for="item in additionalData"
+                class="slack-preview__additional-item"
+              >
+                <strong>{{ item.label }}</strong>
+                <p>{{ item.value }}</p>
+              </div>
+            </div>
+            <div
+              v-if="image"
+              class="slack-preview__image-container"
+            >
+              <img :src="image" class="slack-preview__image" />
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <div class="slack-preview__emoji">
+        <img class="slack-preview__emoji-image" src="./assets/parrot.gif" alt="">
+        <p class="slack-preview__emoji-count">
+          {{ emojiCount }}
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/vue@3.0.5/dist/vue.global.prod.js"></script>
+  <script type="module" src="slack.js"></script>
+</body>
+</html>
