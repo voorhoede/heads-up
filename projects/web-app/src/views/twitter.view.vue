@@ -184,7 +184,8 @@ export default {
 
     const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
     const metaValue = metaName => findMetaContent(headData.value.head, metaName);
-    const propertyValue = propName => findMetaProperty(headData.value.head, propName);
+    const propertyValue = propName =>
+      findMetaProperty(headData.value.head, propName) || findMetaContent(headData.value.head, propName);
 
     return {
       card,

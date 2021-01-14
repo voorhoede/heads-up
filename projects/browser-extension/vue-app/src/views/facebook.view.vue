@@ -53,10 +53,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import {
-  findImageDimensions,
-  findMetaProperty
-} from '@shared/lib/find-meta';
+import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import getTheme from '@shared/lib/theme';
 import ExternalLink from '@shared/components/external-link';
@@ -279,7 +276,7 @@ export default {
       return createAbsoluteUrl(this.head, url);
     },
     propertyValue(propName) {
-      return findMetaProperty(this.head, propName);
+      return findMetaProperty(this.head, propName) || findMetaContent(this.head, propName);
     },
   },
 };

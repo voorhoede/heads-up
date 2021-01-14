@@ -56,7 +56,7 @@
 import { computed } from 'vue';
 import useHead from '@/composables/use-head';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
-import { findMetaProperty } from '@shared/lib/find-meta';
+import { findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
@@ -123,7 +123,8 @@ export default {
     });
 
     const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
-    const propertyValue = propName => findMetaProperty(headData.value.head, propName);
+    const propertyValue = propName =>
+      findMetaProperty(headData.value.head, propName) || findMetaContent(headData.value.head, propName);
 
     return {
       og,
