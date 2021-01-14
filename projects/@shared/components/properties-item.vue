@@ -16,8 +16,8 @@
           {{ term }}
         </span>
 
-        <InfoIcon v-if="warnings && !errors" />
-        <WarningIcon v-else-if="errors" />
+        <InfoIcon v-if="warnings && !errors" class="properties-item__icon" />
+        <WarningIcon v-else-if="errors" class="properties-item__icon" />
 
         <template #info>
           <span v-if="warnings && !errors">
@@ -281,5 +281,29 @@ export default {
     display: block;
     max-width: 200px;
     margin-bottom: 4px;
+  }
+
+  /* tooltip */
+  .tooltip {
+    box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.2);
+  }
+
+  .tooltip .tooltip-inner {
+    background: #ededed;
+    color: #333333;
+  }
+
+  .-theme-with-dark-background.tooltip-inner {
+    background: #3c3c3c;
+    color: #dadada;
+  }
+
+  .tooltip .tooltip-arrow {
+    border: 5px solid #ededed;
+    box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.2);
+  }
+
+  .-theme-with-dark-background.tooltip-arrow {
+    border: 5px solid #3c3c3c;
   }
 </style>

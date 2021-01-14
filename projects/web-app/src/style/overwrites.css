@@ -17,3 +17,18 @@
 .properties-item__value--image a {
   font-size: 12px;
 }
+
+/* tooltip */
+.tooltip {
+  box-shadow: none;
+}
+
+.tooltip .tooltip-inner {
+  background: var(--color-gray);
+  color: var(--color-black);
+}
+
+.tooltip .tooltip-arrow {
+  border: 5px solid var(--color-gray);
+  box-shadow: none;
+}
