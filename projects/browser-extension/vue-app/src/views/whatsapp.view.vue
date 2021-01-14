@@ -160,7 +160,7 @@ export default {
     window.removeEventListener('resize', this.onResize);
   },
   methods: {
-    findImageDimensions(){
+    findImageDimensions() {
       findImageDimensions(this.head, 'og:image').then(imageDimensions => {
         this.imageDimensions = imageDimensions;
       });
