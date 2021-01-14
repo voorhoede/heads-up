@@ -168,13 +168,16 @@ export default {
         {
           term: 'og:type',
           value: this.og.type,
-        }, {
+        },
+        {
           term: 'og:title',
           value: this.og.title,
-        }, {
+        },
+        {
           term: 'og:description',
           value: this.og.description,
-        }, {
+        },
+        {
           term: 'og:image',
           value: this.absoluteUrl(this.og.image),
           image: {
@@ -182,23 +185,28 @@ export default {
             url: this.absoluteUrl(this.og.image),
           },
           type: 'image',
-        }, {
+        },
+        {
           term: 'og:url',
           value: this.og.url,
           type: 'link',
-        }, {
+        },
+        {
           term: 'twitter:card',
           value: this.twitter.card,
           required: true,
-        }, {
+        },
+        {
           term: 'twitter:title',
           value: this.twitter.title,
           required: true,
-        }, {
+        },
+        {
           term: 'twitter:description',
           value: this.twitter.description,
           required: true,
-        }, {
+        },
+        {
           term: 'twitter:image',
           value: this.absoluteUrl(this.twitter.image),
           image: {
@@ -207,73 +215,92 @@ export default {
           },
           type: 'image',
           required: true,
-        }, {
+        },
+        {
           term: 'twitter:image:alt',
           value: this.twitter.imageAlt,
           required: true,
-        }, {
+        },
+        {
           term: 'twitter:creator',
           value: this.twitter.creator
             ? `https://twitter.com/${ this.twitter.creator.slice(1) }`
             : null,
           type: 'link',
           required: true,
-        }, {
+        },
+        {
           term: 'twitter:creator:id',
           value: this.twitter.creatorId,
-        }, {
+        },
+        {
           term: 'twitter:site',
           value: this.twitter.site
             ? `https://twitter.com/${ this.twitter.site.slice(1) }`
             : null,
           type: 'link',
           required: true,
-        }, {
+        },
+        {
           term: 'twitter:site:id',
           value: this.twitter.site,
-        }, {
+        },
+        {
           term: 'twitter:player',
           value: this.twitter.player,
-        }, {
+        },
+        {
           term: 'twitter:player:width',
           value: this.twitter.playerWidth,
-        }, {
+        },
+        {
           term: 'twitter:player:height',
           value: this.twitter.playerHeight,
-        }, {
+        },
+        {
           term: 'twitter:player:stream',
           value: this.twitter.playerStream,
-        }, {
+        },
+        {
           term: 'twitter:app:id:iphone',
           value: this.twitter.appIdIphone,
-        }, {
+        },
+        {
           term: 'twitter:app:id:ipad',
           value: this.twitter.appIdIpad,
-        }, {
+        },
+        {
           term: 'twitter:app:id:googleplay',
           value: this.twitter.appIdGoogle,
-        }, {
+        },
+        {
           term: 'twitter:app:url:iphone',
           value: this.twitter.appUrlIphone,
           type: 'link',
-        }, {
+        },
+        {
           term: 'twitter:app:url:ipad',
           value: this.twitter.appUrlIpad,
           type: 'link',
-        }, {
+        },
+        {
           term: 'twitter:app:url:googleplay',
           value: this.twitter.appUrlGoogle,
           type: 'link',
-        }, {
+        },
+        {
           term: 'twitter:app:country',
           value: this.twitter.appCountry,
-        }, {
+        },
+        {
           term: 'twitter:app:name:iphone',
           value: this.twitter.appNameIphone,
-        }, {
+        },
+        {
           term: 'twitter:app:name:ipad',
           value: this.twitter.appNameIpad,
-        }, {
+        },
+        {
           term: 'twitter:app:name:googleplay',
           value: this.twitter.appNameGoogle,
         },
