@@ -2,6 +2,9 @@ const cheerio = require('cheerio');
 const fetch = require('node-fetch');
 const robotsParser = require('robots-txt-parser')({ allowOnNeutral: false });
 const sitemap = require('./sitemap');
+const WAE = require('web-auto-extractor').default;
+
+const fetchDom = url => fetch(url).then(res => res.text());
 
 function elementsToJson(elements) {
   return Array.from(elements).map(element => {
@@ -11,32 +14,26 @@ function elementsToJson(elements) {
   });
 }
 
-async function createHeadResponse(domain, url) {
-  const dom = await fetch(url)
-    .then(res => res.text())
-    .then(dom => {
-      const $ = cheerio.load(dom);
-
-      return {
-        title: $('head title').text(),
-        lang: $('html').attr('lang'),
-        link: $('link').get(),
-        meta: $('meta').get(),
-      };
-    });
+function createHeadResponse(domain, url, dom) {
+  const $ = cheerio.load(dom);
 
   return {
     domain: domain,
     url: url,
-    title: dom.title,
-    lang: dom.lang,
-    link: elementsToJson(dom.link),
-    meta: elementsToJson(dom.meta),
+    title: $('head title').text(),
+    lang: $('html').attr('lang'),
+    link: elementsToJson($('link').get()),
+    meta: elementsToJson($('meta').get()),
   };
 }
 
-function createRobotsResponse(domain) {
-  return robotsParser.fetch(domain).then(result => {
+function createStructuredDataResponse(dom) {
+  const { metatags, ...structuredData } = new WAE().parse(dom);
+  return structuredData;
+}
+
+function createRobotsResponse(url) {
+  return robotsParser.fetch(url).then(result => {
     if (result.sitemaps) {
       delete result.sitemaps;
     }
@@ -71,16 +68,18 @@ exports.handler = async function(event) {
   }
 
   try {
+    const dom = await fetchDom(url);
     const domain = new URL(url).origin;
-    const urlIsCrawlable = await robotsParser.canCrawl(url);
     const sitemapData = await sitemap(domain);
+    const urlIsCrawlable = await robotsParser.canCrawl(url);
 
     return {
       statusCode: 200,
       body: JSON.stringify(
         {
           urlIsCrawlable,
-          head: await createHeadResponse(domain, url),
+          head: createHeadResponse(domain, url, dom),
+          structuredData: createStructuredDataResponse(dom),
           robots: await createRobotsResponse(url),
           ...sitemapData,
         }

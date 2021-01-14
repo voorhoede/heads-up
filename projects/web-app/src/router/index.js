@@ -3,15 +3,16 @@ import useHead from '@/composables/use-head';
 
 import Home from '@/views/home.view';
 import AppleIos from '@/views/apple-ios.view';
+import Facebook from '@/views/facebook.view';
 import Favicon from '@/views/favicon.view';
 import Link from '@/views/link.view';
 import Meta from '@/views/meta.view';
 import OpenGraph from '@/views/open-graph.view';
 import OpenSearch from '@/views/opensearch.view';
-import SearchMeta from '@/views/search-meta.view';
-import Facebook from '@/views/facebook.view';
 import RobotsTxt from '@/views/robots-txt.view';
+import SearchMeta from '@/views/search-meta.view';
 import Sitemap from '@/views/sitemap.view';
+import StructuredData from '@/views/structured-data.view';
 import Twitter from '@/views/twitter.view';
 import Whatsapp from '@/views/whatsapp.view';
 
@@ -86,6 +87,11 @@ const routes = [
     path: '/robots-txt',
     name: 'robots-txt',
     component: RobotsTxt,
+  },
+  {
+    path: '/structured-data',
+    name: 'structured-data',
+    component: StructuredData,
   },
 
   // Catch all fallback
