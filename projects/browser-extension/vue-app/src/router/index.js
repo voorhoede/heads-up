@@ -118,6 +118,14 @@ const routes = [
     },
     component: () => import(/* webpackChunkName:'views/sitemap' */ '@/views/sitemap.view'),
   },
+  {
+    path: '/structured-data',
+    name: 'structured-data',
+    meta: {
+      title: 'Structured Data',
+    },
+    component: () => import(/* webpackChunkName:'views/sitemap' */ '@/views/structured-data.view'),
+  },
 ];
 
 const router = createRouter({

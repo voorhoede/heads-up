@@ -98,6 +98,12 @@
               <span>Open Search</span>
             </router-link>
           </li>
+          <li>
+            <router-link :to="{ name: 'structured-data' }" class="app-sidebar__link">
+              <SitemapIcon />
+              <span>Structured Data</span>
+            </router-link>
+          </li>
         </ul>
       </section>
     </nav>

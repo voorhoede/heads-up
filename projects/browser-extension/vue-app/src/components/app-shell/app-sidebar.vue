@@ -133,6 +133,14 @@
             <SearchIcon class="sidebar__icon" />Open Search
           </router-link>
         </li>
+        <li class="sidebar-list__item">
+          <router-link
+            class="sidebar__button"
+            :to="{ name: 'structured-data' }"
+          >
+            <SitemapIcon class="sidebar__icon" />Structured Data
+          </router-link>
+        </li>
       </ul>
     </section>
     <footer class="sidebar__footer">
