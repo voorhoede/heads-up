@@ -9,6 +9,7 @@
         :type="item.type"
         :schema="schema"
         :attrs="item.attrs"
+        :required="true"
       >
       </properties-item>
     </properties-list>

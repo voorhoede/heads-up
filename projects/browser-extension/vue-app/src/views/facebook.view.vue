@@ -44,6 +44,7 @@
           :value="item.value"
           :image="item.image"
           :type="item.type"
+          :required="item.required"
         >
         </properties-item>
       </properties-list>
@@ -100,7 +101,7 @@ export default {
       return {
         type: this.propertyValue('og:type'),
         url: this.absoluteUrl(this.propertyValue('og:url')),
-        locale: this.absoluteUrl(this.propertyValue('og:locale')),
+        locale: this.propertyValue('og:locale'),
         title: this.propertyValue('og:title'),
         description: this.propertyValue('og:description'),
         image: this.absoluteUrl(this.propertyValue('og:image')),
@@ -169,11 +170,13 @@ export default {
         {
           term: 'og:type',
           value: this.og.type,
+          required: true,
         },
         {
           term: 'og:url',
           value: this.og.url,
           type: 'link',
+          required: true,
         },
         {
           term: 'og:locale',
@@ -182,6 +185,7 @@ export default {
         {
           term: 'og:title',
           value: this.og.title,
+          required: true,
         },
         {
           term: 'og:description',
@@ -195,11 +199,16 @@ export default {
             url: this.absoluteUrl(this.og.image),
           },
           type: 'image',
+          required: true,
         },
         {
           term: 'og:image:url',
           value: this.og.imageUrl,
-          type: 'link',
+          image: {
+            href: this.og.imageUrl,
+            url: this.absoluteUrl(this.og.imageUrl),
+          },
+          type: 'image',
         },
         {
           term: 'og:image:secure_url',
@@ -230,7 +239,11 @@ export default {
         {
           term: 'og:video:url',
           value: this.og.videoUrl,
-          type: 'link',
+          image: {
+            href: this.og.videoUrl,
+            url: this.absoluteUrl(this.og.videoUrl),
+          },
+          type: 'image',
         },
         {
           term: 'og:video:secure_url',

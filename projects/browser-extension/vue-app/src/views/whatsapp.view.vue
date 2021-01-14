@@ -25,6 +25,7 @@
           :value="item.value"
           :image="item.image"
           :type="item.type"
+          :required="item.required"
         >
         </properties-item>
       </properties-list>
@@ -115,6 +116,7 @@ export default {
         {
           term: 'og:title',
           value: this.og.title,
+          required: true,
         },
         {
           term: 'og:description',
@@ -123,6 +125,7 @@ export default {
         {
           term: 'og:type',
           value: this.og.type,
+          required: true,
         },
         {
           term: 'og:image',
@@ -132,11 +135,13 @@ export default {
             url: this.absoluteUrl(this.og.image),
           },
           type: 'image',
+          required: true,
         },
         {
           term: 'og:url',
           value: this.og.url,
           type: 'link',
+          required: true,
         },
       ];
     },

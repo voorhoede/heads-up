@@ -7,7 +7,9 @@
           :key="index"
           :term="item.term"
           :value="item.value"
+          :type="item.type"
           :schema="schema"
+          :required="item.required"
         >
         </properties-item>
       </properties-list>
@@ -54,24 +56,27 @@ export default {
         {
           term: 'title',
           value: head.title,
+          required: true,
         },
         {
           term: 'description',
           value: findMetaContent(head, 'description'),
+          required: true,
         },
         {
           term: 'search',
-          isUrl: true,
           value: findLinkHref(head, 'search'),
+          type: 'link',
         },
         {
           term: 'canonical',
-          isUrl: true,
           value: findLinkHref(head, 'canonical'),
+          type: 'link',
         },
         {
           term: 'robots',
           value: findMetaContent(head, 'robots'),
+          required: true,
         },
         {
           term: 'googlebot',

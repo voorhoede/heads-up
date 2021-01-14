@@ -31,6 +31,7 @@
           :value="item.value"
           :image="item.image"
           :type="item.type"
+          :required="item.required"
         >
         </properties-item>
       </properties-list>
@@ -122,6 +123,7 @@ export default {
         title: this.propertyValue('og:title'),
         description: this.propertyValue('og:description'),
         image: this.propertyValue('og:image'),
+        url: this.absoluteUrl(this.propertyValue('og:url')),
       };
     },
     twitter() {
@@ -181,14 +183,21 @@ export default {
           },
           type: 'image',
         }, {
+          term: 'og:url',
+          value: this.og.url,
+          type: 'link',
+        }, {
           term: 'twitter:card',
           value: this.twitter.card,
+          required: true,
         }, {
           term: 'twitter:title',
           value: this.twitter.title,
+          required: true,
         }, {
           term: 'twitter:description',
           value: this.twitter.description,
+          required: true,
         }, {
           term: 'twitter:image',
           value: this.absoluteUrl(this.twitter.image),
@@ -197,15 +206,18 @@ export default {
             url: this.absoluteUrl(this.twitter.image),
           },
           type: 'image',
-        },{
+          required: true,
+        }, {
           term: 'twitter:image:alt',
           value: this.twitter.imageAlt,
+          required: true,
         }, {
           term: 'twitter:creator',
           value: this.twitter.creator
             ? `https://twitter.com/${ this.twitter.creator.slice(1) }`
             : null,
           type: 'link',
+          required: true,
         }, {
           term: 'twitter:creator:id',
           value: this.twitter.creatorId,
@@ -215,6 +227,7 @@ export default {
             ? `https://twitter.com/${ this.twitter.site.slice(1) }`
             : null,
           type: 'link',
+          required: true,
         }, {
           term: 'twitter:site:id',
           value: this.twitter.site,

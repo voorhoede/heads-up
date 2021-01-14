@@ -28,6 +28,7 @@
         :value="item.value"
         :image="item.image"
         :type="item.type"
+        :required="item.required"
       >
       </properties-item>
     </properties-list>
@@ -102,6 +103,7 @@ export default {
       image: propertyValue('og:image'),
       title: propertyValue('og:title'),
       type: propertyValue('og:type'),
+      url: absoluteUrl(propertyValue('og:url')),
     }));
     const twitter = computed(() => ({
       card: metaValue('twitter:card'),
@@ -126,14 +128,17 @@ export default {
         {
           term: 'twitter:card',
           value: twitter.value.card,
+          required: true,
         },
         {
           term: 'twitter:title',
           value: twitter.value.title,
+          required: true,
         },
         {
           term: 'twitter:description',
           value: twitter.value.description,
+          required: true,
         },
         {
           term: 'twitter:image',
@@ -143,6 +148,7 @@ export default {
             url: absoluteUrl(twitter.value.image),
           },
           type: 'image',
+          required: true,
         },
         {
           term: 'twitter:creator',
@@ -150,6 +156,7 @@ export default {
             ? `https://twitter.com/${ twitter.value.creator.slice(1) }`
             : null,
           type: 'link',
+          required: true,
         },
         {
           term: 'twitter:site',
@@ -157,6 +164,7 @@ export default {
             ? `https://twitter.com/${ twitter.value.site.slice(1) }`
             : null,
           type: 'link',
+          required: true,
         },
         {
           term: 'og:type',
@@ -178,6 +186,11 @@ export default {
             url: absoluteUrl(og.value.image),
           },
           type: 'image',
+        },
+        {
+          term: 'og:url',
+          value: og.value.url,
+          type: 'link',
         },
       ];
     });

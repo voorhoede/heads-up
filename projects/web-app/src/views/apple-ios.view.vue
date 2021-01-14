@@ -10,6 +10,7 @@
         :key="index"
         :term="item.term"
         :value="item.value"
+        :required="true"
       >
       </properties-item>
     </properties-list>

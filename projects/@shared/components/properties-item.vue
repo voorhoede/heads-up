@@ -98,7 +98,7 @@
     </dd>
 
     <dd v-else class="properties-item__value">
-      <span>{{ value }}</span>
+      <span v-if="value">{{ value }}</span>
     </dd>
   </div>
 </template>
@@ -128,6 +128,7 @@ export default {
     },
     required: {
       type: Boolean,
+      required: false,
       default: false,
     },
     schema: {
@@ -176,19 +177,19 @@ export default {
       return null;
     },
     isColorValue() {
-      return this.type === 'color';
+      return this.type === 'color' && this.value;
     },
     isImageValue() {
-      return this.type === 'image' && this.image !== null;
+      return this.type === 'image' && this.image !== null && this.value;
     },
     isLinkValue() {
-      return this.type === 'link';
+      return this.type === 'link' && this.value;
     },
     isUrlsValue() {
-      return this.type === 'urls';
+      return this.type === 'urls' && this.value;
     },
     showItem() {
-      return this.term && this.value;
+      return this.term && this.value || this.required;
     },
     termIsIterable() {
       return typeof this.term === 'object';
@@ -238,9 +239,8 @@ export default {
   }
 
   .properties-item__terms {
-    flex: 1 1 auto;
-    min-width: 120px;
-    max-width: 200px;
+    flex: 0 0 auto;
+    width: 200px;
     color: var(--label-color);
     text-align: right;
     word-break: break-word;
