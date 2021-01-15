@@ -1,6 +1,7 @@
 import { createStore } from 'vuex';
 import { parseStringPromise } from 'xml2js';
 import robotsParser from 'robots-txt-parser';
+import WAE from 'web-auto-extractor';
 
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findLinkHref } from '@shared/lib/find-meta';
@@ -13,6 +14,7 @@ export default createStore({
   state: () => ({
     urlIsCrawlable: false,
     head: {},
+    structuredData: {},
     openSearchContent: null,
     openSearchUrl: null,
     robots: [],
@@ -36,6 +38,12 @@ export default createStore({
           commit('SET_ROBOTS', { robots });
         })
         .catch(error => console.error(error));
+    },
+    async GET_STRUCTURED_DATA ({ commit, state }) {
+      const dom = await fetch(state.head.url).then(res => res.text());
+      const { metatags, ...structuredData } = new WAE().parse(dom);
+
+      commit('SET_STRUCTURED_DATA', { structuredData });
     },
     async GET_SITEMAP_URLS({ commit, state }) {
       const urls = await robotsTxt.fetch(state.head.domain)
@@ -166,6 +174,9 @@ export default createStore({
     },
     SET_HEAD (state, { head }) {
       state.head = head;
+    },
+    SET_STRUCTURED_DATA (state, { structuredData }) {
+      state.structuredData = structuredData;
     },
     SET_OPENSEARCH_CONTENT (state, { content }) {
       state.openSearchContent = content;
