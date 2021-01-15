@@ -76,6 +76,16 @@ const twitterSchema = {
     required: true,
     message: {
       required: 'This property is required according to the Twitter documentation.',
+      'image-min-size': 'Avoid images smaller than 144x144 or less.',
+      'image-max-size': 'Avoid images larger than 4096x4096 or more.',
+    },
+    'image-min-size': {
+      height: 144,
+      width: 144,
+    },
+    'image-max-size': {
+      height: 4096,
+      width: 4096,
     },
     meta: {
       info: 'The <code>twitter:image</code> element defines the URL of image to use in the card. Images must be less than 5MB in size. JPG, PNG, WEBP and GIF formats are supported. Only the first frame of an animated GIF will be used. SVG is not supported.',

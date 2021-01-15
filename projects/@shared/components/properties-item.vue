@@ -215,7 +215,7 @@ export default {
     if (this.schema) { this.validateSchema(); }
   },
   methods: {
-    validateSchema() {
+    async validateSchema() {
       const schemaTemplate = {
         schema: this.schema,
         key: this.term,
@@ -224,7 +224,7 @@ export default {
       };
 
       this.errors = validateErrorSchema(schemaTemplate);
-      this.warnings = validateWarningSchema(schemaTemplate);
+      this.warnings = await validateWarningSchema(schemaTemplate);
     },
   },
 };
