@@ -31,6 +31,7 @@
           :value="item.value"
           :image="item.image"
           :type="item.type"
+          :schema="schema"
           :required="item.required"
         >
         </properties-item>
@@ -70,6 +71,7 @@ import ExternalLink from '@shared/components/external-link';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import PreviewIframe from '@shared/components/preview-iframe';
+import schema from '@shared/lib/schemas/twitter-schema';
 
 const validCards = [ 'summary', 'summary_large_image', 'app', 'player' ];
 export const supportedCards = [ 'summary', 'summary_large_image' ];
@@ -84,6 +86,7 @@ export default {
   },
   data() {
     return {
+      schema,
       imageDimensions: {
         height: undefined,
         width: undefined,
@@ -244,6 +247,7 @@ export default {
         {
           term: 'twitter:site:id',
           value: this.twitter.site,
+          required: true,
         },
         {
           term: 'twitter:player',

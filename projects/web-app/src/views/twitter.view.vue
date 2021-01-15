@@ -28,6 +28,7 @@
         :value="item.value"
         :image="item.image"
         :type="item.type"
+        :schema="schema"
         :required="item.required"
       >
       </properties-item>
@@ -65,6 +66,7 @@ import ExternalLink from '@shared/components/external-link';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
+import schema from '@shared/lib/schemas/twitter-schema';
 
 export default {
   setup() {
@@ -214,6 +216,7 @@ export default {
       absoluteUrl,
       metaValue,
       propertyValue,
+      schema,
     };
   },
   components: {
