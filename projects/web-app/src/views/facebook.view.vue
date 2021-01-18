@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Facebook</h1>
     <tab-selecter
       v-model="openTab"
       :tabs="TABS"

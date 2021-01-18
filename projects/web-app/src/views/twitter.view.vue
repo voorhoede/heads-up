@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Twitter</h1>
     <panel-section title="Preview">
       <p v-if="!isValidCard">
         This page does not contain the required meta data to create a preview.

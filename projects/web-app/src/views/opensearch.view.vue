@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Open Search</h1>
     <panel-section title="Preview">
       <div v-if="!hasOpenSearchFile" class="warning-message">
         <WarningIcon class="icon" />

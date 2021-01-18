@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Robots</h1>
     <panel-section title="Sitemap">
       <div v-if="!sitemapUrls.length" class="warning-message">
         <WarningIcon class="icon" />

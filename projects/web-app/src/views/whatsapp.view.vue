@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>WhatsApp</h1>
     <panel-section title="Preview">
       <p v-if="!hasDescription">
         This page does not contain an Open Graph description to create a preview.

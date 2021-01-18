@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Sitemap</h1>
     <panel-section title="Sitemaps">
       <div v-if="!sitemaps.length" class="warning-message">
         <WarningIcon class="icon" />

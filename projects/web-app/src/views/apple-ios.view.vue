@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Apple iOS</h1>
     <panel-section title="Properties">
       <div v-if="!appleMetadata.length" class="warning-message">
         <WarningIcon class="icon" />

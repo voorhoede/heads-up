@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>OpenGraph</h1>
     <panel-section title="Properties">
       <div v-if="!ogMeta.length" class="warning-message">
         <WarningIcon class="icon" />

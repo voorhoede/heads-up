@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Favicon</h1>
     <panel-section title="Favicons">
       <div v-if="!favicons.length" class="warning-message">
         <WarningIcon class="icon" />
