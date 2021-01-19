@@ -69,7 +69,7 @@
 <script>
 import { mapState } from 'vuex';
 import {
-  findAdditionSlackData,
+  findAdditionalTwitterData,
   findFavicons,
   findImageDimensions,
   findMetaContent,
@@ -167,14 +167,10 @@ export default {
       return findMetaContent(this.head, 'description');
     },
     additional() {
-      try {
-        return {
-          favicon: findFavicons(this.head)[0].url,
-          additionalData: findAdditionSlackData(this.head),
-        };
-      } catch (error) {
-        return error;
-      }
+      return {
+        favicon: findFavicons(this.head)[0].url,
+        twitterData: findAdditionalTwitterData(this.head),
+      };
     },
     themeClass() {
       /**
@@ -185,7 +181,7 @@ export default {
     },
     previewUrl() {
       const params = new URLSearchParams();
-      params.set('additionalData', JSON.stringify(this.additional.additionalData));
+      params.set('additionalData', JSON.stringify(this.additional.twitterData));
       params.set('description', this.og.description || this.headDescription);
       params.set('favicon', this.additional.favicon);
       params.set('image', this.og.image);
