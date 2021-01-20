@@ -41,7 +41,7 @@
         </template>
 
         <template #link>
-          <external-link :href="link">Learn more</external-link>
+          &nbsp;<external-link :href="link">Learn more</external-link>
         </template>
 
       </app-tooltip>
