@@ -64,7 +64,7 @@
       <img
         class="properties-item__image"
         :src="image.url"
-        :alt="image.title ? image.title : ''"
+        :alt="image.title || ''"
       />
       <external-link :href="image.url">
         <span>{{ image.href }}</span>
