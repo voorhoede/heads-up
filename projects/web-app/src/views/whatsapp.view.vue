@@ -1,64 +1,66 @@
 <template>
-  <panel-section title="Preview">
-    <p v-if="!hasDescription">
-      This page does not contain an Open Graph description to create a preview.
-    </p>
-    <preview-iframe
-      v-if="hasDescription && previewUrl"
-      :url="previewUrl"
-      iframeClass="whatsapp__preview"
-      :loading-height="122"
-    >
-      <template v-slot:caption>
-        Preview based on
-        <external-link href="https://web.whatsapp.com/">
-          web.whatsapp.com
-        </external-link>
-      </template>
-    </preview-iframe>
-  </panel-section>
-  <panel-section title="Properties">
-    <properties-list>
-      <properties-item
-        v-for="item in whatsappMetaData"
-        :key="item.keyName"
-        :key-name="item.keyName"
+  <div>
+    <panel-section title="Preview">
+      <p v-if="!hasDescription">
+        This page does not contain an Open Graph description to create a preview.
+      </p>
+      <preview-iframe
+        v-if="hasDescription && previewUrl"
+        :url="previewUrl"
+        iframeClass="whatsapp__preview"
+        :loading-height="122"
       >
-        <template #default>
-          {{ item.title }}
-        </template>
-        <template v-if="item.value && item.keyName.includes(':image')" #value>
-         <external-link :href="absoluteUrl(item.value)">
-            <img :src="absoluteUrl(item.value)" alt="" />
-            <span>{{ item.value }}</span>
+        <template v-slot:caption>
+          Preview based on
+          <external-link href="https://web.whatsapp.com/">
+            web.whatsapp.com
           </external-link>
         </template>
-        <template v-else-if="item.value" #value>
-          {{ item.value }}
-        </template>
-      </properties-item>
-    </properties-list>
-  </panel-section>
-  <panel-section title="Resources">
-    <ul class="resource-list">
-      <ul>
-        <li>
-          <external-link
-            href="https://stackoverflow.com/a/43154489"
-          >
-            2019 WhatsApp sharing standards (on StackOverflow)
-          </external-link>
-        </li>
-        <li>
-          <external-link
-            href="https://stackoverflow.com/questions/19778620/provide-an-image-for-whatsapp-link-sharing"
-          >
-            Unfurl mechanism used by WhatsApp for sharing
-          </external-link>
-        </li>
+      </preview-iframe>
+    </panel-section>
+    <panel-section title="Properties">
+      <properties-list>
+        <properties-item
+          v-for="item in whatsappMetaData"
+          :key="item.keyName"
+          :key-name="item.keyName"
+        >
+          <template #default>
+            {{ item.title }}
+          </template>
+          <template v-if="item.value && item.keyName.includes(':image')" #value>
+          <external-link :href="absoluteUrl(item.value)">
+              <img :src="absoluteUrl(item.value)" alt="" />
+              <span>{{ item.value }}</span>
+            </external-link>
+          </template>
+          <template v-else-if="item.value" #value>
+            {{ item.value }}
+          </template>
+        </properties-item>
+      </properties-list>
+    </panel-section>
+    <panel-section title="Resources">
+      <ul class="resource-list">
+        <ul>
+          <li>
+            <external-link
+              href="https://stackoverflow.com/a/43154489"
+            >
+              2019 WhatsApp sharing standards (on StackOverflow)
+            </external-link>
+          </li>
+          <li>
+            <external-link
+              href="https://stackoverflow.com/questions/19778620/provide-an-image-for-whatsapp-link-sharing"
+            >
+              Unfurl mechanism used by WhatsApp for sharing
+            </external-link>
+          </li>
+        </ul>
       </ul>
-    </ul>
-  </panel-section>
+    </panel-section>
+  </div>
 </template>
 
 <script>

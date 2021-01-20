@@ -1,35 +1,37 @@
 <template>
-  <panel-section title="Properties">
-    <properties-list>
-      <properties-item
-        v-for="item in searchMetadata"
-        :key="item.keyName"
-        :value="item.value"
-        :is-url="item.isUrl"
-        :key-name="item.keyName"
-        :schema="schema"
-        :refresh-on="searchMetadata"
-      >
-        <template #default>
-          {{ item.title }}
-        </template>
-      </properties-item>
-    </properties-list>
-  </panel-section>
-  <panel-section title="Resources">
-    <ul class="resource-list">
-      <li>
-        <external-link href="https://htmlhead.dev/#meta">
-          Guide to HTML5 <code>&lt;head&gt;</code> elements
-        </external-link>
-      </li>
-      <li>
-        <external-link href="https://support.google.com/webmasters/answer/79812">
-          Special tags that Google understands
-        </external-link>
-      </li>
-    </ul>
-  </panel-section>
+  <div>
+    <panel-section title="Properties">
+      <properties-list>
+        <properties-item
+          v-for="item in searchMetadata"
+          :key="item.keyName"
+          :value="item.value"
+          :is-url="item.isUrl"
+          :key-name="item.keyName"
+          :schema="schema"
+          :refresh-on="searchMetadata"
+        >
+          <template #default>
+            {{ item.title }}
+          </template>
+        </properties-item>
+      </properties-list>
+    </panel-section>
+    <panel-section title="Resources">
+      <ul class="resource-list">
+        <li>
+          <external-link href="https://htmlhead.dev/#meta">
+            Guide to HTML5 <code>&lt;head&gt;</code> elements
+          </external-link>
+        </li>
+        <li>
+          <external-link href="https://support.google.com/webmasters/answer/79812">
+            Special tags that Google understands
+          </external-link>
+        </li>
+      </ul>
+    </panel-section>
+  </div>
 </template>
 
 <script>

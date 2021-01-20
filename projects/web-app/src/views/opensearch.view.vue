@@ -1,76 +1,78 @@
 <template>
-  <panel-section title="Preview">
-    <div v-if="!hasOpenSearchFile" class="warning-message">
-      <WarningIcon class="icon" />
-      <p>No OpenSearch file detected.</p>
-    </div>
-    <figure v-if="hasOpenSearchFile">
-      <iframe
-        ref="iframe"
-        title="OpenSearch preview"
-        :src="previewUrl"
-        height="auto"
-        width="100%"
-        class="opensearch__preview"
-      />
-      <figcaption class="opensearch__preview-caption">
-        Preview based on source file:
-        <external-link :href="fileUrl">{{ fileUrl }}</external-link>
-      </figcaption>
-    </figure>
-  </panel-section>
-  <panel-section v-if="hasOpenSearchFile" title="Tags">
-    <properties-list>
-      <properties-item
-        v-for="item in opensearchData"
-        :key="item.keyName"
-        :value="item.keyName !== 'urls' && item.keyName !== 'image' ? item.value : null"
-        :key-name="item.keyName"
-        :schema="schema"
-        :refresh-on="opensearchData"
-      >
-        <template #default>
-          {{ item.title }}
-        </template>
-        <template v-if="item.keyName === 'urls'" #value>
-          <p v-for="(url, index) in item.value" :key="index">
-            <template v-for="(attribute, attrIndex) in url.attributes">
-              <external-link
-                v-if="attribute.name === 'template'"
-                :key="attrIndex"
-                :href="absoluteUrl(attribute.value)"
-              >
-                {{ attribute.value }}<br>
-              </external-link>
-            </template>
-            <template v-for="(attribute, attrIndex) in url.attributes">
-              <span
-                v-if="attribute.name !== 'template'"
-                :key="attrIndex"
-              >
-                {{ attribute.name }}: {{ attribute.value }}<br>
-              </span>
-            </template>
-          </p>
-        </template>
-        <template v-else-if="item.value && item.keyName === 'image'" #value>
-          <img :src="absoluteUrl(item.value)" alt="" />
-          <external-link :href="absoluteUrl(item.value)">
-            <span>{{ item.value }}</span>
+  <div>
+    <panel-section title="Preview">
+      <div v-if="!hasOpenSearchFile" class="warning-message">
+        <WarningIcon class="icon" />
+        <p>No OpenSearch file detected.</p>
+      </div>
+      <figure v-if="hasOpenSearchFile">
+        <iframe
+          ref="iframe"
+          title="OpenSearch preview"
+          :src="previewUrl"
+          height="auto"
+          width="100%"
+          class="opensearch__preview"
+        />
+        <figcaption class="opensearch__preview-caption">
+          Preview based on source file:
+          <external-link :href="fileUrl">{{ fileUrl }}</external-link>
+        </figcaption>
+      </figure>
+    </panel-section>
+    <panel-section v-if="hasOpenSearchFile" title="Tags">
+      <properties-list>
+        <properties-item
+          v-for="item in opensearchData"
+          :key="item.keyName"
+          :value="item.keyName !== 'urls' && item.keyName !== 'image' ? item.value : null"
+          :key-name="item.keyName"
+          :schema="schema"
+          :refresh-on="opensearchData"
+        >
+          <template #default>
+            {{ item.title }}
+          </template>
+          <template v-if="item.keyName === 'urls'" #value>
+            <p v-for="(url, index) in item.value" :key="index">
+              <template v-for="(attribute, attrIndex) in url.attributes">
+                <external-link
+                  v-if="attribute.name === 'template'"
+                  :key="attrIndex"
+                  :href="absoluteUrl(attribute.value)"
+                >
+                  {{ attribute.value }}<br>
+                </external-link>
+              </template>
+              <template v-for="(attribute, attrIndex) in url.attributes">
+                <span
+                  v-if="attribute.name !== 'template'"
+                  :key="attrIndex"
+                >
+                  {{ attribute.name }}: {{ attribute.value }}<br>
+                </span>
+              </template>
+            </p>
+          </template>
+          <template v-else-if="item.value && item.keyName === 'image'" #value>
+            <img :src="absoluteUrl(item.value)" alt="" />
+            <external-link :href="absoluteUrl(item.value)">
+              <span>{{ item.value }}</span>
+            </external-link>
+          </template>
+        </properties-item>
+      </properties-list>
+    </panel-section>
+    <panel-section title="Resources">
+      <ul class="resource-list">
+        <li>
+          <external-link href="https://developer.mozilla.org/en-US/docs/Web/OpenSearch">
+            MDN web docs: OpenSearch description format
           </external-link>
-        </template>
-      </properties-item>
-    </properties-list>
-  </panel-section>
-  <panel-section title="Resources">
-    <ul class="resource-list">
-      <li>
-        <external-link href="https://developer.mozilla.org/en-US/docs/Web/OpenSearch">
-          MDN web docs: OpenSearch description format
-        </external-link>
-      </li>
-    </ul>
-  </panel-section>
+        </li>
+      </ul>
+    </panel-section>
+  </div>
 </template>
 
 <script>

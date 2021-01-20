@@ -1,92 +1,94 @@
 <template>
-  <panel-section title="Properties">
-    <div v-if="!appleMetadata.length" class="warning-message">
-      <WarningIcon class="icon" />
-      <p>No meta properties detected.</p>
-    </div>
-    <properties-list v-else>
-      <properties-item
-        v-for="item in appleMetadata"
-        :key="item.keyName"
-        :key-name="item.keyName"
-        :refresh-on="appleMetadata"
-      >
-        <template #default>
-          {{ item.title }}
-        </template>
-        <template #value>
-          {{ item.value }}
-        </template>
-      </properties-item>
-    </properties-list>
-  </panel-section>
-  <panel-section title="Touch icons">
-    <div v-if="!touchIcons.length" class="warning-message">
-      <WarningIcon class="icon" />
-      <p>No touch icons detected.</p>
-    </div>
-    <properties-list v-else>
-      <properties-item
-        v-for="(icon, index) in touchIcons"
-        :key="index"
-        :key-name="icon.sizes"
-        :refresh-on="touchIcons"
-      >
-        <template #default>
-          <template v-if="icon.sizes">
-            {{ icon.sizes }}
+  <div>
+    <panel-section title="Properties">
+      <div v-if="!appleMetadata.length" class="warning-message">
+        <WarningIcon class="icon" />
+        <p>No meta properties detected.</p>
+      </div>
+      <properties-list v-else>
+        <properties-item
+          v-for="item in appleMetadata"
+          :key="item.keyName"
+          :key-name="item.keyName"
+          :refresh-on="appleMetadata"
+        >
+          <template #default>
+            {{ item.title }}
           </template>
-        </template>
-        <template #value>
-          <external-link :href="icon.url">
-            <img :src="icon.url" alt="" />
+          <template #value>
+            {{ item.value }}
+          </template>
+        </properties-item>
+      </properties-list>
+    </panel-section>
+    <panel-section title="Touch icons">
+      <div v-if="!touchIcons.length" class="warning-message">
+        <WarningIcon class="icon" />
+        <p>No touch icons detected.</p>
+      </div>
+      <properties-list v-else>
+        <properties-item
+          v-for="(icon, index) in touchIcons"
+          :key="index"
+          :key-name="icon.sizes"
+          :refresh-on="touchIcons"
+        >
+          <template #default>
+            <template v-if="icon.sizes">
+              {{ icon.sizes }}
+            </template>
+          </template>
+          <template #value>
+            <external-link :href="icon.url">
+              <img :src="icon.url" alt="" />
+            </external-link>
+          </template>
+        </properties-item>
+      </properties-list>
+    </panel-section>
+    <panel-section title="Startup images">
+      <div v-if="!startupImages.length" class="warning-message">
+        <WarningIcon class="icon" />
+        <p>No startup images detected.</p>
+      </div>
+      <properties-list v-else>
+        <properties-item
+          v-for="(image, index) in startupImages"
+          :key="index"
+          :key-name="image.url"
+          :refresh-on="startupImages"
+        >
+          <template #default>
+            <template v-if="image.filename">
+              {{ image.filename }}
+            </template>
+            <template v-if="image.sizes">
+              {{ image.sizes }}
+            </template>
+          </template>
+          <template #value>
+            <external-link :href="image.url">
+              <img :src="image.url" alt="" />
+            </external-link>
+          </template>
+        </properties-item>
+      </properties-list>
+    </panel-section>
+    <panel-section title="Resources">
+      <ul class="resource-list">
+        <li>
+          <external-link href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html#//apple_ref/doc/uid/TP40008193-SW3">
+            Apple-specific meta tags
           </external-link>
-        </template>
-      </properties-item>
-    </properties-list>
-  </panel-section>
-  <panel-section title="Startup images">
-    <div v-if="!startupImages.length" class="warning-message">
-      <WarningIcon class="icon" />
-      <p>No startup images detected.</p>
-    </div>
-    <properties-list v-else>
-      <properties-item
-        v-for="(image, index) in startupImages"
-        :key="index"
-        :key-name="image.url"
-        :refresh-on="startupImages"
-      >
-        <template #default>
-          <template v-if="image.filename">
-            {{ image.filename }}
-          </template>
-          <template v-if="image.sizes">
-            {{ image.sizes }}
-          </template>
-        </template>
-        <template #value>
-          <external-link :href="image.url">
-            <img :src="image.url" alt="" />
+        </li>
+        <li>
+          <external-link href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html">
+            Configuring web applications for iOS
           </external-link>
-        </template>
-      </properties-item>
-    </properties-list>
-  </panel-section>
-  <panel-section title="Resources">
-    <ul class="resource-list">
-      <li>
-        <external-link href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html#//apple_ref/doc/uid/TP40008193-SW3">
-          Apple-specific meta tags
-        </external-link>
-      </li>
-      <li>
-        <external-link href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html">
-          Configuring web applications for iOS
-        </external-link>
-      </li>
-    </ul>
-  </panel-section>
+        </li>
+      </ul>
+    </panel-section>
+  </div>
 </template>
 
 <script>
