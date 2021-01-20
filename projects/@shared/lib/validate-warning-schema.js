@@ -31,15 +31,19 @@ export default async function validateWarningSchema({ schema, key, value, attrs 
   if (schema[key]['image-min-size'] || schema[key]['image-max-size']) {
     await getImageDimensions(valueTrimmed)
       .then(({ width, height }) => {
-        if (width < schema[key]['image-min-size'].width ||
-          height < schema[key]['image-min-size'].height) {
+        if (
+          width < schema[key]['image-min-size'].width ||
+          height < schema[key]['image-min-size'].height
+        ) {
           warnings.push({
             message: schema[key].message['image-min-size'],
           });
         }
 
-        if (width > schema[key]['image-max-size'].width ||
-          height > schema[key]['image-max-size'].height) {
+        if (
+          width > schema[key]['image-max-size'].width ||
+          height > schema[key]['image-max-size'].height
+        ) {
           warnings.push({
             message: schema[key].message['image-max-size'],
           });
