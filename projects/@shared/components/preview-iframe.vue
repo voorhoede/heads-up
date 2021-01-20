@@ -1,12 +1,10 @@
 <template>
 <figure class="preview-iframe">
-  <p
-    v-if="isLoading"
-    class="preview-iframe__loading"
-  >
+  <p v-if="isLoading" class="preview-iframe__loading">
     Loading...
   </p>
   <iframe
+    v-show="!isLoading"
     :class="[ 'preview-iframe__iframe', iframeClass ]"
     :height="iframeHeight"
     :src="url"
@@ -16,7 +14,7 @@
     scrolling="no"
     width="100%"
   />
-  <figcaption class="preview-iframe__caption">
+  <figcaption v-if="!isLoading" class="preview-iframe__caption">
     <slot name="caption" />
   </figcaption>
 </figure>
@@ -94,9 +92,6 @@ export default {
 }
 
 .preview-iframe__loading {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
   margin: 0;
 }
 </style>

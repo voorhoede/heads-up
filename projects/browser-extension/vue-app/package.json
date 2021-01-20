@@ -13,6 +13,7 @@
     "vue": "^3.0.2",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-beta.4",
+    "web-auto-extractor": "^1.0.17",
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
