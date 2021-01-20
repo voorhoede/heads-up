@@ -19,8 +19,8 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="(item, value) in linkedinProperties"
-          :key="value"
+          v-for="item in linkedinProperties"
+          :key="item.term"
           :term="item.term"
           :value="item.value"
           :image="item.image"

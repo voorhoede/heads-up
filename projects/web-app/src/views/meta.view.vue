@@ -2,8 +2,8 @@
   <panel-section title="Properties">
     <properties-list>
       <properties-item
-        v-for="(item, index) in siteMetaData"
-        :key="index"
+        v-for="item in siteMetaData"
+        :key="item.term"
         :term="item.term"
         :value="item.value"
         :type="item.type"

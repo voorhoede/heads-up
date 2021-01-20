@@ -7,8 +7,8 @@
       </div>
       <properties-list v-else>
         <properties-item
-          v-for="(image, index) in favicons"
-          :key="index"
+          v-for="image in favicons"
+          :key="image.term"
           :term="image.term"
           :value="image.url"
           :image="image"

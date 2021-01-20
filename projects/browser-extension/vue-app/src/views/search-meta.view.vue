@@ -3,8 +3,8 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="(item, index) in searchMetaData"
-          :key="index"
+          v-for="item in searchMetaData"
+          :key="item.term"
           :term="item.term"
           :value="item.value"
           :type="item.type"

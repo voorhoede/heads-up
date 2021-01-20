@@ -6,8 +6,8 @@
     </div>
     <properties-list v-else>
       <properties-item
-        v-for="(item, index) in appleMetadata"
-        :key="index"
+        v-for="item in appleMetadata"
+        :key="item.term"
         :term="item.term"
         :value="item.value"
         :required="true"
@@ -22,8 +22,8 @@
     </div>
     <properties-list v-else>
       <properties-item
-        v-for="(icon, index) in touchIcons"
-        :key="index"
+        v-for="item in touchIcons"
+        :key="item.term"
         :term="icon.term"
         :value="icon.url"
         :image="icon"
@@ -39,8 +39,8 @@
     </div>
     <properties-list v-else>
       <properties-item
-        v-for="(image, index) in startupImages"
-        :key="index"
+        v-for="item  in startupImages"
+        :key="item.term"
         :term="image.term"
         :value="image.url"
         :image="image"

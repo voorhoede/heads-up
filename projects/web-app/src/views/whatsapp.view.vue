@@ -20,8 +20,8 @@
   <panel-section title="Properties">
     <properties-list>
       <properties-item
-        v-for="(item, index) in whatsappMetaData"
-        :key="index"
+        v-for="item in whatsappMetaData"
+        :key="item.term"
         :term="item.term"
         :value="item.value"
         :image="item.image"

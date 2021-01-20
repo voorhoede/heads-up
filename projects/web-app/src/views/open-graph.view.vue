@@ -6,8 +6,8 @@
     </div>
     <properties-list v-else>
       <properties-item
-        v-for="(item, index) in ogMeta"
-        :key="index"
+        v-for="item in ogMeta"
+        :key="item.term"
         :term="item.term"
         :value="item.value"
         :schema="schema"

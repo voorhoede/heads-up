@@ -22,8 +22,8 @@
   <panel-section v-if="hasOpenSearchFile" title="Tags">
     <properties-list>
       <properties-item
-        v-for="(item, index) in opensearchData"
-        :key="index"
+        v-for="item in opensearchData"
+        :key="item.term"
         :term="item.term"
         :value="item.value"
         :image="item.image"
