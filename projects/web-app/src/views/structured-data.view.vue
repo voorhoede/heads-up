@@ -73,10 +73,11 @@ export default {
 
 <style>
   .structured-data__code-block {
-    background-color: #f9f9f9;
-    border: 1px solid #eee;
     max-height: 50vh;
-    overflow: auto;
     padding: 0.5rem;
+    overflow: auto;
+    border: 1px solid var(--divider-color);
+    background-color: var(--bg-color);
+    font-size: 14px;
   }
 </style>

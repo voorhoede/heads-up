@@ -80,10 +80,10 @@ export default {
 
 <style>
   .structured-data__code-block {
-    background-color: #f9f9f9;
-    border: 1px solid #eee;
     max-height: 50vh;
-    overflow: auto;
     padding: 0.5rem;
+    overflow: auto;
+    border: var(--divider-border);
+    background-color: var(--toolbar-bg-color);
   }
 </style>
