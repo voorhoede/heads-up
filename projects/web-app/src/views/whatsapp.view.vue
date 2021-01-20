@@ -33,22 +33,20 @@
   </panel-section>
   <panel-section title="Resources">
     <ul class="resource-list">
-      <ul>
-        <li>
-          <external-link
-            href="https://stackoverflow.com/a/43154489"
-          >
-            2019 WhatsApp sharing standards (on StackOverflow)
-          </external-link>
-        </li>
-        <li>
-          <external-link
-            href="https://stackoverflow.com/questions/19778620/provide-an-image-for-whatsapp-link-sharing"
-          >
-            Unfurl mechanism used by WhatsApp for sharing
-          </external-link>
-        </li>
-      </ul>
+      <li>
+        <external-link
+          href="https://stackoverflow.com/a/43154489"
+        >
+          2019 WhatsApp sharing standards (on StackOverflow)
+        </external-link>
+      </li>
+      <li>
+        <external-link
+          href="https://stackoverflow.com/questions/19778620/provide-an-image-for-whatsapp-link-sharing"
+        >
+          Unfurl mechanism used by WhatsApp for sharing
+        </external-link>
+      </li>
     </ul>
   </panel-section>
 </template>

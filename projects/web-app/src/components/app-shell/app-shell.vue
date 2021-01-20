@@ -4,24 +4,33 @@
     <app-sidebar />
     <main class="app-main">
       <loader v-if="isLoadingHeadData" />
-      <router-view v-else />
+      <template v-else>
+        <h1 v-if="title">{{ title }}</h1>
+        <router-view />
+      </template>
     </main>
   </div>
 </template>
 
 <script>
-import useHead from '@/composables/use-head';
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+
 import AppHeader from './app-header';
 import AppSidebar from './app-sidebar';
 import Loader from '@/components/loader/loader';
+import useHead from '@/composables/use-head';
 
 export default {
   setup: () => {
     const head = useHead();
     const isLoadingHeadData = head.isLoading;
+    const title = computed(() => useRoute()?.meta?.title);
+
 
     return {
       isLoadingHeadData,
+      title,
     };
   },
 
