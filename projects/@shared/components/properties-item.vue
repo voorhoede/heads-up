@@ -212,7 +212,7 @@ export default {
       this.link = this.schema[this.term].meta.link;
     }
 
-    if (this.schema) { this.validateSchema(); }
+    this.validateSchema();
   },
   methods: {
     async validateSchema() {

@@ -22,15 +22,18 @@
     <properties-list>
       <properties-item
         term="allow"
-        :value="robot.allow">
+        :value="robot.allow.length && robot.allow"
+        required>
       </properties-item>
       <properties-item
         term="crawlDelay"
-        :value="robot.crawlDelay">
+        :value="robot.crawlDelay"
+        required>
       </properties-item>
       <properties-item
         term="disallow"
-        :value="robot.disallow">
+        :value="robot.disallow.length && robot.disallow"
+        required>
       </properties-item>
     </properties-list>
   </panel-section>

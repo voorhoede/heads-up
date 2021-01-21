@@ -22,8 +22,8 @@
     </div>
     <properties-list v-else>
       <properties-item
-        v-for="item in touchIcons"
-        :key="item.term"
+        v-for="icon in touchIcons"
+        :key="icon.term"
         :term="icon.term"
         :value="icon.url"
         :image="icon"
@@ -39,7 +39,7 @@
     </div>
     <properties-list v-else>
       <properties-item
-        v-for="item  in startupImages"
+        v-for="item in startupImages"
         :key="item.term"
         :term="image.term"
         :value="image.url"
