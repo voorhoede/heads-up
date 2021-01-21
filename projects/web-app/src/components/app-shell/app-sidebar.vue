@@ -162,8 +162,12 @@ export default {
 <style>
 .app-sidebar {
   display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
   flex-direction: column;
-  flex: 0 0 var(--sidebar-width);
+  width: var(--sidebar-width);
+  height: 100vh;
   padding-top: var(--header-height);
   border-right: 1px solid var(--color-gray);
   background-color: var(--paper);
@@ -172,24 +176,25 @@ export default {
 .app-sidebar__list {
   list-style: none;
 }
+
 .app-sidebar__external-link,
 .app-sidebar__link {
   display: flex;
   align-items: center;
-  text-decoration: none;
-  color: var(--color-black);
   padding: 0.5rem 0.5rem;
   transition: opacity .3s ease-out, border-color .15s ease, color .15s ease, fill .15s ease;
-  background-color: rgba(0, 0, 255, 0);
   border-left: 2px solid transparent;
+  background-color: rgba(0, 0, 255, 0);
+  color: var(--color-black);
+  text-decoration: none;
 }
 
 .app-sidebar__external-link:hover,
 .app-sidebar__link:hover,
 .app-sidebar__link.router-link-active {
-  color: var(--color-blue);
-  fill: var(--color-blue);
   border-color: currentColor;
+  fill: var(--color-blue);
+  color: var(--color-blue);
 }
 
 .app-sidebar__link svg {
@@ -204,9 +209,9 @@ export default {
 }
 
 .disabled .app-sidebar__link:hover {
-  color: var(--color-black);
-  fill: var(--color-black);
   border-color: transparent;
+  fill: var(--color-black);
+  color: var(--color-black);
 }
 
 .app-sidebar__external-link {
@@ -220,16 +225,16 @@ export default {
 }
 
 .app-sidebar__section-title {
+  margin-bottom: 0.75rem;
+  color: var(--color-blue);
   font-size: 1.25rem;
   font-weight: 500;
-  color: var(--color-blue);
-  margin-bottom: 0.75rem;
 }
 
 .app-sidebar__footer {
   margin-top: auto;
   padding: .75rem 1.5rem;
-  text-align: center;
   font-size: 0.75rem;
+  text-align: center;
 }
 </style>

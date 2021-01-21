@@ -23,11 +23,12 @@ export default {
 
 <style>
 .app-header {
+  display: flex;
   position: fixed;
+  z-index: 1;
   top: 0;
   left: 0;
   width: 100%;
-  display: flex;
   height: var(--header-height);
   padding: 1rem;
 }
@@ -45,8 +46,8 @@ export default {
 
 .app-header__search {
   display: flex;
+  flex: 0 0 calc(100% - var(--sidebar-width));
   align-items: center;
   justify-content: center;
-  flex: 0 0 calc(100% - var(--sidebar-width));
 }
 </style>

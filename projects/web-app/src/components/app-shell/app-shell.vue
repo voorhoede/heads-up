@@ -52,8 +52,9 @@ export default {
 
 .app-main {
   flex: 1 1 auto;
-  border-top: 1px solid var(--color-gray);
   margin-top: var(--header-height);
+  margin-left: var(--sidebar-width);
   overflow: auto;
+  border-top: 1px solid var(--color-gray);
 }
 </style>
