@@ -1,27 +1,26 @@
 <template>
-  <div>
-    <tab-selecter
-      v-model="openTab"
-      :tabs="TABS"
-    />
 
-    <panel-section
-      v-if="openTab === 'mobile'"
-      title="Preview"
-    >
-      This is specific for mobile
-    </panel-section>
-    <panel-section
-      v-if="openTab === 'desktop'"
-      title="Preview"
-    >
-        This is specific for desktop
-    </panel-section>
+  <tab-selecter
+    v-model="openTab"
+    :tabs="TABS"
+  />
 
-    <panel-section title="Properties">
-      This is the Facebook data
-    </panel-section>
-  </div>
+  <panel-section
+    v-if="openTab === 'mobile'"
+    title="Preview"
+  >
+    This is specific for mobile
+  </panel-section>
+  <panel-section
+    v-if="openTab === 'desktop'"
+    title="Preview"
+  >
+      This is specific for desktop
+  </panel-section>
+
+  <panel-section title="Properties">
+    This is the Facebook data
+  </panel-section>
 </template>
 
 <script>

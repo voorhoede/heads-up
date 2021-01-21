@@ -1,48 +1,32 @@
 <template>
-  <div>
-    <panel-section title="Favicons">
-      <div v-if="!favicons.length" class="warning-message">
-        <WarningIcon class="icon" />
-        <p>No Open Graph properties detected.</p>
-      </div>
-      <properties-list v-else>
-        <properties-item
-          v-for="(item, index) in favicons"
-          :key="index"
-          :key-name="item.sizes"
-          :refresh-on="favicons"
+  <panel-section title="Favicons">
+    <div v-if="!favicons.length" class="warning-message">
+      <WarningIcon class="icon" />
+      <p>No Open Graph properties detected.</p>
+    </div>
+    <properties-list v-else>
+      <properties-item
+        v-for="image in favicons"
+        :key="image.term"
+        :term="image.term"
+        :value="image.url"
+        :image="image"
+        type="image"
+      >
+      </properties-item>
+    </properties-list>
+  </panel-section>
+  <panel-section title="Resources">
+    <ul class="resource-list">
+      <li>
+        <external-link
+          href="https://bitsofco.de/all-about-favicons-and-touch-icons/"
         >
-          <template #default>
-            <template v-if="item.sizes">
-              {{ item.sizes }}<br>
-            </template>
-            <template v-if="item.type">
-              {{ item.type }}<br>
-            </template>
-            <template v-if="item.rel">
-              {{ item.rel }}
-            </template>
-          </template>
-          <template #value>
-            <external-link :href="item.url">
-              <img :src="item.url" alt="" />
-            </external-link>
-          </template>
-        </properties-item>
-      </properties-list>
-    </panel-section>
-    <panel-section title="Resources">
-      <ul class="resource-list">
-        <li>
-          <external-link
-            href="https://bitsofco.de/all-about-favicons-and-touch-icons/"
-          >
-            All About Favicons
-          </external-link>
-        </li>
-      </ul>
-    </panel-section>
-  </div>
+          All About Favicons
+        </external-link>
+      </li>
+    </ul>
+  </panel-section>
 </template>
 
 <script>
@@ -58,7 +42,12 @@ import WarningIcon from '@shared/assets/icons/warning.svg';
 export default {
   setup: () => {
     const headData = useHead().data;
-    const favicons = computed(() => (findFavicons(headData.value.head)));
+    const favicons = computed(() => (
+      findFavicons(headData.value.head).map(image => ({
+        ...image,
+        term: [ image.type, image.rel, image.sizes ],
+      }))
+    ));
 
     return {
       favicons,

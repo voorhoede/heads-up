@@ -4,16 +4,13 @@
       <properties-list>
         <properties-item
           v-for="item in searchMetaData"
-          :key="item.keyName"
+          :key="item.term"
+          :term="item.term"
           :value="item.value"
-          :is-url="item.isUrl"
-          :key-name="item.keyName"
+          :type="item.type"
           :schema="schema"
-          :refresh-on="searchMetaData"
+          :required="item.required"
         >
-          <template #default>
-            {{ item.title }}
-          </template>
         </properties-item>
       </properties-list>
     </panel-section>
@@ -46,66 +43,63 @@ import schema from '@shared/lib/schemas/search-meta-schema';
 
 export default {
   components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList },
+  data() {
+    return {
+      schema,
+    };
+  },
   computed: {
     ...mapState([ 'head' ]),
     searchMetaData() {
       const { head } = this;
       return [
         {
-          keyName: 'title',
-          title: 'title',
+          term: 'title',
           value: head.title,
+          required: true,
         },
         {
-          keyName: 'description',
-          title: 'description',
+          term: 'description',
           value: findMetaContent(head, 'description'),
+          required: true,
         },
         {
-          keyName: 'search',
-          title: 'search',
-          isUrl: true,
+          term: 'search',
           value: findLinkHref(head, 'search'),
+          type: 'link',
         },
         {
-          keyName: 'canonical',
-          title: 'canonical',
-          isUrl: true,
+          term: 'canonical',
           value: findLinkHref(head, 'canonical'),
+          type: 'link',
         },
         {
-          keyName: 'robots',
-          title: 'robots',
+          term: 'robots',
           value: findMetaContent(head, 'robots'),
+          required: true,
         },
         {
-          keyName: 'googlebot',
-          title: 'googlebot',
+          term: 'googlebot',
           value: findMetaContent(head, 'googlebot'),
         },
         {
-          keyName: 'google',
-          title: 'google',
+          term: 'google',
           value: findMetaContent(head, 'google'),
         },
         {
-          keyName: 'google-site-verification',
-          title: 'google-site-verification',
+          term: 'google-site-verification',
           value: findMetaContent(head, 'google-site-verification'),
         },
         {
-          keyName: 'msvalidate.01',
-          title: 'msvalidate.01',
+          term: 'msvalidate.01',
           value: findMetaContent(head, 'msvalidate.01'),
         },
         {
-          keyName: 'yandex-verification',
-          title: 'yandex-verification',
+          term: 'yandex-verification',
           value: findMetaContent(head, 'yandex-verification'),
         },
       ];
     },
-    schema() { return schema; },
   },
 };
 </script>

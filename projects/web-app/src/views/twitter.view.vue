@@ -1,72 +1,58 @@
 <template>
-  <div>
-    <panel-section title="Preview">
-      <p v-if="!isValidCard">
-        This page does not contain the required meta data to create a preview.
-      </p>
-      <p v-if="isValidCard && !isSupportedCard">
-        Preview is not yet available for <code>{{ card }}</code> cards. <br>
-        Card preview is currently supported for:
-        <span v-html="supportedCards.map(v => `<code>${v}</code>`).join(', ')" />.
-      </p>
-      <preview-iframe
-        v-if="isValidCard && isSupportedCard"
-        :url="previewUrl"
-        iframeClass="twitter__preview"
-        :loading-height="346"
+  <panel-section title="Preview">
+    <p v-if="!isValidCard">
+      This page does not contain the required meta data to create a preview.
+    </p>
+    <p v-if="isValidCard && !isSupportedCard">
+      Preview is not yet available for <code>{{ card }}</code> cards. <br>
+      Card preview is currently supported for:
+      <span v-html="supportedCards.map(v => `<code>${v}</code>`).join(', ')" />.
+    </p>
+    <preview-iframe
+      v-if="isValidCard && isSupportedCard"
+      :url="previewUrl"
+      iframeClass="twitter__preview"
+      :loading-height="346"
+    >
+      <template v-slot:caption>
+        Preview based on <external-link href="https://mobile.twitter.com/">mobile.twitter.com</external-link>.
+      </template>
+    </preview-iframe>
+  </panel-section>
+  <panel-section title="Properties">
+    <properties-list>
+      <properties-item
+        v-for="item in twitterMetaData"
+        :key="item.term"
+        :term="item.term"
+        :value="item.value"
+        :image="item.image"
+        :type="item.type"
+        :schema="schema"
+        :required="item.required"
       >
-        <template v-slot:caption>
-          Preview based on <external-link href="https://mobile.twitter.com/">mobile.twitter.com</external-link>.
-        </template>
-      </preview-iframe>
-    </panel-section>
-    <panel-section title="Properties">
-      <properties-list>
-        <properties-item
-          v-for="item in twitterMetaData"
-          :key="item.keyName"
-          :key-name="item.keyName"
-        >
-          <template #default>
-            {{ item.title }}
-          </template>
-          <template v-if="item.value && item.keyName.includes(':image')" #value>
-          <external-link :href="absoluteUrl(item.value)">
-              <img :src="absoluteUrl(item.value)" alt="" />
-              <span>{{ item.value }}</span>
-            </external-link>
-          </template>
-          <template v-else-if="item.value && (item.keyName.includes(':creator') || item.keyName.includes(':site'))" #value>
-            <external-link :href="item.value">
-              {{ item.value }}
-            </external-link>
-          </template>
-          <template v-else-if="item.value" #value>
-            {{ item.value }}
-          </template>
-        </properties-item>
-      </properties-list>
-    </panel-section>
-    <panel-section title="Resources">
-      <ul class="resource-list">
-        <li>
-          <external-link href="https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards.html">
-            About Twitter cards
-          </external-link>
-        </li>
-        <li>
-          <external-link href="https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/markup">
-            Twitter card markup
-          </external-link>
-        </li>
-        <li>
-          <external-link href="https://cards-dev.twitter.com/validator">
-            Twitter card validator (requires Twitter login)
-          </external-link>
-        </li>
-      </ul>
-    </panel-section>
-  </div>
+      </properties-item>
+    </properties-list>
+  </panel-section>
+  <panel-section title="Resources">
+    <ul class="resource-list">
+      <li>
+        <external-link href="https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards.html">
+          About Twitter cards
+        </external-link>
+      </li>
+      <li>
+        <external-link href="https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/markup">
+          Twitter card markup
+        </external-link>
+      </li>
+      <li>
+        <external-link href="https://cards-dev.twitter.com/validator">
+          Twitter card validator (requires Twitter login)
+        </external-link>
+      </li>
+    </ul>
+  </panel-section>
 </template>
 
 <script>
@@ -80,6 +66,7 @@ import ExternalLink from '@shared/components/external-link';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
+import schema from '@shared/lib/schemas/twitter-schema';
 
 export default {
   setup() {
@@ -118,6 +105,7 @@ export default {
       image: propertyValue('og:image'),
       title: propertyValue('og:title'),
       type: propertyValue('og:type'),
+      url: absoluteUrl(propertyValue('og:url')),
     }));
     const twitter = computed(() => ({
       card: metaValue('twitter:card'),
@@ -140,65 +128,79 @@ export default {
     const twitterMetaData = computed(() => {
       return [
         {
-          keyName: 'twitter:card',
-          title: 'twitter:card',
+          term: 'twitter:card',
           value: twitter.value.card,
+          required: true,
         },
         {
-          keyName: 'twitter:title',
-          title: 'twitter:title',
+          term: 'twitter:title',
           value: twitter.value.title,
+          required: true,
         },
         {
-          keyName: 'twitter:description',
-          title: 'twitter:description',
+          term: 'twitter:description',
           value: twitter.value.description,
+          required: true,
         },
         {
-          keyName: 'twitter:image',
-          title: 'twitter:image',
+          term: 'twitter:image',
           value: absoluteUrl(twitter.value.image),
+          image: {
+            href: twitter.value.image,
+            url: absoluteUrl(twitter.value.image),
+          },
+          type: 'image',
+          required: true,
         },
         {
-          keyName: 'twitter:creator',
-          title: 'twitter:creator',
+          term: 'twitter:creator',
           value: twitter.value.creator
             ? `https://twitter.com/${ twitter.value.creator.slice(1) }`
             : null,
+          type: 'link',
+          required: true,
         },
         {
-          keyName: 'twitter:site',
-          title: 'twitter:site',
+          term: 'twitter:site',
           value: twitter.value.site
             ? `https://twitter.com/${ twitter.value.site.slice(1) }`
             : null,
+          type: 'link',
+          required: true,
         },
         {
-          keyName: 'og:type',
-          title: 'og:type',
+          term: 'og:type',
           value: og.value.type,
         },
         {
-          keyName: 'og:title',
-          title: 'og:title',
+          term: 'og:title',
           value: og.value.title,
         },
         {
-          keyName: 'og:description',
-          title: 'og:description',
+          term: 'og:description',
           value: og.value.description,
         },
         {
-          keyName: 'og:image',
-          title: 'og:image',
+          term: 'og:image',
           value: absoluteUrl(og.value.image),
+          image: {
+            href: og.value.image,
+            url: absoluteUrl(og.value.image),
+          },
+          type: 'image',
+        },
+        {
+          term: 'og:url',
+          value: og.value.url,
+          type: 'link',
         },
       ];
     });
 
     const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
     const metaValue = metaName => findMetaContent(headData.value.head, metaName);
-    const propertyValue = propName => findMetaProperty(headData.value.head, propName);
+    const propertyValue = propName =>
+      findMetaProperty(headData.value.head, propName) || findMetaContent(headData.value.head, propName);
 
     return {
       card,
@@ -214,6 +216,7 @@ export default {
       absoluteUrl,
       metaValue,
       propertyValue,
+      schema,
     };
   },
   components: {

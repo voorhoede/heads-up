@@ -1,37 +1,32 @@
 <template>
-  <div>
-    <panel-section title="Properties">
-      <properties-list>
-        <properties-item
-          v-for="item in searchMetadata"
-          :key="item.keyName"
-          :value="item.value"
-          :is-url="item.isUrl"
-          :key-name="item.keyName"
-          :schema="schema"
-          :refresh-on="searchMetadata"
-        >
-          <template #default>
-            {{ item.title }}
-          </template>
-        </properties-item>
-      </properties-list>
-    </panel-section>
-    <panel-section title="Resources">
-      <ul class="resource-list">
-        <li>
-          <external-link href="https://htmlhead.dev/#meta">
-            Guide to HTML5 <code>&lt;head&gt;</code> elements
-          </external-link>
-        </li>
-        <li>
-          <external-link href="https://support.google.com/webmasters/answer/79812">
-            Special tags that Google understands
-          </external-link>
-        </li>
-      </ul>
-    </panel-section>
-  </div>
+  <panel-section title="Properties">
+    <properties-list>
+      <properties-item
+        v-for="item in siteMetaData"
+        :key="item.term"
+        :term="item.term"
+        :value="item.value"
+        :type="item.type"
+        :schema="schema"
+        :required="item.required"
+      >
+      </properties-item>
+    </properties-list>
+  </panel-section>
+  <panel-section title="Resources">
+    <ul class="resource-list">
+      <li>
+        <external-link href="https://htmlhead.dev/#meta">
+          Guide to HTML5 <code>&lt;head&gt;</code> elements
+        </external-link>
+      </li>
+      <li>
+        <external-link href="https://support.google.com/webmasters/answer/79812">
+          Special tags that Google understands
+        </external-link>
+      </li>
+    </ul>
+  </panel-section>
 </template>
 
 <script>
@@ -48,59 +43,52 @@ import PropertiesList from '@shared/components/properties-list';
 export default {
   setup: () => {
     const headData = useHead().data;
-    const searchMetadata = computed(() => {
+    const siteMetaData = computed(() => {
       const { head } = headData.value;
       return [
         {
-          keyName: 'title',
-          title: 'title',
+          term: 'title',
           value: head.title,
+          required: true,
         },
         {
-          keyName: 'description',
-          title: 'description',
+          term: 'description',
           value: findMetaContent(head, 'description'),
+          required: true,
         },
         {
-          keyName: 'search',
-          title: 'search',
-          isUrl: true,
+          term: 'search',
           value: absoluteUrl(findLinkHref(head, 'search')),
+          type: 'link',
         },
         {
-          keyName: 'canonical',
-          title: 'canonical',
-          isUrl: true,
+          term: 'canonical',
           value: findLinkHref(head, 'canonical'),
+          type: 'link',
         },
         {
-          keyName: 'robots',
-          title: 'robots',
+          term: 'robots',
           value: findMetaContent(head, 'robots'),
+          required: true,
         },
         {
-          keyName: 'googlebot',
-          title: 'googlebot',
+          term: 'googlebot',
           value: findMetaContent(head, 'googlebot'),
         },
         {
-          keyName: 'google',
-          title: 'google',
+          term: 'google',
           value: findMetaContent(head, 'google'),
         },
         {
-          keyName: 'google-site-verification',
-          title: 'google-site-verification',
+          term: 'google-site-verification',
           value: findMetaContent(head, 'google-site-verification'),
         },
         {
-          keyName: 'msvalidate.01',
-          title: 'msvalidate.01',
+          term: 'msvalidate.01',
           value: findMetaContent(head, 'msvalidate.01'),
         },
         {
-          keyName: 'yandex-verification',
-          title: 'yandex-verification',
+          term: 'yandex-verification',
           value: findMetaContent(head, 'yandex-verification'),
         },
       ];
@@ -110,7 +98,7 @@ export default {
 
     return {
       absoluteUrl,
-      searchMetadata,
+      siteMetaData,
       schema,
     };
   },

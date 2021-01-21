@@ -7,15 +7,12 @@
       </div>
       <properties-list v-else>
         <properties-item
-          v-for="(item, index) in ogMeta"
-          :key="index"
-          :value="item.content"
-          :key-name="item.property"
-          :refresh-on="ogMeta"
+          v-for="item in ogMeta"
+          :key="item.term"
+          :term="item.term"
+          :value="item.value"
+          :schema="schema"
         >
-          <template #default>
-            {{ item.property }}
-          </template>
         </properties-item>
       </properties-list>
     </panel-section>
@@ -39,6 +36,7 @@ import ExternalLink from '@shared/components/external-link';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import WarningIcon from '@shared/assets/icons/warning.svg';
+import schema from '@shared/lib/schemas/open-graph-schema';
 
 export default {
   components: {
@@ -48,11 +46,22 @@ export default {
     PropertiesList,
     WarningIcon,
   },
+  data() {
+    return {
+      schema,
+    };
+  },
   computed: {
     ...mapState([ 'head' ]),
     ogMeta() {
       return this.head.meta
-        .filter(meta => meta.property && meta.property.startsWith('og:'));
+        .filter(meta =>
+          meta.property && meta.property.startsWith('og:') || meta.name && meta.name.startsWith('og:')
+        )
+        .map(meta => ({
+          term: meta.property || meta.name,
+          value: meta.content,
+        }));
     },
   },
 };
