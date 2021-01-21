@@ -110,10 +110,7 @@ export default {
         .map(icon => ({
           ...icon,
           url: absoluteUrl(icon.href),
-          term: {
-            rel: icon.rel,
-            sizes: icon.sizes,
-          },
+          term: [ icon.rel, icon.sizes ],
         }));
     });
     const startupImages = computed(() => {
@@ -122,11 +119,7 @@ export default {
         .map(image => ({
           ...image,
           url: absoluteUrl(image.href),
-          term: {
-            rel: image.rel,
-            sizes: image.sizes,
-            media: image.media,
-          },
+          term: [ image.rel, image.sizes, image.media ],
         }));
     });
 

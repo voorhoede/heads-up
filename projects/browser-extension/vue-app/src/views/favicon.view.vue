@@ -54,11 +54,7 @@ export default {
     favicons() {
       return findFavicons(this.head).map(image => ({
         ...image,
-        term: {
-          type: image.type,
-          rel: image.rel,
-          sizes: image.sizes,
-        },
+        term: [ image.type, image.rel, image.sizes ],
       }));
     },
   },

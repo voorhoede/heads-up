@@ -4,7 +4,7 @@
 
       <app-tooltip v-if="showTooltip" class="properties-item__tooltip" placement="top-start">
 
-        <template v-if="termIsIterable">
+        <template v-if="termIsArray">
           <template v-for="(item, index) in term">
             <span v-if="item" :key="index" class="properties-item__term">
               {{ item }}
@@ -46,7 +46,7 @@
 
       </app-tooltip>
 
-      <template v-if="termIsIterable && !showTooltip">
+      <template v-if="termIsArray && !showTooltip">
         <template v-for="(item, index) in term">
           <span v-if="item" :key="index" class="properties-item__term">
             {{ item }}
@@ -139,7 +139,7 @@ export default {
       },
     },
     term: {
-      type: [ Object, String ],
+      type: [ Array, String ],
       required: true,
     },
     type: {
@@ -194,8 +194,8 @@ export default {
     showTooltip() {
       return this.schema && this.term && this.info && this.link;
     },
-    termIsIterable() {
-      return typeof this.term === 'object';
+    termIsArray() {
+      return Array.isArray(this.term);
     },
     warningMessage() {
       if (this.warnings && this.warnings.length > 0) {
