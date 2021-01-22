@@ -44,6 +44,7 @@
           :value="item.value"
           :image="item.image"
           :type="item.type"
+          :schema="schema"
           :required="item.required"
         >
         </properties-item>
@@ -63,6 +64,7 @@ import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import TabSelecter from '@shared/components/tab-selecter';
+import schema from '@shared/lib/schemas/facebook-schema';
 
 const TABS = [
   {
@@ -86,6 +88,7 @@ export default {
   },
   data() {
     return {
+      schema,
       imageDimensions: {
         height: undefined,
         width: undefined,
