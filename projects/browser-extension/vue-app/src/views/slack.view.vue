@@ -153,6 +153,14 @@ export default {
           type: 'link',
           required: true,
         },
+        // Transform twitterData array and
+        // spread objects into slackProperties array.
+        ...this.additional.twitterData.map((item, index) => (
+          Object.entries(item).map((entry) => ({
+            term: `twitter:${[entry[0] === 'label' ? entry[0] : 'data']}${ index + 1 }`,
+            value: entry[1],
+          }))
+        )).flat(),
       ];
     },
   },
