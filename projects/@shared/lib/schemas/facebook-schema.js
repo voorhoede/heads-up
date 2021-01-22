@@ -14,6 +14,11 @@ const facebookSchema = {
     required: true,
     message: {
       required: 'This property is required according to Facebook\'s developers documentation.',
+      'image-min-size': 'Avoid images smaller than 600x600 or less.',
+    },
+    'image-min-size': {
+      height: 600,
+      width: 600,
     },
     meta: {
       info: 'The URL of the image that appears when someone shares the content to Facebook. Check out Facebook\'s <a target="_blank" href="https://developers.facebook.com/docs/sharing/best-practices#images">best practices guide</a> to learn how to specify a high quality preview image. To update an image after it\'s been published, use a new URL for the new image. <strong>Images are cached based on the URL and won\'t be updated unless the URL changes.</strong>',
