@@ -38,39 +38,14 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-if="head.title !== og.title"
-          :schema="appMetaSchema"
-          :value="head.title"
-          key-name="title"
-        >
-          <template #default>title</template>
-        </properties-item>
-        <properties-item
           v-for="item in facebookMetaData"
-          :key="item.keyName"
-          :key-name="item.keyName"
+          :key="item.term"
+          :term="item.term"
+          :value="item.value"
+          :image="item.image"
+          :type="item.type"
+          :required="item.required"
         >
-          <template #default>
-            <social-media-tooltip
-              :exist="tooltip[item.keyName].exist"
-              :has-variation="tooltip[item.keyName].hasVariation"
-              :required-sizes="tooltip[item.keyName].requiredSizes"
-              :required="tooltip[item.keyName].required"
-              :size="tooltip[item.keyName].size"
-              :tag="tooltip[item.keyName].tag"
-              :type="item.keyName"
-              :value-length="tooltip[item.keyName].valueLength"
-            />
-          </template>
-          <template v-if="item.value && item.keyName.includes(':image')" #value>
-            <external-link :href="absoluteUrl(item.value)">
-              <img :src="absoluteUrl(item.value)" alt="" />
-              <span>{{ item.value }}</span>
-            </external-link>
-          </template>
-          <template v-else-if="item.value" #value>
-            {{ item.value }}
-          </template>
         </properties-item>
       </properties-list>
     </panel-section>
@@ -79,11 +54,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import {
-  findMetaProperty,
-  findImageDimensions
-} from '@shared/lib/find-meta';
-import appMetaSchema from '@shared/lib/schemas/app-meta-schema';
+import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import getTheme from '@shared/lib/theme';
 import ExternalLink from '@shared/components/external-link';
@@ -91,7 +62,6 @@ import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
-import SocialMediaTooltip from '@shared/components/social-media-tooltip';
 import TabSelecter from '@shared/components/tab-selecter';
 
 const TABS = [
@@ -112,12 +82,10 @@ export default {
     PreviewIframe,
     PropertiesItem,
     PropertiesList,
-    SocialMediaTooltip,
     TabSelecter,
   },
   data() {
     return {
-      appMetaSchema,
       imageDimensions: {
         height: undefined,
         width: undefined,
@@ -125,117 +93,6 @@ export default {
       imageSpecified: true,
       TABS,
       openTab: TABS[0].value,
-      tooltip: {
-        'fb:app_id': {
-          exist: false,
-          required: true,
-          tag: 'fb:app_id',
-        },
-        'og:type': {
-          exist: false,
-          required: false,
-          tag: 'og:type',
-        },
-        'og:url': {
-          exist: false,
-          required: true,
-          tag: 'og:url',
-        },
-        'og:locale': {
-          exist: false,
-          required: false,
-          tag: 'og:locale',
-        },
-        'og:title': {
-          exist: null,
-          required: true,
-          tag: null,
-        },
-        'og:description': {
-          exist: null,
-          required: true,
-          tag: 'og:description',
-          valueLength: {
-            max: 250,
-            tooLong: null,
-          },
-        },
-        'og:image': {
-          exist: false,
-          hasVariation: true,
-          required: false,
-          requiredSizes: {
-            minimum: {
-              width: 100,
-              height: 100,
-            },
-            variation: {
-              width: 415,
-              height: 415,
-            },
-          },
-          size: {
-            width: null,
-            height: null,
-          },
-          tag: 'og:image',
-        },
-        'og:image:url': {
-          exist: false,
-          required: false,
-          tag: 'og:image:url',
-        },
-        'og:image:secure_url': {
-          exist: false,
-          required: false,
-          tag: 'og:image:secure_url',
-        },
-        'og:image:type': {
-          exist: false,
-          required: false,
-          tag: 'og:image:type',
-        },
-        'og:image:width': {
-          exist: false,
-          required: false,
-          tag: 'og:image:width',
-        },
-        'og:image:height': {
-          exist: false,
-          required: false,
-          tag: 'og:image:height',
-        },
-        'og:video': {
-          exist: false,
-          required: false,
-          tag: 'og:video',
-        },
-        'og:video:url': {
-          exist: false,
-          required: false,
-          tag: 'og:video:url',
-        },
-        'og:video:secure_url': {
-          exist: false,
-          required: false,
-          tag: 'og:video:secure_url',
-        },
-        'og:video:type': {
-          exist: false,
-          required: false,
-          tag: 'og:video:type',
-        },
-        'og:video:width': {
-          exist: false,
-          required: false,
-          tag: 'og:video:width',
-        },
-        'og:video:height': {
-          exist: false,
-          required: false,
-          tag: 'og:video:height',
-        },
-      },
     };
   },
   computed: {
@@ -244,7 +101,7 @@ export default {
       return {
         type: this.propertyValue('og:type'),
         url: this.absoluteUrl(this.propertyValue('og:url')),
-        locale: this.absoluteUrl(this.propertyValue('og:locale')),
+        locale: this.propertyValue('og:locale'),
         title: this.propertyValue('og:title'),
         description: this.propertyValue('og:description'),
         image: this.absoluteUrl(this.propertyValue('og:image')),
@@ -264,6 +121,7 @@ export default {
     facebookProperties() {
       return {
         appId: this.propertyValue('fb:app_id'),
+        pages: this.propertyValue('fb:pages'),
       };
     },
     themeClass() {
@@ -302,93 +160,106 @@ export default {
     facebookMetaData() {
       return [
         {
-          keyName: 'fb:app_id',
-          title: 'fb:app_id',
+          term: 'fb:app_id',
           value: this.facebookProperties.appId,
         },
         {
-          keyName: 'og:type',
-          title: 'og:type',
+          term: 'fb:pages',
+          value: this.facebookProperties.pages,
+        },
+        {
+          term: 'og:type',
           value: this.og.type,
+          required: true,
         },
         {
-          keyName: 'og:url',
-          title: 'og:url',
+          term: 'og:url',
           value: this.og.url,
+          type: 'link',
+          required: true,
         },
         {
-          keyName: 'og:locale',
-          title: 'og:locale',
+          term: 'og:locale',
           value: this.og.locale,
         },
         {
-          keyName: 'og:title',
-          title: 'og:title',
+          term: 'og:title',
           value: this.og.title,
+          required: true,
         },
         {
-          keyName: 'og:description',
-          title: 'og:description',
+          term: 'og:description',
           value: this.og.description,
         },
         {
-          keyName: 'og:image',
-          title: 'og:image',
+          term: 'og:image',
           value: this.og.image,
+          image: {
+            href: this.og.image,
+            url: this.absoluteUrl(this.og.image),
+          },
+          type: 'image',
+          required: true,
         },
         {
-          keyName: 'og:image:url',
-          title: 'og:image:url',
+          term: 'og:image:url',
           value: this.og.imageUrl,
+          image: {
+            href: this.og.imageUrl,
+            url: this.absoluteUrl(this.og.imageUrl),
+          },
+          type: 'image',
         },
         {
-          keyName: 'og:image:secure_url',
-          title: 'og:image:secure_url',
+          term: 'og:image:secure_url',
           value: this.og.imageSecureUrl,
+          type: 'link',
         },
         {
-          keyName: 'og:image:type',
-          title: 'og:image:type',
+          term: 'og:image:type',
           value: this.og.imageType,
         },
         {
-          keyName: 'og:image:width',
-          title: 'og:image:width',
+          term: 'og:image:width',
           value: this.og.imageWidth,
         },
         {
-          keyName: 'og:image:height',
-          title: 'og:image:height',
+          term: 'og:image:height',
           value: this.og.imageHeight,
         },
         {
-          keyName: 'og:video',
-          title: 'og:video',
+          term: 'og:video',
           value: this.og.video,
+          image: {
+            href: this.og.video,
+            url: this.absoluteUrl(this.og.video),
+          },
+          type: 'image',
         },
         {
-          keyName: 'og:video:url',
-          title: 'og:video:url',
+          term: 'og:video:url',
           value: this.og.videoUrl,
+          image: {
+            href: this.og.videoUrl,
+            url: this.absoluteUrl(this.og.videoUrl),
+          },
+          type: 'image',
         },
         {
-          keyName: 'og:video:secure_url',
-          title: 'og:video:secure_url',
+          term: 'og:video:secure_url',
           value: this.og.videoSecureUrl,
+          type: 'link',
         },
         {
-          keyName: 'og:video:type',
-          title: 'og:video:type',
+          term: 'og:video:type',
           value: this.og.videoType,
         },
         {
-          keyName: 'og:video:width',
-          title: 'og:video:width',
+          term: 'og:video:width',
           value: this.og.videoWidth,
         },
         {
-          keyName: 'og:video:height',
-          title: 'og:video:height',
+          term: 'og:video:height',
           value: this.og.videoHeight,
         },
       ];
@@ -412,32 +283,13 @@ export default {
     findImageDimensions() {
       findImageDimensions(this.head, 'og:image').then(imageDimensions => {
         this.imageDimensions = imageDimensions;
-        this.setTooltipData(imageDimensions);
       });
     },
     absoluteUrl(url) {
       return createAbsoluteUrl(this.head, url);
     },
-    setTooltipData(dimensions) {
-      for (const [ key, value ] of Object.entries(this.og)) {
-        this.tooltip[`og:${ key }`].exist = Boolean(value);
-      }
-
-      for (const [ key, value ] of Object.entries(this.facebookProperties)) {
-        this.tooltip[`fb:${ key }`].exist = Boolean(value);
-      }
-
-      this.og.image
-        ? (this.tooltip['og:image'].exist = true)
-        : (this.tooltip['og:image'].exist = false);
-
-      this.tooltip['og:description'].valueLength.tooLong =
-        this.og.description?.length > this.tooltip['og:description'].valueLength.max;
-
-      this.tooltip['og:image'].size = dimensions;
-    },
     propertyValue(propName) {
-      return findMetaProperty(this.head, propName);
+      return findMetaProperty(this.head, propName) || findMetaContent(this.head, propName);
     },
   },
 };
@@ -446,9 +298,5 @@ export default {
 <style>
 .facebook__preview {
   max-width: 521px;
-}
-
-.facebook .properties-item__icon {
-  margin-left: 4px;
 }
 </style>

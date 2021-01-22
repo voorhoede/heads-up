@@ -22,42 +22,13 @@
       <properties-list>
         <properties-item
           v-for="item in opensearchData"
-          :key="item.keyName"
-          :value="item.keyName !== 'urls' && item.keyName !== 'image' ? item.value : null"
-          :key-name="item.keyName"
+          :key="item.term"
+          :term="item.term"
+          :value="item.value"
+          :image="item.image"
+          :type="item.type"
           :schema="schema"
-          :refresh-on="opensearchData"
         >
-          <template #default>
-          {{ item.title }}
-        </template>
-        <template v-if="item.keyName === 'urls'" #value>
-          <p v-for="(url, index) in item.value" :key="index">
-            <template v-for="(attribute, attrIndex) in url.attributes">
-              <external-link
-                v-if="attribute.name === 'template'"
-                :key="attrIndex"
-                :href="absoluteUrl(attribute.value)"
-              >
-                {{ attribute.value }}<br>
-              </external-link>
-            </template>
-            <template v-for="(attribute, attrIndex) in url.attributes">
-              <span
-                v-if="attribute.name !== 'template'"
-                :key="attrIndex"
-              >
-                {{ attribute.name }}: {{ attribute.value }}<br>
-              </span>
-            </template>
-          </p>
-        </template>
-        <template v-else-if="item.keyName === 'image'" #value>
-          <img :src="absoluteUrl(item.value)" alt="" />
-          <external-link :href="absoluteUrl(item.value)">
-            <span>{{ item.value }}</span>
-          </external-link>
-        </template>
         </properties-item>
       </properties-list>
     </panel-section>
@@ -77,9 +48,9 @@
 <script>
 import { mapState } from 'vuex';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
-import { findLinkHref, findXMLElement } from '@shared/lib/find-meta';
+import { findXMLElement } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
-import schema  from '../lib/schemas/opensearch-schema';
+import schema from '../lib/schemas/opensearch-schema';
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
 import PropertiesList from '@shared/components/properties-list';
@@ -95,6 +66,11 @@ export default {
     PropertiesList,
     PreviewIframe,
     WarningIcon,
+  },
+  data() {
+    return {
+      schema,
+    };
   },
   computed: {
     ...mapState([ 'head', 'openSearchContent', 'openSearchUrl' ]),
@@ -135,44 +111,57 @@ export default {
     opensearchData() {
       return [
         {
-          keyName: 'shortname',
-          title: 'ShortName',
+          term: 'shortname',
           value: this.shortName,
         },
         {
-          keyName: 'description',
-          title: 'Description',
+          term: 'description',
           value: this.description,
         },
         {
-          keyName: 'urls',
-          title: 'Url(s)',
-          value: this.urls,
+          term: 'urls',
+          value: this.formatUrlsObject(this.urls),
+          type: 'urls',
         },
         {
-          keyName: 'image',
-          title: 'Image',
+          term: 'image',
           value: this.image,
+          image: {
+            href: this.image,
+            url: this.absoluteUrl(this.image),
+          },
+          type: 'image',
         },
         {
-          keyName: 'input-encoding',
-          title: 'InputEncoding',
+          term: 'input-encoding',
           value: this.inputEncoding,
         },
       ];
     },
-    schema() { return schema; },
   },
   methods: {
     absoluteUrl(url) {
       return createAbsoluteUrl(this.head, url);
+    },
+    formatUrlsObject(urls) {
+      return urls.map(item => {
+        const templateAttr = item.attributes.find(({ name }) => name === 'template');
+        const url = templateAttr ? templateAttr.value : null;
+        const attributes = item.attributes
+          .filter(({ name }) => name !== 'template')
+          .reduce((obj, { name, value }) => (
+            Object.assign(obj, { [name]: value })
+          ), {});
+
+        return { url, attributes };
+      });
     },
   },
 };
 </script>
 
 <style>
-  .opensearch__preview {
-    height: 140px;
-  }
+.opensearch__preview {
+  height: 140px;
+}
 </style>

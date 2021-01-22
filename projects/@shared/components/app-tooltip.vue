@@ -49,29 +49,18 @@ export default {
 .tooltip {
   display: block !important;
   z-index: 10000;
+  max-width: calc(75vw - var(--sidebar-width));
+  transition: opacity 0.15s, visibility 0.15s;
 }
 
-.tooltip .tooltip-inner {
-  background: #ededed;
-  color: hsl(0, 0%, 20%);
-  border-radius: 2px;
-  padding: 5px 10px 4px;
-  z-index: 1;
+.tooltip[aria-hidden="true"] {
+  visibility: hidden;
+  opacity: 0;
 }
 
-.tooltip .tooltip-arrow {
-  width: 0;
-  height: 0;
-  position: absolute;
-  border: 5px solid #ededed;
-  box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.2);
-  left: calc(50% - 5px);
-  transform: rotate(45deg);
-}
-
-.tooltip[x-placement^="top"] .tooltip-arrow {
-  bottom: -5px;
-  margin: 0 5px;
+.tooltip[aria-hidden="false"] {
+  visibility: visible;
+  opacity: 1;
 }
 
 .tooltip::before {
@@ -79,9 +68,27 @@ export default {
   position: absolute;
   top: -5px;
   left: 0;
-  height: 100%;
   width: 100%;
+  height: 100%;
   transform: scaleY(2);
+}
+
+.tooltip .tooltip-inner {
+  z-index: 1;
+  padding: 6px 8px 5px;
+  border-radius: 3px;
+}
+
+.tooltip .tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  transform: rotate(45deg);
+}
+
+.tooltip[x-placement^="top"] .tooltip-arrow {
+  bottom: -5px;
+  margin: 0 5px;
 }
 
 .tooltip[x-placement^="bottom"] .tooltip-arrow {
@@ -105,28 +112,5 @@ export default {
 .tooltip[x-placement^="left"] .tooltip-arrow {
   right: -5px;
   margin: 5px 0;
-}
-
-.tooltip[aria-hidden="true"] {
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.15s, visibility 0.15s;
-}
-
-.tooltip[aria-hidden="false"] {
-  visibility: visible;
-  opacity: 1;
-  transition: opacity 0.15s;
-  box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.2);
-  max-width: calc(75vw - var(--sidebar-width));
-}
-
-.-theme-with-dark-background.tooltip-inner {
-  background: #3c3c3c;
-  color: #dadada;
-}
-
-.-theme-with-dark-background.tooltip-arrow {
-  border: 5px solid #3c3c3c;
 }
 </style>

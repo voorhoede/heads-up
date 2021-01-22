@@ -26,35 +26,14 @@
       <properties-list>
         <properties-item
           v-for="item in twitterMetaData"
-          :key="item.keyName"
-          :key-name="item.keyName"
+          :key="item.term"
+          :term="item.term"
+          :value="item.value"
+          :image="item.image"
+          :type="item.type"
+          :schema="schema"
+          :required="item.required"
         >
-          <template #default>
-            <social-media-tooltip
-              :exist="tooltip[item.keyName].exist"
-              :has-variation="tooltip[item.keyName].hasVariation"
-              :required-sizes="tooltip[item.keyName].requiredSizes"
-              :required="tooltip[item.keyName].required"
-              :size="tooltip[item.keyName].size"
-              :tag="tooltip[item.keyName].tag"
-              :type="item.keyName"
-              :value-length="tooltip[item.keyName].valueLength"
-            />
-          </template>
-          <template v-if="item.keyName.includes(':image')" #value>
-            <external-link :href="absoluteUrl(item.value)">
-              <img :src="absoluteUrl(item.value)" alt="" />
-              <span>{{ item.value }}</span>
-            </external-link>
-          </template>
-          <template v-else-if="item.keyName.includes(':creator') || item.keyName.includes(':site')" #value>
-            <external-link v-if="item.value" :href="item.value">
-              {{ item.value }}
-            </external-link>
-          </template>
-          <template v-else #value>
-            {{ item.value }}
-          </template>
         </properties-item>
       </properties-list>
     </panel-section>
@@ -85,18 +64,14 @@
 <script>
 import { mapState } from 'vuex';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
-import {
-  findImageDimensions,
-  findMetaContent,
-  findMetaProperty
-} from '@shared/lib/find-meta';
+import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import PreviewIframe from '@shared/components/preview-iframe';
-import SocialMediaTooltip from '@shared/components/social-media-tooltip';
+import schema from '@shared/lib/schemas/twitter-schema';
 
 const validCards = [ 'summary', 'summary_large_image', 'app', 'player' ];
 export const supportedCards = [ 'summary', 'summary_large_image' ];
@@ -108,184 +83,13 @@ export default {
     PropertiesItem,
     PropertiesList,
     PreviewIframe,
-    SocialMediaTooltip,
   },
   data() {
     return {
+      schema,
       imageDimensions: {
         height: undefined,
         width: undefined,
-      },
-      tooltip: {
-        'twitter:app:id:iphone': {
-          exist: false,
-          required: false,
-          tag: 'twitter:app:id:iphone',
-        },
-        'twitter:app:id:ipad': {
-          exist: false,
-          required: false,
-          tag: 'twitter:app:id:ipad',
-        },
-        'twitter:app:id:googleplay': {
-          exist: false,
-          required: false,
-          tag: 'twitter:app:id:googleplay',
-        },
-        'twitter:app:url:iphone': {
-          exist: false,
-          required: false,
-          tag: 'twitter:app:url:iphone',
-        },
-        'twitter:app:url:ipad': {
-          exist: false,
-          required: false,
-          tag: 'twitter:app:url:ipad',
-        },
-        'twitter:app:url:googleplay': {
-          exist: false,
-          required: false,
-          tag: 'twitter:app:url:googleplay',
-        },
-        'twitter:app:country': {
-          exist: false,
-          required: false,
-          tag: 'twitter:app:country',
-        },
-        'twitter:app:name:iphone': {
-          exist: false,
-          required: false,
-          tag: 'twitter:app:name:iphone',
-        },
-        'twitter:app:name:ipad': {
-          exist: false,
-          required: false,
-          tag: 'twitter:app:name:ipad',
-        },
-        'twitter:app:name:googleplay': {
-          exist: false,
-          required: false,
-          tag: 'twitter:app:name:googleplay',
-        },
-        'twitter:card': {
-          exist: false,
-          required: true,
-          tag: 'twitter:card',
-        },
-        'twitter:site': {
-          exist: false,
-          required: false,
-          tag: 'twitter:site',
-        },
-        'twitter:site:id': {
-          exist: false,
-          required: false,
-          tag: 'twitter:site:id',
-        },
-        'twitter:creator': {
-          exist: false,
-          required: false,
-          tag: 'twitter:creator',
-        },
-        'twitter:creator:id': {
-          exist: false,
-          required: false,
-          tag: 'twitter:creator:id',
-        },
-        'twitter:title': {
-          exist: false,
-          required: true,
-          tag: 'twitter:title',
-        },
-        'twitter:description': {
-          exist: false,
-          required: false,
-          tag: 'twitter:description',
-        },
-        'twitter:player': {
-          exist: false,
-          required: false,
-          tag: 'twitter:player',
-        },
-        'twitter:player:width': {
-          exist: false,
-          required: false,
-          tag: 'twitter:player:width',
-        },
-        'twitter:player:height': {
-          exist: false,
-          required: false,
-          tag: 'twitter:player:height',
-        },
-        'twitter:player:stream': {
-          exist: false,
-          required: false,
-          tag: 'twitter:player:stream',
-        },
-        'twitter:image': {
-          exist: false,
-          hasVariation: false,
-          required: false,
-          requiredSizes: {
-            minimum: {
-              width: 144,
-              height: 144,
-            },
-            variation: {
-              width: 300,
-              height: 157,
-            },
-          },
-          size: {
-            width: null,
-            height: null,
-          },
-          tag: 'twitter:image',
-        },
-        'twitter:image:alt': {
-          exist: false,
-          required: false,
-          tag: 'twitter:image:alt',
-        },
-        'og:type': {
-          exist: false,
-          required: false,
-          tag: 'og:type',
-        },
-        'og:title': {
-          exist: false,
-          required: false,
-          tag: 'og:title',
-        },
-        'og:description': {
-          exist: false,
-          required: false,
-          tag: 'og:description',
-          valueLength: {
-            max: 700,
-            tooLong: false,
-          },
-        },
-        'og:image': {
-          exist: false,
-          hasVariation: false,
-          required: false,
-          requiredSizes: {
-            minimum: {
-              width: 144,
-              height: 144,
-            },
-            variation: {
-              width: 300,
-              height: 157,
-            },
-          },
-          size: {
-            width: null,
-            height: null,
-          },
-          tag: 'og:image',
-        },
       },
     };
   },
@@ -322,6 +126,7 @@ export default {
         title: this.propertyValue('og:title'),
         description: this.propertyValue('og:description'),
         image: this.propertyValue('og:image'),
+        url: this.absoluteUrl(this.propertyValue('og:url')),
       };
     },
     twitter() {
@@ -364,116 +169,143 @@ export default {
     twitterMetaData() {
       return [
         {
-          keyName: 'og:type',
-          title: 'og:type',
+          term: 'og:type',
           value: this.og.type,
-        }, {
-          keyName: 'og:title',
-          title: 'og:title',
+        },
+        {
+          term: 'og:title',
           value: this.og.title,
-        }, {
-          keyName: 'og:description',
-          title: 'og:description',
+        },
+        {
+          term: 'og:description',
           value: this.og.description,
-        }, {
-          keyName: 'og:image',
-          title: 'og:image',
+        },
+        {
+          term: 'og:image',
           value: this.absoluteUrl(this.og.image),
-        }, {
-          keyName: 'twitter:card',
-          title: 'twitter:card',
+          image: {
+            href: this.og.image,
+            url: this.absoluteUrl(this.og.image),
+          },
+          type: 'image',
+        },
+        {
+          term: 'og:url',
+          value: this.og.url,
+          type: 'link',
+        },
+        {
+          term: 'twitter:card',
           value: this.twitter.card,
-        }, {
-          keyName: 'twitter:title',
-          title: 'twitter:title',
+          required: true,
+        },
+        {
+          term: 'twitter:title',
           value: this.twitter.title,
-        }, {
-          keyName: 'twitter:description',
-          title: 'twitter:description',
+          required: true,
+        },
+        {
+          term: 'twitter:description',
           value: this.twitter.description,
-        }, {
-          keyName: 'twitter:image',
-          title: 'twitter:image',
+          required: true,
+        },
+        {
+          term: 'twitter:image',
           value: this.absoluteUrl(this.twitter.image),
-        },{
-          keyName: 'twitter:image:alt',
-          title: 'twitter:image:alt',
+          image: {
+            href: this.twitter.image,
+            url: this.absoluteUrl(this.twitter.image),
+          },
+          type: 'image',
+          required: true,
+        },
+        {
+          term: 'twitter:image:alt',
           value: this.twitter.imageAlt,
-        }, {
-          keyName: 'twitter:creator',
-          title: 'twitter:creator',
+          required: true,
+        },
+        {
+          term: 'twitter:creator',
           value: this.twitter.creator
             ? `https://twitter.com/${ this.twitter.creator.slice(1) }`
             : null,
-        }, {
-          keyName: 'twitter:creator:id',
-          title: 'twitter:creator:id',
+          type: 'link',
+          required: true,
+        },
+        {
+          term: 'twitter:creator:id',
           value: this.twitter.creatorId,
-        }, {
-          keyName: 'twitter:site',
-          title: 'twitter:site',
+        },
+        {
+          term: 'twitter:site',
           value: this.twitter.site
             ? `https://twitter.com/${ this.twitter.site.slice(1) }`
             : null,
-        }, {
-          keyName: 'twitter:site:id',
-          title: 'twitter:site:id',
+          type: 'link',
+          required: true,
+        },
+        {
+          term: 'twitter:site:id',
           value: this.twitter.site,
-        }, {
-          keyName: 'twitter:player',
-          title: 'twitter:player',
+          required: true,
+        },
+        {
+          term: 'twitter:player',
           value: this.twitter.player,
-        }, {
-          keyName: 'twitter:player:width',
-          title: 'twitter:player:width',
+        },
+        {
+          term: 'twitter:player:width',
           value: this.twitter.playerWidth,
-        }, {
-          keyName: 'twitter:player:height',
-          title: 'twitter:player:height',
+        },
+        {
+          term: 'twitter:player:height',
           value: this.twitter.playerHeight,
-        }, {
-          keyName: 'twitter:player:stream',
-          title: 'twitter:player:stream',
+        },
+        {
+          term: 'twitter:player:stream',
           value: this.twitter.playerStream,
-        }, {
-          keyName: 'twitter:app:id:iphone',
-          title: 'twitter:app:id:iphone',
+        },
+        {
+          term: 'twitter:app:id:iphone',
           value: this.twitter.appIdIphone,
-        }, {
-          keyName: 'twitter:app:id:ipad',
-          title: 'twitter:app:id:ipad',
+        },
+        {
+          term: 'twitter:app:id:ipad',
           value: this.twitter.appIdIpad,
-        }, {
-          keyName: 'twitter:app:id:googleplay',
-          title: 'twitter:app:id:googleplay',
+        },
+        {
+          term: 'twitter:app:id:googleplay',
           value: this.twitter.appIdGoogle,
-        }, {
-          keyName: 'twitter:app:url:iphone',
-          title: 'twitter:app:url:iphone',
+        },
+        {
+          term: 'twitter:app:url:iphone',
           value: this.twitter.appUrlIphone,
-        }, {
-          keyName: 'twitter:app:url:ipad',
-          title: 'twitter:app:url:ipad',
+          type: 'link',
+        },
+        {
+          term: 'twitter:app:url:ipad',
           value: this.twitter.appUrlIpad,
-        }, {
-          keyName: 'twitter:app:url:googleplay',
-          title: 'twitter:app:url:googleplay',
+          type: 'link',
+        },
+        {
+          term: 'twitter:app:url:googleplay',
           value: this.twitter.appUrlGoogle,
-        }, {
-          keyName: 'twitter:app:country',
-          title: 'twitter:app:country',
+          type: 'link',
+        },
+        {
+          term: 'twitter:app:country',
           value: this.twitter.appCountry,
-        }, {
-          keyName: 'twitter:app:name:iphone',
-          title: 'twitter:app:name:iphone',
+        },
+        {
+          term: 'twitter:app:name:iphone',
           value: this.twitter.appNameIphone,
-        }, {
-          keyName: 'twitter:app:name:ipad',
-          title: 'twitter:app:name:ipad',
+        },
+        {
+          term: 'twitter:app:name:ipad',
           value: this.twitter.appNameIpad,
-        }, {
-          keyName: 'twitter:app:name:googleplay',
-          title: 'twitter:app:name:googleplay',
+        },
+        {
+          term: 'twitter:app:name:googleplay',
           value: this.twitter.appNameGoogle,
         },
       ];
@@ -505,35 +337,20 @@ export default {
 
       findImageDimensions(this.head, name).then(dimensions => {
         this.imageDimensions = dimensions;
-        this.setTooltipData(dimensions);
       });
     },
     metaValue(metaName) {
       return findMetaContent(this.head, metaName);
     },
     propertyValue(propName) {
-      return findMetaProperty(this.head, propName);
-    },
-    setTooltipData(dimensions) {
-      for (const [ key, value ] of Object.entries(this.twitter)) {
-        this.tooltip[`og:${ key }`].exist = Boolean(value);
-      }
-
-      for (const [ key, value ] of Object.entries(this.og)) {
-        this.tooltip[`og:${ key }`].exist = Boolean(value);
-      }
-
-      this.tooltip['og:description'].valueLength.tooLong =
-        this.og.description?.length > this.tooltip['og:description'].valueLength.max;
-
-      this.tooltip['og:image'].size = dimensions;
+      return findMetaProperty(this.head, propName) || findMetaContent(this.head, propName);
     },
   },
 };
 </script>
 
 <style>
-  .twitter__preview {
-    max-width: 521px;
-  }
+.twitter__preview {
+  max-width: 521px;
+}
 </style>
