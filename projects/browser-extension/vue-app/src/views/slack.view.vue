@@ -87,9 +87,12 @@ export default {
     headDescription() {
       return findMetaContent(this.head, 'description');
     },
+    favicon() {
+      return findFavicons(this.head).length ? findFavicons(this.head)[0].url : '';
+    },
     additional() {
       return {
-        favicon: findFavicons(this.head)[0].url,
+        favicon: this.favicon,
         twitterData: findAdditionalTwitterData(this.head),
       };
     },
