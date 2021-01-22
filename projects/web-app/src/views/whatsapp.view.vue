@@ -21,42 +21,32 @@
     <properties-list>
       <properties-item
         v-for="item in whatsappMetaData"
-        :key="item.keyName"
-        :key-name="item.keyName"
+        :key="item.term"
+        :term="item.term"
+        :value="item.value"
+        :image="item.image"
+        :type="item.type"
+        :required="item.required"
       >
-        <template #default>
-          {{ item.title }}
-        </template>
-        <template v-if="item.value && item.keyName.includes(':image')" #value>
-         <external-link :href="absoluteUrl(item.value)">
-            <img :src="absoluteUrl(item.value)" alt="" />
-            <span>{{ item.value }}</span>
-          </external-link>
-        </template>
-        <template v-else-if="item.value" #value>
-          {{ item.value }}
-        </template>
       </properties-item>
     </properties-list>
   </panel-section>
   <panel-section title="Resources">
     <ul class="resource-list">
-      <ul>
-        <li>
-          <external-link
-            href="https://stackoverflow.com/a/43154489"
-          >
-            2019 WhatsApp sharing standards (on StackOverflow)
-          </external-link>
-        </li>
-        <li>
-          <external-link
-            href="https://stackoverflow.com/questions/19778620/provide-an-image-for-whatsapp-link-sharing"
-          >
-            Unfurl mechanism used by WhatsApp for sharing
-          </external-link>
-        </li>
-      </ul>
+      <li>
+        <external-link
+          href="https://stackoverflow.com/a/43154489"
+        >
+          2019 WhatsApp sharing standards (on StackOverflow)
+        </external-link>
+      </li>
+      <li>
+        <external-link
+          href="https://stackoverflow.com/questions/19778620/provide-an-image-for-whatsapp-link-sharing"
+        >
+          Unfurl mechanism used by WhatsApp for sharing
+        </external-link>
+      </li>
     </ul>
   </panel-section>
 </template>
@@ -65,7 +55,7 @@
 import { computed } from 'vue';
 import useHead from '@/composables/use-head';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
-import { findMetaProperty } from '@shared/lib/find-meta';
+import { findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
@@ -103,35 +93,41 @@ export default {
     const whatsappMetaData = computed(() => {
       return [
         {
-          keyName: 'og:title',
-          title: 'og:title',
+          term: 'og:title',
           value: og.value.title,
+          required: true,
         },
         {
-          keyName: 'og:description',
-          title: 'og:description',
+          term: 'og:description',
           value: og.value.description,
         },
         {
-          keyName: 'og:type',
-          title: 'og:type',
+          term: 'og:type',
           value: og.value.type,
+          required: true,
         },
         {
-          keyName: 'og:image',
-          title: 'og:image',
+          term: 'og:image',
           value: absoluteUrl(og.value.image),
+          image: {
+            href: og.value.image,
+            url: absoluteUrl(og.value.image),
+          },
+          type: 'image',
+          required: true,
         },
         {
-          keyName: 'og:url',
-          title: 'og:url',
+          term: 'og:url',
           value: og.value.url,
+          type: 'link',
+          required: true,
         },
       ];
     });
 
     const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
-    const propertyValue = propName => findMetaProperty(headData.value.head, propName);
+    const propertyValue = propName =>
+      findMetaProperty(headData.value.head, propName) || findMetaContent(headData.value.head, propName);
 
     return {
       og,

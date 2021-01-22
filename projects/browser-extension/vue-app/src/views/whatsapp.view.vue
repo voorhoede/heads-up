@@ -19,48 +19,14 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-if="!og.title"
-          :schema="appMetaSchema"
-          :value="head.title"
-          key-name="title"
-        >
-          <template #default>title</template>
-        </properties-item>
-        <properties-item
-          v-if="!og.description"
-          :schema="appMetaSchema"
-          :value="headDescription"
-          key-name="description"
-        >
-          <template #default>description</template>
-        </properties-item>
-        <properties-item
           v-for="item in whatsappProperties"
-          :key="item.keyName"
-          :key-name="item.keyName"
+          :key="item.term"
+          :term="item.term"
+          :value="item.value"
+          :image="item.image"
+          :type="item.type"
+          :required="item.required"
         >
-          <template #default>
-            <social-media-tooltip
-              :exist="tooltip[item.keyName].exist"
-              :has-variation="tooltip[item.keyName].hasVariation"
-              :ignore="tooltip[item.keyName].ignore"
-              :required-sizes="tooltip[item.keyName].requiredSizes"
-              :required="tooltip[item.keyName].required"
-              :size="tooltip[item.keyName].size"
-              :tag="tooltip[item.keyName].tag"
-              :type="item.keyName"
-              :value-length="tooltip[item.keyName].valueLength"
-            />
-          </template>
-          <template v-if="item.value && item.keyName.includes(':image')" #value>
-            <external-link :href="absoluteUrl(item.value)">
-              <img :src="absoluteUrl(item.value)" alt="" />
-              <span>{{ item.value }}</span>
-            </external-link>
-          </template>
-          <template v-else-if="item.value" #value>
-            {{ item.value }}
-          </template>
         </properties-item>
       </properties-list>
     </panel-section>
@@ -90,19 +56,13 @@
 
 <script>
 import { mapState } from 'vuex';
-import {
-  findImageDimensions,
-  findMetaContent,
-  findMetaProperty
-} from '@shared/lib/find-meta';
-import appMetaSchema from '@shared/lib/schemas/app-meta-schema';
+import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
-import SocialMediaTooltip from '@shared/components/social-media-tooltip';
 
 export default {
   components: {
@@ -111,49 +71,12 @@ export default {
     PreviewIframe,
     PropertiesItem,
     PropertiesList,
-    SocialMediaTooltip,
   },
   data() {
     return {
-      appMetaSchema,
       imageDimensions: {
         height: undefined,
         width: undefined,
-      },
-      tooltip: {
-        'og:title': {
-          exist: false,
-          required: false,
-          tag: 'og:title',
-        },
-
-        'og:url': {
-          exist: false,
-          required: false,
-          tag: 'og:url',
-        },
-
-        'og:description': {
-          exist: false,
-          required: false,
-          tag: 'og:description',
-        },
-
-        'og:image': {
-          exist: false,
-          required: false,
-          tag: 'og:image',
-          requiredSizes: {
-            minimum: {
-              height: 200,
-              width: 300,
-            },
-          },
-          size: {
-            height: null,
-            width: null,
-          },
-        },
       },
     };
   },
@@ -168,9 +91,10 @@ export default {
     og() {
       return {
         title: this.propertyValue('og:title'),
-        url: this.propertyValue('og:url'),
         description: this.propertyValue('og:description'),
+        type: this.propertyValue('og:type'),
         image: this.absoluteUrl(this.propertyValue('og:image')),
+        url: this.propertyValue('og:url'),
       };
     },
     headDescription() {
@@ -190,24 +114,34 @@ export default {
     whatsappProperties() {
       return [
         {
-          keyName: 'og:title',
-          title: 'og:title',
+          term: 'og:title',
           value: this.og.title,
+          required: true,
         },
         {
-          keyName: 'og:url',
-          title: 'og:url',
-          value: this.og.url,
-        },
-        {
-          keyName: 'og:description',
-          title: 'og:description',
+          term: 'og:description',
           value: this.og.description,
         },
         {
-          keyName: 'og:image',
-          title: 'og:image',
+          term: 'og:type',
+          value: this.og.type,
+          required: true,
+        },
+        {
+          term: 'og:image',
           value: this.og.image,
+          image: {
+            href: this.og.image,
+            url: this.absoluteUrl(this.og.image),
+          },
+          type: 'image',
+          required: true,
+        },
+        {
+          term: 'og:url',
+          value: this.og.url,
+          type: 'link',
+          required: true,
         },
       ];
     },
@@ -227,21 +161,13 @@ export default {
     window.removeEventListener('resize', this.onResize);
   },
   methods: {
-    findImageDimensions(){
+    findImageDimensions() {
       findImageDimensions(this.head, 'og:image').then(imageDimensions => {
         this.imageDimensions = imageDimensions;
-        this.setTooltipData(imageDimensions);
       });
     },
     absoluteUrl(url) {
       return createAbsoluteUrl(this.head, url);
-    },
-    setTooltipData(imageDimensions) {
-      for (const [ key, value ] of Object.entries(this.og)) {
-        this.tooltip[`og:${ key }`].exist = Boolean(value);
-      }
-
-      this.tooltip['og:image'].size = imageDimensions;
     },
     propertyValue(propName) {
       return findMetaProperty(this.head, propName) || findMetaContent(this.head, propName);
@@ -253,32 +179,5 @@ export default {
 <style>
 .whatsapp__preview {
   max-width: 520px;
-}
-
-.properties-item__tooltip {
-  display: inline-block;
-}
-
-@media (min-width: 500px) {
-  .properties-item {
-    display: flex;
-    align-items: flex-start;
-  }
-  .properties-item__term {
-    display: flex;
-    justify-content: flex-end;
-    width: var(--term-width-small);
-    padding-right: 5px;
-  }
-  .whatsapp .properties-item__term * + * {
-    margin-left: 0.15rem;
-  }
-}
-.whatsapp .properties-item__icon {
-  margin-left: 4px;
-}
-
-.properties-item-icon--warning {
-  fill: #eac250;
 }
 </style>

@@ -23,42 +23,13 @@
     <properties-list>
       <properties-item
         v-for="item in opensearchData"
-        :key="item.keyName"
-        :value="item.keyName !== 'urls' && item.keyName !== 'image' ? item.value : null"
-        :key-name="item.keyName"
+        :key="item.term"
+        :term="item.term"
+        :value="item.value"
+        :image="item.image"
+        :type="item.type"
         :schema="schema"
-        :refresh-on="opensearchData"
       >
-        <template #default>
-          {{ item.title }}
-        </template>
-        <template v-if="item.keyName === 'urls'" #value>
-          <p v-for="(url, index) in item.value" :key="index">
-            <template v-for="(attribute, attrIndex) in url.attributes">
-              <external-link
-                v-if="attribute.name === 'template'"
-                :key="attrIndex"
-                :href="absoluteUrl(attribute.value)"
-              >
-                {{ attribute.value }}<br>
-              </external-link>
-            </template>
-            <template v-for="(attribute, attrIndex) in url.attributes">
-              <span
-                v-if="attribute.name !== 'template'"
-                :key="attrIndex"
-              >
-                {{ attribute.name }}: {{ attribute.value }}<br>
-              </span>
-            </template>
-          </p>
-        </template>
-        <template v-else-if="item.value && item.keyName === 'image'" #value>
-          <img :src="absoluteUrl(item.value)" alt="" />
-          <external-link :href="absoluteUrl(item.value)">
-            <span>{{ item.value }}</span>
-          </external-link>
-        </template>
       </properties-item>
     </properties-list>
   </panel-section>
@@ -125,34 +96,46 @@ export default {
     const opensearchData = computed(() => {
       return [
         {
-          keyName: 'shortname',
-          title: 'ShortName',
+          term: 'shortname',
           value: shortName.value,
         },
         {
-          keyName: 'description',
-          title: 'Description',
+          term: 'description',
           value: description.value,
         },
         {
-          keyName: 'urls',
-          title: 'Url(s)',
-          value: urls.value,
+          term: 'urls',
+          value: formatUrlsObject(urls.value),
+          type: 'urls',
         },
         {
-          keyName: 'image',
-          title: 'Image',
+          term: 'image',
           value: image.value,
+          image: {
+            href: image.value,
+            url: absoluteUrl(image.value),
+          },
+          type: 'image',
         },
         {
-          keyName: 'input-encoding',
-          title: 'InputEncoding',
+          term: 'input-encoding',
           value: inputEncoding.value,
         },
       ];
     });
 
     const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
+    const formatUrlsObject = urls => urls.map(item => {
+      const templateAttr = item.attributes.find(({ name }) => name === 'template');
+      const url = templateAttr ? templateAttr.value : null;
+      const attributes = item.attributes
+        .filter(({ name }) => name !== 'template')
+        .reduce((obj, { name, value }) => (
+          Object.assign(obj, { [name]: value })
+        ), {});
+
+      return { url, attributes };
+    });
     const getFileContent = value => {
       fetch(value)
         .then(res => res.text())
@@ -188,6 +171,7 @@ export default {
       inputEncoding,
       opensearchData,
       absoluteUrl,
+      formatUrlsObject,
       getFileContent,
     };
   },

@@ -29,17 +29,17 @@ export function findCharset(head) {
 
 export function findLinkHref(head, name) {
   const link = head.link.find(link => link.rel && link.rel === name);
-  return link ? link.href : null;
+  return link ? link.href : '';
 }
 
 export function findMetaContent(head, name) {
   const item = head.meta.find(item => item.name === name);
-  return item ? item.content : null;
+  return item ? item.content : '';
 }
 
 export function findMetaProperty(head, name) {
   const item = head.meta.find(item => item.property === name);
-  return item ? item.content : null;
+  return item ? item.content : '';
 }
 
 export function findXMLElement(text, tagName) {
