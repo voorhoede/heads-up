@@ -274,10 +274,11 @@ export default {
   }
 
   .properties-item__value {
-    flex: 0 1 auto;
-    max-width: 500px;
-    margin-left: 1rem;
     color: var(--value-color);
+    flex: 0 1 auto;
+    line-height: 1;
+    margin-left: 1rem;
+    max-width: 500px;
     word-break: break-word;
   }
 
