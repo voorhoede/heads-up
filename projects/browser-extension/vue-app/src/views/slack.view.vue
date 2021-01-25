@@ -36,7 +36,7 @@
 <script>
 import { mapState } from 'vuex';
 import {
-  findAdditionSlackData,
+  findAdditionalTwitterData,
   findFavicons,
   findImageDimensions,
   findMetaContent,
@@ -87,15 +87,14 @@ export default {
     headDescription() {
       return findMetaContent(this.head, 'description');
     },
+    favicon() {
+      return findFavicons(this.head).length ? findFavicons(this.head)[0].url : '';
+    },
     additional() {
-      try {
-        return {
-          favicon: findFavicons(this.head)[0].url,
-          additionalData: findAdditionSlackData(this.head),
-        };
-      } catch (error) {
-        return error;
-      }
+      return {
+        favicon: this.favicon,
+        twitterData: findAdditionalTwitterData(this.head),
+      };
     },
     themeClass() {
       /**
@@ -106,7 +105,7 @@ export default {
     },
     previewUrl() {
       const params = new URLSearchParams();
-      params.set('additionalData', JSON.stringify(this.additional.additionalData));
+      params.set('additionalData', JSON.stringify(this.additional.twitterData));
       params.set('description', this.og.description || this.headDescription);
       params.set('favicon', this.additional.favicon);
       params.set('image', this.og.image);
@@ -154,6 +153,14 @@ export default {
           type: 'link',
           required: true,
         },
+        // Transform twitterData array and
+        // spread objects into slackProperties array.
+        ...this.additional.twitterData.map((item, index) => (
+          Object.entries(item).map((entry) => ({
+            term: `twitter:${[entry[0] === 'label' ? entry[0] : 'data']}${ index + 1 }`,
+            value: entry[1],
+          }))
+        )).flat(),
       ];
     },
   },
