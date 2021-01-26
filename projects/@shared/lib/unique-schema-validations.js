@@ -40,7 +40,7 @@ function hasValue(value) {
 
 function hasValidViewportContent(value) {
   const arrayOfValues = value.replace(' ', '').split(',');
-  
+
   return arrayOfValues.every(entry => {
     const [ entryKey, entryValue ] = entry.split('=');
     return entryKey in viewportContentCheck && viewportContentCheck[entryKey].test(entryValue);

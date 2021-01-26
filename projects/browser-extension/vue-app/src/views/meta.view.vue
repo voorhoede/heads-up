@@ -4,19 +4,14 @@
       <properties-list>
         <properties-item
           v-for="item in appMetaData"
-          :key="item.keyName"
+          :key="item.term"
+          :term="item.term"
           :value="item.value"
-          :key-name="item.keyName"
-          :attrs="item.attrs"
+          :type="item.type"
           :schema="schema"
-          :refresh-on="appMetaData"
+          :attrs="item.attrs"
+          :required="true"
         >
-          <template #default>
-            {{ item.title }}
-          </template>
-          <template v-if="item.keyName === 'theme-color' && item.value" #value>
-            <span :style="{ backgroundColor: item.value }" />
-          </template>
         </properties-item>
       </properties-list>
     </panel-section>
@@ -40,49 +35,48 @@ import ExternalLink from '@shared/components/external-link';
 import PropertiesList from '@shared/components/properties-list';
 import PropertiesItem from '@shared/components/properties-item';
 import { findCharset, findMetaContent, findAttrs } from '@shared/lib/find-meta';
-import schema  from '@shared/lib/schemas/app-meta-schema';
+import schema from '@shared/lib/schemas/app-meta-schema';
 
 export default {
   components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList },
+  data() {
+    return {
+      schema,
+    };
+  },
   computed: {
     ...mapState([ 'head' ]),
     appMetaData() {
       const { head } = this;
       return [
         {
-          keyName: 'title',
-          title: 'title',
+          term: 'title',
           value: head.title,
         },
         {
-          keyName: 'lang',
-          title: 'language',
+          term: 'lang',
           value: head.lang,
         },
         {
-          keyName: 'charset',
-          title: 'charset',
+          term: 'charset',
           value: findCharset(head),
           attrs: findAttrs(head, 'charset') || findAttrs(head, 'http-equiv'),
         },
         {
-          keyName: 'viewport',
-          title: 'viewport',
+          term: 'viewport',
           value: findMetaContent(head, 'viewport'),
         },
         {
-          keyName: 'description',
-          title: 'description',
+          term: 'description',
           value: findMetaContent(head, 'description'),
         },
         {
-          keyName: 'theme-color',
-          title: 'theme-color',
+          term: 'theme-color',
           value: findMetaContent(head, 'theme-color'),
+          type: 'color',
         },
       ];
     },
-    schema() { return schema; },
   },
 };
 </script>

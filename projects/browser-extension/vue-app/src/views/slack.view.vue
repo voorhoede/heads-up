@@ -19,47 +19,14 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-if="!og.title"
-          :schema="appMetaSchema"
-          :value="head.title"
-          key-name="title"
-        >
-          <template #default>title</template>
-        </properties-item>
-        <properties-item
-          v-if="!og.description"
-          :schema="appMetaSchema"
-          :value="headDescription"
-          key-name="description"
-        >
-          <template #default>description</template>
-        </properties-item>
-        <properties-item
           v-for="item in slackProperties"
-          :key="item.keyName"
-          :key-name="item.keyName"
+          :key="item.term"
+          :term="item.term"
+          :value="item.value"
+          :image="item.image"
+          :type="item.type"
+          :required="item.required"
         >
-          <template #default>
-            <social-media-tooltip
-              :exist="tooltip[item.keyName].exist"
-              :has-variation="tooltip[item.keyName].hasVariation"
-              :required-sizes="tooltip[item.keyName].requiredSizes"
-              :required="tooltip[item.keyName].required"
-              :size="tooltip[item.keyName].size"
-              :tag="tooltip[item.keyName].tag"
-              :type="item.keyName"
-              :value-length="tooltip[item.keyName].valueLength"
-            />
-          </template>
-          <template v-if="item.value && item.keyName.includes(':image')" #value>
-            <external-link :href="absoluteUrl(item.value)">
-              <img :src="absoluteUrl(item.value)" alt="" />
-              <span>{{ item.value }}</span>
-            </external-link>
-          </template>
-          <template v-else-if="item.value" #value>
-            {{ item.value }}
-          </template>
         </properties-item>
       </properties-list>
     </panel-section>
@@ -69,13 +36,12 @@
 <script>
 import { mapState } from 'vuex';
 import {
-  findAdditionSlackData,
+  findAdditionalTwitterData,
   findFavicons,
   findImageDimensions,
   findMetaContent,
   findMetaProperty
 } from '@shared/lib/find-meta';
-import appMetaSchema from '@shared/lib/schemas/app-meta-schema';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import getTheme from '@shared/lib/theme';
 import ExternalLink from '@shared/components/external-link';
@@ -83,7 +49,6 @@ import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
-import SocialMediaTooltip from '@shared/components/social-media-tooltip';
 
 export default {
   components: {
@@ -92,58 +57,12 @@ export default {
     PreviewIframe,
     PropertiesItem,
     PropertiesList,
-    SocialMediaTooltip,
   },
   data() {
     return {
-      appMetaSchema,
       imageDimensions: {
         height: undefined,
         width: undefined,
-      },
-      tooltip: {
-        'og:title': {
-          exist: false,
-          required: false,
-          tag: 'og:title',
-        },
-
-        'og:description': {
-          exist: false,
-          required: false,
-          tag: 'og:description',
-          valueLength: {
-            max: 700,
-            tooLong: false,
-          },
-        },
-
-        'og:site_name': {
-          exist: false,
-          required: false,
-          tag: 'og:site_name',
-        },
-
-        'og:image': {
-          exist: false,
-          hasVariation: false,
-          required: false,
-          requiredSizes: {
-            minimum: {
-              width: 1,
-              height: 1,
-            },
-            variation: {
-              width: 202,
-              height: 202,
-            },
-          },
-          size: {
-            width: null,
-            height: null,
-          },
-          tag: 'og:image',
-        },
       },
     };
   },
@@ -158,23 +77,24 @@ export default {
     og() {
       return {
         title: this.propertyValue('og:title'),
+        type: this.propertyValue('og:type'),
         description: this.propertyValue('og:description'),
         site_name: this.propertyValue('og:site_name'),
         image: this.absoluteUrl(this.propertyValue('og:image')),
+        url: this.absoluteUrl(this.propertyValue('og:url')),
       };
     },
     headDescription() {
       return findMetaContent(this.head, 'description');
     },
+    favicon() {
+      return findFavicons(this.head).length ? findFavicons(this.head)[0].url : '';
+    },
     additional() {
-      try {
-        return {
-          favicon: findFavicons(this.head)[0].url,
-          additionalData: findAdditionSlackData(this.head),
-        };
-      } catch (error) {
-        return error;
-      }
+      return {
+        favicon: this.favicon,
+        twitterData: findAdditionalTwitterData(this.head),
+      };
     },
     themeClass() {
       /**
@@ -185,7 +105,7 @@ export default {
     },
     previewUrl() {
       const params = new URLSearchParams();
-      params.set('additionalData', JSON.stringify(this.additional.additionalData));
+      params.set('additionalData', JSON.stringify(this.additional.twitterData));
       params.set('description', this.og.description || this.headDescription);
       params.set('favicon', this.additional.favicon);
       params.set('image', this.og.image);
@@ -200,30 +120,52 @@ export default {
     slackProperties() {
       return [
         {
-          keyName: 'og:title',
-          title: 'og:title',
+          term: 'og:title',
           value: this.og.title,
+          required: true,
         },
         {
-          keyName: 'og:description',
-          title: 'og:description',
+          term: 'og:type',
+          value: this.og.type,
+          required: true,
+        },
+        {
+          term: 'og:description',
           value: this.og.description,
         },
         {
-          keyName: 'og:site_name',
-          title: 'og:site_name',
+          term: 'og:site_name',
           value: this.og.site_name,
         },
         {
-          keyName: 'og:image',
-          title: 'og:image',
+          term: 'og:image',
           value: this.og.image,
+          image: {
+            href: this.og.image,
+            url: this.absoluteUrl(this.og.image),
+          },
+          type: 'image',
+          required: true,
         },
+        {
+          term: 'og:url',
+          value: this.og.url,
+          type: 'link',
+          required: true,
+        },
+        // Transform twitterData array and
+        // spread objects into slackProperties array.
+        ...this.additional.twitterData.map((item, index) => (
+          Object.entries(item).map((entry) => ({
+            term: `twitter:${[entry[0] === 'label' ? entry[0] : 'data']}${ index + 1 }`,
+            value: entry[1],
+          }))
+        )).flat(),
       ];
     },
   },
   watch:{
-    'og.image'(){
+    'og.image'() {
       this.findImageDimensions();
     },
   },
@@ -237,23 +179,13 @@ export default {
     window.removeEventListener('resize', this.onResize);
   },
   methods: {
-    findImageDimensions(){
+    findImageDimensions() {
       findImageDimensions(this.head, 'og:image').then(imageDimensions => {
         this.imageDimensions = imageDimensions;
-        this.setTooltipData(imageDimensions);
       });
     },
     absoluteUrl(url) {
       return createAbsoluteUrl(this.head, url);
-    },
-    setTooltipData(imageDimensions) {
-      for (const [ key, value ] of Object.entries(this.og)) {
-        this.tooltip[`og:${ key }`].exist = Boolean(value);
-      }
-
-      this.tooltip['og:description'].valueLength.tooLong =
-        this.og.description?.length > this.tooltip['og:description'].valueLength.max;
-      this.tooltip['og:image'].size = imageDimensions;
     },
     propertyValue(propName) {
       return findMetaProperty(this.head, propName) || findMetaContent(this.head, propName);
@@ -265,9 +197,5 @@ export default {
 <style>
 .slack__preview {
   max-width: 521px;
-}
-
-.slack .properties-item__icon {
-  margin-left: 4px;
 }
 </style>

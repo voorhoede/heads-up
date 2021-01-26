@@ -6,6 +6,7 @@
   --color-blue: #0000ff;
   --color-black: #141414;
   --color-gray: #c0c0c0;
+  --color-light-gray: #eaeaea;
   --color-white: #ffffff;
 
   --divider-color: #d0d0d0;
@@ -17,4 +18,5 @@
   --sidebar-width: 17rem;
 
   --label-color: #5f5f5f;
+  --bg-color: var(--color-light-gray);
 }

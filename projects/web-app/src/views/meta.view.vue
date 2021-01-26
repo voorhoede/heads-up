@@ -2,23 +2,15 @@
   <panel-section title="Properties">
     <properties-list>
       <properties-item
-        v-for="item in siteMetadata"
-        :key="item.keyName"
+        v-for="item in siteMetaData"
+        :key="item.term"
+        :term="item.term"
         :value="item.value"
-        :key-name="item.keyName"
-        :attrs="item.attrs"
+        :type="item.type"
         :schema="schema"
-        :refresh-on="siteMetadata"
+        :attrs="item.attrs"
+        :required="true"
       >
-        <template #default>
-          {{ item.title }}
-        </template>
-        <template #value>
-          <span
-            v-if="item.keyName === 'theme-color' && item.value"
-            :style="{ backgroundColor: item.value }"
-          />
-        </template>
       </properties-item>
     </properties-list>
   </panel-section>
@@ -36,7 +28,7 @@
 <script>
 import { computed } from 'vue';
 import useHead from '@/composables/use-head';
-import schema  from '@shared/lib/schemas/app-meta-schema';
+import schema from '@shared/lib/schemas/app-meta-schema';
 import { findCharset, findMetaContent, findAttrs } from '@shared/lib/find-meta';
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
@@ -46,45 +38,40 @@ import PropertiesItem from '@shared/components/properties-item';
 export default {
   setup: () => {
     const headData = useHead().data;
-    const siteMetadata = computed(() => {
+    const siteMetaData = computed(() => {
       const { head } = headData.value;
       return [
         {
-          keyName: 'title',
-          title: 'title',
+          term: 'title',
           value: head.title,
         },
         {
-          keyName: 'lang',
-          title: 'language',
+          term: 'lang',
           value: head.lang,
         },
         {
-          keyName: 'charset',
-          title: 'charset',
+          term: 'charset',
           value: findCharset(head),
           attrs: findAttrs(head, 'charset') || findAttrs(head, 'http-equiv'),
         },
         {
-          keyName: 'viewport',
-          title: 'viewport',
+          term: 'viewport',
           value: findMetaContent(head, 'viewport'),
         },
         {
-          keyName: 'description',
-          title: 'description',
+          term: 'description',
           value: findMetaContent(head, 'description'),
         },
         {
-          keyName: 'theme-color',
-          title: 'theme-color',
+          term: 'theme-color',
           value: findMetaContent(head, 'theme-color'),
+          type: 'color',
         },
       ];
     });
 
     return {
-      siteMetadata,
+      siteMetaData,
       schema,
     };
   },
