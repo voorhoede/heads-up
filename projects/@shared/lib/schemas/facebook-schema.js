@@ -50,6 +50,9 @@ const facebookSchema = {
 
   'og:description': {
     required: true,
+    message: {
+      required: 'This property is required according to Facebook\'s developers documentation.',
+    },
     meta: {
       info: 'A brief description of the content, usually between 2 and 4 sentences. This will displayed below the title of the post on Facebook.',
       link: 'https://developers.facebook.com/docs/sharing/webmasters/',
