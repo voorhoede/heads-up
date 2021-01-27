@@ -44,13 +44,13 @@ const whatsappSchema = {
       required: 'This property is required for rich links on WhatsApp.',
     },
     meta: {
-      info: 'The <code>og:url</code> element defines the url of your rich link.',
+      info: 'The <code>og:url</code> element defines the canonical URL of your rich link.',
     },
   },
 
   'og:type': {
     meta: {
-      info: 'The <code>og:type</code> element defines the type of your object, e.g., "video.movie". Depending on the type you specify, other properties may also be required.',
+      info: 'The <code>og:type</code> element defines the type of content, whether it’s an article, video, or rich media.',
     },
   },
 };
