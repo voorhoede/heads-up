@@ -149,7 +149,6 @@ const facebookSchema = {
       link: 'https://developers.facebook.com/docs/sharing/webmasters/#media',
     },
   },
-
 };
 
 export default facebookSchema;
