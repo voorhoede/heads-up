@@ -165,6 +165,7 @@ export default {
         {
           term: 'fb:app_id',
           value: this.facebookProperties.appId,
+          required: true,
         },
         {
           term: 'fb:pages',
@@ -173,7 +174,6 @@ export default {
         {
           term: 'og:type',
           value: this.og.type,
-          required: true,
         },
         {
           term: 'og:url',
@@ -193,6 +193,7 @@ export default {
         {
           term: 'og:description',
           value: this.og.description,
+          required: true,
         },
         {
           term: 'og:image',

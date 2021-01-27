@@ -125,6 +125,7 @@ export default {
         {
           term: 'og:description',
           value: this.og.description,
+          required: true,
         },
         {
           term: 'og:url',
