@@ -102,22 +102,22 @@ export function findImageDimensions(head, name) {
     .then(({ width, height }) => ({ width, height }));
 }
 
-function AdditionSlackCheck(head, name) {
-  const item = head.meta.find(item => item.name === name);
-  return item
-    ? item.value
-    : null;
+function getAdditionalTwitterData(head, name) {
+  const data = head.meta.find(data => data.name === name);
+  return data?.value ? data.value : data?.content ? data.content : null;
 }
 
-export function findAdditionSlackData(head) {
-  return [
-    {
-      label: AdditionSlackCheck(head, 'twitter:label1'),
-      value: AdditionSlackCheck(head, 'twitter:data1'),
-    },
-    {
-      label: AdditionSlackCheck(head, 'twitter:label2'),
-      value: AdditionSlackCheck(head, 'twitter:data2'),
-    },
-  ].filter(item => item.label && item.value);
+export function findAdditionalTwitterData(head) {
+  const returnArray = [];
+
+  for (let i = 1; i <= 2; i++) {
+    const label = getAdditionalTwitterData(head, `twitter:label${ i }`);
+    const value = getAdditionalTwitterData(head, `twitter:data${ i }`);
+
+    if (label && value) {
+      returnArray.push({ label, value });
+    }
+  }
+
+  return returnArray;
 }
