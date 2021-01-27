@@ -3,12 +3,12 @@ const whatsappSchema = {
     required: true,
     message: {
       required: 'This property is required for rich links on WhatsApp.',
-      'max-characters': 'Avoid 35 characters or more.',
+      'max-characters': 'Avoid 65 characters or more.',
     },
     meta: {
       info: 'The <code>og:title</code> element defines the title of your rich link.',
     },
-    'max-characters': 35,
+    'max-characters': 65,
   },
 
   'og:image': {
