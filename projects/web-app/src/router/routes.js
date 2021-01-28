@@ -3,6 +3,7 @@ import AppleIos from '@/views/apple-ios.view';
 import Facebook from '@/views/facebook.view';
 import Favicon from '@/views/favicon.view';
 import Link from '@/views/link.view';
+import LinkedIn from '@/views/linkedin.view';
 import Meta from '@/views/meta.view';
 import OpenGraph from '@/views/open-graph.view';
 import OpenSearch from '@/views/opensearch.view';
@@ -86,6 +87,14 @@ export default [
     component: Whatsapp,
     meta: {
       title: 'WhatsApp',
+    },
+  },
+  {
+    path: '/linkedin',
+    name: 'linkedin',
+    component: LinkedIn,
+    meta: {
+      title: 'LinkedIn',
     },
   },
   {
