@@ -9,6 +9,7 @@ import OpenSearch from '@/views/opensearch.view';
 import RobotsTxt from '@/views/robots-txt.view';
 import SearchMeta from '@/views/search-meta.view';
 import Sitemap from '@/views/sitemap.view';
+import Slack from '@/views/slack.view';
 import StructuredData from '@/views/structured-data.view';
 import Twitter from '@/views/twitter.view';
 import Whatsapp from '@/views/whatsapp.view';
@@ -93,6 +94,14 @@ export default [
     component: Facebook,
     meta: {
       title: 'Facebook',
+    },
+  },
+  {
+    path: '/slack',
+    name: 'slack',
+    component: Slack,
+    meta: {
+      title: 'Slack',
     },
   },
 

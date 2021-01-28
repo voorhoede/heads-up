@@ -68,9 +68,8 @@ function getHostName(url) {
 
 function getImageFileSize(image) {
   return fetch(image, { method: 'HEAD' })
-    .then(x => {
-      return `${ Math.round(Number(x.headers.get('content-length')) / 1000) } kB`;
-    });
+    .then(res => (`${ Math.round(Number(res.headers.get('content-length')) / 1000) } kB`))
+    .catch(() => (Promise.resolve('0 kB')));
 }
 
 function getslackMarkup({
