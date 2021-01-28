@@ -100,19 +100,19 @@ export default {
     og() {
       return {
         type: this.propertyValue('og:type'),
-        url: this.absoluteUrl(this.propertyValue('og:url')),
+        url: this.propertyValue('og:url'),
         locale: this.propertyValue('og:locale'),
         title: this.propertyValue('og:title'),
         description: this.propertyValue('og:description'),
-        image: this.absoluteUrl(this.propertyValue('og:image')),
-        imageUrl: this.absoluteUrl(this.propertyValue('og:image:url')),
-        imageSecureUrl: this.absoluteUrl(this.propertyValue('og:image:secure_url')),
+        image: this.propertyValue('og:image'),
+        imageUrl: this.propertyValue('og:image:url'),
+        imageSecureUrl: this.propertyValue('og:image:secure_url'),
         imageType: this.propertyValue('og:image:type'),
         imageWidth: this.propertyValue('og:image:width'),
         imageHeight: this.propertyValue('og:image:height'),
-        video: this.absoluteUrl(this.propertyValue('og:video')),
-        videoUrl: this.absoluteUrl(this.propertyValue('og:video:url')),
-        videoSecureUrl: this.absoluteUrl(this.propertyValue('og:video:secure_url')),
+        video: this.propertyValue('og:video'),
+        videoUrl: this.propertyValue('og:video:url'),
+        videoSecureUrl: this.propertyValue('og:video:secure_url'),
         videoType: this.propertyValue('og:video:type'),
         videoWidth: this.propertyValue('og:video:width'),
         videoHeight: this.propertyValue('og:video:height'),
@@ -174,7 +174,7 @@ export default {
         },
         {
           term: 'og:url',
-          value: this.og.url,
+          value: this.absoluteUrl(this.og.url),
           type: 'link',
           required: true,
         },
@@ -212,7 +212,7 @@ export default {
         },
         {
           term: 'og:image:secure_url',
-          value: this.og.imageSecureUrl,
+          value: this.absoluteUrl(this.og.imageSecureUrl),
           type: 'link',
         },
         {
@@ -247,7 +247,7 @@ export default {
         },
         {
           term: 'og:video:secure_url',
-          value: this.og.videoSecureUrl,
+          value: this.absoluteUrl(this.og.videoSecureUrl),
           type: 'link',
         },
         {
