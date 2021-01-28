@@ -137,14 +137,8 @@ export default {
       this.findImageDimensions();
     },
   },
-  mounted() {
-    window.addEventListener('resize', this.onResize);
-  },
   created() {
     this.findImageDimensions();
-  },
-  unmounted() {
-    window.removeEventListener('resize', this.onResize);
   },
   methods: {
     findImageDimensions() {
