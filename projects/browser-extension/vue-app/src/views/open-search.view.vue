@@ -50,7 +50,7 @@ import { mapState } from 'vuex';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findXMLElement } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
-import schema from '../lib/schemas/opensearch-schema';
+import schema from '@shared/lib/schemas/opensearch-schema';
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
 import PropertiesList from '@shared/components/properties-list';
@@ -113,6 +113,7 @@ export default {
         {
           term: 'shortname',
           value: this.shortName,
+          required: true,
         },
         {
           term: 'description',

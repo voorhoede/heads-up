@@ -25,6 +25,7 @@
           :value="item.value"
           :image="item.image"
           :type="item.type"
+          :schema="schema"
           :required="item.required"
         >
         </properties-item>
@@ -49,6 +50,7 @@ import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
+import schema from '@shared/lib/schemas/slack-schema';
 
 export default {
   components: {
@@ -60,6 +62,7 @@ export default {
   },
   data() {
     return {
+      schema,
       imageDimensions: {
         height: undefined,
         width: undefined,
@@ -127,11 +130,11 @@ export default {
         {
           term: 'og:type',
           value: this.og.type,
-          required: true,
         },
         {
           term: 'og:description',
           value: this.og.description,
+          required: true,
         },
         {
           term: 'og:site_name',
@@ -156,8 +159,8 @@ export default {
         // Transform twitterData array and
         // spread objects into slackProperties array.
         ...this.additional.twitterData.map((item, index) => (
-          Object.entries(item).map((entry) => ({
-            term: `twitter:${[entry[0] === 'label' ? entry[0] : 'data']}${ index + 1 }`,
+          Object.entries(item).map(entry => ({
+            term: `twitter:${ entry[0] === 'label' ? entry[0] : 'data' }${ index + 1 }`,
             value: entry[1],
           }))
         )).flat(),
