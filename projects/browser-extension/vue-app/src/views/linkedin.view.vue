@@ -74,9 +74,9 @@ export default {
       return {
         title: this.propertyValue('og:title'),
         type: this.propertyValue('og:type'),
-        image: this.absoluteUrl(this.propertyValue('og:image')),
+        image: this.propertyValue('og:image'),
         description: this.propertyValue('og:description'),
-        url: this.absoluteUrl(this.propertyValue('og:url')),
+        url: this.propertyValue('og:url'),
       };
     },
     themeClass() {
