@@ -40,7 +40,7 @@
           <span v-if="!errors && !warnings" v-html="info" />
         </template>
 
-        <template #link>
+        <template v-if="link" #link>
           &nbsp;<external-link :href="link">Learn more</external-link>
         </template>
 
@@ -192,7 +192,7 @@ export default {
       return this.term && this.value || this.required;
     },
     showTooltip() {
-      return this.schema && this.term && this.info && this.link;
+      return this.schema && this.term && this.info;
     },
     termIsArray() {
       return Array.isArray(this.term);
@@ -209,7 +209,11 @@ export default {
 
     if (this.schema[this.term] && this.schema[this.term].meta) {
       this.info = this.schema[this.term].meta.info;
-      this.link = this.schema[this.term].meta.link;
+
+      // Set tooltip link if available.
+      if (this.schema[this.term].meta.link) {
+        this.link = this.schema[this.term].meta.link;
+      }
     }
 
     this.validateSchema();
