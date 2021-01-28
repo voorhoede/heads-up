@@ -98,6 +98,7 @@ export default {
         {
           term: 'shortname',
           value: shortName.value,
+          required: true,
         },
         {
           term: 'description',
