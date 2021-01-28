@@ -61,6 +61,7 @@ import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import TabSelecter from '@shared/components/tab-selecter';
+import schema from '@shared/lib/schemas/facebook-schema';
 
 const TABS = [
   {
@@ -257,6 +258,7 @@ export default {
       absoluteUrl,
       getImageDimensions,
       propertyValue,
+      schema,
     };
   },
   components: {

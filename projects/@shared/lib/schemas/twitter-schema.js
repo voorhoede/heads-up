@@ -203,6 +203,41 @@ const twitterSchema = {
       link: 'https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/app-card',
     },
   },
+
+  'og:title': {
+    meta: {
+      info: 'The <code>og:title</code> element is used as a fallback if <code>twitter:title</code> is not present.',
+      link: 'https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/markup',
+    },
+  },
+
+  'og:type': {
+    meta: {
+      info: 'The <code>og:type</code> element is used as a fallback if <code>twitter:card</code> is not present.',
+      link: 'https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/markup',
+    },
+  },
+
+  'og:image': {
+    meta: {
+      info: 'The <code>og:image</code> element is used as a fallback if <code>twitter:image</code> is not present.',
+      link: 'https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/markup',
+    },
+  },
+
+  'og:url': {
+    meta: {
+      info: 'The <code>og:url</code> element defines the canonical URL of your object.',
+      link: 'https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/markup',
+    },
+  },
+
+  'og:description': {
+    meta: {
+      info: 'The <code>og:description</code> element is used as a fallback if <code>twitter:description</code> is not present.',
+      link: 'https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/markup',
+    },
+  },
 };
 
 export default twitterSchema;
