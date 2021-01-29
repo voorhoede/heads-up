@@ -173,9 +173,6 @@ export default {
       image,
       inputEncoding,
       openSearchData,
-      absoluteUrl,
-      formatUrlsObject,
-      getFileContent,
     };
   },
   components: {

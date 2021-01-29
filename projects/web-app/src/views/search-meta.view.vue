@@ -99,7 +99,6 @@ export default {
     const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
 
     return {
-      absoluteUrl,
       siteMetaData,
       schema,
     };

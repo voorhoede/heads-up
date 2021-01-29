@@ -255,9 +255,6 @@ export default {
       themeClass,
       previewUrl,
       facebookMetaData,
-      absoluteUrl,
-      getImageDimensions,
-      propertyValue,
       schema,
     };
   },

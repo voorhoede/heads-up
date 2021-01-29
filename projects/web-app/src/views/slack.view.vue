@@ -160,9 +160,6 @@ export default {
       themeClass,
       previewUrl,
       slackProperties,
-      absoluteUrl,
-      findImageDimensions,
-      propertyValue,
       schema,
     };
   },

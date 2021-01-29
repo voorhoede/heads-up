@@ -128,9 +128,6 @@ export default {
       themeClass,
       previewUrl,
       linkedinProperties,
-      absoluteUrl,
-      getImageDimensions,
-      propertyValue,
       schema,
     };
   },

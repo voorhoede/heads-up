@@ -323,8 +323,6 @@ export default {
       twitter,
       previewUrl,
       twitterMetaData,
-      absoluteUrl,
-      propertyValue,
       schema,
     };
   },

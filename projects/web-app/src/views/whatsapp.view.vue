@@ -141,8 +141,6 @@ export default {
       image,
       previewUrl,
       whatsappMetaData,
-      absoluteUrl,
-      propertyValue,
       schema,
     };
   },
