@@ -61,11 +61,15 @@ import WarningIcon from '@shared/assets/icons/warning.svg';
 export default {
   setup: () => {
     const headData = useHead().data;
+    const url = computed(() => headData.value.head.url);
     const sitemaps = computed(() => headData.value.sitemaps);
 
+    const getSitemapUrl = sitemap => (sitemap.sitemapUrl);
+
     return {
+      url,
       sitemaps,
-      url: headData.value.head.url,
+      getSitemapUrl,
     };
   },
   components: {
@@ -74,11 +78,6 @@ export default {
     TreeMenu,
     ChevronRightIcon,
     WarningIcon,
-  },
-  methods: {
-    getSitemapUrl(sitemap) {
-      return sitemap.sitemapUrl;
-    },
   },
 };
 </script>
