@@ -2,6 +2,10 @@ import uniqueSchemaValidations from './unique-schema-validations';
 import getImageDimensions from './get-image-dimensions';
 
 export default async function validateWarningSchema({ schema, key, value, attrs }) {
+  if (Array.isArray(value)) {
+    return;
+  }
+
   const valueTrimmed = (value && value.length) ? value.trim() : value;
   let warnings = [];
 
