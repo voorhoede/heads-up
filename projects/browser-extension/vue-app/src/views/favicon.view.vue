@@ -34,11 +34,12 @@
 
 <script>
 import { mapState } from 'vuex';
-import PanelSection from '@shared/components/panel-section';
+import { findFavicons } from '@shared/lib/find-meta';
+
 import ExternalLink from '@shared/components/external-link';
+import PanelSection from '@shared/components/panel-section';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
-import { findFavicons } from '@shared/lib/find-meta';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {

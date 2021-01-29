@@ -51,8 +51,9 @@ import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findXMLElement } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
 import schema from '@shared/lib/schemas/open-search-schema';
-import PanelSection from '@shared/components/panel-section';
+
 import ExternalLink from '@shared/components/external-link';
+import PanelSection from '@shared/components/panel-section';
 import PropertiesList from '@shared/components/properties-list';
 import PropertiesItem from '@shared/components/properties-item';
 import PreviewIframe from '@shared/components/preview-iframe';

@@ -57,14 +57,15 @@
 
 <script>
 import { mapState } from 'vuex';
-import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
+import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
+import schema from '@shared/lib/schemas/whatsapp-schema';
+
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
-import schema from '@shared/lib/schemas/whatsapp-schema';
 
 export default {
   components: {

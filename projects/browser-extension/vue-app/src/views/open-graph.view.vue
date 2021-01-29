@@ -31,12 +31,13 @@
 
 <script>
 import { mapState } from 'vuex';
-import PanelSection from '@shared/components/panel-section';
+import schema from '@shared/lib/schemas/open-graph-schema';
+
 import ExternalLink from '@shared/components/external-link';
+import PanelSection from '@shared/components/panel-section';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import WarningIcon from '@shared/assets/icons/warning.svg';
-import schema from '@shared/lib/schemas/open-graph-schema';
 
 export default {
   components: {

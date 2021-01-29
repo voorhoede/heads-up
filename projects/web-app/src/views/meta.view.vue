@@ -30,10 +30,11 @@
 <script>
 import { computed } from 'vue';
 import useHead from '@/composables/use-head';
-import schema from '@shared/lib/schemas/app-meta-schema';
 import { findCharset, findMetaContent, findAttrs } from '@shared/lib/find-meta';
-import PanelSection from '@shared/components/panel-section';
+import schema from '@shared/lib/schemas/app-meta-schema';
+
 import ExternalLink from '@shared/components/external-link';
+import PanelSection from '@shared/components/panel-section';
 import PropertiesList from '@shared/components/properties-list';
 import PropertiesItem from '@shared/components/properties-item';
 
@@ -78,8 +79,8 @@ export default {
     };
   },
   components: {
-    PanelSection,
     ExternalLink,
+    PanelSection,
     PropertiesList,
     PropertiesItem,
   },

@@ -35,8 +35,9 @@
 import { computed } from 'vue';
 import useHead from '@/composables/use-head';
 import { findFavicons } from '@shared/lib/find-meta';
-import PanelSection from '@shared/components/panel-section';
+
 import ExternalLink from '@shared/components/external-link';
+import PanelSection from '@shared/components/panel-section';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import WarningIcon from '@shared/assets/icons/warning.svg';
@@ -56,8 +57,8 @@ export default {
     };
   },
   components: {
-    PanelSection,
     ExternalLink,
+    PanelSection,
     PropertiesItem,
     PropertiesList,
     WarningIcon,

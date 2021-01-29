@@ -37,6 +37,7 @@
 <script>
 import { computed, onMounted, ref, watch } from 'vue';
 import useHead from '@/composables/use-head';
+import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import {
   findAdditionalTwitterData,
   findFavicons,
@@ -44,14 +45,14 @@ import {
   findMetaContent,
   findMetaProperty
 } from '@shared/lib/find-meta';
-import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import getTheme from '@shared/lib/theme';
+import schema from '@shared/lib/schemas/slack-schema';
+
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
-import schema from '@shared/lib/schemas/slack-schema';
 
 export default {
   setup() {

@@ -66,12 +66,13 @@ import { mapState } from 'vuex';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
-import PanelSection from '@shared/components/panel-section';
+import schema from '@shared/lib/schemas/twitter-schema';
+
 import ExternalLink from '@shared/components/external-link';
+import PanelSection from '@shared/components/panel-section';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import PreviewIframe from '@shared/components/preview-iframe';
-import schema from '@shared/lib/schemas/twitter-schema';
 
 const validCards = [ 'summary', 'summary_large_image', 'app', 'player' ];
 export const supportedCards = [ 'summary', 'summary_large_image' ];

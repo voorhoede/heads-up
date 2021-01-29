@@ -34,9 +34,10 @@
 <script>
 import { computed } from 'vue';
 import useHead from '@/composables/use-head';
-import schema from '@shared/lib/schemas/search-meta-schema';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findLinkHref, findMetaContent } from '@shared/lib/find-meta';
+import schema from '@shared/lib/schemas/search-meta-schema';
+
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
 import PropertiesItem from '@shared/components/properties-item';
