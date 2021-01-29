@@ -58,10 +58,10 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import useHead from '@/composables/use-head';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
-import { findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
+import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
@@ -73,6 +73,7 @@ import schema from '@shared/lib/schemas/twitter-schema';
 export default {
   setup() {
     const headData = useHead().data;
+    const imageDimensions = ref({ height: undefined, width: undefined });
     const validCards = ref([ 'summary', 'summary_large_image', 'app', 'player' ]);
     const supportedCards = ref([ 'summary', 'summary_large_image' ]);
 
@@ -203,6 +204,26 @@ export default {
     const metaValue = metaName => findMetaContent(headData.value.head, metaName);
     const propertyValue = propName =>
       findMetaProperty(headData.value.head, propName) || findMetaContent(headData.value.head, propName);
+
+    const getImageDimensions = tagName => {
+      const name = tagName ? tagName : 'og:image';
+      findImageDimensions(headData.value.head, name)
+        .then(dimensions => imageDimensions.value = dimensions);
+    };
+
+    watch(() => og.value.image, value => {
+      if (value) {
+        getImageDimensions('og:image');
+      }
+    });
+
+    watch(() => twitter.value.image, value => {
+      if (value) {
+        getImageDimensions('twitter:image');
+      }
+    });
+
+    onMounted(() => getImageDimensions());
 
     return {
       card,
