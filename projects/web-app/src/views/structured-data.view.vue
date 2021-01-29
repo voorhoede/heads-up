@@ -19,17 +19,17 @@
       <ul class="resource-list">
         <li>
           <external-link href="https://schema.org/">
-            Schema.org
+            Official website - schema.org
           </external-link>
         </li>
         <li>
           <external-link href="https://json-ld.org/">
-            Json-ld.org
+            JSON-LD - Linked Data format
           </external-link>
         </li>
         <li>
           <external-link href="http://rdfa.info/">
-            Rdfa.info
+            RDFa - JSON-LD in HTML
           </external-link>
         </li>
       </ul>

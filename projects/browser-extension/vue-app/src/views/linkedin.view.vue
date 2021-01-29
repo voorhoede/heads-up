@@ -30,6 +30,20 @@
         </properties-item>
       </properties-list>
     </panel-section>
+    <panel-section title="Resources">
+      <ul class="resource-list">
+        <li>
+          <external-link href="https://www.linkedin.com/post-inspector/">
+            LinkedIn Post Inspector
+          </external-link>
+        </li>
+        <li>
+          <external-link href="https://kinsta.com/blog/linkedin-debugger/">
+            Previews on LinkedIn (Post Inspector Tips)
+          </external-link>
+        </li>
+      </ul>
+    </panel-section>
   </div>
 </template>
 
