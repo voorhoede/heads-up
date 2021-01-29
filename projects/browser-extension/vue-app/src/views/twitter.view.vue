@@ -318,12 +318,6 @@ export default {
       this.findImageDimensions('twitter:image');
     },
   },
-  mounted() {
-    window.addEventListener('resize', this.onResize);
-  },
-  unmounted() {
-    window.removeEventListener('resize', this.onResize);
-  },
   created() {
     this.findImageDimensions();
   },
