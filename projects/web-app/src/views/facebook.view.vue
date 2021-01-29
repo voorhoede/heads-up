@@ -1,6 +1,6 @@
 <template>
   <div class="facebook">
-    <tab-selecter
+    <tab-selector
       v-model="openTab"
       :tabs="TABS"
     />
@@ -63,7 +63,7 @@ import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
-import TabSelecter from '@shared/components/tab-selecter';
+import TabSelector from '@shared/components/tab-selector';
 
 const TABS = [
   {
@@ -267,7 +267,7 @@ export default {
     PreviewIframe,
     PropertiesItem,
     PropertiesList,
-    TabSelecter,
+    TabSelector,
   },
 };
 </script>

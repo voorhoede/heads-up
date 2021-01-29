@@ -38,3 +38,8 @@
   border: 5px solid var(--color-gray);
   box-shadow: none;
 }
+
+/* tab selector */
+.tab-selector input:checked + .tab-selector__tab__button {
+  border-bottom: 2px solid #1a73e8;
+}
