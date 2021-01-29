@@ -3,19 +3,22 @@
     <panel-section title="Contents">
       <div v-if="!sitemaps.length" class="warning-message">
         <WarningIcon class="icon" />
-        <p>No sitemaps were detected.</p>
+        <p>
+          No Sitemap reference found in
+          <external-link :href="`${url}/robots.txt`">/robots.txt</external-link>.
+        </p>
       </div>
       <details
         v-else
         v-for="sitemap in sitemaps"
         :key="getSitemapUrl(sitemap)"
         :open="!sitemap.sitemapData"
-        class="sitemap__preview__sitemap"
+        class="sitemap__preview"
       >
-        <summary class="sitemap__preview__sitemap-url">
+        <summary class="sitemap__preview-item">
           <ChevronRightIcon width="12" height="12" />
           sitemap:
-          <span class="sitemap__preview__sitemap-value">{{ getSitemapUrl(sitemap) }}</span>
+          <span class="sitemap__preview-value">{{ getSitemapUrl(sitemap) }}</span>
           <small> (<external-link :href="getSitemapUrl(sitemap)">view original</external-link>) </small>
         </summary>
 
@@ -23,7 +26,7 @@
           <tree-menu v-for="(item, key) in sitemap.sitemapData" :key="key" :name="key" :elements="item" />
         </div>
 
-        <div v-else class="sitemap__preview__sitemap-error warning-message">
+        <div v-else class="sitemap__preview-error warning-message">
           <WarningIcon class="icon" />
           <p>Could not read/parse the sitemap.</p>
         </div>
@@ -68,14 +71,14 @@ export default {
 </script>
 
 <style>
-  .sitemap__preview__sitemap {
+  .sitemap__preview {
     position: relative;
     margin: 0 -1rem;
     overflow: hidden;
     font-weight: bold;
   }
 
-  .sitemap__preview__sitemap:not(:last-child)::after {
+  .sitemap__preview:not(:last-child)::after {
     content: '';
     display: block;
     position: absolute;
@@ -88,21 +91,21 @@ export default {
     background-color: var(--divider-color);
   }
 
-  .sitemap__preview__sitemap .tree-menu__item {
+  .sitemap__preview .tree-menu__item {
     display: flex;
     align-items: center;
     min-height: 22px;
     padding-left: 1.5rem;
   }
 
-  .sitemap__preview__sitemap summary {
+  .sitemap__preview summary {
     position: relative;
     padding-left: 1.5rem;
     list-style: none;
     cursor: pointer;
   }
 
-  .sitemap__preview__sitemap > div > .tree-menu > .tree-menu__item::before {
+  .sitemap__preview > div > .tree-menu > .tree-menu__item::before {
     content: '';
     display: block;
     position: absolute;
@@ -114,39 +117,39 @@ export default {
     background-color: transparent;
   }
 
-  .sitemap__preview__sitemap summary:focus {
+  .sitemap__preview summary:focus {
     outline: none;
   }
 
-  .sitemap__preview__sitemap:focus-within > summary {
+  .sitemap__preview:focus-within > summary {
     background-color: var(--selection-inactive-bg-color);
   }
 
-  .sitemap__preview__sitemap summary:focus:not(:hover) {
+  .sitemap__preview summary:focus:not(:hover) {
     background-color: var(--selection-bg-color);
     color: var(--selection-fg-color);
   }
 
-  .sitemap__preview__sitemap summary:focus:not(:hover) a {
+  .sitemap__preview summary:focus:not(:hover) a {
     color: var(--selection-fg-color);
   }
 
-  .sitemap__preview__sitemap > summary {
+  .sitemap__preview > summary {
     padding-top: 0.5rem;
     padding-right: 0.25rem;
     padding-bottom: 0.5rem;
     padding-left: 2rem;
   }
 
-  .sitemap__preview__sitemap summary::-webkit-details-marker {
+  .sitemap__preview summary::-webkit-details-marker {
     display: none;
   }
 
-  .sitemap__preview__sitemap > div > .tree-menu > .tree-menu__item:nth-of-type(odd)::before {
+  .sitemap__preview > div > .tree-menu > .tree-menu__item:nth-of-type(odd)::before {
     background-color: var(--network-grid-stripe-color);
   }
 
-  .sitemap__preview__sitemap summary > svg {
+  .sitemap__preview summary > svg {
     position: absolute;
     top: 50%;
     left: 0.5rem;
@@ -155,29 +158,29 @@ export default {
     fill: currentColor;
   }
 
-  .sitemap__preview__sitemap > summary > svg {
+  .sitemap__preview > summary > svg {
     left: 1rem;
   }
 
-  .sitemap__preview__sitemap[open] > summary > svg {
+  .sitemap__preview[open] > summary > svg {
     transform: translateY(-50%) rotate(90deg);
   }
 
-  .sitemap__preview__sitemap-value {
+  .sitemap__preview-value {
     color: var(--color-black);
     font-family: monospace;
     font-weight: normal;
   }
 
-  .sitemap__preview__sitemap .tree-menu__collapsible-node {
+  .sitemap__preview .tree-menu__collapsible-node {
     padding: 0.25rem 0 0.25rem 1.5rem;
   }
 
-  .sitemap__preview__sitemap-item small {
+  .sitemap__preview-item small {
     color: var(--color-black);
   }
 
-  .sitemap__preview__sitemap-error.warning-message {
+  .sitemap__preview-error.warning-message {
     padding: 0.5rem 0.89rem;
     font-weight: normal;
   }

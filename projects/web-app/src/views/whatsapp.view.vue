@@ -1,20 +1,17 @@
 <template>
   <div class="whatsapp">
     <panel-section title="Preview">
-      <p v-if="!hasDescription">
-        This page does not contain an Open Graph description to create a preview.
+      <p v-if="!hasRequiredData">
+        This page does not contain the necessary metadata to create a preview.
       </p>
       <preview-iframe
-        v-if="hasDescription && previewUrl"
+        v-else
         :url="previewUrl"
         iframeClass="whatsapp__preview"
         :loading-height="122"
       >
         <template v-slot:caption>
-          Preview based on
-          <external-link href="https://web.whatsapp.com/">
-            web.whatsapp.com
-          </external-link>
+          Preview based on <external-link href="https://web.whatsapp.com/">web.whatsapp.com</external-link>.
         </template>
       </preview-iframe>
     </panel-section>
@@ -36,16 +33,12 @@
     <panel-section title="Resources">
       <ul class="resource-list">
         <li>
-          <external-link
-            href="https://stackoverflow.com/a/43154489"
-          >
+          <external-link href="https://stackoverflow.com/a/43154489">
             2019 WhatsApp sharing standards (on StackOverflow)
           </external-link>
         </li>
         <li>
-          <external-link
-            href="https://stackoverflow.com/questions/19778620/provide-an-image-for-whatsapp-link-sharing"
-          >
+          <external-link href="https://stackoverflow.com/questions/19778620/provide-an-image-for-whatsapp-link-sharing">
             Unfurl mechanism used by WhatsApp for sharing
           </external-link>
         </li>
@@ -70,6 +63,10 @@ import PropertiesList from '@shared/components/properties-list';
 export default {
   setup() {
     const headData = useHead().data;
+    const hasRequiredData = computed(() => (
+      (og.value.title || headData.value.head.title) &&
+      (og.value.description || headData.value.headDescription)
+    ));
     const og = computed(() => ({
       title: propertyValue('og:title'),
       description: propertyValue('og:description'),
@@ -133,6 +130,7 @@ export default {
       findMetaProperty(headData.value.head, propName) || findMetaContent(headData.value.head, propName);
 
     return {
+      hasRequiredData,
       og,
       title,
       description,

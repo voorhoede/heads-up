@@ -7,7 +7,6 @@
       <p v-if="isValidCard && !isSupportedCard">
         Preview is not yet available for <code>{{ card }}</code> cards. <br>
         Card preview is currently supported for:
-        <!-- eslint-disable-next-line vue/no-v-html -->
         <span v-html="supportedCards.map(v => `<code>${v}</code>`).join(', ')" />.
       </p>
       <preview-iframe
@@ -21,7 +20,6 @@
         </template>
       </preview-iframe>
     </panel-section>
-
     <panel-section title="Properties">
       <properties-list>
         <properties-item
@@ -37,7 +35,6 @@
         </properties-item>
       </properties-list>
     </panel-section>
-
     <panel-section title="Resources">
       <ul class="resource-list">
         <li>
@@ -59,7 +56,6 @@
     </panel-section>
   </div>
 </template>
-
 
 <script>
 import { mapState } from 'vuex';

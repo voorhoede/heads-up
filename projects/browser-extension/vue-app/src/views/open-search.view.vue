@@ -6,18 +6,16 @@
         <p>No OpenSearch file detected.</p>
       </div>
       <preview-iframe
-         v-if="openSearchContent"
+        v-if="openSearchContent"
         :url="previewUrl"
         iframeClass="open-search__preview"
         :loading-height="140"
       >
         <template v-slot:caption>
-          Preview based on source file:
-          <a :href="openSearchUrl" target="_blank">{{ openSearchUrl }}</a>
+          Preview based on source file: <a :href="openSearchUrl" target="_blank">{{ openSearchUrl }}</a>.
         </template>
       </preview-iframe>
     </panel-section>
-
     <panel-section v-if="openSearchContent" title="Tags">
       <properties-list>
         <properties-item
@@ -32,7 +30,6 @@
         </properties-item>
       </properties-list>
     </panel-section>
-
     <panel-section title="Resources">
       <ul class="resource-list">
         <li>

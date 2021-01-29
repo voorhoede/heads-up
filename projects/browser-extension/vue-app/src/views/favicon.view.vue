@@ -17,13 +17,10 @@
         </properties-item>
       </properties-list>
     </panel-section>
-
     <panel-section title="Resources">
       <ul class="resource-list">
         <li>
-          <external-link
-            href="https://bitsofco.de/all-about-favicons-and-touch-icons/"
-          >
+          <external-link href="https://bitsofco.de/all-about-favicons-and-touch-icons/">
             All About Favicons
           </external-link>
         </li>

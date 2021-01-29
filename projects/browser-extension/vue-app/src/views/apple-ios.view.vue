@@ -1,11 +1,7 @@
 <template>
   <div class="apple-ios">
     <panel-section title="Properties">
-      <div v-if="!metaData.length" class="warning-message">
-        <WarningIcon class="icon" />
-        <p>No meta properties detected.</p>
-      </div>
-      <properties-list class="apple-ios__properties-list" v-else>
+      <properties-list>
         <properties-item
           v-for="item in metaData"
           :key="item.term"
@@ -16,7 +12,6 @@
         </properties-item>
       </properties-list>
     </panel-section>
-
     <panel-section title="Touch icons">
       <div v-if="!touchIcons.length" class="warning-message">
         <WarningIcon class="icon" />
@@ -34,7 +29,6 @@
         </properties-item>
       </properties-list>
     </panel-section>
-
     <panel-section title="Startup images">
       <div v-if="!startupImages.length" class="warning-message">
         <WarningIcon class="icon" />
@@ -52,7 +46,6 @@
         </properties-item>
       </properties-list>
     </panel-section>
-
     <panel-section title="Resources">
       <ul class="resource-list">
         <li>

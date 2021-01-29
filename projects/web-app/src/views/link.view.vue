@@ -3,7 +3,7 @@
     <panel-section title="Rel">
       <div v-if="!linkData.length" class="warning-message">
         <WarningIcon class="icon" />
-        <p>No link meta properties detected.</p>
+        <p>No link properties detected.</p>
       </div>
       <collapsible-list v-else :data="linkData" />
     </panel-section>

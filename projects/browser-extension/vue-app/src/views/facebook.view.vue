@@ -4,7 +4,6 @@
       v-model="openTab"
       :tabs="TABS"
     />
-
     <panel-section
       v-if="openTab === 'mobile'"
       title="Preview"
@@ -19,7 +18,6 @@
         </template>
       </preview-iframe>
     </panel-section>
-
     <panel-section
       v-if="openTab === 'desktop'"
       title="Preview"
@@ -34,7 +32,6 @@
         </template>
       </preview-iframe>
     </panel-section>
-
     <panel-section title="Properties">
       <properties-list>
         <properties-item

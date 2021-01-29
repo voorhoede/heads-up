@@ -3,7 +3,7 @@
     <panel-section title="Favicons">
       <div v-if="!favicons.length" class="warning-message">
         <WarningIcon class="icon" />
-        <p>No Open Graph properties detected.</p>
+        <p>No favicons detected.</p>
       </div>
       <properties-list v-else>
         <properties-item
@@ -20,9 +20,7 @@
     <panel-section title="Resources">
       <ul class="resource-list">
         <li>
-          <external-link
-            href="https://bitsofco.de/all-about-favicons-and-touch-icons/"
-          >
+          <external-link href="https://bitsofco.de/all-about-favicons-and-touch-icons/">
             All About Favicons
           </external-link>
         </li>
