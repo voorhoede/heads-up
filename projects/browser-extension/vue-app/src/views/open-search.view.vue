@@ -21,7 +21,7 @@
     <panel-section v-if="openSearchContent" title="Tags">
       <properties-list>
         <properties-item
-          v-for="item in opensearchData"
+          v-for="item in openSearchData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -50,7 +50,7 @@ import { mapState } from 'vuex';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findXMLElement } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
-import schema from '@shared/lib/schemas/opensearch-schema';
+import schema from '@shared/lib/schemas/open-search-schema';
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
 import PropertiesList from '@shared/components/properties-list';
@@ -86,7 +86,7 @@ export default {
       params.set('title', this.shortName);
       params.set('theme', this.themeClass);
 
-      return `/previews/opensearch/opensearch.html?${ params }`;
+      return `/previews/open-search/open-search.html?${ params }`;
     },
     shortName() {
       const element = findXMLElement(this.openSearchContent, 'ShortName');
@@ -108,7 +108,7 @@ export default {
       const element = findXMLElement(this.openSearchContent, 'InputEncoding');
       return element ? element[0].value : null;
     },
-    opensearchData() {
+    openSearchData() {
       return [
         {
           term: 'shortname',

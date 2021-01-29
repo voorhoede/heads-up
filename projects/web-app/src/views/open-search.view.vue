@@ -23,7 +23,7 @@
     <panel-section v-if="hasOpenSearchFile" title="Tags">
       <properties-list>
         <properties-item
-          v-for="item in opensearchData"
+          v-for="item in openSearchData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -52,7 +52,7 @@ import useHead from '@/composables/use-head';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findLinkHref, findXMLElement } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
-import schema from '@shared/lib/schemas/opensearch-schema';
+import schema from '@shared/lib/schemas/open-search-schema';
 import ExternalLink from '@shared/components/external-link.vue';
 import PanelSection from '@shared/components/panel-section.vue';
 import PropertiesList from '@shared/components/properties-list.vue';
@@ -70,7 +70,7 @@ export default {
       const params = new URLSearchParams();
       params.set('title', shortName.value);
       params.set('theme', themeClass.value);
-      return `/previews/opensearch/opensearch.html?${ params }`;
+      return `/previews/open-search/open-search.html?${ params }`;
     });
     const fileUrl = computed(() => {
       return createAbsoluteUrl(headData.value.head, metaTagValue.value);
@@ -95,7 +95,7 @@ export default {
       const element = findXMLElement(fileContent.value, 'InputEncoding');
       return element ? element[0].value : null;
     });
-    const opensearchData = computed(() => {
+    const openSearchData = computed(() => {
       return [
         {
           term: 'shortname',
@@ -172,7 +172,7 @@ export default {
       urls,
       image,
       inputEncoding,
-      opensearchData,
+      openSearchData,
       absoluteUrl,
       formatUrlsObject,
       getFileContent,

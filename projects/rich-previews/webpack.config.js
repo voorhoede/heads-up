@@ -8,7 +8,7 @@ module.exports = {
     'facebook-desktop/facebook-desktop': './src/facebook-desktop/facebook-desktop.js',
     'facebook-mobile/facebook-mobile': './src/facebook-mobile/facebook-mobile.js',
     'linkedin/linkedin': './src/linkedin/linkedin.js',
-    'opensearch/opensearch': './src/opensearch/opensearch.js',
+    'open-search/open-search': './src/open-search/open-search.js',
     'slack/slack': './src/slack/slack.js',
     'twitter/twitter': './src/twitter/twitter.js',
     'whatsapp/whatsapp': './src/whatsapp/whatsapp.js',
@@ -34,9 +34,9 @@ module.exports = {
       chunks: [ 'linkedin/linkedin' ],
     }),
     new HtmlWebpackPlugin({
-      filename: 'opensearch/opensearch.html',
-      template: 'src/opensearch/opensearch.html',
-      chunks: [ 'opensearch/opensearch' ],
+      filename: 'open-search/open-search.html',
+      template: 'src/open-search/open-search.html',
+      chunks: [ 'open-search/open-search' ],
     }),
     new HtmlWebpackPlugin({
       filename: 'slack/slack.html',

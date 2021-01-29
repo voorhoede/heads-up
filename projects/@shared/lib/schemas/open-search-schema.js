@@ -1,4 +1,4 @@
-const opensearchMetaSchema = {
+const openSearchMetaSchema = {
   'shortname': {
     required: true,
     message: {
@@ -48,4 +48,4 @@ const opensearchMetaSchema = {
   },
 };
 
-export default opensearchMetaSchema;
+export default openSearchMetaSchema;
