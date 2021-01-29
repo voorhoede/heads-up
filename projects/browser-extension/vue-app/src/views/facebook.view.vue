@@ -271,16 +271,16 @@ export default {
   },
   watch: {
     'og.image'() {
-      this.findImageDimensions();
+      this.getImageDimensions();
     },
   },
   created() {
-    this.findImageDimensions();
+    this.getImageDimensions();
   },
   methods: {
-    findImageDimensions() {
-      findImageDimensions(this.head, 'og:image').then(imageDimensions => {
-        this.imageDimensions = imageDimensions;
+    getImageDimensions() {
+      findImageDimensions(this.head, 'og:image').then(dimensions => {
+        this.imageDimensions = dimensions;
       });
     },
     absoluteUrl(url) {

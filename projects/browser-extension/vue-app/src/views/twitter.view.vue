@@ -312,20 +312,20 @@ export default {
   },
   watch:{
     'og.image'() {
-      this.findImageDimensions('og:image');
+      this.getImageDimensions('og:image');
     },
     'twitter.image'() {
-      this.findImageDimensions('twitter:image');
+      this.getImageDimensions('twitter:image');
     },
   },
   created() {
-    this.findImageDimensions();
+    this.getImageDimensions();
   },
   methods: {
     absoluteUrl(url) {
       return createAbsoluteUrl(this.head, url);
     },
-    findImageDimensions(tagName) {
+    getImageDimensions(tagName) {
       const name = tagName ? tagName : 'og:image';
       findImageDimensions(this.head, name).then(dimensions => {
         this.imageDimensions = dimensions;
