@@ -233,6 +233,6 @@ export default {
 
 <style>
   .twitter__preview {
-    max-width: 521px;
+    max-width: var(--preview-width);
   }
 </style>

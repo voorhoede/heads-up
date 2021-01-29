@@ -343,7 +343,7 @@ export default {
 </script>
 
 <style>
-.twitter__preview {
-  max-width: 521px;
-}
+  .twitter__preview {
+    max-width: var(--preview-width);
+  }
 </style>

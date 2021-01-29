@@ -190,9 +190,9 @@ export default {
 
 <style>
   .opensearch__preview {
+    height: 140px;
     margin-bottom: 1rem;
     padding: 0;
     border: none;
-    height: 140px;
   }
 </style>

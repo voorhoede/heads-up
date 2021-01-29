@@ -161,7 +161,7 @@ export default {
 </script>
 
 <style>
-.linkedin__preview {
-  max-width: 520px;
-}
+  .linkedin__preview {
+    max-width: var(--preview-width);
+  }
 </style>

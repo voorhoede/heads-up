@@ -162,7 +162,7 @@ export default {
 </script>
 
 <style>
-.open-search__preview {
-  height: 140px;
-}
+  .open-search__preview {
+    height: 140px;
+  }
 </style>

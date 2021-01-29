@@ -19,4 +19,7 @@
 
   --label-color: #5f5f5f;
   --bg-color: var(--color-light-gray);
+
+  /* sizes */
+  --preview-width: 520px;
 }

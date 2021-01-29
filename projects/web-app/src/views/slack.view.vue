@@ -178,6 +178,6 @@ export default {
 
 <style>
   .slack__preview {
-    max-width: 521px;
+    max-width: var(--preview-width);
   }
 </style>

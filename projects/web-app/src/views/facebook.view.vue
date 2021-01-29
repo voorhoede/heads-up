@@ -274,6 +274,6 @@ export default {
 
 <style>
   .facebook__preview {
-    max-width: 521px;
+    max-width: var(--preview-width);
   }
 </style>

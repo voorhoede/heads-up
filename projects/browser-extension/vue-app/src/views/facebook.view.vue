@@ -294,7 +294,7 @@ export default {
 </script>
 
 <style>
-.facebook__preview {
-  max-width: 521px;
-}
+  .facebook__preview {
+    max-width: var(--preview-width);
+  }
 </style>

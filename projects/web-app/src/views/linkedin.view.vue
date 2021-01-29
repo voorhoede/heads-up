@@ -146,6 +146,6 @@ export default {
 
 <style>
   .linkedin__preview {
-    max-width: 520px;
+    max-width: var(--preview-width);
   }
 </style>

@@ -192,7 +192,7 @@ export default {
 </script>
 
 <style>
-.slack__preview {
-  max-width: 521px;
-}
+  .slack__preview {
+    max-width: var(--preview-width);
+  }
 </style>

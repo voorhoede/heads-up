@@ -157,7 +157,7 @@ export default {
 </script>
 
 <style>
-.whatsapp__preview {
-  max-width: 521px;
-}
+  .whatsapp__preview {
+    max-width: var(--preview-width);
+  }
 </style>
