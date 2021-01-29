@@ -1,28 +1,30 @@
 <template>
-  <panel-section title="Properties">
-    <properties-list>
-      <properties-item
-        v-for="item in siteMetaData"
-        :key="item.term"
-        :term="item.term"
-        :value="item.value"
-        :type="item.type"
-        :schema="schema"
-        :attrs="item.attrs"
-        :required="true"
-      >
-      </properties-item>
-    </properties-list>
-  </panel-section>
-  <panel-section title="Resources">
-    <ul class="resource-list">
-      <li>
-        <external-link href="https://htmlhead.dev/">
-          Guide to HTML5 <code>&lt;head&gt;</code> elements
-        </external-link>
-      </li>
-    </ul>
-  </panel-section>
+  <div class="meta">
+    <panel-section title="Properties">
+      <properties-list>
+        <properties-item
+          v-for="item in siteMetaData"
+          :key="item.term"
+          :term="item.term"
+          :value="item.value"
+          :type="item.type"
+          :schema="schema"
+          :attrs="item.attrs"
+          :required="true"
+        >
+        </properties-item>
+      </properties-list>
+    </panel-section>
+    <panel-section title="Resources">
+      <ul class="resource-list">
+        <li>
+          <external-link href="https://htmlhead.dev/">
+            Guide to HTML5 <code>&lt;head&gt;</code> elements
+          </external-link>
+        </li>
+      </ul>
+    </panel-section>
+  </div>
 </template>
 
 <script>

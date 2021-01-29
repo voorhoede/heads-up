@@ -1,47 +1,49 @@
 <template>
-  <panel-section title="Preview">
-    <div v-if="!hasOpenSearchFile" class="warning-message">
-      <WarningIcon class="icon" />
-      <p>No OpenSearch file detected.</p>
-    </div>
-    <figure v-if="hasOpenSearchFile">
-      <iframe
-        ref="iframe"
-        title="OpenSearch preview"
-        :src="previewUrl"
-        height="auto"
-        width="100%"
-        class="opensearch__preview"
-      />
-      <figcaption class="opensearch__preview-caption">
-        Preview based on source file:
-        <external-link :href="fileUrl">{{ fileUrl }}</external-link>
-      </figcaption>
-    </figure>
-  </panel-section>
-  <panel-section v-if="hasOpenSearchFile" title="Tags">
-    <properties-list>
-      <properties-item
-        v-for="item in opensearchData"
-        :key="item.term"
-        :term="item.term"
-        :value="item.value"
-        :image="item.image"
-        :type="item.type"
-        :schema="schema"
-      >
-      </properties-item>
-    </properties-list>
-  </panel-section>
-  <panel-section title="Resources">
-    <ul class="resource-list">
-      <li>
-        <external-link href="https://developer.mozilla.org/en-US/docs/Web/OpenSearch">
-          MDN web docs: OpenSearch description format
-        </external-link>
-      </li>
-    </ul>
-  </panel-section>
+  <div class="open-search">
+    <panel-section title="Preview">
+      <div v-if="!hasOpenSearchFile" class="warning-message">
+        <WarningIcon class="icon" />
+        <p>No OpenSearch file detected.</p>
+      </div>
+      <figure v-if="hasOpenSearchFile">
+        <iframe
+          ref="iframe"
+          title="OpenSearch preview"
+          :src="previewUrl"
+          height="auto"
+          width="100%"
+          class="opensearch__preview"
+        />
+        <figcaption class="opensearch__preview-caption">
+          Preview based on source file:
+          <external-link :href="fileUrl">{{ fileUrl }}</external-link>
+        </figcaption>
+      </figure>
+    </panel-section>
+    <panel-section v-if="hasOpenSearchFile" title="Tags">
+      <properties-list>
+        <properties-item
+          v-for="item in opensearchData"
+          :key="item.term"
+          :term="item.term"
+          :value="item.value"
+          :image="item.image"
+          :type="item.type"
+          :schema="schema"
+        >
+        </properties-item>
+      </properties-list>
+    </panel-section>
+    <panel-section title="Resources">
+      <ul class="resource-list">
+        <li>
+          <external-link href="https://developer.mozilla.org/en-US/docs/Web/OpenSearch">
+            MDN web docs: OpenSearch description format
+          </external-link>
+        </li>
+      </ul>
+    </panel-section>
+  </div>
 </template>
 
 <script>

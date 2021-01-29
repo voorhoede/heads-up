@@ -1,5 +1,5 @@
 <template>
-  <div class="opensearch">
+  <div class="open-search">
     <panel-section title="Preview">
       <div v-if="!openSearchContent" class="warning-message">
         <WarningIcon class="icon" />
@@ -8,7 +8,7 @@
       <preview-iframe
          v-if="openSearchContent"
         :url="previewUrl"
-        iframeClass="opensearch__preview"
+        iframeClass="open-search__preview"
         :loading-height="140"
       >
         <template v-slot:caption>
@@ -162,7 +162,7 @@ export default {
 </script>
 
 <style>
-.opensearch__preview {
+.open-search__preview {
   height: 140px;
 }
 </style>

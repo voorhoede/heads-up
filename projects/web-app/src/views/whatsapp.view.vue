@@ -1,55 +1,57 @@
 <template>
-  <panel-section title="Preview">
-    <p v-if="!hasDescription">
-      This page does not contain an Open Graph description to create a preview.
-    </p>
-    <preview-iframe
-      v-if="hasDescription && previewUrl"
-      :url="previewUrl"
-      iframeClass="whatsapp__preview"
-      :loading-height="122"
-    >
-      <template v-slot:caption>
-        Preview based on
-        <external-link href="https://web.whatsapp.com/">
-          web.whatsapp.com
-        </external-link>
-      </template>
-    </preview-iframe>
-  </panel-section>
-  <panel-section title="Properties">
-    <properties-list>
-      <properties-item
-        v-for="item in whatsappMetaData"
-        :key="item.term"
-        :term="item.term"
-        :value="item.value"
-        :image="item.image"
-        :type="item.type"
-        :schema="schema"
-        :required="item.required"
+  <div class="whatsapp">
+    <panel-section title="Preview">
+      <p v-if="!hasDescription">
+        This page does not contain an Open Graph description to create a preview.
+      </p>
+      <preview-iframe
+        v-if="hasDescription && previewUrl"
+        :url="previewUrl"
+        iframeClass="whatsapp__preview"
+        :loading-height="122"
       >
-      </properties-item>
-    </properties-list>
-  </panel-section>
-  <panel-section title="Resources">
-    <ul class="resource-list">
-      <li>
-        <external-link
-          href="https://stackoverflow.com/a/43154489"
+        <template v-slot:caption>
+          Preview based on
+          <external-link href="https://web.whatsapp.com/">
+            web.whatsapp.com
+          </external-link>
+        </template>
+      </preview-iframe>
+    </panel-section>
+    <panel-section title="Properties">
+      <properties-list>
+        <properties-item
+          v-for="item in whatsappMetaData"
+          :key="item.term"
+          :term="item.term"
+          :value="item.value"
+          :image="item.image"
+          :type="item.type"
+          :schema="schema"
+          :required="item.required"
         >
-          2019 WhatsApp sharing standards (on StackOverflow)
-        </external-link>
-      </li>
-      <li>
-        <external-link
-          href="https://stackoverflow.com/questions/19778620/provide-an-image-for-whatsapp-link-sharing"
-        >
-          Unfurl mechanism used by WhatsApp for sharing
-        </external-link>
-      </li>
-    </ul>
-  </panel-section>
+        </properties-item>
+      </properties-list>
+    </panel-section>
+    <panel-section title="Resources">
+      <ul class="resource-list">
+        <li>
+          <external-link
+            href="https://stackoverflow.com/a/43154489"
+          >
+            2019 WhatsApp sharing standards (on StackOverflow)
+          </external-link>
+        </li>
+        <li>
+          <external-link
+            href="https://stackoverflow.com/questions/19778620/provide-an-image-for-whatsapp-link-sharing"
+          >
+            Unfurl mechanism used by WhatsApp for sharing
+          </external-link>
+        </li>
+      </ul>
+    </panel-section>
+  </div>
 </template>
 
 <script>

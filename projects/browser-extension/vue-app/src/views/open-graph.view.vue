@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="open-graph">
     <panel-section title="Properties">
       <div v-if="!ogMeta.length" class="warning-message">
         <WarningIcon class="icon" />

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="link">
     <panel-section title="Rel">
       <collapsible-list :data="linkListData" />
     </panel-section>

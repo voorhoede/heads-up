@@ -1,32 +1,34 @@
 <template>
-  <panel-section title="Favicons">
-    <div v-if="!favicons.length" class="warning-message">
-      <WarningIcon class="icon" />
-      <p>No Open Graph properties detected.</p>
-    </div>
-    <properties-list v-else>
-      <properties-item
-        v-for="image in favicons"
-        :key="image.term"
-        :term="image.term"
-        :value="image.url"
-        :image="image"
-        type="image"
-      >
-      </properties-item>
-    </properties-list>
-  </panel-section>
-  <panel-section title="Resources">
-    <ul class="resource-list">
-      <li>
-        <external-link
-          href="https://bitsofco.de/all-about-favicons-and-touch-icons/"
+  <div class="favicon">
+    <panel-section title="Favicons">
+      <div v-if="!favicons.length" class="warning-message">
+        <WarningIcon class="icon" />
+        <p>No Open Graph properties detected.</p>
+      </div>
+      <properties-list v-else>
+        <properties-item
+          v-for="image in favicons"
+          :key="image.term"
+          :term="image.term"
+          :value="image.url"
+          :image="image"
+          type="image"
         >
-          All About Favicons
-        </external-link>
-      </li>
-    </ul>
-  </panel-section>
+        </properties-item>
+      </properties-list>
+    </panel-section>
+    <panel-section title="Resources">
+      <ul class="resource-list">
+        <li>
+          <external-link
+            href="https://bitsofco.de/all-about-favicons-and-touch-icons/"
+          >
+            All About Favicons
+          </external-link>
+        </li>
+      </ul>
+    </panel-section>
+  </div>
 </template>
 
 <script>

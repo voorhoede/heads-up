@@ -1,58 +1,60 @@
 <template>
-  <panel-section title="Preview">
-    <p v-if="!isValidCard">
-      This page does not contain the required meta data to create a preview.
-    </p>
-    <p v-if="isValidCard && !isSupportedCard">
-      Preview is not yet available for <code>{{ card }}</code> cards. <br>
-      Card preview is currently supported for:
-      <span v-html="supportedCards.map(v => `<code>${v}</code>`).join(', ')" />.
-    </p>
-    <preview-iframe
-      v-if="isValidCard && isSupportedCard"
-      :url="previewUrl"
-      iframeClass="twitter__preview"
-      :loading-height="346"
-    >
-      <template v-slot:caption>
-        Preview based on <external-link href="https://mobile.twitter.com/">mobile.twitter.com</external-link>.
-      </template>
-    </preview-iframe>
-  </panel-section>
-  <panel-section title="Properties">
-    <properties-list>
-      <properties-item
-        v-for="item in twitterMetaData"
-        :key="item.term"
-        :term="item.term"
-        :value="item.value"
-        :image="item.image"
-        :type="item.type"
-        :schema="schema"
-        :required="item.required"
+  <div class="twitter">
+    <panel-section title="Preview">
+      <p v-if="!isValidCard">
+        This page does not contain the required meta data to create a preview.
+      </p>
+      <p v-if="isValidCard && !isSupportedCard">
+        Preview is not yet available for <code>{{ card }}</code> cards. <br>
+        Card preview is currently supported for:
+        <span v-html="supportedCards.map(v => `<code>${v}</code>`).join(', ')" />.
+      </p>
+      <preview-iframe
+        v-if="isValidCard && isSupportedCard"
+        :url="previewUrl"
+        iframeClass="twitter__preview"
+        :loading-height="346"
       >
-      </properties-item>
-    </properties-list>
-  </panel-section>
-  <panel-section title="Resources">
-    <ul class="resource-list">
-      <li>
-        <external-link href="https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards.html">
-          About Twitter cards
-        </external-link>
-      </li>
-      <li>
-        <external-link href="https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/markup">
-          Twitter card markup
-        </external-link>
-      </li>
-      <li>
-        <external-link href="https://cards-dev.twitter.com/validator">
-          Twitter card validator (requires Twitter login)
-        </external-link>
-      </li>
-    </ul>
-  </panel-section>
+        <template v-slot:caption>
+          Preview based on <external-link href="https://mobile.twitter.com/">mobile.twitter.com</external-link>.
+        </template>
+      </preview-iframe>
+    </panel-section>
+    <panel-section title="Properties">
+      <properties-list>
+        <properties-item
+          v-for="item in twitterMetaData"
+          :key="item.term"
+          :term="item.term"
+          :value="item.value"
+          :image="item.image"
+          :type="item.type"
+          :schema="schema"
+          :required="item.required"
+        >
+        </properties-item>
+      </properties-list>
+    </panel-section>
+    <panel-section title="Resources">
+      <ul class="resource-list">
+        <li>
+          <external-link href="https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards.html">
+            About Twitter cards
+          </external-link>
+        </li>
+        <li>
+          <external-link href="https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/markup">
+            Twitter card markup
+          </external-link>
+        </li>
+        <li>
+          <external-link href="https://cards-dev.twitter.com/validator">
+            Twitter card validator (requires Twitter login)
+          </external-link>
+        </li>
+      </ul>
+    </panel-section>
+  </div>
 </template>
 
 <script>

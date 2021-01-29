@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="structured-data">
     <panel-section v-if="hasMicrodata" title="Microdata">
       <pre class="structured-data__code-block">{{ structuredData.microdata }}</pre>
     </panel-section>

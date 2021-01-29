@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="search-meta">
     <panel-section title="Properties">
       <properties-list>
         <properties-item
