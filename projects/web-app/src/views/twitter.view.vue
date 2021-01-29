@@ -190,7 +190,7 @@ export default {
         },
         {
           term: 'twitter:image',
-          value: absoluteUrl(twitter.value.image),
+          value: twitter.value.image,
           image: {
             href: twitter.value.image,
             url: absoluteUrl(twitter.value.image),

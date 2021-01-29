@@ -126,7 +126,7 @@ export default {
         title: this.propertyValue('og:title'),
         description: this.propertyValue('og:description'),
         image: this.propertyValue('og:image'),
-        url: this.absoluteUrl(this.propertyValue('og:url')),
+        url: this.propertyValue('og:url'),
       };
     },
     twitter() {
@@ -182,7 +182,7 @@ export default {
         },
         {
           term: 'og:image',
-          value: this.absoluteUrl(this.og.image),
+          value: this.og.image,
           image: {
             href: this.og.image,
             url: this.absoluteUrl(this.og.image),
@@ -191,7 +191,7 @@ export default {
         },
         {
           term: 'og:url',
-          value: this.og.url,
+          value: this.absoluteUrl(this.og.url),
           type: 'link',
         },
         {
@@ -211,7 +211,7 @@ export default {
         },
         {
           term: 'twitter:image',
-          value: this.absoluteUrl(this.twitter.image),
+          value: this.twitter.image,
           image: {
             href: this.twitter.image,
             url: this.absoluteUrl(this.twitter.image),
