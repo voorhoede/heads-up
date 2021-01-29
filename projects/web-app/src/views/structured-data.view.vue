@@ -9,14 +9,12 @@
     <panel-section v-if="hasRdfa" title="RDFa">
       <pre class="structured-data__code-block">{{ structuredData.rdfa }}</pre>
     </panel-section>
-
-    <panel-section v-if="hasNoData" title="Structured Data">
+    <panel-section v-if="hasNoData" title="Preview">
       <div class="warning-message">
         <WarningIcon class="icon" />
         <p>No Structured Data found.</p>
       </div>
     </panel-section>
-
     <panel-section title="Resources">
       <ul class="resource-list">
         <li>
