@@ -87,7 +87,7 @@ export default {
     const robots = computed(() => headData.value.robots);
     const sitemapUrls = computed(() => headData.value.sitemapUrls);
     const url = computed(() => headData.value.head.url);
-    const urlIsCrawlable = computed(() => headData.value.urlIsCrawlable);
+    const urlIsCrawlable = computed(() => headData.value.urlIsCrawlable.toString());
 
     return  {
       robots,
