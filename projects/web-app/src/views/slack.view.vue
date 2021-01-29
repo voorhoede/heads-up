@@ -19,7 +19,7 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="item in slackProperties"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -92,7 +92,7 @@ export default {
       params.set('validImage', imageDimensions.value.height > 0 && imageDimensions.value.width > 0);
       return `/previews/slack/slack.html?${ params }`;
     });
-    const slackProperties = computed(() => ([
+    const metaData = computed(() => ([
       {
         term: 'og:title',
         value: og.value.title,
@@ -128,7 +128,7 @@ export default {
         required: true,
       },
       // Transform twitterData array and
-      // spread objects into slackProperties array.
+      // spread objects into metaData array.
       ...additional.value.twitterData.map((item, index) => (
         Object.entries(item).map(entry => ({
           term: `twitter:${ entry[0] === 'label' ? entry[0] : 'data' }${ index + 1 }`,
@@ -159,7 +159,7 @@ export default {
       additional,
       themeClass,
       previewUrl,
-      slackProperties,
+      metaData,
       schema,
     };
   },

@@ -3,7 +3,7 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="item in siteMetaData"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -40,7 +40,7 @@ import PropertiesItem from '@shared/components/properties-item';
 export default {
   setup: () => {
     const headData = useHead().data;
-    const siteMetaData = computed(() => {
+    const metaData = computed(() => {
       const { head } = headData.value;
       return [
         {
@@ -73,7 +73,7 @@ export default {
     });
 
     return {
-      siteMetaData,
+      metaData,
       schema,
     };
   },

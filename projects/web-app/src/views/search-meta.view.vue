@@ -3,7 +3,7 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="item in siteMetaData"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -45,7 +45,7 @@ import PropertiesList from '@shared/components/properties-list';
 export default {
   setup: () => {
     const headData = useHead().data;
-    const siteMetaData = computed(() => {
+    const metaData = computed(() => {
       const { head } = headData.value;
       return [
         {
@@ -99,7 +99,7 @@ export default {
     const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
 
     return {
-      siteMetaData,
+      metaData,
       schema,
     };
   },

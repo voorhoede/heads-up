@@ -19,7 +19,7 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="item in linkedinProperties"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -75,7 +75,7 @@ export default {
       params.set('imageIsBig', imageDimensions.value.height >= 400 && imageDimensions.value.width >= 400);
       return `/previews/linkedin/linkedin.html?${ params }`;
     });
-    const linkedinProperties = computed(() => ([
+    const metaData = computed(() => ([
       {
         term: 'og:title',
         value: og.value.title,
@@ -127,7 +127,7 @@ export default {
       og,
       themeClass,
       previewUrl,
-      linkedinProperties,
+      metaData,
       schema,
     };
   },

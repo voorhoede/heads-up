@@ -1,11 +1,11 @@
 <template>
   <div class="link">
     <panel-section title="Rel">
-      <div v-if="!linkMetadata.length" class="warning-message">
+      <div v-if="!linkData.length" class="warning-message">
         <WarningIcon class="icon" />
         <p>No link meta properties detected.</p>
       </div>
-      <collapsible-list v-else :data="linkMetadata" />
+      <collapsible-list v-else :data="linkData" />
     </panel-section>
     <panel-section title="Resources">
       <ul class="resource-list">
@@ -30,10 +30,10 @@ import WarningIcon from '@shared/assets/icons/warning.svg';
 export default {
   setup() {
     const headData = useHead().data;
-    const linkMetadata = computed(() => headData.value.head.link);
+    const linkData = computed(() => headData.value.head.link);
 
     return {
-      linkMetadata,
+      linkData,
     };
   },
   components: {

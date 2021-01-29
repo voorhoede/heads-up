@@ -21,7 +21,7 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="item in whatsappMetaData"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -94,40 +94,38 @@ export default {
       params.set('url', headData.value.head.url);
       return `/previews/whatsapp/whatsapp.html?${ params }`;
     });
-    const whatsappMetaData = computed(() => {
-      return [
-        {
-          term: 'og:title',
-          value: og.value.title,
-          required: true,
+    const metaData = computed(() => ([
+      {
+        term: 'og:title',
+        value: og.value.title,
+        required: true,
+      },
+      {
+        term: 'og:description',
+        value: og.value.description,
+        required: true,
+      },
+      {
+        term: 'og:type',
+        value: og.value.type,
+      },
+      {
+        term: 'og:image',
+        value: absoluteUrl(og.value.image),
+        image: {
+          href: og.value.image,
+          url: absoluteUrl(og.value.image),
         },
-        {
-          term: 'og:description',
-          value: og.value.description,
-          required: true,
-        },
-        {
-          term: 'og:type',
-          value: og.value.type,
-        },
-        {
-          term: 'og:image',
-          value: absoluteUrl(og.value.image),
-          image: {
-            href: og.value.image,
-            url: absoluteUrl(og.value.image),
-          },
-          type: 'image',
-          required: true,
-        },
-        {
-          term: 'og:url',
-          value: og.value.url,
-          type: 'link',
-          required: true,
-        },
-      ];
-    });
+        type: 'image',
+        required: true,
+      },
+      {
+        term: 'og:url',
+        value: og.value.url,
+        type: 'link',
+        required: true,
+      },
+    ]));
 
     const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
     const propertyValue = propName =>
@@ -140,7 +138,7 @@ export default {
       hasDescription,
       image,
       previewUrl,
-      whatsappMetaData,
+      metaData,
       schema,
     };
   },

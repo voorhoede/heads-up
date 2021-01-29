@@ -1,13 +1,13 @@
 <template>
   <div class="apple-ios">
     <panel-section title="Properties">
-      <div v-if="!appleMetaData.length" class="warning-message">
+      <div v-if="!metaData.length" class="warning-message">
         <WarningIcon class="icon" />
         <p>No meta properties detected.</p>
       </div>
       <properties-list class="apple-ios__properties-list" v-else>
         <properties-item
-          v-for="item in appleMetaData"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -90,7 +90,7 @@ export default {
   },
   computed: {
     ...mapState([ 'head' ]),
-    appleMetaData() {
+    metaData() {
       const { head } = this;
       return [
         {

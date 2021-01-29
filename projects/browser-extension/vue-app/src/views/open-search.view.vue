@@ -21,7 +21,7 @@
     <panel-section v-if="openSearchContent" title="Tags">
       <properties-list>
         <properties-item
-          v-for="item in openSearchData"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -108,7 +108,7 @@ export default {
       const element = findXMLElement(this.openSearchContent, 'InputEncoding');
       return element ? element[0].value : null;
     },
-    openSearchData() {
+    metaData() {
       return [
         {
           term: 'shortname',

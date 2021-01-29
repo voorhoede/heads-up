@@ -1,7 +1,7 @@
 <template>
   <div class="link">
     <panel-section title="Rel">
-      <collapsible-list :data="linkListData" />
+      <collapsible-list :data="linkData" />
     </panel-section>
 
     <panel-section title="Resources">
@@ -26,7 +26,7 @@ export default {
   components: { CollapsibleList, ExternalLink, PanelSection },
   computed: {
     ...mapState([ 'head' ]),
-    linkListData() {
+    linkData() {
       return this.head.link;
     },
   },

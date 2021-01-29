@@ -35,7 +35,7 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="item in facebookMetaData"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -128,7 +128,7 @@ export default {
           : `/previews/facebook-mobile/facebook-mobile.html?${ params }`
       }`;
     });
-    const facebookMetaData = computed(() => ([
+    const metaData = computed(() => ([
       {
         term: 'fb:app_id',
         value: facebookProperties.value.appId,
@@ -256,7 +256,7 @@ export default {
       facebookProperties,
       themeClass,
       previewUrl,
-      facebookMetaData,
+      metaData,
       schema,
     };
   },

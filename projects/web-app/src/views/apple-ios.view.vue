@@ -1,13 +1,13 @@
 <template>
   <div class="apple-ios">
     <panel-section title="Properties">
-      <div v-if="!appleMetadata.length" class="warning-message">
+      <div v-if="!metaData.length" class="warning-message">
         <WarningIcon class="icon" />
         <p>No meta properties detected.</p>
       </div>
       <properties-list v-else>
         <properties-item
-          v-for="item in appleMetadata"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -81,7 +81,7 @@ import WarningIcon from '@shared/assets/icons/warning.svg';
 export default {
   setup: () => {
     const headData = useHead().data;
-    const appleMetadata = computed(() => {
+    const metaData = computed(() => {
       const { head } = headData.value;
       return [
         {
@@ -128,7 +128,7 @@ export default {
     const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
 
     return {
-      appleMetadata,
+      metaData,
       touchIcons,
       startupImages,
     };

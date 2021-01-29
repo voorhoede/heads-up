@@ -23,7 +23,7 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="item in twitterMetaData"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -145,149 +145,147 @@ export default {
       params.set('theme', getTheme() !== 'default' && 'dark');
       return `/previews/twitter/twitter.html?${ params }`;
     });
-    const twitterMetaData = computed(() => {
-      return [
-        {
-          term: 'og:type',
-          value: og.value.type,
+    const metaData = computed(() => ([
+      {
+        term: 'og:type',
+        value: og.value.type,
+      },
+      {
+        term: 'og:title',
+        value: og.value.title,
+      },
+      {
+        term: 'og:description',
+        value: og.value.description,
+      },
+      {
+        term: 'og:image',
+        value: og.value.image,
+        image: {
+          href: og.value.image,
+          url: absoluteUrl(og.value.image),
         },
-        {
-          term: 'og:title',
-          value: og.value.title,
+        type: 'image',
+      },
+      {
+        term: 'og:url',
+        value: absoluteUrl(og.value.url),
+        type: 'link',
+      },
+      {
+        term: 'twitter:card',
+        value: twitter.value.card,
+        required: true,
+      },
+      {
+        term: 'twitter:title',
+        value: twitter.value.title,
+        required: true,
+      },
+      {
+        term: 'twitter:description',
+        value: twitter.value.description,
+        required: true,
+      },
+      {
+        term: 'twitter:image',
+        value: twitter.value.image,
+        image: {
+          href: twitter.value.image,
+          url: absoluteUrl(twitter.value.image),
         },
-        {
-          term: 'og:description',
-          value: og.value.description,
-        },
-        {
-          term: 'og:image',
-          value: og.value.image,
-          image: {
-            href: og.value.image,
-            url: absoluteUrl(og.value.image),
-          },
-          type: 'image',
-        },
-        {
-          term: 'og:url',
-          value: absoluteUrl(og.value.url),
-          type: 'link',
-        },
-        {
-          term: 'twitter:card',
-          value: twitter.value.card,
-          required: true,
-        },
-        {
-          term: 'twitter:title',
-          value: twitter.value.title,
-          required: true,
-        },
-        {
-          term: 'twitter:description',
-          value: twitter.value.description,
-          required: true,
-        },
-        {
-          term: 'twitter:image',
-          value: twitter.value.image,
-          image: {
-            href: twitter.value.image,
-            url: absoluteUrl(twitter.value.image),
-          },
-          type: 'image',
-          required: true,
-        },
-        {
-          term: 'twitter:image:alt',
-          value: twitter.value.imageAlt,
-          required: true,
-        },
-        {
-          term: 'twitter:creator',
-          value: twitter.value.creator
-            ? `https://twitter.com/${ twitter.value.creator.slice(1) }`
-            : null,
-          type: 'link',
-        },
-        {
-          term: 'twitter:creator:id',
-          value: twitter.value.creatorId,
-        },
-        {
-          term: 'twitter:site',
-          value: twitter.value.site
-            ? `https://twitter.com/${ twitter.value.site.slice(1) }`
-            : null,
-          type: 'link',
-          required: true,
-        },
-        {
-          term: 'twitter:site:id',
-          value: twitter.value.site,
-          required: true,
-        },
-        {
-          term: 'twitter:player',
-          value: twitter.value.player,
-        },
-        {
-          term: 'twitter:player:width',
-          value: twitter.value.playerWidth,
-        },
-        {
-          term: 'twitter:player:height',
-          value: twitter.value.playerHeight,
-        },
-        {
-          term: 'twitter:player:stream',
-          value: twitter.value.playerStream,
-        },
-        {
-          term: 'twitter:app:id:iphone',
-          value: twitter.value.appIdIphone,
-        },
-        {
-          term: 'twitter:app:id:ipad',
-          value: twitter.value.appIdIpad,
-        },
-        {
-          term: 'twitter:app:id:googleplay',
-          value: twitter.value.appIdGoogle,
-        },
-        {
-          term: 'twitter:app:url:iphone',
-          value: twitter.value.appUrlIphone,
-          type: 'link',
-        },
-        {
-          term: 'twitter:app:url:ipad',
-          value: twitter.value.appUrlIpad,
-          type: 'link',
-        },
-        {
-          term: 'twitter:app:url:googleplay',
-          value: twitter.value.appUrlGoogle,
-          type: 'link',
-        },
-        {
-          term: 'twitter:app:country',
-          value: twitter.value.appCountry,
-        },
-        {
-          term: 'twitter:app:name:iphone',
-          value: twitter.value.appNameIphone,
-        },
-        {
-          term: 'twitter:app:name:ipad',
-          value: twitter.value.appNameIpad,
-        },
-        {
-          term: 'twitter:app:name:googleplay',
-          value: twitter.value.appNameGoogle,
-        },
-      ];
-    });
+        type: 'image',
+        required: true,
+      },
+      {
+        term: 'twitter:image:alt',
+        value: twitter.value.imageAlt,
+        required: true,
+      },
+      {
+        term: 'twitter:creator',
+        value: twitter.value.creator
+          ? `https://twitter.com/${ twitter.value.creator.slice(1) }`
+          : null,
+        type: 'link',
+      },
+      {
+        term: 'twitter:creator:id',
+        value: twitter.value.creatorId,
+      },
+      {
+        term: 'twitter:site',
+        value: twitter.value.site
+          ? `https://twitter.com/${ twitter.value.site.slice(1) }`
+          : null,
+        type: 'link',
+        required: true,
+      },
+      {
+        term: 'twitter:site:id',
+        value: twitter.value.site,
+        required: true,
+      },
+      {
+        term: 'twitter:player',
+        value: twitter.value.player,
+      },
+      {
+        term: 'twitter:player:width',
+        value: twitter.value.playerWidth,
+      },
+      {
+        term: 'twitter:player:height',
+        value: twitter.value.playerHeight,
+      },
+      {
+        term: 'twitter:player:stream',
+        value: twitter.value.playerStream,
+      },
+      {
+        term: 'twitter:app:id:iphone',
+        value: twitter.value.appIdIphone,
+      },
+      {
+        term: 'twitter:app:id:ipad',
+        value: twitter.value.appIdIpad,
+      },
+      {
+        term: 'twitter:app:id:googleplay',
+        value: twitter.value.appIdGoogle,
+      },
+      {
+        term: 'twitter:app:url:iphone',
+        value: twitter.value.appUrlIphone,
+        type: 'link',
+      },
+      {
+        term: 'twitter:app:url:ipad',
+        value: twitter.value.appUrlIpad,
+        type: 'link',
+      },
+      {
+        term: 'twitter:app:url:googleplay',
+        value: twitter.value.appUrlGoogle,
+        type: 'link',
+      },
+      {
+        term: 'twitter:app:country',
+        value: twitter.value.appCountry,
+      },
+      {
+        term: 'twitter:app:name:iphone',
+        value: twitter.value.appNameIphone,
+      },
+      {
+        term: 'twitter:app:name:ipad',
+        value: twitter.value.appNameIpad,
+      },
+      {
+        term: 'twitter:app:name:googleplay',
+        value: twitter.value.appNameGoogle,
+      },
+    ]));
 
     const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
     const propertyValue = propName =>
@@ -322,7 +320,7 @@ export default {
       og,
       twitter,
       previewUrl,
-      twitterMetaData,
+      metaData,
       schema,
     };
   },

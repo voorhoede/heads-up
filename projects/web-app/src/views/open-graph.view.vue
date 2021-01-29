@@ -1,13 +1,13 @@
 <template>
   <div class="open-graph">
     <panel-section title="Properties">
-      <div v-if="!ogMeta.length" class="warning-message">
+      <div v-if="!metaData.length" class="warning-message">
         <WarningIcon class="icon" />
         <p>No Open Graph properties detected.</p>
       </div>
       <properties-list v-else>
         <properties-item
-          v-for="item in ogMeta"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -41,7 +41,7 @@ import schema from '@shared/lib/schemas/open-graph-schema';
 export default {
   setup: () => {
     const headData = useHead().data;
-    const ogMeta = computed(() => {
+    const metaData = computed(() => {
       const { meta } = headData.value.head;
       return meta
         .filter(meta =>
@@ -54,7 +54,7 @@ export default {
     });
 
     return {
-      ogMeta,
+      metaData,
       schema,
     };
   },

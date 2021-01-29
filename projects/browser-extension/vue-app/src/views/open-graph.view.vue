@@ -1,13 +1,13 @@
 <template>
   <div class="open-graph">
     <panel-section title="Properties">
-      <div v-if="!ogMeta.length" class="warning-message">
+      <div v-if="!metaData.length" class="warning-message">
         <WarningIcon class="icon" />
         <p>No Open Graph properties detected.</p>
       </div>
       <properties-list v-else>
         <properties-item
-          v-for="item in ogMeta"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -53,7 +53,7 @@ export default {
   },
   computed: {
     ...mapState([ 'head' ]),
-    ogMeta() {
+    metaData() {
       return this.head.meta
         .filter(meta =>
           meta.property && meta.property.startsWith('og:') || meta.name && meta.name.startsWith('og:')

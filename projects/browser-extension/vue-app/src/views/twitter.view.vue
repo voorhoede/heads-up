@@ -25,7 +25,7 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="item in twitterMetaData"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -166,7 +166,7 @@ export default {
       params.set('theme', getTheme() !== 'default' && 'dark');
       return `/previews/twitter/twitter.html?${ params }`;
     },
-    twitterMetaData() {
+    metaData() {
       return [
         {
           term: 'og:type',

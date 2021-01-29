@@ -19,7 +19,7 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="item in whatsappProperties"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -114,7 +114,7 @@ export default {
 
       return `/previews/whatsapp/whatsapp.html?${ params }`;
     },
-    whatsappProperties() {
+    metaData() {
       return [
         {
           term: 'og:title',

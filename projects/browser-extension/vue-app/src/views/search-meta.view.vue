@@ -3,7 +3,7 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="item in searchMetaData"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -50,7 +50,7 @@ export default {
   },
   computed: {
     ...mapState([ 'head' ]),
-    searchMetaData() {
+    metaData() {
       const { head } = this;
       return [
         {

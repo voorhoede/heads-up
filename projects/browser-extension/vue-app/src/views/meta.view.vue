@@ -3,7 +3,7 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="item in appMetaData"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -46,7 +46,7 @@ export default {
   },
   computed: {
     ...mapState([ 'head' ]),
-    appMetaData() {
+    metaData() {
       const { head } = this;
       return [
         {

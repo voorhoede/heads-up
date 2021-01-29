@@ -23,7 +23,7 @@
     <panel-section v-if="hasOpenSearchFile" title="Tags">
       <properties-list>
         <properties-item
-          v-for="item in openSearchData"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -95,37 +95,35 @@ export default {
       const element = findXMLElement(fileContent.value, 'InputEncoding');
       return element ? element[0].value : null;
     });
-    const openSearchData = computed(() => {
-      return [
-        {
-          term: 'shortname',
-          value: shortName.value,
-          required: true,
+    const metaData = computed(() => ([
+      {
+        term: 'shortname',
+        value: shortName.value,
+        required: true,
+      },
+      {
+        term: 'description',
+        value: description.value,
+      },
+      {
+        term: 'urls',
+        value: formatUrlsObject(urls.value),
+        type: 'urls',
+      },
+      {
+        term: 'image',
+        value: image.value,
+        image: {
+          href: image.value,
+          url: absoluteUrl(image.value),
         },
-        {
-          term: 'description',
-          value: description.value,
-        },
-        {
-          term: 'urls',
-          value: formatUrlsObject(urls.value),
-          type: 'urls',
-        },
-        {
-          term: 'image',
-          value: image.value,
-          image: {
-            href: image.value,
-            url: absoluteUrl(image.value),
-          },
-          type: 'image',
-        },
-        {
-          term: 'input-encoding',
-          value: inputEncoding.value,
-        },
-      ];
-    });
+        type: 'image',
+      },
+      {
+        term: 'input-encoding',
+        value: inputEncoding.value,
+      },
+    ]));
 
     const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
     const formatUrlsObject = urls => urls.map(item => {
@@ -171,7 +169,7 @@ export default {
       urls,
       image,
       inputEncoding,
-      openSearchData,
+      metaData,
       schema,
     };
   },
