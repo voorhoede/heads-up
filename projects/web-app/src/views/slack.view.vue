@@ -66,8 +66,8 @@ export default {
       type: propertyValue('og:type'),
       description: propertyValue('og:description'),
       site_name: propertyValue('og:site_name'),
-      image: absoluteUrl(propertyValue('og:image')),
-      url: absoluteUrl(propertyValue('og:url')),
+      image: propertyValue('og:image'),
+      url: propertyValue('og:url'),
     }));
     const headDescription = computed(() => (findMetaContent(headData.value.head, 'description')));
     const favicon = computed(() => (
@@ -123,7 +123,7 @@ export default {
       },
       {
         term: 'og:url',
-        value: og.value.url,
+        value: absoluteUrl(og.value.url),
         type: 'link',
         required: true,
       },

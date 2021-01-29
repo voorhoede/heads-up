@@ -83,8 +83,8 @@ export default {
         type: this.propertyValue('og:type'),
         description: this.propertyValue('og:description'),
         site_name: this.propertyValue('og:site_name'),
-        image: this.absoluteUrl(this.propertyValue('og:image')),
-        url: this.absoluteUrl(this.propertyValue('og:url')),
+        image: this.propertyValue('og:image'),
+        url: this.propertyValue('og:url'),
       };
     },
     headDescription() {
