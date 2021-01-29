@@ -160,7 +160,6 @@ export default {
     onMounted(() => getFileContent(fileUrl.value));
 
     return {
-      schema,
       fileContent,
       hasOpenSearchFile,
       metaTagValue,
@@ -173,6 +172,7 @@ export default {
       image,
       inputEncoding,
       openSearchData,
+      schema,
     };
   },
   components: {
