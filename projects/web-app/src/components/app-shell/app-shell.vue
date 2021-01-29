@@ -5,7 +5,7 @@
     <main class="app-main">
       <loader v-if="isLoadingHeadData" />
       <template v-else>
-        <h1 v-if="title">{{ title }}</h1>
+        <h1 v-if="title" class="app-main__view-title">{{ title }}</h1>
         <router-view />
       </template>
     </main>
@@ -56,5 +56,14 @@ export default {
   margin-left: var(--sidebar-width);
   overflow: auto;
   border-top: 1px solid var(--color-gray);
+}
+
+.app-main__view-title {
+  display: inline-block;
+  border-bottom: 2px solid var(--color-blue);
+  color: var(--color-blue);
+  margin-bottom: 8px;
+  margin-left: 16px;
+  padding: 16px 0 8px;
 }
 </style>
