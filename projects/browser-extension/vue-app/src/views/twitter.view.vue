@@ -115,7 +115,7 @@ export default {
       return this.twitter.title || this.og.title || this.head.title || '';
     },
     description() {
-      return this.twitter.description || this.og.description || this.metaValue('description') || '';
+      return this.twitter.description || this.og.description || this.propertyValue('description') || '';
     },
     image() {
       return this.absoluteUrl(this.twitter.image || this.og.image);
@@ -131,29 +131,29 @@ export default {
     },
     twitter() {
       return {
-        appIdIphone: this.metaValue('twitter:app:id:iphone'),
-        appIdIpad: this.metaValue('twitter:app:id:ipad'),
-        appIdGoogle: this.metaValue('twitter:app:id:googleplay'),
-        appUrlIphone: this.metaValue('twitter:app:url:iphone'),
-        appUrlIpad: this.metaValue('twitter:app:url:ipad'),
-        appUrlGoogle: this.metaValue('twitter:app:url:googleplay'),
-        appCountry: this.metaValue('twitter:app:country'),
-        appNameIphone: this.metaValue('twitter:app:name:iphone'),
-        appNameIpad: this.metaValue('twitter:app:name:ipad'),
-        appNameGoogle: this.metaValue('twitter:app:name:googleplay'),
-        card: this.metaValue('twitter:card'),
-        title: this.metaValue('twitter:title'),
-        description: this.metaValue('twitter:description'),
-        image: this.metaValue('twitter:image'),
-        imageAlt: this.metaValue('twitter:image:alt'),
-        site: this.metaValue('twitter:site'),
-        siteId: this.metaValue('twitter:site:id'),
-        creator: this.metaValue('twitter:creator'),
-        creatorId: this.metaValue('twitter:creator:id'),
-        player: this.metaValue('twitter:player'),
-        playerWidth: this.metaValue('twitter:player:width'),
-        playerHeight: this.metaValue('twitter:player:height'),
-        playerStream: this.metaValue('twitter:player:stream'),
+        appIdIphone: this.propertyValue('twitter:app:id:iphone'),
+        appIdIpad: this.propertyValue('twitter:app:id:ipad'),
+        appIdGoogle: this.propertyValue('twitter:app:id:googleplay'),
+        appUrlIphone: this.propertyValue('twitter:app:url:iphone'),
+        appUrlIpad: this.propertyValue('twitter:app:url:ipad'),
+        appUrlGoogle: this.propertyValue('twitter:app:url:googleplay'),
+        appCountry: this.propertyValue('twitter:app:country'),
+        appNameIphone: this.propertyValue('twitter:app:name:iphone'),
+        appNameIpad: this.propertyValue('twitter:app:name:ipad'),
+        appNameGoogle: this.propertyValue('twitter:app:name:googleplay'),
+        card: this.propertyValue('twitter:card'),
+        title: this.propertyValue('twitter:title'),
+        description: this.propertyValue('twitter:description'),
+        image: this.propertyValue('twitter:image'),
+        imageAlt: this.propertyValue('twitter:image:alt'),
+        site: this.propertyValue('twitter:site'),
+        siteId: this.propertyValue('twitter:site:id'),
+        creator: this.propertyValue('twitter:creator'),
+        creatorId: this.propertyValue('twitter:creator:id'),
+        player: this.propertyValue('twitter:player'),
+        playerWidth: this.propertyValue('twitter:player:width'),
+        playerHeight: this.propertyValue('twitter:player:height'),
+        playerStream: this.propertyValue('twitter:player:stream'),
       };
     },
     previewUrl() {
@@ -327,13 +327,9 @@ export default {
     },
     findImageDimensions(tagName) {
       const name = tagName ? tagName : 'og:image';
-
       findImageDimensions(this.head, name).then(dimensions => {
         this.imageDimensions = dimensions;
       });
-    },
-    metaValue(metaName) {
-      return findMetaContent(this.head, metaName);
     },
     propertyValue(propName) {
       return findMetaProperty(this.head, propName) || findMetaContent(this.head, propName);

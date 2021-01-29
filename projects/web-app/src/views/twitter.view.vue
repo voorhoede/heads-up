@@ -98,7 +98,7 @@ export default {
     const description = computed(() => (
       twitter.value.description ||
       og.value.description ||
-      metaValue('description') || ''
+      propertyValue('description') || ''
     ));
     const image = computed(() => (
       absoluteUrl(twitter.value.image || og.value.image)
@@ -111,12 +111,12 @@ export default {
       url: absoluteUrl(propertyValue('og:url')),
     }));
     const twitter = computed(() => ({
-      card: metaValue('twitter:card'),
-      creator: metaValue('twitter:creator'),
-      description: metaValue('twitter:description'),
-      image: metaValue('twitter:image'),
-      site: metaValue('twitter:site'),
-      title: metaValue('twitter:title'),
+      card: propertyValue('twitter:card'),
+      title: propertyValue('twitter:title'),
+      description: propertyValue('twitter:description'),
+      image: propertyValue('twitter:image'),
+      site: propertyValue('twitter:site'),
+      creator: propertyValue('twitter:creator'),
     }));
     const previewUrl = computed(() => {
       const params = new URLSearchParams();
@@ -201,10 +201,8 @@ export default {
     });
 
     const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
-    const metaValue = metaName => findMetaContent(headData.value.head, metaName);
     const propertyValue = propName =>
       findMetaProperty(headData.value.head, propName) || findMetaContent(headData.value.head, propName);
-
     const getImageDimensions = tagName => {
       const name = tagName ? tagName : 'og:image';
       findImageDimensions(headData.value.head, name)
@@ -237,7 +235,6 @@ export default {
       previewUrl,
       twitterMetaData,
       absoluteUrl,
-      metaValue,
       propertyValue,
       schema,
     };
