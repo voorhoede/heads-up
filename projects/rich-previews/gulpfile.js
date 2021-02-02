@@ -18,7 +18,7 @@ const ASSETS_DIR = '@assets';
 
 // Get all preview directories to loop over
 const isValidDirectory = parentDir => dir => lstatSync(join(parentDir, dir)).isDirectory() && dir !== ASSETS_DIR;
-const previewDirs = readdirSync(SOURCE_DIR).filter(isDirectory(SOURCE_DIR));	const previewDirs = readdirSync(SOURCE_DIR).filter(isValidDirectory(SOURCE_DIR));
+const previewDirs = readdirSync(SOURCE_DIR).filter(isValidDirectory(SOURCE_DIR));
 
 // Task: Clean publish directory
 const cleanDist = () => del([ PUBLISH_DIR ]);
