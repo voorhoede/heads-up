@@ -69,7 +69,7 @@ html {
   display: block;
   width: 100%;
   height: 289px;
-  background-image: url('./assets/facebook-img-fallback.png');
+  background-image: url('../@assets/facebook-img-fallback.png');
   background-size: contain;
   background-repeat: no-repeat;
   position: absolute;
