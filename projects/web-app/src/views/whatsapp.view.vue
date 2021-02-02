@@ -26,6 +26,7 @@
         :value="item.value"
         :image="item.image"
         :type="item.type"
+        :schema="schema"
         :required="item.required"
       >
       </properties-item>
@@ -61,6 +62,7 @@ import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
+import schema from '@shared/lib/schemas/whatsapp-schema';
 
 export default {
   setup() {
@@ -100,11 +102,11 @@ export default {
         {
           term: 'og:description',
           value: og.value.description,
+          required: true,
         },
         {
           term: 'og:type',
           value: og.value.type,
-          required: true,
         },
         {
           term: 'og:image',
@@ -139,6 +141,7 @@ export default {
       whatsappMetaData,
       absoluteUrl,
       propertyValue,
+      schema,
     };
   },
   components: {

@@ -38,7 +38,7 @@ const openGraphSchema = {
       required: 'This property is required according to the Open Graph protocol.',
     },
     meta: {
-      info: 'The <code>og:image</code> element defines the canonical URL of your object that will be used as its permanent ID in the graph, e.g., "https://www.imdb.com/title/tt0117500/"',
+      info: 'The <code>og:url</code> element defines the canonical URL of your object that will be used as its permanent ID in the graph, e.g., "https://www.imdb.com/title/tt0117500/"',
       link: 'https://ogp.me/',
     },
   },

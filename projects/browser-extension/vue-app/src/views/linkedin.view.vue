@@ -25,6 +25,7 @@
           :value="item.value"
           :image="item.image"
           :type="item.type"
+          :schema="schema"
           :required="item.required"
         >
         </properties-item>
@@ -43,6 +44,7 @@ import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
+import schema from '@shared/lib/schemas/linkedin-schema';
 
 export default {
   components: {
@@ -54,6 +56,7 @@ export default {
   },
   data() {
     return {
+      schema,
       imageDimensions: {
         height: undefined,
         width: undefined,
@@ -74,9 +77,9 @@ export default {
       return {
         title: this.propertyValue('og:title'),
         type: this.propertyValue('og:type'),
-        image: this.absoluteUrl(this.propertyValue('og:image')),
+        image: this.propertyValue('og:image'),
         description: this.propertyValue('og:description'),
-        url: this.absoluteUrl(this.propertyValue('og:url')),
+        url: this.propertyValue('og:url'),
       };
     },
     themeClass() {
@@ -122,6 +125,7 @@ export default {
         {
           term: 'og:description',
           value: this.og.description,
+          required: true,
         },
         {
           term: 'og:url',
@@ -137,14 +141,8 @@ export default {
       this.findImageDimensions();
     },
   },
-  mounted() {
-    window.addEventListener('resize', this.onResize);
-  },
   created() {
     this.findImageDimensions();
-  },
-  unmounted() {
-    window.removeEventListener('resize', this.onResize);
   },
   methods: {
     findImageDimensions() {

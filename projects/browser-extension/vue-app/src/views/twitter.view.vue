@@ -230,7 +230,6 @@ export default {
             ? `https://twitter.com/${ this.twitter.creator.slice(1) }`
             : null,
           type: 'link',
-          required: true,
         },
         {
           term: 'twitter:creator:id',

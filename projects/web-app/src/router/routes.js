@@ -3,12 +3,14 @@ import AppleIos from '@/views/apple-ios.view';
 import Facebook from '@/views/facebook.view';
 import Favicon from '@/views/favicon.view';
 import Link from '@/views/link.view';
+import LinkedIn from '@/views/linkedin.view';
 import Meta from '@/views/meta.view';
 import OpenGraph from '@/views/open-graph.view';
 import OpenSearch from '@/views/opensearch.view';
 import RobotsTxt from '@/views/robots-txt.view';
 import SearchMeta from '@/views/search-meta.view';
 import Sitemap from '@/views/sitemap.view';
+import Slack from '@/views/slack.view';
 import StructuredData from '@/views/structured-data.view';
 import Twitter from '@/views/twitter.view';
 import Whatsapp from '@/views/whatsapp.view';
@@ -88,11 +90,27 @@ export default [
     },
   },
   {
+    path: '/linkedin',
+    name: 'linkedin',
+    component: LinkedIn,
+    meta: {
+      title: 'LinkedIn',
+    },
+  },
+  {
     path: '/facebook',
     name: 'facebook',
     component: Facebook,
     meta: {
       title: 'Facebook',
+    },
+  },
+  {
+    path: '/slack',
+    name: 'slack',
+    component: Slack,
+    meta: {
+      title: 'Slack',
     },
   },
 

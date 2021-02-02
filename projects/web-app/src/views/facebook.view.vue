@@ -1,32 +1,67 @@
 <template>
-
-  <tab-selecter
-    v-model="openTab"
-    :tabs="TABS"
-  />
-
-  <panel-section
-    v-if="openTab === 'mobile'"
-    title="Preview"
-  >
-    This is specific for mobile
-  </panel-section>
-  <panel-section
-    v-if="openTab === 'desktop'"
-    title="Preview"
-  >
-      This is specific for desktop
-  </panel-section>
-
-  <panel-section title="Properties">
-    This is the Facebook data
-  </panel-section>
+  <div class="facebook">
+    <tab-selecter
+      v-model="openTab"
+      :tabs="TABS"
+    />
+    <panel-section
+      v-if="openTab === 'mobile'"
+      title="Preview"
+    >
+      <preview-iframe
+        :url="previewUrl"
+        iframeClass="facebook__preview"
+        :loading-height="359"
+      >
+        <template v-slot:caption>
+          Preview based on <external-link href="https://m.facebook.com/">m.facebook.com</external-link>.
+        </template>
+      </preview-iframe>
+    </panel-section>
+    <panel-section
+      v-if="openTab === 'desktop'"
+      title="Preview"
+    >
+      <preview-iframe
+        :url="previewUrl"
+        class="facebook__preview"
+        :loading-height="368"
+      >
+        <template v-slot:caption>
+          Preview based on <external-link href="https://facebook.com/">facebook.com</external-link>.
+        </template>
+      </preview-iframe>
+    </panel-section>
+    <panel-section title="Properties">
+      <properties-list>
+        <properties-item
+          v-for="item in facebookMetaData"
+          :key="item.term"
+          :term="item.term"
+          :value="item.value"
+          :image="item.image"
+          :type="item.type"
+          :required="item.required"
+        >
+        </properties-item>
+      </properties-list>
+    </panel-section>
+  </div>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
+import useHead from '@/composables/use-head';
+import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
+import createAbsoluteUrl from '@shared/lib/create-absolute-url';
+import getTheme from '@shared/lib/theme';
+import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
+import PreviewIframe from '@shared/components/preview-iframe';
+import PropertiesItem from '@shared/components/properties-item';
+import PropertiesList from '@shared/components/properties-list';
 import TabSelecter from '@shared/components/tab-selecter';
+import schema from '@shared/lib/schemas/facebook-schema';
 
 const TABS = [
   {
@@ -41,17 +76,204 @@ const TABS = [
 
 export default {
   setup() {
+    const headData = useHead().data;
     const openTab = ref(TABS[0].value);
+    const imageDimensions = ref({ height: undefined, width: undefined });
+    const imageSpecified = ref(true);
+    const og = computed(() => ({
+      type: propertyValue('og:type'),
+      url: propertyValue('og:url'),
+      locale: propertyValue('og:locale'),
+      title: propertyValue('og:title'),
+      description: propertyValue('og:description'),
+      image: propertyValue('og:image'),
+      imageUrl: propertyValue('og:image:url'),
+      imageSecureUrl: propertyValue('og:image:secure_url'),
+      imageType: propertyValue('og:image:type'),
+      imageWidth: propertyValue('og:image:width'),
+      imageHeight: propertyValue('og:image:height'),
+      video: propertyValue('og:video'),
+      videoUrl: propertyValue('og:video:url'),
+      videoSecureUrl: propertyValue('og:video:secure_url'),
+      videoType: propertyValue('og:video:type'),
+      videoWidth: propertyValue('og:video:width'),
+      videoHeight: propertyValue('og:video:height'),
+    }));
+    const facebookProperties = computed(() => ({
+      appId: propertyValue('fb:app_id'),
+      pages: propertyValue('fb:pages'),
+    }));
+    const themeClass = computed(() => getTheme() === 'dark' ? '-theme-with-dark-background' : '');
+    const previewUrl = computed(() => {
+      const params = new URLSearchParams();
+      params.set('title', og.value.title || headData.value.head.title);
+      params.set('url', headData.value.head.url);
+      params.set('image', og.value.image);
+      params.set('theme', themeClass.value);
+      params.set('imageSpecified', imageSpecified.value);
+      params.set('description', og.value.description);
+      params.set('desktopImgIsBig', imageDimensions.value.height >= 415 && imageDimensions.value.width >= 415);
+      if (og.value.image !== undefined) {
+        params.set(
+          'mobileImgIsBig',
+          (imageDimensions.value.height > 359 && imageDimensions.value.width > 359) ||
+            (imageSpecified.value &&
+              (imageDimensions.value.height === 0 || imageDimensions.value.width === 0))
+        );
+      }
+      return `${
+        openTab.value === 'desktop'
+          ? `/previews/facebook-desktop/facebook-desktop.html?${ params }`
+          : `/previews/facebook-mobile/facebook-mobile.html?${ params }`
+      }`;
+    });
+    const facebookMetaData = computed(() => ([
+      {
+        term: 'fb:app_id',
+        value: facebookProperties.value.appId,
+      },
+      {
+        term: 'fb:pages',
+        value: facebookProperties.value.pages,
+      },
+      {
+        term: 'og:type',
+        value: og.value.type,
+        required: true,
+      },
+      {
+        term: 'og:url',
+        value: absoluteUrl(og.value.url),
+        type: 'link',
+        required: true,
+      },
+      {
+        term: 'og:locale',
+        value: og.value.locale,
+      },
+      {
+        term: 'og:title',
+        value: og.value.title,
+        required: true,
+      },
+      {
+        term: 'og:description',
+        value: og.value.description,
+      },
+      {
+        term: 'og:image',
+        value: og.value.image,
+        image: {
+          href: og.value.image,
+          url: absoluteUrl(og.value.image),
+        },
+        type: 'image',
+        required: true,
+      },
+      {
+        term: 'og:image:url',
+        value: og.value.imageUrl,
+        image: {
+          href: og.value.imageUrl,
+          url: absoluteUrl(og.value.imageUrl),
+        },
+        type: 'image',
+      },
+      {
+        term: 'og:image:secure_url',
+        value: absoluteUrl(og.value.imageSecureUrl),
+        type: 'link',
+      },
+      {
+        term: 'og:image:type',
+        value: og.value.imageType,
+      },
+      {
+        term: 'og:image:width',
+        value: og.value.imageWidth,
+      },
+      {
+        term: 'og:image:height',
+        value: og.value.imageHeight,
+      },
+      {
+        term: 'og:video',
+        value: og.value.video,
+        image: {
+          href: og.value.video,
+          url: absoluteUrl(og.value.video),
+        },
+        type: 'image',
+      },
+      {
+        term: 'og:video:url',
+        value: og.value.videoUrl,
+        image: {
+          href: og.value.videoUrl,
+          url: absoluteUrl(og.value.videoUrl),
+        },
+        type: 'image',
+      },
+      {
+        term: 'og:video:secure_url',
+        value: absoluteUrl(og.value.videoSecureUrl),
+        type: 'link',
+      },
+      {
+        term: 'og:video:type',
+        value: og.value.videoType,
+      },
+      {
+        term: 'og:video:width',
+        value: og.value.videoWidth,
+      },
+      {
+        term: 'og:video:height',
+        value: og.value.videoHeight,
+      },
+    ]));
+
+    const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
+    const getImageDimensions = () => findImageDimensions(headData.value.head, 'og:image')
+      .then(dimensions => imageDimensions.value = dimensions);
+    const propertyValue = propName =>
+      findMetaProperty(headData.value.head, propName) || findMetaContent(headData.value.head, propName);
+
+    watch(() => og.value.image, value => {
+      if (value) {
+        getImageDimensions();
+      }
+    });
+
+    onMounted(() => getImageDimensions());
 
     return {
       TABS,
       openTab,
+      og,
+      facebookProperties,
+      themeClass,
+      previewUrl,
+      facebookMetaData,
+      absoluteUrl,
+      getImageDimensions,
+      propertyValue,
+      schema,
     };
   },
-
   components: {
+    ExternalLink,
     PanelSection,
+    PreviewIframe,
+    PropertiesItem,
+    PropertiesList,
     TabSelecter,
   },
 };
 </script>
+
+<style>
+  .facebook__preview {
+    max-width: 521px;
+  }
+</style>
