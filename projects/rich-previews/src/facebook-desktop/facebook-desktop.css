@@ -192,7 +192,7 @@ html {
 
 .facebook-preview__interaction {
   display: inline-block;
-  background-image: url('./assets/facebook-emoji.png');
+  background-image: url('../@assets/facebook-emoji.png');
   background-size: contain;
   background-repeat: no-repeat;
   height: 20px;
