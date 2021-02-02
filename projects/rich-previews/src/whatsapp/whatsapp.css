@@ -74,6 +74,11 @@ html {
   padding: 3px 3px 8px 3px;
   background-color: var(--background-color);
   position: relative;
+
+}
+
+.whatsapp-preview > a {
+  text-decoration: none;
 }
 
 .whatsapp-preview__domain {
