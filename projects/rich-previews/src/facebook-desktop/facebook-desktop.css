@@ -54,7 +54,6 @@ html {
   background-color: white;
 }
 
-
 .facebook-preview__fixed-ratio-content {
   position: absolute;
   top: 0;
@@ -156,8 +155,6 @@ html {
   height: 148px;
   float: left;
 }
-
-
 
 .facebook-preview__small .facebook-preview__fixed-ratio-content {
   min-width: 148px;
