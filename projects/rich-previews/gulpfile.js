@@ -14,10 +14,11 @@ const htmlmin = require('gulp-htmlmin');
 
 const SOURCE_DIR = 'src';
 const PUBLISH_DIR = 'dist';
+const ASSETS_DIR = '@assets';
 
 // Get all preview directories to loop over
-const isDirectory = parentDir => el => lstatSync(join(parentDir, el)).isDirectory();
-const previewDirs = readdirSync(SOURCE_DIR).filter(isDirectory(SOURCE_DIR));
+const isValidDirectory = parentDir => dir => lstatSync(join(parentDir, dir)).isDirectory() && dir !== ASSETS_DIR;
+const previewDirs = readdirSync(SOURCE_DIR).filter(isDirectory(SOURCE_DIR));	const previewDirs = readdirSync(SOURCE_DIR).filter(isValidDirectory(SOURCE_DIR));
 
 // Task: Clean publish directory
 const cleanDist = () => del([ PUBLISH_DIR ]);
@@ -62,15 +63,21 @@ const processHtml = () => merge(
 
 // Task: Copy files
 const copyLocalAssets = () => gulp
-  .src(`${ SOURCE_DIR }/**/!(*.html|*.css|*.js)`)
+  .src(`${ SOURCE_DIR }/**/!(${ ASSETS_DIR })/!(*.html|*.css|*.js)`)
   .pipe(gulp.dest(PUBLISH_DIR))
+;
+
+const copyGlobalAssets = () => gulp
+  .src(`${ SOURCE_DIR }/${ ASSETS_DIR }/**/*`)
+  .pipe(gulp.dest(`${ PUBLISH_DIR }/${ ASSETS_DIR }`))
 ;
 
 // Run: Build
 const runBuild = gulp.series(
   cleanDist,
   gulp.parallel(processCss, processJs, processHtml),
-  copyLocalAssets
+  copyLocalAssets,
+  copyGlobalAssets
 );
 
 gulp.task('run:build', runBuild);
