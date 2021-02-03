@@ -12,7 +12,7 @@
       v-model="selectedValue"
       :value="tab.value"
     >
-    <span class="tab-selector__tab__button">
+    <span class="tab-selector__tab-button">
       {{ tab.label }}
     </span>
   </label>
@@ -61,7 +61,7 @@ export default {
   margin-right: 1rem;
 }
 
-.tab-selector input:checked + .tab-selector__tab__button {
+.tab-selector input:checked + .tab-selector__tab-button {
   border-bottom: 2px solid #1a73e8;
 }
 
