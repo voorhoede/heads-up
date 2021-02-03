@@ -6,7 +6,7 @@ import Link from '@/views/link.view';
 import LinkedIn from '@/views/linkedin.view';
 import Meta from '@/views/meta.view';
 import OpenGraph from '@/views/open-graph.view';
-import OpenSearch from '@/views/opensearch.view';
+import OpenSearch from '@/views/open-search.view';
 import RobotsTxt from '@/views/robots-txt.view';
 import SearchMeta from '@/views/search-meta.view';
 import Sitemap from '@/views/sitemap.view';
@@ -64,11 +64,11 @@ export default [
     },
   },
   {
-    path: '/opensearch',
-    name: 'opensearch',
+    path: '/open-search',
+    name: 'open-search',
     component: OpenSearch,
     meta: {
-      title: 'Open Search',
+      title: 'OpenSearch',
     },
   },
 

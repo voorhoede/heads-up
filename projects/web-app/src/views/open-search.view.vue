@@ -1,47 +1,48 @@
 <template>
-  <panel-section title="Preview">
-    <div v-if="!hasOpenSearchFile" class="warning-message">
-      <WarningIcon class="icon" />
-      <p>No OpenSearch file detected.</p>
-    </div>
-    <figure v-if="hasOpenSearchFile">
-      <iframe
-        ref="iframe"
-        title="OpenSearch preview"
-        :src="previewUrl"
-        height="auto"
-        width="100%"
-        class="opensearch__preview"
-      />
-      <figcaption class="opensearch__preview-caption">
-        Preview based on source file:
-        <external-link :href="fileUrl">{{ fileUrl }}</external-link>
-      </figcaption>
-    </figure>
-  </panel-section>
-  <panel-section v-if="hasOpenSearchFile" title="Tags">
-    <properties-list>
-      <properties-item
-        v-for="item in opensearchData"
-        :key="item.term"
-        :term="item.term"
-        :value="item.value"
-        :image="item.image"
-        :type="item.type"
-        :schema="schema"
-      >
-      </properties-item>
-    </properties-list>
-  </panel-section>
-  <panel-section title="Resources">
-    <ul class="resource-list">
-      <li>
-        <external-link href="https://developer.mozilla.org/en-US/docs/Web/OpenSearch">
-          MDN web docs: OpenSearch description format
-        </external-link>
-      </li>
-    </ul>
-  </panel-section>
+  <div class="open-search">
+    <panel-section title="Preview">
+      <div v-if="!hasOpenSearchFile" class="warning-message">
+        <WarningIcon class="icon" />
+        <p>No OpenSearch file detected.</p>
+      </div>
+      <figure v-if="hasOpenSearchFile">
+        <iframe
+          ref="iframe"
+          title="OpenSearch preview"
+          :src="previewUrl"
+          height="auto"
+          width="100%"
+          class="opensearch__preview"
+        />
+        <figcaption class="opensearch__preview-caption">
+          Preview based on source file: <external-link :href="fileUrl">{{ fileUrl }}</external-link>.
+        </figcaption>
+      </figure>
+    </panel-section>
+    <panel-section v-if="hasOpenSearchFile" title="Tags">
+      <properties-list>
+        <properties-item
+          v-for="item in metaData"
+          :key="item.term"
+          :term="item.term"
+          :value="item.value"
+          :image="item.image"
+          :type="item.type"
+          :schema="schema"
+        >
+        </properties-item>
+      </properties-list>
+    </panel-section>
+    <panel-section title="Resources">
+      <ul class="resource-list">
+        <li>
+          <external-link href="https://developer.mozilla.org/en-US/docs/Web/OpenSearch">
+            MDN web docs: OpenSearch description format
+          </external-link>
+        </li>
+      </ul>
+    </panel-section>
+  </div>
 </template>
 
 <script>
@@ -50,7 +51,8 @@ import useHead from '@/composables/use-head';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findLinkHref, findXMLElement } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
-import schema from '@shared/lib/schemas/opensearch-schema';
+import schema from '@shared/lib/schemas/open-search-schema';
+
 import ExternalLink from '@shared/components/external-link.vue';
 import PanelSection from '@shared/components/panel-section.vue';
 import PropertiesList from '@shared/components/properties-list.vue';
@@ -68,7 +70,7 @@ export default {
       const params = new URLSearchParams();
       params.set('title', shortName.value);
       params.set('theme', themeClass.value);
-      return `/previews/opensearch/opensearch.html?${ params }`;
+      return `/previews/open-search/open-search.html?${ params }`;
     });
     const fileUrl = computed(() => {
       return createAbsoluteUrl(headData.value.head, metaTagValue.value);
@@ -93,37 +95,35 @@ export default {
       const element = findXMLElement(fileContent.value, 'InputEncoding');
       return element ? element[0].value : null;
     });
-    const opensearchData = computed(() => {
-      return [
-        {
-          term: 'shortname',
-          value: shortName.value,
-          required: true,
+    const metaData = computed(() => ([
+      {
+        term: 'shortname',
+        value: shortName.value,
+        required: true,
+      },
+      {
+        term: 'description',
+        value: description.value,
+      },
+      {
+        term: 'urls',
+        value: formatUrlsObject(urls.value),
+        type: 'urls',
+      },
+      {
+        term: 'image',
+        value: image.value,
+        image: {
+          href: image.value,
+          url: absoluteUrl(image.value),
         },
-        {
-          term: 'description',
-          value: description.value,
-        },
-        {
-          term: 'urls',
-          value: formatUrlsObject(urls.value),
-          type: 'urls',
-        },
-        {
-          term: 'image',
-          value: image.value,
-          image: {
-            href: image.value,
-            url: absoluteUrl(image.value),
-          },
-          type: 'image',
-        },
-        {
-          term: 'input-encoding',
-          value: inputEncoding.value,
-        },
-      ];
-    });
+        type: 'image',
+      },
+      {
+        term: 'input-encoding',
+        value: inputEncoding.value,
+      },
+    ]));
 
     const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
     const formatUrlsObject = urls => urls.map(item => {
@@ -158,7 +158,6 @@ export default {
     onMounted(() => getFileContent(fileUrl.value));
 
     return {
-      schema,
       fileContent,
       hasOpenSearchFile,
       metaTagValue,
@@ -170,10 +169,8 @@ export default {
       urls,
       image,
       inputEncoding,
-      opensearchData,
-      absoluteUrl,
-      formatUrlsObject,
-      getFileContent,
+      metaData,
+      schema,
     };
   },
   components: {
@@ -188,9 +185,9 @@ export default {
 
 <style>
   .opensearch__preview {
+    height: 140px;
     margin-bottom: 1rem;
     padding: 0;
     border: none;
-    height: 140px;
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="twitter">
     <panel-section title="Preview">
       <p v-if="!isValidCard">
         This page does not contain the required meta data to create a preview.
@@ -7,7 +7,6 @@
       <p v-if="isValidCard && !isSupportedCard">
         Preview is not yet available for <code>{{ card }}</code> cards. <br>
         Card preview is currently supported for:
-        <!-- eslint-disable-next-line vue/no-v-html -->
         <span v-html="supportedCards.map(v => `<code>${v}</code>`).join(', ')" />.
       </p>
       <preview-iframe
@@ -21,11 +20,10 @@
         </template>
       </preview-iframe>
     </panel-section>
-
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="item in twitterMetaData"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -37,7 +35,6 @@
         </properties-item>
       </properties-list>
     </panel-section>
-
     <panel-section title="Resources">
       <ul class="resource-list">
         <li>
@@ -60,18 +57,18 @@
   </div>
 </template>
 
-
 <script>
 import { mapState } from 'vuex';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
-import PanelSection from '@shared/components/panel-section';
+import schema from '@shared/lib/schemas/twitter-schema';
+
 import ExternalLink from '@shared/components/external-link';
+import PanelSection from '@shared/components/panel-section';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import PreviewIframe from '@shared/components/preview-iframe';
-import schema from '@shared/lib/schemas/twitter-schema';
 
 const validCards = [ 'summary', 'summary_large_image', 'app', 'player' ];
 export const supportedCards = [ 'summary', 'summary_large_image' ];
@@ -115,7 +112,7 @@ export default {
       return this.twitter.title || this.og.title || this.head.title || '';
     },
     description() {
-      return this.twitter.description || this.og.description || this.metaValue('description') || '';
+      return this.twitter.description || this.og.description || this.propertyValue('description') || '';
     },
     image() {
       return this.absoluteUrl(this.twitter.image || this.og.image);
@@ -126,34 +123,34 @@ export default {
         title: this.propertyValue('og:title'),
         description: this.propertyValue('og:description'),
         image: this.propertyValue('og:image'),
-        url: this.absoluteUrl(this.propertyValue('og:url')),
+        url: this.propertyValue('og:url'),
       };
     },
     twitter() {
       return {
-        appIdIphone: this.metaValue('twitter:app:id:iphone'),
-        appIdIpad: this.metaValue('twitter:app:id:ipad'),
-        appIdGoogle: this.metaValue('twitter:app:id:googleplay'),
-        appUrlIphone: this.metaValue('twitter:app:url:iphone'),
-        appUrlIpad: this.metaValue('twitter:app:url:ipad'),
-        appUrlGoogle: this.metaValue('twitter:app:url:googleplay'),
-        appCountry: this.metaValue('twitter:app:country'),
-        appNameIphone: this.metaValue('twitter:app:name:iphone'),
-        appNameIpad: this.metaValue('twitter:app:name:ipad'),
-        appNameGoogle: this.metaValue('twitter:app:name:googleplay'),
-        card: this.metaValue('twitter:card'),
-        title: this.metaValue('twitter:title'),
-        description: this.metaValue('twitter:description'),
-        image: this.metaValue('twitter:image'),
-        imageAlt: this.metaValue('twitter:image:alt'),
-        site: this.metaValue('twitter:site'),
-        siteId: this.metaValue('twitter:site:id'),
-        creator: this.metaValue('twitter:creator'),
-        creatorId: this.metaValue('twitter:creator:id'),
-        player: this.metaValue('twitter:player'),
-        playerWidth: this.metaValue('twitter:player:width'),
-        playerHeight: this.metaValue('twitter:player:height'),
-        playerStream: this.metaValue('twitter:player:stream'),
+        appIdIphone: this.propertyValue('twitter:app:id:iphone'),
+        appIdIpad: this.propertyValue('twitter:app:id:ipad'),
+        appIdGoogle: this.propertyValue('twitter:app:id:googleplay'),
+        appUrlIphone: this.propertyValue('twitter:app:url:iphone'),
+        appUrlIpad: this.propertyValue('twitter:app:url:ipad'),
+        appUrlGoogle: this.propertyValue('twitter:app:url:googleplay'),
+        appCountry: this.propertyValue('twitter:app:country'),
+        appNameIphone: this.propertyValue('twitter:app:name:iphone'),
+        appNameIpad: this.propertyValue('twitter:app:name:ipad'),
+        appNameGoogle: this.propertyValue('twitter:app:name:googleplay'),
+        card: this.propertyValue('twitter:card'),
+        title: this.propertyValue('twitter:title'),
+        description: this.propertyValue('twitter:description'),
+        image: this.propertyValue('twitter:image'),
+        imageAlt: this.propertyValue('twitter:image:alt'),
+        site: this.propertyValue('twitter:site'),
+        siteId: this.propertyValue('twitter:site:id'),
+        creator: this.propertyValue('twitter:creator'),
+        creatorId: this.propertyValue('twitter:creator:id'),
+        player: this.propertyValue('twitter:player'),
+        playerWidth: this.propertyValue('twitter:player:width'),
+        playerHeight: this.propertyValue('twitter:player:height'),
+        playerStream: this.propertyValue('twitter:player:stream'),
       };
     },
     previewUrl() {
@@ -166,7 +163,7 @@ export default {
       params.set('theme', getTheme() !== 'default' && 'dark');
       return `/previews/twitter/twitter.html?${ params }`;
     },
-    twitterMetaData() {
+    metaData() {
       return [
         {
           term: 'og:type',
@@ -182,7 +179,7 @@ export default {
         },
         {
           term: 'og:image',
-          value: this.absoluteUrl(this.og.image),
+          value: this.og.image,
           image: {
             href: this.og.image,
             url: this.absoluteUrl(this.og.image),
@@ -191,7 +188,7 @@ export default {
         },
         {
           term: 'og:url',
-          value: this.og.url,
+          value: this.absoluteUrl(this.og.url),
           type: 'link',
         },
         {
@@ -211,7 +208,7 @@ export default {
         },
         {
           term: 'twitter:image',
-          value: this.absoluteUrl(this.twitter.image),
+          value: this.twitter.image,
           image: {
             href: this.twitter.image,
             url: this.absoluteUrl(this.twitter.image),
@@ -312,34 +309,24 @@ export default {
   },
   watch:{
     'og.image'() {
-      this.findImageDimensions('og:image');
+      this.getImageDimensions('og:image');
     },
     'twitter.image'() {
-      this.findImageDimensions('twitter:image');
+      this.getImageDimensions('twitter:image');
     },
   },
-  mounted() {
-    window.addEventListener('resize', this.onResize);
-  },
-  unmounted() {
-    window.removeEventListener('resize', this.onResize);
-  },
   created() {
-    this.findImageDimensions();
+    this.getImageDimensions();
   },
   methods: {
     absoluteUrl(url) {
       return createAbsoluteUrl(this.head, url);
     },
-    findImageDimensions(tagName) {
+    getImageDimensions(tagName) {
       const name = tagName ? tagName : 'og:image';
-
       findImageDimensions(this.head, name).then(dimensions => {
         this.imageDimensions = dimensions;
       });
-    },
-    metaValue(metaName) {
-      return findMetaContent(this.head, metaName);
     },
     propertyValue(propName) {
       return findMetaProperty(this.head, propName) || findMetaContent(this.head, propName);
@@ -349,7 +336,7 @@ export default {
 </script>
 
 <style>
-.twitter__preview {
-  max-width: 521px;
-}
+  .twitter__preview {
+    max-width: var(--preview-width);
+  }
 </style>

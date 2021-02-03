@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="meta">
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="item in appMetaData"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -15,7 +15,6 @@
         </properties-item>
       </properties-list>
     </panel-section>
-
     <panel-section title="Resources">
       <ul class="resource-list">
         <li>
@@ -30,12 +29,13 @@
 
 <script>
 import { mapState } from 'vuex';
-import PanelSection from '@shared/components/panel-section';
-import ExternalLink from '@shared/components/external-link';
-import PropertiesList from '@shared/components/properties-list';
-import PropertiesItem from '@shared/components/properties-item';
 import { findCharset, findMetaContent, findAttrs } from '@shared/lib/find-meta';
 import schema from '@shared/lib/schemas/app-meta-schema';
+
+import ExternalLink from '@shared/components/external-link';
+import PanelSection from '@shared/components/panel-section';
+import PropertiesList from '@shared/components/properties-list';
+import PropertiesItem from '@shared/components/properties-item';
 
 export default {
   components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList },
@@ -46,7 +46,7 @@ export default {
   },
   computed: {
     ...mapState([ 'head' ]),
-    appMetaData() {
+    metaData() {
       const { head } = this;
       return [
         {

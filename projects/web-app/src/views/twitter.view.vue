@@ -1,76 +1,80 @@
 <template>
-  <panel-section title="Preview">
-    <p v-if="!isValidCard">
-      This page does not contain the required meta data to create a preview.
-    </p>
-    <p v-if="isValidCard && !isSupportedCard">
-      Preview is not yet available for <code>{{ card }}</code> cards. <br>
-      Card preview is currently supported for:
-      <span v-html="supportedCards.map(v => `<code>${v}</code>`).join(', ')" />.
-    </p>
-    <preview-iframe
-      v-if="isValidCard && isSupportedCard"
-      :url="previewUrl"
-      iframeClass="twitter__preview"
-      :loading-height="346"
-    >
-      <template v-slot:caption>
-        Preview based on <external-link href="https://mobile.twitter.com/">mobile.twitter.com</external-link>.
-      </template>
-    </preview-iframe>
-  </panel-section>
-  <panel-section title="Properties">
-    <properties-list>
-      <properties-item
-        v-for="item in twitterMetaData"
-        :key="item.term"
-        :term="item.term"
-        :value="item.value"
-        :image="item.image"
-        :type="item.type"
-        :schema="schema"
-        :required="item.required"
+  <div class="twitter">
+    <panel-section title="Preview">
+      <p v-if="!isValidCard">
+        This page does not contain the required meta data to create a preview.
+      </p>
+      <p v-if="isValidCard && !isSupportedCard">
+        Preview is not yet available for <code>{{ card }}</code> cards. <br>
+        Card preview is currently supported for:
+        <span v-html="supportedCards.map(v => `<code>${v}</code>`).join(', ')" />.
+      </p>
+      <preview-iframe
+        v-if="isValidCard && isSupportedCard"
+        :url="previewUrl"
+        iframeClass="twitter__preview"
+        :loading-height="346"
       >
-      </properties-item>
-    </properties-list>
-  </panel-section>
-  <panel-section title="Resources">
-    <ul class="resource-list">
-      <li>
-        <external-link href="https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards.html">
-          About Twitter cards
-        </external-link>
-      </li>
-      <li>
-        <external-link href="https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/markup">
-          Twitter card markup
-        </external-link>
-      </li>
-      <li>
-        <external-link href="https://cards-dev.twitter.com/validator">
-          Twitter card validator (requires Twitter login)
-        </external-link>
-      </li>
-    </ul>
-  </panel-section>
+        <template v-slot:caption>
+          Preview based on <external-link href="https://mobile.twitter.com/">mobile.twitter.com</external-link>.
+        </template>
+      </preview-iframe>
+    </panel-section>
+    <panel-section title="Properties">
+      <properties-list>
+        <properties-item
+          v-for="item in metaData"
+          :key="item.term"
+          :term="item.term"
+          :value="item.value"
+          :image="item.image"
+          :type="item.type"
+          :schema="schema"
+          :required="item.required"
+        >
+        </properties-item>
+      </properties-list>
+    </panel-section>
+    <panel-section title="Resources">
+      <ul class="resource-list">
+        <li>
+          <external-link href="https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards.html">
+            About Twitter cards
+          </external-link>
+        </li>
+        <li>
+          <external-link href="https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/markup">
+            Twitter card markup
+          </external-link>
+        </li>
+        <li>
+          <external-link href="https://cards-dev.twitter.com/validator">
+            Twitter card validator (requires Twitter login)
+          </external-link>
+        </li>
+      </ul>
+    </panel-section>
+  </div>
 </template>
 
 <script>
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import useHead from '@/composables/use-head';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
-import { findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
+import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
-import PanelSection from '@shared/components/panel-section';
+import schema from '@shared/lib/schemas/twitter-schema';
+
 import ExternalLink from '@shared/components/external-link';
+import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
-import schema from '@shared/lib/schemas/twitter-schema';
 
 export default {
   setup() {
     const headData = useHead().data;
+    const imageDimensions = ref({ height: undefined, width: undefined });
     const validCards = ref([ 'summary', 'summary_large_image', 'app', 'player' ]);
     const supportedCards = ref([ 'summary', 'summary_large_image' ]);
 
@@ -95,25 +99,42 @@ export default {
     const description = computed(() => (
       twitter.value.description ||
       og.value.description ||
-      metaValue('description') || ''
+      propertyValue('description') || ''
     ));
     const image = computed(() => (
       absoluteUrl(twitter.value.image || og.value.image)
     ));
     const og = computed(() => ({
+      type: propertyValue('og:type'),
+      title: propertyValue('og:title'),
       description: propertyValue('og:description'),
       image: propertyValue('og:image'),
-      title: propertyValue('og:title'),
-      type: propertyValue('og:type'),
-      url: absoluteUrl(propertyValue('og:url')),
+      url: propertyValue('og:url'),
     }));
     const twitter = computed(() => ({
-      card: metaValue('twitter:card'),
-      creator: metaValue('twitter:creator'),
-      description: metaValue('twitter:description'),
-      image: metaValue('twitter:image'),
-      site: metaValue('twitter:site'),
-      title: metaValue('twitter:title'),
+      appIdIphone: propertyValue('twitter:app:id:iphone'),
+      appIdIpad: propertyValue('twitter:app:id:ipad'),
+      appIdGoogle: propertyValue('twitter:app:id:googleplay'),
+      appUrlIphone: propertyValue('twitter:app:url:iphone'),
+      appUrlIpad: propertyValue('twitter:app:url:ipad'),
+      appUrlGoogle: propertyValue('twitter:app:url:googleplay'),
+      appCountry: propertyValue('twitter:app:country'),
+      appNameIphone: propertyValue('twitter:app:name:iphone'),
+      appNameIpad: propertyValue('twitter:app:name:ipad'),
+      appNameGoogle: propertyValue('twitter:app:name:googleplay'),
+      card: propertyValue('twitter:card'),
+      title: propertyValue('twitter:title'),
+      description: propertyValue('twitter:description'),
+      image: propertyValue('twitter:image'),
+      imageAlt: propertyValue('twitter:image:alt'),
+      site: propertyValue('twitter:site'),
+      siteId: propertyValue('twitter:site:id'),
+      creator: propertyValue('twitter:creator'),
+      creatorId: propertyValue('twitter:creator:id'),
+      player: propertyValue('twitter:player'),
+      playerWidth: propertyValue('twitter:player:width'),
+      playerHeight: propertyValue('twitter:player:height'),
+      playerStream: propertyValue('twitter:player:stream'),
     }));
     const previewUrl = computed(() => {
       const params = new URLSearchParams();
@@ -125,82 +146,170 @@ export default {
       params.set('theme', getTheme() !== 'default' && 'dark');
       return `/previews/twitter/twitter.html?${ params }`;
     });
-    const twitterMetaData = computed(() => {
-      return [
-        {
-          term: 'twitter:card',
-          value: twitter.value.card,
-          required: true,
+    const metaData = computed(() => ([
+      {
+        term: 'og:type',
+        value: og.value.type,
+      },
+      {
+        term: 'og:title',
+        value: og.value.title,
+      },
+      {
+        term: 'og:description',
+        value: og.value.description,
+      },
+      {
+        term: 'og:image',
+        value: og.value.image,
+        image: {
+          href: og.value.image,
+          url: absoluteUrl(og.value.image),
         },
-        {
-          term: 'twitter:title',
-          value: twitter.value.title,
-          required: true,
+        type: 'image',
+      },
+      {
+        term: 'og:url',
+        value: absoluteUrl(og.value.url),
+        type: 'link',
+      },
+      {
+        term: 'twitter:card',
+        value: twitter.value.card,
+        required: true,
+      },
+      {
+        term: 'twitter:title',
+        value: twitter.value.title,
+        required: true,
+      },
+      {
+        term: 'twitter:description',
+        value: twitter.value.description,
+        required: true,
+      },
+      {
+        term: 'twitter:image',
+        value: twitter.value.image,
+        image: {
+          href: twitter.value.image,
+          url: absoluteUrl(twitter.value.image),
         },
-        {
-          term: 'twitter:description',
-          value: twitter.value.description,
-          required: true,
-        },
-        {
-          term: 'twitter:image',
-          value: absoluteUrl(twitter.value.image),
-          image: {
-            href: twitter.value.image,
-            url: absoluteUrl(twitter.value.image),
-          },
-          type: 'image',
-          required: true,
-        },
-        {
-          term: 'twitter:creator',
-          value: twitter.value.creator
-            ? `https://twitter.com/${ twitter.value.creator.slice(1) }`
-            : null,
-          type: 'link',
-          required: true,
-        },
-        {
-          term: 'twitter:site',
-          value: twitter.value.site
-            ? `https://twitter.com/${ twitter.value.site.slice(1) }`
-            : null,
-          type: 'link',
-          required: true,
-        },
-        {
-          term: 'og:type',
-          value: og.value.type,
-        },
-        {
-          term: 'og:title',
-          value: og.value.title,
-        },
-        {
-          term: 'og:description',
-          value: og.value.description,
-        },
-        {
-          term: 'og:image',
-          value: absoluteUrl(og.value.image),
-          image: {
-            href: og.value.image,
-            url: absoluteUrl(og.value.image),
-          },
-          type: 'image',
-        },
-        {
-          term: 'og:url',
-          value: og.value.url,
-          type: 'link',
-        },
-      ];
-    });
+        type: 'image',
+        required: true,
+      },
+      {
+        term: 'twitter:image:alt',
+        value: twitter.value.imageAlt,
+        required: true,
+      },
+      {
+        term: 'twitter:creator',
+        value: twitter.value.creator
+          ? `https://twitter.com/${ twitter.value.creator.slice(1) }`
+          : null,
+        type: 'link',
+      },
+      {
+        term: 'twitter:creator:id',
+        value: twitter.value.creatorId,
+      },
+      {
+        term: 'twitter:site',
+        value: twitter.value.site
+          ? `https://twitter.com/${ twitter.value.site.slice(1) }`
+          : null,
+        type: 'link',
+        required: true,
+      },
+      {
+        term: 'twitter:site:id',
+        value: twitter.value.site,
+        required: true,
+      },
+      {
+        term: 'twitter:player',
+        value: twitter.value.player,
+      },
+      {
+        term: 'twitter:player:width',
+        value: twitter.value.playerWidth,
+      },
+      {
+        term: 'twitter:player:height',
+        value: twitter.value.playerHeight,
+      },
+      {
+        term: 'twitter:player:stream',
+        value: twitter.value.playerStream,
+      },
+      {
+        term: 'twitter:app:id:iphone',
+        value: twitter.value.appIdIphone,
+      },
+      {
+        term: 'twitter:app:id:ipad',
+        value: twitter.value.appIdIpad,
+      },
+      {
+        term: 'twitter:app:id:googleplay',
+        value: twitter.value.appIdGoogle,
+      },
+      {
+        term: 'twitter:app:url:iphone',
+        value: twitter.value.appUrlIphone,
+        type: 'link',
+      },
+      {
+        term: 'twitter:app:url:ipad',
+        value: twitter.value.appUrlIpad,
+        type: 'link',
+      },
+      {
+        term: 'twitter:app:url:googleplay',
+        value: twitter.value.appUrlGoogle,
+        type: 'link',
+      },
+      {
+        term: 'twitter:app:country',
+        value: twitter.value.appCountry,
+      },
+      {
+        term: 'twitter:app:name:iphone',
+        value: twitter.value.appNameIphone,
+      },
+      {
+        term: 'twitter:app:name:ipad',
+        value: twitter.value.appNameIpad,
+      },
+      {
+        term: 'twitter:app:name:googleplay',
+        value: twitter.value.appNameGoogle,
+      },
+    ]));
 
     const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
-    const metaValue = metaName => findMetaContent(headData.value.head, metaName);
     const propertyValue = propName =>
       findMetaProperty(headData.value.head, propName) || findMetaContent(headData.value.head, propName);
+    const getImageDimensions = tagName => {
+      const name = tagName ? tagName : 'og:image';
+      findImageDimensions(headData.value.head, name)
+        .then(dimensions => imageDimensions.value = dimensions);
+    };
+
+    watch(() => og.value.image, value => {
+      if (value) {
+        getImageDimensions('og:image');
+      }
+    });
+
+    watch(() => twitter.value.image, value => {
+      if (value) {
+        getImageDimensions('twitter:image');
+      }
+    });
+
+    onMounted(() => getImageDimensions());
 
     return {
       card,
@@ -212,16 +321,13 @@ export default {
       og,
       twitter,
       previewUrl,
-      twitterMetaData,
-      absoluteUrl,
-      metaValue,
-      propertyValue,
+      metaData,
       schema,
     };
   },
   components: {
-    PanelSection,
     ExternalLink,
+    PanelSection,
     PreviewIframe,
     PropertiesItem,
     PropertiesList,
@@ -231,6 +337,6 @@ export default {
 
 <style>
   .twitter__preview {
-    max-width: 521px;
+    max-width: var(--preview-width);
   }
 </style>

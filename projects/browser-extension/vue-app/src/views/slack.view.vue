@@ -15,11 +15,10 @@
         </template>
       </preview-iframe>
     </panel-section>
-
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="item in slackProperties"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -36,6 +35,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import {
   findAdditionalTwitterData,
   findFavicons,
@@ -43,14 +43,14 @@ import {
   findMetaContent,
   findMetaProperty
 } from '@shared/lib/find-meta';
-import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import getTheme from '@shared/lib/theme';
+import schema from '@shared/lib/schemas/slack-schema';
+
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
-import schema from '@shared/lib/schemas/slack-schema';
 
 export default {
   components: {
@@ -83,8 +83,8 @@ export default {
         type: this.propertyValue('og:type'),
         description: this.propertyValue('og:description'),
         site_name: this.propertyValue('og:site_name'),
-        image: this.absoluteUrl(this.propertyValue('og:image')),
-        url: this.absoluteUrl(this.propertyValue('og:url')),
+        image: this.propertyValue('og:image'),
+        url: this.propertyValue('og:url'),
       };
     },
     headDescription() {
@@ -120,7 +120,7 @@ export default {
       params.set('validImage', this.imageDimensions.height > 0 && this.imageDimensions.width > 0);
       return `/previews/slack/slack.html?${ params }`;
     },
-    slackProperties() {
+    metaData() {
       return [
         {
           term: 'og:title',
@@ -157,7 +157,7 @@ export default {
           required: true,
         },
         // Transform twitterData array and
-        // spread objects into slackProperties array.
+        // spread objects into metaData array.
         ...this.additional.twitterData.map((item, index) => (
           Object.entries(item).map(entry => ({
             term: `twitter:${ entry[0] === 'label' ? entry[0] : 'data' }${ index + 1 }`,
@@ -169,16 +169,16 @@ export default {
   },
   watch:{
     'og.image'() {
-      this.findImageDimensions();
+      this.getImageDimensions();
     },
   },
   created() {
-    this.findImageDimensions();
+    this.getImageDimensions();
   },
   methods: {
-    findImageDimensions() {
-      findImageDimensions(this.head, 'og:image').then(imageDimensions => {
-        this.imageDimensions = imageDimensions;
+    getImageDimensions() {
+      findImageDimensions(this.head, 'og:image').then(dimensions => {
+        this.imageDimensions = dimensions;
       });
     },
     absoluteUrl(url) {
@@ -192,7 +192,7 @@ export default {
 </script>
 
 <style>
-.slack__preview {
-  max-width: 521px;
-}
+  .slack__preview {
+    max-width: var(--preview-width);
+  }
 </style>

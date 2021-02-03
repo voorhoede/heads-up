@@ -8,11 +8,13 @@ function getImageDetails(url) {
 }
 
 export default function getImageDimensions(url) {
-  const correctUrl = url.startsWith('http')
-    ? url
-    : new URL(url).origin + url;
+  if (!url) {
+    return Promise.resolve({ width: 0, height: 0 });
+  }
+
+  const correctUrl = url.startsWith('http') ? url : new URL(url).origin + url;
 
   return getImageDetails(correctUrl)
     .then(({ width, height }) => ({ width, height }))
-    .catch(err => console.error(err));
+    .catch(() => Promise.resolve({ width: 0, height: 0 }));
 }

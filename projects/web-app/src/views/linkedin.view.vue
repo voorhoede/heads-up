@@ -15,20 +15,34 @@
         </template>
       </preview-iframe>
     </panel-section>
-
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="item in linkedinProperties"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
           :image="item.image"
           :type="item.type"
+          :schema="schema"
           :required="item.required"
         >
         </properties-item>
       </properties-list>
+    </panel-section>
+    <panel-section title="Resources">
+      <ul class="resource-list">
+        <li>
+          <external-link href="https://www.linkedin.com/post-inspector/">
+            LinkedIn Post Inspector
+          </external-link>
+        </li>
+        <li>
+          <external-link href="https://kinsta.com/blog/linkedin-debugger/">
+            Previews on LinkedIn (Post Inspector Tips)
+          </external-link>
+        </li>
+      </ul>
     </panel-section>
   </div>
 </template>
@@ -36,9 +50,11 @@
 <script>
 import { computed, onMounted, ref, watch } from 'vue';
 import useHead from '@/composables/use-head';
-import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
+import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
+import schema from '@shared/lib/schemas/linkedin-schema';
+
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
@@ -73,7 +89,7 @@ export default {
       params.set('imageIsBig', imageDimensions.value.height >= 400 && imageDimensions.value.width >= 400);
       return `/previews/linkedin/linkedin.html?${ params }`;
     });
-    const linkedinProperties = computed(() => ([
+    const metaData = computed(() => ([
       {
         term: 'og:title',
         value: og.value.title,
@@ -125,10 +141,8 @@ export default {
       og,
       themeClass,
       previewUrl,
-      linkedinProperties,
-      absoluteUrl,
-      getImageDimensions,
-      propertyValue,
+      metaData,
+      schema,
     };
   },
   components: {
@@ -143,6 +157,6 @@ export default {
 
 <style>
   .linkedin__preview {
-    max-width: 520px;
+    max-width: var(--preview-width);
   }
 </style>

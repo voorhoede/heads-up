@@ -1,27 +1,25 @@
 <template>
-  <div class="opensearch">
+  <div class="open-search">
     <panel-section title="Preview">
       <div v-if="!openSearchContent" class="warning-message">
         <WarningIcon class="icon" />
         <p>No OpenSearch file detected.</p>
       </div>
       <preview-iframe
-         v-if="openSearchContent"
+        v-if="openSearchContent"
         :url="previewUrl"
-        iframeClass="opensearch__preview"
+        iframeClass="open-search__preview"
         :loading-height="140"
       >
         <template v-slot:caption>
-          Preview based on source file:
-          <a :href="openSearchUrl" target="_blank">{{ openSearchUrl }}</a>
+          Preview based on source file: <a :href="openSearchUrl" target="_blank">{{ openSearchUrl }}</a>.
         </template>
       </preview-iframe>
     </panel-section>
-
     <panel-section v-if="openSearchContent" title="Tags">
       <properties-list>
         <properties-item
-          v-for="item in opensearchData"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -32,7 +30,6 @@
         </properties-item>
       </properties-list>
     </panel-section>
-
     <panel-section title="Resources">
       <ul class="resource-list">
         <li>
@@ -50,9 +47,10 @@ import { mapState } from 'vuex';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findXMLElement } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
-import schema from '@shared/lib/schemas/opensearch-schema';
-import PanelSection from '@shared/components/panel-section';
+import schema from '@shared/lib/schemas/open-search-schema';
+
 import ExternalLink from '@shared/components/external-link';
+import PanelSection from '@shared/components/panel-section';
 import PropertiesList from '@shared/components/properties-list';
 import PropertiesItem from '@shared/components/properties-item';
 import PreviewIframe from '@shared/components/preview-iframe';
@@ -86,7 +84,7 @@ export default {
       params.set('title', this.shortName);
       params.set('theme', this.themeClass);
 
-      return `/previews/opensearch/opensearch.html?${ params }`;
+      return `/previews/open-search/open-search.html?${ params }`;
     },
     shortName() {
       const element = findXMLElement(this.openSearchContent, 'ShortName');
@@ -108,7 +106,7 @@ export default {
       const element = findXMLElement(this.openSearchContent, 'InputEncoding');
       return element ? element[0].value : null;
     },
-    opensearchData() {
+    metaData() {
       return [
         {
           term: 'shortname',
@@ -162,7 +160,7 @@ export default {
 </script>
 
 <style>
-.opensearch__preview {
-  height: 140px;
-}
+  .open-search__preview {
+    height: 140px;
+  }
 </style>

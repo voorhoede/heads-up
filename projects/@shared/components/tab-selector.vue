@@ -1,10 +1,10 @@
 <template>
-<div class="tab-selecter">
+<div class="tab-selector">
   <label
     v-for="tab in tabs"
     :key="tab.value"
     :for="tab.value"
-    class="tab-selecter__tab"
+    class="tab-selector__tab"
   >
     <input
       :id="tab.value"
@@ -12,7 +12,7 @@
       v-model="selectedValue"
       :value="tab.value"
     >
-    <span class="tab-selecter__tab__button">
+    <span class="tab-selector__tab-button">
       {{ tab.label }}
     </span>
   </label>
@@ -49,23 +49,23 @@ export default {
 </script>
 
 <style>
-.tab-selecter {
+.tab-selector {
   padding: 1rem 1rem 0;
 }
 
-.tab-selecter__tab {
+.tab-selector__tab {
   cursor: pointer;
 }
 
-.tab-selecter__tab:not(:last-child) {
+.tab-selector__tab:not(:last-child) {
   margin-right: 1rem;
 }
 
-.tab-selecter input:checked + .tab-selecter__tab__button {
-  border-bottom: 2px solid #1a73e8;;
+.tab-selector input:checked + .tab-selector__tab-button {
+  border-bottom: 2px solid #1a73e8;
 }
 
-.tab-selecter input[type="radio"] {
+.tab-selector input[type="radio"] {
   position: absolute;
   visibility: hidden;
 }

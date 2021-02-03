@@ -15,11 +15,10 @@
         </template>
       </preview-iframe>
     </panel-section>
-
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="item in linkedinProperties"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -31,6 +30,20 @@
         </properties-item>
       </properties-list>
     </panel-section>
+    <panel-section title="Resources">
+      <ul class="resource-list">
+        <li>
+          <external-link href="https://www.linkedin.com/post-inspector/">
+            LinkedIn Post Inspector
+          </external-link>
+        </li>
+        <li>
+          <external-link href="https://kinsta.com/blog/linkedin-debugger/">
+            Previews on LinkedIn (Post Inspector Tips)
+          </external-link>
+        </li>
+      </ul>
+    </panel-section>
   </div>
 </template>
 
@@ -39,12 +52,13 @@ import { mapState } from 'vuex';
 import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import getTheme from '@shared/lib/theme';
+import schema from '@shared/lib/schemas/linkedin-schema';
+
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
-import schema from '@shared/lib/schemas/linkedin-schema';
 
 export default {
   components: {
@@ -100,7 +114,7 @@ export default {
 
       return `/previews/linkedin/linkedin.html?${ params }`;
     },
-    linkedinProperties() {
+    metaData() {
       return [
         {
           term: 'og:title',
@@ -138,16 +152,16 @@ export default {
   },
   watch: {
     'og.image'() {
-      this.findImageDimensions();
+      this.getImageDimensions();
     },
   },
   created() {
-    this.findImageDimensions();
+    this.getImageDimensions();
   },
   methods: {
-    findImageDimensions() {
-      findImageDimensions(this.head, 'og:image').then(imageDimensions => {
-        this.imageDimensions = imageDimensions;
+    getImageDimensions() {
+      findImageDimensions(this.head, 'og:image').then(dimensions => {
+        this.imageDimensions = dimensions;
       });
     },
     absoluteUrl(url) {
@@ -161,7 +175,7 @@ export default {
 </script>
 
 <style>
-.linkedin__preview {
-  max-width: 520px;
-}
+  .linkedin__preview {
+    max-width: var(--preview-width);
+  }
 </style>

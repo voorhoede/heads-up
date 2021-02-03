@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="robots-txt">
     <panel-section title="Sitemap">
       <div v-if="!sitemapUrls.length" class="warning-message">
         <WarningIcon class="icon" />
@@ -23,15 +23,21 @@
       <properties-list>
         <properties-item
           term="allow"
-          :value="robot.allow">
+          :value="robot.allow.length && robot.allow"
+          required
+        >
         </properties-item>
         <properties-item
           term="crawlDelay"
-          :value="robot.crawlDelay">
+          :value="robot.crawlDelay"
+          required
+        >
         </properties-item>
         <properties-item
           term="disallow"
-          :value="robot.disallow">
+          :value="robot.disallow.length && robot.disallow"
+          required
+        >
         </properties-item>
       </properties-list>
     </panel-section>
@@ -39,11 +45,13 @@
       <properties-list>
         <properties-item
           term="url"
-          :value="head.url">
+          :value="head.url"
+        >
         </properties-item>
         <properties-item
           term="crawlable"
-          :value="urlIsCrawlable">
+          :value="urlIsCrawlable.toString()"
+        >
         </properties-item>
       </properties-list>
     </panel-section>

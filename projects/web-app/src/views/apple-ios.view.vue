@@ -1,68 +1,66 @@
 <template>
-  <panel-section title="Properties">
-    <div v-if="!appleMetadata.length" class="warning-message">
-      <WarningIcon class="icon" />
-      <p>No meta properties detected.</p>
-    </div>
-    <properties-list v-else>
-      <properties-item
-        v-for="item in appleMetadata"
-        :key="item.term"
-        :term="item.term"
-        :value="item.value"
-        :required="true"
-      >
-      </properties-item>
-    </properties-list>
-  </panel-section>
-  <panel-section title="Touch icons">
-    <div v-if="!touchIcons.length" class="warning-message">
-      <WarningIcon class="icon" />
-      <p>No touch icons detected.</p>
-    </div>
-    <properties-list v-else>
-      <properties-item
-        v-for="icon in touchIcons"
-        :key="icon.term"
-        :term="icon.term"
-        :value="icon.url"
-        :image="icon"
-        type="image"
-      >
-      </properties-item>
-    </properties-list>
-  </panel-section>
-  <panel-section title="Startup images">
-    <div v-if="!startupImages.length" class="warning-message">
-      <WarningIcon class="icon" />
-      <p>No startup images detected.</p>
-    </div>
-    <properties-list v-else>
-      <properties-item
-        v-for="item in startupImages"
-        :key="item.term"
-        :term="image.term"
-        :value="image.url"
-        :image="image"
-        type="image"
-      >
-      </properties-item>
-    </properties-list>
-  </panel-section>
-  <panel-section title="Resources">
-    <ul class="resource-list">
-      <li>
-        <external-link href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html#//apple_ref/doc/uid/TP40008193-SW3">
-          Apple-specific meta tags
-        </external-link>
-      </li>
-      <li>
-        <external-link href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html">
-          Configuring web applications for iOS
-        </external-link>
-      </li>
-    </ul>
-  </panel-section>
+  <div class="apple-ios">
+    <panel-section title="Properties">
+      <properties-list>
+        <properties-item
+          v-for="item in metaData"
+          :key="item.term"
+          :term="item.term"
+          :value="item.value"
+          :required="true"
+        >
+        </properties-item>
+      </properties-list>
+    </panel-section>
+    <panel-section title="Touch icons">
+      <div v-if="!touchIcons.length" class="warning-message">
+        <WarningIcon class="icon" />
+        <p>No touch icons detected.</p>
+      </div>
+      <properties-list v-else>
+        <properties-item
+          v-for="icon in touchIcons"
+          :key="icon.term"
+          :term="icon.term"
+          :value="icon.url"
+          :image="icon"
+          type="image"
+        >
+        </properties-item>
+      </properties-list>
+    </panel-section>
+    <panel-section title="Startup images">
+      <div v-if="!startupImages.length" class="warning-message">
+        <WarningIcon class="icon" />
+        <p>No startup images detected.</p>
+      </div>
+      <properties-list v-else>
+        <properties-item
+          v-for="item in startupImages"
+          :key="item.term"
+          :term="image.term"
+          :value="image.url"
+          :image="image"
+          type="image"
+        >
+        </properties-item>
+      </properties-list>
+    </panel-section>
+    <panel-section title="Resources">
+      <ul class="resource-list">
+        <li>
+          <external-link href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html#//apple_ref/doc/uid/TP40008193-SW3">
+            Apple-specific meta tags
+          </external-link>
+        </li>
+        <li>
+          <external-link href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html">
+            Configuring web applications for iOS
+          </external-link>
+        </li>
+      </ul>
+    </panel-section>
+  </div>
 </template>
 
 <script>
@@ -70,6 +68,7 @@ import { computed } from 'vue';
 import useHead from '@/composables/use-head';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findMetaContent } from '@shared/lib/find-meta';
+
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PropertiesItem from '@shared/components/properties-item';
@@ -79,7 +78,7 @@ import WarningIcon from '@shared/assets/icons/warning.svg';
 export default {
   setup: () => {
     const headData = useHead().data;
-    const appleMetadata = computed(() => {
+    const metaData = computed(() => {
       const { head } = headData.value;
       return [
         {
@@ -126,7 +125,7 @@ export default {
     const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
 
     return {
-      appleMetadata,
+      metaData,
       touchIcons,
       startupImages,
     };

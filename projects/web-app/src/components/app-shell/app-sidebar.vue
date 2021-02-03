@@ -93,9 +93,9 @@
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'opensearch' }" class="app-sidebar__link">
+            <router-link :to="{ name: 'open-search' }" class="app-sidebar__link">
               <SearchIcon />
-              <span>Open Search</span>
+              <span>OpenSearch</span>
             </router-link>
           </li>
           <li>
