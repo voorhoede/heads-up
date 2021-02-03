@@ -1,6 +1,6 @@
 <template>
   <div class="facebook">
-    <tab-selecter
+    <tab-selector
       v-model="openTab"
       :tabs="TABS"
     />
@@ -35,16 +35,26 @@
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="item in facebookMetaData"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
           :image="item.image"
           :type="item.type"
+          :schema="schema"
           :required="item.required"
         >
         </properties-item>
       </properties-list>
+    </panel-section>
+    <panel-section title="Resources">
+      <ul class="resource-list">
+        <li>
+          <external-link href="https://developers.facebook.com/docs/sharing/webmasters">
+            Guide to Sharing - Facebook for Developers
+          </external-link>
+        </li>
+      </ul>
     </panel-section>
   </div>
 </template>
@@ -52,16 +62,17 @@
 <script>
 import { computed, onMounted, ref, watch } from 'vue';
 import useHead from '@/composables/use-head';
-import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
+import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
+import schema from '@shared/lib/schemas/facebook-schema';
+
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
-import TabSelecter from '@shared/components/tab-selecter';
-import schema from '@shared/lib/schemas/facebook-schema';
+import TabSelector from '@shared/components/tab-selector';
 
 const TABS = [
   {
@@ -127,10 +138,11 @@ export default {
           : `/previews/facebook-mobile/facebook-mobile.html?${ params }`
       }`;
     });
-    const facebookMetaData = computed(() => ([
+    const metaData = computed(() => ([
       {
         term: 'fb:app_id',
         value: facebookProperties.value.appId,
+        required: true,
       },
       {
         term: 'fb:pages',
@@ -139,7 +151,6 @@ export default {
       {
         term: 'og:type',
         value: og.value.type,
-        required: true,
       },
       {
         term: 'og:url',
@@ -159,6 +170,7 @@ export default {
       {
         term: 'og:description',
         value: og.value.description,
+        required: true,
       },
       {
         term: 'og:image',
@@ -254,10 +266,7 @@ export default {
       facebookProperties,
       themeClass,
       previewUrl,
-      facebookMetaData,
-      absoluteUrl,
-      getImageDimensions,
-      propertyValue,
+      metaData,
       schema,
     };
   },
@@ -267,13 +276,13 @@ export default {
     PreviewIframe,
     PropertiesItem,
     PropertiesList,
-    TabSelecter,
+    TabSelector,
   },
 };
 </script>
 
 <style>
   .facebook__preview {
-    max-width: 521px;
+    max-width: var(--preview-width);
   }
 </style>

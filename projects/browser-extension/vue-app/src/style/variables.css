@@ -1,5 +1,7 @@
 /* =================================================== default || light */
 .app {
+  --preview-width: 520px;
+
   /* custom colors wisely picked from dev tools */
   --base-color: #5A5A5A;
   --label-color: #888;

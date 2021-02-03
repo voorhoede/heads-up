@@ -1,9 +1,12 @@
 <template>
-  <div>
+  <div class="link">
     <panel-section title="Rel">
-      <collapsible-list :data="linkListData" />
+      <div v-if="!linkData.length" class="warning-message">
+        <WarningIcon class="icon" />
+        <p>No link properties detected.</p>
+      </div>
+      <collapsible-list v-else :data="linkData" />
     </panel-section>
-
     <panel-section title="Resources">
       <ul class="resource-list">
         <li>
@@ -18,15 +21,16 @@
 
 <script>
 import { mapState } from 'vuex';
-import PanelSection from '@shared/components/panel-section';
 import CollapsibleList from '@shared/components/collapsible-list';
 import ExternalLink from '@shared/components/external-link';
+import PanelSection from '@shared/components/panel-section';
+import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
-  components: { CollapsibleList, ExternalLink, PanelSection },
+  components: { CollapsibleList, ExternalLink, PanelSection, WarningIcon },
   computed: {
     ...mapState([ 'head' ]),
-    linkListData() {
+    linkData() {
       return this.head.link;
     },
   },

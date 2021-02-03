@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="structured-data">
     <panel-section v-if="hasMicrodata" title="Microdata">
       <pre class="structured-data__code-block">{{ structuredData.microdata }}</pre>
     </panel-section>
@@ -9,29 +9,27 @@
     <panel-section v-if="hasRdfa" title="RDFa">
       <pre class="structured-data__code-block">{{ structuredData.rdfa }}</pre>
     </panel-section>
-
-    <panel-section v-if="hasNoData" title="Structured Data">
+    <panel-section v-if="hasNoData" title="Preview">
       <div class="warning-message">
         <WarningIcon class="icon" />
         <p>No Structured Data found.</p>
       </div>
     </panel-section>
-
     <panel-section title="Resources">
       <ul class="resource-list">
         <li>
           <external-link href="https://schema.org/">
-            Schema.org
+            Official website - schema.org
           </external-link>
         </li>
         <li>
           <external-link href="https://json-ld.org/">
-            Json-ld.org
+            JSON-LD - Linked Data format
           </external-link>
         </li>
         <li>
           <external-link href="http://rdfa.info/">
-            Rdfa.info
+            RDFa - JSON-LD in HTML
           </external-link>
         </li>
       </ul>

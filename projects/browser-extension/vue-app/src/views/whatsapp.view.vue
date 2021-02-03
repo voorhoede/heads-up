@@ -15,11 +15,10 @@
         </template>
       </preview-iframe>
     </panel-section>
-
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="item in whatsappProperties"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -31,25 +30,18 @@
         </properties-item>
       </properties-list>
     </panel-section>
-
     <panel-section title="Resources">
       <ul class="resource-list">
-        <ul>
-          <li>
-            <external-link
-              href="https://stackoverflow.com/a/43154489"
-            >
-              2019 WhatsApp sharing standards (on StackOverflow)
-            </external-link>
-          </li>
-          <li>
-            <external-link
-              href="https://stackoverflow.com/questions/19778620/provide-an-image-for-whatsapp-link-sharing"
-            >
-              Unfurl mechanism used by WhatsApp for sharing
-            </external-link>
-          </li>
-        </ul>
+        <li>
+          <external-link href="https://stackoverflow.com/a/43154489">
+            2019 WhatsApp sharing standards (on StackOverflow)
+          </external-link>
+        </li>
+        <li>
+          <external-link href="https://stackoverflow.com/questions/19778620/provide-an-image-for-whatsapp-link-sharing">
+            Unfurl mechanism used by WhatsApp for sharing
+          </external-link>
+        </li>
       </ul>
     </panel-section>
   </div>
@@ -57,14 +49,15 @@
 
 <script>
 import { mapState } from 'vuex';
-import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
+import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
+import schema from '@shared/lib/schemas/whatsapp-schema';
+
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
-import schema from '@shared/lib/schemas/whatsapp-schema';
 
 export default {
   components: {
@@ -114,7 +107,7 @@ export default {
 
       return `/previews/whatsapp/whatsapp.html?${ params }`;
     },
-    whatsappProperties() {
+    metaData() {
       return [
         {
           term: 'og:title',
@@ -151,22 +144,16 @@ export default {
   },
   watch: {
     'og.image'() {
-      this.findImageDimensions();
+      this.getImageDimensions();
     },
   },
-  mounted() {
-    window.addEventListener('resize', this.onResize);
-  },
   created() {
-    this.findImageDimensions();
-  },
-  unmounted() {
-    window.removeEventListener('resize', this.onResize);
+    this.getImageDimensions();
   },
   methods: {
-    findImageDimensions() {
-      findImageDimensions(this.head, 'og:image').then(imageDimensions => {
-        this.imageDimensions = imageDimensions;
+    getImageDimensions() {
+      findImageDimensions(this.head, 'og:image').then(dimensions => {
+        this.imageDimensions = dimensions;
       });
     },
     absoluteUrl(url) {
@@ -180,7 +167,7 @@ export default {
 </script>
 
 <style>
-.whatsapp__preview {
-  max-width: 520px;
-}
+  .whatsapp__preview {
+    max-width: var(--preview-width);
+  }
 </style>

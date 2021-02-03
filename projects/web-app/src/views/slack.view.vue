@@ -15,16 +15,16 @@
         </template>
       </preview-iframe>
     </panel-section>
-
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="item in slackProperties"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
           :image="item.image"
           :type="item.type"
+          :schema="schema"
           :required="item.required"
         >
         </properties-item>
@@ -36,6 +36,7 @@
 <script>
 import { computed, onMounted, ref, watch } from 'vue';
 import useHead from '@/composables/use-head';
+import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import {
   findAdditionalTwitterData,
   findFavicons,
@@ -43,8 +44,9 @@ import {
   findMetaContent,
   findMetaProperty
 } from '@shared/lib/find-meta';
-import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import getTheme from '@shared/lib/theme';
+import schema from '@shared/lib/schemas/slack-schema';
+
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
@@ -64,8 +66,8 @@ export default {
       type: propertyValue('og:type'),
       description: propertyValue('og:description'),
       site_name: propertyValue('og:site_name'),
-      image: absoluteUrl(propertyValue('og:image')),
-      url: absoluteUrl(propertyValue('og:url')),
+      image: propertyValue('og:image'),
+      url: propertyValue('og:url'),
     }));
     const headDescription = computed(() => (findMetaContent(headData.value.head, 'description')));
     const favicon = computed(() => (
@@ -90,7 +92,7 @@ export default {
       params.set('validImage', imageDimensions.value.height > 0 && imageDimensions.value.width > 0);
       return `/previews/slack/slack.html?${ params }`;
     });
-    const slackProperties = computed(() => ([
+    const metaData = computed(() => ([
       {
         term: 'og:title',
         value: og.value.title,
@@ -121,12 +123,12 @@ export default {
       },
       {
         term: 'og:url',
-        value: og.value.url,
+        value: absoluteUrl(og.value.url),
         type: 'link',
         required: true,
       },
       // Transform twitterData array and
-      // spread objects into slackProperties array.
+      // spread objects into metaData array.
       ...additional.value.twitterData.map((item, index) => (
         Object.entries(item).map(entry => ({
           term: `twitter:${ entry[0] === 'label' ? entry[0] : 'data' }${ index + 1 }`,
@@ -157,10 +159,8 @@ export default {
       additional,
       themeClass,
       previewUrl,
-      slackProperties,
-      absoluteUrl,
-      findImageDimensions,
-      propertyValue,
+      metaData,
+      schema,
     };
   },
   components: {
@@ -175,6 +175,6 @@ export default {
 
 <style>
   .slack__preview {
-    max-width: 521px;
+    max-width: var(--preview-width);
   }
 </style>

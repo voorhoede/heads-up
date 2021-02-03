@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <div class="open-graph">
     <panel-section title="Properties">
-      <div v-if="!ogMeta.length" class="warning-message">
+      <div v-if="!metaData.length" class="warning-message">
         <WarningIcon class="icon" />
         <p>No Open Graph properties detected.</p>
       </div>
       <properties-list v-else>
         <properties-item
-          v-for="item in ogMeta"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -16,7 +16,6 @@
         </properties-item>
       </properties-list>
     </panel-section>
-
     <panel-section title="Resources">
       <ul class="resource-list">
         <li>
@@ -31,12 +30,13 @@
 
 <script>
 import { mapState } from 'vuex';
-import PanelSection from '@shared/components/panel-section';
+import schema from '@shared/lib/schemas/open-graph-schema';
+
 import ExternalLink from '@shared/components/external-link';
+import PanelSection from '@shared/components/panel-section';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import WarningIcon from '@shared/assets/icons/warning.svg';
-import schema from '@shared/lib/schemas/open-graph-schema';
 
 export default {
   components: {
@@ -53,7 +53,7 @@ export default {
   },
   computed: {
     ...mapState([ 'head' ]),
-    ogMeta() {
+    metaData() {
       return this.head.meta
         .filter(meta =>
           meta.property && meta.property.startsWith('og:') || meta.name && meta.name.startsWith('og:')

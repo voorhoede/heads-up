@@ -1,10 +1,9 @@
 <template>
   <div class="facebook">
-    <tab-selecter
+    <tab-selector
       v-model="openTab"
       :tabs="TABS"
     />
-
     <panel-section
       v-if="openTab === 'mobile'"
       title="Preview"
@@ -19,7 +18,6 @@
         </template>
       </preview-iframe>
     </panel-section>
-
     <panel-section
       v-if="openTab === 'desktop'"
       title="Preview"
@@ -34,11 +32,10 @@
         </template>
       </preview-iframe>
     </panel-section>
-
     <panel-section title="Properties">
       <properties-list>
         <properties-item
-          v-for="item in facebookMetaData"
+          v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
@@ -50,6 +47,15 @@
         </properties-item>
       </properties-list>
     </panel-section>
+    <panel-section title="Resources">
+      <ul class="resource-list">
+        <li>
+          <external-link href="https://developers.facebook.com/docs/sharing/webmasters">
+            Guide to Sharing - Facebook for Developers
+          </external-link>
+        </li>
+      </ul>
+    </panel-section>
   </div>
 </template>
 
@@ -58,13 +64,14 @@ import { mapState } from 'vuex';
 import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import getTheme from '@shared/lib/theme';
+import schema from '@shared/lib/schemas/facebook-schema';
+
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
-import TabSelecter from '@shared/components/tab-selecter';
-import schema from '@shared/lib/schemas/facebook-schema';
+import TabSelector from '@shared/components/tab-selector';
 
 const TABS = [
   {
@@ -84,7 +91,7 @@ export default {
     PreviewIframe,
     PropertiesItem,
     PropertiesList,
-    TabSelecter,
+    TabSelector,
   },
   data() {
     return {
@@ -160,7 +167,7 @@ export default {
           : `/previews/facebook-mobile/facebook-mobile.html?${ params }`
       }`;
     },
-    facebookMetaData() {
+    metaData() {
       return [
         {
           term: 'fb:app_id',
@@ -271,16 +278,16 @@ export default {
   },
   watch: {
     'og.image'() {
-      this.findImageDimensions();
+      this.getImageDimensions();
     },
   },
   created() {
-    this.findImageDimensions();
+    this.getImageDimensions();
   },
   methods: {
-    findImageDimensions() {
-      findImageDimensions(this.head, 'og:image').then(imageDimensions => {
-        this.imageDimensions = imageDimensions;
+    getImageDimensions() {
+      findImageDimensions(this.head, 'og:image').then(dimensions => {
+        this.imageDimensions = dimensions;
       });
     },
     absoluteUrl(url) {
@@ -294,7 +301,7 @@ export default {
 </script>
 
 <style>
-.facebook__preview {
-  max-width: 521px;
-}
+  .facebook__preview {
+    max-width: var(--preview-width);
+  }
 </style>
