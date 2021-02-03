@@ -24,17 +24,20 @@
         <properties-item
           term="allow"
           :value="robot.allow.length && robot.allow"
-          required>
+          required
+        >
         </properties-item>
         <properties-item
           term="crawlDelay"
           :value="robot.crawlDelay"
-          required>
+          required
+        >
         </properties-item>
         <properties-item
           term="disallow"
           :value="robot.disallow.length && robot.disallow"
-          required>
+          required
+        >
         </properties-item>
       </properties-list>
     </panel-section>
@@ -42,11 +45,13 @@
       <properties-list>
         <properties-item
           term="url"
-          :value="url">
+          :value="url"
+        >
         </properties-item>
         <properties-item
           term="crawlable"
-          :value="urlIsCrawlable">
+          :value="urlIsCrawlable"
+        >
         </properties-item>
       </properties-list>
     </panel-section>
