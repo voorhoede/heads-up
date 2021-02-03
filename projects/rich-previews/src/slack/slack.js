@@ -1,7 +1,8 @@
 import { getHostname } from '../../@shared/js/utils.js';
 
 const getImageFileSize = image => fetch(image, { method: 'HEAD' })
-  .then(x => `${ Math.round(Number(x.headers.get('content-length')) / 1000) } kB`);
+  .then(x => `${ Math.round(Number(x.headers.get('content-length')) / 1000) } kB`)
+  .catch(() => (Promise.resolve('0 kB')));
 
 const app = Vue.createApp({
   setup() {
@@ -15,7 +16,7 @@ const app = Vue.createApp({
     const imageSize = shallowRef('');
     let additionalData;
 
-    if(isValidImage) {
+    if (isValidImage) {
       getImageFileSize(image)
         .then(size => {
           imageSize.value = size;
