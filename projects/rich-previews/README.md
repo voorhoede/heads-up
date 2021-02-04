@@ -26,4 +26,4 @@ The rich previews receive their data through query string parameters. For exampl
 To build the rich previews, either run `npm run build` from this project folder or `npm run build:rich-previews` from the root monorepo folder. The production files are published to the `/dist` folder.
 
 ## Known issues
-The current setup uses a version of Vue that parses templates with `eval`. The use of `eval` is flagged in Chrome browser extensions, so we need to loosen or Content Security Policy with the `unsafe-eval` property. It may be worth considering the 'runtime only' Vue build, but that would mean implementing a Vue template compilation step in the build pipeline.
+The current setup uses a version of Vue that parses templates with `eval`. The use of `eval` is flagged in Chrome browser extensions, so we need to loosen our Content Security Policy with the `unsafe-eval` property. It may be worth considering the 'runtime only' Vue build, but that would mean implementing a Vue template compilation step in the build pipeline.
