@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
 import debounce from '@shared/lib/debounce';
 
 export default {
@@ -49,21 +49,22 @@ export default {
       iframeHeight.value = parseInt(iframe.value.contentWindow.document.body.scrollHeight) + 'px';
     };
 
-    const onResize = debounce(setIframeHeight, 500);
+    const onResize = () => debounce(setIframeHeight, 500);
 
-    const onLoad = () => {
-      isLoading.value = false;
-      // We update the height with a final value based on the inner
-      // content height to make sure the iframe fits perfectly
-      onResize();
-    };
+    /**
+     * We update the height with a final value based on the inner
+     * content height to make sure the iframe fits perfectly.
+     */
+    const onLoad = () => setIframeHeight();
 
-    onMounted(() => {
-      window.addEventListener('resize', onResize);
-    });
+    onMounted(() => window.addEventListener('resize', onResize));
 
-    onBeforeUnmount(() => {
-      window.removeEventListener('resize', onResize);
+    onBeforeUnmount(() => window.removeEventListener('resize', onResize));
+
+    watch(() => iframeHeight.value, (height, prevHeight) => {
+      if (height !== prevHeight) {
+        isLoading.value = false;
+      }
     });
 
     return {
