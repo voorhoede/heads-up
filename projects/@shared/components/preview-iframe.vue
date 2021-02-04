@@ -1,27 +1,32 @@
 <template>
-<figure class="preview-iframe">
-  <p v-if="isLoading" class="preview-iframe__loading">
-    Loading...
+<figure
+  class="preview-iframe"
+  :class="{
+    'preview-iframe--loading': isLoading,
+    'preview-iframe--loaded': !isLoading,
+  }"
+>
+  <p class="preview-iframe__loading">
+    Preparing preview...
   </p>
   <iframe
-    v-show="!isLoading"
     :class="[ 'preview-iframe__iframe', iframeClass ]"
-    :height="iframeHeight"
     :src="url"
     @load="onLoad"
     frameborder="0"
     ref="iframe"
     scrolling="no"
     width="100%"
+    :style="{ 'height': iframeHeight }"
   />
-  <figcaption v-if="!isLoading" class="preview-iframe__caption">
+  <figcaption class="preview-iframe__caption">
     <slot name="caption" />
   </figcaption>
 </figure>
 </template>
 
 <script>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
 import debounce from '@shared/lib/debounce';
 
 export default {
@@ -49,21 +54,22 @@ export default {
       iframeHeight.value = parseInt(iframe.value.contentWindow.document.body.scrollHeight) + 'px';
     };
 
-    const onResize = debounce(setIframeHeight, 500);
+    const onResize = () => debounce(setIframeHeight, 500);
 
-    const onLoad = () => {
-      isLoading.value = false;
-      // We update the height with a final value based on the inner
-      // content height to make sure the iframe fits perfectly
-      onResize();
-    };
+    /**
+     * We update the height with a final value based on the inner
+     * content height to make sure the iframe fits perfectly.
+     */
+    const onLoad = () => setIframeHeight();
 
-    onMounted(() => {
-      window.addEventListener('resize', onResize);
-    });
+    onMounted(() => window.addEventListener('resize', onResize));
 
-    onBeforeUnmount(() => {
-      window.removeEventListener('resize', onResize);
+    onBeforeUnmount(() => window.removeEventListener('resize', onResize));
+
+    watch(() => iframeHeight.value, (height, prevHeight) => {
+      if (height !== prevHeight) {
+        isLoading.value = false;
+      }
     });
 
     return {
@@ -82,9 +88,21 @@ export default {
 }
 
 .preview-iframe__iframe {
-  border: none;
   margin-bottom: 1em;
   padding: 0;
+  border: none;
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+  height: 0;
+}
+
+.preview-iframe--loading .preview-iframe__iframe {
+  opacity: 0;
+}
+
+.preview-iframe--loaded .preview-iframe__iframe {
+  opacity: 1;
 }
 
 .preview-iframe__caption {
@@ -92,6 +110,15 @@ export default {
 }
 
 .preview-iframe__loading {
+  position: absolute;
   margin: 0;
+}
+
+.preview-iframe--loading .preview-iframe__loading {
+  opacity: 1;
+}
+
+.preview-iframe--loaded .preview-iframe__loading {
+  opacity: 0;
 }
 </style>
