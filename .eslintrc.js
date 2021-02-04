@@ -8,6 +8,7 @@ module.exports = {
 
   globals: {
     chrome: true,
+    Vue: 'readable',
   },
 
   parserOptions: {
