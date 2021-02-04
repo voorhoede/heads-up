@@ -8,11 +8,11 @@
     "build": "npm-run-all build:**",
     "build:rich-previews": "cd ./projects/rich-previews && npm run build",
     "build:browser-extension": "cd ./projects/browser-extension && npm run build",
-    "build:landing-page": "cd ./projects/landing-page && npm run build",
     "build:web-app": "cd ./projects/web-app && npm run build",
+    "build:landing-page": "cd ./projects/landing-page && npm run build",
     "dev:browser-extension": "cd ./projects/browser-extension && npm start",
-    "dev:landing-page": "cd ./projects/landing-page && npm start",
-    "dev:web-app": "cd ./projects/web-app && npm start"
+    "dev:web-app": "cd ./projects/web-app && npm start",
+    "dev:landing-page": "cd ./projects/landing-page && npm start"
   },
   "repository": {
     "type": "git",

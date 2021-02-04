@@ -1,322 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <style>
-    /* CSS Defaults https://github.com/anandgraves/css-defaults */
-
-    /**
-      * Resetting the margins of the paragraphs, headings and other elements
-      * makes creating a new vertical rhythm easier. It also easily shows
-      * what elements don't have a vertical rhythm yet.
-      */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: inherit;
-    }
-
-    *::before,
-    *::after {
-      box-sizing: inherit;
-    }
-
-    /**
-      * 1. Improve readability with font smoothing.
-      * 2. Apply a natural box layout model to all elements, but allowing
-      *    components to change.
-      *    https://www.paulirish.com/2012/box-sizing-border-box-ftw/
-      */
-    html {
-      -webkit-font-smoothing: antialiased;
-      /* 1 */
-      -moz-osx-font-smoothing: grayscale;
-      /* 1 */
-      box-sizing: border-box;
-      /* 2 */
-    }
-
-    /**
-      * All the headings have by default a divergent font size from the font size
-      * set on html. Set the font size of all headings the same and slightly bigger
-      * than the default text. This allows for styling all headings easily with
-      * classes instead of the headings itself.
-      * https://csswizardry.com/2016/02/managing-typography-on-large-apps/
-      */
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      font-size: 1.2rem;
-      font-weight: normal;
-    }
-
-    /**
-      * 1. Switch display mode to block, since that's what we usually want for images.
-      * 2. If you override, and make an image inline, it's likely you'll want middle vertical alignment.
-           Setting vertical-align removes the whitespace that appears under img elements when they are
-           dropped into a page as-is. Is a safer alternative to using display: block.
-      * 3. Make images and video flexible by default.
-      * 4. Ensure images and video maintain their aspect ratio when max-width comes into play
-      https://github.com/inuitcss/inuitcss/blob/develop/elements/_elements.images.scss
-      https://github.com/mozdevs/cssremedy/blob/master/remedy.css
-      */
-    img,
-    video {
-      display: block;
-      /* 1 */
-      /* vertical-align: middle; */
-      /* 2 */
-      max-width: 100%;
-      /* 3 */
-      height: auto;
-      /* 4 */
-    }
-
-    /**
-      * The color set on html isn't inherited by default by button, input, select
-      * and textarea. This inherits the color. Button, input, textarea and select do
-      * not inherit the font family and font weight by default. Button, input,
-      * textarea and select do not inherit the font size. This rule normalizes all
-      * font sizes.
-      */
-    button,
-    input,
-    select,
-    textarea {
-      color: inherit;
-      font-family: inherit;
-      font-weight: inherit;
-      font-size: 100%;
-    }
-
-    /**
-      * Add the correct display in IE 10+.
-      */
-    template {
-      display: none;
-    }
-
-    /**
-      * Remove the spacing between table cells.
-      */
-    table {
-      border-collapse: collapse;
-      border-spacing: 0;
-    }
-
-    /**
-      * Add the correct display for main up to and including IE 11.
-      */
-    main {
-      display: block;
-    }
-
-    /**
-      * Add the correct display in IE 10.
-      */
-    [hidden] {
-      display: none;
-    }
-
-    :root {
-      --border-radius: 14px;
-      --color-border: #E1E8ED;
-      --image-small-size: 85px;
-      --image-medium-size: 104px;
-      --image-large-size: 124px;
-      --base-color: #292F33;
-      --muted-color: #8899A6;
-    }
-
-    .-theme-with-dark-background {
-      --color-border: rgb(56, 68, 77);
-      --base-color: #fff;
-    }
-
-    html {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
-      overflow: hidden;
-    }
-
-    .data-slack-preview-card {
-      display: flex;
-    }
-
-    .slack-preview {
-      font-size: 14px;
-      display: flex;
-      margin-bottom: 8px;
-    }
-
-    .slack-preview__image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      max-width: none;
-      border-radius: 4px;
-    }
-
-    .slack-preview__content {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      overflow: hidden;
-      background-color: transparent;
-      transition: background-color .15s linear;
-    }
-
-    .slack-preview__title {
-      margin-bottom: .35em;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      font-size: 1em;
-      color: rgb(18, 100, 163);
-      font-weight: 600;
-    }
-
-    .slack-preview__description {
-      display: flex;
-      margin-bottom: 2px;
-      color: rgb(29, 28, 29);
-      margin-bottom: 4px;
-      align-items: center;
-    }
-
-    .slack-preview__domain {
-      display: flex;
-      align-items: center;
-      margin: .25em .25em .25em 0;
-      color: var(--muted-color);
-    }
-
-    .slack-preview__hostname {
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-      color: var(--base-color);
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-    }
-
-    .slack-preview__favicon {
-      height: 12px;
-      margin-right: 8px;
-    }
-
-    .slack-preview__sidebar {
-      padding-right: 4px;
-      background-color: rgb(221, 221, 221);
-      border-radius: 30px;
-    }
-
-    .slack-preview__emoji {
-      background-color: rgba(29, 28, 29, .04);
-      border-radius: 12px;
-      width: 39px;
-      height: 24px;
-      padding: 0 4px 6px;
-      display: flex;
-      font-size: 10px;
-      align-items: center;
-      margin-top: 8px;
-    }
-
-    .slack-preview__emoji-image {
-      height: 20px;
-      margin-right: 2px;
-    }
-
-    .slack-preview__emoji-count {
-      margin-top: 4px;
-    }
-
-    .slack-preview__expand {
-      font-size: 9px;
-      color: rgb(18, 100, 163);
-    }
-
-    .slack-preview__container {
-      display: flex;
-      min-width: 196px;
-    }
-
-    .slack-preview__image-container {
-      max-width: 360px;
-      padding: 0 12px;
-      position: relative;
-    }
-
-    .slack-preview__image-container::after {
-      border-radius: 4px;
-      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .1);
-      content: '';
-      height: 100%;
-      left: 12px;
-      position: absolute;
-      top: 0;
-      width: calc(100% - 24px);
-    }
-
-    .slack-preview__small .slack-preview__image-container::after {
-      display: none;
-    }
-
-    .slack-preview__content-information {
-      padding: 0 12px;
-    }
-
-    .slack-preview__small {
-      flex-direction: unset;
-    }
-
-    .slack-preview__small .slack-preview__content-information {
-      width: calc(100% - 80px);
-    }
-
-    .slack-preview__small .slack-preview__image-container {
-      width: 80px;
-      height: 80px;
-      padding: 0;
-    }
-
-    .slack-preview__filesize {
-      white-space: nowrap;
-    }
-
-    .slack-preview__additional {
-      display: flex;
-      margin-bottom: 4px;
-    }
-
-    .slack-preview__additional-item {
-      width: 50%;
-    }
-
-    .-theme-with-dark-background,
-    .-theme-with-dark-background .slack-preview__description {
-      color: var(--base-color);
-    }
-
-    .-theme-with-dark-background .slack-preview__sidebar {
-      background-color: rgb(70, 70, 70);
-    }
-
-  </style>
-  <title>slack preview</title>
+  <title>Slack preview</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="slack.css">
 </head>
 
 <body>
-  <div data-slack-preview-card></div>
-</body>
+  <div id="app">
+    <div
+      class="slack-preview"
+      :class="{ '-theme-with-dark-background': dark }"
+    >
+      <a
+        rel="noopener"
+        target="_blank"
+        :href="url"
+        class="slack-preview__container"
+      >
+        <span class="slack-preview__sidebar"></span>
+        <div
+          class="slack-preview__content"
+          :class="{ 'slack-preview__small': image && !imageIsBig }"
+        >
+          <div class="slack-preview__content-information">
+            <div class="slack-preview__domain">
+              <div class="slack-preview__hostname">
+                <img
+                  v-if="favicon && favicon !== 'undefined'"
+                  class="slack-preview__favicon" :src="favicon"
+                  alt="favicon"
+                />
+                  {{ siteName && siteName !== 'null' ? siteName : hostname }}
+              </div>
+            </div>
+            <div class="slack-preview__title">
+              {{ title }}
+            </div>
+            <div class="slack-preview__description">
+              <p>
+                {{ description }}
+                <span
+                  v-if="image && imageIsBig"
+                  class="slack-preview__filesize"
+                >
+                  ({{ imageSize }})
+                  <span class="slack-preview__expand">▼</span>
+                </span>
+              </p>
+            </div>
 
+            <div
+              v-if="additionalData && additionalData !== 'undefined'"
+              class="slack-preview__additional"
+            >
+              <div
+                v-for="item in additionalData"
+                class="slack-preview__additional-item"
+              >
+                <strong>{{ item.label }}</strong>
+                <p>{{ item.value }}</p>
+              </div>
+            </div>
+            <div
+              v-if="image"
+              class="slack-preview__image-container"
+            >
+              <img :src="image" class="slack-preview__image" />
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <div class="slack-preview__emoji">
+        <img class="slack-preview__emoji-image" src="./assets/parrot.gif" alt="">
+        <p class="slack-preview__emoji-count">
+          {{ emojiCount }}
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/vue@3.0.5/dist/vue.global.prod.js"></script>
+  <script type="module" src="slack.js"></script>
+</body>
 </html>
