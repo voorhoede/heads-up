@@ -40,3 +40,7 @@ h6, .h6 {
   line-height: 1rem;
 }
 
+code {
+  font-size: 1.1em;
+  vertical-align: bottom;
+}
