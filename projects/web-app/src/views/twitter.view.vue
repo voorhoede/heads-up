@@ -313,6 +313,7 @@ export default {
 
     return {
       card,
+      supportedCards,
       isValidCard,
       isSupportedCard,
       title,
