@@ -5,7 +5,7 @@
         This page does not contain the required meta data to create a preview.
       </p>
       <p v-if="isValidCard && !isSupportedCard">
-        Preview is not yet available for <code>{{ card }}</code> cards. <br>
+        Preview is not yet available for <code>{{ card }}</code> cards.<br>
         Card preview is currently supported for:
         <span v-html="supportedCards.map(v => `<code>${v}</code>`).join(', ')" />.
       </p>
