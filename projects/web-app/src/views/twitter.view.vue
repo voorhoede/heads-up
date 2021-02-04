@@ -7,7 +7,7 @@
       <p v-if="isValidCard && !isSupportedCard">
         Preview is not yet available for <code>{{ card }}</code> cards.<br>
         Card preview is currently supported for:
-        <span v-html="supportedCards.map(v => `<code>${v}</code>`).join(', ')" />.
+        <span v-html="supportedCards.map(card => `<code>${card}</code>`).join(', ')" />.
       </p>
       <preview-iframe
         v-if="isValidCard && isSupportedCard"
