@@ -9,6 +9,7 @@
           :value="item.value"
           :type="item.type"
           :attrs="item.attrs"
+          :tooltip="tooltip"
           :required="true"
         >
         </properties-item>
@@ -27,9 +28,11 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import useHead from '@/composables/use-head';
 import { findCharset, findMetaContent, findAttrs } from '@shared/lib/find-meta';
+import validateData from '@shared/lib/validate-data';
+import schema from '@shared/lib/schemas/app-meta-validation';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
@@ -39,6 +42,7 @@ import PropertiesItem from '@shared/components/properties-item';
 export default {
   setup: () => {
     const headData = useHead().data;
+    const tooltip = ref({});
     const metaData = computed(() => {
       const { head } = headData.value;
       return [
@@ -71,8 +75,15 @@ export default {
       ];
     });
 
+    const validate = async () => {
+      tooltip.value = validateData(metaData.value, schema);
+    };
+
+    onMounted(() => validate());
+
     return {
       metaData,
+      tooltip,
     };
   },
   components: {
