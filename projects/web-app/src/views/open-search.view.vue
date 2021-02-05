@@ -28,7 +28,6 @@
           :value="item.value"
           :image="item.image"
           :type="item.type"
-          :schema="schema"
         >
         </properties-item>
       </properties-list>
@@ -51,7 +50,6 @@ import useHead from '@/composables/use-head';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findLinkHref, findXMLElement } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
-import schema from '@shared/lib/schemas/open-search-schema';
 
 import ExternalLink from '@shared/components/external-link.vue';
 import PanelSection from '@shared/components/panel-section.vue';
@@ -170,7 +168,6 @@ export default {
       image,
       inputEncoding,
       metaData,
-      schema,
     };
   },
   components: {

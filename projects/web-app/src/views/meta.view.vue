@@ -8,7 +8,6 @@
           :term="item.term"
           :value="item.value"
           :type="item.type"
-          :schema="schema"
           :attrs="item.attrs"
           :required="true"
         >
@@ -31,7 +30,6 @@
 import { computed } from 'vue';
 import useHead from '@/composables/use-head';
 import { findCharset, findMetaContent, findAttrs } from '@shared/lib/find-meta';
-import schema from '@shared/lib/schemas/app-meta-schema';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
@@ -75,7 +73,6 @@ export default {
 
     return {
       metaData,
-      schema,
     };
   },
   components: {

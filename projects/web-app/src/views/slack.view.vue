@@ -24,7 +24,6 @@
           :value="item.value"
           :image="item.image"
           :type="item.type"
-          :schema="schema"
           :required="item.required"
         >
         </properties-item>
@@ -45,7 +44,6 @@ import {
   findMetaProperty
 } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
-import schema from '@shared/lib/schemas/slack-schema';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
@@ -160,7 +158,6 @@ export default {
       themeClass,
       previewUrl,
       metaData,
-      schema,
     };
   },
   components: {

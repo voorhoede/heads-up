@@ -8,7 +8,6 @@
           :term="item.term"
           :value="item.value"
           :type="item.type"
-          :schema="schema"
           :required="item.required"
         >
         </properties-item>
@@ -36,7 +35,6 @@ import { computed } from 'vue';
 import useHead from '@/composables/use-head';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findLinkHref, findMetaContent } from '@shared/lib/find-meta';
-import schema from '@shared/lib/schemas/search-meta-schema';
 
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
@@ -101,7 +99,6 @@ export default {
 
     return {
       metaData,
-      schema,
     };
   },
   components: {
