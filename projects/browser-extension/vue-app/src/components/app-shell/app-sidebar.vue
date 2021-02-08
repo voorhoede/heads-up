@@ -141,6 +141,14 @@
             <SitemapIcon class="sidebar__icon" />Structured Data
           </router-link>
         </li>
+        <li class="sidebar-list__item">
+          <router-link
+            class="sidebar__button"
+            :to="{ name: 'google' }"
+          >
+            <SearchIcon class="sidebar__icon" />Google
+          </router-link>
+        </li>
       </ul>
     </section>
     <footer class="sidebar__footer">

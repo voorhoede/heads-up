@@ -1,7 +1,8 @@
-import Home from '@/views/home.view';
 import AppleIos from '@/views/apple-ios.view';
 import Facebook from '@/views/facebook.view';
 import Favicon from '@/views/favicon.view';
+import Google from '@/views/google.view';
+import Home from '@/views/home.view';
 import Link from '@/views/link.view';
 import LinkedIn from '@/views/linkedin.view';
 import Meta from '@/views/meta.view';
@@ -145,6 +146,14 @@ export default [
     component: StructuredData,
     meta: {
       title: 'Structured Data',
+    },
+  },
+  {
+    path: '/google',
+    name: 'google',
+    component: Google,
+    meta: {
+      title: 'Google',
     },
   },
 

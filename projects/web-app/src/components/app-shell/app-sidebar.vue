@@ -104,6 +104,12 @@
               <span>Structured Data</span>
             </router-link>
           </li>
+          <li>
+            <router-link :to="{ name: 'google' }" class="app-sidebar__link">
+              <SearchIcon />
+              <span>Google</span>
+            </router-link>
+          </li>
         </ul>
       </section>
     </nav>
