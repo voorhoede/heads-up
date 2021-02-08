@@ -59,8 +59,8 @@ export default {
     const openTab = ref(TABS[0].value);
     const previewUrl = computed(() => {
       return openTab.value === 'mobile'
-        ? '/previews/google-rich-snippets/article-mobile.html'
-        : '/previews/google-rich-snippets/article-desktop.html';
+        ? '/previews/google-article-mobile/google-article-mobile.html'
+        : '/previews/google-article-desktop/google-article-desktop.html';
     });
 
     return {

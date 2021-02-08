@@ -1,0 +1,13 @@
+html {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  overflow: hidden;
+}
+
+.scroll-container {
+  overflow: auto;
+  padding: 0.5rem 1.5rem 0.5rem 0.5rem;
+}
+
+.scroll-container__inner {
+  display: inline-block;
+}

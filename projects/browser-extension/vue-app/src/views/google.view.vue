@@ -69,8 +69,8 @@ export default {
   computed: {
     previewUrl() {
       return this.openTab === 'mobile'
-        ? '/previews/google-rich-snippets/article-mobile.html'
-        : '/previews/google-rich-snippets/article-desktop.html';
+        ? '/previews/google-article-mobile/google-article-mobile.html'
+        : '/previews/google-article-desktop/google-article-desktop.html';
     },
   },
 };
