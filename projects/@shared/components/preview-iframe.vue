@@ -68,7 +68,7 @@ export default {
     onBeforeUnmount(() => window.removeEventListener('resize', onResize));
 
     watch(() => iframeHeight.value, (height, prevHeight) => {
-      if (height !== prevHeight) {
+      if(height !== prevHeight) {
         isLoading.value = false;
       }
     });
