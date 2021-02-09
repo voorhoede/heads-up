@@ -4,31 +4,16 @@
       v-model="openTab"
       :tabs="TABS"
     />
-    <panel-section
-      v-if="openTab === 'mobile'"
-      title="Preview"
-    >
+    <panel-section title="Preview">
       <preview-iframe
         :url="previewUrl"
         iframeClass="facebook__preview"
-        :loading-height="359"
+        :loading-height="openTab === 'mobile' ? 359 : 368"
       >
         <template v-slot:caption>
-          Preview based on <external-link href="https://m.facebook.com/">m.facebook.com</external-link>.
-        </template>
-      </preview-iframe>
-    </panel-section>
-    <panel-section
-      v-if="openTab === 'desktop'"
-      title="Preview"
-    >
-      <preview-iframe
-        :url="previewUrl"
-        class="facebook__preview"
-        :loading-height="368"
-      >
-        <template v-slot:caption>
-          Preview based on <external-link href="https://facebook.com/">facebook.com</external-link>.
+          Preview based on
+            <external-link v-if="openTab === 'mobile'" href="https://m.facebook.com/">m.facebook.com</external-link>
+            <external-link v-else href="https://facebook.com/">facebook.com</external-link>.
         </template>
       </preview-iframe>
     </panel-section>
@@ -91,6 +76,7 @@ export default {
     const openTab = ref(TABS[0].value);
     const imageDimensions = ref({ height: undefined, width: undefined });
     const imageSpecified = ref(true);
+
     const og = computed(() => ({
       type: propertyValue('og:type'),
       url: propertyValue('og:url'),
@@ -110,12 +96,16 @@ export default {
       videoWidth: propertyValue('og:video:width'),
       videoHeight: propertyValue('og:video:height'),
     }));
+
     const facebookProperties = computed(() => ({
       appId: propertyValue('fb:app_id'),
       pages: propertyValue('fb:pages'),
     }));
+
     const themeClass = computed(() => getTheme() === 'dark' ? '-theme-with-dark-background' : '');
+
     const previewUrl = computed(() => {
+      const isDesktop = openTab.value === 'desktop';
       const params = new URLSearchParams();
       params.set('title', og.value.title || headData.value.head.title);
       params.set('url', headData.value.head.url);
@@ -123,20 +113,18 @@ export default {
       params.set('theme', themeClass.value);
       params.set('imageSpecified', imageSpecified.value);
       params.set('description', og.value.description);
-      params.set('desktopImgIsBig', imageDimensions.value.height >= 415 && imageDimensions.value.width >= 415);
       if (og.value.image !== undefined) {
         params.set(
-          'mobileImgIsBig',
-          (imageDimensions.value.height > 359 && imageDimensions.value.width > 359) ||
-            (imageSpecified.value &&
-              (imageDimensions.value.height === 0 || imageDimensions.value.width === 0))
+          'imageIsBig',
+          isDesktop ? imageDimensions.value.height >= 415 && imageDimensions.value.width >= 415 :
+            (imageDimensions.value.height > 359 && imageDimensions.value.width > 359) ||
+              (imageSpecified.value &&
+                (imageDimensions.value.height === 0 || imageDimensions.value.width === 0))
         );
       }
-      return `${
-        openTab.value === 'desktop'
-          ? `/previews/facebook-desktop/facebook-desktop.html?${ params }`
-          : `/previews/facebook-mobile/facebook-mobile.html?${ params }`
-      }`;
+      params.set('style', openTab.value);
+
+      return `/previews/facebook/facebook.html?${ params }`;
     });
     const metaData = computed(() => ([
       {
