@@ -10,6 +10,7 @@
     Preparing preview...
   </p>
   <iframe
+    title="Rich social preview"
     :class="[ 'preview-iframe__iframe', iframeClass ]"
     :src="url"
     @load="onLoad"
