@@ -9,12 +9,18 @@
   border: 0;
 }
 
-/* .a11y-sr-skip-link:active,
-.a11y-sr-skip-link:focus {
-  position: static;
+.a11y-skip-link {
+  text-decoration: none;
+  padding: 0.25rem
+}
+
+.a11y-skip-link:focus {
+  top: var(--header-height);
+  left: 1.5rem;
   width: auto;
   height: auto;
   overflow: visible;
   clip: auto;
   white-space: normal;
-} */
+  z-index: 2;
+}
