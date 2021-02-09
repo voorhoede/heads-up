@@ -1,12 +1,6 @@
 @import "../../@shared/css/defaults.css";
 @import "../../@shared/css/google.css";
 
-:root {
-  --body-color: #70757a;
-  --border-color: #dfe1e5;
-  --skeleton-color: #eeeeee;
-}
-
 /* Article */
 .article {
   border-radius: 0.5rem;

@@ -146,7 +146,7 @@
             class="sidebar__button"
             :to="{ name: 'google' }"
           >
-            <SearchIcon class="sidebar__icon" />Google
+            <GoogleIcon class="sidebar__icon" />Google
           </router-link>
         </li>
       </ul>
@@ -160,35 +160,37 @@
 <script>
 import AppleIcon from '@shared/assets/icons/apple.svg';
 import CodeIcon from '@shared/assets/icons/code.svg';
-import LinkIcon from '@shared/assets/icons/link.svg';
+import FacebookIcon from '@shared/assets/icons/facebook.svg';
+import GoogleIcon from '@shared/assets/icons/google.svg';
 import ImageIcon from '@shared/assets/icons/image.svg';
-import OpenGraphIcon from '@shared/assets/icons/open-graph.svg';
+import LinkedInIcon from '@shared/assets/icons/linkedin.svg';
+import LinkIcon from '@shared/assets/icons/link.svg';
 import MadeWithLove from '@shared/components/made-with-love';
+import OpenGraphIcon from '@shared/assets/icons/open-graph.svg';
+import RobotIcon from '@shared/assets/icons/robot.svg';
+import SearchIcon from '@shared/assets/icons/search.svg';
+import SitemapIcon from '@shared/assets/icons/sitemap.svg';
+import SlackIcon from '@shared/assets/icons/slack.svg';
 import TwitterIcon from '@shared/assets/icons/twitter.svg';
 import WhatsappIcon from '@shared/assets/icons/whatsapp.svg';
-import LinkedInIcon from '@shared/assets/icons/linkedin.svg';
-import SlackIcon from '@shared/assets/icons/slack.svg';
-import FacebookIcon from '@shared/assets/icons/facebook.svg';
-import SearchIcon from '@shared/assets/icons/search.svg';
-import RobotIcon from '@shared/assets/icons/robot.svg';
-import SitemapIcon from '@shared/assets/icons/sitemap.svg';
 
 export default {
   components: {
     AppleIcon,
     CodeIcon,
+    FacebookIcon,
+    GoogleIcon,
+    ImageIcon,
+    LinkedInIcon,
     LinkIcon,
     MadeWithLove,
     OpenGraphIcon,
-    TwitterIcon,
-    ImageIcon,
-    WhatsappIcon,
-    FacebookIcon,
-    LinkedInIcon,
-    SearchIcon,
-    SlackIcon,
     RobotIcon,
+    SearchIcon,
     SitemapIcon,
+    SlackIcon,
+    TwitterIcon,
+    WhatsappIcon,
   },
 };
 </script>
@@ -221,8 +223,9 @@ export default {
 .sidebar__button {
   all: unset;
   cursor: pointer;
-  display: block;
-  padding: 3px 5px 3px 25px;
+  display: flex;
+  align-items: center;
+  padding: 4px 5px 4px 25px;
 }
 .sidebar__button.router-link-exact-active {
   background-color: var(--selection-inactive-bg-color);

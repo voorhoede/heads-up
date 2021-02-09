@@ -1,6 +1,18 @@
+:root {
+  --body-color: #70757a;
+  --border-color: #dfe1e5;
+  --skeleton-color: #eeeeee;
+}
+
 html {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
   overflow: hidden;
+}
+
+.iframe-heading {
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
 }
 
 .scroll-container {

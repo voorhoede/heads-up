@@ -2,11 +2,8 @@
 @import "../../@shared/css/google.css";
 
 :root {
-  --body-color: #70757a;
-  --border-color: #dfe1e5;
   --primary-color: #1a0dab;
   --secondary-color: #1a73e8;
-  --skeleton-color: #eeeeee;
 }
 
 /* Article */

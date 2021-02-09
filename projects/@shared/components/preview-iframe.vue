@@ -85,6 +85,11 @@ export default {
 <style>
 .preview-iframe {
   position: relative;
+  margin-bottom: 1.5em;
+}
+
+.preview-iframe:last-of-type {
+  margin-bottom: 0;
 }
 
 .preview-iframe__iframe {
@@ -92,8 +97,6 @@ export default {
   padding: 0;
   border: none;
   opacity: 0;
-  pointer-events: none;
-  user-select: none;
   height: 0;
 }
 
