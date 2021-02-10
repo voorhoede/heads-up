@@ -11,7 +11,16 @@ module.exports = {
       .loader('vue-loader-v16')
       .end()
       .use('vue-svg-loader')
-      .loader('vue-svg-loader');
+      .loader('vue-svg-loader')
+      .options({
+        svgo: {
+          plugins: [
+            {
+              removeTitle: false,
+            },
+          ],
+        },
+      });
 
     // Fix ESLint error when importing from external folder
     // config.module
