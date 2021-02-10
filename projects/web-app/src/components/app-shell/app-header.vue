@@ -1,6 +1,7 @@
 <template>
   <header class="app-header">
     <router-link :to="{ name: 'home' }" class="app-header__logo">
+      <span class="a11y-sr-only">Heads Up home page</span>
       <heads-up-logo height="32" />
     </router-link>
     <div class="app-header__search">

@@ -3,9 +3,11 @@
   class="input-url"
   @submit.prevent="submitUrl"
 >
+  <label for="url" class="a11y-sr-only">Your website's url</label>
   <input
-    type="url"
     v-model="url"
+    id="url"
+    type="url"
     name="url-to-get-meta-from"
     required
   />
