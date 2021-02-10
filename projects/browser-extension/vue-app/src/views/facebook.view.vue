@@ -4,31 +4,16 @@
       v-model="openTab"
       :tabs="TABS"
     />
-    <panel-section
-      v-if="openTab === 'mobile'"
-      title="Preview"
-    >
+    <panel-section title="Preview">
       <preview-iframe
         :url="previewUrl"
         iframeClass="facebook__preview"
-        :loading-height="359"
+        :loading-height="openTab === 'mobile' ? 359 : 368"
       >
         <template v-slot:caption>
-          Preview based on <external-link href="https://m.facebook.com/">m.facebook.com</external-link>.
-        </template>
-      </preview-iframe>
-    </panel-section>
-    <panel-section
-      v-if="openTab === 'desktop'"
-      title="Preview"
-    >
-      <preview-iframe
-        :url="previewUrl"
-        class="facebook__preview"
-        :loading-height="368"
-      >
-        <template v-slot:caption>
-          Preview based on <external-link href="https://facebook.com/">facebook.com</external-link>.
+          Preview based on
+            <external-link v-if="openTab === 'mobile'" href="https://m.facebook.com/">m.facebook.com</external-link>
+            <external-link v-else href="https://facebook.com/">facebook.com</external-link>.
         </template>
       </preview-iframe>
     </panel-section>
@@ -107,6 +92,7 @@ export default {
   },
   computed: {
     ...mapState([ 'head' ]),
+
     og() {
       return {
         type: this.propertyValue('og:type'),
@@ -128,16 +114,20 @@ export default {
         videoHeight: this.propertyValue('og:video:height'),
       };
     },
+
     facebookProperties() {
       return {
         appId: this.propertyValue('fb:app_id'),
         pages: this.propertyValue('fb:pages'),
       };
     },
+
     themeClass() {
       return getTheme() === 'dark' ? '-theme-with-dark-background' : '';
     },
+
     previewUrl() {
+      const isDesktop = this.openTab === 'desktop';
       const params = new URLSearchParams();
       params.set('title', this.og.title || this.head.title);
       params.set('url', this.head.url);
@@ -153,16 +143,20 @@ export default {
               (this.imageDimensions.height === 0 || this.imageDimensions.width === 0))
         );
       }
-      params.set(
-        'desktopImgIsBig',
-        this.imageDimensions.height >= 415 && this.imageDimensions.width >= 415
-      );
-      return `${
-        this.openTab === 'desktop'
-          ? `/previews/facebook-desktop/facebook-desktop.html?${ params }`
-          : `/previews/facebook-mobile/facebook-mobile.html?${ params }`
-      }`;
+      if (this.og.image !== undefined) {
+        params.set(
+          'imageIsBig',
+          isDesktop ? this.imageDimensions.height >= 415 && this.imageDimensions.width >= 415 :
+            (this.imageDimensions.height > 359 && this.imageDimensions.width > 359) ||
+              (this.imageSpecified &&
+                (this.imageDimensions.height === 0 || this.imageDimensions.width === 0))
+        );
+      }
+      params.set('style', this.openTab);
+
+      return `/previews/facebook/facebook.html?${ params }`;
     },
+
     metaData() {
       return [
         {
@@ -272,14 +266,17 @@ export default {
       ];
     },
   },
+
   watch: {
     'og.image'() {
       this.getImageDimensions();
     },
   },
+
   created() {
     this.getImageDimensions();
   },
+
   methods: {
     getImageDimensions() {
       findImageDimensions(this.head, 'og:image').then(dimensions => {
