@@ -262,12 +262,12 @@ export default {
   margin-right: 0.625rem;
 }
 
-.app-sidebar__link[disabled] {
+.app-sidebar__link[disabled="true"] {
   opacity: 0.5;
   cursor: default;
 }
 
-.app-sidebar__link[disabled]:hover {
+.app-sidebar__link[disabled="true"]:hover {
   border-color: transparent;
   fill: var(--color-black);
   color: var(--color-black);
