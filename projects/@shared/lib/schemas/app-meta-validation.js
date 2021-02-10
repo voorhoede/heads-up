@@ -2,18 +2,19 @@ import Joi from '../validator';
 
 const schema = Joi.object({
   title: Joi.words()
-    .items(Joi.string())
-    .min(20),
+    .allow('', null)
+    .min(20)
+    .required(),
 
-  lang: Joi.string(),
+  lang: Joi.string().required(),
 
-  charset: Joi.string(),
+  charset: Joi.string().required(),
 
-  viewport: Joi.string(),
+  viewport: Joi.string().required(),
 
-  description: Joi.string(),
+  description: Joi.string().required(),
 
-  'theme-color': Joi.string(),
+  'theme-color': Joi.string().required(),
 });
 
 export default schema;

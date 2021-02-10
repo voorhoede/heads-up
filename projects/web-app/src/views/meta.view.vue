@@ -9,7 +9,8 @@
           :value="item.value"
           :type="item.type"
           :attrs="item.attrs"
-          :tooltip="tooltip"
+          :tooltip="getTooltipInfo(item.term)"
+          :validation="validation"
           :required="true"
         >
         </properties-item>
@@ -30,8 +31,9 @@
 <script>
 import { computed, onMounted, ref } from 'vue';
 import useHead from '@/composables/use-head';
-import { findCharset, findMetaContent, findAttrs } from '@shared/lib/find-meta';
+import { findCharset, findMetaContent } from '@shared/lib/find-meta';
 import validateData from '@shared/lib/validate-data';
+import info from '@shared/lib/schemas/app-meta-schema';
 import schema from '@shared/lib/schemas/app-meta-validation';
 
 import ExternalLink from '@shared/components/external-link';
@@ -42,7 +44,7 @@ import PropertiesItem from '@shared/components/properties-item';
 export default {
   setup: () => {
     const headData = useHead().data;
-    const tooltip = ref({});
+    const validation = ref({});
     const metaData = computed(() => {
       const { head } = headData.value;
       return [
@@ -57,7 +59,6 @@ export default {
         {
           term: 'charset',
           value: findCharset(head),
-          attrs: findAttrs(head, 'charset') || findAttrs(head, 'http-equiv'),
         },
         {
           term: 'viewport',
@@ -75,15 +76,17 @@ export default {
       ];
     });
 
+    const getTooltipInfo = term => (info[term].meta);
     const validate = async () => {
-      tooltip.value = validateData(metaData.value, schema);
+      validation.value = validateData(metaData.value, schema);
     };
 
     onMounted(() => validate());
 
     return {
+      getTooltipInfo,
       metaData,
-      tooltip,
+      validation,
     };
   },
   components: {
