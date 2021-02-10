@@ -1,11 +1,15 @@
 <template>
   <header class="app-header">
-    <router-link :to="{ name: 'home' }" class="app-header__logo">
-      <span class="a11y-sr-only">Heads Up home page</span>
-      <heads-up-logo height="32" />
-    </router-link>
-    <div class="app-header__search">
-      <input-url />
+    <div class="app-header__left">
+      <router-link :to="{ name: 'home' }" class="app-header__logo">
+        <span class="a11y-sr-only">Heads Up home page</span>
+        <heads-up-logo height="32" />
+      </router-link>
+    </div>
+    <div class="app-header__right">
+      <div class="app-header__search">
+        <input-url />
+      </div>
     </div>
   </header>
 </template>
@@ -31,12 +35,20 @@ export default {
   left: 0;
   width: 100%;
   height: var(--header-height);
+}
+
+.app-header__left {
+  flex: 0 0 var(--sidebar-width);
+  padding: 1rem;
+}
+
+.app-header__right {
+  flex: 0 0 calc(100% - var(--sidebar-width));
   padding: 1rem;
 }
 
 .app-header__logo {
   display: flex;
-  flex: 0 0 var(--sidebar-width);
   align-items: center;
   color: var(--color-blue);
 }
@@ -47,7 +59,6 @@ export default {
 
 .app-header__search {
   display: flex;
-  flex: 0 0 calc(100% - var(--sidebar-width));
   align-items: center;
   justify-content: center;
 }
