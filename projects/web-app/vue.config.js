@@ -17,6 +17,7 @@ module.exports = {
           plugins: [
             {
               removeTitle: false,
+              cleanupIDs: false,
             },
           ],
         },
