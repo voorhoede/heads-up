@@ -1,4 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <title>Icon Image Placeholder</title>
   <path fill="none" d="M37.6 37.6h24.8v24.8H37.6V37.6z"/>
   <path d="M98 87.3V12.7C98 6.8 93.2 2 87.3 2H12.7C6.8 2 2 6.8 2 12.7v74.7C2 93.2 6.8 98 12.7 98h74.7C93.2 98 98 93.2 98 87.3zM31.3 58l13.3 16.1L63.3 50l24 32H12.7l18.6-24z"/>
 </svg>

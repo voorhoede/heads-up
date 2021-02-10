@@ -15,10 +15,7 @@ module.exports = {
       .options({
         svgo: {
           plugins: [
-            {
-              removeTitle: false,
-              cleanupIDs: false,
-            },
+            { removeTitle: false },
           ],
         },
       });
