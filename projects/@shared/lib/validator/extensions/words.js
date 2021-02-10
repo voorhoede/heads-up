@@ -5,14 +5,15 @@
  */
 const words = joi => ({
   type: 'words',
-  base: joi.array(),
+  base: joi.string(),
   messages: {
-    'words.base': '{{#label}} must have at least 1 value',
+    'words.base': '{{#label}} must have at least 1 word',
     'words.minWords': '{{#label}} must be at least {{#words}} words or more.',
   },
-  coerce(value) {
-    const trimmedValue = (value && value.length) ? value.trim() : value;
-    return { value: trimmedValue.length ? trimmedValue.split(' ') : trimmedValue };
+  coerce(value, helpers) {
+    if (helpers.schema.$_getRule('minWords')) {
+      return { value: value.trim() };
+    }
   },
   validate(value, helpers) {
     // Base validation regardless of the rules applied.
@@ -35,9 +36,14 @@ const words = joi => ({
         },
       ],
       validate(value, helpers, args) {
-        if (value && value.length < args.words) {
-          return helpers.warn('words.minWords', { words: args.words });
+        const trimmedValue = (value && value.length) ? value.trim() : value;
+        const array = trimmedValue.length ? trimmedValue.split(' ') : trimmedValue;
+
+        if (array && array.length > args.words) {
+          return array;
         }
+
+        return helpers.warn('words.minWords', { words: args.words });
       },
     },
   },

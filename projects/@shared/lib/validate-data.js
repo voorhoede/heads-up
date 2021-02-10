@@ -10,7 +10,7 @@ const validateSchema = (data, schema) => {
   );
 
   try {
-    const { error, warning } = schema.validate(schemaData);
+    const { error, warning } = schema.validate(schemaData, { abortEarly: false });
 
     if (error) { errors = error.details; }
     if (warning) { warnings = warning.details; }
