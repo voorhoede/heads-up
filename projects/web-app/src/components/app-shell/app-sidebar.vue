@@ -167,7 +167,9 @@
       </ul>
     </nav>
     <footer class="app-sidebar__footer">
-      <external-link class="app-sidebar__external-link" href="https://heads-up-landing-page.netlify.app/">About Heads Up</external-link>
+      <external-link class="app-sidebar__external-link" href="https://heads-up-landing-page.netlify.app/">
+        About Heads Up
+      </external-link>
       <madeWithLove />
     </footer>
   </aside>

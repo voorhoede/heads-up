@@ -3,6 +3,7 @@
     :href="href"
     rel="noopener"
     target="_blank"
+    aria-describedby="external-link-message"
   >
     <slot />
   </a>
