@@ -1,35 +1,55 @@
 <template>
   <aside class="app-sidebar">
-    <nav :class="{ disabled: !hasData }">
+    <nav>
       <section class="app-sidebar__section">
         <h3 class="app-sidebar__section-title">Application</h3>
         <ul class="app-sidebar__list">
           <li>
-            <router-link :to="{ name: 'meta' }" class="app-sidebar__link">
+            <router-link
+              :to="{ name: 'meta' }"
+              class="app-sidebar__link"
+              :disabled="!hasData"
+            >
               <CodeIcon />
               <span>Meta</span>
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'link' }" class="app-sidebar__link">
+            <router-link
+              :to="{ name: 'link' }"
+              class="app-sidebar__link"
+              :disabled="!hasData"
+            >
               <LinkIcon />
               <span>Link</span>
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'favicon' }" class="app-sidebar__link">
+            <router-link
+              :to="{ name: 'favicon' }"
+              class="app-sidebar__link"
+              :disabled="!hasData"
+            >
               <ImageIcon />
               <span>Favicon</span>
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'apple-ios' }" class="app-sidebar__link">
+            <router-link
+              :to="{ name: 'apple-ios' }"
+              class="app-sidebar__link"
+              :disabled="!hasData"
+            >
               <AppleIcon />
               <span>Apple iOS</span>
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'open-graph' }" class="app-sidebar__link">
+            <router-link
+              :to="{ name: 'open-graph' }"
+              class="app-sidebar__link"
+              :disabled="!hasData"
+            >
               <OpenGraphIcon />
               <span>OpenGraph</span>
             </router-link>
@@ -40,31 +60,51 @@
         <h3 class="app-sidebar__section-title">Social Media</h3>
         <ul class="app-sidebar__list">
           <li>
-            <router-link :to="{ name: 'twitter' }" class="app-sidebar__link">
+            <router-link
+              :to="{ name: 'twitter' }"
+              class="app-sidebar__link"
+              :disabled="!hasData"
+            >
               <TwitterIcon />
               <span>Twitter</span>
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'whatsapp' }" class="app-sidebar__link">
+            <router-link
+              :to="{ name: 'whatsapp' }"
+              class="app-sidebar__link"
+              :disabled="!hasData"
+            >
               <WhatsappIcon />
               <span>WhatsApp</span>
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'linkedin' }" class="app-sidebar__link">
+            <router-link
+              :to="{ name: 'linkedin' }"
+              class="app-sidebar__link"
+              :disabled="!hasData"
+            >
               <LinkedinIcon />
               <span>LinkedIn</span>
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'facebook' }" class="app-sidebar__link">
+            <router-link
+              :to="{ name: 'facebook' }"
+              class="app-sidebar__link"
+              :disabled="!hasData"
+            >
               <FacebookIcon />
               <span>Facebook</span>
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'slack' }" class="app-sidebar__link">
+            <router-link
+              :to="{ name: 'slack' }"
+              class="app-sidebar__link"
+              :disabled="!hasData"
+            >
               <SlackIcon />
               <span>Slack</span>
             </router-link>
@@ -75,31 +115,51 @@
         <h3 class="app-sidebar__section-title">Search</h3>
         <ul class="app-sidebar__list">
           <li>
-            <router-link :to="{ name: 'search-meta' }" class="app-sidebar__link">
+            <router-link
+              :to="{ name: 'search-meta' }"
+              class="app-sidebar__link"
+              :disabled="!hasData"
+            >
               <CodeIcon />
               <span>Search Meta</span>
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'robots-txt' }" class="app-sidebar__link">
+            <router-link
+              :to="{ name: 'robots-txt' }"
+              class="app-sidebar__link"
+              :disabled="!hasData"
+            >
               <RobotIcon />
               <span>Robots</span>
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'sitemap' }" class="app-sidebar__link">
+            <router-link
+              :to="{ name: 'sitemap' }"
+              class="app-sidebar__link"
+              :disabled="!hasData"
+            >
               <SitemapIcon />
               <span>Sitemap</span>
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'open-search' }" class="app-sidebar__link">
+            <router-link
+              :to="{ name: 'open-search' }"
+              class="app-sidebar__link"
+              :disabled="!hasData"
+            >
               <SearchIcon />
               <span>OpenSearch</span>
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'structured-data' }" class="app-sidebar__link">
+            <router-link
+              :to="{ name: 'structured-data' }"
+              class="app-sidebar__link"
+              :disabled="!hasData"
+            >
               <SitemapIcon />
               <span>Structured Data</span>
             </router-link>
@@ -203,12 +263,12 @@ export default {
   margin-right: 0.625rem;
 }
 
-.disabled .app-sidebar__link {
+.app-sidebar__link[disabled] {
   opacity: 0.5;
   cursor: default;
 }
 
-.disabled .app-sidebar__link:hover {
+.app-sidebar__link[disabled]:hover {
   border-color: transparent;
   fill: var(--color-black);
   color: var(--color-black);
