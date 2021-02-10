@@ -3,18 +3,27 @@ import Joi from '../validator';
 const schema = Joi.object({
   title: Joi.words()
     .allow('', null)
-    .min(20)
+    .min(3)
     .required(),
 
-  lang: Joi.string().required(),
+  lang: Joi.language()
+    .required(),
 
-  charset: Joi.string().required(),
+  charset: Joi.string()
+    .lowercase()
+    .valid('utf-8')
+    .required().messages({
+      'any.only': `The "charset" value should be <code>utf-8</code>, not any other values such as <code>utf8</code>.`,
+    }),
 
-  viewport: Joi.string().required(),
+  viewport: Joi.string()
+    .allow('', null),
 
-  description: Joi.string().required(),
+  description: Joi.string()
+    .allow('', null),
 
-  'theme-color': Joi.string().required(),
+  'theme-color': Joi.string()
+    .allow('', null),
 });
 
 export default schema;
