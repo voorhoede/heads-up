@@ -20,24 +20,22 @@
         <WarningIcon v-else-if="hasErrors" class="properties-item__icon properties-item__icon--warning" />
 
         <template #info>
-          <span v-if="hasWarnings && !hasErrors">
-            <template v-if="warnings.length === 1">
-              {{ warningMessage }}
-            </template>
+          <div v-if="hasWarnings && !hasErrors">
+            <span v-if="warnings.length === 1" v-html="warningMessage" />
             <ul v-else class="properties-item__error-list">
               <li v-for="(warning, index) in warnings" :key="index" v-html="warning.message" />
             </ul>
-          </span>
+          </div>
 
-          <span v-if="hasErrors">
-            <template v-if="errors.length === 1">
-              {{ errorMessage }}
-            </template>
+          <div v-if="hasErrors">
+            <span v-if="errors.length === 1" v-html="errorMessage" />
             <ul v-else class="properties-item__error-list">
               <li v-for="(error, index) in errors" :key="index" v-html="error.message" />
             </ul>
-          </span>
-          <span v-if="!hasErrors && !hasWarnings" v-html="tooltip.info" />
+          </div>
+          <div v-if="!hasErrors && !hasWarnings">
+            <span v-html="tooltip.info" />
+          </div>
         </template>
 
         <template v-if="tooltip.link" #link>
