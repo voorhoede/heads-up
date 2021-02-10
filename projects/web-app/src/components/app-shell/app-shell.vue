@@ -2,7 +2,7 @@
   <div class="app">
     <app-header />
     <app-sidebar />
-    <main class="app-main">
+    <main id="main-content" class="app-main">
       <loader v-if="isLoadingHeadData" />
       <template v-else>
         <h1 v-if="title" class="app-main__view-title">{{ title }}</h1>

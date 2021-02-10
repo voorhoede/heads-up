@@ -6,5 +6,6 @@
 @import './typography.css';
 @import './buttons.css';
 @import './lists.css';
+@import './a11y.css';
 
 @import './overwrites.css';

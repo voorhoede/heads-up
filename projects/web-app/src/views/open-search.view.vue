@@ -5,19 +5,15 @@
         <WarningIcon class="icon" />
         <p>No OpenSearch file detected.</p>
       </div>
-      <figure v-if="hasOpenSearchFile">
-        <iframe
-          ref="iframe"
-          title="OpenSearch preview"
-          :src="previewUrl"
-          height="auto"
-          width="100%"
-          class="opensearch__preview"
-        />
-        <figcaption class="opensearch__preview-caption">
+      <preview-iframe
+        v-if="hasOpenSearchFile"
+        :url="previewUrl"
+        :loading-height="40"
+      >
+        <template v-slot:caption>
           Preview based on source file: <external-link :href="fileUrl">{{ fileUrl }}</external-link>.
-        </figcaption>
-      </figure>
+        </template>
+      </preview-iframe>
     </panel-section>
     <panel-section v-if="hasOpenSearchFile" title="Tags">
       <properties-list>
@@ -53,6 +49,7 @@ import getTheme from '@shared/lib/theme';
 
 import ExternalLink from '@shared/components/external-link.vue';
 import PanelSection from '@shared/components/panel-section.vue';
+import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesList from '@shared/components/properties-list.vue';
 import PropertiesItem from '@shared/components/properties-item.vue';
 import WarningIcon from '@shared/assets/icons/warning.svg';
@@ -173,18 +170,10 @@ export default {
   components: {
     ExternalLink,
     PanelSection,
+    PreviewIframe,
     PropertiesItem,
     PropertiesList,
     WarningIcon,
   },
 };
 </script>
-
-<style>
-  .opensearch__preview {
-    height: 140px;
-    margin-bottom: 1rem;
-    padding: 0;
-    border: none;
-  }
-</style>

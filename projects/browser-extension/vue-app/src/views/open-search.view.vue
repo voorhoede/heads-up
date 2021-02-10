@@ -8,8 +8,7 @@
       <preview-iframe
         v-if="openSearchContent"
         :url="previewUrl"
-        iframeClass="open-search__preview"
-        :loading-height="140"
+        :loading-height="40"
       >
         <template v-slot:caption>
           Preview based on source file: <a :href="openSearchUrl" target="_blank">{{ openSearchUrl }}</a>.
@@ -154,9 +153,3 @@ export default {
   },
 };
 </script>
-
-<style>
-  .open-search__preview {
-    height: 140px;
-  }
-</style>

@@ -10,6 +10,7 @@
     Preparing preview...
   </p>
   <iframe
+    title="Rich social preview"
     :class="[ 'preview-iframe__iframe', iframeClass ]"
     :src="url"
     @load="onLoad"
@@ -67,7 +68,7 @@ export default {
     onBeforeUnmount(() => window.removeEventListener('resize', onResize));
 
     watch(() => iframeHeight.value, (height, prevHeight) => {
-      if (height !== prevHeight) {
+      if(height !== prevHeight) {
         isLoading.value = false;
       }
     });
