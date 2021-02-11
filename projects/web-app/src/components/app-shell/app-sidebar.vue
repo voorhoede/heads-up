@@ -40,7 +40,7 @@
             class="app-sidebar__link"
             :disabled="!hasData"
           >
-            <AppleIcon />
+            <AppleIcon aria-hidden="true" />
             <span>Apple iOS</span>
           </router-link>
         </li>
@@ -65,7 +65,7 @@
             class="app-sidebar__link"
             :disabled="!hasData"
           >
-            <TwitterIcon />
+            <TwitterIcon aria-hidden="true" />
             <span>Twitter</span>
           </router-link>
         </li>
