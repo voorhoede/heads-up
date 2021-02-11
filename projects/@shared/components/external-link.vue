@@ -3,9 +3,9 @@
     :href="href"
     rel="noopener"
     target="_blank"
-    aria-describedby="external-link-message"
   >
     <slot />
+    <span class="a11y-sr-only">Opens an external site in a new window</span>
   </a>
 </template>
 
