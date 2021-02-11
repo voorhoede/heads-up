@@ -11,6 +11,7 @@
           :key="item.term"
           :term="item.term"
           :value="item.value"
+          :schema="schema"
         >
         </properties-item>
       </properties-list>
@@ -30,6 +31,7 @@
 <script>
 import { computed } from 'vue';
 import useHead from '@/composables/use-head';
+import schema from '@shared/lib/schemas/open-graph-schema';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
@@ -54,6 +56,7 @@ export default {
 
     return {
       metaData,
+      schema,
     };
   },
   components: {

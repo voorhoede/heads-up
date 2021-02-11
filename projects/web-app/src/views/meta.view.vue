@@ -2,7 +2,7 @@
   <div class="meta">
     <panel-section title="Properties">
       <properties-list>
-        <properties-item
+        <properties-item-new
           v-for="item in metaData"
           :key="item.term"
           :term="item.term"
@@ -13,7 +13,7 @@
           :validation="validation"
           :required="true"
         >
-        </properties-item>
+        </properties-item-new>
       </properties-list>
     </panel-section>
     <panel-section title="Resources">
@@ -39,7 +39,7 @@ import schema from '@shared/lib/schemas/app-meta-validation';
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PropertiesList from '@shared/components/properties-list';
-import PropertiesItem from '@shared/components/properties-item';
+import PropertiesItemNew from '@shared/components/properties-item-new';
 
 export default {
   setup: () => {
@@ -93,7 +93,7 @@ export default {
     ExternalLink,
     PanelSection,
     PropertiesList,
-    PropertiesItem,
+    PropertiesItemNew,
   },
 };
 </script>

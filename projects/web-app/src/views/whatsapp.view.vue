@@ -24,6 +24,7 @@
           :value="item.value"
           :image="item.image"
           :type="item.type"
+          :schema="schema"
           :required="item.required"
         >
         </properties-item>
@@ -51,6 +52,7 @@ import { computed } from 'vue';
 import useHead from '@/composables/use-head';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
+import schema from '@shared/lib/schemas/whatsapp-schema';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
@@ -136,6 +138,7 @@ export default {
       image,
       previewUrl,
       metaData,
+      schema,
     };
   },
   components: {

@@ -16,32 +16,30 @@
           {{ term }}
         </span>
 
-        <InfoIcon v-if="warnings && !errors" class="properties-item__icon" />
-        <WarningIcon v-else-if="errors" class="properties-item__icon properties-item__icon--warning" />
+        <InfoIcon v-if="hasWarnings && !hasErrors" class="properties-item__icon" />
+        <WarningIcon v-else-if="hasErrors" class="properties-item__icon properties-item__icon--warning" />
 
         <template #info>
-          <span v-if="warnings && !errors">
-            <template v-if="warnings.length === 1">
-              {{ warningMessage }}
-            </template>
+          <div v-if="hasWarnings && !hasErrors">
+            <span v-if="warnings.length === 1" v-html="warningMessage" />
             <ul v-else class="properties-item__error-list">
               <li v-for="(warning, index) in warnings" :key="index" v-html="warning.message" />
             </ul>
-          </span>
+          </div>
 
-          <span v-if="errors">
-            <template v-if="errors.length === 1">
-              {{ errorMessage }}
-            </template>
+          <div v-if="hasErrors">
+            <span v-if="errors.length === 1" v-html="errorMessage" />
             <ul v-else class="properties-item__error-list">
               <li v-for="(error, index) in errors" :key="index" v-html="error.message" />
             </ul>
-          </span>
-          <span v-if="!errors && !warnings" v-html="info" />
+          </div>
+          <div v-if="!hasErrors && !hasWarnings">
+            <span v-html="tooltip.info" />
+          </div>
         </template>
 
-        <template v-if="link" #link>
-          &nbsp;<external-link :href="link">Learn more</external-link>
+        <template v-if="tooltip.link" #link>
+          &nbsp;<external-link :href="tooltip.link">Learn more</external-link>
         </template>
 
       </app-tooltip>
@@ -109,17 +107,14 @@ import ExternalLink from './external-link';
 import InfoIcon from '../assets/icons/info.svg';
 import WarningIcon from '../assets/icons/warning.svg';
 
-import validateErrorSchema from '../lib/validate-error-schema';
-import validateWarningSchema from '../lib/validate-warning-schema';
-
 export default {
-  components: { AppTooltip, ExternalLink, InfoIcon, WarningIcon },
+  components: {
+    AppTooltip,
+    ExternalLink,
+    InfoIcon,
+    WarningIcon,
+  },
   props: {
-    attrs: {
-      type: Object,
-      required: false,
-      default: undefined,
-    },
     image: {
       type: Object,
       default() {
@@ -131,22 +126,27 @@ export default {
       required: false,
       default: false,
     },
-    schema: {
-      type: Object,
-      required: false,
-      default() {
-        return null;
-      },
-    },
     term: {
       type: [ Array, String ],
       required: true,
+    },
+    tooltip: {
+      type: Object,
+      default() {
+        return {};
+      },
     },
     type: {
       type: String,
       required: false,
       default: 'string',
       validator: type => [ 'string', 'link', 'urls', 'image', 'color' ].indexOf(type) !== -1,
+    },
+    validation: {
+      type: Object,
+      default() {
+        return {};
+      },
     },
     value: {
       type: [ Array, Number, String ],
@@ -156,25 +156,18 @@ export default {
       },
     },
   },
-  data() {
-    return {
-      info: '',
-      link: '',
-      errors: null,
-      warnings: null,
-    };
-  },
-  watch: {
-    term() {
-      if (this.schema) { this.validateSchema(); }
-    },
-  },
   computed: {
     errorMessage() {
-      if (this.errors && this.errors.length > 0) {
-        return this.errors[0].message;
-      }
-      return null;
+      return this.errors.length > 0 ? this.errors[0].message : null;
+    },
+    errors() {
+      return this.validation.errors.filter(item => (item.context.key === this.term));
+    },
+    hasErrors() {
+      return this.validation.errors && this.errors.length;
+    },
+    hasWarnings() {
+      return this.validation.warnings && this.warnings.length;
     },
     isColorValue() {
       return this.type === 'color' && this.value;
@@ -192,43 +185,16 @@ export default {
       return this.term && this.value || this.required;
     },
     showTooltip() {
-      return this.schema && this.term && this.info;
+      return Boolean(this.term && this.tooltip.info) || Boolean(this.hasErrors || this.hasWarnings);
     },
     termIsArray() {
       return Array.isArray(this.term);
     },
     warningMessage() {
-      if (this.warnings && this.warnings.length > 0) {
-        return this.warnings[0].message;
-      }
-      return null;
+      return this.warnings.length > 0 ? this.warnings[0].message : null;
     },
-  },
-  mounted() {
-    if (!this.schema) { return; }
-
-    if (this.schema[this.term] && this.schema[this.term].meta) {
-      this.info = this.schema[this.term].meta.info;
-
-      // Set tooltip link if available.
-      if (this.schema[this.term].meta.link) {
-        this.link = this.schema[this.term].meta.link;
-      }
-    }
-
-    this.validateSchema();
-  },
-  methods: {
-    async validateSchema() {
-      const schemaTemplate = {
-        schema: this.schema,
-        key: this.term,
-        value: this.value,
-        attrs: this.attrs,
-      };
-
-      this.errors = validateErrorSchema(schemaTemplate);
-      this.warnings = await validateWarningSchema(schemaTemplate);
+    warnings() {
+      return this.validation.warnings.filter(item => (item.context.key === this.term));
     },
   },
 };
