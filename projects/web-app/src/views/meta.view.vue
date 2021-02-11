@@ -8,7 +8,6 @@
           :term="item.term"
           :value="item.value"
           :type="item.type"
-          :attrs="item.attrs"
           :tooltip="getTooltipInfo(item.term)"
           :validation="validation"
           :required="true"
