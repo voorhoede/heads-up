@@ -38,7 +38,16 @@ export default {
     });
 
     const submitUrl = () => {
-      head.getDataForUrlWithRouteGuard(router.currentRoute.value.name, router.push)(url.value);
+      head.getDataForUrlWithRouteGuard(router.currentRoute.value.name, router.push)(url.value)
+        .then(status => {
+          // @a11y :: If we successfully retrieve data, set focus to main content
+          if(status.success) {
+            const $focusTarget = document.querySelector('#main-content');
+            $focusTarget.setAttribute('tabindex', '-1');
+            $focusTarget.focus();
+            $focusTarget.removeAttribute('tabindex');
+          }
+        });
     };
 
     return {

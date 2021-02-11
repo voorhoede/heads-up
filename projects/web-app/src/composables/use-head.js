@@ -42,12 +42,16 @@ const getDataForUrl = url => {
 };
 
 const getDataForUrlWithRouteGuard = (routeName, routeResolver) => async url => {
-  let routed = false;
+  const status = {
+    success: false,
+    routed: false,
+  };
   try {
     await getDataForUrl(url);
+    status.success = true;
     if(routeName === 'home') {
       routeResolver({ name: 'meta' });
-      routed = true;
+      status.routed = true;
     }
   }
   catch(err) {
@@ -56,10 +60,10 @@ const getDataForUrlWithRouteGuard = (routeName, routeResolver) => async url => {
       // We reset `headData` only here so we've already routed
       // away from any page that might depend on that data
       _headData.value = null;
-      routed = true;
+      status.routed = true;
     }
   }
-  return routed;
+  return status;
 };
 
 export default () => {
