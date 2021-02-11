@@ -76,11 +76,8 @@ export default {
     });
 
     const getTooltipInfo = term => (info[term].meta);
-    const validate = async () => {
-      validation.value = validateData(metaData.value, schema);
-    };
 
-    onMounted(() => validate());
+    onMounted(() => validation.value = validateData(metaData.value, schema));
 
     return {
       getTooltipInfo,
