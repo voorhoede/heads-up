@@ -18,7 +18,6 @@ const validateSchema = (data, schema) => {
 
   try {
     // Docs: https://joi.dev/api/?v=17.4.0#anyvalidate
-    console.log(schema.validate(schemaData, JOI_VALIDATION_OPTIONS));
     const { error, warning } = schema.validate(schemaData, JOI_VALIDATION_OPTIONS);
 
     if (error) { errors = error.details; }
