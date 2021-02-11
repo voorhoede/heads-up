@@ -1,7 +1,7 @@
 <template>
   <aside class="app-sidebar">
     <h2 class="a11y-sr-only">Side menu</h2>
-    <nav class="app-sidebar__section">
+    <nav class="app-sidebar__section" aria-label="Application analysis">
       <h3 class="app-sidebar__section-title">Application</h3>
       <ul class="app-sidebar__list">
         <li>
@@ -56,7 +56,7 @@
         </li>
       </ul>
     </nav>
-    <nav class="app-sidebar__section">
+    <nav class="app-sidebar__section" aria-label="Social Media analysis">
       <h3 class="app-sidebar__section-title">Social Media</h3>
       <ul class="app-sidebar__list">
         <li>
@@ -111,7 +111,7 @@
         </li>
       </ul>
     </nav>
-    <nav class="app-sidebar__section">
+    <nav class="app-sidebar__section" aria-label="Search metadata analysis">
       <h3 class="app-sidebar__section-title">Search</h3>
       <ul class="app-sidebar__list">
         <li>
