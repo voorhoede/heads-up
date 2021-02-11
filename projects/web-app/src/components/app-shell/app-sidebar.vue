@@ -10,7 +10,7 @@
             class="app-sidebar__link"
             :disabled="!hasData"
           >
-            <CodeIcon />
+            <CodeIcon aria-hidden="true" />
             <span>Meta</span>
           </router-link>
         </li>
@@ -20,7 +20,7 @@
             class="app-sidebar__link"
             :disabled="!hasData"
           >
-            <LinkIcon />
+            <LinkIcon aria-hidden="true" />
             <span>Link</span>
           </router-link>
         </li>
@@ -30,7 +30,7 @@
             class="app-sidebar__link"
             :disabled="!hasData"
           >
-            <ImageIcon />
+            <ImageIcon aria-hidden="true" />
             <span>Favicon</span>
           </router-link>
         </li>
@@ -50,7 +50,7 @@
             class="app-sidebar__link"
             :disabled="!hasData"
           >
-            <OpenGraphIcon />
+            <OpenGraphIcon aria-hidden="true" />
             <span>OpenGraph</span>
           </router-link>
         </li>
@@ -75,7 +75,7 @@
             class="app-sidebar__link"
             :disabled="!hasData"
           >
-            <WhatsappIcon />
+            <WhatsappIcon aria-hidden="true" />
             <span>WhatsApp</span>
           </router-link>
         </li>
@@ -85,7 +85,7 @@
             class="app-sidebar__link"
             :disabled="!hasData"
           >
-            <LinkedinIcon />
+            <LinkedinIcon aria-hidden="true" />
             <span>LinkedIn</span>
           </router-link>
         </li>
@@ -95,7 +95,7 @@
             class="app-sidebar__link"
             :disabled="!hasData"
           >
-            <FacebookIcon />
+            <FacebookIcon aria-hidden="true" />
             <span>Facebook</span>
           </router-link>
         </li>
@@ -105,7 +105,7 @@
             class="app-sidebar__link"
             :disabled="!hasData"
           >
-            <SlackIcon />
+            <SlackIcon aria-hidden="true" />
             <span>Slack</span>
           </router-link>
         </li>
@@ -120,7 +120,7 @@
             class="app-sidebar__link"
             :disabled="!hasData"
           >
-            <CodeIcon />
+            <CodeIcon aria-hidden="true" />
             <span>Search Meta</span>
           </router-link>
         </li>
@@ -130,7 +130,7 @@
             class="app-sidebar__link"
             :disabled="!hasData"
           >
-            <RobotIcon />
+            <RobotIcon aria-hidden="true" />
             <span>Robots</span>
           </router-link>
         </li>
@@ -140,7 +140,7 @@
             class="app-sidebar__link"
             :disabled="!hasData"
           >
-            <SitemapIcon />
+            <SitemapIcon aria-hidden="true" />
             <span>Sitemap</span>
           </router-link>
         </li>
@@ -150,7 +150,7 @@
             class="app-sidebar__link"
             :disabled="!hasData"
           >
-            <SearchIcon />
+            <SearchIcon aria-hidden="true" />
             <span>OpenSearch</span>
           </router-link>
         </li>
@@ -160,7 +160,7 @@
             class="app-sidebar__link"
             :disabled="!hasData"
           >
-            <SitemapIcon />
+            <SitemapIcon aria-hidden="true" />
             <span>Structured Data</span>
           </router-link>
         </li>
