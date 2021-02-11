@@ -37,8 +37,8 @@ import schema from '@shared/lib/schemas/app-meta-validation';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
-import PropertiesList from '@shared/components/properties-list';
 import PropertiesItemNew from '@shared/components/properties-item-new';
+import PropertiesList from '@shared/components/properties-list';
 
 export default {
   setup: () => {
