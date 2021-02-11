@@ -43,7 +43,7 @@ const words = joi => ({
           return array;
         }
 
-        return helpers.warn('words.minWords', { words: args.words });
+        return { value, warn: helpers.warn('words.minWords', { words: args.words }) };
       },
     },
   },

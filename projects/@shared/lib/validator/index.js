@@ -1,11 +1,13 @@
 import Joi from 'joi';
 import language from './extensions/language';
+import viewport from './extensions/viewport';
 import words from './extensions/words';
 
 let validator = Joi;
 
 const extensions = [
   joi => language(joi),
+  joi => viewport(joi),
   joi => words(joi),
 ];
 
