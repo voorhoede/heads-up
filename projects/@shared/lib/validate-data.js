@@ -4,7 +4,7 @@ const JOI_VALIDATION_OPTIONS = {
   convert: false,
 };
 
-const validateSchema = (data, schema) => {
+const validateData = (data, schema) => {
   if (!data.length) { return; }
   let errors = null;
   let warnings = null;
@@ -30,4 +30,4 @@ const validateSchema = (data, schema) => {
   }
 };
 
-export default validateSchema;
+export default validateData;
