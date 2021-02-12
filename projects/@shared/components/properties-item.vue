@@ -171,7 +171,7 @@ export default {
   },
   computed: {
     errorMessage() {
-      return this.warnings?.[0]?.message ?? null;
+      return this.warnings?.[0]?.message;
     },
     isColorValue() {
       return this.type === 'color' && this.value;
@@ -195,7 +195,7 @@ export default {
       return Array.isArray(this.term);
     },
     warningMessage() {
-      return this.warnings?.[0]?.message ?? null;
+      return this.warnings?.[0]?.message;
     },
   },
   mounted() {

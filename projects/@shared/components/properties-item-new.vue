@@ -158,7 +158,7 @@ export default {
   },
   computed: {
     errorMessage() {
-      return this.errors?.[0]?.message.trim() ?? null;
+      return this.errors?.[0]?.message.trim();
     },
     errors() {
       return this.validation.errors.filter(item => (item.context.key === this.term));
@@ -191,7 +191,7 @@ export default {
       return Array.isArray(this.term);
     },
     warningMessage() {
-      return this.warnings?.[0]?.message.trim() ?? null;
+      return this.warnings?.[0]?.message.trim();
     },
     warnings() {
       return this.validation.warnings.filter(item => (item.context.key === this.term));
