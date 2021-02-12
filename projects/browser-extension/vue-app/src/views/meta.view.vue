@@ -83,7 +83,7 @@ export default {
   },
   methods: {
     getTooltipInfo(term) {
-      return info[term].meta;
+      return info[term] ?? {};
     },
   },
 };

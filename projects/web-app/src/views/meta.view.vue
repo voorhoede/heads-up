@@ -74,7 +74,7 @@ export default {
       ];
     });
 
-    const getTooltipInfo = term => (info[term].meta);
+    const getTooltipInfo = term => (info[term] ?? {});
 
     validation.value = validateData(metaData.value, schema);
 
