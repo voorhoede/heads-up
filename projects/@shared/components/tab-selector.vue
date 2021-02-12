@@ -79,7 +79,7 @@ export default {
   width: 140%;
   height: 180%;
   box-sizing: border-box;
-  border: 2px solid var(--color-blue);
+  border: 2px solid #1a73e8;
   border-radius: 2px;
 }
 </style>

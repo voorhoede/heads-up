@@ -7,6 +7,11 @@
   --label-color: #888;
   --value-color: #555;
 
+  /* Variable declaration because it exists in shared components
+     @TODO :: Come up with a variable naming convention between apps
+  */
+  --color-blue: #1a73e8;
+
   /**
   * Borrowed from Chrome DevTools Frontend to match style:
   * @see https://github.com/ChromeDevTools/devtools-frontend/blob/02a851d01de158d8c0a8fd1d3af06649b5379bd6/front_end/ui/inspectorStyle.css
