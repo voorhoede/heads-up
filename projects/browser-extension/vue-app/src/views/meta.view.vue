@@ -31,8 +31,7 @@
 import { mapState } from 'vuex';
 import { findCharset, findMetaContent } from '@shared/lib/find-meta';
 import validateData from '@shared/lib/validate-data';
-import info from '@shared/lib/schemas/app-meta-schema';
-import schema from '@shared/lib/schemas/app-meta-validation';
+import { schema, info } from '@shared/lib/schemas/app-meta-schema';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
