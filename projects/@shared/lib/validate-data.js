@@ -25,8 +25,9 @@ const validateData = (data, schema) => {
 
     // Return any errors and warnings.
     return { errors, warnings };
-  } catch (errors) {
-    console.log(errors);
+  } catch (err) {
+    console.log(err);
+    return err;
   }
 };
 
