@@ -21,25 +21,25 @@
 
         <template #info>
           <div v-if="hasWarnings && !hasErrors">
-            <span v-if="warnings.length === 1" v-html="warningMessage" />
+            <span v-if="warningMessage" v-html="warningMessage" />
             <ul v-else class="properties-item__error-list">
               <li v-for="(warning, index) in warnings" :key="index" v-html="warning.message" />
             </ul>
           </div>
 
           <div v-if="hasErrors">
-            <span v-if="errors.length === 1" v-html="errorMessage" />
+            <span v-if="errorMessage" v-html="errorMessage" />
             <ul v-else class="properties-item__error-list">
               <li v-for="(error, index) in errors" :key="index" v-html="error.message" />
             </ul>
           </div>
           <div v-if="!hasErrors && !hasWarnings">
-            <span v-html="tooltip.info" />
+            <span v-html="tooltip.info.trim()" />
           </div>
         </template>
 
         <template v-if="tooltip.link" #link>
-          &nbsp;<external-link :href="tooltip.link">Learn more</external-link>
+          &nbsp;<external-link :href="tooltip.link.trim()">Learn more</external-link>
         </template>
 
       </app-tooltip>
@@ -158,7 +158,7 @@ export default {
   },
   computed: {
     errorMessage() {
-      return this.errors.length > 0 ? this.errors[0].message : null;
+      return this.errors?.[0]?.message.trim() ?? null;
     },
     errors() {
       return this.validation.errors.filter(item => (item.context.key === this.term));
@@ -191,7 +191,7 @@ export default {
       return Array.isArray(this.term);
     },
     warningMessage() {
-      return this.warnings.length > 0 ? this.warnings[0].message : null;
+      return this.warnings?.[0]?.message.trim() ?? null;
     },
     warnings() {
       return this.validation.warnings.filter(item => (item.context.key === this.term));

@@ -21,7 +21,7 @@
 
         <template #info>
           <span v-if="warnings && !errors">
-            <template v-if="warnings.length === 1">
+            <template v-if="warningMessage">
               {{ warningMessage }}
             </template>
             <ul v-else class="properties-item__error-list">
@@ -30,7 +30,7 @@
           </span>
 
           <span v-if="errors">
-            <template v-if="errors.length === 1">
+            <template v-if="errorMessage">
               {{ errorMessage }}
             </template>
             <ul v-else class="properties-item__error-list">
@@ -171,10 +171,7 @@ export default {
   },
   computed: {
     errorMessage() {
-      if (this.errors && this.errors.length > 0) {
-        return this.errors[0].message;
-      }
-      return null;
+      return this.warnings?.[0]?.message ?? null;
     },
     isColorValue() {
       return this.type === 'color' && this.value;
@@ -198,10 +195,7 @@ export default {
       return Array.isArray(this.term);
     },
     warningMessage() {
-      if (this.warnings && this.warnings.length > 0) {
-        return this.warnings[0].message;
-      }
-      return null;
+      return this.warnings?.[0]?.message ?? null;
     },
   },
   mounted() {
