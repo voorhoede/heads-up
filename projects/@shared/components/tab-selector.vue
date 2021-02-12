@@ -11,6 +11,7 @@
       type="radio"
       v-model="selectedValue"
       :value="tab.value"
+      class="a11y-sr-only"
     >
     <span class="tab-selector__tab-button">
       {{ tab.label }}
@@ -61,12 +62,24 @@ export default {
   margin-right: 1rem;
 }
 
-.tab-selector input:checked + .tab-selector__tab-button {
-  border-bottom: 2px solid #1a73e8;
+.tab-selector__tab-button {
+  position: relative;
 }
 
-.tab-selector input[type="radio"] {
+.tab-selector input:checked + .tab-selector__tab-button {
+  border-bottom: 2px solid var(--color-blue);
+}
+
+.tab-selector input:focus + .tab-selector__tab-button::after {
+  content: '';
   position: absolute;
-  visibility: hidden;
+  display: block;
+  top: -40%;
+  left: -20%;
+  width: 140%;
+  height: 180%;
+  box-sizing: border-box;
+  border: 2px solid var(--color-blue);
+  border-radius: 2px;
 }
 </style>
