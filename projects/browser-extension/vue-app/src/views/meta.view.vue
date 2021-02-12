@@ -2,17 +2,17 @@
   <div class="meta">
     <panel-section title="Properties">
       <properties-list>
-        <properties-item
+        <properties-item-new
           v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
           :type="item.type"
-          :schema="schema"
-          :attrs="item.attrs"
+          :tooltip="getTooltipInfo(item.term)"
+          :validation="validation"
           :required="true"
         >
-        </properties-item>
+        </properties-item-new>
       </properties-list>
     </panel-section>
     <panel-section title="Resources">
@@ -29,20 +29,24 @@
 
 <script>
 import { mapState } from 'vuex';
-import { findCharset, findMetaContent, findAttrs } from '@shared/lib/find-meta';
-import schema from '@shared/lib/schemas/app-meta-schema';
+import { findCharset, findMetaContent } from '@shared/lib/find-meta';
+import validateData from '@shared/lib/validate-data';
+import { schema, info } from '@shared/lib/schemas/app-meta-schema';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
+import PropertiesItemNew from '@shared/components/properties-item-new';
 import PropertiesList from '@shared/components/properties-list';
-import PropertiesItem from '@shared/components/properties-item';
 
 export default {
-  components: { ExternalLink, PanelSection, PropertiesItem, PropertiesList },
+  components: { ExternalLink, PanelSection, PropertiesItemNew, PropertiesList },
   data() {
     return {
-      schema,
+      validation: {},
     };
+  },
+  mounted() {
+    this.validation = validateData(this.metaData, schema);
   },
   computed: {
     ...mapState([ 'head' ]),
@@ -60,7 +64,6 @@ export default {
         {
           term: 'charset',
           value: findCharset(head),
-          attrs: findAttrs(head, 'charset') || findAttrs(head, 'http-equiv'),
         },
         {
           term: 'viewport',
@@ -76,6 +79,11 @@ export default {
           type: 'color',
         },
       ];
+    },
+  },
+  methods: {
+    getTooltipInfo(term) {
+      return info[term] ?? {};
     },
   },
 };

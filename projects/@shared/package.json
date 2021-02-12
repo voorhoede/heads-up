@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "joi": "^17.3.0",
     "lodash": "^4.17.20",
     "popper.js": "^1.16.1",
     "vue-resize": "^0.5.0"

@@ -2,17 +2,17 @@
   <div class="meta">
     <panel-section title="Properties">
       <properties-list>
-        <properties-item
+        <properties-item-new
           v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
           :type="item.type"
-          :schema="schema"
-          :attrs="item.attrs"
+          :tooltip="getTooltipInfo(item.term)"
+          :validation="validation"
           :required="true"
         >
-        </properties-item>
+        </properties-item-new>
       </properties-list>
     </panel-section>
     <panel-section title="Resources">
@@ -28,19 +28,21 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import useHead from '@/composables/use-head';
-import { findCharset, findMetaContent, findAttrs } from '@shared/lib/find-meta';
-import schema from '@shared/lib/schemas/app-meta-schema';
+import { findCharset, findMetaContent } from '@shared/lib/find-meta';
+import validateData from '@shared/lib/validate-data';
+import { schema, info } from '@shared/lib/schemas/app-meta-schema';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
+import PropertiesItemNew from '@shared/components/properties-item-new';
 import PropertiesList from '@shared/components/properties-list';
-import PropertiesItem from '@shared/components/properties-item';
 
 export default {
   setup: () => {
     const headData = useHead().data;
+    const validation = ref({});
     const metaData = computed(() => {
       const { head } = headData.value;
       return [
@@ -55,7 +57,6 @@ export default {
         {
           term: 'charset',
           value: findCharset(head),
-          attrs: findAttrs(head, 'charset') || findAttrs(head, 'http-equiv'),
         },
         {
           term: 'viewport',
@@ -73,16 +74,21 @@ export default {
       ];
     });
 
+    const getTooltipInfo = term => (info[term] ?? {});
+
+    validation.value = validateData(metaData.value, schema);
+
     return {
+      getTooltipInfo,
       metaData,
-      schema,
+      validation,
     };
   },
   components: {
     ExternalLink,
     PanelSection,
     PropertiesList,
-    PropertiesItem,
+    PropertiesItemNew,
   },
 };
 </script>
