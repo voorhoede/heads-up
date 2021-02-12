@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { computed, onMounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 import useHead from '@/composables/use-head';
 import { findCharset, findMetaContent } from '@shared/lib/find-meta';
 import validateData from '@shared/lib/validate-data';
@@ -76,7 +76,7 @@ export default {
 
     const getTooltipInfo = term => (info[term].meta);
 
-    onMounted(() => validation.value = validateData(metaData.value, schema));
+    validation.value = validateData(metaData.value, schema);
 
     return {
       getTooltipInfo,
