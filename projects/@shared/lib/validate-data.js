@@ -6,8 +6,6 @@ const JOI_VALIDATION_OPTIONS = {
 
 const validateData = (data, schema) => {
   if (!data.length) { return; }
-  let errors = null;
-  let warnings = null;
 
   // Convert incoming data into schema data object.
   const schemaData = Object.assign({},
@@ -19,6 +17,8 @@ const validateData = (data, schema) => {
   try {
     // Docs: https://joi.dev/api/?v=17.4.0#anyvalidate
     const { error, warning } = schema.validate(schemaData, JOI_VALIDATION_OPTIONS);
+    let errors = null;
+    let warnings = null;
 
     if (error) { errors = error.details; }
     if (warning) { warnings = warning.details; }
