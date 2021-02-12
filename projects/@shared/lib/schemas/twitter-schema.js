@@ -178,7 +178,7 @@ const twitterSchema = {
 
   'twitter:app:country': {
     meta: {
-      info: 'The <code>twitter</code> element defines ',
+      info: 'The <code>twitter</code> element defines.',
       link: 'https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/app-card',
     },
   },
