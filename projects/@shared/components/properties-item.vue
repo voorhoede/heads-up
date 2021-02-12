@@ -38,10 +38,11 @@
             </ul>
           </span>
           <span v-if="!errors && !warnings" v-html="info" />
+          <span v-if="link">&nbsp;</span>
         </template>
 
         <template v-if="link" #link>
-          &nbsp;<external-link :href="link">Learn more</external-link>
+          <external-link :href="link">Learn more</external-link>
         </template>
 
       </app-tooltip>
