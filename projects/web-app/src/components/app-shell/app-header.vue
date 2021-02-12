@@ -1,13 +1,13 @@
 <template>
   <header class="app-header">
-    <div class="app-header__left">
+    <div class="app-header__column app-header__column--left">
       <h1 class="a11y-sr-only">Heads Up</h1>
       <router-link :to="{ name: 'home' }" class="app-header__logo">
         <span class="a11y-sr-only">Heads Up home page</span>
         <heads-up-logo height="32" />
       </router-link>
     </div>
-    <div class="app-header__right">
+    <div class="app-header__column app-header__column--right">
       <div class="app-header__search">
         <input-url />
       </div>
@@ -38,14 +38,17 @@ export default {
   height: var(--header-height);
 }
 
-.app-header__left {
-  flex: 0 0 var(--sidebar-width);
+.app-header__column {
   padding: 1rem;
 }
 
-.app-header__right {
+.app-header__column--left {
+  flex: 0 0 var(--sidebar-width);
+
+}
+
+.app-header__column--right {
   flex: 0 0 calc(100% - var(--sidebar-width));
-  padding: 1rem;
 }
 
 .app-header__logo {
