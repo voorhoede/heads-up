@@ -13,7 +13,7 @@ const config = {
     'devtools/background': './wrapper/devtools/background.js',
     'devtools/content': './wrapper/devtools/content.js',
   },
-  output: resolve('dist'),
+  output: { path: resolve('dist') },
   plugins: [
     new FriendlyErrorsPlugin(),
     new webpack.DefinePlugin({
