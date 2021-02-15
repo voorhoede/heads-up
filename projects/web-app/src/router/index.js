@@ -24,16 +24,16 @@ router.beforeEach(async (to, from, next) => {
     const storedUrl = sessionStorage && sessionStorage.getItem('url');
 
     if(queryUrl) {
-      const routeguarded = await getDataGuarded(queryUrl);
-      if(routeguarded) return;
+      const status = await getDataGuarded(queryUrl);
+      if(status.routed) return;
     }
     else if(storedUrl) {
       if(atHome) {
         head.setUrl(storedUrl);
       }
       else {
-        const routeguarded = await getDataGuarded(storedUrl);
-        if(routeguarded) return;
+        const status = await getDataGuarded(storedUrl);
+        if(status.routed) return;
       }
     }
     else if(!atHome) {

@@ -1,120 +1,185 @@
 <template>
   <aside class="app-sidebar">
-    <nav :class="{ disabled: !hasData }">
-      <section class="app-sidebar__section">
-        <h3 class="app-sidebar__section-title">Application</h3>
-        <ul class="app-sidebar__list">
-          <li>
-            <router-link :to="{ name: 'meta' }" class="app-sidebar__link">
-              <CodeIcon />
-              <span>Meta</span>
-            </router-link>
-          </li>
-          <li>
-            <router-link :to="{ name: 'link' }" class="app-sidebar__link">
-              <LinkIcon />
-              <span>Link</span>
-            </router-link>
-          </li>
-          <li>
-            <router-link :to="{ name: 'favicon' }" class="app-sidebar__link">
-              <ImageIcon />
-              <span>Favicon</span>
-            </router-link>
-          </li>
-          <li>
-            <router-link :to="{ name: 'apple-ios' }" class="app-sidebar__link">
-              <AppleIcon />
-              <span>Apple iOS</span>
-            </router-link>
-          </li>
-          <li>
-            <router-link :to="{ name: 'open-graph' }" class="app-sidebar__link">
-              <OpenGraphIcon />
-              <span>OpenGraph</span>
-            </router-link>
-          </li>
-        </ul>
-      </section>
-      <section class="app-sidebar__section">
-        <h3 class="app-sidebar__section-title">Social Media</h3>
-        <ul class="app-sidebar__list">
-          <li>
-            <router-link :to="{ name: 'twitter' }" class="app-sidebar__link">
-              <TwitterIcon />
-              <span>Twitter</span>
-            </router-link>
-          </li>
-          <li>
-            <router-link :to="{ name: 'whatsapp' }" class="app-sidebar__link">
-              <WhatsappIcon />
-              <span>WhatsApp</span>
-            </router-link>
-          </li>
-          <li>
-            <router-link :to="{ name: 'linkedin' }" class="app-sidebar__link">
-              <LinkedinIcon />
-              <span>LinkedIn</span>
-            </router-link>
-          </li>
-          <li>
-            <router-link :to="{ name: 'facebook' }" class="app-sidebar__link">
-              <FacebookIcon />
-              <span>Facebook</span>
-            </router-link>
-          </li>
-          <li>
-            <router-link :to="{ name: 'slack' }" class="app-sidebar__link">
-              <SlackIcon />
-              <span>Slack</span>
-            </router-link>
-          </li>
-        </ul>
-      </section>
-      <section class="app-sidebar__section">
-        <h3 class="app-sidebar__section-title">Search</h3>
-        <ul class="app-sidebar__list">
-          <li>
-            <router-link :to="{ name: 'search-meta' }" class="app-sidebar__link">
-              <CodeIcon />
-              <span>Search Meta</span>
-            </router-link>
-          </li>
-          <li>
-            <router-link :to="{ name: 'robots-txt' }" class="app-sidebar__link">
-              <RobotIcon />
-              <span>Robots</span>
-            </router-link>
-          </li>
-          <li>
-            <router-link :to="{ name: 'sitemap' }" class="app-sidebar__link">
-              <SitemapIcon />
-              <span>Sitemap</span>
-            </router-link>
-          </li>
-          <li>
-            <router-link :to="{ name: 'open-search' }" class="app-sidebar__link">
-              <SearchIcon />
-              <span>OpenSearch</span>
-            </router-link>
-          </li>
-          <li>
-            <router-link :to="{ name: 'structured-data' }" class="app-sidebar__link">
-              <SitemapIcon />
-              <span>Structured Data</span>
-            </router-link>
-          </li>
-          <li>
-            <router-link :to="{ name: 'google' }" class="app-sidebar__link">
-              <GoogleIcon />
-              <span>Google</span>
-            </router-link>
-          </li>
-        </ul>
-      </section>
+    <h2 class="a11y-sr-only">Side menu</h2>
+    <nav class="app-sidebar__section" aria-label="Application analysis">
+      <h3 class="app-sidebar__section-title">Application</h3>
+      <ul class="app-sidebar__list">
+        <li>
+          <router-link
+            :to="{ name: 'meta' }"
+            class="app-sidebar__link"
+            :disabled="!hasData"
+          >
+            <CodeIcon aria-hidden="true" />
+            <span>Meta</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link
+            :to="{ name: 'link' }"
+            class="app-sidebar__link"
+            :disabled="!hasData"
+          >
+            <LinkIcon aria-hidden="true" />
+            <span>Link</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link
+            :to="{ name: 'favicon' }"
+            class="app-sidebar__link"
+            :disabled="!hasData"
+          >
+            <ImageIcon aria-hidden="true" />
+            <span>Favicon</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link
+            :to="{ name: 'apple-ios' }"
+            class="app-sidebar__link"
+            :disabled="!hasData"
+          >
+            <AppleIcon aria-hidden="true" />
+            <span>Apple iOS</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link
+            :to="{ name: 'open-graph' }"
+            class="app-sidebar__link"
+            :disabled="!hasData"
+          >
+            <OpenGraphIcon aria-hidden="true" />
+            <span>OpenGraph</span>
+          </router-link>
+        </li>
+      </ul>
+    </nav>
+    <nav class="app-sidebar__section" aria-label="Social Media analysis">
+      <h3 class="app-sidebar__section-title">Social Media</h3>
+      <ul class="app-sidebar__list">
+        <li>
+          <router-link
+            :to="{ name: 'twitter' }"
+            class="app-sidebar__link"
+            :disabled="!hasData"
+          >
+            <TwitterIcon aria-hidden="true" />
+            <span>Twitter</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link
+            :to="{ name: 'whatsapp' }"
+            class="app-sidebar__link"
+            :disabled="!hasData"
+          >
+            <WhatsappIcon aria-hidden="true" />
+            <span>WhatsApp</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link
+            :to="{ name: 'linkedin' }"
+            class="app-sidebar__link"
+            :disabled="!hasData"
+          >
+            <LinkedinIcon aria-hidden="true" />
+            <span>LinkedIn</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link
+            :to="{ name: 'facebook' }"
+            class="app-sidebar__link"
+            :disabled="!hasData"
+          >
+            <FacebookIcon aria-hidden="true" />
+            <span>Facebook</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link
+            :to="{ name: 'slack' }"
+            class="app-sidebar__link"
+            :disabled="!hasData"
+          >
+            <SlackIcon aria-hidden="true" />
+            <span>Slack</span>
+          </router-link>
+        </li>
+      </ul>
+    </nav>
+    <nav class="app-sidebar__section" aria-label="Search metadata analysis">
+      <h3 class="app-sidebar__section-title">Search</h3>
+      <ul class="app-sidebar__list">
+        <li>
+          <router-link
+            :to="{ name: 'search-meta' }"
+            class="app-sidebar__link"
+            :disabled="!hasData"
+          >
+            <CodeIcon aria-hidden="true" />
+            <span>Search Meta</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link
+            :to="{ name: 'robots-txt' }"
+            class="app-sidebar__link"
+            :disabled="!hasData"
+          >
+            <RobotIcon aria-hidden="true" />
+            <span>Robots</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link
+            :to="{ name: 'sitemap' }"
+            class="app-sidebar__link"
+            :disabled="!hasData"
+          >
+            <SitemapIcon aria-hidden="true" />
+            <span>Sitemap</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link
+            :to="{ name: 'open-search' }"
+            class="app-sidebar__link"
+            :disabled="!hasData"
+          >
+            <SearchIcon aria-hidden="true" />
+            <span>OpenSearch</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link
+            :to="{ name: 'structured-data' }"
+            class="app-sidebar__link"
+            :disabled="!hasData"
+          >
+            <SitemapIcon aria-hidden="true" />
+            <span>Structured Data</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link
+            :to="{ name: 'google' }"
+            class="app-sidebar__link"
+            :disabled="!hasData"
+          >
+            <GoogleIcon aria-hidden="true" />
+            <span>Google</span>
+          </router-link>
+        </li>
+      </ul>
     </nav>
     <footer class="app-sidebar__footer">
-      <external-link class="app-sidebar__external-link" href="https://heads-up-landing-page.netlify.app/">About Heads Up</external-link>
+      <external-link class="app-sidebar__external-link" href="https://heads-up-landing-page.netlify.app/">
+        About Heads Up
+      </external-link>
       <madeWithLove />
     </footer>
   </aside>
@@ -211,12 +276,12 @@ export default {
   margin-right: 0.625rem;
 }
 
-.disabled .app-sidebar__link {
+.app-sidebar__link[disabled="true"] {
   opacity: 0.5;
   cursor: default;
 }
 
-.disabled .app-sidebar__link:hover {
+.app-sidebar__link[disabled="true"]:hover {
   border-color: transparent;
   fill: var(--color-black);
   color: var(--color-black);

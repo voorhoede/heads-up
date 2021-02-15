@@ -47,6 +47,7 @@ export default {
   z-index: 10000;
   max-width: calc(75vw - var(--sidebar-width));
   transition: opacity 0.15s, visibility 0.15s;
+  border-radius: 3px;
 }
 
 .tooltip[aria-hidden="true"] {
