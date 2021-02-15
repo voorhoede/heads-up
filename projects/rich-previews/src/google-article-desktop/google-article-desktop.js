@@ -4,6 +4,7 @@ const app = Vue.createApp({
     const type = params.get('type');
 
     return {
+      isDarkMode: params.get('theme') === 'dark',
       type,
     };
   },

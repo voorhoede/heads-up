@@ -20,7 +20,7 @@
     width="100%"
     :style="{ 'height': iframeHeight }"
   />
-  <figcaption class="preview-iframe__caption">
+  <figcaption v-if="!isLoading" class="preview-iframe__caption">
     <slot name="caption" />
   </figcaption>
 </figure>

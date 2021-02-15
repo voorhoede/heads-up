@@ -10,8 +10,8 @@
 
   <body>
     <div id="app">
-      <h1 class="iframe-heading">{{ type }}</h1>
-      <div class="scroll-container">
+      <h1 class="iframe-heading" :class="{ 'iframe-heading--dark-mode': isDarkMode }">{{ type }}</h1>
+      <div class="scroll-container" :class="{ 'google--dark-mode': isDarkMode }">
         <div class="scroll-container__inner">
           <a rel="noopener" target="_blank" class="article">
             <div class="article__wrapper">

@@ -1,4 +1,5 @@
 :root {
+  --background-color: #ffffff;
   --body-color: #70757a;
   --border-color: #dfe1e5;
   --skeleton-color: #eeeeee;
@@ -15,11 +16,15 @@ html {
   margin-bottom: 0.5rem;
 }
 
+.iframe-heading--dark-mode {
+  color: #a5a5a5;
+}
+
 .scroll-container {
   overflow: auto;
-  padding: 0.5rem 1.5rem 0.5rem 0.5rem;
 }
 
 .scroll-container__inner {
   display: inline-block;
+  padding: 0.5rem;
 }

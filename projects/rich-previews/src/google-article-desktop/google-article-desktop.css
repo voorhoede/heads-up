@@ -8,6 +8,7 @@
 
 /* Article */
 .article {
+  background-color: var(--background-color);
   border-radius: 0.5rem;
   border: 1px solid var(--border-color);
   cursor: pointer;

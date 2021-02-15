@@ -44,6 +44,7 @@
 <script>
 import { mapState } from 'vuex';
 import { TYPES } from '@shared/lib/google-utils.js';
+import getTheme from '@shared/lib/theme';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
@@ -92,6 +93,7 @@ export default {
       const urlSegment = TYPES[type].urlSegment;
       const data = this.jsonldData[type][0];
 
+      params.set('theme', getTheme());
       params.set('type', data['@type']);
 
       return this.openTab === 'mobile'
