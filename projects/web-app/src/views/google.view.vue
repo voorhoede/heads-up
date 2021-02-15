@@ -43,6 +43,7 @@
 
 <script>
 import { computed, ref } from 'vue';
+import { format as formatDate } from 'timeago.js';
 import useHead from '@/composables/use-head';
 import { TYPES } from '@shared/lib/google-utils.js';
 
@@ -79,6 +80,12 @@ export default {
       const urlSegment = TYPES[type].urlSegment;
       const data = jsonldData.value[type][0];
 
+      params.set('dateModified', formatDate(data['dateModified']));
+      params.set('description', data['description']);
+      params.set('headline', data['headline']);
+      params.set('image', Array.isArray(data['image'][0]) ? data['image'][0] : data['image'].url);
+      params.set('publisherLogo', data['publisher'].logo.url);
+      params.set('publisherName', data['publisher'].name);
       params.set('type', data['@type']);
 
       return openTab.value === 'mobile'

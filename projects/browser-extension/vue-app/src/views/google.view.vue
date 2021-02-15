@@ -43,6 +43,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import { format as formatDate } from 'timeago.js';
 import { TYPES } from '@shared/lib/google-utils.js';
 import getTheme from '@shared/lib/theme';
 
@@ -93,6 +94,12 @@ export default {
       const urlSegment = TYPES[type].urlSegment;
       const data = this.jsonldData[type][0];
 
+      params.set('dateModified', formatDate(data['dateModified']));
+      params.set('description', data['description']);
+      params.set('headline', data['headline']);
+      params.set('image', Array.isArray(data['image'][0]) ? data['image'][0] : data['image'].url);
+      params.set('publisherLogo', data['publisher'].logo.url);
+      params.set('publisherName', data['publisher'].name);
       params.set('theme', getTheme());
       params.set('type', data['@type']);
 

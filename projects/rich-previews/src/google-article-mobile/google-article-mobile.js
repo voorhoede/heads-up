@@ -1,11 +1,16 @@
 const app = Vue.createApp({
   setup() {
     const params = new URL(window.location.href).searchParams;
-    const type = params.get('type');
 
     return {
+      dateModified: params.get('dateModified'),
+      description: params.get('description'),
+      headline: params.get('headline'),
+      image: params.get('image'),
       isDarkMode: params.get('theme') === 'dark',
-      type,
+      publisherLogo: params.get('publisherLogo'),
+      publisherName: params.get('publisherName'),
+      type: params.get('type'),
     };
   },
 });

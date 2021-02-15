@@ -15,33 +15,33 @@
         <div class="scroll-container__inner">
           <a rel="noopener" target="_blank" class="article article--variant">
             <div class="article__wrapper">
-              <img src="https://www.voorhoede.nl/images/social/logo-wide.jpg" class="article__image"/>
+              <img :src="image" class="article__image"/>
               <div class="article__content">
                 <div class="article__publisher">
-                  <img src="https://www.voorhoede.nl/images/social/favicon-32x32.png" class="article__publisher-logo"/>
-                  <p class="article__publisher-name">De Voorhoede</p>
+                  <img :src="publisherLogo" class="article__publisher-logo"/>
+                  <p class="article__publisher-name">{{ publisherName }}</p>
                 </div>
-                <p class="article__headline">Turning Vue components into reusable npm packages</p>
-                <p class="article__body">When working on multiple projects with Vue.js as your framework of choice, you often find yourself writing the same components over and over again. Is there a better way?</p>
+                <p class="article__headline">{{ headline }}</p>
+                <p class="article__description">{{ description }}</p>
               </div>
             </div>
             <div class="article__footer">
-              <time class="article__time">5 days ago</time>
+              <time class="article__time">{{ dateModified }}</time>
             </div>
           </a>
           <ul class="article-carrousel">
             <li class="article-carrousel__item">
               <a rel="noopener" target="_blank" class="article">
-                <img src="https://www.voorhoede.nl/images/social/logo-wide.jpg" class="article__image"/>
+                <img :src="image" class="article__image"/>
                 <div class="article__content">
                   <div class="article__publisher">
-                    <img src="https://www.voorhoede.nl/images/social/favicon-32x32.png" class="article__publisher-logo"/>
-                    <p class="article__publisher-name">De Voorhoede</p>
+                    <img :src="publisherLogo" class="article__publisher-logo"/>
+                    <p class="article__publisher-name">{{ publisherName }}</p>
                   </div>
-                  <p class="article__headline">Turning Vue components into reusable npm packages</p>
+                  <p class="article__headline">{{ headline }}</p>
                 </div>
                 <div class="article__footer">
-                  <time class="article__time">5 days ago</time>
+                  <time class="article__time">{{ dateModified }}</time>
                 </div>
               </a>
             </li>
