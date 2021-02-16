@@ -4,7 +4,9 @@ import Facebook from '@/views/facebook.view';
 import Favicon from '@/views/favicon.view';
 import Link from '@/views/link.view';
 import LinkedIn from '@/views/linkedin.view';
-import Meta from '@/views/meta.view';
+
+import Meta from '@shared/views/meta.view';
+
 import OpenGraph from '@/views/open-graph.view';
 import OpenSearch from '@/views/open-search.view';
 import RobotsTxt from '@/views/robots-txt.view';
