@@ -47,6 +47,7 @@
 <script>
 import { computed, onMounted, ref, watch } from 'vue';
 import useHead from '@/composables/use-head';
+import { TABS } from '@shared/lib/constants.js';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
@@ -58,17 +59,6 @@ import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import TabSelector from '@shared/components/tab-selector';
-
-const TABS = [
-  {
-    label: 'Mobile',
-    value: 'mobile',
-  },
-  {
-    label: 'Desktop',
-    value: 'desktop',
-  },
-];
 
 export default {
   setup() {

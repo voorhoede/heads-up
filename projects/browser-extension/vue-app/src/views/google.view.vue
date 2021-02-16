@@ -63,6 +63,7 @@
 <script>
 import { mapState } from 'vuex';
 import { format as formatDate } from 'timeago.js';
+import { TABS } from '@shared/lib/constants.js';
 import { TYPES } from '@shared/lib/google-utils.js';
 import getTheme from '@shared/lib/theme';
 
@@ -73,17 +74,6 @@ import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import TabSelector from '@shared/components/tab-selector';
 import WarningIcon from '@shared/assets/icons/warning.svg';
-
-const TABS = [
-  {
-    label: 'Mobile',
-    value: 'mobile',
-  },
-  {
-    label: 'Desktop',
-    value: 'desktop',
-  },
-];
 
 export default {
   components: {
