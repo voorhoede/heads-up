@@ -164,6 +164,16 @@
             <span>Structured Data</span>
           </router-link>
         </li>
+        <li>
+          <router-link
+            :to="{ name: 'google' }"
+            class="app-sidebar__link"
+            :disabled="!hasData"
+          >
+            <GoogleIcon aria-hidden="true" />
+            <span>Google</span>
+          </router-link>
+        </li>
       </ul>
     </nav>
     <footer class="app-sidebar__footer">
@@ -180,11 +190,12 @@ import { computed } from 'vue';
 import useHead from '@/composables/use-head';
 import AppleIcon from '@shared/assets/icons/apple.svg';
 import CodeIcon from '@shared/assets/icons/code.svg';
-import FacebookIcon from '@shared/assets/icons/facebook.svg';
-import ImageIcon from '@shared/assets/icons/image.svg';
 import ExternalLink from '@shared/components/external-link';
-import LinkIcon from '@shared/assets/icons/link.svg';
+import FacebookIcon from '@shared/assets/icons/facebook.svg';
+import GoogleIcon from '@shared/assets/icons/google.svg';
+import ImageIcon from '@shared/assets/icons/image.svg';
 import LinkedinIcon from '@shared/assets/icons/linkedin.svg';
+import LinkIcon from '@shared/assets/icons/link.svg';
 import MadeWithLove from '@shared/components/made-with-love';
 import OpenGraphIcon from '@shared/assets/icons/open-graph.svg';
 import RobotIcon from '@shared/assets/icons/robot.svg';
@@ -205,9 +216,10 @@ export default {
     CodeIcon,
     ExternalLink,
     FacebookIcon,
+    GoogleIcon,
     ImageIcon,
-    LinkIcon,
     LinkedinIcon,
+    LinkIcon,
     MadeWithLove,
     OpenGraphIcon,
     RobotIcon,

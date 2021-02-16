@@ -20,7 +20,7 @@
     width="100%"
     :style="{ 'height': iframeHeight }"
   />
-  <figcaption class="preview-iframe__caption">
+  <figcaption v-if="!isLoading" class="preview-iframe__caption">
     <slot name="caption" />
   </figcaption>
 </figure>
@@ -86,6 +86,11 @@ export default {
 <style>
 .preview-iframe {
   position: relative;
+  margin-bottom: 1.5em;
+}
+
+.preview-iframe:last-of-type {
+  margin-bottom: 0;
 }
 
 .preview-iframe__iframe {
@@ -93,8 +98,6 @@ export default {
   padding: 0;
   border: none;
   opacity: 0;
-  pointer-events: none;
-  user-select: none;
   height: 0;
 }
 

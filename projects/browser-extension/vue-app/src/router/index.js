@@ -124,7 +124,15 @@ const routes = [
     meta: {
       title: 'Structured Data',
     },
-    component: () => import(/* webpackChunkName:'views/sitemap' */ '@/views/structured-data.view'),
+    component: () => import(/* webpackChunkName:'views/structured-data' */ '@/views/structured-data.view'),
+  },
+  {
+    path: '/google',
+    name: 'google',
+    meta: {
+      title: 'Google',
+    },
+    component: () => import(/* webpackChunkName:'views/google' */ '@/views/google.view'),
   },
 ];
 

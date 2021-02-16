@@ -1,0 +1,52 @@
+:root {
+  --background-color: #ffffff;
+  --body-color: #70757a;
+  --border-color: #dfe1e5;
+  --skeleton-color: #eeeeee;
+}
+
+html {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  overflow: hidden;
+}
+
+.iframe-heading {
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.iframe-heading--dark-mode {
+  color: #a5a5a5;
+}
+
+.scroll-container {
+  overflow: auto;
+}
+
+.scroll-container__inner {
+  display: inline-block;
+  padding: 0.5rem;
+}
+
+.warning-message {
+  align-items: center;
+  color: #5a5a5a;
+  display: flex;
+  padding: 1.5rem 0 1rem;
+}
+
+.warning-message--dark-mode {
+  color: #a5a5a5;
+}
+
+.warning-message--web-app {
+  color: inherit;
+}
+
+.warning-message .icon {
+  fill: #eac250;
+  height: 1rem;
+  margin-right: 0.5rem;
+  width: 1rem;
+}
