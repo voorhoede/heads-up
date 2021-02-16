@@ -105,6 +105,7 @@ export default {
       params.set('description', data['description']);
       params.set('headline', data['headline']);
       params.set('image', getImageUrl(data['image']));
+      params.set('platform', 'web-app');
       params.set('publisherLogo', data['publisher'].logo.url);
       params.set('publisherName', data['publisher'].name);
       params.set('type', data['@type']);

@@ -121,6 +121,7 @@ export default {
       params.set('description', data['description']);
       params.set('headline', data['headline']);
       params.set('image', this.getImageUrl(data['image']));
+      params.set('platform', 'browser-extenstion');
       params.set('publisherLogo', data['publisher'].logo.url);
       params.set('publisherName', data['publisher'].name);
       params.set('theme', getTheme());
