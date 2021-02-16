@@ -1,10 +1,11 @@
+import Home from '@/views/home.view';
+
 import AppleIos from '@shared/views/apple-ios.view';
 import Facebook from '@shared/views/facebook.view';
 import Favicon from '@shared/views/favicon.view';
 import Link from '@shared/views/link.view';
 import LinkedIn from '@shared/views/linkedin.view';
-import Google from '@/views/google.view';
-import Home from '@/views/home.view';
+import Google from '@shared/views/google.view';
 import Meta from '@shared/views/meta.view';
 import OpenGraph from '@shared/views/open-graph.view';
 import OpenSearch from '@shared/views/open-search.view';
