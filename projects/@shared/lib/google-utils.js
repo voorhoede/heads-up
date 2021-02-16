@@ -8,3 +8,13 @@ export const TYPES = {
     } ],
   },
 };
+
+export const splitTypes = jsonldData => {
+  return Object.keys(jsonldData).reduce(
+    (acc, type) => {
+      acc[type in TYPES ? 0 : 1].push(type);
+      return acc;
+    },
+    [ [], [] ]
+  );
+};

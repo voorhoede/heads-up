@@ -65,7 +65,7 @@ import { computed, ref } from 'vue';
 import { format as formatDate } from 'timeago.js';
 import useHead from '@/composables/use-head';
 import { TABS } from '@shared/lib/constants.js';
-import { TYPES } from '@shared/lib/google-utils.js';
+import { TYPES, splitTypes } from '@shared/lib/google-utils.js';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
@@ -80,10 +80,7 @@ export default {
     const headData = useHead().data;
     const openTab = ref(TABS[0].value);
     const jsonldData = computed(() => headData.value.structuredData.jsonld);
-    const [ supportedTypes, notSupportedTypes ] = Object.keys(jsonldData.value).reduce((acc, type) => {
-      acc[type in TYPES ? 0 : 1].push(type);
-      return acc;
-    }, [ [], [] ]);
+    const [ supportedTypes, notSupportedTypes ] = splitTypes(jsonldData.value);
     const resources = supportedTypes.map(type => TYPES[type].resources).flat();
 
     const getPreviewUrl = type => {

@@ -64,7 +64,7 @@
 import { mapState } from 'vuex';
 import { format as formatDate } from 'timeago.js';
 import { TABS } from '@shared/lib/constants.js';
-import { TYPES } from '@shared/lib/google-utils.js';
+import { TYPES, splitTypes } from '@shared/lib/google-utils.js';
 import getTheme from '@shared/lib/theme';
 
 import ExternalLink from '@shared/components/external-link';
@@ -161,10 +161,7 @@ export default {
     jsonldData: {
       immediate: true,
       handler() {
-        const [ supportedTypes, notSupportedTypes ] = Object.keys(this.jsonldData).reduce((acc, type) => {
-          acc[type in TYPES ? 0 : 1].push(type);
-          return acc;
-        }, [ [], [] ]);
+        const [ supportedTypes, notSupportedTypes ] = splitTypes(this.jsonldData);
 
         this.supportedTypes = supportedTypes;
         this.notSupportedTypes = notSupportedTypes;
