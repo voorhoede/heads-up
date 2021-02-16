@@ -11,7 +11,10 @@
   <body>
     <div id="app">
       <h1 class="iframe-heading" :class="{ 'iframe-heading--dark-mode': isDarkMode }">{{ type }}</h1>
-      <div class="scroll-container" :class="{ 'google--dark-mode': isDarkMode }">
+      <p v-if="!hasRequiredData">
+        This page does not contain the necessary metadata to create a preview.
+      </p>
+      <div v-else class="scroll-container" :class="{ 'google--dark-mode': isDarkMode }">
         <div class="scroll-container__inner">
           <a rel="noopener" target="_blank" class="article article--variant">
             <div class="article__wrapper">
