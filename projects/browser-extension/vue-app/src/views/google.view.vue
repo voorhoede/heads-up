@@ -31,6 +31,25 @@
       </div>
     </panel-section>
 
+    <panel-section
+      v-for="type in supportedTypes"
+      :title="`Properties - ${type}`"
+      :key="type"
+    >
+      <properties-list>
+        <properties-item
+          v-for="item in getMetaData(type)"
+          :key="item.term"
+          :term="item.term"
+          :value="item.value"
+          :image="item.image"
+          :type="item.type"
+          :required="true"
+        >
+        </properties-item>
+      </properties-list>
+    </panel-section>
+
     <panel-section v-if="resources.length > 0" title="Resources">
       <ul class="resource-list">
         <li v-for="resource in resources" :key="resource.url">
@@ -50,6 +69,8 @@ import getTheme from '@shared/lib/theme';
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
+import PropertiesItem from '@shared/components/properties-item';
+import PropertiesList from '@shared/components/properties-list';
 import TabSelector from '@shared/components/tab-selector';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 
@@ -69,6 +90,8 @@ export default {
     ExternalLink,
     PanelSection,
     PreviewIframe,
+    PropertiesItem,
+    PropertiesList,
     TabSelector,
     WarningIcon,
   },
@@ -97,7 +120,7 @@ export default {
       params.set('dateModified', formatDate(data['dateModified']));
       params.set('description', data['description']);
       params.set('headline', data['headline']);
-      params.set('image', Array.isArray(data['image'][0]) ? data['image'][0] : data['image'].url);
+      params.set('image', this.getImageUrl(data['image']));
       params.set('publisherLogo', data['publisher'].logo.url);
       params.set('publisherName', data['publisher'].name);
       params.set('theme', getTheme());
@@ -106,6 +129,41 @@ export default {
       return this.openTab === 'mobile'
         ? `/previews/google-${ urlSegment }-mobile/google-${ urlSegment }-mobile.html?${ params }`
         : `/previews/google-${ urlSegment }-desktop/google-${ urlSegment }-desktop.html?${ params }`;
+    },
+    getMetaData(type) {
+      const data = this.jsonldData[type][0];
+      const metaData = {
+        NewsArticle: [
+          { term: '@type', value: data['@type'] },
+          { term: 'headline', value: data['headline'] },
+          { term: 'description', value: data['description'] },
+          { term: 'dateModified', value: data['dateModified'] },
+          { term: 'publisher - name', value: data['publisher'].name },
+          {
+            term: 'publisher - logo',
+            value: this.getImageUrl(data['publisher'].logo),
+            image: {
+              href: this.getImageUrl(data['publisher'].logo),
+              url: this.getImageUrl(data['publisher'].logo),
+            },
+            type: 'image',
+          },
+          {
+            term: 'image',
+            value: this.getImageUrl(data['image']),
+            image: {
+              href: this.getImageUrl(data['image']),
+              url: this.getImageUrl(data['image']),
+            },
+            type: 'image',
+          },
+        ],
+      };
+
+      return metaData[type];
+    },
+    getImageUrl(img) {
+      return Array.isArray(img) ? img[0] : img.url;
     },
   },
   watch: {
