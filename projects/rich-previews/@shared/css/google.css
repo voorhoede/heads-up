@@ -28,3 +28,25 @@ html {
   display: inline-block;
   padding: 0.5rem;
 }
+
+.warning-message {
+  align-items: center;
+  color: #5a5a5a;
+  display: flex;
+  padding: 1.5rem 0 1rem;
+}
+
+.warning-message--dark-mode {
+  color: #a5a5a5;
+}
+
+.warning-message--web-app {
+  color: inherit;
+}
+
+.warning-message .icon {
+  fill: #eac250;
+  height: 1rem;
+  margin-right: 0.5rem;
+  width: 1rem;
+}
