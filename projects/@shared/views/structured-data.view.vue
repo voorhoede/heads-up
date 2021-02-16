@@ -39,15 +39,20 @@
 
 <script>
 import { computed } from 'vue';
-import useHead from '@/composables/use-head';
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
-  setup: () => {
-    const headData = useHead().data;
-    const structuredData = computed(() => headData.value.structuredData);
+  props: {
+    headData: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  setup: props => {
+    const structuredData = computed(() => props.headData.structuredData);
     const hasMicrodata = computed(() => Object.keys(structuredData.value.microdata).length > 0);
     const hasJsonld = computed(() => Object.keys(structuredData.value.jsonld).length > 0);
     const hasRdfa = computed(() => Object.keys(structuredData.value.rdfa).length > 0);

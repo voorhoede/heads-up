@@ -35,7 +35,6 @@
 
 <script>
 import { computed, onMounted, ref, watch } from 'vue';
-import useHead from '@/composables/use-head';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import {
   findAdditionalTwitterData,
@@ -54,11 +53,17 @@ import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 
 export default {
-  setup() {
-    const headData = useHead().data;
+  props: {
+    headData: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  setup: props => {
     const imageDimensions = ref({ height: undefined, width: undefined });
     const hasRequiredData = computed(() => (
-      (og.value.title || headData.value.head.title) &&
+      (og.value.title || props.headData.head.title) &&
       (og.value.description || headDescription.value)
     ));
     const og = computed(() => ({
@@ -69,13 +74,13 @@ export default {
       image: propertyValue('og:image'),
       url: propertyValue('og:url'),
     }));
-    const headDescription = computed(() => (findMetaContent(headData.value.head, 'description')));
+    const headDescription = computed(() => (findMetaContent(props.headData.head, 'description')));
     const favicon = computed(() => (
-      findFavicons(headData.value.head).length ? findFavicons(headData.value.head)[0].url : ''
+      findFavicons(props.headData.head).length ? findFavicons(props.headData.head)[0].url : ''
     ));
     const additional = computed(() => ({
       favicon: favicon.value,
-      twitterData: findAdditionalTwitterData(headData.value.head),
+      twitterData: findAdditionalTwitterData(props.headData.head),
     }));
     const themeClass = computed(() => getTheme() === 'dark' ? '-theme-with-dark-background' : '');
     const previewUrl = computed(() => {
@@ -87,8 +92,8 @@ export default {
       params.set('imageIsBig', imageDimensions.value.height > 201 && imageDimensions.value.width > 201);
       params.set('siteName', og.value.site_name);
       params.set('theme', themeClass.value);
-      params.set('title', og.value.title || headData.value.head.title || 'Weblink');
-      params.set('url', headData.value.head.url);
+      params.set('title', og.value.title || props.headData.head.title || 'Weblink');
+      params.set('url', props.headData.head.url);
       params.set('validImage', imageDimensions.value.height > 0 && imageDimensions.value.width > 0);
       return `/previews/slack/slack.html?${ params }`;
     });
@@ -137,11 +142,11 @@ export default {
       )).flat(),
     ]));
 
-    const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
-    const getImageDimensions = () => findImageDimensions(headData.value.head, 'og:image')
+    const absoluteUrl = url => createAbsoluteUrl(props.headData.head, url);
+    const getImageDimensions = () => findImageDimensions(props.headData.head, 'og:image')
       .then(dimensions => imageDimensions.value = dimensions);
     const propertyValue = propName =>
-      findMetaProperty(headData.value.head, propName) || findMetaContent(headData.value.head, propName);
+      findMetaProperty(props.headData.head, propName) || findMetaContent(props.headData.head, propName);
 
     watch(() => og.value.image, value => {
       if (value) {

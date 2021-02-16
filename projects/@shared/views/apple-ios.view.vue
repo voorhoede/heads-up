@@ -65,7 +65,6 @@
 
 <script>
 import { computed } from 'vue';
-import useHead from '@/composables/use-head';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findMetaContent } from '@shared/lib/find-meta';
 
@@ -76,10 +75,16 @@ import PropertiesList from '@shared/components/properties-list';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
-  setup: () => {
-    const headData = useHead().data;
+  props: {
+    headData: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  setup: props => {
     const metaData = computed(() => {
-      const { head } = headData.value;
+      const { head } = props.headData;
       return [
         {
           term: 'apple-mobile-web-app-capable',
@@ -103,8 +108,9 @@ export default {
         },
       ];
     });
+
     const touchIcons = computed(() => {
-      return headData.value.head.link
+      return props.headData.head.link
         .filter(link => link.rel === 'apple-touch-icon')
         .map(icon => ({
           ...icon,
@@ -112,8 +118,9 @@ export default {
           term: [ icon.rel, icon.sizes ],
         }));
     });
+
     const startupImages = computed(() => {
-      return headData.value.head.link
+      return props.headData.head.link
         .filter(link => link.rel === 'apple-touch-startup-image')
         .map(image => ({
           ...image,
@@ -122,7 +129,7 @@ export default {
         }));
     });
 
-    const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
+    const absoluteUrl = url => createAbsoluteUrl(props.headData.head, url);
 
     return {
       metaData,

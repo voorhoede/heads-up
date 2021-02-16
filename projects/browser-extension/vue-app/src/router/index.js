@@ -12,7 +12,7 @@ const routes = [
     meta: {
       title: 'Meta',
     },
-    component: () => import(/* webpackChunkName:'views/meta' */ '@/views/meta.view'),
+    component: () => import(/* webpackChunkName:'views/meta' */ '@shared/views/meta.view'),
   },
   {
     path: '/link',

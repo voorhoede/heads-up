@@ -71,8 +71,14 @@ const TABS = [
 ];
 
 export default {
-  setup() {
-    const headData = useHead().data;
+  props: {
+    headData: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  setup: props => {
     const openTab = ref(TABS[0].value);
     const imageDimensions = ref({ height: undefined, width: undefined });
     const imageSpecified = ref(true);
@@ -107,8 +113,8 @@ export default {
     const previewUrl = computed(() => {
       const isDesktop = openTab.value === 'desktop';
       const params = new URLSearchParams();
-      params.set('title', og.value.title || headData.value.head.title);
-      params.set('url', headData.value.head.url);
+      params.set('title', og.value.title || props.headData.head.title);
+      params.set('url', props.headData.head.url);
       params.set('image', og.value.image);
       params.set('theme', themeClass.value);
       params.set('imageSpecified', imageSpecified.value);
@@ -233,11 +239,11 @@ export default {
       },
     ]));
 
-    const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
-    const getImageDimensions = () => findImageDimensions(headData.value.head, 'og:image')
+    const absoluteUrl = url => createAbsoluteUrl(props.headData.head, url);
+    const getImageDimensions = () => findImageDimensions(props.headData.head, 'og:image')
       .then(dimensions => imageDimensions.value = dimensions);
     const propertyValue = propName =>
-      findMetaProperty(headData.value.head, propName) || findMetaContent(headData.value.head, propName);
+      findMetaProperty(props.headData.head, propName) || findMetaContent(props.headData.head, propName);
 
     watch(() => og.value.image, value => {
       if (value) {

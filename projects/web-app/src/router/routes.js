@@ -1,21 +1,19 @@
 import Home from '@/views/home.view';
-import AppleIos from '@/views/apple-ios.view';
-import Facebook from '@/views/facebook.view';
-import Favicon from '@/views/favicon.view';
-import Link from '@/views/link.view';
-import LinkedIn from '@/views/linkedin.view';
-
+import AppleIos from '@shared/views/apple-ios.view';
+import Facebook from '@shared/views/facebook.view';
+import Favicon from '@shared/views/favicon.view';
+import Link from '@shared/views/link.view';
+import LinkedIn from '@shared/views/linkedin.view';
 import Meta from '@shared/views/meta.view';
-
-import OpenGraph from '@/views/open-graph.view';
-import OpenSearch from '@/views/open-search.view';
-import RobotsTxt from '@/views/robots-txt.view';
-import SearchMeta from '@/views/search-meta.view';
-import Sitemap from '@/views/sitemap.view';
-import Slack from '@/views/slack.view';
-import StructuredData from '@/views/structured-data.view';
-import Twitter from '@/views/twitter.view';
-import Whatsapp from '@/views/whatsapp.view';
+import OpenGraph from '@shared/views/open-graph.view';
+import OpenSearch from '@shared/views/open-search.view';
+import RobotsTxt from '@shared/views/robots-txt.view';
+import SearchMeta from '@shared/views/search-meta.view';
+import Sitemap from '@shared/views/sitemap.view';
+import Slack from '@shared/views/slack.view';
+import StructuredData from '@shared/views/structured-data.view';
+import Twitter from '@shared/views/twitter.view';
+import Whatsapp from '@shared/views/whatsapp.view';
 
 export default [
   {

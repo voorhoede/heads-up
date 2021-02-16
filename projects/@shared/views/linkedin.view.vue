@@ -62,8 +62,14 @@ import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 
 export default {
-  setup() {
-    const headData = useHead().data;
+  props: {
+    headData: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  setup: props => {
     const imageDimensions = ref({ height: undefined, width: undefined });
     const hasRequiredData = computed(() => (
       Boolean(og.value.title) &&
@@ -122,11 +128,11 @@ export default {
       },
     ]));
 
-    const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
-    const getImageDimensions = () => findImageDimensions(headData.value.head, 'og:image')
+    const absoluteUrl = url => createAbsoluteUrl(props.headData.head, url);
+    const getImageDimensions = () => findImageDimensions(props.headData.head, 'og:image')
       .then(dimensions => imageDimensions.value = dimensions);
     const propertyValue = propName =>
-      findMetaProperty(headData.value.head, propName) || findMetaContent(headData.value.head, propName);
+      findMetaProperty(props.headData.head, propName) || findMetaContent(props.headData.head, propName);
 
     watch(() => og.value.image, value => {
       if (value) {

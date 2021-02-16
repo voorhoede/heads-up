@@ -15,7 +15,7 @@
             {{ head.url }}
           </external-link>
         </panel-section>
-        <router-view />
+        <router-view :head-data="{ head }" />
       </template>
     </main>
 
