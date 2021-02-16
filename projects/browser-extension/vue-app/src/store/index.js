@@ -20,7 +20,7 @@ export default createStore({
     robots: [],
     sitemaps: [],
     sitemapUrls: [],
-    theme: 'default',
+    theme: 'default', // @TODO :: is this needed?
   }),
   actions: {
     GET_ROBOTS_TXT ({ commit, state }) {

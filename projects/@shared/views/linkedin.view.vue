@@ -49,7 +49,6 @@
 
 <script>
 import { computed, onMounted, ref, watch } from 'vue';
-import useHead from '@/composables/use-head';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';

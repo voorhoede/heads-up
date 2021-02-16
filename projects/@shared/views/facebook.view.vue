@@ -46,7 +46,6 @@
 
 <script>
 import { computed, onMounted, ref, watch } from 'vue';
-import useHead from '@/composables/use-head';
 import { TABS } from '@shared/lib/constants.js';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';

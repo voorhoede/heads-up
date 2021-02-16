@@ -1,6 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
-
 const routes = [
   {
     path: '/',
@@ -20,7 +19,7 @@ const routes = [
     meta: {
       title: 'Link',
     },
-    component: () => import(/* webpackChunkName:'views/link' */ '@/views/link.view'),
+    component: () => import(/* webpackChunkName:'views/link' */ '@shared/views/link.view'),
   },
   {
     path: '/favicon',
@@ -28,7 +27,7 @@ const routes = [
     meta: {
       title: 'Favicon',
     },
-    component: () => import(/* webpackChunkName:'views/favicon' */ '@/views/favicon.view'),
+    component: () => import(/* webpackChunkName:'views/favicon' */ '@shared/views/favicon.view'),
   },
   {
     path: '/apple-ios',
@@ -36,7 +35,7 @@ const routes = [
     meta: {
       title: 'Apple iOS',
     },
-    component: () => import(/* webpackChunkName:'views/apple-ios' */ '@/views/apple-ios.view'),
+    component: () => import(/* webpackChunkName:'views/apple-ios' */ '@shared/views/apple-ios.view'),
   },
   {
     path: '/open-graph',
@@ -44,7 +43,7 @@ const routes = [
     meta: {
       title: 'Open Graph',
     },
-    component: () => import(/* webpackChunkName:'views/open-graph' */ '@/views/open-graph.view'),
+    component: () => import(/* webpackChunkName:'views/open-graph' */ '@shared/views/open-graph.view'),
   },
   {
     path: '/twitter',
@@ -52,7 +51,7 @@ const routes = [
     meta: {
       title: 'Twitter',
     },
-    component: () => import(/* webpackChunkName:'views/twitter' */ '@/views/twitter.view'),
+    component: () => import(/* webpackChunkName:'views/twitter' */ '@shared/views/twitter.view'),
   },
   {
     path: '/whatsapp',
@@ -60,7 +59,7 @@ const routes = [
     meta: {
       title: 'WhatsApp',
     },
-    component: () => import(/* webpackChunkName:'views/whatsapp' */ '@/views/whatsapp.view'),
+    component: () => import(/* webpackChunkName:'views/whatsapp' */ '@shared/views/whatsapp.view'),
   },
   {
     path: '/linkedin',
@@ -68,7 +67,7 @@ const routes = [
     meta: {
       title: 'LinkedIn',
     },
-    component: () => import(/* webpackChunkName:'views/linkedin' */ '@/views/linkedin.view'),
+    component: () => import(/* webpackChunkName:'views/linkedin' */ '@shared/views/linkedin.view'),
   },
   {
     path: '/facebook',
@@ -76,7 +75,7 @@ const routes = [
     meta: {
       title: 'Facebook',
     },
-    component: () => import(/* webpackChunkName:'views/facebook' */ '@/views/facebook.view'),
+    component: () => import(/* webpackChunkName:'views/facebook' */ '@shared/views/facebook.view'),
   },
   {
     path: '/slack',
@@ -84,7 +83,7 @@ const routes = [
     meta: {
       title: 'Slack',
     },
-    component: () => import(/* webpackChunkName:'views/slack' */ '@/views/slack.view'),
+    component: () => import(/* webpackChunkName:'views/slack' */ '@shared/views/slack.view'),
   },
   {
     path: '/search-meta',
@@ -92,15 +91,7 @@ const routes = [
     meta: {
       title: 'Search Meta',
     },
-    component: () => import(/* webpackChunkName:'views/search-meta' */ '@/views/search-meta.view'),
-  },
-  {
-    path: '/open-search',
-    name: 'open-search',
-    meta: {
-      title: 'OpenSearch',
-    },
-    component: () => import(/* webpackChunkName:'views/open-search' */ '@/views/open-search.view'),
+    component: () => import(/* webpackChunkName:'views/search-meta' */ '@shared/views/search-meta.view'),
   },
   {
     path: '/robots-txt',
@@ -108,7 +99,7 @@ const routes = [
     meta: {
       title: 'Robots.txt',
     },
-    component: () => import(/* webpackChunkName:'views/robots-txt' */ '@/views/robots-txt.view'),
+    component: () => import(/* webpackChunkName:'views/robots-txt' */ '@shared/views/robots-txt.view'),
   },
   {
     path: '/sitemap',
@@ -116,7 +107,15 @@ const routes = [
     meta: {
       title: 'Sitemap',
     },
-    component: () => import(/* webpackChunkName:'views/sitemap' */ '@/views/sitemap.view'),
+    component: () => import(/* webpackChunkName:'views/sitemap' */ '@shared/views/sitemap.view'),
+  },
+  {
+    path: '/open-search',
+    name: 'open-search',
+    meta: {
+      title: 'OpenSearch',
+    },
+    component: () => import(/* webpackChunkName:'views/open-search' */ '@shared/views/open-search.view'),
   },
   {
     path: '/structured-data',
@@ -124,7 +123,7 @@ const routes = [
     meta: {
       title: 'Structured Data',
     },
-    component: () => import(/* webpackChunkName:'views/structured-data' */ '@/views/structured-data.view'),
+    component: () => import(/* webpackChunkName:'views/structured-data' */ '@shared/views/structured-data.view'),
   },
   {
     path: '/google',
@@ -132,7 +131,8 @@ const routes = [
     meta: {
       title: 'Google',
     },
-    component: () => import(/* webpackChunkName:'views/google' */ '@/views/google.view'),
+    // @HERE 👋 :: Check why this is not working
+    component: () => import(/* webpackChunkName:'views/google' */ '@shared/views/google.view'),
   },
 ];
 
