@@ -43,6 +43,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import { TABS } from '@shared/lib/constants.js';
 import { TYPES } from '@shared/lib/google-utils.js';
 import getTheme from '@shared/lib/theme';
 
@@ -51,17 +52,6 @@ import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
 import TabSelector from '@shared/components/tab-selector';
 import WarningIcon from '@shared/assets/icons/warning.svg';
-
-const TABS = [
-  {
-    label: 'Mobile',
-    value: 'mobile',
-  },
-  {
-    label: 'Desktop',
-    value: 'desktop',
-  },
-];
 
 export default {
   components: {

@@ -44,6 +44,7 @@
 <script>
 import { computed, ref } from 'vue';
 import useHead from '@/composables/use-head';
+import { TABS } from '@shared/lib/constants.js';
 import { TYPES } from '@shared/lib/google-utils.js';
 
 import ExternalLink from '@shared/components/external-link';
@@ -51,17 +52,6 @@ import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
 import TabSelector from '@shared/components/tab-selector';
 import WarningIcon from '@shared/assets/icons/warning.svg';
-
-const TABS = [
-  {
-    label: 'Mobile',
-    value: 'mobile',
-  },
-  {
-    label: 'Desktop',
-    value: 'desktop',
-  },
-];
 
 export default {
   setup() {
