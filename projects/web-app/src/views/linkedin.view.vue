@@ -78,14 +78,13 @@ export default {
       description: propertyValue('og:description'),
       url: propertyValue('og:url'),
     }));
-    const themeClass = computed(() => getTheme() === 'dark' ? '-theme-with-dark-background' : '');
     const previewUrl = computed(() => {
       const params = new URLSearchParams();
       params.set('title', og.value.title);
       params.set('image', og.value.image);
       params.set('description', og.value.description);
       params.set('url', og.value.url);
-      params.set('theme', themeClass.value);
+      params.set('theme', getTheme());
       params.set('imageIsBig', imageDimensions.value.height >= 400 && imageDimensions.value.width >= 400);
       return `/previews/linkedin/linkedin.html?${ params }`;
     });
@@ -139,7 +138,6 @@ export default {
     return {
       hasRequiredData,
       og,
-      themeClass,
       previewUrl,
       metaData,
       schema,
