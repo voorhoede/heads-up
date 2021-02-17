@@ -112,17 +112,13 @@ export default {
       };
     },
 
-    themeClass() {
-      return getTheme() === 'dark' ? '-theme-with-dark-background' : '';
-    },
-
     previewUrl() {
       const isDesktop = this.openTab === 'desktop';
       const params = new URLSearchParams();
       params.set('title', this.og.title || this.head.title);
       params.set('url', this.head.url);
       params.set('image', this.og.image);
-      params.set('theme', this.themeClass);
+      params.set('theme', getTheme());
       params.set('imageSpecified', this.imageSpecified);
       params.set('description', this.og.description);
       if (this.og.image !== undefined) {

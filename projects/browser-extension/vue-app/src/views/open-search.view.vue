@@ -71,13 +71,10 @@ export default {
   },
   computed: {
     ...mapState([ 'head', 'openSearchContent', 'openSearchUrl' ]),
-    themeClass() {
-      return getTheme() === 'dark' ? '-theme-with-dark-background' : '';
-    },
     previewUrl() {
       const params = new URLSearchParams();
       params.set('title', this.shortName);
-      params.set('theme', this.themeClass);
+      params.set('theme', getTheme());
 
       return `/previews/open-search/open-search.html?${ params }`;
     },

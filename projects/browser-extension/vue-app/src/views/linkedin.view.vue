@@ -96,16 +96,13 @@ export default {
         url: this.propertyValue('og:url'),
       };
     },
-    themeClass() {
-      return getTheme() === 'dark' ? '-theme-with-dark-background' : '';
-    },
     previewUrl() {
       const params = new URLSearchParams();
       params.set('title', this.og.title);
       params.set('image', this.og.image);
       params.set('description', this.og.description);
       params.set('url', this.og.url);
-      params.set('theme', this.themeClass);
+      params.set('theme', getTheme());
       params.set('imageIsBig', this.imageDimensions.height >= 400 && this.imageDimensions.width >= 400);
 
       return `/previews/linkedin/linkedin.html?${ params }`;
