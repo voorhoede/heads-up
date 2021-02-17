@@ -16,11 +16,17 @@
   --font-default: 'apercu', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, Verdana, sans-serif;
 
   --header-height: 70px;
-  --sidebar-width: 17rem;
+  --sidebar-width: 14rem;
 
   --label-color: #5f5f5f;
   --bg-color: var(--color-light-gray);
 
   /* sizes */
   --preview-width: 520px;
+}
+
+@media (min-width: 600px) {
+  :root {
+    --sidebar-width: 17rem;
+  }
 }

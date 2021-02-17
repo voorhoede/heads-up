@@ -47,23 +47,20 @@ export default {
   display: flex;
   height: 100vh;
   min-height: 100vh;
-  overflow-x: hidden;
 }
 
 .app-main {
   flex: 1 1 auto;
   margin-top: var(--header-height);
   margin-left: var(--sidebar-width);
-  overflow: auto;
-  border-top: 1px solid var(--color-gray);
 }
 
 .app-main__view-title {
   display: inline-block;
-  border-bottom: 2px solid var(--color-blue);
-  color: var(--color-blue);
   margin-bottom: 8px;
   margin-left: 16px;
   padding: 16px 0 8px;
+  border-bottom: 2px solid var(--color-blue);
+  color: var(--color-blue);
 }
 </style>
