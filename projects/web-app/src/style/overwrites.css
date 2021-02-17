@@ -10,6 +10,16 @@
   margin-bottom: 26px;
 }
 
+@media (min-width: 1024px) {
+  .properties-item__terms {
+    width: 350px;
+  }
+}
+
+.properties-item__value {
+  max-width: calc(100vw - var(--sidebar-width) - 300px);
+}
+
 .properties-item__image {
   margin-bottom: 0;
 }

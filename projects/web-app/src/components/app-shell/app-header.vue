@@ -69,7 +69,19 @@ export default {
 .app-header__search .input-url {
   display: flex;
   width: 100%;
-  max-width: 400px;
+  max-width: 350px;
+}
+
+@media (min-width: 1024px) {
+  .app-header__search .input-url {
+    max-width: 500px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .app-header__search .input-url {
+    max-width: 550px;
+  }
 }
 
 .app-header__search .input-url__input {
