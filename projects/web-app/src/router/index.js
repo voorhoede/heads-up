@@ -1,6 +1,23 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import sharedRoutes from '@shared/views/_shared-routes';
 import useHead from '@/composables/use-head';
-import routes from './routes';
+import Home from '@/views/home.view';
+
+const routes = [
+  {
+    path: '/',
+    name: 'home',
+    component: Home,
+  },
+
+  ...sharedRoutes,
+
+  // Catch all fallback
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/',
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
