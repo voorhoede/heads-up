@@ -11,12 +11,6 @@ const routes = [
   },
 
   ...sharedRoutes,
-
-  // Catch all fallback
-  {
-    path: '/:pathMatch(.*)*',
-    redirect: '/',
-  },
 ];
 
 const router = createRouter({

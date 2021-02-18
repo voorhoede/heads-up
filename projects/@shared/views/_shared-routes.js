@@ -129,4 +129,10 @@ export default [
     },
     component: () => import(/* webpackChunkName:'views/google' */ '@shared/views/google.view'),
   },
+
+  // Catch all fallback
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/',
+  },
 ];
