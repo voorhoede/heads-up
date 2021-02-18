@@ -49,7 +49,6 @@
 
 <script>
 import { computed } from 'vue';
-import useHead from '@/composables/use-head';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import schema from '@shared/lib/schemas/whatsapp-schema';
@@ -61,11 +60,17 @@ import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 
 export default {
-  setup() {
-    const headData = useHead().data;
+  props: {
+    headData: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  setup: props => {
     const hasRequiredData = computed(() => (
-      (og.value.title || headData.value.head.title) &&
-      (og.value.description || headData.value.headDescription)
+      (og.value.title || props.headData.head.title) &&
+      (og.value.description || props.headData.headDescription)
     ));
     const og = computed(() => ({
       title: propertyValue('og:title'),
@@ -75,7 +80,7 @@ export default {
       url: propertyValue('og:url'),
     }));
     const title = computed(() => (
-      propertyValue('og:title') || headData.value.head.title || ''
+      propertyValue('og:title') || props.headData.head.title || ''
     ));
     const description = computed(() => (og.value.description));
     const hasDescription = computed(() => (
@@ -89,7 +94,7 @@ export default {
       params.set('title', og.value.title || title.value);
       params.set('description', description.value);
       params.set('image', image.value);
-      params.set('url', headData.value.head.url);
+      params.set('url', props.headData.head.url);
       return `/previews/whatsapp/whatsapp.html?${ params }`;
     });
     const metaData = computed(() => ([
@@ -125,9 +130,9 @@ export default {
       },
     ]));
 
-    const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
+    const absoluteUrl = url => createAbsoluteUrl(props.headData.head, url);
     const propertyValue = propName =>
-      findMetaProperty(headData.value.head, propName) || findMetaContent(headData.value.head, propName);
+      findMetaProperty(props.headData.head, propName) || findMetaContent(props.headData.head, propName);
 
     return {
       hasRequiredData,

@@ -6,7 +6,7 @@
       <loader v-if="isLoadingHeadData" />
       <template v-else>
         <h1 v-if="title" class="app-main__view-title">{{ title }}</h1>
-        <router-view />
+        <router-view :head-data="headData" />
       </template>
     </main>
   </div>
@@ -29,6 +29,7 @@ export default {
 
 
     return {
+      headData: head.data,
       isLoadingHeadData,
       title,
     };
