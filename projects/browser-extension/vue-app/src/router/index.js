@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import sharedRoutes from '@shared/views/_shared-routes';
+import sharedRoutes from '@shared/views/shared-routes';
 
 const routes = [
   {
