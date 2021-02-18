@@ -31,7 +31,6 @@
 
 <script>
 import { computed } from 'vue';
-import useHead from '@/composables/use-head';
 import { findFavicons } from '@shared/lib/find-meta';
 
 import ExternalLink from '@shared/components/external-link';
@@ -41,10 +40,16 @@ import PropertiesList from '@shared/components/properties-list';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
-  setup: () => {
-    const headData = useHead().data;
+  props: {
+    headData: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  setup: props => {
     const favicons = computed(() => (
-      findFavicons(headData.value.head).map(image => ({
+      findFavicons(props.headData.head).map(image => ({
         ...image,
         term: [ image.type, image.rel, image.sizes ],
       }))

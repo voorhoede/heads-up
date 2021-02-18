@@ -29,7 +29,6 @@
 
 <script>
 import { computed, ref } from 'vue';
-import useHead from '@/composables/use-head';
 import { findCharset, findMetaContent } from '@shared/lib/find-meta';
 import validateData from '@shared/lib/validate-data';
 import { schema, info } from '@shared/lib/schemas/app-meta-schema';
@@ -40,11 +39,17 @@ import PropertiesItemNew from '@shared/components/properties-item-new';
 import PropertiesList from '@shared/components/properties-list';
 
 export default {
-  setup: () => {
-    const headData = useHead().data;
+  props: {
+    headData: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  setup: props => {
     const validation = ref({});
     const metaData = computed(() => {
-      const { head } = headData.value;
+      const { head } = props.headData;
       return [
         {
           term: 'title',
@@ -84,6 +89,7 @@ export default {
       validation,
     };
   },
+
   components: {
     ExternalLink,
     PanelSection,

@@ -30,7 +30,6 @@
 
 <script>
 import { computed } from 'vue';
-import useHead from '@/composables/use-head';
 import schema from '@shared/lib/schemas/open-graph-schema';
 
 import ExternalLink from '@shared/components/external-link';
@@ -40,10 +39,16 @@ import PropertiesList from '@shared/components/properties-list';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
-  setup: () => {
-    const headData = useHead().data;
+  props: {
+    headData: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  setup: props => {
     const metaData = computed(() => {
-      const { meta } = headData.value.head;
+      const { meta } = props.headData.head;
       return meta
         .filter(meta =>
           meta.property && meta.property.startsWith('og:') || meta.name && meta.name.startsWith('og:')

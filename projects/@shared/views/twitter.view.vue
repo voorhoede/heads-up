@@ -59,7 +59,6 @@
 
 <script>
 import { computed, onMounted, ref, watch } from 'vue';
-import useHead from '@/composables/use-head';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
@@ -72,8 +71,14 @@ import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 
 export default {
-  setup() {
-    const headData = useHead().data;
+  props: {
+    headData: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  setup: props => {
     const imageDimensions = ref({ height: undefined, width: undefined });
     const validCards = ref([ 'summary', 'summary_large_image', 'app', 'player' ]);
     const supportedCards = ref([ 'summary', 'summary_large_image' ]);
@@ -94,7 +99,7 @@ export default {
     const title = computed(() => (
       twitter.value.title ||
       og.value.title ||
-      headData.value.head.title || ''
+      props.headData.head.title || ''
     ));
     const description = computed(() => (
       twitter.value.description ||
@@ -142,7 +147,7 @@ export default {
       params.set('title', title.value);
       params.set('description', description.value);
       params.set('image', image.value);
-      params.set('url', headData.value.head.url);
+      params.set('url', props.headData.head.url);
       params.set('theme', getTheme() !== 'default' && 'dark');
       return `/previews/twitter/twitter.html?${ params }`;
     });
@@ -288,12 +293,12 @@ export default {
       },
     ]));
 
-    const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
+    const absoluteUrl = url => createAbsoluteUrl(props.headData.head, url);
     const propertyValue = propName =>
-      findMetaProperty(headData.value.head, propName) || findMetaContent(headData.value.head, propName);
+      findMetaProperty(props.headData.head, propName) || findMetaContent(props.headData.head, propName);
     const getImageDimensions = tagName => {
       const name = tagName ? tagName : 'og:image';
-      findImageDimensions(headData.value.head, name)
+      findImageDimensions(props.headData.head, name)
         .then(dimensions => imageDimensions.value = dimensions);
     };
 
