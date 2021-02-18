@@ -1,4 +1,4 @@
-import Meta from '@shared/views/meta.view';
+import Meta from '@shared/views/meta/meta.view';
 
 export default [
   {
@@ -15,7 +15,7 @@ export default [
     meta: {
       title: 'Link',
     },
-    component: () => import(/* webpackChunkName:'views/link' */ '@shared/views/link.view'),
+    component: () => import(/* webpackChunkName:'views/link' */ '@shared/views/link/link.view'),
   },
   {
     path: '/favicon',
@@ -23,7 +23,7 @@ export default [
     meta: {
       title: 'Favicon',
     },
-    component: () => import(/* webpackChunkName:'views/favicon' */ '@shared/views/favicon.view'),
+    component: () => import(/* webpackChunkName:'views/favicon' */ '@shared/views/favicon/favicon.view'),
   },
   {
     path: '/apple-ios',
@@ -31,7 +31,7 @@ export default [
     meta: {
       title: 'Apple iOS',
     },
-    component: () => import(/* webpackChunkName:'views/apple-ios' */ '@shared/views/apple-ios.view'),
+    component: () => import(/* webpackChunkName:'views/apple-ios' */ '@shared/views/apple-ios/apple-ios.view'),
   },
   {
     path: '/open-graph',
@@ -39,7 +39,7 @@ export default [
     meta: {
       title: 'Open Graph',
     },
-    component: () => import(/* webpackChunkName:'views/open-graph' */ '@shared/views/open-graph.view'),
+    component: () => import(/* webpackChunkName:'views/open-graph' */ '@shared/views/open-graph/open-graph.view'),
   },
   {
     path: '/twitter',
@@ -47,7 +47,7 @@ export default [
     meta: {
       title: 'Twitter',
     },
-    component: () => import(/* webpackChunkName:'views/twitter' */ '@shared/views/twitter.view'),
+    component: () => import(/* webpackChunkName:'views/twitter' */ '@shared/views/twitter/twitter.view'),
   },
   {
     path: '/whatsapp',
@@ -55,7 +55,7 @@ export default [
     meta: {
       title: 'WhatsApp',
     },
-    component: () => import(/* webpackChunkName:'views/whatsapp' */ '@shared/views/whatsapp.view'),
+    component: () => import(/* webpackChunkName:'views/whatsapp' */ '@shared/views/whatsapp/whatsapp.view'),
   },
   {
     path: '/linkedin',
@@ -63,7 +63,7 @@ export default [
     meta: {
       title: 'LinkedIn',
     },
-    component: () => import(/* webpackChunkName:'views/linkedin' */ '@shared/views/linkedin.view'),
+    component: () => import(/* webpackChunkName:'views/linkedin' */ '@shared/views/linkedin/linkedin.view'),
   },
   {
     path: '/facebook',
@@ -71,7 +71,7 @@ export default [
     meta: {
       title: 'Facebook',
     },
-    component: () => import(/* webpackChunkName:'views/facebook' */ '@shared/views/facebook.view'),
+    component: () => import(/* webpackChunkName:'views/facebook' */ '@shared/views/facebook/facebook.view'),
   },
   {
     path: '/slack',
@@ -79,7 +79,7 @@ export default [
     meta: {
       title: 'Slack',
     },
-    component: () => import(/* webpackChunkName:'views/slack' */ '@shared/views/slack.view'),
+    component: () => import(/* webpackChunkName:'views/slack' */ '@shared/views/slack/slack.view'),
   },
   {
     path: '/search-meta',
@@ -87,7 +87,7 @@ export default [
     meta: {
       title: 'Search Meta',
     },
-    component: () => import(/* webpackChunkName:'views/search-meta' */ '@shared/views/search-meta.view'),
+    component: () => import(/* webpackChunkName:'views/search-meta' */ '@shared/views/search-meta/search-meta.view'),
   },
   {
     path: '/robots-txt',
@@ -95,7 +95,7 @@ export default [
     meta: {
       title: 'Robots.txt',
     },
-    component: () => import(/* webpackChunkName:'views/robots-txt' */ '@shared/views/robots-txt.view'),
+    component: () => import(/* webpackChunkName:'views/robots-txt' */ '@shared/views/robots-txt/robots-txt.view'),
   },
   {
     path: '/sitemap',
@@ -103,7 +103,7 @@ export default [
     meta: {
       title: 'Sitemap',
     },
-    component: () => import(/* webpackChunkName:'views/sitemap' */ '@shared/views/sitemap.view'),
+    component: () => import(/* webpackChunkName:'views/sitemap' */ '@shared/views/sitemap/sitemap.view'),
   },
   {
     path: '/open-search',
@@ -111,7 +111,7 @@ export default [
     meta: {
       title: 'OpenSearch',
     },
-    component: () => import(/* webpackChunkName:'views/open-search' */ '@shared/views/open-search.view'),
+    component: () => import(/* webpackChunkName:'views/open-search' */ '@shared/views/open-search/open-search.view'),
   },
   {
     path: '/structured-data',
@@ -119,7 +119,7 @@ export default [
     meta: {
       title: 'Structured Data',
     },
-    component: () => import(/* webpackChunkName:'views/structured-data' */ '@shared/views/structured-data.view'),
+    component: () => import(/* webpackChunkName:'views/structured-data' */ '@shared/views/structured-data/structured-data.view'),
   },
   {
     path: '/google',
@@ -127,7 +127,7 @@ export default [
     meta: {
       title: 'Google',
     },
-    component: () => import(/* webpackChunkName:'views/google' */ '@shared/views/google.view'),
+    component: () => import(/* webpackChunkName:'views/google' */ '@shared/views/google/google.view'),
   },
 
   // Catch all fallback

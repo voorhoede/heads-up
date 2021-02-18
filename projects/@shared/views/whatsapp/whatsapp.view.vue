@@ -1,5 +1,5 @@
 <template>
-  <div class="linkedin">
+  <div class="whatsapp">
     <panel-section title="Preview">
       <p v-if="!hasRequiredData">
         This page does not contain the necessary metadata to create a preview.
@@ -7,11 +7,11 @@
       <preview-iframe
         v-else
         :url="previewUrl"
-        iframeClass="linkedin__preview"
-        :loading-height="348"
+        iframeClass="whatsapp__preview"
+        :loading-height="122"
       >
         <template v-slot:caption>
-          Preview based on <external-link href="https://linkedin.com/">linkedin.com</external-link>.
+          Preview based on <external-link href="https://web.whatsapp.com/">web.whatsapp.com</external-link>.
         </template>
       </preview-iframe>
     </panel-section>
@@ -33,13 +33,13 @@
     <panel-section title="Resources">
       <ul class="resource-list">
         <li>
-          <external-link href="https://www.linkedin.com/post-inspector/">
-            LinkedIn Post Inspector
+          <external-link href="https://stackoverflow.com/a/43154489">
+            2019 WhatsApp sharing standards (on StackOverflow)
           </external-link>
         </li>
         <li>
-          <external-link href="https://kinsta.com/blog/linkedin-debugger/">
-            Previews on LinkedIn (Post Inspector Tips)
+          <external-link href="https://stackoverflow.com/questions/19778620/provide-an-image-for-whatsapp-link-sharing">
+            Unfurl mechanism used by WhatsApp for sharing
           </external-link>
         </li>
       </ul>
@@ -48,11 +48,10 @@
 </template>
 
 <script>
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed } from 'vue';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
-import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
-import getTheme from '@shared/lib/theme';
-import schema from '@shared/lib/schemas/linkedin-schema';
+import { findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
+import schema from './schema';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
@@ -69,29 +68,34 @@ export default {
   },
 
   setup: props => {
-    const imageDimensions = ref({ height: undefined, width: undefined });
     const hasRequiredData = computed(() => (
-      Boolean(og.value.title) &&
-      Boolean(og.value.image) &&
-      Boolean(og.value.description) &&
-      Boolean(og.value.url)
+      (og.value.title || props.headData.head.title) &&
+      (og.value.description || props.headData.headDescription)
     ));
     const og = computed(() => ({
       title: propertyValue('og:title'),
+      description: propertyValue('og:description'),
       type: propertyValue('og:type'),
       image: propertyValue('og:image'),
-      description: propertyValue('og:description'),
       url: propertyValue('og:url'),
     }));
+    const title = computed(() => (
+      propertyValue('og:title') || props.headData.head.title || ''
+    ));
+    const description = computed(() => (og.value.description));
+    const hasDescription = computed(() => (
+      og.value.description !== null && og.value.description.length > 0
+    ));
+    const image = computed(() => (
+      og.value.image !== undefined ? absoluteUrl(og.value.image) : og.value.image
+    ));
     const previewUrl = computed(() => {
       const params = new URLSearchParams();
-      params.set('title', og.value.title);
-      params.set('image', og.value.image);
-      params.set('description', og.value.description);
-      params.set('url', og.value.url);
-      params.set('theme', getTheme());
-      params.set('imageIsBig', imageDimensions.value.height >= 400 && imageDimensions.value.width >= 400);
-      return `/previews/linkedin/linkedin.html?${ params }`;
+      params.set('title', og.value.title || title.value);
+      params.set('description', description.value);
+      params.set('image', image.value);
+      params.set('url', props.headData.head.url);
+      return `/previews/whatsapp/whatsapp.html?${ params }`;
     });
     const metaData = computed(() => ([
       {
@@ -100,23 +104,23 @@ export default {
         required: true,
       },
       {
-        term: 'og:type',
-        value: og.value.type,
+        term: 'og:description',
+        value: og.value.description,
         required: true,
       },
       {
+        term: 'og:type',
+        value: og.value.type,
+      },
+      {
         term: 'og:image',
-        value: og.value.image,
+        value: absoluteUrl(og.value.image),
         image: {
           href: og.value.image,
           url: absoluteUrl(og.value.image),
         },
         type: 'image',
         required: true,
-      },
-      {
-        term: 'og:description',
-        value: og.value.description,
       },
       {
         term: 'og:url',
@@ -127,22 +131,16 @@ export default {
     ]));
 
     const absoluteUrl = url => createAbsoluteUrl(props.headData.head, url);
-    const getImageDimensions = () => findImageDimensions(props.headData.head, 'og:image')
-      .then(dimensions => imageDimensions.value = dimensions);
     const propertyValue = propName =>
       findMetaProperty(props.headData.head, propName) || findMetaContent(props.headData.head, propName);
-
-    watch(() => og.value.image, value => {
-      if (value) {
-        getImageDimensions();
-      }
-    });
-
-    onMounted(() => getImageDimensions());
 
     return {
       hasRequiredData,
       og,
+      title,
+      description,
+      hasDescription,
+      image,
       previewUrl,
       metaData,
       schema,
@@ -159,7 +157,7 @@ export default {
 </script>
 
 <style>
-  .linkedin__preview {
+  .whatsapp__preview {
     max-width: var(--preview-width);
   }
 </style>

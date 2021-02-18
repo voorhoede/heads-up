@@ -46,7 +46,7 @@ import { computed, ref, onMounted, watch } from 'vue';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findLinkHref, findXMLElement } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
-import schema from '@shared/lib/schemas/open-search-schema';
+import schema from './schema';
 
 import ExternalLink from '@shared/components/external-link.vue';
 import PanelSection from '@shared/components/panel-section.vue';

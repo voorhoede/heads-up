@@ -31,7 +31,7 @@
 import { computed, ref } from 'vue';
 import { findCharset, findMetaContent } from '@shared/lib/find-meta';
 import validateData from '@shared/lib/validate-data';
-import { schema, info } from '@shared/lib/schemas/app-meta-schema';
+import { schema, info } from './schema';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
