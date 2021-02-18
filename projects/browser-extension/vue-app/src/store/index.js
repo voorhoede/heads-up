@@ -20,7 +20,6 @@ export default createStore({
     robots: [],
     sitemaps: [],
     sitemapUrls: [],
-    theme: 'default',
   }),
   actions: {
     GET_ROBOTS_TXT ({ commit, state }) {
@@ -192,9 +191,6 @@ export default createStore({
     },
     SET_SITEMAP_URLS (state, { urls }) {
       state.sitemapUrls = urls;
-    },
-    SET_THEME (state, { theme }) {
-      state.theme = theme;
     },
   },
 });

@@ -43,7 +43,6 @@
 
 <script>
 import { computed, ref, onMounted, watch } from 'vue';
-import useHead from '@/composables/use-head';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findLinkHref, findXMLElement } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
@@ -57,19 +56,26 @@ import PropertiesItem from '@shared/components/properties-item.vue';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
-  setup: () => {
-    const headData = useHead().data;
+  props: {
+    headData: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  setup: props => {
     const fileContent = ref('');
     const hasOpenSearchFile = computed(() => fileUrl.value && fileContent.value);
-    const metaTagValue = computed(() => findLinkHref(headData.value.head, 'search'));
+    const metaTagValue = computed(() => findLinkHref(props.headData.head, 'search'));
+    const themeClass = computed(() => getTheme() === 'dark' ? '-theme-with-dark-background' : '');
     const previewUrl = computed(() => {
       const params = new URLSearchParams();
       params.set('title', shortName.value);
-      params.set('theme', getTheme());
+      params.set('theme', themeClass.value);
       return `/previews/open-search/open-search.html?${ params }`;
     });
     const fileUrl = computed(() => {
-      return createAbsoluteUrl(headData.value.head, metaTagValue.value);
+      return createAbsoluteUrl(props.headData.head, metaTagValue.value);
     });
     const shortName = computed(() => {
       const element = findXMLElement(fileContent.value, 'ShortName');
@@ -121,7 +127,7 @@ export default {
       },
     ]));
 
-    const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
+    const absoluteUrl = url => createAbsoluteUrl(props.headData.head, url);
     const formatUrlsObject = urls => urls.map(item => {
       const templateAttr = item.attributes.find(({ name }) => name === 'template');
       const url = templateAttr ? templateAttr.value : null;
@@ -157,6 +163,7 @@ export default {
       fileContent,
       hasOpenSearchFile,
       metaTagValue,
+      themeClass,
       previewUrl,
       fileUrl,
       shortName,

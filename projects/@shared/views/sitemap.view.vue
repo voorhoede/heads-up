@@ -51,7 +51,6 @@
 
 <script>
 import { computed } from 'vue';
-import useHead from '@/composables/use-head';
 import ChevronRightIcon from '@shared/assets/icons/chevron-right.svg';
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
@@ -59,10 +58,16 @@ import TreeMenu from '@shared/components/tree-menu';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
-  setup: () => {
-    const headData = useHead().data;
-    const url = computed(() => headData.value.head.url);
-    const sitemaps = computed(() => headData.value.sitemaps);
+  props: {
+    headData: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  setup: props => {
+    const url = computed(() => props.headData.head.url);
+    const sitemaps = computed(() => props.headData.sitemaps);
 
     const getSitemapUrl = sitemap => (sitemap.sitemapUrl);
 

@@ -79,7 +79,6 @@
 
 <script>
 import { computed } from 'vue';
-import useHead from '@/composables/use-head';
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
 import PropertiesItem from '@shared/components/properties-item';
@@ -87,12 +86,18 @@ import PropertiesList from '@shared/components/properties-list';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
-  setup: () => {
-    const headData = useHead().data;
-    const robots = computed(() => headData.value.robots);
-    const sitemapUrls = computed(() => headData.value.sitemapUrls);
-    const url = computed(() => headData.value.head.url);
-    const urlIsCrawlable = computed(() => headData.value.urlIsCrawlable.toString());
+  props: {
+    headData: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  setup: props => {
+    const robots = computed(() => props.headData.robots);
+    const sitemapUrls = computed(() => props.headData.sitemapUrls);
+    const url = computed(() => props.headData.head.url);
+    const urlIsCrawlable = computed(() => props.headData.urlIsCrawlable.toString());
 
     return  {
       robots,

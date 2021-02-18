@@ -63,7 +63,6 @@
 <script>
 import { computed, ref } from 'vue';
 import { format as formatDate } from 'timeago.js';
-import useHead from '@/composables/use-head';
 import { TABS } from '@shared/lib/constants.js';
 import { TYPES, splitTypes } from '@shared/lib/google-utils.js';
 
@@ -76,10 +75,16 @@ import TabSelector from '@shared/components/tab-selector';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
-  setup() {
-    const headData = useHead().data;
+  props: {
+    headData: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  setup: props => {
     const openTab = ref(TABS[0].value);
-    const jsonldData = computed(() => headData.value.structuredData.jsonld);
+    const jsonldData = computed(() => props.headData?.structuredData?.jsonld ?? {});
     const [ supportedTypes, notSupportedTypes ] = splitTypes(jsonldData.value);
     const resources = supportedTypes.map(type => TYPES[type].resources).flat();
 

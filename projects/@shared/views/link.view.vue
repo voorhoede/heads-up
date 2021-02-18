@@ -21,16 +21,21 @@
 
 <script>
 import { computed } from 'vue';
-import useHead from '@/composables/use-head';
 import PanelSection from '@shared/components/panel-section';
 import CollapsibleList from '@shared/components/collapsible-list';
 import ExternalLink from '@shared/components/external-link';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
-  setup() {
-    const headData = useHead().data;
-    const linkData = computed(() => headData.value.head.link);
+  props: {
+    headData: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  setup: props => {
+    const linkData = computed(() => props.headData.head.link);
 
     return {
       linkData,

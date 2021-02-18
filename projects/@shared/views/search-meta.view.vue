@@ -33,7 +33,6 @@
 
 <script>
 import { computed } from 'vue';
-import useHead from '@/composables/use-head';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findLinkHref, findMetaContent } from '@shared/lib/find-meta';
 import schema from '@shared/lib/schemas/search-meta-schema';
@@ -44,10 +43,16 @@ import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 
 export default {
-  setup: () => {
-    const headData = useHead().data;
+  props: {
+    headData: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  setup: props => {
     const metaData = computed(() => {
-      const { head } = headData.value;
+      const { head } = props.headData;
       return [
         {
           term: 'title',
@@ -97,7 +102,7 @@ export default {
       ];
     });
 
-    const absoluteUrl = url => createAbsoluteUrl(headData.value.head, url);
+    const absoluteUrl = url => createAbsoluteUrl(props.headData.head, url);
 
     return {
       metaData,
