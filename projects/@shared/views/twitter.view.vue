@@ -148,7 +148,7 @@ export default {
       params.set('description', description.value);
       params.set('image', image.value);
       params.set('url', props.headData.head.url);
-      params.set('theme', getTheme() !== 'default' && 'dark');
+      params.set('theme', getTheme());
       return `/previews/twitter/twitter.html?${ params }`;
     });
     const metaData = computed(() => ([

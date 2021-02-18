@@ -82,7 +82,6 @@ export default {
       favicon: favicon.value,
       twitterData: findAdditionalTwitterData(props.headData.head),
     }));
-    const themeClass = computed(() => getTheme() === 'dark' ? '-theme-with-dark-background' : '');
     const previewUrl = computed(() => {
       const params = new URLSearchParams();
       params.set('additionalData', JSON.stringify(additional.value.twitterData));
@@ -91,7 +90,7 @@ export default {
       params.set('image', og.value.image);
       params.set('imageIsBig', imageDimensions.value.height > 201 && imageDimensions.value.width > 201);
       params.set('siteName', og.value.site_name);
-      params.set('theme', themeClass.value);
+      params.set('theme', getTheme());
       params.set('title', og.value.title || props.headData.head.title || 'Weblink');
       params.set('url', props.headData.head.url);
       params.set('validImage', imageDimensions.value.height > 0 && imageDimensions.value.width > 0);
@@ -162,7 +161,6 @@ export default {
       headDescription,
       favicon,
       additional,
-      themeClass,
       previewUrl,
       metaData,
       schema,

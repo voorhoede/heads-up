@@ -67,11 +67,10 @@ export default {
     const fileContent = ref('');
     const hasOpenSearchFile = computed(() => fileUrl.value && fileContent.value);
     const metaTagValue = computed(() => findLinkHref(props.headData.head, 'search'));
-    const themeClass = computed(() => getTheme() === 'dark' ? '-theme-with-dark-background' : '');
     const previewUrl = computed(() => {
       const params = new URLSearchParams();
       params.set('title', shortName.value);
-      params.set('theme', themeClass.value);
+      params.set('theme', getTheme());
       return `/previews/open-search/open-search.html?${ params }`;
     });
     const fileUrl = computed(() => {
@@ -163,7 +162,6 @@ export default {
       fileContent,
       hasOpenSearchFile,
       metaTagValue,
-      themeClass,
       previewUrl,
       fileUrl,
       shortName,
