@@ -84,7 +84,7 @@ export default {
 
   setup: props => {
     const openTab = ref(TABS[0].value);
-    const jsonldData = computed(() => props.headData.structuredData.jsonld);
+    const jsonldData = computed(() => props.headData?.structuredData?.jsonld ?? {});
     const [ supportedTypes, notSupportedTypes ] = splitTypes(jsonldData.value);
     const resources = supportedTypes.map(type => TYPES[type].resources).flat();
 

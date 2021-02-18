@@ -131,7 +131,6 @@ const routes = [
     meta: {
       title: 'Google',
     },
-    // @HERE 👋 :: Check why this is not working
     component: () => import(/* webpackChunkName:'views/google' */ '@shared/views/google.view'),
   },
 ];
