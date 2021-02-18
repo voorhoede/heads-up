@@ -1,4 +1,4 @@
-import Joi from '../validator';
+import Joi from '../../lib/validator';
 
 export const schema = Joi.object({
   'title': Joi.words()

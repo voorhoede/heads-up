@@ -62,7 +62,7 @@ import { computed, onMounted, ref, watch } from 'vue';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
-import schema from '@shared/lib/schemas/twitter-schema';
+import schema from './schema';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';

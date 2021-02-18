@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import sharedRoutes from '@shared/views/_shared-routes';
+import sharedRoutes from '@shared/views/shared-routes';
 import useHead from '@/composables/use-head';
 import Home from '@/views/home.view';
 

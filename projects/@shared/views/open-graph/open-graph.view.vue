@@ -30,7 +30,7 @@
 
 <script>
 import { computed } from 'vue';
-import schema from '@shared/lib/schemas/open-graph-schema';
+import schema from './schema';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
