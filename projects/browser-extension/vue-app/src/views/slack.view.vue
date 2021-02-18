@@ -99,9 +99,6 @@ export default {
         twitterData: findAdditionalTwitterData(this.head),
       };
     },
-    themeClass() {
-      return getTheme() === 'dark' ? '-theme-with-dark-background' : '';
-    },
     previewUrl() {
       const params = new URLSearchParams();
       params.set('additionalData', JSON.stringify(this.additional.twitterData));
@@ -110,7 +107,7 @@ export default {
       params.set('image', this.og.image);
       params.set('imageIsBig', this.imageDimensions.height > 201 && this.imageDimensions.width > 201);
       params.set('siteName', this.og.site_name);
-      params.set('theme', this.themeClass);
+      params.set('theme', getTheme());
       params.set('title', this.og.title || this.head.title || 'Weblink');
       params.set('url', this.head.url);
       params.set('validImage', this.imageDimensions.height > 0 && this.imageDimensions.width > 0);

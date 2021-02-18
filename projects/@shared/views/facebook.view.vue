@@ -97,15 +97,13 @@ export default {
       pages: propertyValue('fb:pages'),
     }));
 
-    const themeClass = computed(() => getTheme() === 'dark' ? '-theme-with-dark-background' : '');
-
     const previewUrl = computed(() => {
       const isDesktop = openTab.value === 'desktop';
       const params = new URLSearchParams();
       params.set('title', og.value.title || props.headData.head.title);
       params.set('url', props.headData.head.url);
       params.set('image', og.value.image);
-      params.set('theme', themeClass.value);
+      params.set('theme', getTheme());
       params.set('imageSpecified', imageSpecified.value);
       params.set('description', og.value.description);
       if (og.value.image !== undefined) {
@@ -247,7 +245,6 @@ export default {
       openTab,
       og,
       facebookProperties,
-      themeClass,
       previewUrl,
       metaData,
       schema,
