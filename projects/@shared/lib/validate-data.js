@@ -15,16 +15,15 @@ const transformData = data => {
   const array = data
     .map(async item => {
       const { type, image } = item;
-      if (type === 'image') {
-        /* Because Joi Extensions cannot be async (yet): https://github.com/sideway/joi/issues/1194)
+      /*
+        Because Joi Extensions cannot be async (yet): https://github.com/sideway/joi/issues/1194)
         we get the image dimensions here and add them to the data that wil be validated.
-        ¯\_(ツ)_/¯ */
+        ¯\_(ツ)_/¯
+      */
+      if (type === 'image') {
         const { width, height } = await getImageDimensions(image.url);
-
-        return {
-          ...item,
-          value: { url: image.url, width, height },
-        };
+        const value = image.url ? { url: image.url, width, height } : image.url;
+        return { ...item, value };
       }
 
       return item;
