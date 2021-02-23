@@ -244,7 +244,8 @@ export default {
 
     onMounted(() => getImageDimensions());
 
-    validation.value = validate(metaData.value, schema);
+    validate(metaData.value, schema)
+      .then(result => validation.value = result);
 
     return {
       TABS,

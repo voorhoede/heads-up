@@ -30,7 +30,7 @@
 <script>
 import { computed, ref } from 'vue';
 import { findCharset, findMetaContent } from '@shared/lib/find-meta';
-import validateData from '@shared/lib/validate-data';
+import validate from '@shared/lib/validate-data';
 import { schema, info } from './schema';
 
 import ExternalLink from '@shared/components/external-link';
@@ -81,7 +81,8 @@ export default {
 
     const getTooltipInfo = term => (info[term] ?? {});
 
-    validation.value = validateData(metaData.value, schema);
+    validate(metaData.value, schema)
+      .then(result => validation.value = result);
 
     return {
       getTooltipInfo,
