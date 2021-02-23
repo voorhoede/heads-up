@@ -194,21 +194,13 @@ export default {
       },
       {
         term: 'og:video',
-        value: og.value.video,
-        image: {
-          href: og.value.video,
-          url: absoluteUrl(og.value.video),
-        },
-        type: 'image',
+        value: absoluteUrl(og.value.video),
+        type: 'link',
       },
       {
         term: 'og:video:url',
-        value: og.value.videoUrl,
-        image: {
-          href: og.value.videoUrl,
-          url: absoluteUrl(og.value.videoUrl),
-        },
-        type: 'image',
+        value: absoluteUrl(og.value.videoUrl),
+        type: 'link',
       },
       {
         term: 'og:video:secure_url',
