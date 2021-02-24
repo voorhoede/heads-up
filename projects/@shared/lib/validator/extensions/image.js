@@ -1,5 +1,8 @@
-import { isArray } from 'lodash';
-
+/**
+ * Validate image sizes and dimensions.
+ *
+ * @param {*} joi - Extended Joi instance.
+ */
 const image = joi => ({
   type: 'image',
   base: joi.object(),
