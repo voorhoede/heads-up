@@ -67,7 +67,10 @@ const validate = (data, schema) => {
 
   return transformData(data)
     .then(data => validateDataWithSchema(data, schema))
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.log(err);
+      return Promise.resolve(err);
+    });
 };
 
 export default validate;
