@@ -110,7 +110,8 @@ export default {
     const propertyValue = propName =>
       findMetaProperty(props.headData.head, propName) || findMetaContent(props.headData.head, propName);
 
-    validation.value = validate(metaData.value, schema);
+    validate(metaData.value, schema)
+      .then(result => validation.value = result);
 
     return {
       getTooltipInfo,
