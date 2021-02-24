@@ -2,12 +2,10 @@ import Joi from '../../lib/validator';
 
 export const schema = Joi.object({
   'title': Joi.words()
-    .allow('')
     .min(3)
     .required(),
 
   'lang': Joi.language()
-    .allow('')
     .required(),
 
   'charset': Joi.string()

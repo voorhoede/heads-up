@@ -11,11 +11,6 @@ const language = joi => ({
   messages: {
     'language.base': 'The {{#label}} value should meet the bcp47 standards.',
   },
-  coerce(value) {
-    if (value) {
-      return { value: value.trim() };
-    }
-  },
   validate(value, helpers) {
     if (!validateCountryCodes().includes(value)) {
       return { value, errors: helpers.error('language.base') };
