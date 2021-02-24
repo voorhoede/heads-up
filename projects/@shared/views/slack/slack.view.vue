@@ -147,8 +147,8 @@ export default {
     const propertyValue = propName =>
       findMetaProperty(props.headData.head, propName) || findMetaContent(props.headData.head, propName);
 
-    watch(() => og.value.image, value => {
-      if (value) {
+    watch(og.value.image, (value, oldValue) => {
+      if (value !== oldValue) {
         getImageDimensions();
       }
     });
