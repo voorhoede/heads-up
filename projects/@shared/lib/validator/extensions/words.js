@@ -10,11 +10,6 @@ const words = joi => ({
     'words.base': '{{#label}} must have at least 1 word',
     'words.minWords': '{{#label}} must be at least {{#words}} words or more.',
   },
-  coerce(value, helpers) {
-    if (helpers.schema.$_getRule('minWords')) {
-      return { value: value.trim() };
-    }
-  },
   validate(value, helpers) {
     // Base validation regardless of the rules applied.
     if (value && value.length <= 1) {

@@ -1,4 +1,5 @@
 import Joi from 'joi';
+import image from './extensions/image';
 import language from './extensions/language';
 import viewport from './extensions/viewport';
 import words from './extensions/words';
@@ -6,6 +7,7 @@ import words from './extensions/words';
 let validator = Joi;
 
 const extensions = [
+  joi => image(joi),
   joi => language(joi),
   joi => viewport(joi),
   joi => words(joi),
