@@ -36,10 +36,10 @@ const transformData = data => {
 };
 
 /**
- * Validate data with given schema and return the results.
+ * Validate with Joi and return any errors and/or warnings.
  *
- * @param {Object} data
- * @param {Object} schema
+ * @param {Object} data - data to validate
+ * @param {Object} schema - schema to validate data with
  * @returns {Object}
  */
 const validateDataWithSchema = (data, schema) => {
@@ -53,6 +53,13 @@ const validateDataWithSchema = (data, schema) => {
   }
 };
 
+/**
+ * Transform data, validate it with the given schema and return the results.
+ *
+ * @param {Array} data - data to validate
+ * @param {Object} schema - schema to validate data with
+ * @returns {Promise}
+ */
 const validate = (data, schema) => {
   if (!data.length) {
     return { errors: 'No data to validate' };
