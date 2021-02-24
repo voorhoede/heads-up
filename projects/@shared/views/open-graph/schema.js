@@ -13,8 +13,9 @@ export const schema = Joi.object({
       'string.empty': 'This property is required according to the Open Graph protocol.',
     }),
 
-  'og:image': Joi.string()
-    .required().messages({
+  'og:image': Joi.image()
+    .required()
+    .messages({
       'string.empty': 'This property is required according to the Open Graph protocol.',
     }),
 
@@ -36,7 +37,7 @@ export const schema = Joi.object({
   'og:video': Joi.string()
     .allow(''),
 
-  'og:image:url': Joi.string()
+  'og:image:url': Joi.image()
     .allow(''),
 
   'og:image:secure_url': Joi.string()

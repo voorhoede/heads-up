@@ -11,6 +11,8 @@
           :key="item.term"
           :term="item.term"
           :value="item.value"
+          :image="item.image"
+          :type="item.type"
           :tooltip="getTooltipInfo(item.term)"
           :validation="validation"
           :required="item.required"
