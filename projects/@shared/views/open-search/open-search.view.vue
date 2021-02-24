@@ -111,7 +111,7 @@ export default {
       },
       {
         term: 'urls',
-        value: formatUrlsObject(urls.value),
+        value: urls.value && urls.value.length ? formatUrlsObject(urls.value) : [],
         type: 'urls',
       },
       {
