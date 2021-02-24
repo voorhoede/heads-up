@@ -302,14 +302,14 @@ export default {
         .then(dimensions => imageDimensions.value = dimensions);
     };
 
-    watch(() => og.value.image, value => {
-      if (value) {
+    watch(og.value.image, (value, oldValue) => {
+      if (value !== oldValue) {
         getImageDimensions('og:image');
       }
     });
 
-    watch(() => twitter.value.image, value => {
-      if (value) {
+    watch(twitter.value.image, (value, oldValue) => {
+      if (value !== oldValue) {
         getImageDimensions('twitter:image');
       }
     });
