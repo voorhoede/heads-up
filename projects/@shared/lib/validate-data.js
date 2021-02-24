@@ -10,6 +10,7 @@ const JOI_VALIDATION_OPTIONS = {
  * Transforms the data array into an object that Joi can validate.
  *
  * @param {Array} data
+ * @returns {Promise}
  */
 const transformData = data => {
   const array = data
@@ -39,6 +40,7 @@ const transformData = data => {
  *
  * @param {Object} data
  * @param {Object} schema
+ * @returns {Object}
  */
 const validateDataWithSchema = (data, schema) => {
   try {
