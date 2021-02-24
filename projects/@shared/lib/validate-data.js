@@ -62,7 +62,7 @@ const validateDataWithSchema = (data, schema) => {
  */
 const validate = (data, schema) => {
   if (!data.length) {
-    return { errors: 'No data to validate' };
+    return Promise.resolve({ errors: 'No data to validate' });
   }
 
   return transformData(data)
