@@ -9,6 +9,7 @@ export const schema = Joi.object({
     }),
 
   'lang': Joi.language()
+    .countryCode()
     .required(),
 
   'charset': Joi.string()
