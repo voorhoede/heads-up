@@ -25,16 +25,19 @@ export const schema = Joi.object({
     .robots()
     .allow(''),
 
-  'googlebot': Joi.string()
+  'googlebot': Joi.search()
+    .robots()
     .allow(''),
 
-  'google': Joi.string()
+  'google': Joi.search()
+    .googleSetting()
     .allow(''),
 
   'google-site-verification': Joi.string()
     .allow(''),
 
   'msvalidate.01': Joi.string()
+    .length(32)
     .allow(''),
 
   'yandex-verification': Joi.string()
@@ -69,7 +72,7 @@ export const info = {
 
   'googlebot': {
     info: 'Control the behavior of crawling and indexing for Google specific search engine.',
-    link: 'https://htmlhead.dev/#meta',
+    link: 'https://developers.google.com/search/docs/advanced/crawling/special-tags',
   },
 
   'google': {
