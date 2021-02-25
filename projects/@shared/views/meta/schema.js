@@ -3,7 +3,10 @@ import Joi from '../../lib/validator';
 export const schema = Joi.object({
   'title': Joi.words()
     .min(3)
-    .required(),
+    .required()
+    .messages({
+      'words.minWords': 'Avoid one- or two-word titles.',
+    }),
 
   'lang': Joi.language()
     .required(),
@@ -20,7 +23,11 @@ export const schema = Joi.object({
     .allow(''),
 
   'description': Joi.string()
-    .allow(''),
+    .max(150)
+    .allow('')
+    .messages({
+      'string.max': 'Try to limit the description to 150 characters.',
+    }),
 
   'theme-color': Joi.string()
     .pattern(new RegExp('^#([0-9a-f]{3}|[0-9a-f]{4}|[0-9a-f]{6})$', 'i')) // Match #abc, #abcd shorthands and #abcdef.
