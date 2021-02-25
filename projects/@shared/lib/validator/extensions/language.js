@@ -24,8 +24,8 @@ const language = joi => ({
 
         return value;
       },
-    }
-  }
+    },
+  },
 });
 
 export default language;
