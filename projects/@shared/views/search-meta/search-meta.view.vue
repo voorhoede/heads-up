@@ -2,16 +2,17 @@
   <div class="search-meta">
     <panel-section title="Properties">
       <properties-list>
-        <properties-item
+        <properties-item-new
           v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
           :type="item.type"
-          :schema="schema"
+          :tooltip="getTooltipInfo(item.term)"
+          :validation="validation"
           :required="item.required"
         >
-        </properties-item>
+        </properties-item-new>
       </properties-list>
     </panel-section>
     <panel-section title="Resources">
@@ -32,14 +33,15 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findLinkHref, findMetaContent } from '@shared/lib/find-meta';
-import schema from './schema';
+import validate from '@shared/lib/validate-data';
+import { schema, info } from './schema';
 
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
-import PropertiesItem from '@shared/components/properties-item';
+import PropertiesItemNew from '@shared/components/properties-item-new';
 import PropertiesList from '@shared/components/properties-list';
 
 export default {
@@ -51,6 +53,7 @@ export default {
   },
 
   setup: props => {
+    const validation = ref({});
     const metaData = computed(() => {
       const { head } = props.headData;
       return [
@@ -103,16 +106,21 @@ export default {
     });
 
     const absoluteUrl = url => createAbsoluteUrl(props.headData.head, url);
+    const getTooltipInfo = term => (info[term] ?? {});
+
+    validate(metaData.value, schema)
+      .then(result => validation.value = result);
 
     return {
+      getTooltipInfo,
       metaData,
-      schema,
+      validation,
     };
   },
   components: {
     ExternalLink,
     PanelSection,
-    PropertiesItem,
+    PropertiesItemNew,
     PropertiesList,
   },
 };
