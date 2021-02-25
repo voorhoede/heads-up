@@ -19,7 +19,7 @@ const language = joi => ({
       validate(value, helpers) {
         const validCode = validateCountryCodes().includes(value);
         if (!validCode) {
-          return { value, errors: helpers.error('language.countryCode') };
+          return helpers.error('language.countryCode');
         }
 
         return value;
