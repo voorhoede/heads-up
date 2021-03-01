@@ -65,6 +65,7 @@ import { computed, ref } from 'vue';
 import { format as formatDate } from 'timeago.js';
 import { TABS } from '@shared/lib/constants.js';
 import { TYPES, splitTypes } from '@shared/lib/google-utils.js';
+import getTheme from '@shared/lib/theme';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
@@ -100,6 +101,7 @@ export default {
       params.set('platform', 'web-app');
       params.set('publisherLogo', data['publisher']?.logo?.url);
       params.set('publisherName', data['publisher']?.name);
+      params.set('theme', getTheme());
       params.set('type', data['@type']);
 
       return openTab.value === 'mobile'

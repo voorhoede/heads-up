@@ -1,16 +1,11 @@
 @import "../../@shared/css/defaults.css";
 @import "../../@shared/css/google.css";
 
-:root {
-  --primary-color: #1a0dab;
-  --secondary-color: #1a73e8;
-}
-
 /* Article */
 .article {
-  background-color: var(--background-color);
+  background-color: var(--color-white);
   border-radius: 0.5rem;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--color-iron);
   cursor: pointer;
   display: block;
   height: 283px;
@@ -29,7 +24,7 @@
 }
 
 .article--variant:hover .article__headline {
-  color: var(--secondary-color);
+  color: var(--color-royal-blue);
 }
 
 .article:not(.article--variant):hover .article__headline,
@@ -44,7 +39,7 @@
 }
 
 .article__image {
-  background-color: #f8f9fa;
+  background-color: var(--color-athens-gray);
   display: block;
   height: 119px;
   object-fit: cover;
@@ -70,7 +65,7 @@
 .article__headline {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
-  color: var(--primary-color);
+  color: var(--color-ultramarine);
   display: -webkit-box;
   font-size: 1rem;
   height: 80px;
@@ -80,7 +75,7 @@
 
 .article--variant .article__headline {
   -webkit-line-clamp: 2;
-  color: #202124;
+  color: var(--color-shark);
   font-size: 18px;
   height: auto;
   max-height: 48px;
@@ -89,7 +84,7 @@
 .article__description {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
-  color: var(--body-color);
+  color: var(--color-rolling-stone);
   display: -webkit-box;
   font-size: 14px;
   line-height: 1.43em;
@@ -99,7 +94,7 @@
 }
 
 .article__publisher {
-  color: var(--body-color);
+  color: var(--color-rolling-stone);
   display: flex;
   font-size: 12px;
   line-height: 1.33em;
@@ -127,7 +122,7 @@
 }
 
 .article__time {
-  color: var(--body-color);
+  color: var(--color-rolling-stone);
   font-size: 12px;
   line-height: 1.33em;
 }
@@ -153,7 +148,7 @@
   border-radius: 50%;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04),
     0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.2);
-  color: var(--body-color);
+  color: var(--color-rolling-stone);
   content: "›";
   font-size: 1.5rem;
   height: 38px;
@@ -170,11 +165,11 @@
 .article__skeleton-image,
 .article__skeleton-publisher,
 .article__skeleton-time {
-  background-color: var(--skeleton-color);
+  background-color: var(--color-gallery);
 }
 
 .article__skeleton-image {
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--color-iron);
   height: 119px;
 }
 
@@ -182,7 +177,7 @@
 .article__skeleton-publisher,
 .article__skeleton-time {
   border-radius: 3px;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--color-iron);
 }
 
 .article__skeleton-publisher {

@@ -1,13 +1,13 @@
 @import "../../@shared/css/defaults.css";
 @import "../../@shared/css/google.css";
 
-:root {
-  --body-color: #5f6368;
-  --link-color: #1a73e8;
+.scroll-container--fake {
+  max-width: 70.25rem;
 }
 
 /* Product */
 .product {
+  background-color: var(--color-white);
   border-radius: 0.5rem;
   box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.16);
   max-width: 70.25rem;
@@ -63,7 +63,7 @@
 .product__name {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  color: var(--body-color);
+  color: var(--color-shuttle-gray);
   display: -webkit-box;
   font-size: 1.25rem;
   line-height: 1.3;
@@ -72,7 +72,7 @@
 }
 
 .product__price {
-  color: #212121;
+  color: var(--color-mine-shaft);
   font-size: 1.125rem;
   font-weight: 700;
 }
@@ -85,28 +85,28 @@
 }
 
 .product__merchant-name {
-  color: var(--link-color);
+  color: var(--color-royal-blue);
 }
 
 .product__merchant-review {
-  color: #777;
+  color: var(--color-boulder);
   white-space: nowrap;
 }
 
 .merchant-review__score {
-  color: #129918;
+  color: var(--color-la-palma);
 }
 
 .product__description,
 .product__review {
-  color: var(--body-color);
+  color: var(--color-shuttle-gray);
   line-height: 1.125rem;
   margin-top: 0.375rem;
 }
 
 .review__stars,
 .review__stars-wrapper {
-  background-image: url(assets/google-shopping-sprites.webp);
+  background-image: url(../@assets/google-shopping-sprites.webp);
   background-repeat: no-repeat;
   background-size: 8rem;
   height: 0.688rem;
@@ -181,7 +181,7 @@
 
 .product-carrousel .product__name {
   -webkit-line-clamp: 3;
-  color: var(--link-color);
+  color: var(--color-royal-blue);
   font-size: 1rem;
   height: 4.125rem;
   line-height: 1.375rem;
@@ -190,7 +190,7 @@
 
 .product-carrousel .product__merchant-name {
   -webkit-line-clamp: initial;
-  color: var(--link-color);
+  color: var(--color-royal-blue);
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -205,13 +205,13 @@
 }
 
 .product-carrousel .product__price {
-  color: #171717;
+  color: var(--color-god-gray);
   margin-bottom: 0.25rem;
 }
 
 .product-carrousel .product__description,
 .product-carrousel .product__review {
-  color: #80868b;
+  color: var(--color-oslo-gray);
   font-size: 1rem;
   line-height: 1.375rem;
   margin-top: 0.25rem;
@@ -220,9 +220,9 @@
 /* Skeleton UI */
 .product__skeleton-image,
 .product__skeleton-text {
-  background-color: var(--skeleton-color);
+  background-color: var(--color-gallery);
   border-radius: 3px;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--color-iron);
   cursor: default;
   min-height: 1.375rem;
 }

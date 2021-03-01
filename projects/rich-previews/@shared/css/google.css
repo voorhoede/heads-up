@@ -1,8 +1,23 @@
 :root {
-  --background-color: #ffffff;
-  --body-color: #70757a;
-  --border-color: #dfe1e5;
-  --skeleton-color: #eeeeee;
+  --color-athens-dark-gray: #e8eaed;
+  --color-athens-gray: #f8f9fa;
+  --color-boulder: #777777;
+  --color-cape-cod: #3c4043;
+  --color-gallery: #eeeeee;
+  --color-god-gray: #171717;
+  --color-iron: #dfe1e5;
+  --color-la-palma: #129918;
+  --color-mine-shaft: #212121;
+  --color-oslo-gray: #80868b;
+  --color-rolling-stone: #70757a;
+  --color-ronchi: #eac250;
+  --color-royal-blue: #1a73e8;
+  --color-scorpion: #5a5a5a;
+  --color-shark: #202124;
+  --color-shuttle-gray: #5f6368;
+  --color-silver-chalice: #a5a5a5;
+  --color-ultramarine: #1a0dab;
+  --color-white: #ffffff;
 }
 
 html {
@@ -17,7 +32,7 @@ html {
 }
 
 .iframe-heading--dark-mode {
-  color: #a5a5a5;
+  color: var(--color-silver-chalice);
 }
 
 .scroll-container {
@@ -26,14 +41,13 @@ html {
 
 .scroll-container--fake {
   margin-top: -0.5rem;
-  max-width: 70.25rem;
   padding-right: 1.5rem;
   position: relative;
   width: 100%;
 }
 
 .scroll-container--fake::after {
-  background-color: #fff;
+  background-color: var(--color-white);
   border-radius: 50%;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04),
     0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.2);
@@ -56,13 +70,13 @@ html {
 
 .warning-message {
   align-items: center;
-  color: #5a5a5a;
+  color: var(--color-scorpion);
   display: flex;
   padding: 1.5rem 0 1rem;
 }
 
 .warning-message--dark-mode {
-  color: #a5a5a5;
+  color: var(--color-silver-chalice);
 }
 
 .warning-message--web-app {
@@ -70,7 +84,7 @@ html {
 }
 
 .warning-message .icon {
-  fill: #eac250;
+  fill: var(--color-ronchi);
   height: 1rem;
   margin-right: 0.5rem;
   width: 1rem;
