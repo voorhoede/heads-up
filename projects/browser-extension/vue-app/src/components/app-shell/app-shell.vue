@@ -15,7 +15,7 @@
             {{ head.url }}
           </external-link>
         </panel-section>
-        <router-view />
+        <router-view :head-data="{ head, robots, sitemaps, sitemapUrls, urlIsCrawlable, openSearchContent, openSearchUrl, structuredData }" />
       </template>
     </main>
 
@@ -34,7 +34,8 @@ import RefreshButton from './refresh-button';
 export default {
   components: { AppSidebar, ExternalLink, PanelSection, RefreshButton },
   computed: {
-    ...mapState([ 'head' ]),
+    // @TODO :: Clean this up
+    ...mapState([ 'head', 'robots', 'sitemaps', 'sitemapUrls', 'urlIsCrawlable', 'openSearchContent', 'openSearchUrl', 'structuredData' ]),
     themeClass() {
       return getTheme() === 'dark' ? '-theme-with-dark-background' : '';
     },

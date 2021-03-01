@@ -60,32 +60,43 @@ export default {
 
 <style>
   .input-url__input {
+    min-width: 300px;
+    padding: 0.625rem;
+    transition: box-shadow .25s ease, background-color .25s ease;
     border: 1px solid var(--color-blue);
-    box-shadow: inset 0 0 0 0 var(--color-blue);
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
-    padding: 0.625rem;
     outline: none;
-    min-width: 300px;
+    box-shadow: inset 0 0 0 0 var(--color-blue);
     color: var(--color-blue);
   }
 
+  .input-url__input:hover {
+    background-color: rgb(0, 0, 255, .05);
+  }
+
   .input-url__input:focus {
+    background-color: rgb(0, 0, 255, .1);
     box-shadow: inset 0 0 0 1px var(--color-blue);
   }
 
   .input-url__submit {
     padding: 0.625rem;
-    border: 1px solid var(--color-blue);
+    transition: background-color .25s ease;
+    border-top: 1px solid var(--color-blue);
+    border-right: 1px solid var(--color-blue);
+    border-bottom: 1px solid var(--color-blue);
+    border-left: none;
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
-    background: var(--color-blue);
-    font-weight: bold;
+    background-color: var(--color-blue);
     color: var(--color-white);
+    font-weight: bold;
     cursor: pointer;
   }
 
-  .input-url__submit:focus {
-    background: var(--color-blue-active);
+  .input-url__submit:focus,
+  .input-url__submit:hover {
+    background-color: var(--color-blue-active);
   }
 </style>

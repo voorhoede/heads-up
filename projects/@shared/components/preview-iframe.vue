@@ -51,14 +51,17 @@ export default {
     const iframeHeight = ref(props.loadingHeight + 'px');
     const isLoading = ref(true);
 
-    const setIframeHeight = () => {
+    const setIframeHeight = debounce(() => {
       iframeHeight.value = parseInt(iframe.value.contentWindow.document.body.scrollHeight) + 'px';
-    };
-
-    const onResize = () => debounce(setIframeHeight, 500);
+    }, 300);
 
     /**
-     * We update the height with a final value based on the inner
+     * We update the iframe height when window is resized.
+     */
+    const onResize = () => setIframeHeight();
+
+    /**
+     * We update the iframe height with a final value based on the inner
      * content height to make sure the iframe fits perfectly.
      */
     const onLoad = () => setIframeHeight();
@@ -68,7 +71,7 @@ export default {
     onBeforeUnmount(() => window.removeEventListener('resize', onResize));
 
     watch(() => iframeHeight.value, (height, prevHeight) => {
-      if(height !== prevHeight) {
+      if (height !== prevHeight) {
         isLoading.value = false;
       }
     });

@@ -10,6 +10,16 @@
   margin-bottom: 26px;
 }
 
+.properties-list .properties-item__terms {
+  flex: 0 0 40%;
+  max-width: 250px;
+}
+
+.properties-list .properties-item__value {
+  flex: 1 1 auto;
+  max-width: none;
+}
+
 .properties-item__image {
   margin-bottom: 0;
 }
@@ -25,12 +35,12 @@
 }
 
 /* tooltip */
-.tooltip {
+.app .tooltip {
   max-width: calc(80vw - 20px - var(--sidebar-width));
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, .32);
 }
 
-.tooltip .tooltip-inner {
+.app .tooltip .tooltip-inner {
   padding: 0.625rem 0.75rem 0.5625rem;
   border: 1px solid var(--color-blue);
   background-color: var(--color-white);
@@ -38,13 +48,13 @@
   line-height: 1.2;
 }
 
-.tooltip .tooltip-arrow {
+.app .tooltip .tooltip-arrow {
   z-index: 1;
   border: 5px solid var(--color-blue);
   box-shadow: none;
 }
 
-.tooltip .tooltip-arrow::before {
+.app .tooltip .tooltip-arrow::before {
   content: '';
   position: absolute;
   width: 0;
@@ -52,12 +62,12 @@
   border: 5px solid var(--color-white);
 }
 
-.tooltip[x-placement^="top"] .tooltip-arrow::before {
+.app .tooltip[x-placement^="top"] .tooltip-arrow::before {
   top: -6px;
   left: -6px;
 }
 
-.tooltip[x-placement^="bottom"] .tooltip-arrow::before {
+.app .tooltip[x-placement^="bottom"] .tooltip-arrow::before {
   top: -4px;
   left: -4px;
 }

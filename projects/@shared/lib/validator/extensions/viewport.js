@@ -55,11 +55,6 @@ const viewport = joi => ({
     'viewport.keys': 'The keys of the viewport meta tag are invalid.',
     'viewport.zoomBlocking': 'The <code>user-scalable</code>, <code>maximum-scale</code>, and <code>minimum-scale</code> can block the user from zooming an a page.',
   },
-  coerce(value) {
-    if (value) {
-      return { value: value.trim() };
-    }
-  },
   validate(value, helpers) {
     if (!hasValidViewportKeys(value)) {
       return { value, errors: helpers.error('viewport.keys') };

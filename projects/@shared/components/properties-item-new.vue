@@ -212,8 +212,8 @@ export default {
   }
 
   .properties-item__terms {
-    flex: 0 0 auto;
-    width: 200px;
+    flex: 0 1 40%;
+    max-width: 200px;
     color: var(--label-color);
     text-align: right;
     word-break: break-word;
@@ -245,7 +245,7 @@ export default {
 
   .properties-item__value {
     color: var(--value-color);
-    flex: 0 1 auto;
+    flex: 0 1 60%;
     line-height: 1;
     margin-left: 1rem;
     max-width: 500px;

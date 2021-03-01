@@ -1,6 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import sharedRoutes from '@shared/views/shared-routes';
 import useHead from '@/composables/use-head';
-import routes from './routes';
+import Home from '@/views/home.view';
+
+const routes = [
+  {
+    path: '/',
+    name: 'home',
+    component: Home,
+  },
+
+  ...sharedRoutes,
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
