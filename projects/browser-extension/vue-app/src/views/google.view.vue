@@ -112,8 +112,8 @@ export default {
       params.set('headline', data['headline']);
       params.set('image', this.getImageUrl(data['image']));
       params.set('platform', 'browser-extenstion');
-      params.set('publisherLogo', data['publisher'].logo.url);
-      params.set('publisherName', data['publisher'].name);
+      params.set('publisherLogo', data['publisher']?.logo?.url);
+      params.set('publisherName', data['publisher']?.name);
       params.set('theme', getTheme());
       params.set('type', data['@type']);
 
@@ -129,13 +129,13 @@ export default {
           { term: 'headline', value: data['headline'] },
           { term: 'description', value: data['description'] },
           { term: 'dateModified', value: data['dateModified'] },
-          { term: 'publisher - name', value: data['publisher'].name },
+          { term: 'publisher - name', value: data['publisher']?.name },
           {
             term: 'publisher - logo',
-            value: this.getImageUrl(data['publisher'].logo),
+            value: this.getImageUrl(data['publisher']?.logo),
             image: {
-              href: this.getImageUrl(data['publisher'].logo),
-              url: this.getImageUrl(data['publisher'].logo),
+              href: this.getImageUrl(data['publisher']?.logo),
+              url: this.getImageUrl(data['publisher']?.logo),
             },
             type: 'image',
           },
@@ -154,7 +154,7 @@ export default {
       return metaData[type];
     },
     getImageUrl(img) {
-      return Array.isArray(img) ? img[0] : img.url;
+      return Array.isArray(img) ? img[0] : img?.url;
     },
   },
   watch: {

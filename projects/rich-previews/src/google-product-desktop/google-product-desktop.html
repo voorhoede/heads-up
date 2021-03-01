@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Google - Product</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="google-product-desktop.css">
+  </head>
+
+  <body>
+    <div id="app">
+      <h1 class="iframe-heading" :class="{ 'iframe-heading--dark-mode': isDarkMode }">{{ type }}</h1>
+      <div v-if="!hasRequiredData" class="warning-message" :class="{
+        'warning-message--web-app': platform === 'web-app',
+        'warning-message--dark-mode': isDarkMode
+      }">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 100">
+          <path d="M98 85.6L53.9 9.7c-.5-1.4-2.4-2.4-3.8-2.4s-3.3.9-4.3 2.4L1.7 85.6c-1.4 3.3.9 7.1 4.3 7.1h87.7c3.8 0 6.2-3.8 4.3-7.1zm-87.7 0l39.8-68.8L90 85.6H10.3z"/>
+          <path d="M50 16.8L10.2 85.6h79.7L50 16.8zm4.7 66.4h-9.5v-9.5h9.5v9.5zm-9.4-19V35.8h9.5v28.5h-9.5z"/>
+        </svg>
+        <p>This page does not contain the necessary metadata to create a preview.</p>
+      </div>
+    </div>
+
+    <div class="scroll-container">
+      <div class="scroll-container__inner">
+        <div class="product">
+          <div class="product__wrapper">
+            <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRCPM0A2cXbreFiUF-43NIFG7d1tMhRe-bpTSVjMWUarqGlfSIlVjDGBIFvrUaD_5mAMc28L3xNS4goZhPBE-D0br-l5dVBeusCgRPcr5CXfctYJwK7sMfaRA&usqp=CAE" class="product__image" />
+            <div class="product__content">
+              <a rel="noopener" target="_blank" class="product__name">Fujifilm X-T4 Zilver / XF16-80mm F4 R OIS WR Kit Premium Kit</a>
+              <div>
+                <span class="product__price">€2,099.00</span
+                ><a rel="noopener" target="_blank" class="product__merchant-name">Kamera Express NL</a
+                ><a rel="noopener" target="_blank" class="product__merchant-review"
+                  ><span class="merchant-review__score"><strong>99%</strong> positive</span
+                  ><span class="merchant-review__amount">(1.490)</span>
+                </a>
+              </div>
+              <a rel="noopener" target="_blank" class="product__review">
+                <span class="review__stars-wrapper"><span class="review__stars"></span></span>344 product reviews
+              </a>
+              <p class="product__description">FUJIFILM heeft zijn APS-C spiegelloze lijn continu verfijnd, waardoor het misschien wel het meest complete systeem op de markt ...</p>
+              <p class="product__description">Fujifilm · Fujifilm X Series · Fujifilm X-T · Spiegelloos · Crop-sensor · CMOS · Met wifi · Met video · Met beeldstabilisatie · Zwart</p>
+              <p class="product__description">Other style options: <a rel="noopener" target="_blank">Zilver</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-container--fake">
+      <ul class="product-carrousel">
+        <li class="product-carrousel__item">
+          <div class="product">
+            <div class="product__wrapper">
+              <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRCPM0A2cXbreFiUF-43NIFG7d1tMhRe-bpTSVjMWUarqGlfSIlVjDGBIFvrUaD_5mAMc28L3xNS4goZhPBE-D0br-l5dVBeusCgRPcr5CXfctYJwK7sMfaRA&usqp=CAE" class="product__image" />
+              <div class="product__content">
+                <a rel="noopener" target="_blank" class="product__name">Fujifilm X-T4 Zilver / XF16-80mm F4 R OIS WR Kit Premium Kit</a>
+                <div>
+                  <span class="product__price">€2,099.00</span>
+                  <a rel="noopener" target="_blank" class="product__merchant-name">Kamera Express NL</a>
+                </div>
+                <a rel="noopener" target="_blank" class="product__review">
+                  <span class="review__stars-wrapper"><span class="review__stars"></span></span>(344)
+                </a>
+                <p class="product__description">Free shipping</p>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="product-carrousel__item">
+          <div class="product product--no-hover">
+            <div class="product__wrapper">
+              <div class="product__image product__skeleton-image"></div>
+              <div class="product__content">
+                <div class="product__name product__skeleton-text"></div>
+                <div class="product__price product__skeleton-text"></div>
+                <div class="product__merchant-name product__skeleton-text"></div>
+                <div class="product__review product__skeleton-text"></div>
+                <div class="product__description product__skeleton-text"></div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="product-carrousel__item">
+          <div class="product product--no-hover">
+            <div class="product__wrapper">
+              <div class="product__image product__skeleton-image"></div>
+              <div class="product__content">
+                <div class="product__name product__skeleton-text"></div>
+                <div class="product__price product__skeleton-text"></div>
+                <div class="product__merchant-name product__skeleton-text"></div>
+                <div class="product__review product__skeleton-text"></div>
+                <div class="product__description product__skeleton-text"></div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="product-carrousel__item">
+          <div class="product product--no-hover">
+            <div class="product__wrapper">
+              <div class="product__image product__skeleton-image"></div>
+              <div class="product__content">
+                <div class="product__name product__skeleton-text"></div>
+                <div class="product__price product__skeleton-text"></div>
+                <div class="product__merchant-name product__skeleton-text"></div>
+                <div class="product__review product__skeleton-text"></div>
+                <div class="product__description product__skeleton-text"></div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="product-carrousel__item">
+          <div class="product product--no-hover">
+            <div class="product__wrapper">
+              <div class="product__image product__skeleton-image"></div>
+              <div class="product__content">
+                <div class="product__name product__skeleton-text"></div>
+                <div class="product__price product__skeleton-text"></div>
+                <div class="product__merchant-name product__skeleton-text"></div>
+                <div class="product__review product__skeleton-text"></div>
+                <div class="product__description product__skeleton-text"></div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="product-carrousel__item">
+          <div class="product product--no-hover">
+            <div class="product__wrapper">
+              <div class="product__image product__skeleton-image"></div>
+              <div class="product__content">
+                <div class="product__name product__skeleton-text"></div>
+                <div class="product__price product__skeleton-text"></div>
+                <div class="product__merchant-name product__skeleton-text"></div>
+                <div class="product__review product__skeleton-text"></div>
+                <div class="product__description product__skeleton-text"></div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="product-carrousel__item">
+          <div class="product product--no-hover">
+            <div class="product__wrapper">
+              <div class="product__image product__skeleton-image"></div>
+              <div class="product__content">
+                <div class="product__name product__skeleton-text"></div>
+                <div class="product__price product__skeleton-text"></div>
+                <div class="product__merchant-name product__skeleton-text"></div>
+                <div class="product__review product__skeleton-text"></div>
+                <div class="product__description product__skeleton-text"></div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <script src="https://unpkg.com/vue@3.0.5/dist/vue.global.prod.js"></script>
+    <script type="module" src="google-product-desktop.js"></script>
+  </body>
+</html>

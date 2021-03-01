@@ -93,8 +93,8 @@ export default {
       params.set('headline', data['headline']);
       params.set('image', getImageUrl(data['image']));
       params.set('platform', 'web-app');
-      params.set('publisherLogo', data['publisher'].logo.url);
-      params.set('publisherName', data['publisher'].name);
+      params.set('publisherLogo', data['publisher']?.logo?.url);
+      params.set('publisherName', data['publisher']?.name);
       params.set('type', data['@type']);
 
       return openTab.value === 'mobile'
@@ -110,13 +110,13 @@ export default {
           { term: 'headline', value: data['headline'] },
           { term: 'description', value: data['description'] },
           { term: 'dateModified', value: data['dateModified'] },
-          { term: 'publisher - name', value: data['publisher'].name },
+          { term: 'publisher - name', value: data['publisher']?.name },
           {
             term: 'publisher - logo',
-            value: getImageUrl(data['publisher'].logo),
+            value: getImageUrl(data['publisher']?.logo),
             image: {
-              href: getImageUrl(data['publisher'].logo),
-              url: getImageUrl(data['publisher'].logo),
+              href: getImageUrl(data['publisher']?.logo),
+              url: getImageUrl(data['publisher']?.logo),
             },
             type: 'image',
           },
@@ -136,7 +136,7 @@ export default {
     };
 
     const getImageUrl = img => {
-      return Array.isArray(img) ? img[0] : img.url;
+      return Array.isArray(img) ? img[0] : img?.url;
     };
 
     return {

@@ -1,0 +1,228 @@
+@import "../../@shared/css/defaults.css";
+@import "../../@shared/css/google.css";
+
+:root {
+  --body-color: #5f6368;
+  --link-color: #1a73e8;
+}
+
+/* Product */
+.product {
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.16);
+  max-width: 70.25rem;
+  min-width: 38.875rem;
+  padding: 0.75rem;
+}
+
+.product--no-hover {
+  cursor: default;
+}
+
+.product__description a,
+.product__image,
+.product__merchant-name,
+.product__merchant-review,
+.product__name,
+.product__review {
+  cursor: pointer;
+}
+
+.product__description a,
+.product__merchant-name:hover,
+.product__merchant-review:hover,
+.product__name:hover,
+.product__review:hover,
+.product-carrousel__item:hover .product__name {
+  text-decoration: underline;
+}
+
+.product__image {
+  display: block;
+  height: 11.25rem;
+  margin: 0.75rem 0.75rem 0.75rem 0;
+  object-fit: contain;
+  object-position: center;
+  width: 11.25rem;
+}
+
+.product__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.75rem;
+}
+
+.product__merchant-name,
+.product__merchant-review,
+.product__price {
+  line-height: 1.75rem;
+  margin-right: 0.375rem;
+}
+
+.product__name {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  color: var(--body-color);
+  display: -webkit-box;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  margin-bottom: 0.375rem;
+  overflow: hidden;
+}
+
+.product__price {
+  color: #212121;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.product__description,
+.product__merchant-name,
+.product__merchant-review,
+.product__review {
+  font-size: 0.875rem;
+}
+
+.product__merchant-name {
+  color: var(--link-color);
+}
+
+.product__merchant-review {
+  color: #777;
+  white-space: nowrap;
+}
+
+.merchant-review__score {
+  color: #129918;
+}
+
+.product__description,
+.product__review {
+  color: var(--body-color);
+  line-height: 1.125rem;
+  margin-top: 0.375rem;
+}
+
+.review__stars,
+.review__stars-wrapper {
+  background-image: url(assets/google-shopping-sprites.webp);
+  background-repeat: no-repeat;
+  background-size: 8rem;
+  height: 0.688rem;
+  overflow: hidden;
+  text-align: left;
+}
+
+.review__stars-wrapper {
+  background-position: 0 -6.625rem;
+  display: inline-block;
+  margin-right: 0.3125rem;
+  width: 3.688rem;
+}
+
+.review__stars {
+  background-position: -3.75rem -6.625rem;
+  display: block;
+  width: 3.313rem;
+}
+
+.product__wrapper,
+.product__review {
+  align-items: center;
+  display: flex;
+}
+
+/* Product Carrousel */
+.product-carrousel {
+  display: flex;
+  list-style: none;
+  margin-top: 1rem;
+  overflow: hidden;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.product-carrousel__item {
+  cursor: pointer;
+  height: 23.875rem;
+  margin-right: 0.5rem;
+}
+
+.product-carrousel__item:last-of-type {
+  margin-right: 0;
+}
+
+.product-carrousel .product__merchant-name:hover,
+.product-carrousel .product__review:hover {
+  text-decoration: none;
+}
+
+.product-carrousel .product {
+  height: 100%;
+  max-width: initial;
+  min-width: initial;
+  padding: 0.25rem;
+  width: 10.5rem;
+}
+
+.product-carrousel .product__wrapper {
+  display: initial;
+}
+
+.product-carrousel .product__image {
+  height: 10rem;
+  width: 10rem;
+}
+
+.product-carrousel .product__content {
+  padding: 0.75rem 0.5rem 0.5rem;
+}
+
+.product-carrousel .product__name {
+  -webkit-line-clamp: 3;
+  color: var(--link-color);
+  font-size: 1rem;
+  height: 4.125rem;
+  line-height: 1.375rem;
+  margin-bottom: 0.25rem;
+}
+
+.product-carrousel .product__merchant-name {
+  -webkit-line-clamp: initial;
+  color: var(--link-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.product-carrousel .product__merchant-name,
+.product-carrousel .product__price {
+  display: block;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  margin-right: 0;
+  white-space: nowrap;
+}
+
+.product-carrousel .product__price {
+  color: #171717;
+  margin-bottom: 0.25rem;
+}
+
+.product-carrousel .product__description,
+.product-carrousel .product__review {
+  color: #80868b;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  margin-top: 0.25rem;
+}
+
+/* Skeleton UI */
+.product__skeleton-image,
+.product__skeleton-text {
+  background-color: var(--skeleton-color);
+  border-radius: 3px;
+  border: 1px solid var(--border-color);
+  cursor: default;
+  min-height: 1.375rem;
+}

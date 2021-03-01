@@ -7,6 +7,14 @@ export const TYPES = {
       url: 'https://developers.google.com/search/docs/data-types/article',
     } ],
   },
+  'Product': {
+    urlSegment: 'product',
+    updatedOn: 'Jan 26, 2021',
+    resources: [ {
+      label: 'Advanced SEO: Product (on developers.google)',
+      url: 'https://developers.google.com/search/docs/data-types/product',
+    } ],
+  },
 };
 
 export const splitTypes = jsonldData => {
