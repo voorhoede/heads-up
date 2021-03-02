@@ -147,6 +147,19 @@ const image = joi => ({
         return value;
       },
     },
+    isRequired: {
+      alias: 'required',
+      method() {
+        return this.$_addRule({ name: 'isRequired' });
+      },
+      validate(value, helpers) {
+        if (!value?.height && !value?.width && helpers.schema.$_getRule('isRequired')) {
+          return helpers.error('any.required');
+        }
+
+        return value;
+      },
+    },
   },
 });
 
