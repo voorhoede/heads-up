@@ -86,8 +86,9 @@ export default {
   setup: props => {
     const openTab = ref(TABS[0].value);
     const jsonldData = computed(() => props.headData?.structuredData?.jsonld ?? {});
-    const [ supportedTypes, notSupportedTypes ] = splitTypes(jsonldData.value);
-    const resources = supportedTypes.map(type => TYPES[type].resources).flat();
+    const supportedTypes = computed(() => splitTypes(jsonldData.value)[0]);
+    const notSupportedTypes = computed(() => splitTypes(jsonldData.value)[1]);
+    const resources = supportedTypes.value.map(type => TYPES[type].resources).flat();
 
     const getPreviewUrl = type => {
       const params = new URLSearchParams();
