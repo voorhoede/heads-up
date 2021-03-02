@@ -56,17 +56,7 @@
                 </div>
               </a>
             </li>
-            <li class="article-carrousel__item">
-              <a rel="noopener" target="_blank" class="article article--no-hover">
-                <div class="article__skeleton-image"></div>
-                <div class="article__content">
-                  <div class="article__skeleton-publisher"></div>
-                  <div class="article__skeleton-headline"></div>
-                  <div class="article__skeleton-time"></div>
-                </div>
-              </a>
-            </li>
-            <li class="article-carrousel__item">
+            <li v-for="index in 2" :key="index" class="article-carrousel__item">
               <a rel="noopener" target="_blank" class="article article--no-hover">
                 <div class="article__skeleton-image"></div>
                 <div class="article__content">

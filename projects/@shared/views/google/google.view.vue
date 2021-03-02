@@ -94,10 +94,15 @@ export default {
       const urlSegment = TYPES[type].urlSegment;
       const data = jsonldData.value[type][0];
 
+      params.set('aggregateRatingValue', data['aggregateRating']?.ratingValue);
+      params.set('aggregateReviewCount', data['aggregateRating']?.reviewCount);
       params.set('dateModified', formatDate(data['dateModified']));
       params.set('description', data['description']);
       params.set('headline', data['headline']);
       params.set('image', getImageUrl(data['image']));
+      params.set('name', data['name']);
+      params.set('offerPrice', formatPrice(data['offers']?.price, data['offers']?.priceCurrency));
+      params.set('offerSellerName', data['offers']?.seller?.name);
       params.set('platform', 'web-app');
       params.set('publisherLogo', data['publisher']?.logo?.url);
       params.set('publisherName', data['publisher']?.name);
@@ -137,13 +142,44 @@ export default {
             type: 'image',
           },
         ],
+        Product: [
+          { term: '@type', value: data['@type'] },
+          { term: 'name', value: data['name'] },
+          { term: 'description', value: data['description'] },
+          { term: 'offers - price', value: data['offers']?.price },
+          { term: 'offers - priceCurrency', value: data['offers']?.priceCurrency },
+          { term: 'offers - seller - name', value: data['offers']?.seller?.name },
+          { term: 'aggregateRating - ratingValue', value: data['aggregateRating']?.ratingValue },
+          { term: 'aggregateRating - reviewCount', value: data['aggregateRating']?.reviewCount },
+          {
+            term: 'image',
+            value: getImageUrl(data['image']),
+            image: {
+              href: getImageUrl(data['image']),
+              url: getImageUrl(data['image']),
+            },
+            type: 'image',
+          },
+        ],
       };
 
       return metaData[type];
     };
 
     const getImageUrl = img => {
-      return Array.isArray(img) ? img[0] : img?.url;
+      if (Array.isArray(img)) {
+        return getImageUrl(img[0]);
+      } else if (typeof img === 'string') {
+        return img.split(', ')[0];
+      }
+
+      return img?.url;
+    };
+
+    const formatPrice = (price, currency) => {
+      if (!price || !currency) return undefined;
+      return new Intl.NumberFormat(undefined, { style: 'currency', currency })
+        .format(typeof price === 'string' ? price.replace(',00', '') : price);
     };
 
     return {

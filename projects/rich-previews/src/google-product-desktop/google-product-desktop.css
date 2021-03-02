@@ -19,7 +19,6 @@
   cursor: default;
 }
 
-.product__description a,
 .product__image,
 .product__merchant-name,
 .product__merchant-review,
@@ -28,7 +27,6 @@
   cursor: pointer;
 }
 
-.product__description a,
 .product__merchant-name:hover,
 .product__merchant-review:hover,
 .product__name:hover,
@@ -84,6 +82,13 @@
   font-size: 0.875rem;
 }
 
+.product__description {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  overflow: hidden;
+}
+
 .product__merchant-name {
   color: var(--color-royal-blue);
 }
@@ -104,7 +109,11 @@
   margin-top: 0.375rem;
 }
 
-.review__stars,
+.review__stars-1,
+.review__stars-2,
+.review__stars-3,
+.review__stars-4,
+.review__stars-5,
 .review__stars-wrapper {
   background-image: url(../@assets/google-shopping-sprites.webp);
   background-repeat: no-repeat;
@@ -121,10 +130,33 @@
   width: 3.688rem;
 }
 
-.review__stars {
+.review__stars-1,
+.review__stars-2,
+.review__stars-3,
+.review__stars-4,
+.review__stars-5 {
   background-position: -3.75rem -6.625rem;
   display: block;
-  width: 3.313rem;
+}
+
+.review__stars-1 {
+  width: 0.75rem;
+}
+
+.review__stars-2 {
+  width: 1.5rem;
+}
+
+.review__stars-3 {
+  width: 2.25rem;
+}
+
+.review__stars-4 {
+  width: 3rem;
+}
+
+.review__stars-5 {
+  width: 3.75rem;
 }
 
 .product__wrapper,

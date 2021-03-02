@@ -9,7 +9,7 @@ export const TYPES = {
   },
   'Product': {
     urlSegment: 'product',
-    updatedOn: 'Jan 26, 2021',
+    updatedOn: 'Mar 02, 2021',
     resources: [ {
       label: 'Advanced SEO: Product (on developers.google)',
       url: 'https://developers.google.com/search/docs/data-types/product',

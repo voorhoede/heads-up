@@ -19,21 +19,6 @@
   position: relative;
 }
 
-.product__tag {
-  background-color: var(--color-white);
-  border-radius: 0.125rem;
-  box-shadow: 0 2px 7px 0 rgb(0 0 0 / 10%);
-  color: var(--color-mine-shaft);
-  font-size: 0.688rem;
-  font-weight: bold;
-  left: 0.5rem;
-  padding: 0 0.5rem;
-  position: absolute;
-  text-transform: uppercase;
-  top: 0.5rem;
-  z-index: 1;
-}
-
 .product__review,
 .product__wrapper {
   align-items: center;
@@ -74,7 +59,11 @@
   color: rgba(0, 0, 0, 0.54);
 }
 
-.review__stars,
+.review__stars-1,
+.review__stars-2,
+.review__stars-3,
+.review__stars-4,
+.review__stars-5,
 .review__stars-wrapper {
   background-image: url(../@assets/google-shopping-sprites.webp);
   background-repeat: no-repeat;
@@ -91,10 +80,33 @@
   width: 3.688rem;
 }
 
-.review__stars {
+.review__stars-1,
+.review__stars-2,
+.review__stars-3,
+.review__stars-4,
+.review__stars-5 {
   background-position: -3.75rem -6.625rem;
   display: block;
-  width: 3.313rem;
+}
+
+.review__stars-1 {
+  width: 0.75rem;
+}
+
+.review__stars-2 {
+  width: 1.5rem;
+}
+
+.review__stars-3 {
+  width: 2.25rem;
+}
+
+.review__stars-4 {
+  width: 3rem;
+}
+
+.review__stars-5 {
+  width: 3.75rem;
 }
 
 .product__price-wrapper {
@@ -196,7 +208,6 @@
   color: var(--color-god-gray);
 }
 
-.product-carrousel .product__description,
 .product-carrousel .product__review {
   color: var(--color-oslo-gray);
   font-size: 0.875rem;
