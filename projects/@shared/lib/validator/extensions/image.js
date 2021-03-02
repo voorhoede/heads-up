@@ -28,7 +28,7 @@ const image = joi => ({
         },
       ],
       validate(value, helpers, args) {
-        if (value.width < args.width) {
+        if (value?.width && value.width < args.width) {
           return { value, warn: helpers.warn('image.minWidth', { width: args.width }) };
         }
 
@@ -48,7 +48,7 @@ const image = joi => ({
         },
       ],
       validate(value, helpers, args) {
-        if (value.width > args.width) {
+        if (value?.width && value.width > args.width) {
           return { value, warn: helpers.warn('image.maxWidth', { width: args.width }) };
         }
 
@@ -68,7 +68,7 @@ const image = joi => ({
         },
       ],
       validate(value, helpers, args) {
-        if (value.height < args.height) {
+        if (value?.height && value.height < args.height) {
           return { value, warn: helpers.warn('image.minHeight', { height: args.height }) };
         }
 
@@ -88,7 +88,7 @@ const image = joi => ({
         },
       ],
       validate(value, helpers, args) {
-        if (value.height > args.height) {
+        if (value?.height && value.height > args.height) {
           return { value, warn: helpers.warn('image.maxHeight', { height: args.height }) };
         }
 
@@ -114,7 +114,7 @@ const image = joi => ({
         },
       ],
       validate(value, helpers, args) {
-        if (value.height < args.height || value.width < args.width) {
+        if (value?.height && value?.width && (value.height < args.height || value.width < args.width)) {
           return { value, warn: helpers.warn('image.minDimensions', { width: args.width, height: args.height }) };
         }
 
@@ -140,7 +140,7 @@ const image = joi => ({
         },
       ],
       validate(value, helpers, args) {
-        if (value.height > args.height || value.width > args.width) {
+        if (value?.height && value?.width && (value.height > args.height || value.width > args.width)) {
           return { value, warn: helpers.warn('image.maxDimensions', { width: args.width, height: args.height }) };
         }
 
