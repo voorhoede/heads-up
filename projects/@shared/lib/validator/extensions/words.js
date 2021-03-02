@@ -13,7 +13,7 @@ const words = joi => ({
   },
   validate(value, helpers) {
     // Base validation regardless of the rules applied.
-    if (value && value.length <= 1) {
+    if (value?.length <= 1) {
       return { value, errors: helpers.error('words.base') };
     }
   },
@@ -32,10 +32,10 @@ const words = joi => ({
         },
       ],
       validate(value, helpers, args) {
-        const trimmedValue = (value && value.length) ? value.trim() : value;
+        const trimmedValue = value?.length ? value.trim() : value;
         const array = trimmedValue.length ? trimmedValue.split(' ') : trimmedValue;
 
-        if (array && array.length < args.words) {
+        if (array?.length < args.words) {
           return { value, warn: helpers.warn('words.minWords', { words: args.words }) };
         }
 
@@ -56,10 +56,10 @@ const words = joi => ({
         },
       ],
       validate(value, helpers, args) {
-        const trimmedValue = (value && value.length) ? value.trim() : value;
+        const trimmedValue = value?.length ? value.trim() : value;
         const array = trimmedValue.length ? trimmedValue.split(' ') : trimmedValue;
 
-        if (array && array.length > args.words) {
+        if (array?.length > args.words) {
           return { value, warn: helpers.warn('words.maxWords', { words: args.words }) };
         }
 
