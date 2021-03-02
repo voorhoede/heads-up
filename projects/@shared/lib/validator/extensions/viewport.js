@@ -57,7 +57,7 @@ const viewport = joi => ({
   },
   validate(value, helpers) {
     if (!hasValidViewportKeys(value)) {
-      return { value, errors: helpers.error('viewport.keys') };
+      return helpers.error('viewport.keys');
     }
 
     if (!hasValidViewportContent(value)) {
