@@ -32,7 +32,7 @@ const image = joi => ({
           return { value, warn: helpers.warn('image.minWidth', { width: args.width }) };
         }
 
-        return { value };
+        return value;
       },
     },
     maxWidth: {
@@ -52,7 +52,7 @@ const image = joi => ({
           return { value, warn: helpers.warn('image.maxWidth', { width: args.width }) };
         }
 
-        return { value };
+        return value;
       },
     },
     minHeight: {
@@ -72,7 +72,7 @@ const image = joi => ({
           return { value, warn: helpers.warn('image.minHeight', { height: args.height }) };
         }
 
-        return { value };
+        return value;
       },
     },
     maxHeight: {
@@ -92,7 +92,7 @@ const image = joi => ({
           return { value, warn: helpers.warn('image.maxHeight', { height: args.height }) };
         }
 
-        return { value };
+        return value;
       },
     },
     minDimensions: {
@@ -118,7 +118,7 @@ const image = joi => ({
           return { value, warn: helpers.warn('image.minDimensions', { width: args.width, height: args.height }) };
         }
 
-        return { value };
+        return value;
       },
     },
     maxDimensions: {
@@ -144,7 +144,7 @@ const image = joi => ({
           return { value, warn: helpers.warn('image.maxDimensions', { width: args.width, height: args.height }) };
         }
 
-        return { value };
+        return value;
       },
     },
   },

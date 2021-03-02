@@ -23,8 +23,7 @@ const transformData = data => {
       */
       if (type === 'image') {
         const { width, height } = await getImageDimensions(image.url);
-        const value = image.url ? { url: image.url, width, height } : image.url;
-        return { ...item, value };
+        return { ...item, value: { url: image.url, width, height } };
       }
 
       return item;
