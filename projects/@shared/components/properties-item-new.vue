@@ -161,7 +161,7 @@ export default {
       return this.errors?.[0]?.message.trim();
     },
     errors() {
-      return this.validation.errors.filter(item => (item.context.key === this.term));
+      return this.validation.errors.filter(item => (item.path[0] === this.term));
     },
     hasErrors() {
       return this.validation.errors && this.errors.length;
@@ -194,7 +194,7 @@ export default {
       return this.warnings?.[0]?.message.trim();
     },
     warnings() {
-      return this.validation.warnings.filter(item => (item.context.key === this.term));
+      return this.validation.warnings.filter(item => (item.path[0] === this.term));
     },
   },
 };
