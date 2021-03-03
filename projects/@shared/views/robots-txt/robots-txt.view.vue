@@ -6,13 +6,13 @@
         <p>No sitemaps detected.</p>
       </div>
       <properties-list v-else>
-        <properties-item
+        <properties-item-new
           v-for="(url, index) in sitemapUrls"
           :key="index"
           term="url"
           :value="url"
         >
-        </properties-item>
+        </properties-item-new>
       </properties-list>
     </panel-section>
     <panel-section
@@ -21,38 +21,38 @@
       :title="robot.name"
     >
       <properties-list>
-        <properties-item
+        <properties-item-new
           term="allow"
           :value="robot.allow.length && robot.allow"
           required
         >
-        </properties-item>
-        <properties-item
+        </properties-item-new>
+        <properties-item-new
           term="crawlDelay"
           :value="robot.crawlDelay"
           required
         >
-        </properties-item>
-        <properties-item
+        </properties-item-new>
+        <properties-item-new
           term="disallow"
           :value="robot.disallow.length && robot.disallow"
           required
         >
-        </properties-item>
+        </properties-item-new>
       </properties-list>
     </panel-section>
     <panel-section title="Current page">
       <properties-list>
-        <properties-item
+        <properties-item-new
           term="url"
           :value="url"
         >
-        </properties-item>
-        <properties-item
+        </properties-item-new>
+        <properties-item-new
           term="crawlable"
           :value="urlIsCrawlable"
         >
-        </properties-item>
+        </properties-item-new>
       </properties-list>
     </panel-section>
     <panel-section title="Resources">
@@ -81,7 +81,7 @@
 import { computed } from 'vue';
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
-import PropertiesItem from '@shared/components/properties-item';
+import PropertiesItemNew from '@shared/components/properties-item-new';
 import PropertiesList from '@shared/components/properties-list';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 
@@ -109,7 +109,7 @@ export default {
   components: {
     ExternalLink,
     PanelSection,
-    PropertiesItem,
+    PropertiesItemNew,
     PropertiesList,
     WarningIcon,
   },

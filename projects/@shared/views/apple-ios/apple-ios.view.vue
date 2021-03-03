@@ -2,14 +2,14 @@
   <div class="apple-ios">
     <panel-section title="Properties">
       <properties-list>
-        <properties-item
+        <properties-item-new
           v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
           :required="true"
         >
-        </properties-item>
+        </properties-item-new>
       </properties-list>
     </panel-section>
     <panel-section title="Touch icons">
@@ -18,7 +18,7 @@
         <p>No touch icons detected.</p>
       </div>
       <properties-list v-else>
-        <properties-item
+        <properties-item-new
           v-for="icon in touchIcons"
           :key="icon.term"
           :term="icon.term"
@@ -26,7 +26,7 @@
           :image="icon"
           type="image"
         >
-        </properties-item>
+        </properties-item-new>
       </properties-list>
     </panel-section>
     <panel-section title="Startup images">
@@ -35,7 +35,7 @@
         <p>No startup images detected.</p>
       </div>
       <properties-list v-else>
-        <properties-item
+        <properties-item-new
           v-for="item in startupImages"
           :key="item.term"
           :term="image.term"
@@ -43,7 +43,7 @@
           :image="image"
           type="image"
         >
-        </properties-item>
+        </properties-item-new>
       </properties-list>
     </panel-section>
     <panel-section title="Resources">
@@ -70,7 +70,7 @@ import { findMetaContent } from '@shared/lib/find-meta';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
-import PropertiesItem from '@shared/components/properties-item';
+import PropertiesItemNew from '@shared/components/properties-item-new';
 import PropertiesList from '@shared/components/properties-list';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 
@@ -140,7 +140,7 @@ export default {
   components: {
     ExternalLink,
     PanelSection,
-    PropertiesItem,
+    PropertiesItemNew,
     PropertiesList,
     WarningIcon,
   },
