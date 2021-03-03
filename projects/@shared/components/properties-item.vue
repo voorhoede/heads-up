@@ -39,7 +39,7 @@
         </template>
 
         <template v-if="tooltip.link" #link>
-          &nbsp;<external-link :href="tooltip.link.trim()">Learn more</external-link>
+          <external-link class="app-tooltip__link" :href="tooltip.link.trim()">Learn more</external-link>
         </template>
 
       </app-tooltip>
