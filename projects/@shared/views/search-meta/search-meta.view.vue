@@ -36,7 +36,7 @@
 import { computed, ref } from 'vue';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findLinkHref, findMetaContent } from '@shared/lib/find-meta';
-import validate from '@shared/lib/validate-data';
+import validate from '@shared/lib/validate';
 import { schema, info } from './schema';
 
 import PanelSection from '@shared/components/panel-section';

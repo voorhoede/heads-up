@@ -52,7 +52,7 @@
 import { computed, ref } from 'vue';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
-import validate from '@shared/lib/validate-data';
+import validate from '@shared/lib/validate';
 import { schema, info } from './schema';
 
 import ExternalLink from '@shared/components/external-link';

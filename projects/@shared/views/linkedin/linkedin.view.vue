@@ -53,7 +53,7 @@ import { computed, onMounted, ref, watch } from 'vue';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
-import validate from '@shared/lib/validate-data';
+import validate from '@shared/lib/validate';
 import { schema, info } from './schema';
 
 import ExternalLink from '@shared/components/external-link';
