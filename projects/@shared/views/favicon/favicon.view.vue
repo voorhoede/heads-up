@@ -6,7 +6,7 @@
         <p>No favicons detected.</p>
       </div>
       <properties-list v-else>
-        <properties-item-new
+        <properties-item
           v-for="image in favicons"
           :key="image.term"
           :term="image.term"
@@ -14,7 +14,7 @@
           :image="image"
           type="image"
         >
-        </properties-item-new>
+        </properties-item>
       </properties-list>
     </panel-section>
     <panel-section title="Resources">
@@ -35,7 +35,7 @@ import { findFavicons } from '@shared/lib/find-meta';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
-import PropertiesItemNew from '@shared/components/properties-item-new';
+import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 
@@ -62,7 +62,7 @@ export default {
   components: {
     ExternalLink,
     PanelSection,
-    PropertiesItemNew,
+    PropertiesItem,
     PropertiesList,
     WarningIcon,
   },

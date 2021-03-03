@@ -17,7 +17,7 @@
     </panel-section>
     <panel-section v-if="hasOpenSearchFile" title="Tags">
       <properties-list>
-        <properties-item-new
+        <properties-item
           v-for="item in metaData"
           :key="item.term"
           :term="item.term"
@@ -27,7 +27,7 @@
           :tooltip="getTooltipInfo(item.term)"
           :validation="validation"
         >
-        </properties-item-new>
+        </properties-item>
       </properties-list>
     </panel-section>
     <panel-section title="Resources">
@@ -54,7 +54,7 @@ import ExternalLink from '@shared/components/external-link.vue';
 import PanelSection from '@shared/components/panel-section.vue';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesList from '@shared/components/properties-list.vue';
-import PropertiesItemNew from '@shared/components/properties-item-new';
+import PropertiesItem from '@shared/components/properties-item';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
@@ -190,7 +190,7 @@ export default {
     ExternalLink,
     PanelSection,
     PreviewIframe,
-    PropertiesItemNew,
+    PropertiesItem,
     PropertiesList,
     WarningIcon,
   },

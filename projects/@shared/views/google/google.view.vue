@@ -37,7 +37,7 @@
       :key="type"
     >
       <properties-list>
-        <properties-item-new
+        <properties-item
           v-for="item in getMetaData(type)"
           :key="item.term"
           :term="item.term"
@@ -46,7 +46,7 @@
           :type="item.type"
           :required="true"
         >
-        </properties-item-new>
+        </properties-item>
       </properties-list>
     </panel-section>
 
@@ -69,7 +69,7 @@ import { TYPES, splitTypes } from '@shared/lib/google-utils.js';
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
-import PropertiesItemNew from '@shared/components/properties-item-new';
+import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import TabSelector from '@shared/components/tab-selector';
 import WarningIcon from '@shared/assets/icons/warning.svg';
@@ -159,7 +159,7 @@ export default {
     ExternalLink,
     PanelSection,
     PreviewIframe,
-    PropertiesItemNew,
+    PropertiesItem,
     PropertiesList,
     TabSelector,
     WarningIcon,

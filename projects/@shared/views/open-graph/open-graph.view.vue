@@ -6,7 +6,7 @@
         <p>No Open Graph properties detected.</p>
       </div>
       <properties-list v-else>
-        <properties-item-new
+        <properties-item
           v-for="item in metaData"
           :key="item.term"
           :term="item.term"
@@ -17,7 +17,7 @@
           :validation="validation"
           :required="item.required"
         >
-        </properties-item-new>
+        </properties-item>
       </properties-list>
     </panel-section>
     <panel-section title="Resources">
@@ -41,7 +41,7 @@ import { schema, info } from './schema';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
-import PropertiesItemNew from '@shared/components/properties-item-new';
+import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 
@@ -122,7 +122,7 @@ export default {
   components: {
     ExternalLink,
     PanelSection,
-    PropertiesItemNew,
+    PropertiesItem,
     PropertiesList,
     WarningIcon,
   },

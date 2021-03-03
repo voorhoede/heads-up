@@ -19,7 +19,7 @@
     </panel-section>
     <panel-section title="Properties">
       <properties-list>
-        <properties-item-new
+        <properties-item
           v-for="item in metaData"
           :key="item.term"
           :term="item.term"
@@ -30,7 +30,7 @@
           :validation="validation"
           :required="item.required"
         >
-        </properties-item-new>
+        </properties-item>
       </properties-list>
     </panel-section>
     <panel-section title="Resources">
@@ -57,7 +57,7 @@ import { schema, info } from './schema';
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
-import PropertiesItemNew from '@shared/components/properties-item-new';
+import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import TabSelector from '@shared/components/tab-selector';
 
@@ -254,7 +254,7 @@ export default {
     ExternalLink,
     PanelSection,
     PreviewIframe,
-    PropertiesItemNew,
+    PropertiesItem,
     PropertiesList,
     TabSelector,
   },
