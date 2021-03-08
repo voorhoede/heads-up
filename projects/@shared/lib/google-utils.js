@@ -1,4 +1,9 @@
 export const TYPES = {
+  'default': {
+    urlSegment: null,
+    updatedOn: 'Mar 08, 2021',
+    resources: [],
+  },
   'NewsArticle': {
     urlSegment: 'article',
     updatedOn: 'Jan 26, 2021',
