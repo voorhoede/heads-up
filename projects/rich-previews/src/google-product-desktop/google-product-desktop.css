@@ -115,7 +115,7 @@
 .review__stars-4,
 .review__stars-5,
 .review__stars-wrapper {
-  background-image: url(../@assets/google-shopping-sprites.webp);
+  background-image: url(../@assets/google-shopping-sprites.png);
   background-repeat: no-repeat;
   background-size: 8rem;
   height: 0.688rem;
