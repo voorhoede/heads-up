@@ -10,7 +10,7 @@
 
   <body>
     <div id="app">
-      <div class="google-default">
+      <div class="google-default" :class="{ 'google-default--dark': isDarkMode }">
         <a class="google-default__link" rel="noopener" target="_blank" :href="url">
           <ul class="google-default__url">
             <li

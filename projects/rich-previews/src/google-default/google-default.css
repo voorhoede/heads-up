@@ -23,6 +23,10 @@
   margin: 0;
 }
 
+.google-default--dark .google-default__url {
+  color: var(--color-silver-sand);
+}
+
 .google-default__url-segment {
   margin-right: 0.2rem;
 }
@@ -34,6 +38,11 @@
 .google-default__url-segment:not(:last-of-type)::after {
   color: var(--color-shuttle-gray);
   content: " ›";
+}
+
+.google-default--dark .google-default__url-segment:not(:first-of-type),
+.google-default--dark .google-default__url-segment:not(:last-of-type)::after {
+  color: var(--color-manatee);
 }
 
 .google-default__url-segment:last-of-type {
@@ -68,10 +77,18 @@
   margin: 0.25rem 0 0.188rem;
 }
 
+.google-default--dark .google-default__title {
+  color: var(--color-cornflower-blue);
+}
+
 .google-default__description {
   -webkit-line-clamp: 2;
   color: var(--color-abbey);
   font-size: 0.875rem;
   line-height: 1.58;
   word-wrap: break-word;
+}
+
+.google-default--dark .google-default__description {
+  color: var(--color-silver-sand);
 }
