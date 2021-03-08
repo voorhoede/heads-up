@@ -22,17 +22,18 @@
     </panel-section>
     <panel-section title="Properties">
       <properties-list>
-        <properties-item
+        <properties-item-new
           v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
           :image="item.image"
           :type="item.type"
-          :schema="schema"
+          :tooltip="getTooltipInfo(item.term)"
+          :validation="validation"
           :required="item.required"
         >
-        </properties-item>
+        </properties-item-new>
       </properties-list>
     </panel-section>
     <panel-section title="Resources">
@@ -62,12 +63,13 @@ import { computed, onMounted, ref, watch } from 'vue';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findImageDimensions, findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
-import schema from './schema';
+import validate from '@shared/lib/validate-data';
+import { schema, info } from './schema';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
-import PropertiesItem from '@shared/components/properties-item';
+import PropertiesItemNew from '@shared/components/properties-item-new';
 import PropertiesList from '@shared/components/properties-list';
 
 export default {
@@ -79,6 +81,7 @@ export default {
   },
 
   setup: props => {
+    const validation = ref({});
     const imageDimensions = ref({ height: undefined, width: undefined });
     const validCards = ref([ 'summary', 'summary_large_image', 'app', 'player' ]);
     const supportedCards = ref([ 'summary', 'summary_large_image' ]);
@@ -301,14 +304,15 @@ export default {
       findImageDimensions(props.headData.head, name)
         .then(dimensions => imageDimensions.value = dimensions);
     };
+    const getTooltipInfo = term => (info[term] ?? {});
 
-    watch(og.value.image, (value, oldValue) => {
+    watch(() => og.value.image, (value, oldValue) => {
       if (value !== oldValue) {
         getImageDimensions('og:image');
       }
     });
 
-    watch(twitter.value.image, (value, oldValue) => {
+    watch(() => og.value.image, (value, oldValue) => {
       if (value !== oldValue) {
         getImageDimensions('twitter:image');
       }
@@ -316,26 +320,25 @@ export default {
 
     onMounted(() => getImageDimensions());
 
+    validate(metaData.value, schema)
+      .then(result => validation.value = result);
+
     return {
       card,
       supportedCards,
       isValidCard,
       isSupportedCard,
-      title,
-      description,
-      image,
-      og,
-      twitter,
       previewUrl,
       metaData,
-      schema,
+      getTooltipInfo,
+      validation,
     };
   },
   components: {
     ExternalLink,
     PanelSection,
     PreviewIframe,
-    PropertiesItem,
+    PropertiesItemNew,
     PropertiesList,
   },
 };

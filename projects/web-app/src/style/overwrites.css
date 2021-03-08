@@ -1,34 +1,34 @@
 /* Style overwrites for the shared components used in the web-app */
 
-.panel-section .heading {
+.app .panel-section .heading {
   margin-bottom: 24px;
   color: var(--color-blue);
   font-weight: bold;
 }
 
-.properties-list .properties-item {
+.app .properties-list .properties-item {
   margin-bottom: 26px;
 }
 
-.properties-list .properties-item__terms {
+.app .properties-list .properties-item__terms {
   flex: 0 0 40%;
   max-width: 250px;
 }
 
-.properties-list .properties-item__value {
+.app .properties-list .properties-item__value {
   flex: 1 1 auto;
   max-width: none;
 }
 
-.properties-item__image {
+.app .properties-item__image {
   margin-bottom: 0;
 }
 
-.properties-item__value--image a {
+.app .properties-item__value--image a {
   font-size: 12px;
 }
 
-.properties-item__icon {
+.app .properties-item__icon {
   top: -2px;
   width: 20px;
   height: 20px;
