@@ -10,7 +10,21 @@
 
   <body>
     <div id="app">
-      <p>Hi</p>
+      <div class="google-default">
+        <a class="google-default__link" rel="noopener" target="_blank" :href="url">
+          <ul class="google-default__url">
+            <li
+              class="google-default__url-segment"
+              v-for="(segment, index) in urlSegments"
+              :key="index"
+            >
+              {{ segment }}
+            </li>
+          </ul>
+          <p class="google-default__title">{{ title }}</p>
+        </a>
+        <p class="google-default__description">{{ description }}</p>
+      </div>
     </div>
 
     <script src="https://unpkg.com/vue@3.0.5/dist/vue.global.prod.js"></script>

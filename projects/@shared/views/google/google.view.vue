@@ -67,6 +67,7 @@
 <script>
 import { computed, ref } from 'vue';
 import { format as formatDate } from 'timeago.js';
+import { findMetaContent } from '@shared/lib/find-meta';
 import { TABS } from '@shared/lib/constants.js';
 import { TYPES, splitTypes } from '@shared/lib/google-utils.js';
 import getTheme from '@shared/lib/theme';
@@ -95,7 +96,13 @@ export default {
     const resources = supportedTypes.value.map(type => TYPES[type].resources).flat();
 
     const getDefaultPreviewUrl = () => {
+      const { head } = props.headData;
       const params = new URLSearchParams();
+
+      params.set('description', findMetaContent(head, 'description'));
+      params.set('theme', getTheme());
+      params.set('title', head.title);
+      params.set('url', head.url);
 
       return `/previews/google-default/google-default.html?${ params }`;
     };
