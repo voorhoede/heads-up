@@ -65,6 +65,7 @@ import { computed, ref } from 'vue';
 import { format as formatDate } from 'timeago.js';
 import { TABS } from '@shared/lib/constants.js';
 import { TYPES, splitTypes } from '@shared/lib/google-utils.js';
+import getTheme from '@shared/lib/theme';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
@@ -85,21 +86,28 @@ export default {
   setup: props => {
     const openTab = ref(TABS[0].value);
     const jsonldData = computed(() => props.headData?.structuredData?.jsonld ?? {});
-    const [ supportedTypes, notSupportedTypes ] = splitTypes(jsonldData.value);
-    const resources = supportedTypes.map(type => TYPES[type].resources).flat();
+    const supportedTypes = computed(() => splitTypes(jsonldData.value)[0]);
+    const notSupportedTypes = computed(() => splitTypes(jsonldData.value)[1]);
+    const resources = supportedTypes.value.map(type => TYPES[type].resources).flat();
 
     const getPreviewUrl = type => {
       const params = new URLSearchParams();
       const urlSegment = TYPES[type].urlSegment;
       const data = jsonldData.value[type][0];
 
+      params.set('aggregateRatingValue', data['aggregateRating']?.ratingValue);
+      params.set('aggregateReviewCount', data['aggregateRating']?.reviewCount);
       params.set('dateModified', formatDate(data['dateModified']));
       params.set('description', data['description']);
       params.set('headline', data['headline']);
       params.set('image', getImageUrl(data['image']));
+      params.set('name', data['name']);
+      params.set('offerPrice', formatPrice(data['offers']?.price, data['offers']?.priceCurrency));
+      params.set('offerSellerName', data['offers']?.seller?.name);
       params.set('platform', 'web-app');
-      params.set('publisherLogo', data['publisher'].logo.url);
-      params.set('publisherName', data['publisher'].name);
+      params.set('publisherLogo', data['publisher']?.logo?.url);
+      params.set('publisherName', data['publisher']?.name);
+      params.set('theme', getTheme());
       params.set('type', data['@type']);
 
       return openTab.value === 'mobile'
@@ -115,16 +123,35 @@ export default {
           { term: 'headline', value: data['headline'] },
           { term: 'description', value: data['description'] },
           { term: 'dateModified', value: data['dateModified'] },
-          { term: 'publisher - name', value: data['publisher'].name },
+          { term: 'publisher - name', value: data['publisher']?.name },
           {
             term: 'publisher - logo',
-            value: getImageUrl(data['publisher'].logo),
+            value: getImageUrl(data['publisher']?.logo),
             image: {
-              href: getImageUrl(data['publisher'].logo),
-              url: getImageUrl(data['publisher'].logo),
+              href: getImageUrl(data['publisher']?.logo),
+              url: getImageUrl(data['publisher']?.logo),
             },
             type: 'image',
           },
+          {
+            term: 'image',
+            value: getImageUrl(data['image']),
+            image: {
+              href: getImageUrl(data['image']),
+              url: getImageUrl(data['image']),
+            },
+            type: 'image',
+          },
+        ],
+        Product: [
+          { term: '@type', value: data['@type'] },
+          { term: 'name', value: data['name'] },
+          { term: 'description', value: data['description'] },
+          { term: 'offers - price', value: data['offers']?.price },
+          { term: 'offers - priceCurrency', value: data['offers']?.priceCurrency },
+          { term: 'offers - seller - name', value: data['offers']?.seller?.name },
+          { term: 'aggregateRating - ratingValue', value: data['aggregateRating']?.ratingValue },
+          { term: 'aggregateRating - reviewCount', value: data['aggregateRating']?.reviewCount },
           {
             term: 'image',
             value: getImageUrl(data['image']),
@@ -141,7 +168,19 @@ export default {
     };
 
     const getImageUrl = img => {
-      return Array.isArray(img) ? img[0] : img.url;
+      if (Array.isArray(img)) {
+        return getImageUrl(img[0]);
+      } else if (typeof img === 'string') {
+        return img.split(', ')[0];
+      }
+
+      return img?.url;
+    };
+
+    const formatPrice = (price, currency) => {
+      if (!price || !currency) return undefined;
+      return new Intl.NumberFormat(undefined, { style: 'currency', currency })
+        .format(typeof price === 'string' ? price.replace(',00', '') : price);
     };
 
     return {

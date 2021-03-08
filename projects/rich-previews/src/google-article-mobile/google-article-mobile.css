@@ -3,7 +3,7 @@
 
 /* Article */
 .article {
-  background-color: white;
+  background-color: var(--color-white);
   border-radius: 0.5rem;
   box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
   cursor: pointer;
@@ -29,7 +29,7 @@
 }
 
 .article__image {
-  background-color: #f8f9fa;
+  background-color: var(--color-athens-gray);
   border-radius: 0.5rem;
   display: block;
   height: 92px;
@@ -42,7 +42,7 @@
 .article__headline {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
-  color: #202124;
+  color: var(--color-shark);
   display: -webkit-box;
   font-size: 1rem;
   height: auto;
@@ -52,7 +52,7 @@
 }
 
 .article__publisher {
-  color: var(--body-color);
+  color: var(--color-rolling-stone);
   display: flex;
   font-size: 12px;
   line-height: 1.33em;
@@ -72,7 +72,7 @@
 }
 
 .article__time {
-  color: var(--body-color);
+  color: var(--color-rolling-stone);
   font-size: 12px;
   line-height: 1rem;
 }
@@ -104,8 +104,8 @@
 }
 
 .article-carrousel__title {
-  background-color: var(--background-color);
-  border-bottom: 1px solid var(--border-color);
+  background-color: var(--color-white);
+  border-bottom: 1px solid var(--color-iron);
   font-size: 1rem;
   font-weight: bold;
   line-height: 1.25;
@@ -114,7 +114,7 @@
 }
 
 .article-carrousel__item {
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--color-iron);
 }
 
 .article-carrousel__item:last-of-type {
@@ -126,8 +126,8 @@
 .article__skeleton-image,
 .article__skeleton-publisher,
 .article__skeleton-time {
-  background-color: var(--skeleton-color);
-  border: 1px solid var(--border-color);
+  background-color: var(--color-gallery);
+  border: 1px solid var(--color-iron);
 }
 
 .article__skeleton-headline,
