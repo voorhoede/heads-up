@@ -28,11 +28,11 @@ const image = joi => ({
         },
       ],
       validate(value, helpers, args) {
-        if (value.width < args.width) {
+        if (value?.width < args.width) {
           return { value, warn: helpers.warn('image.minWidth', { width: args.width }) };
         }
 
-        return { value };
+        return value;
       },
     },
     maxWidth: {
@@ -48,11 +48,11 @@ const image = joi => ({
         },
       ],
       validate(value, helpers, args) {
-        if (value.width > args.width) {
+        if (value?.width < args.width) {
           return { value, warn: helpers.warn('image.maxWidth', { width: args.width }) };
         }
 
-        return { value };
+        return value;
       },
     },
     minHeight: {
@@ -68,11 +68,11 @@ const image = joi => ({
         },
       ],
       validate(value, helpers, args) {
-        if (value.height < args.height) {
+        if (value?.height < args.height) {
           return { value, warn: helpers.warn('image.minHeight', { height: args.height }) };
         }
 
-        return { value };
+        return value;
       },
     },
     maxHeight: {
@@ -88,11 +88,11 @@ const image = joi => ({
         },
       ],
       validate(value, helpers, args) {
-        if (value.height > args.height) {
+        if (value?.height > args.height) {
           return { value, warn: helpers.warn('image.maxHeight', { height: args.height }) };
         }
 
-        return { value };
+        return value;
       },
     },
     minDimensions: {
@@ -114,11 +114,11 @@ const image = joi => ({
         },
       ],
       validate(value, helpers, args) {
-        if (value.height < args.height || value.width < args.width) {
+        if (value?.height && value?.width && (value.height < args.height || value.width < args.width)) {
           return { value, warn: helpers.warn('image.minDimensions', { width: args.width, height: args.height }) };
         }
 
-        return { value };
+        return value;
       },
     },
     maxDimensions: {
@@ -140,11 +140,24 @@ const image = joi => ({
         },
       ],
       validate(value, helpers, args) {
-        if (value.height > args.height || value.width > args.width) {
+        if (value?.height && value?.width && (value.height > args.height || value.width > args.width)) {
           return { value, warn: helpers.warn('image.maxDimensions', { width: args.width, height: args.height }) };
         }
 
-        return { value };
+        return value;
+      },
+    },
+    isRequired: {
+      alias: 'required',
+      method() {
+        return this.$_addRule({ name: 'isRequired' });
+      },
+      validate(value, helpers) {
+        if (!value?.height && !value?.width && helpers.schema.$_getRule('isRequired')) {
+          return helpers.error('any.required');
+        }
+
+        return value;
       },
     },
   },

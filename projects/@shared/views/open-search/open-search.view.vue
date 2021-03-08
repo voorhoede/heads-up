@@ -17,16 +17,17 @@
     </panel-section>
     <panel-section v-if="hasOpenSearchFile" title="Tags">
       <properties-list>
-        <properties-item
+        <properties-item-new
           v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
           :image="item.image"
           :type="item.type"
-          :schema="schema"
+          :tooltip="getTooltipInfo(item.term)"
+          :validation="validation"
         >
-        </properties-item>
+        </properties-item-new>
       </properties-list>
     </panel-section>
     <panel-section title="Resources">
@@ -46,13 +47,14 @@ import { computed, ref, onMounted, watch } from 'vue';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findLinkHref, findXMLElement } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
-import schema from './schema';
+import validate from '@shared/lib/validate-data';
+import { schema, info } from './schema';
 
 import ExternalLink from '@shared/components/external-link.vue';
 import PanelSection from '@shared/components/panel-section.vue';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesList from '@shared/components/properties-list.vue';
-import PropertiesItem from '@shared/components/properties-item.vue';
+import PropertiesItemNew from '@shared/components/properties-item-new';
 import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
@@ -64,6 +66,7 @@ export default {
   },
 
   setup: props => {
+    const validation = ref({});
     const fileContent = ref('');
     const hasOpenSearchFile = computed(() => fileUrl.value && fileContent.value);
     const metaTagValue = computed(() => findLinkHref(props.headData.head, 'search'));
@@ -108,7 +111,7 @@ export default {
       },
       {
         term: 'urls',
-        value: formatUrlsObject(urls.value),
+        value: urls.value?.length ? formatUrlsObject(urls.value) : [],
         type: 'urls',
       },
       {
@@ -148,10 +151,19 @@ export default {
         });
     };
 
-    watch(fileUrl, value => {
+    const getTooltipInfo = term => (info[term] ?? {});
+
+    watch(fileContent, (value, oldValue) => {
+      if (value !== oldValue) {
+        validate(metaData.value, schema)
+          .then(result => validation.value = result);
+      }
+    });
+
+    watch(fileUrl, (value, oldValue) => {
       fileContent.value = '';
 
-      if (value) {
+      if (value !== oldValue) {
         getFileContent(value);
       }
     });
@@ -160,6 +172,7 @@ export default {
 
     return {
       fileContent,
+      getTooltipInfo,
       hasOpenSearchFile,
       metaTagValue,
       previewUrl,
@@ -170,14 +183,14 @@ export default {
       image,
       inputEncoding,
       metaData,
-      schema,
+      validation,
     };
   },
   components: {
     ExternalLink,
     PanelSection,
     PreviewIframe,
-    PropertiesItem,
+    PropertiesItemNew,
     PropertiesList,
     WarningIcon,
   },
