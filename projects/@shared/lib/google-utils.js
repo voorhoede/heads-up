@@ -36,3 +36,15 @@ export const truncateString = (str, num) => {
   if (str.length <= num) return str;
   return str.slice(0, num) + '...';
 };
+
+export const getUrlSegments = url => {
+  return truncateString(
+    url
+      .replace(/\/?$/, '/')           // Step 1: Make sure the URL ends with '/'.
+      .replace(/\/(\d+)\//g, '/')     // Step 2: Remove URL segments that only contain digits.
+      .replace(/(^\w+:|^)\/\//, ''),  // Step 3: Remove the protocol from the URL.
+    45
+  )
+    .split('/')                       // Step 4: Split the segments.
+    .filter(Boolean);                 // Step 5: Cleanup.
+};

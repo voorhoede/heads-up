@@ -1,4 +1,4 @@
-import { truncateString } from '../../../@shared/lib/google-utils.js';
+import { getUrlSegments } from '../../../@shared/lib/google-utils.js';
 
 const app = Vue.createApp({
   setup() {
@@ -12,7 +12,7 @@ const app = Vue.createApp({
       isDarkMode: params.get('theme') === 'dark',
       title,
       url,
-      urlSegments: truncateString(url.replace(/(^\w+:|^)\/\//, ''), 30).split('/').filter(Boolean),
+      urlSegments: getUrlSegments(url),
     };
   },
 });
