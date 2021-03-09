@@ -8,7 +8,6 @@ const app = Vue.createApp({
     const name = params.get('name');
     const offerPrice = params.get('offerPrice');
     const offerSellerName = params.get('offerSellerName');
-    const type = params.get('type');
 
     const hasRequiredData = () => {
       return (
@@ -16,8 +15,7 @@ const app = Vue.createApp({
         (image && image !== 'undefined') &&
         (name && name !== 'undefined') &&
         (offerPrice && offerPrice !== 'undefined') &&
-        (offerSellerName && offerSellerName !== 'undefined') &&
-        (type && type !== 'undefined')
+        (offerSellerName && offerSellerName !== 'undefined')
       );
     };
 
@@ -40,7 +38,6 @@ const app = Vue.createApp({
       offerPrice,
       offerSellerName,
       platform: params.get('platform'),
-      type,
     };
   },
 });

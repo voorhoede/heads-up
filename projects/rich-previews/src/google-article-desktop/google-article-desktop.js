@@ -7,7 +7,6 @@ const app = Vue.createApp({
     const image = params.get('image');
     const publisherLogo = params.get('publisherLogo');
     const publisherName = params.get('publisherName');
-    const type = params.get('type');
 
     const hasRequiredData = () => {
       return (
@@ -16,8 +15,7 @@ const app = Vue.createApp({
         (headline && headline !== 'undefined') &&
         (image && image !== 'undefined') &&
         (publisherLogo && publisherLogo !== 'undefined') &&
-        (publisherName && publisherName !== 'undefined') &&
-        (type && type !== 'undefined')
+        (publisherName && publisherName !== 'undefined')
       );
     };
 
@@ -31,7 +29,6 @@ const app = Vue.createApp({
       platform: params.get('platform'),
       publisherLogo,
       publisherName,
-      type,
     };
   },
 });
