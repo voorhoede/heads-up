@@ -36,8 +36,8 @@
       </div>
       <properties-list v-else>
         <properties-item
-          v-for="item in startupImages"
-          :key="item.term"
+          v-for="image in startupImages"
+          :key="image.term"
           :term="image.term"
           :value="image.url"
           :image="image"
