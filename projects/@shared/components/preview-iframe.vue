@@ -123,9 +123,11 @@ export default {
 
 .preview-iframe--loading .preview-iframe__loading {
   opacity: 1;
+  visibility: visible;
 }
 
 .preview-iframe--loaded .preview-iframe__loading {
   opacity: 0;
+  visibility: hidden;
 }
 </style>

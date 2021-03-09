@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Google - Default</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="google-default.css">
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="google-default" :class="{ 'google-default--dark': isDarkMode }">
+        <a class="google-default__link" rel="noopener" target="_blank" :href="url">
+          <ul class="google-default__url">
+            <li
+              class="google-default__url-segment"
+              v-for="(segment, index) in urlSegments"
+              :key="index"
+            >
+              {{ segment }}
+            </li>
+          </ul>
+          <p class="google-default__title">{{ title }}</p>
+        </a>
+        <p class="google-default__description">{{ description }}</p>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3.0.5/dist/vue.global.prod.js"></script>
+    <script type="module" src="google-default.js"></script>
+  </body>
+</html>

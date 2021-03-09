@@ -1,13 +1,13 @@
 <template>
   <div class="google">
-    <tab-selector v-model="openTab" :tabs="TABS"/>
-
     <panel-section v-if="notSupportedTypes.length > 0" title="Not Supported">
       <div class="warning-message">
         <WarningIcon class="icon" />
         <p>We currently don't support: {{ notSupportedTypes.join(', ') }}. Stay tuned for future updates.</p>
       </div>
     </panel-section>
+
+    <tab-selector v-model="openTab" :tabs="TABS"/>
 
     <panel-section v-if="supportedTypes.length > 0" title="Preview">
       <preview-iframe
@@ -23,12 +23,16 @@
       </preview-iframe>
     </panel-section>
 
-    <!-- @TODO: Create a 'default' google search preview. -->
     <panel-section v-else title="Standard Preview">
-      <div class="warning-message">
-        <WarningIcon class="icon" />
-        <p>Standard preview coming soon.</p>
-      </div>
+      <preview-iframe
+        iframeClass="google__preview"
+        :url="getDefaultPreviewUrl()"
+        :loading-height="40"
+      >
+        <template v-slot:caption>
+          Preview based on <external-link href="https://google.com/">google.com</external-link> (Updated on {{ TYPES.default.updatedOn }}).
+        </template>
+      </preview-iframe>
     </panel-section>
 
     <panel-section
@@ -63,6 +67,7 @@
 <script>
 import { computed, ref } from 'vue';
 import { format as formatDate } from 'timeago.js';
+import { findMetaContent } from '@shared/lib/find-meta';
 import { TABS } from '@shared/lib/constants.js';
 import { TYPES, splitTypes } from '@shared/lib/google-utils.js';
 import getTheme from '@shared/lib/theme';
@@ -90,6 +95,18 @@ export default {
     const notSupportedTypes = computed(() => splitTypes(jsonldData.value)[1]);
     const resources = supportedTypes.value.map(type => TYPES[type].resources).flat();
 
+    const getDefaultPreviewUrl = () => {
+      const { head } = props.headData;
+      const params = new URLSearchParams();
+
+      params.set('description', findMetaContent(head, 'description'));
+      params.set('theme', getTheme());
+      params.set('title', head.title);
+      params.set('url', head.url);
+
+      return `/previews/google-default/google-default.html?${ params }`;
+    };
+
     const getPreviewUrl = type => {
       const params = new URLSearchParams();
       const urlSegment = TYPES[type].urlSegment;
@@ -108,7 +125,6 @@ export default {
       params.set('publisherLogo', data['publisher']?.logo?.url);
       params.set('publisherName', data['publisher']?.name);
       params.set('theme', getTheme());
-      params.set('type', data['@type']);
 
       return openTab.value === 'mobile'
         ? `/previews/google-${ urlSegment }-mobile/google-${ urlSegment }-mobile.html?${ params }`
@@ -189,6 +205,7 @@ export default {
       openTab,
       supportedTypes,
       notSupportedTypes,
+      getDefaultPreviewUrl,
       getPreviewUrl,
       getMetaData,
       resources,
