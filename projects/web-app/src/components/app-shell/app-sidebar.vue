@@ -178,9 +178,6 @@
         </ul>
       </nav>
       <footer class="app-sidebar__footer">
-        <external-link class="app-sidebar__external-link" href="https://heads-up-landing-page.netlify.app/">
-          About Heads Up
-        </external-link>
         <madeWithLove />
       </footer>
     </div>
@@ -192,7 +189,6 @@ import { computed } from 'vue';
 import useHead from '@/composables/use-head';
 import AppleIcon from '@shared/assets/icons/apple.svg';
 import CodeIcon from '@shared/assets/icons/code.svg';
-import ExternalLink from '@shared/components/external-link';
 import FacebookIcon from '@shared/assets/icons/facebook.svg';
 import GoogleIcon from '@shared/assets/icons/google.svg';
 import ImageIcon from '@shared/assets/icons/image.svg';
@@ -216,7 +212,6 @@ export default {
   components: {
     AppleIcon,
     CodeIcon,
-    ExternalLink,
     FacebookIcon,
     GoogleIcon,
     ImageIcon,
@@ -249,7 +244,10 @@ export default {
 }
 
 .app-sidebar__content {
- overflow-x: auto;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-x: auto;
 }
 
 .app-sidebar__list {
