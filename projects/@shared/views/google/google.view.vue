@@ -97,7 +97,7 @@ export default {
 
     const supportedTypes = computed(() => splitTypes(mergedData.value)[0]);
     const notSupportedTypes = computed(() => splitTypes(mergedData.value)[1]);
-    const resources = computed(() =>supportedTypes.value.map(type => TYPES[type].resources).flat());
+    const resources = computed(() => supportedTypes.value.map(type => TYPES[type].resources).flat());
 
     const getDefaultPreviewUrl = () => {
       const { head } = props.headData;
