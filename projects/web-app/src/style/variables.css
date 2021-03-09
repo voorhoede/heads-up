@@ -18,7 +18,8 @@
   --header-height: 70px;
   --sidebar-width: 14rem;
 
-  --label-color: #5f5f5f;
+  --label-color: #888888;
+  --value-color: #555555;
   --bg-color: var(--color-light-gray);
 
   /* sizes */
