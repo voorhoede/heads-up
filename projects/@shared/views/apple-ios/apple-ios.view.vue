@@ -124,15 +124,15 @@ export default {
         })
     ));
 
-    const startupImages = computed(() => {
-      return props.headData.head.link
+    const startupImages = computed(() => (
+      props.headData.head.link
         .filter(link => link.rel === 'apple-touch-startup-image')
         .map(image => ({
           ...image,
           url: absoluteUrl(image.href),
           term: [ image.rel, image.sizes, image.media ],
-        }));
-    });
+        }))
+    ));
 
     const absoluteUrl = url => createAbsoluteUrl(props.headData.head, url);
 
