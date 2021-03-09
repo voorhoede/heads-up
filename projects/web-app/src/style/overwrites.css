@@ -12,12 +12,10 @@
 
 .app .properties-list .properties-item__terms {
   flex: 0 0 40%;
-  max-width: 250px;
 }
 
 .app .properties-list .properties-item__value {
   flex: 1 1 auto;
-  max-width: none;
 }
 
 .app .properties-item__image {
