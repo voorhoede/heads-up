@@ -90,10 +90,14 @@ export default {
 
   setup: props => {
     const openTab = ref(TABS[0].value);
+
     const jsonldData = computed(() => props.headData?.structuredData?.jsonld ?? {});
-    const supportedTypes = computed(() => splitTypes(jsonldData.value)[0]);
-    const notSupportedTypes = computed(() => splitTypes(jsonldData.value)[1]);
-    const resources = supportedTypes.value.map(type => TYPES[type].resources).flat();
+    const microData = computed(() => props.headData?.structuredData?.microdata ?? {});
+    const mergedData = computed(() => ({ ...jsonldData.value, ...microData.value }));
+
+    const supportedTypes = computed(() => splitTypes(mergedData.value)[0]);
+    const notSupportedTypes = computed(() => splitTypes(mergedData.value)[1]);
+    const resources = computed(() => supportedTypes.value.map(type => TYPES[type].resources).flat());
 
     const getDefaultPreviewUrl = () => {
       const { head } = props.headData;
@@ -110,7 +114,7 @@ export default {
     const getPreviewUrl = type => {
       const params = new URLSearchParams();
       const urlSegment = TYPES[type].urlSegment;
-      const data = jsonldData.value[type][0];
+      const data = mergedData.value[type][0];
 
       params.set('aggregateRatingValue', data['aggregateRating']?.ratingValue);
       params.set('aggregateReviewCount', data['aggregateRating']?.reviewCount);
@@ -132,7 +136,7 @@ export default {
     };
 
     const getMetaData = type => {
-      const data = jsonldData.value[type][0];
+      const data = mergedData.value[type][0];
       const metaData = {
         NewsArticle: [
           { term: '@type', value: data['@type'] },
