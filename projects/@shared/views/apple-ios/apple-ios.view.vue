@@ -36,8 +36,8 @@
       </div>
       <properties-list v-else>
         <properties-item
-          v-for="item in startupImages"
-          :key="item.term"
+          v-for="image in startupImages"
+          :key="image.term"
           :term="image.term"
           :value="image.url"
           :image="image"
@@ -109,25 +109,30 @@ export default {
       ];
     });
 
-    const touchIcons = computed(() => {
-      return props.headData.head.link
+    const touchIcons = computed(() => (
+      props.headData.head.link
         .filter(link => link.rel === 'apple-touch-icon')
         .map(icon => ({
           ...icon,
           url: absoluteUrl(icon.href),
           term: [ icon.rel, icon.sizes ],
-        }));
-    });
+        }))
+        .sort((a, b) => {
+          const sizeA = a.sizes ? a.sizes.split('x')[0] : 0;
+          const sizeB = b.sizes ? b.sizes.split('x')[0] : 0;
+          return parseInt(sizeA, 10) > parseInt(sizeB, 10) ? 1 : -1;
+        })
+    ));
 
-    const startupImages = computed(() => {
-      return props.headData.head.link
+    const startupImages = computed(() => (
+      props.headData.head.link
         .filter(link => link.rel === 'apple-touch-startup-image')
         .map(image => ({
           ...image,
           url: absoluteUrl(image.href),
           term: [ image.rel, image.sizes, image.media ],
-        }));
-    });
+        }))
+    ));
 
     const absoluteUrl = url => createAbsoluteUrl(props.headData.head, url);
 

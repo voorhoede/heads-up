@@ -95,6 +95,11 @@
       </div>
     </dd>
 
+    <dd v-else-if="valueExceedsLimit" class="properties-item__value">
+      <span>{{ splittedStringStart }}</span>
+      <span class="properties-item__strikethrough">{{ splittedStringEnd }}</span>
+    </dd>
+
     <dd v-else class="properties-item__value">
       <span v-if="value">{{ value }}</span>
     </dd>
@@ -196,6 +201,18 @@ export default {
     warnings() {
       return this.validation.warnings.filter(item => (item.path[0] === this.term));
     },
+    valueExceedsLimit() {
+      return this.hasErrors && this.validation.errors
+        .find(item => (item.path[0] === this.term && item?.context?.limit > 0));
+    },
+    splittedStringStart() {
+      const { limit } = this.valueExceedsLimit.context;
+      return this.value.substring(0, limit);
+    },
+    splittedStringEnd() {
+      const { limit } = this.valueExceedsLimit.context;
+      return this.value.substring(limit);
+    },
   },
 };
 </script>
@@ -277,6 +294,11 @@ export default {
     display: block;
     max-width: 200px;
     margin-bottom: 4px;
+  }
+
+  .properties-item__strikethrough {
+    text-decoration: line-through;
+    opacity: .5;
   }
 
   /* tooltip */
