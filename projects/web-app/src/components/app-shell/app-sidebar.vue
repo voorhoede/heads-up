@@ -244,7 +244,10 @@ export default {
 }
 
 .app-sidebar__content {
- overflow-x: auto;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-x: auto;
 }
 
 .app-sidebar__list {
