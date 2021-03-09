@@ -16,6 +16,7 @@
 
 .app .properties-list .properties-item__value {
   flex: 1 1 auto;
+  line-height: 1.25;
 }
 
 .app .properties-item__image {
