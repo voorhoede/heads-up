@@ -97,7 +97,7 @@
 
     <dd v-else-if="valueExceedsLimit" class="properties-item__value">
       <span>{{ splitValue.start }}</span>
-      <span style="text-decoration: line-through; opacity: .5;">{{ splitValue.end }}</span>
+      <span class="properties-item__strikethrough">{{ splitValue.end }}</span>
     </dd>
 
     <dd v-else class="properties-item__value">
@@ -294,6 +294,11 @@ export default {
     display: block;
     max-width: 200px;
     margin-bottom: 4px;
+  }
+
+  .properties-item__strikethrough {
+    text-decoration: line-through;
+    opacity: .5;
   }
 
   /* tooltip */
