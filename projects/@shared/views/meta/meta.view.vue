@@ -2,7 +2,7 @@
   <div class="meta">
     <panel-section title="Properties">
       <properties-list>
-        <properties-item-new
+        <properties-item
           v-for="item in metaData"
           :key="item.term"
           :term="item.term"
@@ -12,7 +12,7 @@
           :validation="validation"
           :required="true"
         >
-        </properties-item-new>
+        </properties-item>
       </properties-list>
     </panel-section>
     <panel-section title="Resources">
@@ -30,12 +30,12 @@
 <script>
 import { computed, ref } from 'vue';
 import { findCharset, findMetaContent } from '@shared/lib/find-meta';
-import validate from '@shared/lib/validate-data';
+import validate from '@shared/lib/validate';
 import { schema, info } from './schema';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
-import PropertiesItemNew from '@shared/components/properties-item-new';
+import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 
 export default {
@@ -95,7 +95,7 @@ export default {
     ExternalLink,
     PanelSection,
     PropertiesList,
-    PropertiesItemNew,
+    PropertiesItem,
   },
 };
 </script>

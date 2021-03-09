@@ -11,7 +11,9 @@
 
     <template #[slotname]>
       <slot name="info" />
-      <slot name="link" />
+      <div class="tooltip-inner__link">
+        <slot name="link" />
+      </div>
     </template>
   </v-popover>
 </template>
@@ -74,6 +76,10 @@ export default {
   z-index: 1;
   padding: 6px 8px 5px;
   border-radius: 3px;
+}
+
+.tooltip .tooltip-inner__link {
+  margin-top: 6px;
 }
 
 .tooltip .tooltip-arrow {

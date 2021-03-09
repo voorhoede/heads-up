@@ -1,4 +1,4 @@
-import validateCountryCodes from '../../country-codes';
+import countryCodes from '../../country-codes';
 
 /**
  * Checks if a string is a valid country code.
@@ -17,7 +17,7 @@ const language = joi => ({
         return this.$_addRule({ name: 'countryCode' });
       },
       validate(value, helpers) {
-        const validCode = validateCountryCodes().includes(value);
+        const validCode = countryCodes.includes(value);
         if (!validCode) {
           return helpers.error('language.countryCode');
         }
