@@ -7,17 +7,16 @@
 }
 
 .app .properties-list .properties-item {
-  margin-bottom: 26px;
+  font-size: 14px;
 }
 
 .app .properties-list .properties-item__terms {
   flex: 0 0 40%;
-  max-width: 250px;
 }
 
 .app .properties-list .properties-item__value {
   flex: 1 1 auto;
-  max-width: none;
+  line-height: 1.25;
 }
 
 .app .properties-item__image {
@@ -25,7 +24,7 @@
 }
 
 .app .properties-item__value--image a {
-  font-size: 12px;
+  font-size: 11px;
 }
 
 .app .properties-item__icon {
