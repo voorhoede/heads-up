@@ -96,8 +96,8 @@
     </dd>
 
     <dd v-else-if="valueExceedsLimit" class="properties-item__value">
-      <span>{{ splitValue.start }}</span>
-      <span class="properties-item__strikethrough">{{ splitValue.end }}</span>
+      <span>{{ splittedStringStart }}</span>
+      <span class="properties-item__strikethrough">{{ splittedStringEnd }}</span>
     </dd>
 
     <dd v-else class="properties-item__value">
@@ -205,13 +205,13 @@ export default {
       return this.hasErrors && this.validation.errors
         .find(item => (item.path[0] === this.term && item?.context?.limit > 0));
     },
-    splitValue() {
+    splittedStringStart() {
       const { limit } = this.valueExceedsLimit.context;
-
-      return {
-        start: this.value.substring(0, limit),
-        end: this.value.substring(limit),
-      };
+      return this.value.substring(0, limit);
+    },
+    splittedStringEnd() {
+      const { limit } = this.valueExceedsLimit.context;
+      return this.value.substring(limit);
     },
   },
 };
