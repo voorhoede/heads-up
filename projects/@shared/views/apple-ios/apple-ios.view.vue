@@ -109,15 +109,20 @@ export default {
       ];
     });
 
-    const touchIcons = computed(() => {
-      return props.headData.head.link
+    const touchIcons = computed(() => (
+      props.headData.head.link
         .filter(link => link.rel === 'apple-touch-icon')
         .map(icon => ({
           ...icon,
           url: absoluteUrl(icon.href),
           term: [ icon.rel, icon.sizes ],
-        }));
-    });
+        }))
+        .sort((a, b) => {
+          const sizeA = a.sizes ? a.sizes.split('x')[0] : 0;
+          const sizeB = b.sizes ? b.sizes.split('x')[0] : 0;
+          return parseInt(sizeA, 10) > parseInt(sizeB, 10) ? 1 : -1;
+        })
+    ));
 
     const startupImages = computed(() => {
       return props.headData.head.link

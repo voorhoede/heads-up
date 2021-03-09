@@ -49,10 +49,16 @@ export default {
 
   setup: props => {
     const favicons = computed(() => (
-      findFavicons(props.headData.head).map(image => ({
-        ...image,
-        term: [ image.type, image.rel, image.sizes ],
-      }))
+      findFavicons(props.headData.head)
+        .map(image => ({
+          ...image,
+          term: [ image.type, image.rel, image.sizes ],
+        }))
+        .sort((a, b) => {
+          const sizeA = a.sizes ? a.sizes.split('x')[0] : 0;
+          const sizeB = b.sizes ? b.sizes.split('x')[0] : 0;
+          return parseInt(sizeA, 10) > parseInt(sizeB, 10) ? 1 : -1;
+        })
     ));
 
     return {
