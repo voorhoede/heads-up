@@ -130,6 +130,7 @@ export default {
       params.set('description', data['description']);
       params.set('headline', data['headline']);
       params.set('image', getImageUrl(data['image']));
+      params.set('breadcrumbSegments', getBreadcrumbSegments(data['itemListElement']));
       params.set('name', data['name']);
       params.set('offerPrice', formatPrice(data['offers']?.price, data['offers']?.priceCurrency));
       params.set('offerSellerName', data['offers']?.seller?.name);
@@ -155,6 +156,13 @@ export default {
           { term: '@type', value: data['@type'] },
           { term: 'head:title', value: head.title },
           { term: 'head:description', value: findMetaContent(head, 'description') },
+          {
+            term:'itemListElement',
+            value: `[${ getBreadcrumbSegments(data['itemListElement'])
+              .map(s => `"${ s }"`)
+              .join(', ') }]`,
+            type: 'code',
+          },
         ],
         NewsArticle: [
           { term: '@type', value: data['@type'] },
@@ -213,6 +221,13 @@ export default {
       }
 
       return img?.url;
+    };
+
+    const getBreadcrumbSegments = itemListElement => {
+      if (!itemListElement?.length > 0) return [];
+      return itemListElement
+        .map(item => item?.name || item?.item?.name)
+        .filter(Boolean);
     };
 
     const formatPrice = (price, currency) => {

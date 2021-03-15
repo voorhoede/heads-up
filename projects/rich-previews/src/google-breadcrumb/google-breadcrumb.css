@@ -15,8 +15,8 @@
 }
 
 .google-breadcrumb__url {
+  -webkit-line-clamp: 1;
   color: var(--color-shark);
-  display: flex;
   font-size: 0.875rem;
   line-height: 1.3;
   list-style: none;
@@ -28,6 +28,7 @@
 }
 
 .google-breadcrumb__url-segment {
+  display: inline-block;
   margin-right: 0.2rem;
 }
 
@@ -62,6 +63,7 @@
   width: 0;
 }
 
+.google-breadcrumb__url,
 .google-breadcrumb__title,
 .google-breadcrumb__description {
   -webkit-box-orient: vertical;
