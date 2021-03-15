@@ -9,11 +9,11 @@ const app = Vue.createApp({
     const domainWithoutProtocol = new URL(url).origin.replace(/(^\w+:|^)\/\//, '');
 
     return {
+      breadcrumbSegments: [ domainWithoutProtocol, ...breadcrumbSegments?.split(',') ?? [] ],
       description: description.replace(/ ?<br ?\/?> ?/gi, ' '),
       isDarkMode: params.get('theme') === 'dark',
       title,
       url,
-      urlSegments: [ domainWithoutProtocol, ...breadcrumbSegments.split(',') ],
     };
   },
 });

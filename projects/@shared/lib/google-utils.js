@@ -1,7 +1,7 @@
 export const TYPES = {
   'default': {
     urlSegment: null,
-    updatedOn: 'Mar 08, 2021',
+    updatedOn: 'Mar 15, 2021',
     hasSinglePreview: true,
     resources: [],
   },
