@@ -118,12 +118,9 @@ export default {
       const hasSinglePreview = TYPES[type].hasSinglePreview;
       const data = mergedData.value[type][0];
 
-      // Some previews use different values based on their types.
-      const isProduct = 'Product' in mergedData.value;
-
       // Head Data
       params.set('headDescription', findMetaContent(head, 'description'));
-      params.set('headTitle', isProduct ? mergedData.value['Product'][0]['name'] : head.title);
+      params.set('headTitle', head.title);
       params.set('headUrl', head.url);
 
       // Structured Data
