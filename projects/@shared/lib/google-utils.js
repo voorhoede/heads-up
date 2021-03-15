@@ -2,11 +2,22 @@ export const TYPES = {
   'default': {
     urlSegment: null,
     updatedOn: 'Mar 08, 2021',
+    hasSinglePreview: true,
     resources: [],
+  },
+  'BreadcrumbList': {
+    urlSegment: 'breadcrumb',
+    updatedOn: 'Mar 15, 2021',
+    hasSinglePreview: true,
+    resources: [ {
+      label: 'Advanced SEO: Breadcrumb (on developers.google)',
+      url: 'https://developers.google.com/search/docs/data-types/breadcrumb',
+    } ],
   },
   'NewsArticle': {
     urlSegment: 'article',
     updatedOn: 'Jan 26, 2021',
+    hasSinglePreview: false,
     resources: [ {
       label: 'Advanced SEO: Article (on developers.google)',
       url: 'https://developers.google.com/search/docs/data-types/article',
@@ -15,6 +26,7 @@ export const TYPES = {
   'Product': {
     urlSegment: 'product',
     updatedOn: 'Mar 02, 2021',
+    hasSinglePreview: false,
     resources: [ {
       label: 'Advanced SEO: Product (on developers.google)',
       url: 'https://developers.google.com/search/docs/data-types/product',

@@ -1,0 +1,95 @@
+@import "../../@shared/css/defaults.css";
+@import "../../@shared/css/google.css";
+
+/* Breadcrumb */
+.google-breadcrumb {
+  max-width: 37.5rem;
+}
+
+.google-breadcrumb__link {
+  text-decoration: none;
+}
+
+.google-breadcrumb__link:hover .google-breadcrumb__title {
+  text-decoration: underline;
+}
+
+.google-breadcrumb__url {
+  color: var(--color-shark);
+  display: flex;
+  font-size: 0.875rem;
+  line-height: 1.3;
+  list-style: none;
+  margin: 0;
+}
+
+.google-breadcrumb--dark .google-breadcrumb__url {
+  color: var(--color-silver-sand);
+}
+
+.google-breadcrumb__url-segment {
+  margin-right: 0.2rem;
+}
+
+.google-breadcrumb__url-segment:not(:first-of-type) {
+  color: var(--color-shuttle-gray);
+}
+
+.google-breadcrumb__url-segment:not(:last-of-type)::after {
+  color: var(--color-shuttle-gray);
+  content: " ›";
+}
+
+.google-breadcrumb--dark .google-breadcrumb__url-segment:not(:first-of-type),
+.google-breadcrumb--dark .google-breadcrumb__url-segment:not(:last-of-type)::after {
+  color: var(--color-manatee);
+}
+
+.google-breadcrumb__url-segment:last-of-type {
+  position: relative;
+}
+
+.google-breadcrumb__url-segment:last-of-type::after {
+  border-color: var(--color-rolling-stone) transparent;
+  border-style: solid;
+  border-width: 0.313rem 0.25rem 0;
+  content: "";
+  height: 0;
+  margin-top: -0.125rem;
+  position: absolute;
+  right: -0.938rem;
+  top: 50%;
+  width: 0;
+}
+
+.google-breadcrumb__title,
+.google-breadcrumb__description {
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  overflow: hidden;
+}
+
+.google-breadcrumb__title {
+  -webkit-line-clamp: 1;
+  color: var(--color-ultramarine);
+  font-size: 1.25rem;
+  line-height: 1.3;
+  margin: 0.25rem 0 0.188rem;
+  max-width: 34.375rem;
+}
+
+.google-breadcrumb--dark .google-breadcrumb__title {
+  color: var(--color-cornflower-blue);
+}
+
+.google-breadcrumb__description {
+  -webkit-line-clamp: 2;
+  color: var(--color-abbey);
+  font-size: 0.875rem;
+  line-height: 1.58;
+  word-wrap: break-word;
+}
+
+.google-breadcrumb--dark .google-breadcrumb__description {
+  color: var(--color-silver-sand);
+}

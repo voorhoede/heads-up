@@ -89,7 +89,7 @@ export default {
 <style>
 .preview-iframe {
   position: relative;
-  margin-bottom: 1.5em;
+  margin-bottom: 3em;
 }
 
 .preview-iframe:last-of-type {
