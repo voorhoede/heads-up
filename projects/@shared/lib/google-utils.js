@@ -1,12 +1,23 @@
 export const TYPES = {
   'default': {
     urlSegment: null,
-    updatedOn: 'Mar 08, 2021',
+    updatedOn: 'Mar 15, 2021',
+    hasSinglePreview: true,
     resources: [],
+  },
+  'BreadcrumbList': {
+    urlSegment: 'breadcrumb',
+    updatedOn: 'Mar 15, 2021',
+    hasSinglePreview: true,
+    resources: [ {
+      label: 'Advanced SEO: Breadcrumb (on developers.google)',
+      url: 'https://developers.google.com/search/docs/data-types/breadcrumb',
+    } ],
   },
   'NewsArticle': {
     urlSegment: 'article',
     updatedOn: 'Jan 26, 2021',
+    hasSinglePreview: false,
     resources: [ {
       label: 'Advanced SEO: Article (on developers.google)',
       url: 'https://developers.google.com/search/docs/data-types/article',
@@ -15,6 +26,7 @@ export const TYPES = {
   'Product': {
     urlSegment: 'product',
     updatedOn: 'Mar 02, 2021',
+    hasSinglePreview: false,
     resources: [ {
       label: 'Advanced SEO: Product (on developers.google)',
       url: 'https://developers.google.com/search/docs/data-types/product',
@@ -43,7 +55,7 @@ export const getUrlSegments = url => {
       .replace(/\/?$/, '/')           // Step 1: Make sure the URL ends with '/'.
       .replace(/\/(\d+)\//g, '/')     // Step 2: Remove URL segments that only contain digits.
       .replace(/(^\w+:|^)\/\//, ''),  // Step 3: Remove the protocol from the URL.
-    45
+    46
   )
     .split('/')                       // Step 4: Split the segments.
     .filter(Boolean);                 // Step 5: Cleanup.

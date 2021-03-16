@@ -22,68 +22,71 @@
         <p>This page does not contain the necessary metadata to create a preview.</p>
       </div>
 
-      <div class="scroll-container">
-        <div class="scroll-container__inner">
-          <div class="product">
-            <div class="product__wrapper">
-              <img :src="image" class="product__image" />
-              <div class="product__content">
-                <p class="product__name">{{ name }}</p>
-                <p v-if="hasRating" class="product__review">
-                  <span class="review__stars-wrapper">
-                    <span :class="`review__stars-${aggregateRatingValue}`"></span>
-                  </span>
-                  ({{ aggregateReviewCount }})
-                </p>
-              </div>
-            </div>
-            <div class="product__price-wrapper">
-              <div>
-                <span class="product__price">{{ offerPrice }}</span>
-                <span class="product__merchant-name">{{ offerSellerName }}</span>
-              </div>
-              <img class="product__external-link" src="../@assets/google-external-link.png" />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="scroll-container--fake">
-        <ul class="product-carrousel">
-          <li class="product-carrousel__item">
+      <template v-else>
+        <div class="scroll-container">
+          <div class="scroll-container__inner">
             <div class="product">
               <div class="product__wrapper">
                 <img :src="image" class="product__image" />
                 <div class="product__content">
-                  <a rel="noopener" target="_blank" class="product__name">{{ name }}</a>
-                  <div>
-                    <span class="product__price">{{ offerPrice }}</span>
-                    <a rel="noopener" target="_blank" class="product__merchant-name">{{ offerSellerName }}</a>
-                  </div>
-                  <a v-if="hasRating" rel="noopener" target="_blank" class="product__review">
+                  <p class="product__name">{{ name }}</p>
+                  <p v-if="hasRating" class="product__review">
                     <span class="review__stars-wrapper">
                       <span :class="`review__stars-${aggregateRatingValue}`"></span>
                     </span>
                     ({{ aggregateReviewCount }})
-                  </a>
+                  </p>
                 </div>
               </div>
-            </div>
-          </li>
-          <li v-for="index in 4" :key="index"  class="product-carrousel__item">
-            <div class="product product--no-hover">
-              <div class="product__wrapper">
-                <div class="product__image product__skeleton-image"></div>
-                <div class="product__content">
-                  <div class="product__name product__skeleton-text"></div>
-                  <div class="product__price product__skeleton-text"></div>
-                  <div class="product__merchant-name product__skeleton-text"></div>
-                  <div class="product__review product__skeleton-text"></div>
+              <div class="product__price-wrapper">
+                <div>
+                  <span class="product__price">{{ offerPrice }}</span>
+                  <span class="product__merchant-name">{{ offerSellerName }}</span>
                 </div>
+                <img class="product__external-link" src="../@assets/google-external-link.png" />
               </div>
             </div>
-          </li>
-        </ul>
-      </div>
+          </div>
+        </div>
+
+        <div class="scroll-container--fake">
+          <ul class="product-carrousel">
+            <li class="product-carrousel__item">
+              <div class="product">
+                <div class="product__wrapper">
+                  <img :src="image" class="product__image" />
+                  <div class="product__content">
+                    <a rel="noopener" target="_blank" class="product__name">{{ name }}</a>
+                    <div>
+                      <span class="product__price">{{ offerPrice }}</span>
+                      <a rel="noopener" target="_blank" class="product__merchant-name">{{ offerSellerName }}</a>
+                    </div>
+                    <a v-if="hasRating" rel="noopener" target="_blank" class="product__review">
+                      <span class="review__stars-wrapper">
+                        <span :class="`review__stars-${aggregateRatingValue}`"></span>
+                      </span>
+                      ({{ aggregateReviewCount }})
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li v-for="index in 4" :key="index"  class="product-carrousel__item">
+              <div class="product product--no-hover">
+                <div class="product__wrapper">
+                  <div class="product__image product__skeleton-image"></div>
+                  <div class="product__content">
+                    <div class="product__name product__skeleton-text"></div>
+                    <div class="product__price product__skeleton-text"></div>
+                    <div class="product__merchant-name product__skeleton-text"></div>
+                    <div class="product__review product__skeleton-text"></div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </template>
     </div>
 
     <script src="https://unpkg.com/vue@3.0.5/dist/vue.global.prod.js"></script>

@@ -1,20 +1,20 @@
 @import "../../@shared/css/defaults.css";
 @import "../../@shared/css/google.css";
 
-/* Default */
-.google-default {
+/* Breadcrumb */
+.google-breadcrumb {
   max-width: 37.5rem;
 }
 
-.google-default__link {
+.google-breadcrumb__link {
   text-decoration: none;
 }
 
-.google-default__link:hover .google-default__title {
+.google-breadcrumb__link:hover .google-breadcrumb__title {
   text-decoration: underline;
 }
 
-.google-default__url {
+.google-breadcrumb__url {
   -webkit-line-clamp: 1;
   color: var(--color-shark);
   font-size: 0.875rem;
@@ -23,34 +23,34 @@
   margin: 0;
 }
 
-.google-default--dark .google-default__url {
+.google-breadcrumb--dark .google-breadcrumb__url {
   color: var(--color-silver-sand);
 }
 
-.google-default__url-segment {
+.google-breadcrumb__url-segment {
   display: inline-block;
   margin-right: 0.2rem;
 }
 
-.google-default__url-segment:not(:first-of-type) {
+.google-breadcrumb__url-segment:not(:first-of-type) {
   color: var(--color-shuttle-gray);
 }
 
-.google-default__url-segment:not(:last-of-type)::after {
+.google-breadcrumb__url-segment:not(:last-of-type)::after {
   color: var(--color-shuttle-gray);
   content: " ›";
 }
 
-.google-default--dark .google-default__url-segment:not(:first-of-type),
-.google-default--dark .google-default__url-segment:not(:last-of-type)::after {
+.google-breadcrumb--dark .google-breadcrumb__url-segment:not(:first-of-type),
+.google-breadcrumb--dark .google-breadcrumb__url-segment:not(:last-of-type)::after {
   color: var(--color-manatee);
 }
 
-.google-default__url-segment:last-of-type {
+.google-breadcrumb__url-segment:last-of-type {
   position: relative;
 }
 
-.google-default__url-segment:last-of-type::after {
+.google-breadcrumb__url-segment:last-of-type::after {
   border-color: var(--color-rolling-stone) transparent;
   border-style: solid;
   border-width: 0.313rem 0.25rem 0;
@@ -63,15 +63,15 @@
   width: 0;
 }
 
-.google-default__url,
-.google-default__title,
-.google-default__description {
+.google-breadcrumb__url,
+.google-breadcrumb__title,
+.google-breadcrumb__description {
   -webkit-box-orient: vertical;
   display: -webkit-box;
   overflow: hidden;
 }
 
-.google-default__title {
+.google-breadcrumb__title {
   -webkit-line-clamp: 1;
   color: var(--color-ultramarine);
   font-size: 1.25rem;
@@ -80,11 +80,11 @@
   max-width: 34.375rem;
 }
 
-.google-default--dark .google-default__title {
+.google-breadcrumb--dark .google-breadcrumb__title {
   color: var(--color-cornflower-blue);
 }
 
-.google-default__description {
+.google-breadcrumb__description {
   -webkit-line-clamp: 2;
   color: var(--color-abbey);
   font-size: 0.875rem;
@@ -92,6 +92,6 @@
   word-wrap: break-word;
 }
 
-.google-default--dark .google-default__description {
+.google-breadcrumb--dark .google-breadcrumb__description {
   color: var(--color-silver-sand);
 }

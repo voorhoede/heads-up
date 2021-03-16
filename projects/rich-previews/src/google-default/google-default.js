@@ -8,7 +8,7 @@ const app = Vue.createApp({
     const url = params.get('url');
 
     return {
-      description,
+      description: description.replace(/ ?<br ?\/?> ?/gi, ' '),
       isDarkMode: params.get('theme') === 'dark',
       title,
       url,
