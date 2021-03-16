@@ -26,7 +26,6 @@ const app = Vue.createApp({
       headline,
       image,
       isDarkMode: params.get('theme') === 'dark',
-      platform: params.get('platform'),
       publisherLogo,
       publisherName,
     };
