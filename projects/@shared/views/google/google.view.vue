@@ -112,16 +112,25 @@ export default {
     };
 
     const getPreviewUrl = type => {
+      const { head } = props.headData;
       const params = new URLSearchParams();
       const urlSegment = TYPES[type].urlSegment;
+      const hasSinglePreview = TYPES[type].hasSinglePreview;
       const data = mergedData.value[type][0];
 
+      // Head Data
+      params.set('headDescription', findMetaContent(head, 'description'));
+      params.set('headTitle', head.title);
+      params.set('headUrl', head.url);
+
+      // Structured Data
       params.set('aggregateRatingValue', data['aggregateRating']?.ratingValue);
       params.set('aggregateReviewCount', data['aggregateRating']?.reviewCount);
       params.set('dateModified', formatDate(data['dateModified']));
       params.set('description', data['description']);
       params.set('headline', data['headline']);
       params.set('image', getImageUrl(data['image']));
+      params.set('breadcrumbSegments', getBreadcrumbSegments(data['itemListElement']));
       params.set('name', data['name']);
       params.set('offerPrice', formatPrice(data['offers']?.price, data['offers']?.priceCurrency));
       params.set('offerSellerName', data['offers']?.seller?.name);
@@ -130,14 +139,31 @@ export default {
       params.set('publisherName', data['publisher']?.name);
       params.set('theme', getTheme());
 
+      if (hasSinglePreview) {
+        return `/previews/google-${ urlSegment }/google-${ urlSegment }.html?${ params }`;
+      }
+
       return openTab.value === 'mobile'
         ? `/previews/google-${ urlSegment }-mobile/google-${ urlSegment }-mobile.html?${ params }`
         : `/previews/google-${ urlSegment }-desktop/google-${ urlSegment }-desktop.html?${ params }`;
     };
 
     const getMetaData = type => {
+      const { head } = props.headData;
       const data = mergedData.value[type][0];
       const metaData = {
+        BreadcrumbList: [
+          { term: '@type', value: data['@type'] },
+          { term: 'head:title', value: head.title },
+          { term: 'head:description', value: findMetaContent(head, 'description') },
+          {
+            term:'itemListElement',
+            value: `[${ getBreadcrumbSegments(data['itemListElement'])
+              .map(segment => `"${ segment }"`)
+              .join(', ') }]`,
+            type: 'code',
+          },
+        ],
         NewsArticle: [
           { term: '@type', value: data['@type'] },
           { term: 'headline', value: data['headline'] },
@@ -197,10 +223,17 @@ export default {
       return img?.url;
     };
 
+    const getBreadcrumbSegments = itemListElement => {
+      if (!itemListElement?.length > 0) return [];
+      return itemListElement
+        .map(item => item?.name || item?.item?.name)
+        .filter(Boolean);
+    };
+
     const formatPrice = (price, currency) => {
       if (!price || !currency) return undefined;
       return new Intl.NumberFormat(undefined, { style: 'currency', currency })
-        .format(typeof price === 'string' ? price.replace(',00', '') : price);
+        .format(typeof price === 'string' ? price.replace(',', '.') : price);
     };
 
     return {

@@ -75,6 +75,10 @@
       </external-link>
     </dd>
 
+    <dd v-else-if="isCodeValue" class="properties-item__value properties-item__value--code">
+      <code>{{ value }}</code>
+    </dd>
+
     <dd v-else-if="isColorValue" class="properties-item__value properties-item__value--color">
       <span>{{ value }}</span>
       <span class="properties-item__color" :style="{ backgroundColor: value }"></span>
@@ -145,7 +149,14 @@ export default {
       type: String,
       required: false,
       default: 'string',
-      validator: type => [ 'string', 'link', 'urls', 'image', 'color' ].indexOf(type) !== -1,
+      validator: type => [
+        'code',
+        'color',
+        'image',
+        'link',
+        'string',
+        'urls',
+      ].indexOf(type) !== -1,
     },
     validation: {
       type: Object,
@@ -182,6 +193,9 @@ export default {
     },
     isLinkValue() {
       return this.type === 'link' && this.value;
+    },
+    isCodeValue() {
+      return this.type === 'code' && this.value;
     },
     isUrlsValue() {
       return this.type === 'urls' && this.value;
@@ -267,6 +281,14 @@ export default {
     margin-left: 1rem;
     max-width: 500px;
     word-break: break-word;
+  }
+
+  .properties-item__value--code {
+    background-color: #eee;
+    border-radius: 2px;
+    flex: initial;
+    line-height: 1.15;
+    padding: 0.125rem 0.25rem 0.25rem;
   }
 
   .properties-item__value--color {
