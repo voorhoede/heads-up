@@ -159,7 +159,7 @@ export default {
           {
             term:'itemListElement',
             value: `[${ getBreadcrumbSegments(data['itemListElement'])
-              .map(s => `"${ s }"`)
+              .map(segment => `"${ segment }"`)
               .join(', ') }]`,
             type: 'code',
           },
