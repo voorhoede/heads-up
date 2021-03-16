@@ -55,7 +55,7 @@ export const getUrlSegments = url => {
       .replace(/\/?$/, '/')           // Step 1: Make sure the URL ends with '/'.
       .replace(/\/(\d+)\//g, '/')     // Step 2: Remove URL segments that only contain digits.
       .replace(/(^\w+:|^)\/\//, ''),  // Step 3: Remove the protocol from the URL.
-    45
+    46
   )
     .split('/')                       // Step 4: Split the segments.
     .filter(Boolean);                 // Step 5: Cleanup.

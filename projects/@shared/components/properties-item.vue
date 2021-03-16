@@ -149,7 +149,14 @@ export default {
       type: String,
       required: false,
       default: 'string',
-      validator: type => [ 'string', 'link', 'urls', 'image', 'color' ].indexOf(type) !== -1,
+      validator: type => [
+        'code',
+        'color',
+        'image',
+        'link',
+        'string',
+        'urls',
+      ].indexOf(type) !== -1,
     },
     validation: {
       type: Object,
