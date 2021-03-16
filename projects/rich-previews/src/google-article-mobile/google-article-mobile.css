@@ -8,9 +8,6 @@
   box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
   cursor: pointer;
   display: block;
-  max-width: 652px;
-  min-width: 320px;
-  overflow: hidden;
   padding: 1rem;
 }
 
@@ -83,8 +80,6 @@
   box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
   list-style: none;
   margin-top: 1rem;
-  max-width: 652px;
-  min-width: 320px;
   overflow: hidden;
 }
 

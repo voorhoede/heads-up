@@ -1,6 +1,10 @@
 @import "../../@shared/css/defaults.css";
 @import "../../@shared/css/google.css";
 
+.scroll-container__inner {
+  min-width: 40rem;
+}
+
 /* Article */
 .article {
   background-color: var(--color-white);
@@ -10,7 +14,6 @@
   display: block;
   height: 283px;
   overflow: hidden;
-  width: 212px;
 }
 
 .article--no-hover {
@@ -20,7 +23,6 @@
 .article--variant {
   height: auto;
   padding: 1rem;
-  width: 652px;
 }
 
 .article--variant:hover .article__headline {
@@ -44,7 +46,6 @@
   height: 119px;
   object-fit: cover;
   object-position: center;
-  width: 100%;
 }
 
 .article--variant .article__image {
@@ -136,6 +137,7 @@
 
 .article-carrousel__item {
   margin-right: 0.5rem;
+  width: 13.125rem;
 }
 
 .article-carrousel__item:last-of-type {

@@ -1,8 +1,8 @@
 @import "../../@shared/css/defaults.css";
 @import "../../@shared/css/google.css";
 
-.scroll-container--fake {
-  max-width: 70.25rem;
+.scroll-container__inner {
+  min-width: 40rem;
 }
 
 /* Product */
@@ -10,8 +10,6 @@
   background-color: var(--color-white);
   border-radius: 0.5rem;
   box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.16);
-  max-width: 70.25rem;
-  min-width: 38.875rem;
   padding: 0.75rem;
 }
 
@@ -49,6 +47,7 @@
   flex-direction: column;
   justify-content: center;
   padding: 0.75rem;
+  width: 100%;
 }
 
 .product__merchant-name,
