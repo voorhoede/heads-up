@@ -91,8 +91,8 @@ export default {
   setup: props => {
     const openTab = ref(TABS[0].value);
 
-    const jsonldData = computed(() => props.headData?.structuredData?.jsonld ?? {});
-    const microData = computed(() => props.headData?.structuredData?.microdata ?? {});
+    const jsonldData = computed(() => getStructureData(props.headData?.structuredData?.jsonld ?? {}));
+    const microData = computed(() => getStructureData(props.headData?.structuredData?.microdata ?? {}));
     const mergedData = computed(() => ({ ...jsonldData.value, ...microData.value }));
 
     const supportedTypes = computed(() => splitTypes(mergedData.value)[0]);
@@ -214,6 +214,21 @@ export default {
       };
 
       return metaData[type];
+    };
+
+    const getStructureData = rawData => {
+      if (
+        Object.keys(rawData).length === 1 &&
+        Object.keys(rawData).includes('undefined')
+      ) {
+        if (!rawData['undefined']?.[0]?.['@graph']) return rawData;
+        return rawData['undefined'][0]['@graph'].reduce((data, value) => {
+          data[value['@type']] = [ value ];
+          return data;
+        }, {});
+      }
+
+      return rawData;
     };
 
     const getImageUrl = img => {
