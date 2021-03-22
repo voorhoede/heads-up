@@ -118,6 +118,7 @@ export default {
       const params = new URLSearchParams();
       const urlSegment = TYPES[type].urlSegment;
       const hasSinglePreview = TYPES[type].hasSinglePreview;
+      const breadcrumbData = mergedData.value.BreadcrumbList?.[0]?.itemListElement;
       const data = mergedData.value[type][0];
 
       // Head Data
@@ -128,7 +129,7 @@ export default {
       // Structured Data
       params.set('aggregateRatingValue', data['aggregateRating']?.ratingValue);
       params.set('aggregateReviewCount', data['aggregateRating']?.reviewCount);
-      params.set('breadcrumbSegments', getBreadcrumbSegments(data['itemListElement']));
+      params.set('breadcrumbSegments', getBreadcrumbSegments(breadcrumbData));
       params.set('dateModified', formatDate(data['dateModified']));
       params.set('description', data['description']);
       params.set('favicon', findFavicons(props.headData.head)?.[0].url || '');
@@ -166,6 +167,10 @@ export default {
               .join(', ') }]`,
             type: 'code',
           },
+        ],
+        Course: [
+          { term: '@type', value: data['@type'] },
+          { term: 'head:title', value: head.title },
         ],
         NewsArticle: [
           { term: '@type', value: data['@type'] },

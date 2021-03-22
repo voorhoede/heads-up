@@ -3,36 +3,35 @@
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Google - Breadcrumb</title>
+    <title>Google - Course</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="google-breadcrumb.css">
+    <link rel="stylesheet" href="google-course.css">
   </head>
 
   <body>
     <div id="app">
-      <h1 class="iframe-heading" :class="{ 'iframe-heading--dark-mode': isDarkMode }">Breadcrumb</h1>
-      <div v-if="breadcrumbSegments.length > 1" class="scroll-container">
+      <h1 class="iframe-heading" :class="{ 'iframe-heading--dark-mode': isDarkMode }">Course</h1>
+      <div v-if="true" class="scroll-container">
         <div class="scroll-container__inner">
-          <div class="google-breadcrumb" :class="{
-            'google-breadcrumb--dark': isDarkMode,
-            'google-breadcrumb--mobile': isMobile
+          <div class="google-course" :class="{
+            'google-course--dark': isDarkMode,
+            'google-course--mobile': isMobile
           }">
-            <a class="google-breadcrumb__link" rel="noopener" target="_blank" :href="url">
-              <ul class="google-breadcrumb__url">
-                <li v-if="favicon && isMobile" class="google-breadcrumb__url-segment--favicon">
+            <a class="google-course__link" rel="noopener" target="_blank" :href="url">
+              <ul class="google-course__url">
+                <li v-if="favicon && isMobile" class="google-course__url-segment--favicon">
                   <img :src="favicon" alt="">
                 </li>
                 <li
-                  class="google-breadcrumb__url-segment"
+                  class="google-course__url-segment"
                   v-for="(segment, index) in breadcrumbSegments"
                   :key="index"
                 >
                   {{ segment }}
                 </li>
               </ul>
-              <p class="google-breadcrumb__title">{{ title }}</p>
+              <p class="google-course__title">{{ title }}</p>
             </a>
-            <p class="google-breadcrumb__description" v-html="description">
           </div>
         </div>
       </div>
@@ -49,6 +48,6 @@
     </div>
 
     <script src="https://unpkg.com/vue@3.0.5/dist/vue.global.prod.js"></script>
-    <script type="module" src="google-breadcrumb.js"></script>
+    <script type="module" src="google-course.js"></script>
   </body>
 </html>
