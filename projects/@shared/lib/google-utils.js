@@ -16,7 +16,7 @@ export const TYPES = {
   },
   'Course': {
     urlSegment: 'course',
-    updatedOn: 'Mar 22, 2021',
+    updatedOn: 'Mar 23, 2021',
     hasSinglePreview: true,
     resources: [ {
       label: 'Advanced SEO: Course (on developers.google)',

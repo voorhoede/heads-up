@@ -43,6 +43,11 @@
             Previews on LinkedIn (Post Inspector Tips)
           </external-link>
         </li>
+        <li>
+          <external-link href="https://www.linkedin.com/help/linkedin/answer/46687/making-your-website-shareable-on-linkedin?lang=en">
+            Making Your Website Shareable on LinkedIn
+          </external-link>
+        </li>
       </ul>
     </panel-section>
   </div>
@@ -105,7 +110,6 @@ export default {
       {
         term: 'og:type',
         value: og.value.type,
-        required: true,
       },
       {
         term: 'og:image',
@@ -120,6 +124,7 @@ export default {
       {
         term: 'og:description',
         value: og.value.description,
+        required: true,
       },
       {
         term: 'og:url',

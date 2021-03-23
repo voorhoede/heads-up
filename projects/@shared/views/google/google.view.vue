@@ -139,9 +139,11 @@ export default {
       params.set('name', data['name']);
       params.set('offerPrice', formatPrice(data['offers']?.price, data['offers']?.priceCurrency));
       params.set('offerSellerName', data['offers']?.seller?.name);
+      params.set('providerName', data['provider']?.name);
       params.set('publisherLogo', data['publisher']?.logo?.url);
       params.set('publisherName', data['publisher']?.name);
       params.set('theme', getTheme());
+      params.set('url', data['url']);
 
       if (hasSinglePreview) {
         return `/previews/google-${ urlSegment }/google-${ urlSegment }.html?${ params }`;
@@ -170,7 +172,10 @@ export default {
         ],
         Course: [
           { term: '@type', value: data['@type'] },
-          { term: 'head:title', value: head.title },
+          { term: 'name', value: data['name'] },
+          { term: 'description', value: data['description'] },
+          { term: 'provider - name', value: data['provider']?.name },
+          { term: 'url', value: data['url'] },
         ],
         NewsArticle: [
           { term: '@type', value: data['@type'] },

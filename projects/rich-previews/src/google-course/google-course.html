@@ -32,6 +32,32 @@
               </ul>
               <p class="google-course__title">{{ title }}</p>
             </a>
+            <ul class="google-course__courses">
+              <li class="google-course__course">
+                <a class="google-course__course-link" rel="noopener" target="_blank" :href="url">
+                  <div>
+                    <p class="google-course__course-name">{{ name }}</p>
+                    <p class="google-course__course-description">{{ description }}</p>
+                    <p class="google-course__course-provider-name">{{ providerName }}</p>
+                  </div>
+                  <svg class="google-course__course-arrow"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                  </svg>
+                </a>
+              </li>
+              <li v-for="index in 2" :key="index" class="google-course__course">
+                <div class="google-course__course-link">
+                  <div class="google-course__skeleton-container">
+                    <div class="google-course__course-name google-course__skeleton-text"></div>
+                    <div class="google-course__course-description google-course__skeleton-text"></div>
+                    <div class="google-course__course-provider-name google-course__skeleton-text"></div>
+                  </div>
+                  <svg class="google-course__course-arrow"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                  </svg>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>

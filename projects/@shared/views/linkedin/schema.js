@@ -10,10 +10,7 @@ export const schema = Joi.object({
     }),
 
   'og:type': Joi.string()
-    .required()
-    .messages({
-      'string.empty': 'This property is required according to LinkedIn Help.',
-    }),
+    .allow(''),
 
   'og:image': Joi.image()
     .minDimensions(1200, 627)
@@ -23,8 +20,10 @@ export const schema = Joi.object({
     }),
 
   'og:description': Joi.string()
+    .min(100)
     .required()
     .messages({
+      'string.min': 'The description should be at least 100 characters long.',
       'string.empty': 'This property is required according to LinkedIn Help.',
     }),
 
