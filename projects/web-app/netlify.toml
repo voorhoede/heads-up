@@ -1,6 +1,7 @@
 [build]
   command = "npm run build-netlify"
   functions = "functions"
+  ignore = "/bin/false"
   publish = "dist"
 
 [dev]
