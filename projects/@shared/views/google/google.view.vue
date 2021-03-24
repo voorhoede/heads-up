@@ -126,20 +126,25 @@ export default {
       params.set('headUrl', head.url);
 
       // Structured Data
-      params.set('aggregateRatingValue', data['aggregateRating']?.ratingValue);
-      params.set('aggregateReviewCount', data['aggregateRating']?.reviewCount);
-      params.set('breadcrumbSegments', getBreadcrumbSegments(data['itemListElement']));
-      params.set('dateModified', formatDate(data['dateModified']));
-      params.set('description', data['description']);
+      params.set('aggregateRatingValue', data.aggregateRating?.ratingValue);
+      params.set('aggregateReviewCount', data.aggregateRating?.reviewCount);
+      params.set('authorName', data.author?.name);
+      params.set('breadcrumbSegments', getBreadcrumbSegments(data.itemListElement));
+      params.set('dateModified', formatDate(data.dateModified));
+      params.set('description', data.description);
       params.set('favicon', findFavicons(props.headData.head)?.[0].url || '');
-      params.set('headline', data['headline']);
-      params.set('image', getImageUrl(data['image']));
+      params.set('headline', data.headline);
+      params.set('image', getImageUrl(data.image));
       params.set('isMobile', openTab.value === 'mobile');
-      params.set('name', data['name']);
-      params.set('offerPrice', formatPrice(data['offers']?.price, data['offers']?.priceCurrency));
-      params.set('offerSellerName', data['offers']?.seller?.name);
-      params.set('publisherLogo', data['publisher']?.logo?.url);
-      params.set('publisherName', data['publisher']?.name);
+      params.set('itemReviewedAuthorName', data.itemReviewed?.author?.name);
+      params.set('itemReviewedName', data.itemReviewed?.name);
+      params.set('itemReviewedType', data.itemReviewed?.['@type']);
+      params.set('name', data.name);
+      params.set('offerPrice', formatPrice(data.offers?.price, data.offers?.priceCurrency));
+      params.set('offerSellerName', data.offers?.seller?.name);
+      params.set('publisherLogo', data.publisher?.logo?.url);
+      params.set('publisherName', data.publisher?.name);
+      params.set('reviewRatingValue', data.reviewRating?.ratingValue);
       params.set('theme', getTheme());
 
       if (hasSinglePreview) {
@@ -161,7 +166,7 @@ export default {
           { term: 'head:description', value: findMetaContent(head, 'description') },
           {
             term:'itemListElement',
-            value: `[${ getBreadcrumbSegments(data['itemListElement'])
+            value: `[${ getBreadcrumbSegments(data.itemListElement)
               .map(segment => `"${ segment }"`)
               .join(', ') }]`,
             type: 'code',
@@ -169,47 +174,60 @@ export default {
         ],
         NewsArticle: [
           { term: '@type', value: data['@type'] },
-          { term: 'headline', value: data['headline'] },
-          { term: 'description', value: data['description'] },
-          { term: 'dateModified', value: data['dateModified'] },
-          { term: 'publisher - name', value: data['publisher']?.name },
+          { term: 'headline', value: data.headline },
+          { term: 'description', value: data.description },
+          { term: 'dateModified', value: data.dateModified },
+          { term: 'publisher - name', value: data.publisher?.name },
           {
             term: 'publisher - logo',
-            value: getImageUrl(data['publisher']?.logo),
+            value: getImageUrl(data.publisher?.logo),
             image: {
-              href: getImageUrl(data['publisher']?.logo),
-              url: getImageUrl(data['publisher']?.logo),
+              href: getImageUrl(data.publisher?.logo),
+              url: getImageUrl(data.publisher?.logo),
             },
             type: 'image',
           },
           {
             term: 'image',
-            value: getImageUrl(data['image']),
+            value: getImageUrl(data.image),
             image: {
-              href: getImageUrl(data['image']),
-              url: getImageUrl(data['image']),
+              href: getImageUrl(data.image),
+              url: getImageUrl(data.image),
             },
             type: 'image',
           },
         ],
         Product: [
           { term: '@type', value: data['@type'] },
-          { term: 'name', value: data['name'] },
-          { term: 'description', value: data['description'] },
-          { term: 'offers - price', value: data['offers']?.price },
-          { term: 'offers - priceCurrency', value: data['offers']?.priceCurrency },
-          { term: 'offers - seller - name', value: data['offers']?.seller?.name },
-          { term: 'aggregateRating - ratingValue', value: data['aggregateRating']?.ratingValue },
-          { term: 'aggregateRating - reviewCount', value: data['aggregateRating']?.reviewCount },
+          { term: 'name', value: data.name },
+          { term: 'description', value: data.description },
+          { term: 'offers - price', value: data.offers?.price },
+          { term: 'offers - priceCurrency', value: data.offers?.priceCurrency },
+          { term: 'offers - seller - name', value: data.offers?.seller?.name },
+          { term: 'aggregateRating - ratingValue', value: data.aggregateRating?.ratingValue },
+          { term: 'aggregateRating - reviewCount', value: data.aggregateRating?.reviewCount },
           {
             term: 'image',
-            value: getImageUrl(data['image']),
+            value: getImageUrl(data.image),
             image: {
-              href: getImageUrl(data['image']),
-              url: getImageUrl(data['image']),
+              href: getImageUrl(data.image),
+              url: getImageUrl(data.image),
             },
             type: 'image',
           },
+        ],
+        Review: [
+          { term: '@type', value: data['@type'] },
+          { term: 'author - name', value: data.author?.name },
+          { term: 'publisher - name', value: data.publisher?.name },
+          { term: 'description', value: data.description },
+          { term: 'itemReviewed - @type', value: data.itemReviewed?.['@type'] },
+          { term: 'itemReviewed - name', value: data.itemReviewed?.name },
+          ...(data.itemReviewed?.['@type'] === 'Book'
+            ? [ { term: 'itemReviewed - author - name', value: data.itemReviewed?.author?.name } ]
+            : []
+          ),
+          { term: 'reviewRating - ratingValue', value: data.reviewRating?.ratingValue },
         ],
       };
 
