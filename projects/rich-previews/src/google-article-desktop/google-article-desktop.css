@@ -46,6 +46,7 @@
   height: 119px;
   object-fit: cover;
   object-position: center;
+  width: 100%;
 }
 
 .article--variant .article__image {
