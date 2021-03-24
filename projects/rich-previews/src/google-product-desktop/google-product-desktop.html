@@ -12,7 +12,6 @@
     <div id="app">
       <h1 class="iframe-heading" :class="{ 'iframe-heading--dark-mode': isDarkMode }">Product</h1>
       <div v-if="!hasRequiredData" class="warning-message" :class="{
-        'warning-message--web-app': platform === 'web-app',
         'warning-message--dark-mode': isDarkMode
       }">
         <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 100">
@@ -73,7 +72,7 @@
                 </div>
               </div>
             </li>
-            <li v-for="index in 6" :key="index" class="product-carrousel__item">
+            <li v-for="index in 3" :key="index" class="product-carrousel__item">
               <div class="product product--no-hover">
                 <div class="product__wrapper">
                   <div class="product__image product__skeleton-image"></div>

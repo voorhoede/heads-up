@@ -37,7 +37,6 @@ const app = Vue.createApp({
       name,
       offerPrice,
       offerSellerName,
-      platform: params.get('platform'),
     };
   },
 });

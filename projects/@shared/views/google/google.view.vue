@@ -67,7 +67,7 @@
 <script>
 import { computed, ref } from 'vue';
 import { format as formatDate } from 'timeago.js';
-import { findMetaContent } from '@shared/lib/find-meta';
+import { findFavicons, findMetaContent } from '@shared/lib/find-meta';
 import { TABS } from '@shared/lib/constants.js';
 import { TYPES, splitTypes } from '@shared/lib/google-utils.js';
 import getTheme from '@shared/lib/theme';
@@ -104,6 +104,8 @@ export default {
       const params = new URLSearchParams();
 
       params.set('description', findMetaContent(head, 'description'));
+      params.set('favicon', findFavicons(props.headData.head)?.[0].url || '');
+      params.set('isMobile', openTab.value === 'mobile');
       params.set('theme', getTheme());
       params.set('title', head.title);
       params.set('url', head.url);
@@ -126,15 +128,16 @@ export default {
       // Structured Data
       params.set('aggregateRatingValue', data['aggregateRating']?.ratingValue);
       params.set('aggregateReviewCount', data['aggregateRating']?.reviewCount);
+      params.set('breadcrumbSegments', getBreadcrumbSegments(data['itemListElement']));
       params.set('dateModified', formatDate(data['dateModified']));
       params.set('description', data['description']);
+      params.set('favicon', findFavicons(props.headData.head)?.[0].url || '');
       params.set('headline', data['headline']);
       params.set('image', getImageUrl(data['image']));
-      params.set('breadcrumbSegments', getBreadcrumbSegments(data['itemListElement']));
+      params.set('isMobile', openTab.value === 'mobile');
       params.set('name', data['name']);
       params.set('offerPrice', formatPrice(data['offers']?.price, data['offers']?.priceCurrency));
       params.set('offerSellerName', data['offers']?.seller?.name);
-      params.set('platform', 'web-app');
       params.set('publisherLogo', data['publisher']?.logo?.url);
       params.set('publisherName', data['publisher']?.name);
       params.set('theme', getTheme());

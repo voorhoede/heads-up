@@ -45,6 +45,7 @@ html {
 
 .scroll-container--fake {
   margin-top: -0.5rem;
+  max-width: 40rem;
   padding-right: 1.5rem;
   position: relative;
   width: 100%;
@@ -68,8 +69,9 @@ html {
 }
 
 .scroll-container__inner {
-  display: inline-block;
   padding: 0.5rem;
+  max-width: 40rem;
+  min-width: 20rem;
 }
 
 .warning-message {

@@ -4,13 +4,14 @@ const app = Vue.createApp({
   setup() {
     const params = new URL(window.location.href).searchParams;
     const description = params.get('description');
-    const title = params.get('title');
     const url = params.get('url');
 
     return {
       description: description.replace(/ ?<br ?\/?> ?/gi, ' '),
+      favicon: params.get('favicon'),
       isDarkMode: params.get('theme') === 'dark',
-      title,
+      isMobile: params.get('isMobile') === 'true',
+      title: params.get('title'),
       url,
       urlSegments: getUrlSegments(url),
     };

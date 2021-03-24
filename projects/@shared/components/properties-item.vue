@@ -286,6 +286,7 @@ export default {
   .properties-item__value--code {
     background-color: #eee;
     border-radius: 2px;
+    color: #555;
     flex: initial;
     line-height: 1.15;
     padding: 0.125rem 0.25rem 0.25rem;

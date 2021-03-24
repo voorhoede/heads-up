@@ -11,24 +11,33 @@
   <body>
     <div id="app">
       <h1 class="iframe-heading" :class="{ 'iframe-heading--dark-mode': isDarkMode }">Breadcrumb</h1>
-      <div v-if="breadcrumbSegments.length > 1" class="google-breadcrumb" :class="{ 'google-breadcrumb--dark': isDarkMode }">
-        <a class="google-breadcrumb__link" rel="noopener" target="_blank" :href="url">
-          <ul class="google-breadcrumb__url">
-            <li
-              class="google-breadcrumb__url-segment"
-              v-for="(segment, index) in breadcrumbSegments"
-              :key="index"
-            >
-              {{ segment }}
-            </li>
-          </ul>
-          <p class="google-breadcrumb__title">{{ title }}</p>
-        </a>
-        <p class="google-breadcrumb__description" v-html="description">
+      <div v-if="breadcrumbSegments.length > 1" class="scroll-container">
+        <div class="scroll-container__inner">
+          <div class="google-breadcrumb" :class="{
+            'google-breadcrumb--dark': isDarkMode,
+            'google-breadcrumb--mobile': isMobile
+          }">
+            <a class="google-breadcrumb__link" rel="noopener" target="_blank" :href="url">
+              <ul class="google-breadcrumb__url">
+                <li v-if="favicon && isMobile" class="google-breadcrumb__url-segment--favicon">
+                  <img :src="favicon" alt="">
+                </li>
+                <li
+                  class="google-breadcrumb__url-segment"
+                  v-for="(segment, index) in breadcrumbSegments"
+                  :key="index"
+                >
+                  {{ segment }}
+                </li>
+              </ul>
+              <p class="google-breadcrumb__title">{{ title }}</p>
+            </a>
+            <p class="google-breadcrumb__description" v-html="description">
+          </div>
+        </div>
       </div>
 
       <div v-else class="warning-message" :class="{
-        'warning-message--web-app': platform === 'web-app',
         'warning-message--dark-mode': isDarkMode
       }">
         <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 100">

@@ -1,11 +1,11 @@
 @import "../../@shared/css/defaults.css";
 @import "../../@shared/css/google.css";
 
-/* Default */
-.google-default {
-  max-width: 37.5rem;
+.scroll-container__inner {
+  padding: 0;
 }
 
+/* Default */
 .google-default__link {
   text-decoration: none;
 }
@@ -29,11 +29,27 @@
 
 .google-default__url-segment {
   display: inline-block;
+  height: 1rem;
+  line-height: 1;
   margin-right: 0.2rem;
+  vertical-align: middle;
+}
+
+.google-default__url-segment--favicon {
+  aspect-ratio: auto 16 / 16;
+  display: inline-block;
+  height: 1rem;
+  margin-right: 0.75rem;
+  vertical-align: middle;
+  width: 1rem;
 }
 
 .google-default__url-segment:not(:first-of-type) {
   color: var(--color-shuttle-gray);
+}
+
+.google-default--mobile .google-default__url-segment:nth-of-type(2) {
+  color: inherit;
 }
 
 .google-default__url-segment:not(:last-of-type)::after {
@@ -44,6 +60,10 @@
 .google-default--dark .google-default__url-segment:not(:first-of-type),
 .google-default--dark .google-default__url-segment:not(:last-of-type)::after {
   color: var(--color-manatee);
+}
+
+.google-default--dark.google-default--mobile .google-default__url-segment:nth-of-type(2) {
+  color: inherit;
 }
 
 .google-default__url-segment:last-of-type {
@@ -84,6 +104,10 @@
   color: var(--color-cornflower-blue);
 }
 
+.google-default--mobile .google-default__title {
+  -webkit-line-clamp: 2;
+}
+
 .google-default__description {
   -webkit-line-clamp: 2;
   color: var(--color-abbey);
@@ -94,4 +118,8 @@
 
 .google-default--dark .google-default__description {
   color: var(--color-silver-sand);
+}
+
+.google-default--mobile .google-default__description {
+  -webkit-line-clamp: 3;
 }

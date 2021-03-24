@@ -10,20 +10,30 @@
 
   <body>
     <div id="app">
-      <div class="google-default" :class="{ 'google-default--dark': isDarkMode }">
-        <a class="google-default__link" rel="noopener" target="_blank" :href="url">
-          <ul class="google-default__url">
-            <li
-              class="google-default__url-segment"
-              v-for="(segment, index) in urlSegments"
-              :key="index"
-            >
-              {{ segment }}
-            </li>
-          </ul>
-          <p class="google-default__title">{{ title }}</p>
-        </a>
-        <p class="google-default__description" v-html="description">
+      <div class="scroll-container">
+        <div class="scroll-container__inner">
+          <div class="google-default" :class="{
+            'google-default--dark': isDarkMode,
+            'google-default--mobile': isMobile
+          }">
+            <a class="google-default__link" rel="noopener" target="_blank" :href="url">
+              <ul class="google-default__url">
+                <li v-if="favicon && isMobile" class="google-default__url-segment--favicon">
+                  <img :src="favicon" alt="">
+                </li>
+                <li
+                  class="google-default__url-segment"
+                  v-for="(segment, index) in urlSegments"
+                  :key="index"
+                >
+                  {{ segment }}
+                </li>
+              </ul>
+              <p class="google-default__title">{{ title }}</p>
+            </a>
+            <p class="google-default__description" v-html="description">
+          </div>
+        </div>
       </div>
     </div>
 
