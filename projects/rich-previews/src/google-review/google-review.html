@@ -11,21 +11,69 @@
   <body>
     <div id="app">
       <h1 class="iframe-heading" :class="{ 'iframe-heading--dark-mode': isDarkMode }">Critic review</h1>
-      <div class="scroll-container">
+      <div v-if="!hasRequiredData" class="warning-message" :class="{
+        'warning-message--dark-mode': isDarkMode
+      }">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 100">
+          <path d="M98 85.6L53.9 9.7c-.5-1.4-2.4-2.4-3.8-2.4s-3.3.9-4.3 2.4L1.7 85.6c-1.4 3.3.9 7.1 4.3 7.1h87.7c3.8 0 6.2-3.8 4.3-7.1zm-87.7 0l39.8-68.8L90 85.6H10.3z"/>
+          <path d="M50 16.8L10.2 85.6h79.7L50 16.8zm4.7 66.4h-9.5v-9.5h9.5v9.5zm-9.4-19V35.8h9.5v28.5h-9.5z"/>
+        </svg>
+        <p>This page does not contain the necessary metadata to create a preview.</p>
+      </div>
+
+      <div v-else class="scroll-container">
         <div class="scroll-container__inner">
-          <div class="google-review" :class="{
-            'google-review--mobile': isMobile,
-            'google-review--dark': isDarkMode
-          }">
-            <ul>
-              <li>{{ authorName }}</li>
-              <li>{{ description }}</li>
-              <li>{{ itemReviewedAuthorName }}</li>
-              <li>{{ itemReviewedName }}</li>
-              <li>{{ itemReviewedType }}</li>
-              <li>{{ publisherName }}</li>
-              <li>{{ reviewRatingValue }}</li>
-            </ul>
+          <div class="google-review" :class="{ 'google-review--mobile': isMobile }">
+            <header class="google-review__header">
+              <h1
+                class="google-review__title"
+                :class="{ 'google-review__title--short' : hasShortTitle }"
+              >
+                {{ itemReviewedName }}
+              </h1>
+              <span v-if="isBook" class="google-review__type">
+                {{ itemReviewedType }} by {{ itemReviewedAuthorName }}
+              </span>
+              <span v-else-if="isMovie" class="google-review__type">
+                Year ‧ Genre ‧ 0h 00m
+              </span>
+              <span v-else class="google-review__type">
+                {{ itemReviewedType }}
+              </span>
+              <div class="google-review__button-group">
+                <button class="google-review__button">Overview</button>
+                <button class="google-review__button google-review__button--active">Reviews</button>
+              </div>
+              <svg class="google-review__menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+              </svg>
+            </header>
+            <main>
+              <section v-if="reviewRatingValue" class="google-review__section">
+                <h2 class="google-review__section-title">Ratings</h2>
+                <p class="google-review__rating">
+                  {{ reviewRatingValue }}/5 ‧ <span class="google-review__rating-link">{{ publisherName }}</span>
+                </p>
+              </section>
+              <section class="google-review__section">
+                <h2 class="google-review__section-title">Critic reviews</h2>
+                <article>
+                  <div class="google-review__description-wrapper">
+                    <p class="google-review__description">{{ description }}</p>
+                    <svg class="google-review__course-arrow"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                    </svg>
+                  </div>
+                  <footer class="google-review__footer">
+                    <div class="google-review__publisher-wrapper">
+                      <span>{{ authorName }}</span>
+                      <span>{{ publisherName }}</span>
+                    </div>
+                    <span v-if="reviewRatingValue">{{ reviewRatingValue }}/5</span>
+                  </footer>
+                </article>
+              </section>
+            </main>
           </div>
         </div>
       </div>

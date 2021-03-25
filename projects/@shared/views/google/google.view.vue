@@ -104,11 +104,11 @@ export default {
       const params = new URLSearchParams();
 
       params.set('description', findMetaContent(head, 'description'));
-      params.set('favicon', findFavicons(props.headData.head)?.[0].url || '');
+      params.set('favicon', findFavicons(props.headData.head)?.[0]?.url || '');
       params.set('isMobile', openTab.value === 'mobile');
       params.set('theme', getTheme());
-      params.set('title', head.title);
-      params.set('url', head.url);
+      params.set('title', head?.title);
+      params.set('url', head?.url);
 
       return `/previews/google-default/google-default.html?${ params }`;
     };
