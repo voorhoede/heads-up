@@ -34,7 +34,7 @@ export const TYPES = {
   },
   'Review': {
     urlSegment: 'review',
-    updatedOn: 'Mar 24, 2021',
+    updatedOn: 'Mar 29, 2021',
     hasSinglePreview: true,
     resources: [ {
       label: 'Advanced SEO: Critic review (on developers.google)',
