@@ -46,6 +46,7 @@
           :key="item.term"
           :term="item.term"
           :value="item.value"
+          :tooltip="item.tooltip"
           :image="item.image"
           :type="item.type"
           :required="true"
@@ -66,10 +67,16 @@
 
 <script>
 import { computed, ref } from 'vue';
+import { metadata } from './metadata.js';
 import { format as formatDate } from 'timeago.js';
 import { findFavicons, findMetaContent } from '@shared/lib/find-meta';
 import { TABS } from '@shared/lib/constants.js';
-import { TYPES, splitTypes } from '@shared/lib/google-utils.js';
+import {
+  getBreadcrumbSegments,
+  getImageUrl,
+  splitTypes,
+  TYPES
+} from '@shared/lib/google-utils.js';
 import getTheme from '@shared/lib/theme';
 
 import ExternalLink from '@shared/components/external-link';
@@ -154,83 +161,8 @@ export default {
     const getMetaData = type => {
       const { head } = props.headData;
       const data = mergedData.value[type][0];
-      const metaData = {
-        BreadcrumbList: [
-          { term: '@type', value: data['@type'] },
-          { term: 'head:title', value: head.title },
-          { term: 'head:description', value: findMetaContent(head, 'description') },
-          {
-            term:'itemListElement',
-            value: `[${ getBreadcrumbSegments(data['itemListElement'])
-              .map(segment => `"${ segment }"`)
-              .join(', ') }]`,
-            type: 'code',
-          },
-        ],
-        NewsArticle: [
-          { term: '@type', value: data['@type'] },
-          { term: 'headline', value: data['headline'] },
-          { term: 'description', value: data['description'] },
-          { term: 'dateModified', value: data['dateModified'] },
-          { term: 'publisher - name', value: data['publisher']?.name },
-          {
-            term: 'publisher - logo',
-            value: getImageUrl(data['publisher']?.logo),
-            image: {
-              href: getImageUrl(data['publisher']?.logo),
-              url: getImageUrl(data['publisher']?.logo),
-            },
-            type: 'image',
-          },
-          {
-            term: 'image',
-            value: getImageUrl(data['image']),
-            image: {
-              href: getImageUrl(data['image']),
-              url: getImageUrl(data['image']),
-            },
-            type: 'image',
-          },
-        ],
-        Product: [
-          { term: '@type', value: data['@type'] },
-          { term: 'name', value: data['name'] },
-          { term: 'description', value: data['description'] },
-          { term: 'offers - price', value: data['offers']?.price },
-          { term: 'offers - priceCurrency', value: data['offers']?.priceCurrency },
-          { term: 'offers - seller - name', value: data['offers']?.seller?.name },
-          { term: 'aggregateRating - ratingValue', value: data['aggregateRating']?.ratingValue },
-          { term: 'aggregateRating - reviewCount', value: data['aggregateRating']?.reviewCount },
-          {
-            term: 'image',
-            value: getImageUrl(data['image']),
-            image: {
-              href: getImageUrl(data['image']),
-              url: getImageUrl(data['image']),
-            },
-            type: 'image',
-          },
-        ],
-      };
 
-      return metaData[type];
-    };
-
-    const getImageUrl = img => {
-      if (Array.isArray(img)) {
-        return getImageUrl(img[0]);
-      } else if (typeof img === 'string') {
-        return img.split(', ')[0];
-      }
-
-      return img?.url;
-    };
-
-    const getBreadcrumbSegments = itemListElement => {
-      if (!itemListElement?.length > 0) return [];
-      return itemListElement
-        .map(item => item?.name || item?.item?.name)
-        .filter(Boolean);
+      return metadata(data, head, type);
     };
 
     const formatPrice = (price, currency) => {

@@ -49,6 +49,23 @@ export const truncateString = (str, num) => {
   return str.slice(0, num) + '...';
 };
 
+export const getBreadcrumbSegments = itemListElement => {
+  if (!itemListElement?.length > 0) return [];
+  return itemListElement
+    .map(item => item?.name || item?.item?.name)
+    .filter(Boolean);
+};
+
+export const getImageUrl = img => {
+  if (Array.isArray(img)) {
+    return getImageUrl(img[0]);
+  } else if (typeof img === 'string') {
+    return img.split(', ')[0];
+  }
+
+  return img?.url;
+};
+
 export const getUrlSegments = url => {
   return truncateString(
     url
