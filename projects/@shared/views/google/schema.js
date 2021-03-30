@@ -14,6 +14,29 @@ export const tooltip = {
       info: `Based on <code>"BreadcrumbList.itemListElement"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
     },
   },
+  NewsArticle: {
+    type: {
+      info: `Based on <code>"NewsArticle['@type']"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
+    },
+    headline: {
+      info: `Based on <code>"NewsArticle.headline"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
+    },
+    description: {
+      info: `Based on <code>"NewsArticle.description"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
+    },
+    dateModified: {
+      info: `Based on <code>"NewsArticle.dateModified"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
+    },
+    publisherName: {
+      info: `Based on <code>"NewsArticle.publisher.name"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
+    },
+    publisherLogo: {
+      info: `Based on <code>"NewsArticle.publisher.logo"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
+    },
+    image: {
+      info: `Based on <code>"NewsArticle.image"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
+    },
+  },
   Product: {
     type: {
       info: `Based on <code>"Product['@type']"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
