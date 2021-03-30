@@ -41,6 +41,15 @@ export const TYPES = {
       url: 'https://developers.google.com/search/docs/data-types/product',
     } ],
   },
+  'Review': {
+    urlSegment: 'review',
+    updatedOn: 'Mar 29, 2021',
+    hasSinglePreview: true,
+    resources: [ {
+      label: 'Advanced SEO: Critic review (on developers.google)',
+      url: 'https://developers.google.com/search/docs/data-types/critic-review',
+    } ],
+  },
 };
 
 export const splitTypes = jsonldData => {

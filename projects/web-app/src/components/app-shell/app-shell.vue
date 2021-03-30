@@ -46,9 +46,9 @@ export default {
 <style>
 .app {
   display: flex;
-  width: 100vw;
   height: 100vh;
   min-height: 100vh;
+  width: calc(100vw - 1rem);
 }
 
 .app-main {
