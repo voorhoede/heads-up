@@ -91,8 +91,8 @@ export default {
   setup: props => {
     const openTab = ref(TABS[0].value);
 
-    const jsonldData = computed(() => props.headData?.structuredData?.jsonld ?? {});
-    const microData = computed(() => props.headData?.structuredData?.microdata ?? {});
+    const jsonldData = computed(() => getStructuredData(props.headData?.structuredData?.jsonld ?? {}));
+    const microData = computed(() => getStructuredData(props.headData?.structuredData?.microdata ?? {}));
     const mergedData = computed(() => ({ ...jsonldData.value, ...microData.value }));
 
     const supportedTypes = computed(() => splitTypes(mergedData.value)[0]);
@@ -118,6 +118,7 @@ export default {
       const params = new URLSearchParams();
       const urlSegment = TYPES[type].urlSegment;
       const hasSinglePreview = TYPES[type].hasSinglePreview;
+      const breadcrumbData = mergedData.value.BreadcrumbList?.[0]?.itemListElement;
       const data = mergedData.value[type][0];
 
       // Head Data
@@ -129,7 +130,7 @@ export default {
       params.set('aggregateRatingValue', data.aggregateRating?.ratingValue);
       params.set('aggregateReviewCount', data.aggregateRating?.reviewCount);
       params.set('authorName', data.author?.name);
-      params.set('breadcrumbSegments', getBreadcrumbSegments(data.itemListElement));
+      params.set('breadcrumbSegments', getBreadcrumbSegments(breadcrumbData));
       params.set('dateModified', formatDate(data.dateModified));
       params.set('description', data.description);
       params.set('favicon', findFavicons(props.headData.head)?.[0].url || '');
@@ -142,10 +143,12 @@ export default {
       params.set('name', data.name);
       params.set('offerPrice', formatPrice(data.offers?.price, data.offers?.priceCurrency));
       params.set('offerSellerName', data.offers?.seller?.name);
+      params.set('providerName', data.provider?.name);
       params.set('publisherLogo', data.publisher?.logo?.url);
       params.set('publisherName', data.publisher?.name);
       params.set('reviewRatingValue', data.reviewRating?.ratingValue);
       params.set('theme', getTheme());
+      params.set('url', data.url);
 
       if (hasSinglePreview) {
         return `/previews/google-${ urlSegment }/google-${ urlSegment }.html?${ params }`;
@@ -171,6 +174,13 @@ export default {
               .join(', ') }]`,
             type: 'code',
           },
+        ],
+        Course: [
+          { term: '@type', value: data['@type'] },
+          { term: 'name', value: data.name },
+          { term: 'description', value: data.description },
+          { term: 'provider - name', value: data.provider?.name },
+          { term: 'url', value: data.url },
         ],
         NewsArticle: [
           { term: '@type', value: data['@type'] },
@@ -232,6 +242,21 @@ export default {
       };
 
       return metaData[type];
+    };
+
+    const getStructuredData = rawData => {
+      if (
+        Object.keys(rawData).length === 1 &&
+        Object.keys(rawData).includes('undefined')
+      ) {
+        if (!rawData.undefined?.[0]?.['@graph']) return rawData;
+        return rawData['undefined'][0]['@graph'].reduce((data, value) => {
+          data[value['@type']] = [ value ];
+          return data;
+        }, {});
+      }
+
+      return rawData;
     };
 
     const getImageUrl = img => {

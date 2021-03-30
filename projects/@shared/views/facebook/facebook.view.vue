@@ -36,6 +36,11 @@
     <panel-section title="Resources">
       <ul class="resource-list">
         <li>
+          <external-link href="https://developers.facebook.com/tools/debug/">
+            Sharing Debugger - Facebook for Developers
+          </external-link>
+        </li>
+        <li>
           <external-link href="https://developers.facebook.com/docs/sharing/webmasters">
             Guide to Sharing - Facebook for Developers
           </external-link>

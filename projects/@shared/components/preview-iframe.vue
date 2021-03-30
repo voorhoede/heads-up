@@ -52,7 +52,7 @@ export default {
     const isLoading = ref(true);
 
     const setIframeHeight = debounce(() => {
-      iframeHeight.value = parseInt(iframe.value.contentWindow.document.body.scrollHeight) + 'px';
+      iframeHeight.value = parseInt(iframe.value?.contentWindow.document.body.scrollHeight) + 'px';
     }, 300);
 
     /**
