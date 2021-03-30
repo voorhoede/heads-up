@@ -280,7 +280,13 @@ export default {
     line-height: 1;
     margin-left: 1rem;
     max-width: 500px;
+    overflow-wrap: break-word;
     word-break: break-word;
+    word-wrap: break-word;
+  }
+
+  .properties-item__value--image {
+    word-break: break-all;
   }
 
   .properties-item__value--code {
