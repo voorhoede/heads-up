@@ -2,6 +2,7 @@
   --color-abbey: #4d5156;
   --color-athens-dark-gray: #e8eaed;
   --color-athens-gray: #f8f9fa;
+  --color-black: #000000;
   --color-boulder: #777777;
   --color-cape-cod: #3c4043;
   --color-cornflower-blue: #609beb;
@@ -40,7 +41,8 @@ html {
 }
 
 .scroll-container {
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .scroll-container--fake {

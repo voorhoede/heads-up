@@ -14,6 +14,15 @@ export const TYPES = {
       url: 'https://developers.google.com/search/docs/data-types/breadcrumb',
     } ],
   },
+  'Course': {
+    urlSegment: 'course',
+    updatedOn: 'Mar 23, 2021',
+    hasSinglePreview: true,
+    resources: [ {
+      label: 'Advanced SEO: Course (on developers.google)',
+      url: 'https://developers.google.com/search/docs/data-types/course',
+    } ],
+  },
   'NewsArticle': {
     urlSegment: 'article',
     updatedOn: 'Jan 26, 2021',
@@ -30,6 +39,15 @@ export const TYPES = {
     resources: [ {
       label: 'Advanced SEO: Product (on developers.google)',
       url: 'https://developers.google.com/search/docs/data-types/product',
+    } ],
+  },
+  'Review': {
+    urlSegment: 'review',
+    updatedOn: 'Mar 29, 2021',
+    hasSinglePreview: true,
+    resources: [ {
+      label: 'Advanced SEO: Critic review (on developers.google)',
+      url: 'https://developers.google.com/search/docs/data-types/critic-review',
     } ],
   },
 };

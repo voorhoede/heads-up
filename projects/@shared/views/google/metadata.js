@@ -29,6 +29,33 @@ export const metadata = (data, head, type) => {
         tooltip: tooltip[type].itemListElement,
       },
     ],
+    Course: [
+      {
+        term: 'type',
+        value: data['@type'],
+        tooltip: tooltip[type].type,
+      },
+      {
+        term: 'name',
+        value: data.name,
+        tooltip: tooltip[type].name,
+      },
+      {
+        term: 'description',
+        value: data.description,
+        tooltip: tooltip[type].description,
+      },
+      {
+        term: 'provider\'s name',
+        value: data.provider?.name,
+        tooltip: tooltip[type].providerName,
+      },
+      {
+        term: 'url',
+        value: data.url,
+        tooltip: tooltip[type].url,
+      },
+    ],
     NewsArticle: [
       {
         term: 'type',
@@ -126,6 +153,51 @@ export const metadata = (data, head, type) => {
         },
         type: 'image',
         tooltip: tooltip[type].image,
+      },
+    ],
+    Review: [
+      {
+        term: 'type',
+        value: data['@type'],
+        tooltip: tooltip[type].type,
+      },
+      {
+        term: 'author\'s name',
+        value: data.author?.name,
+        tooltip: tooltip[type].authorName,
+      },
+      {
+        term: 'publisher\'s name',
+        value: data.publisher?.name,
+        tooltip: tooltip[type].publisherName,
+      },
+      {
+        term: 'description',
+        value: data.description,
+        tooltip: tooltip[type].description,
+      },
+      {
+        term: 'review category',
+        value: data.itemReviewed?.['@type'],
+        tooltip: tooltip[type].itemReviewedType,
+      },
+      {
+        term: 'reviewed item\'s name',
+        value: data.itemReviewed?.name,
+        tooltip: tooltip[type].itemReviewedName,
+      },
+      ...(data.itemReviewed?.['@type'] === 'Book'
+        ? [ {
+          term: 'reviewed item\'s author',
+          value: data.itemReviewed?.author?.name,
+          tooltip: tooltip[type].itemReviewedAuthorName,
+        } ]
+        : []
+      ),
+      {
+        term: 'rating',
+        value: data.reviewRating?.ratingValue,
+        tooltip: tooltip[type].reviewRatingRatingValue,
       },
     ],
   }[type];

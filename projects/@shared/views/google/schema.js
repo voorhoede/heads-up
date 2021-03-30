@@ -14,6 +14,23 @@ export const tooltip = {
       info: `Based on <code>"BreadcrumbList.itemListElement"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
     },
   },
+  Course: {
+    type: {
+      info: `Based on <code>"Course['@type']"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
+    },
+    name: {
+      info: `Based on <code>"Course.name"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
+    },
+    description: {
+      info: `Based on <code>"Course.description"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
+    },
+    providerName: {
+      info: `Based on <code>"Course.provider.name"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
+    },
+    url: {
+      info: `Based on <code>"Course.url"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
+    },
+  },
   NewsArticle: {
     type: {
       info: `Based on <code>"NewsArticle['@type']"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
@@ -64,6 +81,32 @@ export const tooltip = {
     },
     image: {
       info: `Based on <code>"Product.image"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
+    },
+  },
+  Review: {
+    type: {
+      info: `Based on <code>"Review['@type']"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
+    },
+    authorName: {
+      info: `Based on <code>"Review.author.name"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
+    },
+    publisherName: {
+      info: `Based on <code>"Review.publisher.name"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
+    },
+    description: {
+      info: `Based on <code>"Review.description"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
+    },
+    itemReviewedType: {
+      info: `Based on <code>"Review.itemReviewed['@type']"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
+    },
+    itemReviewedName: {
+      info: `Based on <code>"Review.itemReviewed.name"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
+    },
+    itemReviewedAuthorName: {
+      info: `Based on <code>"Review.itemReviewed.author.name"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
+    },
+    reviewRatingRatingValue: {
+      info: `Based on <code>"Review.reviewRating.ratingValue"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
     },
   },
 };
