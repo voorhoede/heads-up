@@ -1,5 +1,19 @@
 /* eslint-disable */
 export const tooltip = {
+  BreadcrumbList: {
+    type: {
+      info: `Based on <code>"BreadcrumbList['@type']"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
+    },
+    headTitle: {
+      info: `Based on <code>"&lt;title>...&lt;/title>"</code> in the <a class="app-tooltip__link" href="#/meta">head</a>.`,
+    },
+    headDescription: {
+      info: `Based on <code>"&lt;meta name="description" content="...">"</code> in the <a class="app-tooltip__link" href="#/meta">head</a>.`,
+    },
+    itemListElement: {
+      info: `Based on <code>"BreadcrumbList.itemListElement"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,
+    },
+  },
   Product: {
     type: {
       info: `Based on <code>"Product['@type']"</code> in <a class="app-tooltip__link" href="#/structured-data">Structured Data</a>.`,

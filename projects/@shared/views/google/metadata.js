@@ -5,15 +5,28 @@ import { getBreadcrumbSegments, getImageUrl } from '@shared/lib/google-utils.js'
 export const metadata = (data, head, type) => {
   return {
     BreadcrumbList: [
-      { term: '@type', value: data['@type'] },
-      { term: 'head:title', value: head.title },
-      { term: 'head:description', value: findMetaContent(head, 'description') },
       {
-        term: 'itemListElement',
-        value: `[${ getBreadcrumbSegments(data['itemListElement'])
+        term: 'type',
+        value: data['@type'],
+        tooltip: tooltip[type]?.type ?? {},
+      },
+      {
+        term: 'title (head)',
+        value: head.title,
+        tooltip: tooltip[type]?.headTitle ?? {},
+      },
+      {
+        term: 'description (head)',
+        value: findMetaContent(head, 'description'),
+        tooltip: tooltip[type]?.headDescription ?? {},
+      },
+      {
+        term: 'breadcrumb segments',
+        value: `[${ getBreadcrumbSegments(data.itemListElement)
           .map(segment => `"${ segment }"`)
           .join(', ') }]`,
         type: 'code',
+        tooltip: tooltip[type]?.itemListElement ?? {},
       },
     ],
     NewsArticle: [
