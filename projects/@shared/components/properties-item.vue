@@ -6,13 +6,22 @@
 
         <template v-if="termIsArray">
           <template v-for="(item, index) in term">
-            <span v-if="item" :key="index" class="properties-item__term">
+            <span
+              v-if="item"
+              :key="index"
+              class="properties-item__term"
+              :class="{'properties-item__term--not-supported': isNotSupported}"
+            >
               {{ item }}
             </span>
           </template>
         </template>
 
-        <span v-else class="properties-item__term">
+        <span
+          v-else
+          class="properties-item__term"
+          :class="{'properties-item__term--not-supported': isNotSupported}"
+        >
           {{ term }}
         </span>
 
@@ -104,7 +113,11 @@
       <span class="properties-item__strikethrough">{{ splittedStringEnd }}</span>
     </dd>
 
-    <dd v-else class="properties-item__value">
+    <dd
+      v-else
+      class="properties-item__value"
+      :class="{'properties-item__value--not-supported': isNotSupported}"
+    >
       <span v-if="value">{{ value }}</span>
     </dd>
   </div>
@@ -200,6 +213,9 @@ export default {
     isUrlsValue() {
       return this.type === 'urls' && this.value;
     },
+    isNotSupported() {
+      return this.type === 'notSupported' && this.value;
+    },
     showItem() {
       return this.term && this.value || this.required;
     },
@@ -281,6 +297,20 @@ export default {
     margin-left: 1rem;
     max-width: 500px;
     word-break: break-word;
+    word-wrap: break-word;
+  }
+
+  .properties-item__term--not-supported,
+  .properties-item__value--not-supported {
+    text-decoration: line-through;
+  }
+
+  .properties-item__value--not-supported {
+    opacity: .5;
+  }
+
+  .properties-item__value--image {
+    word-break: break-all;
   }
 
   .properties-item__value--code {
