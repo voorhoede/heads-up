@@ -10,7 +10,7 @@
               v-if="item"
               :key="index"
               class="properties-item__term"
-              :class="{'properties-item__term--not-supported': isNotSupported}"
+              :class="{'properties-item__term--unsupported': isUnsupported}"
             >
               {{ item }}
             </span>
@@ -20,7 +20,7 @@
         <span
           v-else
           class="properties-item__term"
-          :class="{'properties-item__term--not-supported': isNotSupported}"
+          :class="{'properties-item__term--unsupported': isUnsupported}"
         >
           {{ term }}
         </span>
@@ -116,7 +116,7 @@
     <dd
       v-else
       class="properties-item__value"
-      :class="{'properties-item__value--not-supported': isNotSupported}"
+      :class="{'properties-item__value--unsupported': isUnsupported}"
     >
       <span v-if="value">{{ value }}</span>
     </dd>
@@ -168,6 +168,7 @@ export default {
         'image',
         'link',
         'string',
+        'unsupported',
         'urls',
       ].indexOf(type) !== -1,
     },
@@ -213,8 +214,8 @@ export default {
     isUrlsValue() {
       return this.type === 'urls' && this.value;
     },
-    isNotSupported() {
-      return this.type === 'notSupported' && this.value;
+    isUnsupported() {
+      return this.type === 'unsupported' && this.value;
     },
     showItem() {
       return this.term && this.value || this.required;
@@ -300,12 +301,12 @@ export default {
     word-wrap: break-word;
   }
 
-  .properties-item__term--not-supported,
-  .properties-item__value--not-supported {
+  .properties-item__term--unsupported,
+  .properties-item__value--unsupported {
     text-decoration: line-through;
   }
 
-  .properties-item__value--not-supported {
+  .properties-item__value--unsupported {
     opacity: .5;
   }
 

@@ -98,7 +98,7 @@ export default {
         .map(meta => ({
           term: meta.property || meta.name,
           type: !Object.keys(info).includes(meta.property || meta.name)
-            ? 'notSupported'
+            ? 'unsupported'
             : 'string',
           value: meta.content,
         }));

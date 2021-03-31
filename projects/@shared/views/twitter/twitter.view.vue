@@ -154,6 +154,22 @@ export default {
       params.set('theme', getTheme());
       return `/previews/twitter/twitter.html?${ params }`;
     });
+    const unsupportedProperties = computed(() => {
+      const { meta } = props.headData.head;
+      return meta
+        .filter(meta =>
+          meta.property?.startsWith('twitter:') ||
+          meta.name?.startsWith('twitter:')
+        )
+        .filter(meta =>
+          !Object.keys(info).includes(meta.property || meta.name)
+        )
+        .map(meta => ({
+          term: meta.property || meta.name,
+          type: 'unsupported',
+          value: meta.content,
+        }));
+    });
     const metaData = computed(() => ([
       {
         term: 'og:type',
@@ -294,6 +310,7 @@ export default {
         term: 'twitter:app:name:googleplay',
         value: twitter.value.appNameGoogle,
       },
+      ...unsupportedProperties.value,
     ]));
 
     const absoluteUrl = url => createAbsoluteUrl(props.headData.head, url);
