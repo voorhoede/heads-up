@@ -191,7 +191,9 @@ export default {
       return this.errors?.[0]?.message.trim();
     },
     errors() {
-      return this.validation.errors.filter(item => (item.path[0] === this.term));
+      return this.validation.errors.filter(item =>
+        item.path[0] === this.term || item.context.peers?.includes(this.term)
+      );
     },
     hasErrors() {
       return this.validation.errors && this.errors.length;
@@ -218,7 +220,7 @@ export default {
       return this.type === 'unsupported' && this.value;
     },
     showItem() {
-      return this.term && this.value || this.required;
+      return (this.term && this.value) || this.hasErrors || this.hasWarnings;
     },
     showTooltip() {
       return Boolean(this.term && this.tooltip.info) || Boolean(this.hasErrors || this.hasWarnings);
