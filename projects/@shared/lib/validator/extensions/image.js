@@ -7,12 +7,12 @@ const image = joi => ({
   type: 'image',
   base: joi.object(),
   messages: {
-    'image.minWidth': '{{#label}} must be at least {{#width}}px wide.',
-    'image.maxWidth': '{{#label}} must be no more than {{#width}}px wide.',
-    'image.minHeight': '{{#label}} must be at least {{#height}}px high.',
-    'image.maxHeight': '{{#label}} must be no more than {{#height}}px high.',
-    'image.minDimensions': '{{#label}} should avoid images smaller than {{#width}}x{{#height}} or less.',
-    'image.maxDimensions': '{{#label}} should avoid images larger than {{#width}}x{{#height}} or more.',
+    'image.minWidth': 'The <strong><code>{#label}</code></strong> must be at least <strong>{#width}</strong>px wide.',
+    'image.maxWidth': 'The <strong><code>{#label}</code></strong> can\'t be wider than <strong>{#width}</strong>px.',
+    'image.minHeight': 'The <strong><code>{#label}</code></strong> must be at least <strong>{#height}</strong>px high.',
+    'image.maxHeight': 'The <strong><code>{#label}</code></strong> can\'t be higher than <strong>{#height}</strong>.',
+    'image.minDimensions': 'The <strong><code>{#label}</code></strong> can\'t be smaller than <strong>{#width}x{#height}</strong>px.',
+    'image.maxDimensions': 'The <strong><code>{#label}</code></strong> can\'t be bigger than <strong>{#width}x{#height}</strong>px.',
   },
   rules: {
     minWidth: {
@@ -88,6 +88,7 @@ const image = joi => ({
         },
       ],
       validate(value, helpers, args) {
+        console.log(value);
         if (value?.height > args.height) {
           return { value, warn: helpers.warn('image.maxHeight', { height: args.height }) };
         }
