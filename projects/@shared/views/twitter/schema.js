@@ -21,10 +21,15 @@ export const schema = Joi.object({
 
   'twitter:title': Joi.string().max(70),
 
-  'twitter:image': Joi.image().minDimensions(144, 144).maxDimensions(4096, 4096)
+  'twitter:image': Joi.image()
+    .validExtensions([ '.jpg', '.jpeg', '.png', '.webp', '.gif' ])
+    .maxFileSize(5 * 1e+6) // 5mb
+    .maxDimensions(4096, 4096)
+    .minDimensions(144, 144)
+    .aspectRatio('1:1')
     .when('twitter:card', {
       is: 'summary_large_image',
-      then: Joi.image().minDimensions(300, 157),
+      then: Joi.image().minDimensions(300, 157).aspectRatio('2:1'),
     }),
 
   'twitter:image:alt': Joi.string().max(420),
@@ -49,10 +54,15 @@ export const schema = Joi.object({
   'og:title': Joi.string().max(70),
   'og:type': Joi.string(),
 
-  'og:image': Joi.image().minDimensions(144, 144).maxDimensions(4096, 4096)
+  'og:image': Joi.image()
+    .validExtensions([ '.jpg', '.jpeg', '.png', '.webp', '.gif' ])
+    .maxFileSize(5 * 1e+6) // 5mb
+    .maxDimensions(4096, 4096)
+    .minDimensions(144, 144)
+    .aspectRatio('1:1')
     .when('twitter:card', {
       is: 'summary_large_image',
-      then: Joi.image().minDimensions(300, 157),
+      then: Joi.image().minDimensions(300, 157).aspectRatio('2:1'),
     }),
 
   'og:url': Joi.string().uri(),
@@ -65,9 +75,7 @@ export const schema = Joi.object({
   .or('twitter:card', 'og:title')
   .or('twitter:card', 'og:description')
   .or('twitter:site', 'twitter:site:id')
-  // .or('twitter:description', 'og:description')
   .or('twitter:title', 'og:title')
-  // .or('twitter:image', 'og:image')
   .messages({
     'any.only': '<strong><code>{#label}</code></strong> must be one of these: <strong><code>{#valids}</code></strong>.',
     'object.missing': 'One of these properties <strong><code>{#peers}</code></strong> is required.',
