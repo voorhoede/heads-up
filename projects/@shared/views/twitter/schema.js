@@ -67,16 +67,36 @@ export const schema = Joi.object({
   'twitter:player:stream': Joi.string().uri(),
 
   'twitter:app:name:iphone': Joi.string(),
-  'twitter:app:id:iphone': Joi.number(),
+
+  'twitter:app:id:iphone': Joi.number()
+    .when('twitter:card', {
+      is: 'app',
+      then: Joi.number().required(),
+    }),
+
   'twitter:app:url:iphone': Joi.string().uri(),
 
   'twitter:app:name:ipad': Joi.string(),
-  'twitter:app:id:ipad': Joi.number(),
+
+  'twitter:app:id:ipad': Joi.number()
+    .when('twitter:card', {
+      is: 'app',
+      then: Joi.number().required(),
+    }),
+
   'twitter:app:url:ipad': Joi.string().uri(),
 
   'twitter:app:name:googleplay': Joi.string(),
-  'twitter:app:id:googleplay': Joi.number(),
+
+  'twitter:app:id:googleplay': Joi.number()
+    .when('twitter:card', {
+      is: 'app',
+      then: Joi.number().required(),
+    }),
+
   'twitter:app:url:googleplay': Joi.string().uri(),
+
+  'twitter:app:country': Joi.string(),
 
   'og:title': Joi.string().max(70),
   'og:type': Joi.string(),
@@ -235,6 +255,11 @@ export const info = {
 
   'twitter:app:url:googleplay': {
     info: 'The <code>"twitter:app:url:googleplay"</code> element defines your app’s custom URL scheme.',
+    link: 'https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/app-card',
+  },
+
+  'twitter:app:country': {
+    info: 'The <code>"twitter:app:country"</code> element defines your app’s store country.',
     link: 'https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/app-card',
   },
 

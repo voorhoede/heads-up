@@ -134,6 +134,7 @@ export default {
       appNameGoogle: propertyValue('twitter:app:name:googleplay'),
       appIdGoogle: propertyValue('twitter:app:id:googleplay', { isNumber: true }),
       appUrlGoogle: propertyValue('twitter:app:url:googleplay'),
+      appCountry: propertyValue('twitter:app:country'),
     }));
     const og = computed(() => ({
       title: propertyValue('og:title'),
@@ -264,6 +265,10 @@ export default {
       {
         term: 'twitter:app:name:googleplay',
         value: twitter.value.appNameGoogle,
+      },
+      {
+        term: 'twitter:app:country',
+        value: twitter.value.appCountry,
       },
       {
         term: 'og:title',
