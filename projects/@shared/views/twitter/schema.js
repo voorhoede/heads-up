@@ -24,32 +24,59 @@ export const schema = Joi.object({
   'twitter:image': Joi.image()
     .validExtensions([ '.jpg', '.jpeg', '.png', '.webp', '.gif' ])
     .maxFileSize(5 * 1e+6) // 5mb
-    .maxDimensions(4096, 4096)
-    .minDimensions(144, 144)
-    .aspectRatio('1:1')
+    .when('twitter:card', {
+      is: 'summary',
+      then: Joi.image().maxDimensions(4096, 4096).minDimensions(144, 144).aspectRatio('1:1'),
+    })
     .when('twitter:card', {
       is: 'summary_large_image',
-      then: Joi.image().minDimensions(300, 157).aspectRatio('2:1'),
+      then: Joi.image().maxDimensions(4096, 4096).minDimensions(300, 157).aspectRatio('2:1'),
+    })
+    .when('twitter:card', {
+      is: 'player',
+      then: Joi.image().minPixelCount(68600)
+        .when('og:image', {
+          not: Joi.image().required(),
+          then: Joi.image().required(),
+        })
+        .messages({
+          'any.required': 'One of these properties <strong><code>[twitter:image, og:image]</code></strong> is required.',
+        }),
     }),
 
   'twitter:image:alt': Joi.string().max(420),
 
-  'twitter:player': Joi.string(),
-  'twitter:player:width': Joi.number(),
-  'twitter:player:height': Joi.number(),
-  'twitter:player:stream': Joi.string(),
+  'twitter:player': Joi.string().uri({ scheme: 'https' })
+    .when('twitter:card', {
+      is: 'player',
+      then: Joi.string().required(),
+    }),
+
+  'twitter:player:width': Joi.number()
+    .when('twitter:card', {
+      is: 'player',
+      then: Joi.number().required(),
+    }),
+
+  'twitter:player:height': Joi.number()
+    .when('twitter:card', {
+      is: 'player',
+      then: Joi.number().required(),
+    }),
+
+  'twitter:player:stream': Joi.string().uri(),
 
   'twitter:app:name:iphone': Joi.string(),
   'twitter:app:id:iphone': Joi.number(),
-  'twitter:app:url:iphone': Joi.string(),
+  'twitter:app:url:iphone': Joi.string().uri(),
 
   'twitter:app:name:ipad': Joi.string(),
   'twitter:app:id:ipad': Joi.number(),
-  'twitter:app:url:ipad': Joi.string(),
+  'twitter:app:url:ipad': Joi.string().uri(),
 
   'twitter:app:name:googleplay': Joi.string(),
   'twitter:app:id:googleplay': Joi.number(),
-  'twitter:app:url:googleplay': Joi.string(),
+  'twitter:app:url:googleplay': Joi.string().uri(),
 
   'og:title': Joi.string().max(70),
   'og:type': Joi.string(),
@@ -57,12 +84,24 @@ export const schema = Joi.object({
   'og:image': Joi.image()
     .validExtensions([ '.jpg', '.jpeg', '.png', '.webp', '.gif' ])
     .maxFileSize(5 * 1e+6) // 5mb
-    .maxDimensions(4096, 4096)
-    .minDimensions(144, 144)
-    .aspectRatio('1:1')
+    .when('twitter:card', {
+      is: 'summary',
+      then: Joi.image().maxDimensions(4096, 4096).minDimensions(144, 144).aspectRatio('1:1'),
+    })
     .when('twitter:card', {
       is: 'summary_large_image',
-      then: Joi.image().minDimensions(300, 157).aspectRatio('2:1'),
+      then: Joi.image().maxDimensions(4096, 4096).minDimensions(300, 157).aspectRatio('2:1'),
+    })
+    .when('twitter:card', {
+      is: 'player',
+      then: Joi.image().minPixelCount(68600)
+        .when('twitter:image', {
+          not: Joi.image().required(),
+          then: Joi.image().required(),
+        })
+        .messages({
+          'any.required': 'One of these properties <strong><code>[twitter:image, og:image]</code></strong> is required.',
+        }),
     }),
 
   'og:url': Joi.string().uri(),
@@ -78,10 +117,14 @@ export const schema = Joi.object({
   .or('twitter:title', 'og:title')
   .messages({
     'any.only': '<strong><code>{#label}</code></strong> must be one of these: <strong><code>{#valids}</code></strong>.',
+    'any.required': '<strong><code>{#label}</code></strong> is required.',
+    'number.base': '<strong><code>{#label}</code></strong> must be a number.',
     'object.missing': 'One of these properties <strong><code>{#peers}</code></strong> is required.',
     'object.unknown': '<strong><code>{#label}</code></strong> is an unknown property, for more information, <a href="https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/markup" rel="noopener" target="_blank">refer to the docs</a>.',
+    'string.base': '<strong><code>{#label}</code></strong> must be a string.',
     'string.max': '<strong><code>{#label}</code></strong> has a maximum length of <strong>{#limit}</strong> characters.',
-    'string.uri': '<code>"{#value}"</code> is not a valid URL.',
+    'string.uri': '<strong><code>"{#value}"</code></strong> is not a valid URL.',
+    'string.uriCustomScheme': '<strong><code>{#label}</code></strong> is not a valid HTTPS URL.',
   });
 
 export const info = {
