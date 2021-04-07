@@ -191,14 +191,15 @@ const image = joi => ({
         },
       ],
       validate(value, helpers, args) {
-        const gcd = (a, b) => {
-          return b ? gcd(b, a % b) : a;
+        // See: https://en.wikipedia.org/wiki/Greatest_common_divisor.
+        const greatestCommonDivisor = (a, b) => {
+          return b ? greatestCommonDivisor(b, a % b) : a;
         };
 
         const getAspectRatio = (width, height)  => {
           if (isNaN(width) || isNaN(height)) return undefined;
 
-          const divisor = gcd(width, height);
+          const divisor = greatestCommonDivisor(width, height);
 
           return `${ width / divisor }:${ height / divisor }`;
         };
