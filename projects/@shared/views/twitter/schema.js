@@ -118,6 +118,8 @@ export const schema = Joi.object({
 
   'og:description': Joi.string()
     .allow(''),
+}).messages({
+  'object.unknown': 'Unknown property, <a href="https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/markup" rel="noopener" target="_blank">learn more</a>.',
 });
 
 export const info = {

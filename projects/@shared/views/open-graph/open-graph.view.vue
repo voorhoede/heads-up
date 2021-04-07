@@ -34,10 +34,10 @@
 
 <script>
 import { computed, ref } from 'vue';
-import createAbsoluteUrl from '@shared/lib/create-absolute-url';
-import { findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
-import validate from '@shared/lib/validate';
 import { schema, info } from './schema';
+import { findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
+import createAbsoluteUrl from '@shared/lib/create-absolute-url';
+import validate from '@shared/lib/validate';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
@@ -97,6 +97,9 @@ export default {
         )
         .map(meta => ({
           term: meta.property || meta.name,
+          type: !Object.keys(info).includes(meta.property || meta.name)
+            ? 'unsupported'
+            : 'string',
           value: meta.content,
         }));
     });

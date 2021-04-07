@@ -6,13 +6,22 @@
 
         <template v-if="termIsArray">
           <template v-for="(item, index) in term">
-            <span v-if="item" :key="index" class="properties-item__term">
+            <span
+              v-if="item"
+              :key="index"
+              class="properties-item__term"
+              :class="{'properties-item__term--unsupported': isUnsupported}"
+            >
               {{ item }}
             </span>
           </template>
         </template>
 
-        <span v-else class="properties-item__term">
+        <span
+          v-else
+          class="properties-item__term"
+          :class="{'properties-item__term--unsupported': isUnsupported}"
+        >
           {{ term }}
         </span>
 
@@ -104,7 +113,11 @@
       <span class="properties-item__strikethrough">{{ splittedStringEnd }}</span>
     </dd>
 
-    <dd v-else class="properties-item__value">
+    <dd
+      v-else
+      class="properties-item__value"
+      :class="{'properties-item__value--unsupported': isUnsupported}"
+    >
       <span v-if="value">{{ value }}</span>
     </dd>
   </div>
@@ -155,6 +168,7 @@ export default {
         'image',
         'link',
         'string',
+        'unsupported',
         'urls',
       ].indexOf(type) !== -1,
     },
@@ -199,6 +213,9 @@ export default {
     },
     isUrlsValue() {
       return this.type === 'urls' && this.value;
+    },
+    isUnsupported() {
+      return this.type === 'unsupported' && this.value;
     },
     showItem() {
       return this.term && this.value || this.required;
@@ -283,6 +300,15 @@ export default {
     overflow-wrap: break-word;
     word-break: break-word;
     word-wrap: break-word;
+  }
+
+  .properties-item__term--unsupported,
+  .properties-item__value--unsupported {
+    text-decoration: line-through;
+  }
+
+  .properties-item__value--unsupported {
+    opacity: .5;
   }
 
   .properties-item__value--image {
