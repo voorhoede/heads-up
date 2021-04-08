@@ -1,13 +1,14 @@
 @import "../../@shared/css/defaults.css";
 
 :root {
+  --base-color-variant: #5b7083;
   --base-color: #292f33;
   --bg-color-hover: #f5f8fa;
   --border-radius: 14px;
   --color-blue: #1da1f2;
   --color-border: #e1e8ed;
   --color-dark-blue: #1a91da;
-  --color-white: #ffffff;
+  --color-white: #fff;
   --image-large-size: 124px;
   --image-medium-size: 104px;
   --image-small-size: 85px;
@@ -15,9 +16,10 @@
 }
 
 .-theme-with-dark-background {
-  --color-border: rgb(56, 68, 77);
+  --base-color-variant: #fff;
   --base-color: #fff;
   --bg-color-hover: rgba(255, 255, 255, 0.03);
+  --color-border: rgb(56, 68, 77);
 }
 
 html {
@@ -163,10 +165,6 @@ html {
   margin: 0;
 }
 
-.twitter-preview--player .twitter-preview__title {
-  color: #0f1419;
-}
-
 .twitter-preview__description {
   display: none;
   margin-bottom: 2px;
@@ -175,7 +173,7 @@ html {
 
 .twitter-preview--player .twitter-preview__description,
 .twitter-preview--player .twitter-preview__domain {
-  color: #5b7083;
+  color: var(--base-color-variant);
   margin-top: 0.125rem;
 }
 
