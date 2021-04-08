@@ -13,7 +13,7 @@
         v-if="isValidCard && isSupportedCard"
         :url="previewUrl"
         iframeClass="twitter__preview"
-        :loading-height="346"
+        :loading-height="40"
       >
         <template v-slot:caption>
           Preview based on <external-link href="https://mobile.twitter.com/">mobile.twitter.com</external-link>.
@@ -84,7 +84,7 @@ export default {
     const validation = ref({});
     const imageDimensions = ref({ height: undefined, width: undefined });
     const validCards = ref([ 'summary', 'summary_large_image', 'app', 'player' ]);
-    const supportedCards = ref([ 'summary', 'summary_large_image' ]);
+    const supportedCards = ref([ 'summary', 'summary_large_image', 'player' ]);
 
     const card = computed(() => {
       const { card } = twitter.value;

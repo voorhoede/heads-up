@@ -1,14 +1,17 @@
 @import "../../@shared/css/defaults.css";
 
 :root {
-  --border-radius: 14px;
-  --color-border: #e1e8ed;
-  --image-small-size: 85px;
-  --image-medium-size: 104px;
-  --image-large-size: 124px;
   --base-color: #292f33;
-  --muted-color: #8899a6;
   --bg-color-hover: #f5f8fa;
+  --border-radius: 14px;
+  --color-blue: #1da1f2;
+  --color-border: #e1e8ed;
+  --color-dark-blue: #1a91da;
+  --color-white: #ffffff;
+  --image-large-size: 124px;
+  --image-medium-size: 104px;
+  --image-small-size: 85px;
+  --muted-color: #8899a6;
 }
 
 .-theme-with-dark-background {
@@ -72,17 +75,43 @@ html {
 }
 
 .twitter-preview__media {
-  height: 100%;
-  flex-grow: 0;
-  flex-shrink: 0;
-  flex-basis: calc(var(--image-small-size) + 1px);
   border-right: 1px solid var(--color-border);
+  flex-shrink: 0;
+  height: var(--image-small-size);
+  position: relative;
+  width: var(--image-small-size);
 }
 
 .twitter-preview__media--image-fallback {
   border-top-left-radius: var(--border-radius);
   border-bottom-left-radius: var(--border-radius);
   background-color: var(--color-border);
+}
+
+.twitter-preview__player-link {
+  align-items: center;
+  background-color: var(--color-blue);
+  border-radius: 50%;
+  border: 4px solid var(--color-white);
+  display: flex;
+  height: 2.2rem;
+  justify-content: center;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-1.1rem, -1.1rem);
+  width: 2.2rem;
+}
+
+.twitter-preview__player-link:hover {
+  background-color: var(--color-dark-blue);
+}
+
+.twitter-preview__player-icon {
+  fill: var(--color-white);
+  height: 1rem;
+  padding-left: 0.15rem;
+  width: auto;
 }
 
 .twitter-preview__image-fallback {
@@ -125,10 +154,29 @@ html {
   font-weight: bold;
 }
 
+.twitter-preview--player .twitter-preview__title,
+.twitter-preview--player .twitter-preview__description,
+.twitter-preview--player .twitter-preview__domain {
+  font-size: .9375rem;
+  font-weight: 400;
+  line-height: 1.3125;
+  margin: 0;
+}
+
+.twitter-preview--player .twitter-preview__title {
+  color: #0f1419;
+}
+
 .twitter-preview__description {
   display: none;
   margin-bottom: 2px;
   color: var(--base-color);
+}
+
+.twitter-preview--player .twitter-preview__description,
+.twitter-preview--player .twitter-preview__domain {
+  color: #5b7083;
+  margin-top: 0.125rem;
 }
 
 .twitter-preview__domain {
@@ -139,9 +187,10 @@ html {
 }
 
 .twitter-preview__icon {
-  height: 1.25em;
-  font-size: 13px;
   fill: currentcolor;
+  font-size: 13px;
+  height: 1.25em;
+  margin-right: 0.125rem;
 }
 
 .twitter-preview__hostname {
@@ -156,7 +205,8 @@ html {
   }
 
   .twitter-preview__media {
-    flex-basis: calc(var(--image-medium-size) + 1px);
+    height: var(--image-medium-size);
+    width: var(--image-medium-size);
   }
 }
 
@@ -175,7 +225,8 @@ html {
   }
 
   .twitter-preview__media {
-    flex-basis: calc(var(--image-large-size) + 1px);
+    height: var(--image-large-size);
+    width: var(--image-large-size);
   }
 
   /* Show on 1 line */
