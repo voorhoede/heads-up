@@ -1,32 +1,38 @@
 import Joi from '../../lib/validator';
 
 export const schema = Joi.object({
-  'twitter:card': Joi.string(),
+  'twitter:card': Joi.string().valid(...[ 'app', 'player', 'summary_large_image', 'summary' ]),
 
   'twitter:site:id': Joi.number(),
   'twitter:site': Joi.string().pattern(/^@/).max(16).messages({
-    'string.pattern.base': 'Twitter usernames must start with a <code>"@"</code>.',
-    'string.max': 'Twitter usernames can\'t be longer than 15 characters (excluding the "@").',
+    'string.pattern.base': 'Twitter usernames must start with a: <strong>@</strong>.',
+    'string.max': 'Twitter usernames can\'t be longer than <strong>15</strong> characters (excluding the: <strong>@</strong>).',
   }),
 
   'twitter:creator:id': Joi.number(),
   'twitter:creator': Joi.string().pattern(/^@/).max(16).messages({
-    'string.pattern.base': 'Twitter usernames must start with a <code>"@"</code>.',
-    'string.max': 'Twitter usernames can\'t be longer than 15 characters (excluding the "@").',
+    'string.pattern.base': 'Twitter usernames must start with a: <strong>@</strong>.',
+    'string.max': 'Twitter usernames can\'t be longer than <strong>15</strong> characters (excluding the: <strong>@</strong>).',
   }),
 
-  'twitter:description': Joi.string().max(200).messages({
-    'string.max': '<code>"twitter:description"</code> has a maximum of 200 characters.',
+  'twitter:description': Joi.string().disallow(Joi.ref('twitter:title')).max(200).messages({
+    'any.invalid': '<strong><code>"twitter:description"</code></strong> should not be identical to <strong><code>"twitter:title"</code></strong>.',
   }),
 
-  'twitter:title': Joi.string().max(70).messages({
-    'string.max': '<code>"twitter:title"</code> has a maximum of 70 characters.',
-  }),
+  'twitter:title': Joi.string().max(70),
 
-  'twitter:image': Joi.image().minDimensions(144, 144).maxDimensions(4096, 4096),
-  'twitter:image:alt': Joi.string().max(420).messages({
-    'string.max': '<code>"twitter:image:alt"</code> has a maximum of 420 characters.',
-  }),
+  'twitter:image': Joi.image()
+    .validExtensions([ '.jpg', '.jpeg', '.png', '.webp', '.gif' ])
+    .maxFileSize(5 * 1e+6) // 5mb
+    .maxDimensions(4096, 4096)
+    .minDimensions(144, 144)
+    .aspectRatio('1:1')
+    .when('twitter:card', {
+      is: 'summary_large_image',
+      then: Joi.image().minDimensions(300, 157).aspectRatio('2:1'),
+    }),
+
+  'twitter:image:alt': Joi.string().max(420),
 
   'twitter:player': Joi.string(),
   'twitter:player:width': Joi.number(),
@@ -45,22 +51,37 @@ export const schema = Joi.object({
   'twitter:app:id:googleplay': Joi.number(),
   'twitter:app:url:googleplay': Joi.string(),
 
-  'og:title': Joi.string(),
+  'og:title': Joi.string().max(70),
   'og:type': Joi.string(),
-  'og:image': Joi.image().minDimensions(144, 144).maxDimensions(4096, 4096),
-  'og:url': Joi.string(),
-  'og:description': Joi.string(),
+
+  'og:image': Joi.image()
+    .validExtensions([ '.jpg', '.jpeg', '.png', '.webp', '.gif' ])
+    .maxFileSize(5 * 1e+6) // 5mb
+    .maxDimensions(4096, 4096)
+    .minDimensions(144, 144)
+    .aspectRatio('1:1')
+    .when('twitter:card', {
+      is: 'summary_large_image',
+      then: Joi.image().minDimensions(300, 157).aspectRatio('2:1'),
+    }),
+
+  'og:url': Joi.string().uri(),
+
+  'og:description': Joi.string().disallow(Joi.ref('twitter:title')).max(200).messages({
+    'any.invalid': '<strong><code>"og:description"</code></strong> should not be identical to <strong><code>"twitter:title"</code></strong>.',
+  }),
 })
   .or('twitter:card', 'og:type')
   .or('twitter:card', 'og:title')
   .or('twitter:card', 'og:description')
   .or('twitter:site', 'twitter:site:id')
-  .or('twitter:description', 'og:description')
   .or('twitter:title', 'og:title')
-  .or('twitter:image', 'og:image')
   .messages({
-    'object.missing': 'One of these properties <code>{#peers}</code> are required.',
-    'object.unknown': '<code>{#label}</code> is an unknown property, for more information, <a href="https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/markup" rel="noopener" target="_blank">refer to the docs</a>.',
+    'any.only': '<strong><code>{#label}</code></strong> must be one of these: <strong><code>{#valids}</code></strong>.',
+    'object.missing': 'One of these properties <strong><code>{#peers}</code></strong> is required.',
+    'object.unknown': '<strong><code>{#label}</code></strong> is an unknown property, for more information, <a href="https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/markup" rel="noopener" target="_blank">refer to the docs</a>.',
+    'string.max': '<strong><code>{#label}</code></strong> has a maximum length of <strong>{#limit}</strong> characters.',
+    'string.uri': '<code>"{#value}"</code> is not a valid URL.',
   });
 
 export const info = {

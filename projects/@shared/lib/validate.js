@@ -22,8 +22,8 @@ const transformData = data => {
         ¯\_(ツ)_/¯
       */
       if (type === 'image') {
-        const { width, height } = await getImageDimensions(image.url);
-        return { ...item, value: { url: image.url, width, height } };
+        const { width, height, size } = await getImageDimensions(image.url);
+        return { ...item, value: { url: image.url, size, height, width } };
       }
 
       return item;

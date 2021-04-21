@@ -81,7 +81,7 @@ export default {
 
   setup: props => {
     const validation = ref({});
-    const imageDimensions = ref({ height: undefined, width: undefined });
+    const imageDimensions = ref({ size: undefined, height: undefined, width: undefined });
     const validCards = ref([ 'summary', 'summary_large_image', 'app', 'player' ]);
     const supportedCards = ref([ 'summary', 'summary_large_image' ]);
 
