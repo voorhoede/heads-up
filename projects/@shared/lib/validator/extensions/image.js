@@ -13,9 +13,10 @@ const image = joi => ({
     'image.maxHeight': 'The <strong><code>{#label}</code></strong> can\'t be higher than <strong>{#height}</strong>.',
     'image.minDimensions': 'The <strong><code>{#label}</code></strong> can\'t be smaller than <strong>{#width}x{#height}</strong>px.',
     'image.maxDimensions': 'The <strong><code>{#label}</code></strong> can\'t be bigger than <strong>{#width}x{#height}</strong>px.',
-    'image.invalidExtension': 'The <strong><code>{#label}</code></strong> {#value.size} type must be one of the following: <strong><code>{#validExtensions}</code></strong>.',
+    'image.invalidExtension': 'The <strong><code>{#label}</code></strong> type must be one of the following: <strong><code>{#validExtensions}</code></strong>.',
     'image.invalidAspectRatio': 'The <strong><code>{#label}</code></strong> will be cropped as its ratio of <strong><code>{#aspectRatio}</code></strong> does not match the required ratio of <strong><code>{#validAspectRatio}</code></strong>.',
-    'image.maxFileSize': 'The file size of <strong><code>{#label}</code></strong> exceeds the maximum of <strong><code>{#maxFileSize}</code></strong>.',
+    'image.minPixelCount': 'The <strong><code>{#label}</code></strong> must have at least <strong>{#minPixelCount}</strong> pixels, e.g. 262x262 for 1:1 or 350x196 for 16:9.',
+    'image.maxFileSize': 'The file size of <strong><code>{#label}</code></strong> exceeds the maximum of <strong>{#maxFileSize}</strong>.',
   },
   rules: {
     minWidth: {
@@ -146,6 +147,28 @@ const image = joi => ({
       validate(value, helpers, args) {
         if (value?.height && value?.width && (value.height > args.height || value.width > args.width)) {
           return helpers.error('image.maxDimensions', { width: args.width, height: args.height });
+        }
+
+        return value;
+      },
+    },
+    minPixelCount: {
+      method(minPixelCount) {
+        return this.$_addRule({ name: 'minPixelCount', args: { minPixelCount } });
+      },
+      args: [
+        {
+          name: 'minPixelCount',
+          ref: true,
+          assert: value => typeof value === 'number' && !isNaN(value),
+          message: 'must be a number',
+        },
+      ],
+      validate(value, helpers, args) {
+        if (value?.height && value?.width && value?.height * value?.width < args.minPixelCount) {
+          return helpers.error('image.minPixelCount', {
+            minPixelCount: args.minPixelCount,
+          });
         }
 
         return value;
