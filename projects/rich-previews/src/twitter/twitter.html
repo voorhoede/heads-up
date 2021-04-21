@@ -12,24 +12,32 @@
   <div id="app">
     <div
       class="twitter-preview"
-      :class="{ '-theme-with-dark-background': dark }"
+      :class="{
+        '-theme-with-dark-background': dark,
+        'twitter-preview--player': type === 'player',
+      }"
     >
       <a
         rel="noopener"
         target="_blank"
         :href="url"
         class="twitter-preview__link-container"
-        :class="{ 'twitter-preview__link-container--vertical': type !== 'summary' }"
+        :class="{ 'twitter-preview__link-container--vertical': type === 'summary_large_image' }"
       >
         <!-- Image -->
         <div
           v-if="image"
-          :class="type === 'summary' ? 'twitter-preview__media' : 'twitter-preview__fixed-ratio twitter-preview__ratio'"
+          :class="type === 'summary_large_image' ? 'twitter-preview__fixed-ratio twitter-preview__ratio' : 'twitter-preview__media'"
         >
           <img
             :src="image"
-            :class="type === 'summary' ? 'twitter-preview__image' : 'twitter-preview__fixed-ratio-content'"
+            :class="type === 'summary_large_image' ? 'twitter-preview__fixed-ratio-content' : 'twitter-preview__image'"
           />
+          <div class="twitter-preview__player-link" v-if="type === 'player'">
+            <svg class="twitter-preview__player-icon" viewBox="0 0 24 24">
+              <path d="M20.436 11.37L5.904 2.116a.751.751 0 00-1.152.633v18.5a.751.751 0 001.152.633l14.53-9.248a.749.749 0 00.002-1.266z"/>
+            </svg>
+          </div>
         </div>
         <!-- Image fallback -->
         <div
