@@ -46,6 +46,7 @@
           :key="item.term"
           :term="item.term"
           :value="item.value"
+          :tooltip="item.tooltip"
           :image="item.image"
           :type="item.type"
           :required="true"
@@ -66,10 +67,16 @@
 
 <script>
 import { computed, ref } from 'vue';
+import { metadata } from './metadata.js';
 import { format as formatDate } from 'timeago.js';
 import { findFavicons, findMetaContent } from '@shared/lib/find-meta';
 import { TABS } from '@shared/lib/constants.js';
-import { TYPES, splitTypes } from '@shared/lib/google-utils.js';
+import {
+  getBreadcrumbSegments,
+  getImageUrl,
+  splitTypes,
+  TYPES
+} from '@shared/lib/google-utils.js';
 import getTheme from '@shared/lib/theme';
 
 import ExternalLink from '@shared/components/external-link';
@@ -162,86 +169,8 @@ export default {
     const getMetaData = type => {
       const { head } = props.headData;
       const data = mergedData.value[type][0];
-      const metaData = {
-        BreadcrumbList: [
-          { term: '@type', value: data['@type'] },
-          { term: 'head:title', value: head.title },
-          { term: 'head:description', value: findMetaContent(head, 'description') },
-          {
-            term:'itemListElement',
-            value: `[${ getBreadcrumbSegments(data.itemListElement)
-              .map(segment => `"${ segment }"`)
-              .join(', ') }]`,
-            type: 'code',
-          },
-        ],
-        Course: [
-          { term: '@type', value: data['@type'] },
-          { term: 'name', value: data.name },
-          { term: 'description', value: data.description },
-          { term: 'provider - name', value: data.provider?.name },
-          { term: 'url', value: data.url },
-        ],
-        NewsArticle: [
-          { term: '@type', value: data['@type'] },
-          { term: 'headline', value: data.headline },
-          { term: 'description', value: data.description },
-          { term: 'dateModified', value: data.dateModified },
-          { term: 'publisher - name', value: data.publisher?.name },
-          {
-            term: 'publisher - logo',
-            value: getImageUrl(data.publisher?.logo),
-            image: {
-              href: getImageUrl(data.publisher?.logo),
-              url: getImageUrl(data.publisher?.logo),
-            },
-            type: 'image',
-          },
-          {
-            term: 'image',
-            value: getImageUrl(data.image),
-            image: {
-              href: getImageUrl(data.image),
-              url: getImageUrl(data.image),
-            },
-            type: 'image',
-          },
-        ],
-        Product: [
-          { term: '@type', value: data['@type'] },
-          { term: 'name', value: data.name },
-          { term: 'description', value: data.description },
-          { term: 'offers - price', value: data.offers?.price },
-          { term: 'offers - priceCurrency', value: data.offers?.priceCurrency },
-          { term: 'offers - seller - name', value: data.offers?.seller?.name },
-          { term: 'aggregateRating - ratingValue', value: data.aggregateRating?.ratingValue },
-          { term: 'aggregateRating - reviewCount', value: data.aggregateRating?.reviewCount },
-          {
-            term: 'image',
-            value: getImageUrl(data.image),
-            image: {
-              href: getImageUrl(data.image),
-              url: getImageUrl(data.image),
-            },
-            type: 'image',
-          },
-        ],
-        Review: [
-          { term: '@type', value: data['@type'] },
-          { term: 'author - name', value: data.author?.name },
-          { term: 'publisher - name', value: data.publisher?.name },
-          { term: 'description', value: data.description },
-          { term: 'itemReviewed - @type', value: data.itemReviewed?.['@type'] },
-          { term: 'itemReviewed - name', value: data.itemReviewed?.name },
-          ...(data.itemReviewed?.['@type'] === 'Book'
-            ? [ { term: 'itemReviewed - author - name', value: data.itemReviewed?.author?.name } ]
-            : []
-          ),
-          { term: 'reviewRating - ratingValue', value: data.reviewRating?.ratingValue },
-        ],
-      };
 
-      return metaData[type];
+      return metadata(data, head, type);
     };
 
     const getStructuredData = rawData => {
@@ -257,23 +186,6 @@ export default {
       }
 
       return rawData;
-    };
-
-    const getImageUrl = img => {
-      if (Array.isArray(img)) {
-        return getImageUrl(img[0]);
-      } else if (typeof img === 'string') {
-        return img.split(', ')[0];
-      }
-
-      return img?.url;
-    };
-
-    const getBreadcrumbSegments = itemListElement => {
-      if (!itemListElement?.length > 0) return [];
-      return itemListElement
-        .map(item => item?.name || item?.item?.name)
-        .filter(Boolean);
     };
 
     const formatPrice = (price, currency) => {
