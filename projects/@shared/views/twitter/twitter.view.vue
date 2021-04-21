@@ -31,7 +31,6 @@
           :type="item.type"
           :tooltip="getTooltipInfo(item.term)"
           :validation="validation"
-          :required="item.required"
         >
         </properties-item>
       </properties-list>
@@ -82,7 +81,7 @@ export default {
 
   setup: props => {
     const validation = ref({});
-    const imageDimensions = ref({ height: undefined, width: undefined });
+    const imageDimensions = ref({ size: undefined, height: undefined, width: undefined });
     const validCards = ref([ 'summary', 'summary_large_image', 'app', 'player' ]);
     const supportedCards = ref([ 'summary', 'summary_large_image', 'player' ]);
 
@@ -112,37 +111,37 @@ export default {
     const image = computed(() => (
       absoluteUrl(twitter.value.image || og.value.image)
     ));
-    const og = computed(() => ({
-      type: propertyValue('og:type'),
-      title: propertyValue('og:title'),
-      description: propertyValue('og:description'),
-      image: propertyValue('og:image'),
-      url: propertyValue('og:url'),
-    }));
     const twitter = computed(() => ({
-      appIdIphone: propertyValue('twitter:app:id:iphone'),
-      appIdIpad: propertyValue('twitter:app:id:ipad'),
-      appIdGoogle: propertyValue('twitter:app:id:googleplay'),
-      appUrlIphone: propertyValue('twitter:app:url:iphone'),
-      appUrlIpad: propertyValue('twitter:app:url:ipad'),
-      appUrlGoogle: propertyValue('twitter:app:url:googleplay'),
-      appCountry: propertyValue('twitter:app:country'),
-      appNameIphone: propertyValue('twitter:app:name:iphone'),
-      appNameIpad: propertyValue('twitter:app:name:ipad'),
-      appNameGoogle: propertyValue('twitter:app:name:googleplay'),
       card: propertyValue('twitter:card'),
-      title: propertyValue('twitter:title'),
+      site: propertyValue('twitter:site'),
+      siteId: propertyValue('twitter:site:id', { isNumber: true }),
+      creator: propertyValue('twitter:creator'),
+      creatorId: propertyValue('twitter:creator:id', { isNumber: true }),
       description: propertyValue('twitter:description'),
+      title: propertyValue('twitter:title'),
       image: propertyValue('twitter:image'),
       imageAlt: propertyValue('twitter:image:alt'),
-      site: propertyValue('twitter:site'),
-      siteId: propertyValue('twitter:site:id'),
-      creator: propertyValue('twitter:creator'),
-      creatorId: propertyValue('twitter:creator:id'),
       player: propertyValue('twitter:player'),
-      playerWidth: propertyValue('twitter:player:width'),
-      playerHeight: propertyValue('twitter:player:height'),
+      playerWidth: propertyValue('twitter:player:width', { isNumber: true }),
+      playerHeight: propertyValue('twitter:player:height', { isNumber: true }),
       playerStream: propertyValue('twitter:player:stream'),
+      appNameIphone: propertyValue('twitter:app:name:iphone'),
+      appIdIphone: propertyValue('twitter:app:id:iphone', { isNumber: true }),
+      appUrlIphone: propertyValue('twitter:app:url:iphone'),
+      appNameIpad: propertyValue('twitter:app:name:ipad'),
+      appIdIpad: propertyValue('twitter:app:id:ipad', { isNumber: true }),
+      appUrlIpad: propertyValue('twitter:app:url:ipad'),
+      appNameGoogle: propertyValue('twitter:app:name:googleplay'),
+      appIdGoogle: propertyValue('twitter:app:id:googleplay', { isNumber: true }),
+      appUrlGoogle: propertyValue('twitter:app:url:googleplay'),
+      appCountry: propertyValue('twitter:app:country'),
+    }));
+    const og = computed(() => ({
+      title: propertyValue('og:title'),
+      type: propertyValue('og:type'),
+      image: propertyValue('og:image'),
+      url: propertyValue('og:url'),
+      description: propertyValue('og:description'),
     }));
     const previewUrl = computed(() => {
       const params = new URLSearchParams();
@@ -172,45 +171,16 @@ export default {
     });
     const metaData = computed(() => ([
       {
-        term: 'og:type',
-        value: og.value.type,
-      },
-      {
-        term: 'og:title',
-        value: og.value.title,
-      },
-      {
-        term: 'og:description',
-        value: og.value.description,
-      },
-      {
-        term: 'og:image',
-        value: og.value.image,
-        image: {
-          href: og.value.image,
-          url: absoluteUrl(og.value.image),
-        },
-        type: 'image',
-      },
-      {
-        term: 'og:url',
-        value: absoluteUrl(og.value.url),
-        type: 'link',
-      },
-      {
         term: 'twitter:card',
         value: twitter.value.card,
-        required: true,
       },
       {
         term: 'twitter:title',
         value: twitter.value.title,
-        required: true,
       },
       {
         term: 'twitter:description',
         value: twitter.value.description,
-        required: true,
       },
       {
         term: 'twitter:image',
@@ -220,19 +190,14 @@ export default {
           url: absoluteUrl(twitter.value.image),
         },
         type: 'image',
-        required: true,
       },
       {
         term: 'twitter:image:alt',
         value: twitter.value.imageAlt,
-        required: true,
       },
       {
         term: 'twitter:creator',
-        value: twitter.value.creator
-          ? `https://twitter.com/${ twitter.value.creator.slice(1) }`
-          : null,
-        type: 'link',
+        value: twitter.value.creator,
       },
       {
         term: 'twitter:creator:id',
@@ -240,16 +205,11 @@ export default {
       },
       {
         term: 'twitter:site',
-        value: twitter.value.site
-          ? `https://twitter.com/${ twitter.value.site.slice(1) }`
-          : null,
-        type: 'link',
-        required: true,
+        value: twitter.value.site,
       },
       {
         term: 'twitter:site:id',
-        value: twitter.value.site,
-        required: true,
+        value: twitter.value.siteId,
       },
       {
         term: 'twitter:player',
@@ -295,10 +255,6 @@ export default {
         type: 'link',
       },
       {
-        term: 'twitter:app:country',
-        value: twitter.value.appCountry,
-      },
-      {
         term: 'twitter:app:name:iphone',
         value: twitter.value.appNameIphone,
       },
@@ -310,17 +266,63 @@ export default {
         term: 'twitter:app:name:googleplay',
         value: twitter.value.appNameGoogle,
       },
+      {
+        term: 'twitter:app:country',
+        value: twitter.value.appCountry,
+      },
+      {
+        term: 'og:title',
+        value: og.value.title,
+      },
+      {
+        term: 'og:type',
+        value: og.value.type,
+      },
+      {
+        term: 'og:image',
+        value: og.value.image,
+        image: {
+          href: og.value.image,
+          url: absoluteUrl(og.value.image),
+        },
+        type: 'image',
+      },
+      {
+        term: 'og:url',
+        value: absoluteUrl(og.value.url),
+        type: 'link',
+      },
+      {
+        term: 'og:description',
+        value: og.value.description,
+      },
       ...unsupportedProperties.value,
     ]));
 
+    const propertyValue = (propName, { isNumber = false } = {}) => {
+      const value =
+        findMetaProperty(props.headData.head, propName) ||
+        findMetaContent(props.headData.head, propName);
+
+      if (!value) {
+        return undefined;
+      }
+
+      if (isNumber) {
+        return Number(value) || undefined;
+      }
+
+      return value;
+    };
+
     const absoluteUrl = url => createAbsoluteUrl(props.headData.head, url);
-    const propertyValue = propName =>
-      findMetaProperty(props.headData.head, propName) || findMetaContent(props.headData.head, propName);
+
     const getImageDimensions = tagName => {
       const name = tagName ? tagName : 'og:image';
       findImageDimensions(props.headData.head, name)
         .then(dimensions => imageDimensions.value = dimensions);
     };
+
     const getTooltipInfo = term => (info[term] ?? {});
 
     watch(() => og.value.image, (value, oldValue) => {
