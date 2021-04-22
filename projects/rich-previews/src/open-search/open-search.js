@@ -1,7 +1,7 @@
 const app = Vue.createApp({
   setup() {
     const params = (new URL(window.location.href)).searchParams;
-    const title = params.get('title');
+    const title = params.get('title')?.split(',')[0];
 
     return {
       title,

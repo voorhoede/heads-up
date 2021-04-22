@@ -80,24 +80,30 @@ export default {
       return createAbsoluteUrl(props.headData.head, metaTagValue.value);
     });
     const shortName = computed(() => {
-      const element = findXMLElement(fileContent.value, 'ShortName');
-      return element ? element[0].value : null;
+      const elements = findXMLElement(fileContent.value, 'ShortName');
+      const values = elements?.map(el => el.value) ?? [];
+      return values.length <= 1 ? values[0] : values;
     });
     const description = computed(() => {
-      const element = findXMLElement(fileContent.value, 'Description');
-      return element ? element[0].value : null;
-    });
-    const urls = computed(() => {
-      const elements = findXMLElement(fileContent.value, 'Url');
-      return elements ? elements : null;
-    });
-    const image = computed(() => {
-      const element = findXMLElement(fileContent.value, 'Image');
-      return element ? element[0].value : null;
+      const elements = findXMLElement(fileContent.value, 'Description');
+      const values = elements?.map(el => el.value) ?? [];
+      return values.length <= 1 ? values[0] : values;
     });
     const inputEncoding = computed(() => {
       const element = findXMLElement(fileContent.value, 'InputEncoding');
-      return element ? element[0].value : null;
+      return element ? element[0].value : undefined;
+    });
+    const outputEncoding = computed(() => {
+      const element = findXMLElement(fileContent.value, 'OutputEncoding');
+      return element ? element[0].value : undefined;
+    });
+    const urls = computed(() => {
+      const elements = findXMLElement(fileContent.value, 'Url');
+      return elements ? elements : undefined;
+    });
+    const image = computed(() => {
+      const element = findXMLElement(fileContent.value, 'Image');
+      return element ? element[0].value : undefined;
     });
     const metaData = computed(() => ([
       {
@@ -110,8 +116,16 @@ export default {
         value: description.value,
       },
       {
+        term: 'input-encoding',
+        value: inputEncoding.value,
+      },
+      {
+        term: 'output-encoding',
+        value: outputEncoding.value,
+      },
+      {
         term: 'urls',
-        value: urls.value?.length ? formatUrlsObject(urls.value) : [],
+        value: urls?.value?.length ? formatUrlsObject(urls.value) : [],
         type: 'urls',
       },
       {
@@ -122,10 +136,6 @@ export default {
           url: absoluteUrl(image.value),
         },
         type: 'image',
-      },
-      {
-        term: 'input-encoding',
-        value: inputEncoding.value,
       },
     ]));
 
@@ -171,18 +181,19 @@ export default {
     onMounted(() => getFileContent(fileUrl.value));
 
     return {
+      description,
       fileContent,
+      fileUrl,
       getTooltipInfo,
       hasOpenSearchFile,
-      metaTagValue,
-      previewUrl,
-      fileUrl,
-      shortName,
-      description,
-      urls,
       image,
       inputEncoding,
       metaData,
+      metaTagValue,
+      outputEncoding,
+      previewUrl,
+      shortName,
+      urls,
       validation,
     };
   },
