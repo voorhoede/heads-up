@@ -1,27 +1,32 @@
 <template>
   <div class="android">
-    <panel-section title="Properties">
+    <panel-section title="Properties" v-if="showMetaData">
       <properties-list>
         <properties-item
           v-for="item in metaData"
           :key="item.term"
           :term="item.term"
           :value="item.value"
-          :required="true"
         >
         </properties-item>
       </properties-list>
     </panel-section>
-    <panel-section title="App Links">
+    <panel-section title="App Links" v-if="showAppLinks">
       <properties-list>
         <properties-item
           v-for="link in appLinks"
           :key="link.term"
           :term="link.term"
-          :value="link.url"
+          :value="link.value"
         >
         </properties-item>
       </properties-list>
+    </panel-section>
+    <panel-section title="Insufficient data" v-if="!showAppLinks && !showMetaData">
+      <div class="warning-message">
+        <WarningIcon class="icon" />
+        <p>No Android related data found. For more information, see resource links.</p>
+      </div>
     </panel-section>
     <panel-section title="Resources">
       <ul class="resource-list">
@@ -42,12 +47,13 @@
 
 <script>
 import { computed } from 'vue';
-import { findMetaContent } from '@shared/lib/find-meta';
+import { findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
+import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
   props: {
@@ -58,34 +64,57 @@ export default {
   },
 
   setup: props => {
+    const propertyValue = propName =>
+      findMetaProperty(props.headData.head, propName) ||
+      findMetaContent(props.headData.head, propName);
+
     const metaData = computed(() => {
-      const { head } = props.headData;
       return [
         {
-          term: 'apple-mobile-web-app-capable',
-          value: findMetaContent(head, 'apple-mobile-web-app-capable'),
+          term: 'theme-color',
+          value: propertyValue('theme-color'),
         },
         {
-          term: 'apple-mobile-web-app-title',
-          value: findMetaContent(head, 'apple-mobile-web-app-title'),
+          term: 'mobile-web-app-capable',
+          value: propertyValue('mobile-web-app-capable'),
         },
         {
-          term: 'apple-mobile-web-app-status-bar-style',
-          value: findMetaContent(head, 'apple-mobile-web-app-status-bar-style'),
-        },
-        {
-          term: 'format-detection',
-          value: findMetaContent(head, 'format-detection'),
-        },
-        {
-          term: 'apple-itunes-app',
-          value: findMetaContent(head, 'apple-itunes-app'),
+          term: 'google-play-app',
+          value: propertyValue('google-play-app'),
         },
       ];
     });
 
+    const appLinks = computed(() => {
+      return [
+        {
+          term: 'al:android:app_name',
+          value: propertyValue('al:android:app_name'),
+        },
+        {
+          term: 'al:android:url',
+          value: propertyValue('al:android:url'),
+        },
+        {
+          term: 'al:android:package',
+          value: propertyValue('al:android:package'),
+        },
+      ];
+    });
+
+    const showAppLinks = computed(() => {
+      return appLinks.value.some(link => link.value);
+    });
+
+    const showMetaData = computed(() => {
+      return metaData.value.some(item => item.value);
+    });
+
     return {
+      appLinks,
       metaData,
+      showAppLinks,
+      showMetaData,
     };
   },
   components: {
@@ -93,6 +122,7 @@ export default {
     PanelSection,
     PropertiesItem,
     PropertiesList,
+    WarningIcon,
   },
 };
 </script>
