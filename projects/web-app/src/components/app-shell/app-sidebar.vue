@@ -37,6 +37,16 @@
           </li>
           <li>
             <router-link
+              :to="{ name: 'android' }"
+              class="app-sidebar__link"
+              :disabled="!hasData"
+            >
+              <AndroidIcon aria-hidden="true" />
+              <span>Android</span>
+            </router-link>
+          </li>
+          <li>
+            <router-link
               :to="{ name: 'apple-ios' }"
               class="app-sidebar__link"
               :disabled="!hasData"
@@ -187,6 +197,7 @@
 <script>
 import { computed } from 'vue';
 import useHead from '@/composables/use-head';
+import AndroidIcon from '@shared/assets/icons/android.svg';
 import AppleIcon from '@shared/assets/icons/apple.svg';
 import CodeIcon from '@shared/assets/icons/code.svg';
 import FacebookIcon from '@shared/assets/icons/facebook.svg';
@@ -210,6 +221,7 @@ export default {
   },
 
   components: {
+    AndroidIcon,
     AppleIcon,
     CodeIcon,
     FacebookIcon,

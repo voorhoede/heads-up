@@ -32,6 +32,14 @@
         <li class="sidebar-list__item">
           <router-link
             class="sidebar__button"
+            :to="{ name: 'android' }"
+          >
+            <AndroidIcon class="sidebar__icon" />Android
+          </router-link>
+        </li>
+        <li class="sidebar-list__item">
+          <router-link
+            class="sidebar__button"
             :to="{ name: 'apple-ios' }"
           >
             <AppleIcon class="sidebar__icon" />Apple iOS
@@ -158,6 +166,7 @@
 </template>
 
 <script>
+import AndroidIcon from '@shared/assets/icons/android.svg';
 import AppleIcon from '@shared/assets/icons/apple.svg';
 import CodeIcon from '@shared/assets/icons/code.svg';
 import FacebookIcon from '@shared/assets/icons/facebook.svg';
@@ -176,6 +185,7 @@ import WhatsappIcon from '@shared/assets/icons/whatsapp.svg';
 
 export default {
   components: {
+    AndroidIcon,
     AppleIcon,
     CodeIcon,
     FacebookIcon,

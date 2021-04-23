@@ -26,6 +26,14 @@ export default [
     component: () => import(/* webpackChunkName:'views/favicon' */ '@shared/views/favicon/favicon.view'),
   },
   {
+    path: '/android',
+    name: 'android',
+    meta: {
+      title: 'Android',
+    },
+    component: () => import(/* webpackChunkName:'views/android' */ '@shared/views/android/android.view'),
+  },
+  {
     path: '/apple-ios',
     name: 'apple-ios',
     meta: {
