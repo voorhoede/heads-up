@@ -7,10 +7,7 @@
       open
     >
       <summary>
-        <chevron-right-icon
-          width="12"
-          height="12"
-        />
+        <app-icon name="chevron-right" />
         {{ key }}
       </summary>
       <ul class="collapsible-list__list">
@@ -33,10 +30,7 @@
             class="collapsible-list__property-table"
           >
             <summary>
-              <chevron-right-icon
-                width="12"
-                height="12"
-              />
+              <app-icon name="chevron-right" />
               <span class="collapsible-list__attribute-value">
                 <span class="collapsible-list__attribute">{{ item[0][0] }}</span> <span
                   class="collapsible-list__value"
@@ -73,10 +67,10 @@
 </template>
 
 <script>
-import ChevronRightIcon from '@shared/assets/icons/chevron-right.svg';
+import AppIcon from './app-icon';
 
 export default {
-  components: { ChevronRightIcon },
+  components: { AppIcon },
   props: {
     data: {
       type: Array,
@@ -172,17 +166,22 @@ export default {
     background-color: var(--selection-bg-color);
   }
 
-  .collapsible-list__section summary > svg {
+  .collapsible-list__section summary > .app-icon {
     position: absolute;
     top: 50%;
     left: 0;
     transform: translateY(-50%);
     transition: transform 0.15s ease-out;
+    width: 12px;
+    height: 12px;
+  }
+
+  .collapsible-list__section summary > .app-icon svg {
     fill: currentColor;
   }
 
-  .collapsible-list__section[open] > summary > svg,
-  .collapsible-list__section [open] > summary > svg {
+  .collapsible-list__section[open] > summary > .app-icon,
+  .collapsible-list__section [open] > summary > .app-icon {
     transform: translateY(-50%) rotate(90deg);
   }
 

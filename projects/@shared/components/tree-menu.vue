@@ -1,14 +1,14 @@
 <template>
   <div class="tree-menu tree-menu--indent">
-    <template v-for="(item, key) in elements" :key="key">
-      <div class="tree-menu__item" v-if="item">
+    <template v-for="(item, key) in elements">
+      <div class="tree-menu__item" v-if="item" :key="key">
         <p v-if="typeof item === 'string'">
           <span class="tree-menu__attribute">{{ name || key }}: </span>
           <span class="tree-menu__value">{{ item }}</span>
         </p>
         <details v-else-if="item?.loc && item?.data">
           <summary class="tree-menu__collapsible-node">
-            <chevron-right-icon width="12" height="12"/>
+            <app-icon name="chevron-right" />
             <span class="tree-menu__attribute">{{ name }}: </span>
             <span class="tree-menu__value">{{ item.loc }}</span>
           </summary>
@@ -16,7 +16,7 @@
         </details>
         <details v-else-if="item">
           <summary class="tree-menu__collapsible-node tree-menu__attribute">
-            <chevron-right-icon width="12" height="12"/>
+            <app-icon name="chevron-right" />
             {{key}}
           </summary>
           <tree-menu :elements="item"></tree-menu>
@@ -27,11 +27,11 @@
 </template>
 
 <script>
-import ChevronRightIcon from '@shared/assets/icons/chevron-right.svg';
+import AppIcon from './app-icon';
 
 export default {
   name: 'treeMenu',
-  components: { ChevronRightIcon },
+  components: { AppIcon },
   props: {
     elements: {
       type: Object,
@@ -66,12 +66,17 @@ export default {
   font-weight: normal;
 }
 
-.tree-menu summary > svg {
+.tree-menu summary > .app-icon {
   position: absolute;
   top: 50%;
   left: 0;
   transform: translateY(-50%);
   transition: transform 0.15s ease-out;
+  width: 12px;
+  height: 12px;
+}
+
+.tree-menu summary > .app-icon svg {
   fill: currentColor;
 }
 
@@ -79,7 +84,7 @@ export default {
   width: 100%;
 }
 
-.tree-menu [open] > summary > svg {
+.tree-menu [open] > summary > .app-icon {
   transform: translateY(-50%) rotate(90deg);
 }
 

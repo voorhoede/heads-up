@@ -91,9 +91,12 @@ html {
   color: inherit;
 }
 
-.warning-message .icon {
-  fill: var(--color-ronchi);
+.warning-message .app-icon {
   height: 1rem;
   margin-right: 0.5rem;
   width: 1rem;
+}
+
+.warning-message .app-icon svg {
+  fill: var(--color-ronchi);
 }

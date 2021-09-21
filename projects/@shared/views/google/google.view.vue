@@ -2,7 +2,7 @@
   <div class="google">
     <panel-section v-if="notSupportedTypes.length > 0" title="Not Supported">
       <div class="warning-message">
-        <WarningIcon class="icon" />
+        <app-icon name="warning" />
         <p>We currently don't support: {{ notSupportedTypes.join(', ') }}. Stay tuned for future updates.</p>
       </div>
     </panel-section>
@@ -79,13 +79,13 @@ import {
 } from '@shared/lib/google-utils.js';
 import getTheme from '@shared/lib/theme';
 
+import AppIcon from '@shared/components/app-icon';
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import TabSelector from '@shared/components/tab-selector';
-import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
   props: {
@@ -213,7 +213,7 @@ export default {
     PropertiesItem,
     PropertiesList,
     TabSelector,
-    WarningIcon,
+    AppIcon,
   },
 };
 </script>

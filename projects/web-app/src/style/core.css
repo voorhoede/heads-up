@@ -9,9 +9,12 @@ body {
   padding: 1rem 0;
 }
 
-.warning-message .icon {
+.warning-message .app-icon {
   width: 16px;
   height: 16px;
   margin-right: 0.5rem;
+}
+
+.warning-message .app-icon svg {
   fill: var(--color-orange);
 }

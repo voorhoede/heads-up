@@ -25,8 +25,8 @@
           {{ term }}
         </span>
 
-        <InfoIcon v-if="hasWarnings && !hasErrors" class="properties-item__icon" />
-        <WarningIcon v-else-if="hasErrors" class="properties-item__icon properties-item__icon--warning" />
+        <app-icon v-if="hasWarnings && !hasErrors" class="properties-item__icon" name="info" />
+        <app-icon v-else-if="hasErrors" class="properties-item__icon properties-item__icon--warning" name="warning" />
 
         <template #info>
           <div v-if="hasWarnings && !hasErrors">
@@ -124,17 +124,15 @@
 </template>
 
 <script>
+import AppIcon from './app-icon';
 import AppTooltip from './app-tooltip';
 import ExternalLink from './external-link';
-import InfoIcon from '../assets/icons/info.svg';
-import WarningIcon from '../assets/icons/warning.svg';
 
 export default {
   components: {
     AppTooltip,
     ExternalLink,
-    InfoIcon,
-    WarningIcon,
+    AppIcon,
   },
   props: {
     image: {
@@ -284,12 +282,15 @@ export default {
     width: 15px;
     height: 15px;
     margin-left: 4px;
-    fill: currentcolor;
     vertical-align: middle;
     cursor: help;
   }
 
-  .properties-item__icon--warning {
+  .properties-item__icon svg {
+    fill: currentColor;
+  }
+
+  .properties-item__icon--warning svg {
     fill: #eac250;
   }
 

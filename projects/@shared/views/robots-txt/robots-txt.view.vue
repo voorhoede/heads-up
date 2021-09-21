@@ -2,7 +2,7 @@
   <div class="robots-txt">
     <panel-section title="Sitemap">
       <div v-if="!sitemapUrls.length" class="warning-message">
-        <WarningIcon class="icon" />
+        <app-icon name="warning" />
         <p>No sitemaps detected.</p>
       </div>
       <properties-list v-else>
@@ -79,11 +79,12 @@
 
 <script>
 import { computed } from 'vue';
+
+import AppIcon from '@shared/components/app-icon';
 import PanelSection from '@shared/components/panel-section';
 import ExternalLink from '@shared/components/external-link';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
-import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
   props: {
@@ -111,7 +112,7 @@ export default {
     PanelSection,
     PropertiesItem,
     PropertiesList,
-    WarningIcon,
+    AppIcon,
   },
 };
 </script>

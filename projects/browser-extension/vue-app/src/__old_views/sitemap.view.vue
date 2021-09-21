@@ -2,7 +2,7 @@
   <div class="sitemap">
     <panel-section title="Contents">
       <div v-if="!sitemaps.length" class="warning-message">
-        <WarningIcon class="icon" />
+        <app-icon name="warning" />
         <p>
           No Sitemap reference found in
           <external-link :href="`${url}/robots.txt`">/robots.txt</external-link>.
@@ -16,7 +16,7 @@
         class="sitemap__preview"
       >
         <summary class="sitemap__preview-item">
-          <ChevronRightIcon width="12" height="12" />
+          <app-icon name="chevron-right" />
           sitemap:
           <span class="sitemap__preview-value">{{ getSitemapUrl(sitemap) }}</span>
           <small> (<external-link :href="getSitemapUrl(sitemap)">view original</external-link>) </small>
@@ -27,7 +27,7 @@
         </div>
 
         <div v-else class="sitemap__preview-error warning-message">
-          <WarningIcon class="icon" />
+          <app-icon name="warning" />
           <p>Could not read/parse the sitemap.</p>
         </div>
       </details>
@@ -51,14 +51,14 @@
 
 <script>
 import { mapState } from 'vuex';
-import ChevronRightIcon from '@shared/assets/icons/chevron-right.svg';
+
+import AppIcon from '@shared/components/app-icon';
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import TreeMenu from '@shared/components/tree-menu';
-import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
-  components: { ChevronRightIcon, ExternalLink, PanelSection, TreeMenu, WarningIcon },
+  components: { AppIcon, ExternalLink, PanelSection, TreeMenu },
   computed: {
     ...mapState([ 'head', 'sitemaps' ]),
   },
@@ -149,20 +149,25 @@ export default {
     background-color: var(--network-grid-stripe-color);
   }
 
-  .sitemap__preview summary > svg {
+  .sitemap__preview summary > .app-icon {
     position: absolute;
     top: 50%;
     left: 0.5rem;
     transform: translateY(-50%);
     transition: transform 0.15s ease-out;
+    width: 12px;
+    height: 12px;
+  }
+
+  .sitemap__preview summary > .app-icon svg {
     fill: currentColor;
   }
 
-  .sitemap__preview > summary > svg {
+  .sitemap__preview > summary > .app-icon {
     left: 1rem;
   }
 
-  .sitemap__preview[open] > summary > svg {
+  .sitemap__preview[open] > summary > .app-icon {
     transform: translateY(-50%) rotate(90deg);
   }
 
