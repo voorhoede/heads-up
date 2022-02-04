@@ -18,6 +18,9 @@
     "type": "git",
     "url": "git+https://github.com/voorhoede/heads-up.git"
   },
+  "engines": {
+    "node": "v12.18.0"
+  },
   "husky": {
     "hooks": {
       "pre-commit": ""

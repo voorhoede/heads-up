@@ -2,7 +2,7 @@
   <div class="link">
     <panel-section title="Rel">
       <div v-if="!linkData.length" class="warning-message">
-        <WarningIcon class="icon" />
+        <app-icon name="warning" />
         <p>No link properties detected.</p>
       </div>
       <collapsible-list v-else :data="linkData" />
@@ -21,10 +21,11 @@
 
 <script>
 import { computed } from 'vue';
+
+import AppIcon from '@shared/components/app-icon';
 import PanelSection from '@shared/components/panel-section';
 import CollapsibleList from '@shared/components/collapsible-list';
 import ExternalLink from '@shared/components/external-link';
-import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
   props: {
@@ -45,7 +46,7 @@ export default {
     PanelSection,
     CollapsibleList,
     ExternalLink,
-    WarningIcon,
+    AppIcon,
   },
 };
 </script>

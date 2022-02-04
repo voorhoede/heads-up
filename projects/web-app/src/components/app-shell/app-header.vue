@@ -4,7 +4,7 @@
       <h1 class="a11y-sr-only">Heads Up</h1>
       <router-link :to="{ name: 'home' }" class="app-header__logo">
         <span class="a11y-sr-only">Heads Up home page</span>
-        <heads-up-logo height="32" />
+        <app-icon name="heads-up" />
       </router-link>
     </div>
     <div class="app-header__column app-header__column--right">
@@ -16,12 +16,12 @@
 </template>
 
 <script>
-import HeadsUpLogo from '@shared/assets/images/heads-up.svg';
+import AppIcon from '@shared/components/app-icon';
 import InputUrl from '@/components/input-url/input-url';
 
 export default {
   components: {
-    HeadsUpLogo,
+    AppIcon,
     InputUrl,
   },
 };
@@ -36,6 +36,11 @@ export default {
   left: 0;
   width: 100%;
   height: var(--header-height);
+}
+
+.app-header .app-icon {
+  height: 32px;
+  width: auto;
 }
 
 .app-header__column {

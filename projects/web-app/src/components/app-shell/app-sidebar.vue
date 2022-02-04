@@ -11,7 +11,7 @@
               class="app-sidebar__link"
               :disabled="!hasData"
             >
-              <CodeIcon aria-hidden="true" />
+              <app-icon name="code" />
               <span>Meta</span>
             </router-link>
           </li>
@@ -21,7 +21,7 @@
               class="app-sidebar__link"
               :disabled="!hasData"
             >
-              <LinkIcon aria-hidden="true" />
+              <app-icon name="link" />
               <span>Link</span>
             </router-link>
           </li>
@@ -31,7 +31,7 @@
               class="app-sidebar__link"
               :disabled="!hasData"
             >
-              <ImageIcon aria-hidden="true" />
+              <app-icon name="image" />
               <span>Favicon</span>
             </router-link>
           </li>
@@ -41,7 +41,7 @@
               class="app-sidebar__link"
               :disabled="!hasData"
             >
-              <AndroidIcon aria-hidden="true" />
+              <app-icon name="android" />
               <span>Android</span>
             </router-link>
           </li>
@@ -51,7 +51,7 @@
               class="app-sidebar__link"
               :disabled="!hasData"
             >
-              <AppleIcon aria-hidden="true" />
+              <app-icon name="apple" />
               <span>Apple iOS</span>
             </router-link>
           </li>
@@ -61,7 +61,7 @@
               class="app-sidebar__link"
               :disabled="!hasData"
             >
-              <OpenGraphIcon aria-hidden="true" />
+              <app-icon name="open-graph" />
               <span>OpenGraph</span>
             </router-link>
           </li>
@@ -76,7 +76,7 @@
               class="app-sidebar__link"
               :disabled="!hasData"
             >
-              <TwitterIcon aria-hidden="true" />
+              <app-icon name="twitter" />
               <span>Twitter</span>
             </router-link>
           </li>
@@ -86,7 +86,7 @@
               class="app-sidebar__link"
               :disabled="!hasData"
             >
-              <WhatsappIcon aria-hidden="true" />
+              <app-icon name="whatsapp" />
               <span>WhatsApp</span>
             </router-link>
           </li>
@@ -96,7 +96,7 @@
               class="app-sidebar__link"
               :disabled="!hasData"
             >
-              <LinkedinIcon aria-hidden="true" />
+              <app-icon name="linkedin" />
               <span>LinkedIn</span>
             </router-link>
           </li>
@@ -106,7 +106,7 @@
               class="app-sidebar__link"
               :disabled="!hasData"
             >
-              <FacebookIcon aria-hidden="true" />
+              <app-icon name="facebook" />
               <span>Facebook</span>
             </router-link>
           </li>
@@ -116,7 +116,7 @@
               class="app-sidebar__link"
               :disabled="!hasData"
             >
-              <SlackIcon aria-hidden="true" />
+              <app-icon name="slack" />
               <span>Slack</span>
             </router-link>
           </li>
@@ -131,7 +131,7 @@
               class="app-sidebar__link"
               :disabled="!hasData"
             >
-              <CodeIcon aria-hidden="true" />
+              <app-icon name="code" />
               <span>Search Meta</span>
             </router-link>
           </li>
@@ -141,7 +141,7 @@
               class="app-sidebar__link"
               :disabled="!hasData"
             >
-              <RobotIcon aria-hidden="true" />
+              <app-icon name="robot" />
               <span>Robots</span>
             </router-link>
           </li>
@@ -151,7 +151,7 @@
               class="app-sidebar__link"
               :disabled="!hasData"
             >
-              <SitemapIcon aria-hidden="true" />
+              <app-icon name="sitemap" />
               <span>Sitemap</span>
             </router-link>
           </li>
@@ -161,7 +161,7 @@
               class="app-sidebar__link"
               :disabled="!hasData"
             >
-              <SearchIcon aria-hidden="true" />
+              <app-icon name="search" />
               <span>OpenSearch</span>
             </router-link>
           </li>
@@ -171,7 +171,7 @@
               class="app-sidebar__link"
               :disabled="!hasData"
             >
-              <SitemapIcon aria-hidden="true" />
+              <app-icon name="sitemap" />
               <span>Structured Data</span>
             </router-link>
           </li>
@@ -181,14 +181,14 @@
               class="app-sidebar__link"
               :disabled="!hasData"
             >
-              <GoogleIcon aria-hidden="true" />
+              <app-icon name="google" />
               <span>Google</span>
             </router-link>
           </li>
         </ul>
       </nav>
       <footer class="app-sidebar__footer">
-        <madeWithLove />
+        <made-with-love />
       </footer>
     </div>
   </aside>
@@ -196,23 +196,10 @@
 
 <script>
 import { computed } from 'vue';
+
 import useHead from '@/composables/use-head';
-import AndroidIcon from '@shared/assets/icons/android.svg';
-import AppleIcon from '@shared/assets/icons/apple.svg';
-import CodeIcon from '@shared/assets/icons/code.svg';
-import FacebookIcon from '@shared/assets/icons/facebook.svg';
-import GoogleIcon from '@shared/assets/icons/google.svg';
-import ImageIcon from '@shared/assets/icons/image.svg';
-import LinkedinIcon from '@shared/assets/icons/linkedin.svg';
-import LinkIcon from '@shared/assets/icons/link.svg';
+import AppIcon from '@shared/components/app-icon';
 import MadeWithLove from '@shared/components/made-with-love';
-import OpenGraphIcon from '@shared/assets/icons/open-graph.svg';
-import RobotIcon from '@shared/assets/icons/robot.svg';
-import SearchIcon from '@shared/assets/icons/search.svg';
-import SitemapIcon from '@shared/assets/icons/sitemap.svg';
-import SlackIcon from '@shared/assets/icons/slack.svg';
-import TwitterIcon from '@shared/assets/icons/twitter.svg';
-import WhatsappIcon from '@shared/assets/icons/whatsapp.svg';
 
 export default {
   setup() {
@@ -221,22 +208,8 @@ export default {
   },
 
   components: {
-    AndroidIcon,
-    AppleIcon,
-    CodeIcon,
-    FacebookIcon,
-    GoogleIcon,
-    ImageIcon,
-    LinkedinIcon,
-    LinkIcon,
+    AppIcon,
     MadeWithLove,
-    OpenGraphIcon,
-    RobotIcon,
-    SearchIcon,
-    SitemapIcon,
-    SlackIcon,
-    TwitterIcon,
-    WhatsappIcon,
   },
 };
 </script>
@@ -286,9 +259,7 @@ export default {
   color: var(--color-blue);
 }
 
-.app-sidebar__link svg {
-  width: 18px;
-  height: 18px;
+.app-sidebar__link .app-icon {
   margin-right: 0.625rem;
 }
 

@@ -2,7 +2,7 @@
   <div class="open-search">
     <panel-section title="Preview">
       <div v-if="!openSearchContent" class="warning-message">
-        <WarningIcon class="icon" />
+        <app-icon name="warning" />
         <p>No OpenSearch file detected.</p>
       </div>
       <preview-iframe
@@ -48,12 +48,12 @@ import { findXMLElement } from '@shared/lib/find-meta';
 import getTheme from '@shared/lib/theme';
 import schema from '@shared/lib/schemas/open-search-schema';
 
+import AppIcon from '@shared/components/app-icon';
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PropertiesList from '@shared/components/properties-list';
 import PropertiesItem from '@shared/components/properties-item';
 import PreviewIframe from '@shared/components/preview-iframe';
-import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
   components: {
@@ -62,7 +62,7 @@ export default {
     PropertiesItem,
     PropertiesList,
     PreviewIframe,
-    WarningIcon,
+    AppIcon,
   },
   data() {
     return {
@@ -134,6 +134,7 @@ export default {
     absoluteUrl(url) {
       return createAbsoluteUrl(this.head, url);
     },
+    formatUrlsObject(urls) {
     formatUrlsObject(urls) {
       return urls.map(item => {
         const templateAttr = item.attributes.find(({ name }) => name === 'template');

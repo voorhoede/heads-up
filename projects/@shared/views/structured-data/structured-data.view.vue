@@ -11,7 +11,7 @@
     </panel-section>
     <panel-section v-if="hasNoData" title="Preview">
       <div class="warning-message">
-        <WarningIcon class="icon" />
+        <app-icon name="warning" />
         <p>No Structured Data found.</p>
       </div>
     </panel-section>
@@ -39,9 +39,10 @@
 
 <script>
 import { computed } from 'vue';
+
+import AppIcon from '@shared/components/app-icon';
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
-import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
   props: {
@@ -69,7 +70,7 @@ export default {
   components: {
     ExternalLink,
     PanelSection,
-    WarningIcon,
+    AppIcon,
   },
 };
 </script>

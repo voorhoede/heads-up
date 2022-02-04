@@ -2,7 +2,7 @@
   <div class="link">
     <panel-section title="Rel">
       <div v-if="!linkData.length" class="warning-message">
-        <WarningIcon class="icon" />
+        <app-icon name="warning" />
         <p>No link properties detected.</p>
       </div>
       <collapsible-list v-else :data="linkData" />
@@ -21,13 +21,14 @@
 
 <script>
 import { mapState } from 'vuex';
+
+import AppIcon from '@shared/components/app-icon';
 import CollapsibleList from '@shared/components/collapsible-list';
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
-import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
-  components: { CollapsibleList, ExternalLink, PanelSection, WarningIcon },
+  components: { AppIcon, CollapsibleList, ExternalLink, PanelSection },
   computed: {
     ...mapState([ 'head' ]),
     linkData() {
