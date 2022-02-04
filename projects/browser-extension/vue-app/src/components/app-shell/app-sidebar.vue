@@ -10,7 +10,8 @@
             class="sidebar__button"
             :to="{ name: 'meta' }"
           >
-            <CodeIcon class="sidebar__icon" />Meta
+            <app-icon name="code" />
+            <span>Meta</span>
           </router-link>
         </li>
         <li class="sidebar-list__item">
@@ -18,7 +19,8 @@
             class="sidebar__button"
             :to="{ name: 'link' }"
           >
-            <LinkIcon class="sidebar__icon" />Link
+            <app-icon name="link" />
+            <span>Link</span>
           </router-link>
         </li>
         <li class="sidebar-list__item">
@@ -26,7 +28,8 @@
             class="sidebar__button"
             :to="{ name: 'favicon' }"
           >
-            <ImageIcon class="sidebar__icon" />Favicon
+            <app-icon name="image" />
+            <span>Favicon</span>
           </router-link>
         </li>
         <li class="sidebar-list__item">
@@ -34,7 +37,8 @@
             class="sidebar__button"
             :to="{ name: 'apple-ios' }"
           >
-            <AppleIcon class="sidebar__icon" />Apple iOS
+            <app-icon name="apple" />
+            <span>Apple iOS</span>
           </router-link>
         </li>
         <li class="sidebar-list__item">
@@ -42,7 +46,8 @@
             class="sidebar__button"
             :to="{ name: 'open-graph' }"
           >
-            <OpenGraphIcon class="sidebar__icon" />Open Graph
+            <app-icon name="open-graph" />
+            <span>OpenGraph</span>
           </router-link>
         </li>
       </ul>
@@ -58,7 +63,8 @@
             class="sidebar__button"
             :to="{ name: 'twitter' }"
           >
-            <TwitterIcon class="sidebar__icon" />Twitter
+            <app-icon name="twitter" />
+            <span>Twitter</span>
           </router-link>
         </li>
         <li class="sidebar-list__item">
@@ -66,7 +72,8 @@
             class="sidebar__button"
             :to="{ name: 'whatsapp' }"
           >
-            <WhatsappIcon class="sidebar__icon" />WhatsApp
+            <app-icon name="whatsapp" />
+            <span>WhatsApp</span>
           </router-link>
         </li>
         <li class="sidebar-list__item">
@@ -74,7 +81,8 @@
             class="sidebar__button"
             :to="{ name: 'linkedin' }"
           >
-            <LinkedInIcon class="sidebar__icon" />LinkedIn
+            <app-icon name="linkedin" />
+            <span>LinkedIn</span>
           </router-link>
         </li>
         <li class="sidebar-list__item">
@@ -82,7 +90,8 @@
             class="sidebar__button"
             :to="{ name: 'facebook' }"
           >
-            <FacebookIcon class="sidebar__icon" />Facebook
+            <app-icon name="facebook" />
+            <span>Facebook</span>
           </router-link>
         </li>
         <li class="sidebar-list__item">
@@ -90,7 +99,8 @@
             class="sidebar__button"
             :to="{ name: 'slack' }"
           >
-            <SlackIcon class="sidebar__icon" />Slack
+            <app-icon name="slack" />
+            <span>Slack</span>
           </router-link>
         </li>
       </ul>
@@ -106,7 +116,8 @@
             class="sidebar__button"
             :to="{ name: 'search-meta' }"
           >
-            <CodeIcon class="sidebar__icon" />Search Meta
+            <app-icon name="code" />
+            <span>Search Meta</span>
           </router-link>
         </li>
         <li class="sidebar-list__item">
@@ -114,7 +125,8 @@
             class="sidebar__button"
             :to="{ name: 'robots-txt' }"
           >
-            <RobotIcon class="sidebar__icon" />Robots
+            <app-icon name="robot" />
+            <span>Robots</span>
           </router-link>
         </li>
         <li class="sidebar-list__item">
@@ -122,7 +134,8 @@
             class="sidebar__button"
             :to="{ name: 'sitemap' }"
           >
-            <SitemapIcon class="sidebar__icon" />Sitemap
+            <app-icon name="sitemap" />
+            <span>Sitemap</span>
           </router-link>
         </li>
         <li class="sidebar-list__item">
@@ -130,7 +143,8 @@
             class="sidebar__button"
             :to="{ name: 'open-search' }"
           >
-            <SearchIcon class="sidebar__icon" />OpenSearch
+            <app-icon name="search" />
+            <span>OpenSearch</span>
           </router-link>
         </li>
         <li class="sidebar-list__item">
@@ -138,7 +152,8 @@
             class="sidebar__button"
             :to="{ name: 'structured-data' }"
           >
-            <SitemapIcon class="sidebar__icon" />Structured Data
+            <app-icon name="sitemap" />
+            <span>Structured Data</span>
           </router-link>
         </li>
         <li class="sidebar-list__item">
@@ -146,51 +161,26 @@
             class="sidebar__button"
             :to="{ name: 'google' }"
           >
-            <GoogleIcon class="sidebar__icon" />Google
+            <app-icon name="google" />
+            <span>Google</span>
           </router-link>
         </li>
       </ul>
     </section>
     <footer class="sidebar__footer">
-      <MadeWithLove />
+      <made-with-love />
     </footer>
   </nav>
 </template>
 
 <script>
-import AppleIcon from '@shared/assets/icons/apple.svg';
-import CodeIcon from '@shared/assets/icons/code.svg';
-import FacebookIcon from '@shared/assets/icons/facebook.svg';
-import GoogleIcon from '@shared/assets/icons/google.svg';
-import ImageIcon from '@shared/assets/icons/image.svg';
-import LinkedInIcon from '@shared/assets/icons/linkedin.svg';
-import LinkIcon from '@shared/assets/icons/link.svg';
+import AppIcon from '@shared/components/app-icon';
 import MadeWithLove from '@shared/components/made-with-love';
-import OpenGraphIcon from '@shared/assets/icons/open-graph.svg';
-import RobotIcon from '@shared/assets/icons/robot.svg';
-import SearchIcon from '@shared/assets/icons/search.svg';
-import SitemapIcon from '@shared/assets/icons/sitemap.svg';
-import SlackIcon from '@shared/assets/icons/slack.svg';
-import TwitterIcon from '@shared/assets/icons/twitter.svg';
-import WhatsappIcon from '@shared/assets/icons/whatsapp.svg';
 
 export default {
   components: {
-    AppleIcon,
-    CodeIcon,
-    FacebookIcon,
-    GoogleIcon,
-    ImageIcon,
-    LinkedInIcon,
-    LinkIcon,
+    AppIcon,
     MadeWithLove,
-    OpenGraphIcon,
-    RobotIcon,
-    SearchIcon,
-    SitemapIcon,
-    SlackIcon,
-    TwitterIcon,
-    WhatsappIcon,
   },
 };
 </script>
@@ -227,20 +217,25 @@ export default {
   align-items: center;
   padding: 4px 5px 4px 25px;
 }
+
 .sidebar__button.router-link-exact-active {
   background-color: var(--selection-inactive-bg-color);
   color: var(--selection-inactive-fg-color);
 }
+
 .sidebar__button:focus {
   background-color: var(--selection-bg-color);
   color: var(--selection-fg-color);
 }
 
-.sidebar__icon {
+.sidebar .app-icon {
   width: 1em;
   height: 1em;
-  fill: currentColor;
   margin-right: 0.25em;
+}
+
+.sidebar .app-icon svg {
+  fill: currentColor;
 }
 
 .sidebar__footer {

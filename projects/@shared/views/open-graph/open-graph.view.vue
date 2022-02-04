@@ -2,7 +2,7 @@
   <div class="open-graph">
     <panel-section title="Properties">
       <div v-if="!metaData.length" class="warning-message">
-        <WarningIcon class="icon" />
+        <app-icon name="warning" />
         <p>No Open Graph properties detected.</p>
       </div>
       <properties-list v-else>
@@ -39,11 +39,11 @@ import { findMetaContent, findMetaProperty } from '@shared/lib/find-meta';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import validate from '@shared/lib/validate';
 
+import AppIcon from '@shared/components/app-icon';
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
-import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
   props: {
@@ -127,7 +127,7 @@ export default {
     PanelSection,
     PropertiesItem,
     PropertiesList,
-    WarningIcon,
+    AppIcon,
   },
 };
 </script>

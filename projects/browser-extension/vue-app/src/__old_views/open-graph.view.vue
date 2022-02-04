@@ -2,7 +2,7 @@
   <div class="open-graph">
     <panel-section title="Properties">
       <div v-if="!metaData.length" class="warning-message">
-        <WarningIcon class="icon" />
+        <app-icon name="warning" />
         <p>No Open Graph properties detected.</p>
       </div>
       <properties-list v-else>
@@ -32,11 +32,11 @@
 import { mapState } from 'vuex';
 import schema from '@shared/lib/schemas/open-graph-schema';
 
+import AppIcon from '@shared/components/app-icon';
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
-import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
   components: {
@@ -44,7 +44,7 @@ export default {
     PanelSection,
     PropertiesItem,
     PropertiesList,
-    WarningIcon,
+    AppIcon,
   },
   data() {
     return {

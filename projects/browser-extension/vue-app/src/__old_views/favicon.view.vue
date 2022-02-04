@@ -2,7 +2,7 @@
   <div class="favicon">
     <panel-section title="Favicons">
       <div v-if="!favicons.length" class="warning-message">
-        <WarningIcon class="icon" />
+        <app-icon name="warning" />
         <p>No favicons detected.</p>
       </div>
       <properties-list v-else>
@@ -33,11 +33,11 @@
 import { mapState } from 'vuex';
 import { findFavicons } from '@shared/lib/find-meta';
 
+import AppIcon from '@shared/components/app-icon';
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
-import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
   components: {
@@ -45,7 +45,7 @@ export default {
     PanelSection,
     PropertiesItem,
     PropertiesList,
-    WarningIcon,
+    AppIcon,
   },
   computed: {
     ...mapState([ 'head' ]),

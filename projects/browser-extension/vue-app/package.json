@@ -23,6 +23,7 @@
     "@vue/cli-plugin-router": "^4.5.11",
     "@vue/cli-plugin-vuex": "^4.5.11",
     "@vue/cli-service": "^4.5.11",
-    "@vue/compiler-sfc": "^3.0.5"
+    "@vue/compiler-sfc": "^3.0.5",
+    "vue-html-loader": "^1.2.4"
   }
 }

@@ -2,7 +2,7 @@
   <div class="open-search">
     <panel-section title="Preview">
       <div v-if="!hasOpenSearchFile" class="warning-message">
-        <WarningIcon class="icon" />
+        <app-icon name="warning" />
         <p>No OpenSearch file detected.</p>
       </div>
       <preview-iframe
@@ -50,12 +50,12 @@ import getTheme from '@shared/lib/theme';
 import validate from '@shared/lib/validate';
 import { schema, info } from './schema';
 
+import AppIcon from '@shared/components/app-icon';
 import ExternalLink from '@shared/components/external-link.vue';
 import PanelSection from '@shared/components/panel-section.vue';
 import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesList from '@shared/components/properties-list.vue';
 import PropertiesItem from '@shared/components/properties-item';
-import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
   props: {
@@ -203,7 +203,7 @@ export default {
     PreviewIframe,
     PropertiesItem,
     PropertiesList,
-    WarningIcon,
+    AppIcon,
   },
 };
 </script>

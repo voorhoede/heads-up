@@ -14,7 +14,7 @@
     </panel-section>
     <panel-section title="Touch icons">
       <div v-if="!touchIcons.length" class="warning-message">
-        <WarningIcon class="icon" />
+        <app-icon name="warning" />
         <p>No touch icons detected.</p>
       </div>
       <properties-list v-else>
@@ -31,7 +31,7 @@
     </panel-section>
     <panel-section title="Startup images">
       <div v-if="!startupImages.length" class="warning-message">
-        <WarningIcon class="icon" />
+        <app-icon name="warning" />
         <p>No startup images detected.</p>
       </div>
       <properties-list v-else>
@@ -68,11 +68,11 @@ import { computed } from 'vue';
 import createAbsoluteUrl from '@shared/lib/create-absolute-url';
 import { findMetaContent } from '@shared/lib/find-meta';
 
+import AppIcon from '@shared/components/app-icon';
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
-import WarningIcon from '@shared/assets/icons/warning.svg';
 
 export default {
   props: {
@@ -143,11 +143,11 @@ export default {
     };
   },
   components: {
+    AppIcon,
     ExternalLink,
     PanelSection,
     PropertiesItem,
     PropertiesList,
-    WarningIcon,
   },
 };
 </script>
