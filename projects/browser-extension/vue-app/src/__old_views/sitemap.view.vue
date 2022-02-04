@@ -16,7 +16,7 @@
         class="sitemap__preview"
       >
         <summary class="sitemap__preview-item">
-          <app-icon name="chevron-right" />
+          <app-icon name="chevron-right" small />
           sitemap:
           <span class="sitemap__preview-value">{{ getSitemapUrl(sitemap) }}</span>
           <small> (<external-link :href="getSitemapUrl(sitemap)">view original</external-link>) </small>
@@ -155,8 +155,6 @@ export default {
     left: 0.5rem;
     transform: translateY(-50%);
     transition: transform 0.15s ease-out;
-    width: 12px;
-    height: 12px;
   }
 
   .sitemap__preview summary > .app-icon svg {

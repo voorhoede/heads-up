@@ -1,5 +1,10 @@
 <template>
-  <span class="app-icon" role="presentation" v-html="icon"></span>
+  <span
+    class="app-icon"
+    :class="{ 'app-icon--small': small }"
+    role="presentation"
+    v-html="icon">
+  </span>
 </template>
 
 <script>
@@ -8,6 +13,10 @@ export default {
     name: {
       type: String,
       required: true,
+    },
+    small: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {
@@ -23,6 +32,11 @@ export default {
   display: inline-block;
   width: 18px;
   height: 18px;
+}
+
+.app-icon--small {
+  width: 12px;
+  height: 12px;
 }
 
 .app-icon svg {

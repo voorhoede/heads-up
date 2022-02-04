@@ -16,7 +16,7 @@
         class="sitemap__preview"
       >
         <summary class="sitemap__preview-item">
-          <app-icon name="chevron-right" />
+          <app-icon name="chevron-right" small />
           sitemap:
           <span class="sitemap__preview-value">{{ getSitemapUrl(sitemap) }}</span>
           <small> (<a :href="getSitemapUrl(sitemap)" target="_blank" rel="nofollow">view original</a>) </small>
@@ -123,8 +123,6 @@ export default {
     left: 0;
     transform: translateY(-50%);
     transition: transform 0.15s ease-out;
-    width: 12px;
-    height: 12px;
   }
 
   .sitemap__preview summary > .app-icon svg {

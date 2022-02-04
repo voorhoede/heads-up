@@ -8,7 +8,7 @@
         </p>
         <details v-else-if="item?.loc && item?.data">
           <summary class="tree-menu__collapsible-node">
-            <app-icon name="chevron-right" />
+            <app-icon name="chevron-right" small />
             <span class="tree-menu__attribute">{{ name }}: </span>
             <span class="tree-menu__value">{{ item.loc }}</span>
           </summary>
@@ -16,7 +16,7 @@
         </details>
         <details v-else-if="item">
           <summary class="tree-menu__collapsible-node tree-menu__attribute">
-            <app-icon name="chevron-right" />
+            <app-icon name="chevron-right" small />
             {{key}}
           </summary>
           <tree-menu :elements="item"></tree-menu>
@@ -72,8 +72,6 @@ export default {
   left: 0;
   transform: translateY(-50%);
   transition: transform 0.15s ease-out;
-  width: 12px;
-  height: 12px;
 }
 
 .tree-menu summary > .app-icon svg {

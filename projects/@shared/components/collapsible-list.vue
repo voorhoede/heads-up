@@ -7,7 +7,7 @@
       open
     >
       <summary>
-        <app-icon name="chevron-right" />
+        <app-icon name="chevron-right" small />
         {{ key }}
       </summary>
       <ul class="collapsible-list__list">
@@ -30,7 +30,7 @@
             class="collapsible-list__property-table"
           >
             <summary>
-              <app-icon name="chevron-right" />
+              <app-icon name="chevron-right" small />
               <span class="collapsible-list__attribute-value">
                 <span class="collapsible-list__attribute">{{ item[0][0] }}</span> <span
                   class="collapsible-list__value"
@@ -172,8 +172,6 @@ export default {
     left: 0;
     transform: translateY(-50%);
     transition: transform 0.15s ease-out;
-    width: 12px;
-    height: 12px;
   }
 
   .collapsible-list__section summary > .app-icon svg {
