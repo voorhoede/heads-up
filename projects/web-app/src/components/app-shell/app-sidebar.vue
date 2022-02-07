@@ -37,6 +37,16 @@
           </li>
           <li>
             <router-link
+              :to="{ name: 'android' }"
+              class="app-sidebar__link"
+              :disabled="!hasData"
+            >
+              <app-icon name="android" />
+              <span>Android</span>
+            </router-link>
+          </li>
+          <li>
+            <router-link
               :to="{ name: 'apple-ios' }"
               class="app-sidebar__link"
               :disabled="!hasData"

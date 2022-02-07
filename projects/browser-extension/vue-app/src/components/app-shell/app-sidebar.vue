@@ -35,6 +35,15 @@
         <li class="sidebar-list__item">
           <router-link
             class="sidebar__button"
+            :to="{ name: 'android' }"
+          >
+            <app-icon name="android" />
+            <span>Android</span>
+          </router-link>
+        </li>
+        <li class="sidebar-list__item">
+          <router-link
+            class="sidebar__button"
             :to="{ name: 'apple-ios' }"
           >
             <app-icon name="apple" />
