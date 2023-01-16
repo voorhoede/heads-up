@@ -51,6 +51,8 @@ export default {
 
   .app {
     color: var(--base-color);
+    background-color: var(--toolbar-bg-color);
+    height: 100%;
   }
 
   .app__sidebar {
