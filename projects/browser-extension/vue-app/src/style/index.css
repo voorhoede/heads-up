@@ -5,6 +5,7 @@
 
 html {
   height: 100%;
+  background-color: var(--toolbar-bg-color);
 }
 
 body {
@@ -25,6 +26,10 @@ a {
   text-decoration: underline;
   overflow-wrap: break-word;
   word-wrap: break-word;
+}
+
+.extension > #app {
+  height: 100%;
 }
 
 .-theme-with-dark-background a {
