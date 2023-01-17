@@ -45,5 +45,6 @@ module.exports = {
     'object-curly-spacing': [ 'warn', 'always' ],
     'template-curly-spacing': [ 'warn', 'always' ],
     'arrow-parens': [ 'warn', 'as-needed' ],
+    'vue/multi-word-component-names': 'off',
   },
 };
