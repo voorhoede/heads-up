@@ -165,15 +165,6 @@
             <span>Structured Data</span>
           </router-link>
         </li>
-        <li class="sidebar-list__item">
-          <router-link
-            class="sidebar__button"
-            :to="{ name: 'google' }"
-          >
-            <app-icon name="google" />
-            <span>Google</span>
-          </router-link>
-        </li>
       </ul>
     </section>
     <footer class="sidebar__footer">

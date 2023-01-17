@@ -129,14 +129,6 @@ export default [
     },
     component: () => import(/* webpackChunkName:'views/structured-data' */ '@shared/views/structured-data/structured-data.view'),
   },
-  {
-    path: '/google',
-    name: 'google',
-    meta: {
-      title: 'Google',
-    },
-    component: () => import(/* webpackChunkName:'views/google' */ '@shared/views/google/google.view'),
-  },
 
   // Catch all fallback
   {
