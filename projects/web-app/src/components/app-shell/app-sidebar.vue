@@ -175,16 +175,6 @@
               <span>Structured Data</span>
             </router-link>
           </li>
-          <li>
-            <router-link
-              :to="{ name: 'google' }"
-              class="app-sidebar__link"
-              :disabled="!hasData"
-            >
-              <app-icon name="google" />
-              <span>Google</span>
-            </router-link>
-          </li>
         </ul>
       </nav>
       <footer class="app-sidebar__footer">
