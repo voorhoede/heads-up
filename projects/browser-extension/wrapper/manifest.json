@@ -22,7 +22,7 @@
     }
   ],
   "content_security_policy": {
-    "extension_pages": "script-src 'self' http://localhost:8098 https://unpkg.com/vue@3.0.5/dist/ 'unsafe-eval'; object-src 'self';"
+    "extension_pages": "script-src 'self'; object-src 'self'"
   },
   "manifest_version": 3
 }
