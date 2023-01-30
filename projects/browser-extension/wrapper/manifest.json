@@ -5,7 +5,6 @@
   "description": "View your <head> data for easier developing.",
   "author": "De Voorhoede",
   "minimum_chrome_version": "90.0",
-  "permissions": ["activeTab"],
   "icons": {
     "36": "devtools/assets/icons/icon-36.png",
     "96": "devtools/assets/icons/icon-96.png"
