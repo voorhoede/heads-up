@@ -231,13 +231,13 @@ export default {
   color: var(--selection-fg-color);
 }
 
-.sidebar .app-icon {
+.sidebar-list__item .app-icon {
   width: 1em;
   height: 1em;
   margin-right: 0.25em;
 }
 
-.sidebar .app-icon svg {
+.sidebar-list__item .app-icon svg {
   fill: currentColor;
 }
 
