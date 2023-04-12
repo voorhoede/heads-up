@@ -169,6 +169,7 @@
     </section>
     <footer class="sidebar__footer">
       <made-with-love />
+      <github-link />
     </footer>
   </nav>
 </template>
@@ -176,12 +177,14 @@
 <script>
 import AppIcon from '@shared/components/app-icon';
 import MadeWithLove from '@shared/components/made-with-love';
+import GithubLink from '@shared/components/github-link';
 
 export default {
   components: {
     AppIcon,
     MadeWithLove,
-  },
+    GithubLink
+  }
 };
 </script>
 

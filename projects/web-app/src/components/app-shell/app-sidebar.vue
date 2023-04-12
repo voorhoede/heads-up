@@ -179,6 +179,7 @@
       </nav>
       <footer class="app-sidebar__footer">
         <made-with-love />
+        <github-link />
       </footer>
     </div>
   </aside>
@@ -190,6 +191,7 @@ import { computed } from 'vue';
 import useHead from '@/composables/use-head';
 import AppIcon from '@shared/components/app-icon';
 import MadeWithLove from '@shared/components/made-with-love';
+import GithubLink from '@shared/components/github-link';
 
 export default {
   setup() {
@@ -200,6 +202,7 @@ export default {
   components: {
     AppIcon,
     MadeWithLove,
+    GithubLink,
   },
 };
 </script>
