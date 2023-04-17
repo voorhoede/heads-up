@@ -169,6 +169,7 @@
     </section>
     <footer class="sidebar__footer">
       <made-with-love />
+      <github-link />
     </footer>
   </nav>
 </template>
@@ -176,12 +177,14 @@
 <script>
 import AppIcon from '@shared/components/app-icon';
 import MadeWithLove from '@shared/components/made-with-love';
+import GithubLink from '@shared/components/github-link';
 
 export default {
   components: {
     AppIcon,
     MadeWithLove,
-  },
+    GithubLink
+  }
 };
 </script>
 
@@ -228,13 +231,13 @@ export default {
   color: var(--selection-fg-color);
 }
 
-.sidebar .app-icon {
+.sidebar-list__item .app-icon {
   width: 1em;
   height: 1em;
   margin-right: 0.25em;
 }
 
-.sidebar .app-icon svg {
+.sidebar-list__item .app-icon svg {
   fill: currentColor;
 }
 
