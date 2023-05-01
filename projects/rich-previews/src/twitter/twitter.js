@@ -18,3 +18,12 @@ const app = Vue.createApp({
 });
 
 app.mount('#app');
+
+function postHeight() {
+  const height = document.body.scrollHeight;
+  window.parent.postMessage({ height }, '*');
+}
+
+// Post height after the page is loaded and on resize.
+window.addEventListener('resize', postHeight);
+window.addEventListener('load', postHeight);

@@ -10,12 +10,11 @@
     Preparing preview...
   </p>
   <iframe
+    ref="iframe"
     title="Rich social preview"
     :class="[ 'preview-iframe__iframe', iframeClass ]"
     :src="url"
-    @load="onLoad"
     frameborder="0"
-    ref="iframe"
     scrolling="no"
     width="100%"
     :style="{ 'height': iframeHeight }"
@@ -51,24 +50,17 @@ export default {
     const iframeHeight = ref(props.loadingHeight + 'px');
     const isLoading = ref(true);
 
-    const setIframeHeight = debounce(() => {
-      iframeHeight.value = parseInt(iframe.value?.contentWindow.document.body.scrollHeight) + 'px';
+    const onMessage = debounce((event) => {
+      if (!event.target.location.origin.includes('chrome-extension://')) {
+        return;
+      }
+
+      iframeHeight.value = event.data.height + 'px';
     }, 300);
 
-    /**
-     * We update the iframe height when window is resized.
-     */
-    const onResize = () => setIframeHeight();
+    onMounted(() => window.addEventListener('message', onMessage, false));
 
-    /**
-     * We update the iframe height with a final value based on the inner
-     * content height to make sure the iframe fits perfectly.
-     */
-    const onLoad = () => setIframeHeight();
-
-    onMounted(() => window.addEventListener('resize', onResize));
-
-    onBeforeUnmount(() => window.removeEventListener('resize', onResize));
+    onBeforeUnmount(() => window.removeEventListener('message', onMessage, false));
 
     watch(() => iframeHeight.value, (height, prevHeight) => {
       if (height !== prevHeight) {
@@ -80,7 +72,6 @@ export default {
       iframe,
       iframeHeight,
       isLoading,
-      onLoad,
     };
   },
 };
