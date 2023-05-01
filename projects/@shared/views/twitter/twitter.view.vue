@@ -12,7 +12,7 @@
       <preview-iframe
         v-if="isValidCard && isSupportedCard"
         :url="previewUrl"
-        iframeClass="twitter__preview"
+        iframe-class="twitter__preview"
         :loading-height="40"
       >
         <template v-slot:caption>

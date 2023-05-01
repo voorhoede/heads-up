@@ -7,7 +7,7 @@
       <preview-iframe
         v-else
         :url="previewUrl"
-        iframeClass="slack__preview"
+        iframe-class="slack__preview"
         :loading-height="263"
       >
         <template v-slot:caption>

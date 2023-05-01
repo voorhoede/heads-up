@@ -7,7 +7,7 @@
       <preview-iframe
         v-else
         :url="previewUrl"
-        iframeClass="linkedin__preview"
+        iframe-class="linkedin__preview"
         :loading-height="348"
       >
         <template v-slot:caption>

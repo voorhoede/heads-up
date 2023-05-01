@@ -7,7 +7,7 @@
     <panel-section title="Preview">
       <preview-iframe
         :url="previewUrl"
-        iframeClass="facebook__preview"
+        iframe-class="facebook__preview"
         :loading-height="openTab === 'mobile' ? 359 : 368"
       >
         <template v-slot:caption>

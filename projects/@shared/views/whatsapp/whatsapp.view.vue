@@ -7,7 +7,7 @@
       <preview-iframe
         v-else
         :url="previewUrl"
-        iframeClass="whatsapp__preview"
+        iframe-class="whatsapp__preview"
         :loading-height="122"
       >
         <template v-slot:caption>
