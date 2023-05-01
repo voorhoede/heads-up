@@ -9,7 +9,7 @@ const tap = require('gulp-tap');
 const browserify = require('browserify');
 const babelify = require('babelify');
 const buffer = require('gulp-buffer');
-const uglify = require('gulp-uglify');
+const uglify = require('gulp-uglify-es').default;
 const htmlmin = require('gulp-htmlmin');
 
 const SOURCE_DIR = 'src';

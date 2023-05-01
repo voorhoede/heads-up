@@ -17,7 +17,10 @@
     "gulp-csso": "^4.0.1",
     "gulp-htmlmin": "^5.0.1",
     "gulp-tap": "^2.0.0",
-    "gulp-uglify": "^3.0.2",
+    "gulp-uglify-es": "^3.0.0",
     "merge-stream": "^2.0.0"
+  },
+  "dependencies": {
+    "vue": "^3.0.5"
   }
 }
