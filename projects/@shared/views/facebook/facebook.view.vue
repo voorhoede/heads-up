@@ -5,17 +5,10 @@
       :tabs="TABS"
     />
     <panel-section title="Preview">
-      <preview-iframe
-        :url="previewUrl"
-        iframe-class="facebook__preview"
-        :loading-height="openTab === 'mobile' ? 359 : 368"
-      >
-        <template v-slot:caption>
-          Preview based on
-            <external-link v-if="openTab === 'mobile'" href="https://m.facebook.com/">m.facebook.com</external-link>
-            <external-link v-else href="https://facebook.com/">facebook.com</external-link>.
-        </template>
-      </preview-iframe>
+      <facebook-preview
+        class="facebook__preview"
+        :data="previewData"
+      />
     </panel-section>
     <panel-section title="Properties">
       <properties-list>
@@ -60,8 +53,8 @@ import validate from '@shared/lib/validate';
 import { schema, info } from './schema';
 
 import ExternalLink from '@shared/components/external-link';
+import FacebookPreview from '@shared/components/rich-previews/facebook-preview';
 import PanelSection from '@shared/components/panel-section';
-import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 import TabSelector from '@shared/components/tab-selector';
@@ -105,28 +98,22 @@ export default {
       pages: propertyValue('fb:pages'),
     }));
 
-    const previewUrl = computed(() => {
-      const isDesktop = openTab.value === 'desktop';
-      const params = new URLSearchParams();
-      params.set('title', og.value.title || props.headData.head.title);
-      params.set('url', props.headData.head.url);
-      params.set('image', og.value.image);
-      params.set('theme', getTheme());
-      params.set('imageSpecified', imageSpecified.value);
-      params.set('description', og.value.description);
-      if (og.value.image !== undefined) {
-        params.set(
-          'imageIsBig',
-          isDesktop ? imageDimensions.value.height >= 415 && imageDimensions.value.width >= 415 :
-            (imageDimensions.value.height > 359 && imageDimensions.value.width > 359) ||
-              (imageSpecified.value &&
-                (imageDimensions.value.height === 0 || imageDimensions.value.width === 0))
-        );
-      }
-      params.set('style', openTab.value);
+    const previewData = computed(() => ({
+      title: og.value.title || props.headData.head.title,
+      url: props.headData.head.url,
+      image: og.value.image,
+      theme: getTheme(),
+      imageSpecified: imageSpecified.value,
+      description: og.value.description,
+      style: openTab.value,
+      ...(og.value.image !== undefined && {
+        imageIsBig: openTab.value === 'desktop' ? imageDimensions.value.height >= 415 && imageDimensions.value.width >= 415 :
+          (imageDimensions.value.height > 359 && imageDimensions.value.width > 359) ||
+            (imageSpecified.value &&
+              (imageDimensions.value.height === 0 || imageDimensions.value.width === 0)),
+      }),
+    }));
 
-      return `/previews/facebook/facebook.html?${ params }`;
-    });
     const metaData = computed(() => ([
       {
         term: 'fb:app_id',
@@ -249,7 +236,7 @@ export default {
       openTab,
       og,
       facebookProperties,
-      previewUrl,
+      previewData,
       metaData,
       getTooltipInfo,
       validation,
@@ -257,8 +244,8 @@ export default {
   },
   components: {
     ExternalLink,
+    FacebookPreview,
     PanelSection,
-    PreviewIframe,
     PropertiesItem,
     PropertiesList,
     TabSelector,
