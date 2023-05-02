@@ -30,7 +30,6 @@ const config = {
       patterns: [
         { from: 'wrapper/devtools/assets/', to: 'devtools/assets' },
         { from: 'wrapper/manifest.json', to: 'manifest.json' },
-        { from: 'wrapper/vue.global.prod.js', to: 'vue.global.prod.js' },
       ],
     }),
   ],
