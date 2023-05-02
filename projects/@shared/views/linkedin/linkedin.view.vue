@@ -9,6 +9,9 @@
         class="linkedin__preview"
         :data="previewData"
       />
+      <p v-if="hasRequiredData">
+        Preview based on <external-link href="https://linkedin.com/">linkedin.com</external-link>.
+      </p>
     </panel-section>
     <panel-section title="Properties">
       <properties-list>

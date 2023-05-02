@@ -9,6 +9,7 @@
         v-if="hasOpenSearchFile"
         :data="previewData"
       />
+      <p v-if="hasOpenSearchFile">Preview based on source file: <external-link :href="fileUrl">{{ fileUrl }}</external-link>.</p>
     </panel-section>
     <panel-section v-if="hasOpenSearchFile" title="Tags">
       <properties-list>

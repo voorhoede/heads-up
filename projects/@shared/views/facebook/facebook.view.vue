@@ -9,6 +9,11 @@
         class="facebook__preview"
         :data="previewData"
       />
+      <p>
+        Preview based on
+          <external-link v-if="openTab === 'mobile'" href="https://m.facebook.com/">m.facebook.com</external-link>
+          <external-link v-else href="https://facebook.com/">facebook.com</external-link>.
+      </p>
     </panel-section>
     <panel-section title="Properties">
       <properties-list>

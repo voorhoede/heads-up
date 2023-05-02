@@ -14,6 +14,9 @@
         class="twitter__preview"
         :data="previewData"
       />
+      <p v-if="isValidCard && isSupportedCard">
+        Preview based on <external-link href="https://mobile.twitter.com/">mobile.twitter.com</external-link>.
+      </p>
     </panel-section>
     <panel-section title="Properties">
       <properties-list>

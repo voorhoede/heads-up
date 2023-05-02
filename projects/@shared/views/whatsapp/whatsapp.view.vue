@@ -9,6 +9,9 @@
         class="whatsapp__preview"
         :data="previewData"
       />
+      <p v-if="hasRequiredData">
+        Preview based on <external-link href="https://web.whatsapp.com/">web.whatsapp.com</external-link>.
+      </p>
     </panel-section>
     <panel-section title="Properties">
       <properties-list>
