@@ -154,7 +154,7 @@ export default {
 
 .facebook-preview__media--image-fallback {
   background-color: var(--facebook-background-color);
-  background-image: url('/assets/facebook-img-fallback.png');
+  background-image: url('./assets/facebook-img-fallback.png');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -277,7 +277,7 @@ export default {
   display: inline-block;
   width: 60px;
   height: 20px;
-  background-image: url('/assets/facebook-emoji.png');
+  background-image: url('./assets/facebook-emoji.png');
   background-repeat: no-repeat;
   background-size: contain;
 }

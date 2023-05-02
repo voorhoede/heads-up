@@ -64,7 +64,7 @@
     <div class="slack-preview__emoji">
       <img
         class="slack-preview__emoji-image"
-        src="/assets/parrot.gif"
+        src="./assets/parrot.gif"
         alt=""
       />
       <p class="slack-preview__emoji-count">
@@ -251,7 +251,7 @@ export default {
 }
 
 .slack-preview__emoji-count {
-  margin-top: 16px;
+  margin-top: 10px;
 }
 
 .slack-preview__expand {

@@ -169,7 +169,7 @@ export default {
 
 .linkedin-preview__image-fallback {
   height: 100%;
-  background-image: url('/assets/image-not-found.svg');
+  background-image: url('./assets/image-not-found.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: 3em;
