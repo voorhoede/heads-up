@@ -22,13 +22,12 @@
     "webpack-cli": "^4.1.0"
   },
   "scripts": {
-    "build-previews": "cd ../rich-previews && npm i && npm run build",
     "postinstall": "cd ./vue-app && npm i",
     "predev": "npm run prebuild",
     "dev:wrapper": "webpack --watch",
     "dev:vue-app": "cd ./vue-app && npm run dev",
     "dev": "run-p dev:*",
-    "prebuild": "npm run build-previews && rimraf ./dist && mkdir -p ./dist/previews && cp -R ../rich-previews/dist/** ./dist/previews",
+    "prebuild": "rimraf ./dist",
     "build:wrapper": "webpack",
     "build:vue-app": "cd ./vue-app && npm run build",
     "build": "cross-env NODE_ENV=production run-p build:*",
