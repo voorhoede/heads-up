@@ -57,7 +57,7 @@
 
 <script>
 import { computed } from 'vue';
-import { getHostname } from '../../../rich-previews/@shared/js/utils.js';
+import { getHostname } from './js/utils.js';
 
 export default {
   props: {
@@ -90,7 +90,7 @@ export default {
 </script>
 
 <style>
-@import "../../../rich-previews/@shared/css/defaults.css";
+@import "./css/defaults.css";
 
 :root {
   --twitter-base-color-variant: #5b7083;
@@ -206,7 +206,7 @@ export default {
 
 .twitter-preview__image-fallback {
   height: 100%;
-  background-image: url("../../../rich-previews/src/@assets/image-not-found.svg");
+  background-image: url("/assets/image-not-found.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 3em;

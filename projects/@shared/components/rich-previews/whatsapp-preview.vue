@@ -44,7 +44,7 @@
 
 <script>
 import { computed } from 'vue';
-import { getHostname } from '../../../rich-previews/@shared/js/utils.js';
+import { getHostname } from './js/utils.js';
 
 export default {
   props: {
@@ -75,7 +75,7 @@ export default {
 </script>
 
 <style>
-@import "../../../rich-previews/@shared/css/defaults.css";
+@import "./css/defaults.css";
 
 :root {
   --whatsapp-color-border: #E1E8ED;

@@ -1,0 +1,102 @@
+:root {
+  --color-abbey: #4d5156;
+  --color-athens-dark-gray: #e8eaed;
+  --color-athens-gray: #f8f9fa;
+  --color-black: #000000;
+  --color-boulder: #777777;
+  --color-cape-cod: #3c4043;
+  --color-cornflower-blue: #609beb;
+  --color-gallery: #eeeeee;
+  --color-god-gray: #171717;
+  --color-iron: #dfe1e5;
+  --color-la-palma: #129918;
+  --color-manatee: #969ba1;
+  --color-mine-shaft: #212121;
+  --color-oslo-gray: #80868b;
+  --color-rolling-stone: #70757a;
+  --color-ronchi: #eac250;
+  --color-royal-blue: #1a73e8;
+  --color-scorpion: #5a5a5a;
+  --color-shark: #202124;
+  --color-shuttle-gray: #5f6368;
+  --color-silver-chalice: #a5a5a5;
+  --color-silver-sand: #bdc1c6;
+  --color-ultramarine: #1a0dab;
+  --color-white: #ffffff;
+}
+
+html {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  overflow: hidden;
+}
+
+.iframe-heading {
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.iframe-heading--dark-mode {
+  color: var(--color-silver-chalice);
+}
+
+.scroll-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.scroll-container--fake {
+  margin-top: -0.5rem;
+  max-width: 40rem;
+  padding-right: 1.5rem;
+  position: relative;
+  width: 100%;
+}
+
+.scroll-container--fake::after {
+  background-color: var(--color-white);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04),
+    0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.2);
+  color: var(--body-color);
+  content: "›";
+  font-size: 1.5rem;
+  height: 2.375rem;
+  line-height: 2.25rem;
+  position: absolute;
+  right: 0.25rem;
+  text-align: center;
+  top: calc(50% - 1.188rem);
+  width: 2.375rem;
+}
+
+.scroll-container__inner {
+  padding: 0.5rem;
+  max-width: 40rem;
+  min-width: 20rem;
+}
+
+.warning-message {
+  align-items: center;
+  color: var(--color-scorpion);
+  display: flex;
+  padding: 1.5rem 0 1rem;
+}
+
+.warning-message--dark-mode {
+  color: var(--color-silver-chalice);
+}
+
+.warning-message--web-app {
+  color: inherit;
+}
+
+.warning-message .app-icon {
+  height: 1rem;
+  margin-right: 0.5rem;
+  width: 1rem;
+}
+
+.warning-message .app-icon svg {
+  fill: var(--color-ronchi);
+}

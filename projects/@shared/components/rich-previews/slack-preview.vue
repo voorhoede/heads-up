@@ -64,7 +64,7 @@
     <div class="slack-preview__emoji">
       <img
         class="slack-preview__emoji-image"
-        src="../../../rich-previews/src/slack/assets/parrot.gif"
+        src="/assets/parrot.gif"
         alt=""
       />
       <p class="slack-preview__emoji-count">
@@ -77,7 +77,7 @@
 
 <script>
 import { computed, shallowRef } from 'vue';
-import { getHostname } from '../../../rich-previews/@shared/js/utils.js';
+import { getHostname } from './js/utils.js';
 
 export default {
   props: {
@@ -139,7 +139,7 @@ export default {
 </script>
 
 <style>
-@import "../../../rich-previews/@shared/css/defaults.css";
+@import "./css/defaults.css";
 
 :root {
   --slack-border-radius: 14px;

@@ -60,7 +60,7 @@
 
 <script>
 import { computed } from 'vue';
-import { getHostname } from '../../../rich-previews/@shared/js/utils.js';
+import { getHostname } from './js/utils.js';
 
 export default {
   props: {
@@ -103,7 +103,7 @@ export default {
 </script>
 
 <style>
-@import "../../../rich-previews/@shared/css/defaults.css";
+@import "./css/defaults.css";
 
 :root {
   --facebook-color-border: #E1E8ED;
@@ -154,7 +154,7 @@ export default {
 
 .facebook-preview__media--image-fallback {
   background-color: var(--facebook-background-color);
-  background-image: url('../../../rich-previews/src/@assets/facebook-img-fallback.png');
+  background-image: url('/assets/facebook-img-fallback.png');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -277,7 +277,7 @@ export default {
   display: inline-block;
   width: 60px;
   height: 20px;
-  background-image: url('../../../rich-previews/src/@assets/facebook-emoji.png');
+  background-image: url('/assets/facebook-emoji.png');
   background-repeat: no-repeat;
   background-size: contain;
 }

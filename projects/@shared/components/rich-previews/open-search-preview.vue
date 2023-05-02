@@ -103,7 +103,7 @@ export default {
 </script>
 
 <style>
-@import "../../../rich-previews/@shared/css/defaults.css";
+@import "./css/defaults.css";
 
 :root {
   --opensearch-icon-color: rgb(102, 102, 102);
