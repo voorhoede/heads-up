@@ -1,7 +1,7 @@
 {
   "name": "Heads Up",
   "short_name": "Heads Up",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "View your <head> data for easier developing.",
   "author": "De Voorhoede",
   "minimum_chrome_version": "90.0",
