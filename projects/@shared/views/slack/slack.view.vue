@@ -46,6 +46,7 @@ import getTheme from '@shared/lib/theme';
 import validate from '@shared/lib/validate';
 import { schema, info } from './schema';
 
+import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
@@ -170,6 +171,7 @@ export default {
     };
   },
   components: {
+    ExternalLink,
     PanelSection,
     PropertiesItem,
     PropertiesList,
