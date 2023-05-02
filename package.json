@@ -6,7 +6,6 @@
   "scripts": {
     "postinstall": "npm-recursive-install --rootDir=projects",
     "build": "npm-run-all build:**",
-    "build:rich-previews": "cd ./projects/rich-previews && npm run build",
     "build:browser-extension": "cd ./projects/browser-extension && npm run build",
     "build:web-app": "cd ./projects/web-app && npm run build",
     "build:landing-page": "cd ./projects/landing-page && npm run build",
