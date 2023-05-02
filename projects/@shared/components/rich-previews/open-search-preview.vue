@@ -126,11 +126,12 @@ export default {
 .opensearch-preview {
   position: relative;
   height: 140px;
-  background-color: var(--opensearch-background-color);
-  user-select: none;
+  margin-bottom: 8px;
   border-bottom: 1px solid rgb(126, 126, 126);
+  background-color: var(--opensearch-background-color);
   color: var(--opensearch-font-color);
   font-size: 14px;
+  user-select: none;
 }
 
 .opensearch-preview__bar {
@@ -141,11 +142,11 @@ export default {
 }
 
 .opensearch-preview .button {
+  padding: 5px;
+  transition: background-color .3s ease;
   border: none;
   border-radius: 50%;
   background-color: transparent;
-  transition: background-color .3s ease;
-  padding: 5px;
 }
 
 .opensearch-preview .button:focus {
@@ -168,21 +169,21 @@ export default {
 }
 
 .opensearch-preview__favorites {
-  padding: 8px 4px;
-  font-size: 13px;
   display: flex;
   flex-direction: row;
+  padding: 8px 4px;
+  font-size: 13px;
 }
 
 .opensearch-preview__favorites .button {
   display: flex;
   align-items: center;
-  border-radius: 20px;
-  border: none;
-  background-color: transparent;
-  transition: background-color .3s ease;
-  padding: 7px;
   margin-right: 4px;
+  padding: 7px;
+  transition: background-color .3s ease;
+  border: none;
+  border-radius: 20px;
+  background-color: transparent;
 }
 
 .opensearch-preview__favorites .button svg {
@@ -204,22 +205,22 @@ export default {
 }
 
 .opensearch-preview__url-bar {
+  display: flex;
   position: absolute;
   top: 5px;
   left: 100px;
-  width: calc(100% - 115px);
-  display: flex;
   flex-direction: column;
-  background-color: var(--opensearch-url-bar-color);
+  width: calc(100% - 115px);
   border-radius: 9px;
+  background-color: var(--opensearch-url-bar-color);
   box-shadow: -1px 7px 15px 0px var(--opensearch-shadow-color);
 }
 
 .opensearch-preview__url-bar svg {
   width: 19px;
   height: 19px;
-  fill: var(--opensearch-icon-color);
   margin-right: 16px;
+  fill: var(--opensearch-icon-color);
 }
 
 .opensearch-preview__url {
@@ -229,10 +230,10 @@ export default {
 }
 
 .opensearch-preview__cursor {
-  line-height: 1;
-  font-size: 20px;
   margin-left: 4px;
   animation: blink 1.2s linear infinite;
+  font-size: 20px;
+  line-height: 1;
 }
 
 .opensearch-preview__search-results {

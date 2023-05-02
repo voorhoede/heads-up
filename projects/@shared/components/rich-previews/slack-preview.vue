@@ -160,45 +160,49 @@ export default {
   display: flex;
 }
 
+.slack-preview {
+  margin-bottom: 8px;
+}
+
 .slack-preview > a {
   text-decoration: none;
 }
 
 .slack-preview__image {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
   max-width: none;
+  height: 100%;
   border-radius: 4px;
+  object-fit: cover;
 }
 
 .slack-preview__content {
-  position: relative;
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
-  background-color: transparent;
   transition: background-color .15s linear;
+  background-color: transparent;
 }
 
 .slack-preview__title {
-  margin-bottom: .35em;
   display: -webkit-box;
+  margin-bottom: .35em;
+  overflow: hidden;
+  color: rgb(18, 100, 163);
+  font-size: 1em;
+  font-weight: 600;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  overflow: hidden;
-  font-size: 1em;
-  color: rgb(18, 100, 163);
-  font-weight: 600;
 }
 
 .slack-preview__description {
   display: flex;
-  margin-bottom: 2px;
-  color: rgb(29, 28, 29);
-  margin-bottom: 4px;
   align-items: center;
+  margin-bottom: 2px;
+  margin-bottom: 4px;
+  color: rgb(29, 28, 29);
 }
 
 .slack-preview__domain {
@@ -209,13 +213,13 @@ export default {
 }
 
 .slack-preview__hostname {
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  display: flex;
+  align-items: center;
   overflow: hidden;
   color: var(--slack-base-color);
   font-weight: bold;
-  display: flex;
-  align-items: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .slack-preview__favicon {
@@ -225,20 +229,20 @@ export default {
 
 .slack-preview__sidebar {
   padding-right: 4px;
-  background-color: rgb(221, 221, 221);
   border-radius: 30px;
+  background-color: rgb(221, 221, 221);
 }
 
 .slack-preview__emoji {
-  background-color: var(--slack-color-border);
-  border-radius: 12px;
+  display: flex;
+  align-items: center;
   width: 39px;
   height: 24px;
-  padding: 0 4px 6px;
-  display: flex;
-  font-size: 11px;
-  align-items: center;
   margin-top: 8px;
+  padding: 0 4px 6px;
+  border-radius: 12px;
+  background-color: var(--slack-color-border);
+  font-size: 11px;
 }
 
 .slack-preview__emoji-image {
@@ -251,8 +255,8 @@ export default {
 }
 
 .slack-preview__expand {
-  font-size: 9px;
   color: rgb(18, 100, 163);
+  font-size: 9px;
 }
 
 .slack-preview__container {
@@ -261,20 +265,20 @@ export default {
 }
 
 .slack-preview__image-container {
+  position: relative;
   max-width: 360px;
   padding: 0 12px;
-  position: relative;
 }
 
 .slack-preview__image-container::after {
-  border-radius: 4px;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .1);
   content: '';
-  height: 100%;
-  left: 12px;
   position: absolute;
   top: 0;
+  left: 12px;
   width: calc(100% - 24px);
+  height: 100%;
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .1);
 }
 
 .slack-preview__small .slack-preview__image-container::after {

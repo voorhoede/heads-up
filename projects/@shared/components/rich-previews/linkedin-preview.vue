@@ -102,8 +102,9 @@ export default {
 }
 
 .linkedin-preview {
-  font-size: 14px;
+  margin-bottom: 8px;
   background-color: var(--linkedin-background-color);
+  font-size: 14px;
 }
 
 .linkedin-preview__link-container {
@@ -134,8 +135,8 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
   max-width: inherit;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -149,16 +150,16 @@ export default {
 
 .linkedin-preview__image {
   width: 100%;
+  max-width: none;
   height: 100%;
   object-fit: cover;
-  max-width: none;
 }
 
 .linkedin-preview__media {
-  height: 100%;
+  flex-basis: calc(var(--linkedin-image-small-size) + 1px);
   flex-grow: 0;
   flex-shrink: 0;
-  flex-basis: calc(var(--linkedin-image-small-size) + 1px);
+  height: 100%;
   border-right: 1px solid var(--linkedin-color-border);
 }
 
@@ -169,44 +170,44 @@ export default {
 .linkedin-preview__image-fallback {
   height: 100%;
   background-image: url('../../../rich-previews/src/@assets/image-not-found.svg');
-  background-size: 3em;
   background-repeat: no-repeat;
   background-position: center;
+  background-size: 3em;
 }
 
 .linkedin-preview__content {
-  position: relative;
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: center;
   padding: 10px;
   overflow: hidden;
-  background-color: transparent;
   transition: background-color 0.15s linear;
+  background-color: transparent;
 }
 
 .linkedin-preview__title {
   display: -webkit-box;
+  overflow: hidden;
+  color: var(--linkedin-base-color);
+  font-size: 1em;
+  font-weight: bold;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  overflow: hidden;
-  font-size: 1em;
-  color: var(--linkedin-base-color);
-  font-weight: bold;
 }
 
 .linkedin-preview__hostname {
-  text-overflow: ellipsis;
-  white-space: nowrap;
   overflow: hidden;
   color: var(--linkedin-muted-color);
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .linkedin-preview__like {
   display: flex;
+  margin: 8px 16px;
   color: var(--linkedin-muted-color);
   font-size: 12px;
-  margin: 8px 16px;
 }
 
 .linkedin-preview__like svg {
@@ -215,14 +216,14 @@ export default {
 }
 
 .linkedin-preview__small {
-  padding: 12px 16px;
   display: flex;
+  padding: 12px 16px;
 }
 
 .linkedin-preview__small .linkedin-preview__fixed-ratio {
   min-width: 138px;
-  min-height: 72px;
   height: auto;
+  min-height: 72px;
 }
 
 .linkedin-preview__small .linkedin-preview__ratio {

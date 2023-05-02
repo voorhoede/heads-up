@@ -125,6 +125,7 @@ export default {
 }
 
 .facebook-preview {
+  margin-bottom: 8px;
   font-size: 14px;
 }
 
@@ -140,22 +141,22 @@ export default {
 }
 
 .facebook-preview__fixed-ratio {
-  padding-bottom: 50%;
   height: 0;
+  padding-bottom: 50%;
   overflow: hidden;
 }
 
 .is-desktop .facebook-preview__fixed-ratio {
   display: block;
-  padding-bottom: 50%;
   position: relative;
+  padding-bottom: 50%;
 }
 
 .facebook-preview__media--image-fallback {
   background-color: var(--facebook-background-color);
   background-image: url('../../../rich-previews/src/@assets/facebook-img-fallback.png');
-  background-size: contain;
   background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .facebook-preview__fixed-ratio-content {
@@ -171,27 +172,27 @@ export default {
 }
 
 .facebook-preview__wrapper {
-  background-color: #e8eaee;
   padding: 10px 12px;
+  background-color: #e8eaee;
 }
 
 .is-desktop .facebook-preview__wrapper {
-  background-color: #f2f3f5;
   padding: 8px 12px;
+  background-color: #f2f3f5;
 }
 
 .facebook-preview__title {
-  line-height: var(--facebook-lh);
   color: var(--facebook-base-color);
   font-weight: bold;
+  line-height: var(--facebook-lh);
 }
 
 .is-desktop .facebook-preview__title {
   display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
   overflow: hidden;
   font-size: 16px;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .facebook-preview__description {
@@ -202,24 +203,24 @@ export default {
 
 .is-desktop .facebook-preview__description {
   display: -webkit-box;
-  font-size: 13px;
+  overflow: hidden;
   color: #606770;
+  font-size: 13px;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
 .facebook-preview__hostname {
   color: #606770;
-  text-transform: uppercase;
   font-size: 12px;
   line-height: var(--facebook-lh);
+  text-transform: uppercase;
 }
 
 .is-desktop .facebook-preview__hostname {
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
 }
 
 .facebook-preview__content {
@@ -228,10 +229,10 @@ export default {
 }
 
 .facebook-preview__small .facebook-preview__wrapper {
-  height: var(--facebook-image-height);
   display: flex;
-  justify-content: center;
   flex-direction: column;
+  justify-content: center;
+  height: var(--facebook-image-height);
 }
 
 .facebook-preview__small .facebook-preview__fixed-ratio {
@@ -243,8 +244,8 @@ export default {
 
 .is-desktop .facebook-preview__small .facebook-preview__fixed-ratio-content {
   min-width: var(--facebook-image-height);
-  min-height: var(--facebook-image-height);
   height: var(--facebook-image-height);
+  min-height: var(--facebook-image-height);
   float: left;
 }
 
@@ -253,32 +254,32 @@ export default {
 }
 
 .is-desktop .facebook-preview__small .facebook-preview__description {
+  display: -webkit-box;
+  overflow: hidden;
   color: #606770;
   font-size: 13px;
   line-height: var(--facebook-lh);
-  display: -webkit-box;
+  text-overflow: ellipsis;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .is-desktop .facebook-preview__small .facebook-preview__title {
   display: block;
+  margin: 0;
+  overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
-  overflow: hidden;
-  margin: 0;
 }
 
 .facebook-preview__interaction {
   display: inline-block;
-  background-image: url('../../../rich-previews/src/@assets/facebook-emoji.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  height: 20px;
   width: 60px;
+  height: 20px;
+  background-image: url('../../../rich-previews/src/@assets/facebook-emoji.png');
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .facebook-preview__interaction-wrapper {
@@ -300,5 +301,4 @@ export default {
 .-theme-with-dark-background {
   color: var(--base-color);
 }
-
 </style>

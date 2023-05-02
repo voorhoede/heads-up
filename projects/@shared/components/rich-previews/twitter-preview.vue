@@ -115,14 +115,15 @@ export default {
 }
 
 .twitter-preview {
+  margin-bottom: 8px;
   font-size: 14px;
 }
 
 .twitter-preview__link-container {
   display: flex;
   height: 100%;
-  border-radius: var(--twitter-border-radius);
   border: 1px solid var(--twitter-color-border);
+  border-radius: var(--twitter-border-radius);
   text-decoration: none;
   cursor: pointer;
 }
@@ -147,8 +148,8 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
   max-width: inherit;
+  height: 100%;
   border-top-left-radius: var(--twitter-border-radius);
   border-top-right-radius: var(--twitter-border-radius);
   object-fit: cover;
@@ -156,19 +157,19 @@ export default {
 
 .twitter-preview__image {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
   max-width: none;
+  height: 100%;
   border-top-left-radius: var(--twitter-border-radius);
   border-bottom-left-radius: var(--twitter-border-radius);
+  object-fit: cover;
 }
 
 .twitter-preview__media {
-  border-right: 1px solid var(--twitter-color-border);
-  flex-shrink: 0;
-  height: var(--twitter-image-small-size);
   position: relative;
+  flex-shrink: 0;
   width: var(--twitter-image-small-size);
+  height: var(--twitter-image-small-size);
+  border-right: 1px solid var(--twitter-color-border);
 }
 
 .twitter-preview__media--image-fallback {
@@ -178,18 +179,18 @@ export default {
 }
 
 .twitter-preview__player-link {
-  align-items: center;
-  background-color: var(--twitter-color-blue);
-  border-radius: 50%;
-  border: 4px solid var(--twitter-color-white);
   display: flex;
-  height: 2.2rem;
-  justify-content: center;
-  left: 50%;
   position: absolute;
   top: 50%;
-  transform: translate(-1.1rem, -1.1rem);
+  left: 50%;
+  align-items: center;
+  justify-content: center;
   width: 2.2rem;
+  height: 2.2rem;
+  transform: translate(-1.1rem, -1.1rem);
+  border: 4px solid var(--twitter-color-white);
+  border-radius: 50%;
+  background-color: var(--twitter-color-blue);
 }
 
 .twitter-preview__player-link:hover {
@@ -197,32 +198,32 @@ export default {
 }
 
 .twitter-preview__player-icon {
-  fill: var(--twitter-color-white);
+  width: auto;
   height: 1rem;
   padding-left: 0.15rem;
-  width: auto;
+  fill: var(--twitter-color-white);
 }
 
 .twitter-preview__image-fallback {
   height: 100%;
   background-image: url("../../../rich-previews/src/@assets/image-not-found.svg");
-  background-size: 3em;
   background-repeat: no-repeat;
   background-position: center;
+  background-size: 3em;
 }
 
 .twitter-preview__content {
-  position: relative;
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: center;
+  width: 100%;
   padding: 10px;
   overflow: hidden;
-  width: 100%;
+  transition: background-color 0.15s linear;
 
   border-radius: 0 0 var(--twitter-border-radius) var(--twitter-border-radius);
   background-color: transparent;
-  transition: background-color 0.15s linear;
 }
 
 .twitter-preview__link-container:hover .twitter-preview__content {
@@ -230,26 +231,26 @@ export default {
 }
 
 .twitter-preview__title {
-  margin-bottom: 0.35em;
 
   /* Display on 2 lines and if longer than available space, cut off with '...' */
   display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  margin-bottom: 0.35em;
   overflow: hidden;
+  color: var(--twitter-base-color);
 
   font-size: 1em;
-  color: var(--twitter-base-color);
   font-weight: bold;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .twitter-preview--player .twitter-preview__title,
 .twitter-preview--player .twitter-preview__description,
 .twitter-preview--player .twitter-preview__domain {
+  margin: 0;
   font-size: .9375rem;
   font-weight: 400;
   line-height: 1.3125;
-  margin: 0;
 }
 
 .twitter-preview__description {
@@ -260,8 +261,8 @@ export default {
 
 .twitter-preview--player .twitter-preview__description,
 .twitter-preview--player .twitter-preview__domain {
-  color: var(--twitter-base-color-variant);
   margin-top: 0.125rem;
+  color: var(--twitter-base-color-variant);
 }
 
 .twitter-preview__domain {
@@ -272,16 +273,16 @@ export default {
 }
 
 .twitter-preview__icon {
-  fill: currentcolor;
-  font-size: 13px;
   height: 1.25em;
   margin-right: 0.125rem;
+  fill: currentcolor;
+  font-size: 13px;
 }
 
 .twitter-preview__hostname {
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
 }
 
 @media (min-width: 416px) {
@@ -290,17 +291,17 @@ export default {
   }
 
   .twitter-preview__media {
-    height: var(--twitter-image-medium-size);
     width: var(--twitter-image-medium-size);
+    height: var(--twitter-image-medium-size);
   }
 }
 
 @media (min-width: 416px) and (max-width: 449px) {
   .twitter-preview__description {
     display: block;
+    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    overflow: hidden;
   }
 }
 
@@ -310,8 +311,8 @@ export default {
   }
 
   .twitter-preview__media {
-    height: var(--twitter-image-large-size);
     width: var(--twitter-image-large-size);
+    height: var(--twitter-image-large-size);
   }
 
   /* Show on 1 line */
@@ -324,9 +325,9 @@ export default {
   /* Display on 2 lines and if longer than available space, cut off with '...' */
   .twitter-preview__description {
     display: -webkit-box;
+    overflow: hidden;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    overflow: hidden;
   }
 }
 </style>

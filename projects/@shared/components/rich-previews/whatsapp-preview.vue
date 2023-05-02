@@ -87,25 +87,29 @@ export default {
   --whatsapp-lh: 1.2rem;
 }
 
+.whatsapp-preview {
+  margin-bottom: 8px;
+}
+
 .whatsapp-top {
   display: flex;
   justify-content: space-between;
-  background-color: var(--whatsapp-content-background-color);
-  border-radius: 7.5px;
   margin-bottom: 6px;
+  border-radius: 7.5px;
+  background-color: var(--whatsapp-content-background-color);
 }
 
 .whatsapp-preview__media {
-  height: 69px;
   min-width: 69px;
   max-width: 69px;
+  height: 69px;
 }
 
 .whatsapp-preview__image {
+  display: block;
+  height: 100%;
   border-top-right-radius: 7.5px;
   object-fit: cover;
-  height: 100%;
-  display: block;
 }
 
 .whatsapp-preview__content {
@@ -114,24 +118,24 @@ export default {
 }
 
 .whatsapp-preview__title {
-  font-size: 13px;
   color: var(--whatsapp-base-color);
-  line-height: var(--whatsapp-lh);
   color: black;
+  font-size: 13px;
   font-weight: 400;
+  line-height: var(--whatsapp-lh);
 }
 
 .whatsapp-preview__description {
   color: var(--whatsapp-label-color);
-  line-height: var(--whatsapp-lh);
   font-size: 12px;
+  line-height: var(--whatsapp-lh);
 }
 
 .whatsapp-preview__url {
+  padding: 0 10px 6px;
   color: var(--whatsapp-base-color);
   font-size: 11px;
   line-height: var(--whatsapp-lh);
-  padding: 0 10px 6px;
 }
 
 .whatsapp-preview__hostname {
@@ -141,11 +145,11 @@ export default {
 }
 
 .whatsapp-preview {
-  box-shadow: 0 1px 0.5px rgba(0, 0, 0, .13);
-  border-radius: 7.5px;
-  padding: 3px 3px 8px 3px;
-  background-color: var(--whatsapp-background-color);
   position: relative;
+  padding: 3px 3px 8px 3px;
+  border-radius: 7.5px;
+  background-color: var(--whatsapp-background-color);
+  box-shadow: 0 1px 0.5px rgba(0, 0, 0, .13);
 
 }
 
@@ -158,16 +162,16 @@ export default {
 }
 
 .whatsapp-preview__tail {
-  width: 12px;
-  height: 19px;
+  position: absolute;
   top: 0;
   right: -12px;
-  position: absolute;
+  width: 12px;
+  height: 19px;
 }
 
 .whatsapp-preview__timewrapper {
-  position: relative;
   display: flex;
+  position: relative;
   flex-flow: row-reverse;
   padding-top: 3px;
   float: right;
@@ -175,19 +179,19 @@ export default {
 
 .whatsapp-preview__checkmark {
   position: absolute;
-  right: -1px;
   top: 2px;
+  right: -1px;
 }
 
 .whatsapp-preview__checkmark svg {
-  height: auto;
   width: 16px;
+  height: auto;
 }
 
 .whatsapp-preview__time {
+  margin-right: 20px;
   color: rgba(0, 0, 0, .45);
   font-size: 11px;
-  margin-right: 20px;
 }
 
 @media (min-width: 400px) {
