@@ -4,16 +4,11 @@
       <p v-if="!hasRequiredData">
         This page does not contain the necessary metadata to create a preview.
       </p>
-      <preview-iframe
+      <whatsapp-preview
         v-else
-        :url="previewUrl"
-        iframe-class="whatsapp__preview"
-        :loading-height="122"
-      >
-        <template v-slot:caption>
-          Preview based on <external-link href="https://web.whatsapp.com/">web.whatsapp.com</external-link>.
-        </template>
-      </preview-iframe>
+        class="whatsapp__preview"
+        :data="previewData"
+      />
     </panel-section>
     <panel-section title="Properties">
       <properties-list>
@@ -57,9 +52,9 @@ import { schema, info } from './schema';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
-import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
+import WhatsappPreview from '@shared/components/rich-previews/whatsapp-preview';
 
 export default {
   props: {
@@ -89,14 +84,12 @@ export default {
     const image = computed(() => (
       og.value.image !== undefined ? absoluteUrl(og.value.image) : og.value.image
     ));
-    const previewUrl = computed(() => {
-      const params = new URLSearchParams();
-      params.set('title', og.value.title || title.value);
-      params.set('description', description.value);
-      params.set('image', image.value);
-      params.set('url', props.headData.head.url);
-      return `/previews/whatsapp/whatsapp.html?${ params }`;
-    });
+    const previewData = computed(() => ({
+      title: og.value.title || title.value,
+      description: description.value,
+      image: image.value,
+      url: props.headData.head.url,
+    }));
     const metaData = computed(() => ([
       {
         term: 'og:title',
@@ -140,7 +133,7 @@ export default {
 
     return {
       hasRequiredData,
-      previewUrl,
+      previewData,
       metaData,
       getTooltipInfo,
       validation,
@@ -149,9 +142,9 @@ export default {
   components: {
     ExternalLink,
     PanelSection,
-    PreviewIframe,
     PropertiesItem,
     PropertiesList,
+    WhatsappPreview,
   },
 };
 </script>
