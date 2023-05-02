@@ -93,11 +93,6 @@ export default {
   --whatsapp-lh: 1.2rem;
 }
 
-html {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
-  text-decoration: none;
-}
-
 .whatsapp-top {
   display: flex;
   justify-content: space-between;

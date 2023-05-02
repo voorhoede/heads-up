@@ -101,11 +101,6 @@ export default {
   --linkedin-color-border: rgb(56, 68, 77);
 }
 
-html {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
-  overflow: hidden;
-}
-
 .linkedin-preview {
   font-size: 14px;
   background-color: var(--linkedin-background-color);

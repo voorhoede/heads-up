@@ -120,11 +120,6 @@ export default {
   --facebook-bg-color-hover: rgba(255, 255, 255, 0.03);
 }
 
-html {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
-  overflow: hidden;
-}
-
 .facebook-preview {
   font-size: 14px;
 }

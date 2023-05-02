@@ -112,11 +112,6 @@ export default {
   --twitter-color-border: rgb(56, 68, 77);
 }
 
-html {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Ubuntu, "Helvetica Neue", sans-serif;
-}
-
 .twitter-preview {
   font-size: 14px;
 }
