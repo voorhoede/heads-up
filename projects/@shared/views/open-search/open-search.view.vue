@@ -5,15 +5,10 @@
         <app-icon name="warning" />
         <p>No OpenSearch file detected.</p>
       </div>
-      <preview-iframe
+      <open-search-preview
         v-if="hasOpenSearchFile"
-        :url="previewUrl"
-        :loading-height="40"
-      >
-        <template v-slot:caption>
-          Preview based on source file: <external-link :href="fileUrl">{{ fileUrl }}</external-link>.
-        </template>
-      </preview-iframe>
+        :data="previewData"
+      />
     </panel-section>
     <panel-section v-if="hasOpenSearchFile" title="Tags">
       <properties-list>
@@ -51,10 +46,10 @@ import validate from '@shared/lib/validate';
 import { schema, info } from './schema';
 
 import AppIcon from '@shared/components/app-icon';
-import ExternalLink from '@shared/components/external-link.vue';
-import PanelSection from '@shared/components/panel-section.vue';
-import PreviewIframe from '@shared/components/preview-iframe';
-import PropertiesList from '@shared/components/properties-list.vue';
+import ExternalLink from '@shared/components/external-link';
+import OpenSearchPreview from '@shared/components/rich-previews/open-search-preview';
+import PanelSection from '@shared/components/panel-section';
+import PropertiesList from '@shared/components/properties-list';
 import PropertiesItem from '@shared/components/properties-item';
 
 export default {
@@ -70,12 +65,10 @@ export default {
     const fileContent = ref('');
     const hasOpenSearchFile = computed(() => fileUrl.value && fileContent.value);
     const metaTagValue = computed(() => findLinkHref(props.headData.head, 'search'));
-    const previewUrl = computed(() => {
-      const params = new URLSearchParams();
-      params.set('title', shortName.value);
-      params.set('theme', getTheme());
-      return `/previews/open-search/open-search.html?${ params }`;
-    });
+    const previewData = computed(() => ({
+      title: shortName.value,
+      theme: getTheme(),
+    }));
     const fileUrl = computed(() => {
       return createAbsoluteUrl(props.headData.head, metaTagValue.value);
     });
@@ -191,7 +184,7 @@ export default {
       metaData,
       metaTagValue,
       outputEncoding,
-      previewUrl,
+      previewData,
       shortName,
       urls,
       validation,
@@ -199,8 +192,8 @@ export default {
   },
   components: {
     ExternalLink,
+    OpenSearchPreview,
     PanelSection,
-    PreviewIframe,
     PropertiesItem,
     PropertiesList,
     AppIcon,
