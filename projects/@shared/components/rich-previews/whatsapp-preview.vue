@@ -8,10 +8,7 @@
       <div class="whatsapp-top">
         <div>
           <div class="whatsapp-preview__content">
-            <div
-              v-if="title && title !== 'undefined'"
-              class="whatsapp-preview__title"
-            >
+            <div v-if="title" class="whatsapp-preview__title">
               {{ title }}
             </div>
             <div class="whatsapp-preview__description">
@@ -22,10 +19,7 @@
             www.{{ hostname }}
           </div>
         </div>
-        <div
-          v-if="image"
-          class="whatsapp-preview__media"
-        >
+        <div v-if="image" class="whatsapp-preview__media">
           <img :src="image" class="whatsapp-preview__image">
         </div>
       </div>
@@ -77,7 +71,7 @@ export default {
       url,
     };
   },
-}
+};
 </script>
 
 <style>

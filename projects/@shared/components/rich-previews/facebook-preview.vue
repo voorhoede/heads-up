@@ -1,5 +1,8 @@
 <template>
-  <div class="facebook-preview" :class="{ 'is-desktop': style === 'desktop' }">
+  <div
+    class="facebook-preview"
+    :class="{ 'is-desktop': style === 'desktop' }"
+  >
     <a
       rel="noopener"
       target="_blank"
@@ -15,7 +18,8 @@
       >
         <img
           v-if="image"
-          :src="image" class="facebook-preview__fixed-ratio-content"
+          class="facebook-preview__fixed-ratio-content"
+          :src="image"
         />
       </div>
 
@@ -27,7 +31,7 @@
             {{ title ? title : hostname }}
           </div>
           <div
-            v-if="description && description !== 'null'"
+            v-if="description"
             class="facebook-preview__description"
           >
             {{ description }}
