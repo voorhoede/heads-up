@@ -11,7 +11,10 @@
     "build:landing-page": "cd ./projects/landing-page && npm run build",
     "dev:browser-extension": "cd ./projects/browser-extension && npm start",
     "dev:web-app": "cd ./projects/web-app && npm start",
-    "dev:landing-page": "cd ./projects/landing-page && npm start"
+    "dev:landing-page": "cd ./projects/landing-page && npm start",
+    "lint": "npm-run-all lint:**",
+    "lint:browser-extension": "cd ./projects/browser-extension && npm run lint",
+    "lint:web-app": "cd ./projects/web-app && npm run lint"
   },
   "repository": {
     "type": "git",
