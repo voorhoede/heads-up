@@ -25,11 +25,6 @@
   --color-white: #ffffff;
 }
 
-html {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
-  overflow: hidden;
-}
-
 .iframe-heading {
   font-size: 1em;
   font-weight: bold;
@@ -78,13 +73,8 @@ html {
 
 .warning-message {
   align-items: center;
-  color: var(--color-scorpion);
   display: flex;
   padding: 1.5rem 0 1rem;
-}
-
-.warning-message--dark-mode {
-  color: var(--color-silver-chalice);
 }
 
 .warning-message--web-app {
