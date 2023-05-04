@@ -51,7 +51,6 @@ export default {
 
   .app {
     color: var(--base-color);
-    background-color: var(--toolbar-bg-color);
     height: 100%;
   }
 
@@ -62,8 +61,10 @@ export default {
   }
 
   .app__panel {
+    background-color: var(--toolbar-bg-color);
     width: calc(100% - var(--sidebar-width));
     margin-left: var(--sidebar-width);
+    min-height: 100vh;
   }
 
   .heading {
