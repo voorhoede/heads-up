@@ -1,6 +1,6 @@
 <template>
   <div class="google-breadcrumb-preview">
-    <h1 class="iframe-heading" :class="{ 'iframe-heading--dark-mode': isDarkMode }">Breadcrumb</h1>
+    <h3 class="iframe-heading" :class="{ 'iframe-heading--dark-mode': isDarkMode }">Breadcrumb</h3>
     <div v-if="breadcrumbSegments.length > 1" class="scroll-container">
       <div class="scroll-container__inner">
         <div class="google-breadcrumb" :class="{

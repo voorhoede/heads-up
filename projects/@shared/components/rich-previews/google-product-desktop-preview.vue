@@ -1,6 +1,6 @@
 <template>
   <div class="google-product-desktop-preview">
-    <h1 class="iframe-heading" :class="{ 'iframe-heading--dark-mode': isDarkMode }">Product</h1>
+    <h3 class="iframe-heading" :class="{ 'iframe-heading--dark-mode': isDarkMode }">Product</h3>
     <div v-if="!hasRequiredData" class="warning-message">
       <app-icon name="warning" />
       <p>This page does not contain the necessary metadata to create a preview.</p>

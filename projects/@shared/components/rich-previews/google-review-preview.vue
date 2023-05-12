@@ -1,6 +1,6 @@
 <template>
   <div class="google-review-preview">
-    <h1 class="iframe-heading" :class="{ 'iframe-heading--dark-mode': isDarkMode }">Critic review</h1>
+    <h3 class="iframe-heading" :class="{ 'iframe-heading--dark-mode': isDarkMode }">Critic review</h3>
     <div v-if="!hasRequiredData" class="warning-message">
       <app-icon name="warning" />
       <p>This page does not contain the necessary metadata to create a preview.</p>
@@ -10,12 +10,12 @@
       <div class="scroll-container__inner">
         <div class="google-review" :class="{ 'google-review--mobile': isMobile }">
           <header class="google-review__header">
-            <h1
+            <h4
               class="google-review__title"
               :class="{ 'google-review__title--short' : hasShortTitle }"
             >
               {{ itemReviewedName }}
-            </h1>
+            </h4>
             <span v-if="isBook" class="google-review__type">
               {{ itemReviewedType }} by {{ itemReviewedAuthorName }}
             </span>

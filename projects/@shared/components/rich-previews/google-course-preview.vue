@@ -1,6 +1,6 @@
 <template>
   <div class="google-course-preview">
-    <h1 class="iframe-heading" :class="{ 'iframe-heading--dark-mode': isDarkMode }">Course</h1>
+    <h3 class="iframe-heading" :class="{ 'iframe-heading--dark-mode': isDarkMode }">Course</h3>
     <div v-if="!isMobile" class="warning-message">
       <app-icon name="warning" />
       <p>Google does not show a rich-preview for <strong>'Course'</strong> on <strong>'Desktop'</strong>.</p>
