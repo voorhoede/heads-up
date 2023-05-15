@@ -4,16 +4,14 @@
       <p v-if="!hasRequiredData">
         This page does not contain the necessary metadata to create a preview.
       </p>
-      <preview-iframe
+      <slack-preview
         v-else
-        :url="previewUrl"
-        iframeClass="slack__preview"
-        :loading-height="263"
-      >
-        <template v-slot:caption>
-          Preview based on <external-link href="https://slack.com/">slack.com</external-link>.
-        </template>
-      </preview-iframe>
+        class="slack__preview"
+        :data="previewData"
+      />
+      <p v-if="hasRequiredData">
+        Preview based on <external-link href="https://slack.com/">slack.com</external-link>.
+      </p>
     </panel-section>
     <panel-section title="Properties">
       <properties-list>
@@ -50,9 +48,9 @@ import { schema, info } from './schema';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
-import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
+import SlackPreview from '@shared/components/rich-previews/slack-preview';
 
 export default {
   props: {
@@ -85,20 +83,18 @@ export default {
       favicon: favicon.value,
       twitterData: findAdditionalTwitterData(props.headData.head),
     }));
-    const previewUrl = computed(() => {
-      const params = new URLSearchParams();
-      params.set('additionalData', JSON.stringify(additional.value.twitterData));
-      params.set('description', og.value.description || headDescription.value);
-      params.set('favicon', additional.value.favicon);
-      params.set('image', og.value.image);
-      params.set('imageIsBig', imageDimensions.value.height > 201 && imageDimensions.value.width > 201);
-      params.set('siteName', og.value.site_name);
-      params.set('theme', getTheme());
-      params.set('title', og.value.title || props.headData.head.title || 'Weblink');
-      params.set('url', props.headData.head.url);
-      params.set('validImage', imageDimensions.value.height > 0 && imageDimensions.value.width > 0);
-      return `/previews/slack/slack.html?${ params }`;
-    });
+    const previewData = computed(() => ({
+      additionalData: JSON.stringify(additional.value.twitterData),
+      description: og.value.description || headDescription.value,
+      favicon: additional.value.favicon,
+      image: og.value.image,
+      imageIsBig: imageDimensions.value.height > 201 && imageDimensions.value.width > 201,
+      siteName: og.value.site_name,
+      theme: getTheme(),
+      title: og.value.title || props.headData.head.title || 'Weblink',
+      url: props.headData.head.url,
+      validImage: imageDimensions.value.height > 0 && imageDimensions.value.width > 0,
+    }));
     const metaData = computed(() => ([
       {
         term: 'og:title',
@@ -168,7 +164,7 @@ export default {
       headDescription,
       favicon,
       additional,
-      previewUrl,
+      previewData,
       metaData,
       getTooltipInfo,
       validation,
@@ -177,9 +173,9 @@ export default {
   components: {
     ExternalLink,
     PanelSection,
-    PreviewIframe,
     PropertiesItem,
     PropertiesList,
+    SlackPreview,
   },
 };
 </script>

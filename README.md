@@ -11,33 +11,19 @@ This is a 'monorepo', containing the following projects:
 
 #### Browser Extension
 `/projects/browser-extension`
-
-
 A browser devtools extension to visualize everything in the `<head>` of the current page.
 More info in the [browser-extension README.md](./projects/browser-extension).
 
 #### Landing Page
 `/projects/landing-page`
-
-
 The Heads Up landing page.
-
-#### Rich Previews
-`/projects/rich-previews`
-
-
-A separate project to build rich previews. These previews are automatically copied into dependent projects to avoid CORS errors.
 
 #### Web App
 `/projects/web-app`
-
-
 Heads Up as a web application, where you can enter the URL of your website and receive all information necessary to inspect and improve upon your website's `<head>`
 
 #### @shared
 `/projects/@shared`
-
-
 Shared resources between different projects. Contains shared assets, vue components, and library functions.
 
 ## Development
@@ -50,7 +36,6 @@ From this folder, we can the following scrips:
 ---|---
 `build:browser-extension` | Builds the browser extension
 `build:landing-page` | Builds the landing page
-`build:rich-previews` | Builds the rich previews
 `build:web-app` | Builds the web app
 `build` | Build all projects at once
 `dev:browser-extension` | Compiles and live updates browser extension

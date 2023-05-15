@@ -4,16 +4,14 @@
       <p v-if="!hasRequiredData">
         This page does not contain the necessary metadata to create a preview.
       </p>
-      <preview-iframe
+      <linkedin-preview
         v-else
-        :url="previewUrl"
-        iframeClass="linkedin__preview"
-        :loading-height="348"
-      >
-        <template v-slot:caption>
-          Preview based on <external-link href="https://linkedin.com/">linkedin.com</external-link>.
-        </template>
-      </preview-iframe>
+        class="linkedin__preview"
+        :data="previewData"
+      />
+      <p v-if="hasRequiredData">
+        Preview based on <external-link href="https://linkedin.com/">linkedin.com</external-link>.
+      </p>
     </panel-section>
     <panel-section title="Properties">
       <properties-list>
@@ -62,8 +60,8 @@ import validate from '@shared/lib/validate';
 import { schema, info } from './schema';
 
 import ExternalLink from '@shared/components/external-link';
+import LinkedinPreview from '@shared/components/rich-previews/linkedin-preview';
 import PanelSection from '@shared/components/panel-section';
-import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
 
@@ -91,16 +89,14 @@ export default {
       description: propertyValue('og:description'),
       url: propertyValue('og:url'),
     }));
-    const previewUrl = computed(() => {
-      const params = new URLSearchParams();
-      params.set('title', og.value.title);
-      params.set('image', og.value.image);
-      params.set('description', og.value.description);
-      params.set('url', og.value.url);
-      params.set('theme', getTheme());
-      params.set('imageIsBig', imageDimensions.value.height >= 400 && imageDimensions.value.width >= 400);
-      return `/previews/linkedin/linkedin.html?${ params }`;
-    });
+    const previewData = computed(() => ({
+      title: og.value.title,
+      image: og.value.image,
+      description: og.value.description,
+      url: og.value.url,
+      theme: getTheme(),
+      imageIsBig: imageDimensions.value.height >= 400 && imageDimensions.value.width >= 400,
+    }));
     const metaData = computed(() => ([
       {
         term: 'og:title',
@@ -155,7 +151,7 @@ export default {
     return {
       hasRequiredData,
       og,
-      previewUrl,
+      previewData,
       metaData,
       getTooltipInfo,
       validation,
@@ -163,8 +159,8 @@ export default {
   },
   components: {
     ExternalLink,
+    LinkedinPreview,
     PanelSection,
-    PreviewIframe,
     PropertiesItem,
     PropertiesList,
   },

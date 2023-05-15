@@ -9,16 +9,14 @@
         Card preview is currently supported for:
         <span v-html="supportedCards.map(card => `<code>${card}</code>`).join(', ')" />.
       </p>
-      <preview-iframe
+      <twitter-preview
         v-if="isValidCard && isSupportedCard"
-        :url="previewUrl"
-        iframeClass="twitter__preview"
-        :loading-height="40"
-      >
-        <template v-slot:caption>
-          Preview based on <external-link href="https://mobile.twitter.com/">mobile.twitter.com</external-link>.
-        </template>
-      </preview-iframe>
+        class="twitter__preview"
+        :data="previewData"
+      />
+      <p v-if="isValidCard && isSupportedCard">
+        Preview based on <external-link href="https://mobile.twitter.com/">mobile.twitter.com</external-link>.
+      </p>
     </panel-section>
     <panel-section title="Properties">
       <properties-list>
@@ -67,9 +65,9 @@ import { schema, info } from './schema';
 
 import ExternalLink from '@shared/components/external-link';
 import PanelSection from '@shared/components/panel-section';
-import PreviewIframe from '@shared/components/preview-iframe';
 import PropertiesItem from '@shared/components/properties-item';
 import PropertiesList from '@shared/components/properties-list';
+import TwitterPreview from '@shared/components/rich-previews/twitter-preview';
 
 export default {
   props: {
@@ -143,16 +141,14 @@ export default {
       url: propertyValue('og:url'),
       description: propertyValue('og:description'),
     }));
-    const previewUrl = computed(() => {
-      const params = new URLSearchParams();
-      params.set('card', twitter.value.card);
-      params.set('title', title.value);
-      params.set('description', description.value);
-      params.set('image', image.value);
-      params.set('url', props.headData.head.url);
-      params.set('theme', getTheme());
-      return `/previews/twitter/twitter.html?${ params }`;
-    });
+    const previewData = computed(() => ({
+      card: twitter.value.card,
+      title: title.value,
+      description: description.value,
+      image: image.value,
+      url: props.headData.head.url,
+      theme: getTheme(),
+    }));
     const unsupportedProperties = computed(() => {
       const { meta } = props.headData.head;
       return meta
@@ -347,7 +343,7 @@ export default {
       supportedCards,
       isValidCard,
       isSupportedCard,
-      previewUrl,
+      previewData,
       metaData,
       getTooltipInfo,
       validation,
@@ -356,9 +352,9 @@ export default {
   components: {
     ExternalLink,
     PanelSection,
-    PreviewIframe,
     PropertiesItem,
     PropertiesList,
+    TwitterPreview,
   },
 };
 </script>

@@ -3,12 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build-previews": "cd ../rich-previews && npm i && npm run build",
     "postinstall": "npm-recursive-install --rootDir=functions --production",
     "serve": "vue-cli-service serve",
-    "predev": "npm run prebuild",
     "dev": "netlify dev",
-    "prebuild": "npm run build-previews && rimraf ./public/previews && mkdir -p ./public/previews && cp -R ../rich-previews/dist/** ./public/previews",
     "build": "vue-cli-service build --skip-plugins @vue/cli-plugin-eslint",
     "prebuild-netlify": "npm run postinstall && cd ../@shared && npm i",
     "build-netlify": "npm run build",
